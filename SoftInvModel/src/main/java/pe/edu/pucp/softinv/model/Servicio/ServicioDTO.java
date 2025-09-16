@@ -1,8 +1,12 @@
-package pe.edu.pucp.softinv.model;
+package pe.edu.pucp.softinv.model.Servicio;
+
+import pe.edu.pucp.softinv.model.Comentario.ComentarioServicioDTO;
+import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.util.ArrayList;
 
 public class ServicioDTO {
+    private Integer idServicio;
     private String nombre;
     private TipoServicio tipo;
     private Double precio;
@@ -12,6 +16,14 @@ public class ServicioDTO {
     private Integer duracionHora;
     private ArrayList<EmpleadoDTO> empleados;
     private ArrayList<CitaDTO> citas;
+
+    public Integer getIdServicio() {
+        return idServicio;
+    }
+
+    public void setIdServicio(Integer idServicio) {
+        this.idServicio = idServicio;
+    }
 
     public ArrayList<CitaDTO> getCitas() {
         return citas;
@@ -86,6 +98,7 @@ public class ServicioDTO {
     }
 
     public ServicioDTO() {
+        idServicio=null;
         nombre = null;
         tipo = null;
         precio = null;
@@ -97,9 +110,10 @@ public class ServicioDTO {
         citas=null;
     }
 
-    public ServicioDTO(String nombre,TipoServicio tipo,Double precio,Double promedioValoracion,
+    public ServicioDTO(Integer idServicio,String nombre,TipoServicio tipo,Double precio,Double promedioValoracion,
                        String urlImagen,ArrayList<ComentarioServicioDTO> comentarios, Integer duracionHora,
                        ArrayList<EmpleadoDTO> empleados,ArrayList<CitaDTO> citas) {
+        this.idServicio=idServicio;
         this.nombre=nombre;
         this.tipo=tipo;
         this.precio=precio;

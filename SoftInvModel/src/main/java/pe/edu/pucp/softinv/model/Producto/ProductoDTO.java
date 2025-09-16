@@ -1,19 +1,39 @@
-package pe.edu.pucp.softinv.model;
+package pe.edu.pucp.softinv.model.Producto;
+
+import pe.edu.pucp.softinv.model.Comentario.ComentarioProductoDTO;
 
 import java.util.ArrayList;
 
 public class ProductoDTO {
+    private Integer idProducto;
     private String nombre;
     private String descripcion;
     private Double precio;
     private ArrayList<String> ingredientes;
     private String modoUso;
     private TipoProducto tipoProducto;
+    private ArrayList<String>tamanios;
     private ArrayList<TipoPiel> tipoPiel;
     private Integer stock;
     private String urlImagen;
     private ArrayList<ComentarioProductoDTO> comentarios;
     private Double promedioValoracion;
+
+    public ArrayList<String> getTamanios() {
+        return tamanios;
+    }
+
+    public void setTamanios(ArrayList<String> tamanios) {
+        this.tamanios = tamanios;
+    }
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
 
     public Double getPromedioValoracion() {
         return promedioValoracion;
@@ -104,6 +124,7 @@ public class ProductoDTO {
     }
 
     public ProductoDTO() {
+        idProducto=null;
         tipoProducto = null;
         tipoPiel = null;
         nombre = null;
@@ -115,10 +136,14 @@ public class ProductoDTO {
         urlImagen=null;
         comentarios = null;
         promedioValoracion=null;
+        tamanios=null;
     }
 
-    public ProductoDTO(String nombre,String descripcion,Double precio, ArrayList<ComentarioProductoDTO> comentarios,ArrayList<String> ingredientes,
-                       String modoUso,TipoProducto tipoProducto,ArrayList<TipoPiel> tipoPiel,Integer stock,String urlImagen,Double promedioValoracion) {
+    public ProductoDTO(Integer idProducto,String nombre,String descripcion,Double precio,
+                       ArrayList<ComentarioProductoDTO> comentarios,ArrayList<String> ingredientes,String modoUso,
+                       TipoProducto tipoProducto,ArrayList<String> tamanios,ArrayList<TipoPiel> tipoPiel,
+                       Integer stock,String urlImagen,Double promedioValoracion) {
+        this.idProducto=idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -126,6 +151,7 @@ public class ProductoDTO {
         this.ingredientes = ingredientes;
         this.modoUso = modoUso;
         this.tipoProducto = tipoProducto;
+        this.tamanios = tamanios;
         this.tipoPiel = tipoPiel;
         this.stock = stock;
         this.urlImagen = urlImagen;

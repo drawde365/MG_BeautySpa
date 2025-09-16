@@ -1,4 +1,7 @@
-package pe.edu.pucp.softinv.model;
+package pe.edu.pucp.softinv.model.Comentario;
+
+import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
+import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 
 public class ComentarioProductoDTO extends ComenarioDTO{
     private ProductoDTO producto;
@@ -16,8 +19,8 @@ public class ComentarioProductoDTO extends ComenarioDTO{
         producto = null;
     }
 
-    public ComentarioProductoDTO(ClienteDTO cliente,String comentario,Integer valoracion,ProductoDTO producto) {
-        super(cliente,comentario,valoracion);
+    public ComentarioProductoDTO(Integer idComentario, ClienteDTO cliente, String comentario, Integer valoracion, ProductoDTO producto) {
+        super(idComentario,cliente,comentario,valoracion);
         this.producto = producto;
     }
 }

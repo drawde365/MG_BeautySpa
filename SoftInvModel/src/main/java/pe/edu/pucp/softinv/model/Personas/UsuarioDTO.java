@@ -1,4 +1,8 @@
-package pe.edu.pucp.softinv.model;
+package pe.edu.pucp.softinv.model.Personas;
+
+import pe.edu.pucp.softinv.model.Servicio.CitaDTO;
+
+import java.util.ArrayList;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -10,6 +14,24 @@ public class UsuarioDTO {
     private String contrasenha;
     private String celular;
     private String urlFotoPerfil;
+    private ArrayList<CitaDTO> citas;
+    private Integer idUsuario;
+
+    public ArrayList<CitaDTO> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(ArrayList<CitaDTO> citas) {
+        this.citas = citas;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getUrlFotoPerfil() {
         return urlFotoPerfil;
@@ -27,9 +49,11 @@ public class UsuarioDTO {
         correoElectronico = null;
         celular = null;
         urlFotoPerfil = null;
+        citas=null;
+        idUsuario=null;
     }
 
-    public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil) {
+    public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil,Integer idUsuario) {
         this.nombre = nombre;
         this.Primerapellido = PrimerApellido;
         this.Segundoapellido = SegundoApellido;
@@ -37,6 +61,7 @@ public class UsuarioDTO {
         this.contrasenha = contrasenha;
         this.celular = celular;
         this.urlFotoPerfil = urlFotoPerfil;
+        this.idUsuario = idUsuario;
     }
 
     public String getPrimerapellido() {
