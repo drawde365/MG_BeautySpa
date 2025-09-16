@@ -1,0 +1,113 @@
+package pe.edu.pucp.softinv.model;
+
+import java.util.ArrayList;
+
+public class ServicioDTO {
+    private String nombre;
+    private TipoServicio tipo;
+    private Double precio;
+    private Double promedioValoracion;
+    private String urlImagen;
+    private ArrayList<ComentarioServicioDTO> comentarios;
+    private Integer duracionHora;
+    private ArrayList<EmpleadoDTO> empleados;
+    private ArrayList<CitaDTO> citas;
+
+    public ArrayList<CitaDTO> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(ArrayList<CitaDTO> citas) {
+        this.citas = citas;
+    }
+
+    public ArrayList<EmpleadoDTO> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(ArrayList<EmpleadoDTO> empleados) {
+        this.empleados = empleados;
+    }
+
+    public Integer getDuracionHora() {
+        return duracionHora;
+    }
+
+    public void setDuracionHora(Integer duracionMin) {
+        this.duracionHora = duracionMin;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public TipoServicio getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoServicio tipo) {
+        this.tipo = tipo;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Double getPromedioValoracion() {
+        return promedioValoracion;
+    }
+
+    public void setPromedioValoracion(Double promedioValoracion) {
+        this.promedioValoracion = promedioValoracion;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public ArrayList<ComentarioServicioDTO> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(ArrayList<ComentarioServicioDTO> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public ServicioDTO() {
+        nombre = null;
+        tipo = null;
+        precio = null;
+        promedioValoracion = null;
+        urlImagen = null;
+        comentarios = null;
+        duracionHora=null;
+        empleados=null;
+        citas=null;
+    }
+
+    public ServicioDTO(String nombre,TipoServicio tipo,Double precio,Double promedioValoracion,
+                       String urlImagen,ArrayList<ComentarioServicioDTO> comentarios, Integer duracionHora,
+                       ArrayList<EmpleadoDTO> empleados,ArrayList<CitaDTO> citas) {
+        this.nombre=nombre;
+        this.tipo=tipo;
+        this.precio=precio;
+        this.promedioValoracion=promedioValoracion;
+        this.urlImagen=urlImagen;
+        this.comentarios=comentarios;
+        this.duracionHora=duracionHora;
+        this.empleados=empleados;
+        this.citas=citas;
+    }
+}
