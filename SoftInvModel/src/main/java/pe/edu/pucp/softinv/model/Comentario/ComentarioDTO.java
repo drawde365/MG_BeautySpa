@@ -2,7 +2,7 @@ package pe.edu.pucp.softinv.model.Comentario;
 
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
-public class ComenarioDTO {
+public class ComentarioDTO {
     private Integer idComentario;
     private ClienteDTO cliente;
     private String comentario;
@@ -40,14 +40,18 @@ public class ComenarioDTO {
         this.valoracion = valoracion;
     }
 
-    public ComenarioDTO() {
+    public Integer getPedido_ID(){ return null; }
+
+    public Integer getServicio_ID(){ return null; }
+
+    public ComentarioDTO() {
         idComentario = null;
         cliente = null;
         comentario = null;
         valoracion = null;
     }
 
-    public ComenarioDTO(Integer idComentario,ClienteDTO cliente, String comentario, Integer valoracion) {
+    public ComentarioDTO(Integer idComentario,ClienteDTO cliente, String comentario, Integer valoracion) {
         this.idComentario = idComentario;
         this.cliente = cliente;
         this.comentario = comentario;

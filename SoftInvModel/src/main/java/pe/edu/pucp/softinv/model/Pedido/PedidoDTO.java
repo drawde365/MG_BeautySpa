@@ -7,12 +7,42 @@ import java.util.Date;
 
 public class PedidoDTO {
     private Integer idPedido;
-    private ArrayList<Date> fechas;
+    private Date fechaPago;
+    private Date fechaRecojo;
+    private Date fechaListaParaRecojo;
     private Double total;
     private Double IGV;
     private EstadoPedido estadoPedido;
     private ArrayList<DetallePedidoDTO> detallesPedido;
     private ClienteDTO cliente;
+
+    public Date getFechaPago{
+        return this.fechaPago;
+    }
+
+    public void setFechaPago(Date fechaPago){
+        this.fechaPago = fechaPago;
+    }
+
+    public Date getFechaRecojo(){
+        return this.fechaRecojo;
+    }
+
+    public void setFechaRecojo(Date fechaRecojo){
+        this.fechaRecojo=fechaRecojo;
+    }
+
+    public Date getFechaListaParaRecojo(){
+        return this.fechaListaParaRecojo;
+    }
+
+    public void setFechaListaParaRecojo(Date fechaListaParaRecojo){
+        this.fechaListaParaRecojo=fechaListaParaRecojo;
+    }
+
+    public Integer getIDCliente(){
+        return this.cliente.getidUsuario();
+    }
 
     public Double getIGV() {
         return IGV;
@@ -38,14 +68,6 @@ public class PedidoDTO {
         this.cliente = cliente;
     }
 
-    public ArrayList<Date> getFechas() {
-        return fechas;
-    }
-
-    public void setFechas(ArrayList<Date> fechas) {
-        this.fechas = fechas;
-    }
-
     public Double getTotal() {
         return total;
     }
@@ -58,6 +80,10 @@ public class PedidoDTO {
         return estadoPedido;
     }
 
+    public String getEstadoPedidoS() {
+        return estadoPedido.name();
+    }
+
     public void setEstadoPedido(EstadoPedido estadoPedido) {
         this.estadoPedido = estadoPedido;
     }
@@ -66,8 +92,8 @@ public class PedidoDTO {
         return detallesPedido;
     }
 
-    public void setDetallesPedido(ArrayList<DetallePedidoDTO> detallesPedido) {
-        this.detallesPedido = detallesPedido;
+    public void agregarDetallesPedido(DetallePedidoDTO detallePedido) {
+        this.detallesPedido.add(detallePedido);
     }
 
     public PedidoDTO(){

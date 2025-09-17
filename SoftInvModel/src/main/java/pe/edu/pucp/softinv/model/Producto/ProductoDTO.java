@@ -12,20 +12,11 @@ public class ProductoDTO {
     private ArrayList<String> ingredientes;
     private String modoUso;
     private TipoProducto tipoProducto;
-    private ArrayList<String>tamanios;
     private ArrayList<TipoPiel> tipoPiel;
     private Integer stock;
     private String urlImagen;
     private ArrayList<ComentarioProductoDTO> comentarios;
     private Double promedioValoracion;
-
-    public ArrayList<String> getTamanios() {
-        return tamanios;
-    }
-
-    public void setTamanios(ArrayList<String> tamanios) {
-        this.tamanios = tamanios;
-    }
 
     public Integer getIdProducto() {
         return idProducto;
@@ -119,6 +110,10 @@ public class ProductoDTO {
         return tipoProducto;
     }
 
+    public String getTipoProductoS() {
+        return tipoProducto.name();
+    }
+
     public void setTipoProducto(TipoProducto tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
@@ -136,7 +131,6 @@ public class ProductoDTO {
         urlImagen=null;
         comentarios = null;
         promedioValoracion=null;
-        tamanios=null;
     }
 
     public ProductoDTO(Integer idProducto,String nombre,String descripcion,Double precio,
@@ -151,7 +145,6 @@ public class ProductoDTO {
         this.ingredientes = ingredientes;
         this.modoUso = modoUso;
         this.tipoProducto = tipoProducto;
-        this.tamanios = tamanios;
         this.tipoPiel = tipoPiel;
         this.stock = stock;
         this.urlImagen = urlImagen;

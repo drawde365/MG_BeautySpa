@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class UsuarioDTO {
+public abstract class UsuarioDTO {
     private String nombre;
     private String Primerapellido;
     private String Segundoapellido;
@@ -14,15 +14,18 @@ public class UsuarioDTO {
     private String contrasenha;
     private String celular;
     private String urlFotoPerfil;
+    protected String rol;
     private ArrayList<CitaDTO> citas;
     private Integer idUsuario;
 
-    public ArrayList<CitaDTO> getCitas() {
-        return citas;
+    public abstract void setRol();
+
+    public String getRol(){
+        return rol;
     }
 
-    public void setCitas(ArrayList<CitaDTO> citas) {
-        this.citas = citas;
+    public ArrayList<CitaDTO> getCitas() {
+        return citas;
     }
 
     public Integer getIdUsuario() {
@@ -45,6 +48,7 @@ public class UsuarioDTO {
         nombre = null;
         Primerapellido = null;
         Segundoapellido = null;
+        rol=null;
         contrasenha = null;
         correoElectronico = null;
         celular = null;

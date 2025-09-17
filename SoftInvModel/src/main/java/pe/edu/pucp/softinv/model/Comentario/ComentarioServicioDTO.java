@@ -3,7 +3,7 @@ package pe.edu.pucp.softinv.model.Comentario;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
-public class ComentarioServicioDTO extends ComenarioDTO {
+public class ComentarioServicioDTO extends ComentarioDTO {
     private ServicioDTO servicio;
 
     public ServicioDTO getServicio() {

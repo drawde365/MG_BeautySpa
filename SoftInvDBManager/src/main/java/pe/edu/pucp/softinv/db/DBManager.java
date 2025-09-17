@@ -57,7 +57,7 @@ public class DBManager {
     public Connection getConnection() {
         try {
             Class.forName(driver);
-            conexion = DriverManager.getConnection(getUrl(),usuario,contraseña);
+            conexion = DriverManager.getConnection(getUrl(),usuario,Cifrado.descifrarMD5(this.contraseña));
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
