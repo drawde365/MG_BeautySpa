@@ -6,7 +6,12 @@ import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
 public interface DisponibilidadDAO {
 
-    public Integer insertar(DisponibilidadDTO disponibilidad);
-    public Integer modificar(DisponibilidadDTO disponibilidad);
-    public Integer eliminar(DisponibilidadDTO disponibilidad);
+    Integer insertar(DisponibilidadDTO disponibilidad);
+
+    Integer modificar(DisponibilidadDTO disponibilidad);
+
+    Integer eliminar(DisponibilidadDTO disponibilidad);
+
+    DisponibilidadDTO obtenerPorId(Integer disponibilidadId);
+
 }

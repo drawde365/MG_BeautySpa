@@ -25,13 +25,13 @@ class   EmpleadoDAOImplTest {
     @Test
     void testInsertarEmpleado() {
         EmpleadoDTO emp = new EmpleadoDTO();
-        emp.setPrimerapellido("PEREZ");
+        emp.setPrimerapellido("PREZ");
         emp.setSegundoapellido("LOPEZ");
         emp.setNombre("JUAN");
-        emp.setCorreoElectronico("juan.perez@test.com");
+        emp.setCorreoElectronico("juaasdn.perez@test.com");
         emp.setContrasenha("12345");
-        emp.setCelular("999888777");
-        emp.setUrlFotoPerfil("perfil.jpg");
+        emp.setCelular("9998777");
+        emp.setUrlFotoPerfil("peril.jpg");
         emp.setRol("Empleado");
 
         int result = empleadoDAO.insertar(emp);

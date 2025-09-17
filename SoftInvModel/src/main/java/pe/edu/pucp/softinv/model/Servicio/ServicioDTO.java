@@ -65,6 +65,7 @@ public class ServicioDTO {
             return "CORPORAL";
         else if(tipo==TipoServicio.TERAPIA_COMPLEMENTARIA)
             return "TERAPIA_COMPLEMENTARIA";
+        return "";
     }
 
     public void setTipo(TipoServicio tipo) {

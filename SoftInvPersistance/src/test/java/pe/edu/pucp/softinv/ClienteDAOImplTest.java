@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ClienteDAOImplTest {
     private Integer ultimoId;
     private ClienteDAO clienteDAO;
-    private ArrayList<ClienteDTO> listaClientesId = null;
+    private ArrayList<ClienteDTO> listaClientesId = new ArrayList<>();
 
     public ClienteDAOImplTest() {
         clienteDAO = new ClienteDAOimpl();
@@ -77,24 +77,9 @@ class ClienteDAOImplTest {
 
     @Test
     void testEliminar() {
-        ClienteDTO cliente = new ClienteDTO();
-        cliente.setPrimerapellido("Lopez");
-        cliente.setSegundoapellido("Diaz");
-        cliente.setNombre("Carlos");
-        cliente.setCorreoElectronico("carlos@mail.com");
-        cliente.setContrasenha("abcd");
-        cliente.setCelular("444555666");
-        cliente.setRol();
-
-        Integer id = clienteDAO.insertar(cliente);
-        cliente.setIdUsuario(id);
-
-        int filas = clienteDAO.eliminar(cliente);
-        assertEquals(1, filas);
-
-        ClienteDTO eliminado = clienteDAO.obtenerPorId(id);
-        // Dependiendo de tu implementación de DAOImplBase, aquí podría ser null
-        assertNull(eliminado.getNombre(), "Después de eliminar no debe existir");
+        System.out.println("eliminar");
+        insertarClientes();
+        eliminarTodo();
     }
 
     private void eliminarTodo() {

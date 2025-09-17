@@ -4,6 +4,7 @@ import pe.edu.pucp.softinv.dao.PedidoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
 import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
+import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -65,8 +66,21 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     @Override
     protected void instanciarObjetoDelResultSet() throws SQLException {
-        int Producto_ID = this.resultSet.getInt("PRODUCTO_ID");
-        //MODIFICAR
+        Integer cliente_ID = this.resultSet.getInt("CLIENTE_ID");
+        ClienteDTO cliente = null;
+        if (cliente_ID > 0) {
+            ClienteDAOimpl clienteDAO = new ClienteDAOimpl();
+            cliente = clienteDAO.obtenerPorId(cliente_ID);
+        }
+        this.pedido.setCliente(cliente);
+        this.pedido.setTotal(this.resultSet.getDouble("TOTAL"));
+        String estado = this.resultSet.getString("ESTADO");
+        EstadoPedido state = DefinirEstado(estado);
+        this.pedido.setEstadoPedido(state);
+        this.pedido.setFechaPago(this.resultSet.getDate("FECHA_PAGO"));
+        this.pedido.setFechaListaParaRecojo(this.resultSet.getDate("FECHA_LISTA_PARA_RECOGO"));
+        this.pedido.setFechaRecojo(this.resultSet.getDate("FECHA_RECOGO"));
+        this.pedido.setIGV(this.resultSet.getDouble("IGV"));
     }
 
     @Override
@@ -88,7 +102,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
                 String sql = "INSERT INTO DETALLES_PEDIDOS (PEDIDO_ID, PRODUCTO_ID, CANTIDAD, SUBTOTAL) " +
                         "VALUES (?,?,?,?)";
                 this.statement = this.conexion.prepareCall(sql);
-                this.statement.setInt(1, pedido.getIdPedido());
+                this.statement.setInt(1, detalle.getPedido().getIdPedido());
                 this.statement.setInt(2, detalle.getProducto().getIdProducto());
                 this.statement.setInt(3, detalle.getCantidad());
                 this.statement.setDouble(4, detalle.getSubtotal());
@@ -121,9 +135,27 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     @Override
-    public ArrayList<PedidoDTO> listarPedidos(Integer idCliente){
-this.pedido=pedido;
-return super.listarTodos();
+    public ArrayList<PedidoDTO> listarPedidos(Integer idCliente) {
+        ArrayList<PedidoDTO> lista = new ArrayList<>();
+        try {
+            this.abrirConexion();
+            String sql = this.generarSQLParaListarTodos();
+            sql+=" WHERE CLIENTE_ID";
+            this.colocarSQLEnStatement(sql);
+            this.ejecutarSelectEnDB();
+            while (this.resultSet.next()) {
+                this.agregarObjetoALaLista(lista);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al intentar listarTodos - " + ex);
+        } finally {
+            try {
+                this.cerrarConexion();
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar la conexión - " + ex);
+            }
+        }
+        return lista;
     }
 
 }
