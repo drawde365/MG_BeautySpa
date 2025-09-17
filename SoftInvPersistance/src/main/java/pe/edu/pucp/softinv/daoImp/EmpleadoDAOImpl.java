@@ -74,48 +74,13 @@ public class EmpleadoDAOImpl implements EmpleadoDAO {
     @Override
     public EmpleadoDTO obtenerPorId(int empleadoId) {
         EmpleadoDTO empleado = null;
-        String sql = "SELECT u.USUARIO_ID, u.PRIMER_APELLIDO, u.SEGUNDO_APELLIDO, u.NOMBRE, " +
-                "u.CORREO_ELECTRONICO, u.CONTRASENA, u.CELULAR, u.ROL, u.URL_IMAGEN, " +
-                "s.SERVICIO_ID, s.NOMBRE AS SERVICIO_NOMBRE, s.TIPO, s.PRECIO, " +
-                "s.DESCRIPCION, s.PROM_VALORACIONES, s.URL_IMAGEN AS SERVICIO_IMAGEN, s.DURACION_HORAS " +
-                "FROM USUARIOS u " +
-                "LEFT JOIN EMPLEADOS_SERVICIOS es ON u.USUARIO_ID = es.EMPLEADO_ID " +
-                "LEFT JOIN SERVICIOS s ON es.SERVICIO_ID = s.SERVICIO_ID " +
-                "WHERE u.USUARIO_ID = ? AND u.ROL = 'EMPLEADO'";
-
+        String sql = "SELECT * FROM USUARIOS WHERE USUARIO_ID=? AND ROL='EMPLEADO'";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
             ps.setInt(1, empleadoId);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    if (empleado == null) { // 📌 solo una vez se llena el empleado
-                        empleado = new EmpleadoDTO();
-                        empleado.setIdUsuario(rs.getInt("USUARIO_ID"));
-                        empleado.setPrimerapellido(rs.getString("PRIMER_APELLIDO"));
-                        empleado.setSegundoapellido(rs.getString("SEGUNDO_APELLIDO"));
-                        empleado.setNombre(rs.getString("NOMBRE"));
-                        empleado.setCorreoElectronico(rs.getString("CORREO_ELECTRONICO"));
-                        empleado.setContrasenha(rs.getString("CONTRASENA"));
-                        empleado.setCelular(rs.getString("CELULAR"));
-                        empleado.setRol(rs.getString("ROL"));
-                        empleado.setUrlFotoPerfil(rs.getString("URL_IMAGEN"));
-                        empleado.setServicios(new ArrayList<>());
-                    }
-
-                    int servicioId = rs.getInt("SERVICIO_ID");
-                    if (servicioId != 0) { // si hay servicios relacionados
-                        ServicioDTO servicio = new ServicioDTO();
-                        servicio.setIdServicio(servicioId);
-                        servicio.setNombre(rs.getString("SERVICIO_NOMBRE"));
-                        servicio.setTipo(rs.getString("TIPO"));
-                        servicio.setPrecio(rs.getDouble("PRECIO"));
-                        servicio.setDescripcion(rs.getString("DESCRIPCION"));
-                        servicio.setPromedioValoracion(rs.getDouble("PROM_VALORACIONES"));
-                        servicio.setUrlImagen(rs.getString("SERVICIO_IMAGEN"));
-                        servicio.setDuracionHora(rs.getInt("DURACION_HORAS"));
-                        empleado.getServicios().add(servicio);
-                    }
+                if (rs.next()) {
+                    empleado = mapRow(rs, con);
                 }
             }
         } catch (SQLException e) {
@@ -157,5 +122,33 @@ public class EmpleadoDAOImpl implements EmpleadoDAO {
         e.setServicios(obtenerServiciosPorEmpleado(e.getIdUsuario(), con));
 
         return e;
+    }
+
+    private ArrayList<ServicioDTO> obtenerServiciosPorEmpleado(int empleadoId, Connection con) throws SQLException {
+        ArrayList<ServicioDTO> servicios = new ArrayList<>();
+        String sql = "SELECT s.SERVICIO_ID, s.NOMBRE, s.TIPO, s.PRECIO, s.DESCRIPCION, " +
+                "s.PROM_VALORACIONES, s.URL_IMAGEN, s.DURACION_HORAS " +
+                "FROM SERVICIOS s " +
+                "INNER JOIN EMPLEADOS_SERVICIOS es ON s.SERVICIO_ID = es.SERVICIO_ID " +
+                "WHERE es.EMPLEADO_ID = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, empleadoId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ServicioDTO servicio = new ServicioDTO();
+                    servicio.setIdServicio(rs.getInt("SERVICIO_ID"));
+                    servicio.setNombre(rs.getString("NOMBRE"));
+                    servicio.setTipo(rs.getString("TIPO"));
+                    servicio.setPrecio(rs.getDouble("PRECIO"));
+                    servicio.setDescripcion(rs.getString("DESCRIPCION"));
+                    servicio.setPromedioValoracion(rs.getDouble("PROM_VALORACIONES"));
+                    servicio.setUrlImagen(rs.getString("URL_IMAGEN"));
+                    servicio.setDuracionHora(rs.getInt("DURACION_HORAS"));
+                    servicios.add(servicio);
+                }
+            }
+        }
+        return servicios;
     }
 }

@@ -52,5 +52,7 @@ public class DetallePedidoDTO {
         this.cantidad = cantidad;
         this.subtotal = subtotal;
         this.pedido = pedido;
+        //COMPLETAR POR FAVOR
+        //this.
     }
 }

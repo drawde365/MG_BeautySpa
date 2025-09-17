@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MG_BeautySpa.iml" filepath="$PROJECT_DIR$/.idea/MG_BeautySpa.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SoftInvModel/SoftInvModel.iml" filepath="$PROJECT_DIR$/SoftInvModel/SoftInvModel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SoftInvPersistance/SoftInvPersistance.iml" filepath="$PROJECT_DIR$/SoftInvPersistance/SoftInvPersistance.iml" />
       <module fileurl="file://$PROJECT_DIR$/SoftInvDBManager/src/main/main2.iml" filepath="$PROJECT_DIR$/SoftInvDBManager/src/main/main2.iml" />
       <module fileurl="file://$PROJECT_DIR$/SoftInvDBManager/src/test/test2.iml" filepath="$PROJECT_DIR$/SoftInvDBManager/src/test/test2.iml" />
     </modules>
