@@ -25,11 +25,6 @@ public class ComentarioServicioDTO extends ComentarioDTO {
     }
 
     @Override
-    public Integer getIdProducto(){
-        return null;
-    }
-
-    @Override
     public Integer getIdServicio(){
         return servicio.getIdServicio();
     }

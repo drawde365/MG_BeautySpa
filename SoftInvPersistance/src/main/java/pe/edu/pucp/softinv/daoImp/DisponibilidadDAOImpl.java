@@ -30,11 +30,10 @@ public class DisponibilidadDAOImpl extends DAOImplBase implements Disponibilidad
     }
 
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
-        statement.setInt(1,disponibilidad.getDisponibilidadId());
-        statement.setInt(2,disponibilidad.getEmpleado().getIdUsuario());
-        statement.setInt(3,disponibilidad.getDiaSemana());
-        statement.setTime(4,disponibilidad.getHoraInicio());
-        statement.setTime(5,disponibilidad.getHoraFin());
+        statement.setInt(1,disponibilidad.getEmpleado().getIdUsuario());
+        statement.setInt(2,disponibilidad.getDiaSemana());
+        statement.setTime(3,disponibilidad.getHoraInicio());
+        statement.setTime(4,disponibilidad.getHoraFin());
     }
 
     @Override

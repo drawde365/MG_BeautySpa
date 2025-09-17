@@ -249,12 +249,7 @@ public abstract class DAOImplBase {
         sql = sql.concat(sql_columnas);
         sql = sql.concat(" FROM ");
         sql = sql.concat(this.nombre_tabla);
-        sql += this.colocarCondicion();
         return sql;
-    }
-
-    protected String colocarCondicion(){
-        return "";
     }
 
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {

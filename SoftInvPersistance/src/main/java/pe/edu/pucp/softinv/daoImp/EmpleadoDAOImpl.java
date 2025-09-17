@@ -19,13 +19,11 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
     private Integer empleadoIdParam;
 
     public EmpleadoDAOImpl() {
-        super("USUARIO");
+        super("USUARIOS");
         this.empleado = null;
         this.empleadoIdParam = null;
         this.retornarLlavePrimaria = true; // devuelve @@last_insert_id() al insertar
     }
-
-    // ======================= API (EmpleadoDAO) =======================
 
     @Override
     public int insertar(EmpleadoDTO empleado) {
@@ -55,11 +53,28 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
     }
 
     @Override
-    public List<EmpleadoDTO> listarTodos() {
-        return (List<EmpleadoDTO>) (List<?>) super.listarTodos();
+    public ArrayList<EmpleadoDTO> listarTodos() {
+        List lista = new ArrayList<>();
+        try {
+            this.abrirConexion();
+            String sql = this.generarSQLParaListarTodos();
+            sql += " WHERE ROL='Empleado' OR ROL = 'Admin'";
+            this.colocarSQLEnStatement(sql);
+            this.ejecutarSelectEnDB();
+            while (this.resultSet.next()) {
+                this.agregarObjetoALaLista(lista);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al intentar listarTodos - " + ex);
+        } finally {
+            try {
+                this.cerrarConexion();
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar la conexión - " + ex);
+            }
+        }
+        return (ArrayList<EmpleadoDTO>)lista;
     }
-
-    // ======================= Hooks de DAOImplBase =======================
 
     @Override
     protected void configurarListaDeColumnas() {
@@ -132,8 +147,6 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         lista.add(mapRow(this.resultSet));
     }
 
-    // ======================= Helpers =======================
-
     private String safe(String s) { return s; } // permite null si la columna acepta null
 
     private EmpleadoDTO mapRow(ResultSet rs) throws SQLException {
@@ -143,7 +156,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         e.setSegundoapellido(rs.getString("SEGUNDO_APELLIDO"));
         e.setNombre(rs.getString("NOMBRE"));
         e.setCorreoElectronico(rs.getString("CORREO_ELECTRONICO"));
-        e.setContrasenha(rs.getString("CONTRASENA"));
+        e.setContrasenha(rs.getString("CONTRASENHA"));
         e.setCelular(rs.getString("CELULAR"));
         e.setUrlFotoPerfil(rs.getString("URL_IMAGEN"));
 

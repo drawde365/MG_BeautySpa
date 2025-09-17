@@ -28,9 +28,4 @@ public class ComentarioProductoDTO extends ComentarioDTO{
     public Integer getIdProducto(){
         return producto.getIdProducto();
     }
-
-    @Override
-    public Integer getIdServicio(){
-        return null;
-    }
 }

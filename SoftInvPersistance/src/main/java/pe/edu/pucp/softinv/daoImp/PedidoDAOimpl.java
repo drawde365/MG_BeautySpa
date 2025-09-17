@@ -1,5 +1,6 @@
 package pe.edu.pucp.softinv.daoImp;
 
+import pe.edu.pucp.softinv.dao.ClienteDAO;
 import pe.edu.pucp.softinv.dao.PedidoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
@@ -45,7 +46,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        //this.statement = this.conexion.prepareCall();
         this.statement.setInt(1, pedido.getIDCliente());
         this.statement.setDouble(2, pedido.getTotal());
         this.statement.setString(3, pedido.getEstadoPedidoS());
@@ -53,6 +53,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.statement.setDate(5, (Date) pedido.getFechaListaParaRecojo());
         this.statement.setDate(6, (Date) pedido.getFechaRecojo());
         this.statement.setDouble(7, pedido.getIGV());
+        this.statement.setInt(8,pedido.getIdPedido());
     }
 
     @Override
@@ -84,9 +85,10 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         Integer cliente_ID = this.resultSet.getInt("CLIENTE_ID");
         ClienteDTO cliente = null;
         if (cliente_ID > 0) {
-            ClienteDAOimpl clienteDAO = new ClienteDAOimpl();
+            ClienteDAO clienteDAO = new ClienteDAOimpl();
             cliente = clienteDAO.obtenerPorId(cliente_ID);
         }
+        pedido = new PedidoDTO();
         this.pedido.setCliente(cliente);
         this.pedido.setTotal(this.resultSet.getDouble("TOTAL"));
         String estado = this.resultSet.getString("ESTADO");
@@ -173,8 +175,4 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         return lista;
     }
 
-    @Override
-    protected String colocarCondicion(){
-        return " WHERE CLIENTE_ID=?";
-    }
 }

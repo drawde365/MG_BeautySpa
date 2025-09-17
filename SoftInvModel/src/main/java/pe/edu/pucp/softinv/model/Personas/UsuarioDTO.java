@@ -1,6 +1,6 @@
 package pe.edu.pucp.softinv.model.Personas;
 
-import pe.edu.pucp.softinv.model.Servicio.CitaDTO;
+import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 
 import java.util.ArrayList;
 

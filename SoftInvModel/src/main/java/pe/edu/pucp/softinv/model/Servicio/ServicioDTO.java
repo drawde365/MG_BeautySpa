@@ -1,5 +1,6 @@
 package pe.edu.pucp.softinv.model.Servicio;
 
+import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 import pe.edu.pucp.softinv.model.Comentario.ComentarioServicioDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 

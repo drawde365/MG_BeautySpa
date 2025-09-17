@@ -1,7 +1,8 @@
-package pe.edu.pucp.softinv.model.Servicio;
+package pe.edu.pucp.softinv.model.Cita;
 
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
+import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.Date;
 import java.sql.Time;

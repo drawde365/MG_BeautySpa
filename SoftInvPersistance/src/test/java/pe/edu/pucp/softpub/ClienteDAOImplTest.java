@@ -1,4 +1,4 @@
-package pe.edu.pucp.softinv;
+package pe.edu.pucp.softpub;
 
 import org.junit.jupiter.api.*;
 import pe.edu.pucp.softinv.dao.ClienteDAO;
@@ -8,6 +8,8 @@ import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+//TEST FUNCIONAL!!
 
 class ClienteDAOImplTest {
     private Integer ultimoId;
@@ -36,6 +38,7 @@ class ClienteDAOImplTest {
         cliente.setRol();
         cliente.setUrlFotoPerfil("dsajdjalds");
         Integer idGenerado = clienteDAO.insertar(cliente);
+        cliente.setIdUsuario(idGenerado);
         assertTrue(idGenerado != 0);
         listaClientesId.add(cliente);
 
@@ -49,6 +52,7 @@ class ClienteDAOImplTest {
         cliente.setRol();
         cliente.setUrlFotoPerfil("dsajdjalds");
         idGenerado = clienteDAO.insertar(cliente);
+        cliente.setIdUsuario(idGenerado);
         assertTrue(idGenerado != 0);
         listaClientesId.add(cliente);
 
@@ -62,8 +66,19 @@ class ClienteDAOImplTest {
         cliente.setUrlFotoPerfil("dsajdjalds");
         cliente.setRol();
         ultimoId = clienteDAO.insertar(cliente);
+        cliente.setIdUsuario(ultimoId);
         assertTrue(ultimoId != 0);
         listaClientesId.add(cliente);
+    }
+
+    @Test
+    void testObtenerPorId(){
+        System.out.println("obtener por id");
+        insertarClientes();
+        ClienteDTO cliente = clienteDAO.obtenerPorId(ultimoId);
+        assertNotNull(cliente);
+        assertEquals(ultimoId, cliente.getIdUsuario());
+        eliminarTodo();
     }
 
     @Test

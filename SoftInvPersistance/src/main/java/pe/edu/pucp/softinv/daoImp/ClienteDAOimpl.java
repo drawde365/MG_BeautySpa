@@ -89,4 +89,22 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         statement.setInt(1,cliente.getIdUsuario());
     }
 
+    @Override
+    protected void instanciarObjetoDelResultSet() throws SQLException {
+        this.cliente = new ClienteDTO();
+        cliente.setIdUsuario(resultSet.getInt("USUARIO_ID"));
+        cliente.setPrimerapellido(resultSet.getString("PRIMER_APELLIDO"));
+        cliente.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
+        cliente.setNombre(resultSet.getString("NOMBRE"));
+        cliente.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
+        cliente.setContrasenha(resultSet.getString("CONTRASENHA"));
+        cliente.setCelular(resultSet.getString("CELULAR"));
+        cliente.setRol();
+        cliente.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
+    }
+
+    @Override
+    protected void limpiarObjetoDelResultSet(){
+        cliente=null;
+    }
 }
