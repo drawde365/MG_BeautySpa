@@ -2,9 +2,7 @@ package pe.edu.pucp.softinv.daoImp;
 
 import pe.edu.pucp.softinv.dao.ClienteDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
-import pe.edu.pucp.softinv.db.DBManager;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
-import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 import java.sql.SQLException;
 
@@ -27,6 +25,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         listaColumnas.add(new Columna("CONTRASENHA",false,false));
         listaColumnas.add(new Columna("CELULAR",false,false));
         listaColumnas.add(new Columna("ROL",false,false));
+        listaColumnas.add(new Columna("URL_IMAGEN",false,false));
     }
 
     @Override
@@ -56,17 +55,20 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         statement.setString(5,cliente.getContrasenha());
         statement.setString(6,cliente.getCelular());
         statement.setString(7,cliente.getRol());
+        statement.setString(8,cliente.getUrlFotoPerfil());
     }
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        statement.setString(7,cliente.getPrimerapellido());
-        statement.setString(1,cliente.getSegundoapellido());
-        statement.setString(2,cliente.getNombre());
-        statement.setString(3,cliente.getCorreoElectronico());
-        statement.setString(4,cliente.getContrasenha());
-        statement.setString(5,cliente.getCelular());
-        statement.setString(6,cliente.getRol());
+        statement.setString(1,cliente.getPrimerapellido());
+        statement.setString(2,cliente.getSegundoapellido());
+        statement.setString(3,cliente.getNombre());
+        statement.setString(4,cliente.getCorreoElectronico());
+        statement.setString(5,cliente.getContrasenha());
+        statement.setString(6,cliente.getCelular());
+        statement.setString(7,cliente.getRol());
+        statement.setString(8,cliente.getUrlFotoPerfil());
+        statement.setInt(9,cliente.getIdUsuario());
     }
 
     @Override
@@ -76,29 +78,15 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
 
     @Override
     public ClienteDTO obtenerPorId(Integer id){
-        ClienteDTO usuario = null;
-        try {
-            conexion = DBManager.getInstance().getConnection();
-            String sql = "SELECT USUARIO_ID, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NOMBRE, CORREO_ELECTRONICO,CONTRASENHA,CELULAR,ROL" +
-                    " WHERE USUARIO_ID=?";
-            statement = conexion.prepareCall(sql);
-            statement.setInt(1,id);
-            resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                usuario = new ClienteDTO();
-                usuario.setPrimerapellido(resultSet.getString("PRIMER_APELLIDO"));
-                usuario.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally{
-            try{
-                if(this.conexion!=null)
-                    conexion.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return usuario;
+        cliente = new ClienteDTO();
+        cliente.setIdUsuario(id);
+        super.obtenerPorId();
+        return cliente;
     }
+
+    @Override
+    protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
+        statement.setInt(1,cliente.getIdUsuario());
+    }
+
 }

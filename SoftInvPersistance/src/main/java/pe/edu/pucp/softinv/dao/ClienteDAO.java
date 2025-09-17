@@ -7,5 +7,5 @@ public interface ClienteDAO {
     Integer insertar(ClienteDTO usuario);
     ClienteDTO obtenerPorId(Integer id);
     Integer modificar(ClienteDTO usuario);
-    Integer eliminar(ClienteDTO id);
+    Integer eliminar(ClienteDTO cliente);
 }

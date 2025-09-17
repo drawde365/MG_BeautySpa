@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.daoImp.util.Tipo_Operacion;
 import pe.edu.pucp.softinv.db.DBManager;
@@ -248,19 +249,24 @@ public abstract class DAOImplBase {
         sql = sql.concat(sql_columnas);
         sql = sql.concat(" FROM ");
         sql = sql.concat(this.nombre_tabla);
+        sql += this.colocarCondicion();
         return sql;
     }
 
+    protected String colocarCondicion(){
+        return "";
+    }
+
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     protected void incluirValorDeParametrosParaEliminacion() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Integer retornarUltimoAutoGenerado() {
@@ -302,15 +308,15 @@ public abstract class DAOImplBase {
     }
 
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
-        throw new UnsupportedOperationException("El método no ha sido sobreescrito."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     protected void instanciarObjetoDelResultSet() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    protected void limpiarObjetoDelResultSet() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    protected void limpiarObjetoDelResultSet() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List listarTodos() {
@@ -335,8 +341,8 @@ public abstract class DAOImplBase {
         return lista;
     }
 
-    protected void agregarObjetoALaLista(List lista) throws SQLException{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    protected void agregarObjetoALaLista(List lista) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

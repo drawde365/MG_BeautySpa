@@ -1,13 +1,17 @@
 package pe.edu.pucp.softinv.daoImp;
 import pe.edu.pucp.softinv.dao.ComentarioDAO;
+import pe.edu.pucp.softinv.dao.ProductoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
-import pe.edu.pucp.softinv.db.DBManager;
 import pe.edu.pucp.softinv.model.Comentario.ComentarioDTO;
+import pe.edu.pucp.softinv.model.Comentario.ComentarioProductoDTO;
+import pe.edu.pucp.softinv.model.Comentario.ComentarioServicioDTO;
+import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
 
@@ -40,12 +44,19 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
+        // SET ( =?)
         this.statement.setInt(1,comentario.getIdServicio());
         this.statement.setInt(2,comentario.getIdProducto());
         this.statement.setInt(3,comentario.getCliente().getIdUsuario());
         this.statement.setString(4,comentario.getComentario());
         this.statement.setInt(5,comentario.getValoracion());
-        //MODIFICABLE
+        //WHERE = ?
+        this.statement.setInt(6,comentario.getIdComentario());
+    }
+
+    @Override
+    protected void incluirValorDeParametrosParaEliminacion() throws SQLException{
+        this.statement.setInt(1,comentario.getIdComentario());
     }
 
     @Override
@@ -55,78 +66,58 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
 
     @Override
     protected void instanciarObjetoDelResultSet() throws SQLException {
-        int Producto_ID = this.resultSet.getInt("PRODUCTO_ID");
+        Integer Producto_ID = this.resultSet.getInt("PRODUCTO_ID");
+        Integer Servicio_ID = this.resultSet.getInt("SERVICIO_ID");
+        if (Producto_ID>0  && Servicio_ID == null) {
+            this.comentario = new ComentarioProductoDTO();
+            ComentarioProductoDTO comentarioProducto = (ComentarioProductoDTO) this.comentario;
+            ProductoDAOimpl productoDAO = new ProductoDAOimpl();
+            ProductoDTO producto = productoDAO.obtenerPorId(Producto_ID);
+            
+        }else{
+            if (Producto_ID == null && Servicio_ID>0){
+                this.comentario = new ComentarioServicioDTO();
+            }else
+                this.comentario = null;
+        }
+        this.comentario.setIdComentario(this.resultSet.getInt("COMENTARIO_ID"));
+    }
+
+    @Override
+    protected void limpiarObjetoDelResultSet() {
+        this.comentario = null;
+    }
+
+    @Override
+    protected void agregarObjetoALaLista(List lista) throws SQLException{
+        this.instanciarObjetoDelResultSet();
+        lista.add(this.comentario);
     }
 
     @Override
     public Integer insertar(ComentarioDTO comentario)  {
-        Integer resultado = 0;
-        try {
-            this.conexion = DBManager.getInstance().getConnection();
-            this.conexion.setAutoCommit(false);
-            String sql = "INSERT INTO COMENTARIOS(SERVICIO_ID, PRODUCTO_ID, CLIENTE_ID, DESCRIPCION, VALORACION) VALUES (?,?,?,?,?)";
-            this.statement = this.conexion.prepareCall(sql);
-            this.statement.setInt(1,comentario.getIdServicio());
-            this.statement.setInt(2,comentario.getIdProducto());
-            this.statement.setInt(3,comentario.getCliente().getIdUsuario());
-            this.statement.setString(4,comentario.getComentario());
-            this.statement.setInt(5,comentario.getValoracion());
-            this.statement.executeUpdate();
-            resultado = this.retornarUltimoAutogenerado();
-            comentario.setIdComentario(resultado);
-            this.conexion.commit();
-        } catch (SQLException ex) {
-            try{
-                if (this.conexion != null) {
-                    this.conexion.rollback();
-                }
-            } catch (SQLException ex1){
-                System.getLogger(ComentarioDAOImpl.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex1);
-            }
-            System.getLogger(ComentarioDAOImpl.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-        finally {
-            try {
-                if (this.conexion != null) {
-                    this.conexion.close();
-                }
-            } catch (SQLException ex) {
-                System.getLogger(ComentarioDAOImpl.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
-            this.conexion = null;
-        }
-        return resultado;
-
-    }
-
-    private Integer retornarUltimoAutogenerado(){
-        Integer resultado = null;
-        try {
-            String sql = "SELECT @@LAST_INSERT_ID AS ID";
-            this.statement = this.conexion.prepareCall(sql);
-            this.resultSet = this.statement.executeQuery();
-            if (this.resultSet.next()) {
-                resultado = this.resultSet.getInt("ID");
-            }
-        } catch (SQLException ex) {
-            System.getLogger(ComentarioDAOImpl.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-        return resultado;
+        this.comentario = comentario;
+        return super.insertar();
     }
 
     @Override
     public ComentarioDTO obtenerPorId(Integer idComentario){
-
+        this.comentario = new ComentarioDTO();
+        this.comentario.setIdComentario(idComentario);
+        super.obtenerPorId();
+        return this.comentario;
     }
 
     @Override
-    public Integer modificar(ComentarioDTO comentario){
-
+    public Integer modificar(ComentarioDTO comentario) {
+        this.comentario = comentario;
+        return super.modificar();
     }
 
     @Override
-    public Integer eliminar(ComentarioDTO comentario){
-
+    public Integer eliminar(ComentarioDTO comentario) {
+        this.comentario = comentario;
+        return super.eliminar();
     }
 
 }

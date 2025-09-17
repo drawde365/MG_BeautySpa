@@ -1,9 +1,11 @@
 package pe.edu.pucp.softinv.model.Disponibilidad;
+import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
+
 import java.sql.Time;
 
 public class DisponibilidadDTO {
     private Integer disponibilidadId;
-    private Integer empleadoId;
+    private EmpleadoDTO empleado;
     private Integer diaSemana;
     private Time horaInicio;
     private Time horaFin;
@@ -32,12 +34,12 @@ public class DisponibilidadDTO {
         this.diaSemana = diaSemana;
     }
 
-    public Integer getEmpleadoId() {
-        return empleadoId;
+    public EmpleadoDTO getEmpleado() {
+        return empleado;
     }
 
-    public void setEmpleadoId(Integer empleadoId) {
-        this.empleadoId = empleadoId;
+    public void setEmpleado(EmpleadoDTO empleado) {
+        this.empleado = empleado;
     }
 
     public Integer getDisponibilidadId() {

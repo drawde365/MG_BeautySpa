@@ -38,7 +38,7 @@ public class Cifrado {
         String base64EncryptedString = "";
 
         try {
-            byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
+            byte[] message = Base64.getDecoder().decode(textoEncriptado.getBytes("utf-8"));
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] digestOfPassword = md.digest(llave.getBytes("utf-8"));
             byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);

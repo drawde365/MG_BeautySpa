@@ -3,6 +3,7 @@ package pe.edu.pucp.softinv.daoImp;
 import pe.edu.pucp.softinv.dao.PedidoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
+import pe.edu.pucp.softinv.model.Pedido.EstadoPedido;
 import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
@@ -62,6 +63,20 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     @Override
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
         this.statement.setInt(1, this.pedido.getIdPedido());
+    }
+
+    private EstadoPedido DefinirEstado(String estado){
+        if (estado == EstadoPedido.CANCELADO.name())
+            return EstadoPedido.CANCELADO;
+        else if (estado == EstadoPedido.CONFIRMADO.name())
+            return EstadoPedido.CONFIRMADO;
+        else if (estado == EstadoPedido.LISTO_PARA_RECOGER.name())
+            return EstadoPedido.LISTO_PARA_RECOGER;
+        else if (estado == EstadoPedido.NO_RECOGIDO.name())
+            return EstadoPedido.NO_RECOGIDO;
+        else if (estado == EstadoPedido.RECOGIDO.name())
+            return EstadoPedido.RECOGIDO;
+        return null;
     }
 
     @Override
@@ -158,4 +173,8 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         return lista;
     }
 
+    @Override
+    protected String colocarCondicion(){
+        return " WHERE CLIENTE_ID=?";
+    }
 }

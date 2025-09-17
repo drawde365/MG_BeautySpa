@@ -16,7 +16,6 @@ class ClienteDAOImplTest {
 
     public ClienteDAOImplTest() {
         clienteDAO = new ClienteDAOimpl();
-        listaClientesId = new ArrayList<>();
     }
 
     @Test
@@ -35,6 +34,7 @@ class ClienteDAOImplTest {
         cliente.setContrasenha("1234");
         cliente.setCelular("999888777");
         cliente.setRol();
+        cliente.setUrlFotoPerfil("dsajdjalds");
         Integer idGenerado = clienteDAO.insertar(cliente);
         assertTrue(idGenerado != 0);
         listaClientesId.add(cliente);
@@ -47,6 +47,7 @@ class ClienteDAOImplTest {
         cliente.setContrasenha("14652");
         cliente.setCelular("920478163");
         cliente.setRol();
+        cliente.setUrlFotoPerfil("dsajdjalds");
         idGenerado = clienteDAO.insertar(cliente);
         assertTrue(idGenerado != 0);
         listaClientesId.add(cliente);
@@ -58,6 +59,7 @@ class ClienteDAOImplTest {
         cliente.setCorreoElectronico("asyoso@mail.com");
         cliente.setContrasenha("8752");
         cliente.setCelular("924175268");
+        cliente.setUrlFotoPerfil("dsajdjalds");
         cliente.setRol();
         ultimoId = clienteDAO.insertar(cliente);
         assertTrue(ultimoId != 0);
@@ -73,6 +75,7 @@ class ClienteDAOImplTest {
 
         ClienteDTO cli = clienteDAO.obtenerPorId(ultimoId);
         assertEquals(listaClientesId.get(2).getCorreoElectronico(),cli.getCorreoElectronico());
+        eliminarTodo();
     }
 
     @Test

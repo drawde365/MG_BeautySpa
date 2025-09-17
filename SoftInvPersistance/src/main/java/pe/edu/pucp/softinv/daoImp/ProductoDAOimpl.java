@@ -3,6 +3,7 @@ package pe.edu.pucp.softinv.daoImp;
 import pe.edu.pucp.softinv.dao.ProductoDAO;
 import pe.edu.pucp.softinv.db.DBManager;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
+import pe.edu.pucp.softinv.model.Producto.TipoProducto;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,7 +14,6 @@ public class ProductoDAOimpl implements ProductoDAO {
     private Connection conexion;
     private CallableStatement statement;
     protected ResultSet resultSet;
-
     @Override
     public Integer insertar(ProductoDTO producto) {
         int resultado = 0;
@@ -87,7 +87,7 @@ public class ProductoDAOimpl implements ProductoDAO {
     }
 
     @Override
-    public ProductoDTO optenerPorId(Integer id) {
+    public ProductoDTO obtenerPorId(Integer id) {
         ProductoDTO producto = null;
         try {
             this.conexion = DBManager.getInstance().getConnection();
@@ -95,72 +95,82 @@ public class ProductoDAOimpl implements ProductoDAO {
                     "FROM PRODUCTOS WHERE PRODUCTO_ID=?";
             this.statement = this.conexion.prepareCall(sql);
             this.statement.setInt(1, id);
-            this.statement = this.statement.executeQuery();
+            this.resultSet = this.statement.executeQuery();
             if (this.resultSet.next()) {
                 producto = new ProductoDTO();
                 producto.setNombre(this.resultSet.getString("NOMBRE"));
-                producto.setNombre(this.resultSet.getDouble("PROM_VALORACIONES"));
-                producto.setNombre(this.resultSet.getString("TIPO_PRODUCTO"));
-
-
-            } catch(SQLException ex){
-                System.err.println("Error al obtener por id - " + ex);
-                try {
-                    if (this.conexion != null) {
-                        this.conexion.rollback();
-                    }
-                } catch (SQLException ex1) {
-                    System.err.println("Error al hacer rollback - " + ex1);
+                producto.setPromedioValoracion(this.resultSet.getDouble("PROM_VALORACIONES"));
+                String aux=this.resultSet.getString("TIPO_PRODUCTO");
+                if(aux.compareTo("FACIAL")==0){
+                    producto.setTipoProducto(TipoProducto.FACIAL);
                 }
-            } finally{
-                try {
-                    if (this.conexion != null) {
-                        this.conexion.close();
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Error al cerrar la conexión - " + ex);
+                else{
+                    producto.setTipoProducto(TipoProducto.CORPORAL);
                 }
+                producto.setPrecio(this.resultSet.getDouble("PRECIO"));
+                producto.setDescripcion(this.resultSet.getString("DESCRIPCION"));
+                producto.setUrlImagen(this.resultSet.getString("URL_IMAGEN"));
+                producto.setStock(this.resultSet.getInt("STOCK"));
+                producto.setModoUso(this.resultSet.getString("MODO_DE_USO"));
             }
-            return resultado;
-        }
-
-        @Override
-        public Integer modificar (ProductoDTO producto){
-            int resultado = 0;
+        } catch (SQLException ex) {
+            System.err.println("Error al obtener por id - " + ex);
             try {
-                this.conexion = DBManager.getInstance().getConnection();
-                this.conexion.setAutoCommit(false);
-                String sql = "UPDATE PRODUCTOS SET NOMBRE=?, TIPO_PRODUCTO=?, PRECIO=?, DESCRIPCION=?, URL_IMAGE=?, STOCK=?, MODO_DE_USO=? WHERE PRODUCTO_ID=?";
-                this.statement = this.conexion.prepareCall(sql);
-                this.statement.setString(1, producto.getNombre());
-                this.statement.setString(2, producto.getTipoProductoS());
-                this.statement.setDouble(3, producto.getPrecio());
-                this.statement.setString(4, producto.getDescripcion());
-                this.statement.setString(5, producto.getUrlImagen());
-                this.statement.setInt(6, producto.getStock());
-                this.statement.setString(7, producto.getModoUso());
-                this.statement.setInt(8, producto.getIdProducto());
-                resultado = this.statement.executeUpdate();
-                this.conexion.commit();
-            } catch (SQLException ex) {
-                System.err.println("Error al intentar modificar - " + ex);
-                try {
-                    if (this.conexion != null) {
-                        this.conexion.rollback();
-                    }
-                } catch (SQLException ex1) {
-                    System.err.println("Error al hacer rollback - " + ex1);
+                if (this.conexion != null) {
+                    this.conexion.rollback();
                 }
-            } finally {
-                try {
-                    if (this.conexion != null) {
-                        this.conexion.close();
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Error al cerrar la conexión - " + ex);
-                }
+            } catch (SQLException ex1) {
+                System.err.println("Error al hacer rollback - " + ex1);
             }
-            return resultado;
+        } finally {
+            try {
+                if (this.conexion != null) {
+                    this.conexion.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar la conexión - " + ex);
+            }
         }
-
+        return producto;
     }
+
+    @Override
+    public Integer modificar(ProductoDTO producto) {
+        int resultado = 0;
+        try {
+            this.conexion = DBManager.getInstance().getConnection();
+            this.conexion.setAutoCommit(false);
+            String sql = "UPDATE PRODUCTOS SET NOMBRE=?, TIPO_PRODUCTO=?, PRECIO=?, DESCRIPCION=?, URL_IMAGE=?, STOCK=?, MODO_DE_USO=? WHERE PRODUCTO_ID=?";
+            this.statement = this.conexion.prepareCall(sql);
+            this.statement.setString(1, producto.getNombre());
+            this.statement.setString(2, producto.getTipoProductoS());
+            this.statement.setDouble(3, producto.getPrecio());
+            this.statement.setString(4, producto.getDescripcion());
+            this.statement.setString(5, producto.getUrlImagen());
+            this.statement.setInt(6, producto.getStock());
+            this.statement.setString(7, producto.getModoUso());
+            this.statement.setInt(8, producto.getIdProducto());
+            resultado = this.statement.executeUpdate();
+            this.conexion.commit();
+        } catch (SQLException ex) {
+            System.err.println("Error al intentar modificar - " + ex);
+            try {
+                if (this.conexion != null) {
+                    this.conexion.rollback();
+                }
+            } catch (SQLException ex1) {
+                System.err.println("Error al hacer rollback - " + ex1);
+            }
+        } finally {
+            try {
+                if (this.conexion != null) {
+                    this.conexion.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar la conexión - " + ex);
+            }
+        }
+        return resultado;
+    }
+
+}
