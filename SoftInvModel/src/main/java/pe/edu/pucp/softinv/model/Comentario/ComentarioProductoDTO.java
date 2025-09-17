@@ -23,4 +23,14 @@ public class ComentarioProductoDTO extends ComentarioDTO{
         super(idComentario,cliente,comentario,valoracion);
         this.producto = producto;
     }
+
+    @Override
+    public Integer getIdProducto(){
+        return producto.getIdProducto();
+    }
+
+    @Override
+    public Integer getIdServicio(){
+        return null;
+    }
 }

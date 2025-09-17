@@ -197,7 +197,7 @@ public abstract class DAOImplBase {
         for (Columna columna : this.listaColumnas) {
             if (columna.getEsLlavePrimaria()) {
                 if (!sql_predicado.isBlank()) {
-                    sql_predicado = sql_predicado.concat(", ");
+                    sql_predicado = sql_predicado.concat(" AND ");
                 }
                 sql_predicado = sql_predicado.concat(columna.getNombre());
                 sql_predicado = sql_predicado.concat("=?");

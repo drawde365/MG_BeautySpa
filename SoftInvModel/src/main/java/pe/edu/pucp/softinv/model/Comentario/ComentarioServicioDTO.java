@@ -23,4 +23,15 @@ public class ComentarioServicioDTO extends ComentarioDTO {
         super(idComentario,cliente,comentario,valoracion);
         this.servicio = servicio;
     }
+
+    @Override
+    public Integer getIdProducto(){
+        return null;
+    }
+
+    @Override
+    public Integer getIdServicio(){
+        return servicio.getIdServicio();
+    }
+
 }

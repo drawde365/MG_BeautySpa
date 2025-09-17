@@ -40,9 +40,9 @@ public class ComentarioDTO {
         this.valoracion = valoracion;
     }
 
-    public Integer getPedido_ID(){ return null; }
+    public Integer getIdProducto(){ return null; }
 
-    public Integer getServicio_ID(){ return null; }
+    public Integer getIdServicio(){ return null; }
 
     public ComentarioDTO() {
         idComentario = null;

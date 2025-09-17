@@ -30,8 +30,4 @@ public class ClienteDTO extends UsuarioDTO {
         return pedidos;
     }
 
-    public void setPedidos(ArrayList<PedidoDTO> pedidos) {
-        this.pedidos = pedidos;
-    }
-
 }

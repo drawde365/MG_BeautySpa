@@ -1,7 +1,6 @@
 package pe.edu.pucp.softinv.model.Pedido;
 
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,32 +15,8 @@ public class PedidoDTO {
     private ArrayList<DetallePedidoDTO> detallesPedido;
     private ClienteDTO cliente;
 
-    public Date getFechaPago{
-        return this.fechaPago;
-    }
-
-    public void setFechaPago(Date fechaPago){
-        this.fechaPago = fechaPago;
-    }
-
-    public Date getFechaRecojo(){
-        return this.fechaRecojo;
-    }
-
-    public void setFechaRecojo(Date fechaRecojo){
-        this.fechaRecojo=fechaRecojo;
-    }
-
-    public Date getFechaListaParaRecojo(){
-        return this.fechaListaParaRecojo;
-    }
-
-    public void setFechaListaParaRecojo(Date fechaListaParaRecojo){
-        this.fechaListaParaRecojo=fechaListaParaRecojo;
-    }
-
     public Integer getIDCliente(){
-        return this.cliente.getidUsuario();
+        return this.cliente.getIdUsuario();
     }
 
     public Double getIGV() {
@@ -99,21 +74,50 @@ public class PedidoDTO {
     public PedidoDTO(){
         idPedido = null;
         cliente = null;
-        fechas = null;
+        fechaPago = null;
+        fechaRecojo=null;
+        fechaListaParaRecojo=null;
         total = null;
         IGV = null;
         estadoPedido = null;
         detallesPedido = null;
     }
 
-    public PedidoDTO(Integer idPedido,ArrayList<Date> fechas, Double total,Double IGV, EstadoPedido estadoPedido,
+    public PedidoDTO(Integer idPedido,Date fechaPago, Date fechaRecojo, Date fechaListo, Double total,Double IGV, EstadoPedido estadoPedido,
                      ArrayList<DetallePedidoDTO> detallesPedido, ClienteDTO cliente) {
         this.idPedido=idPedido;
         this.detallesPedido=detallesPedido;
         this.total=total;
         this.IGV=IGV;
         this.estadoPedido=estadoPedido;
-        this.fechas=fechas;
+        this.fechaPago=fechaPago;
+        this.fechaRecojo=fechaRecojo;
+        this.fechaListaParaRecojo=fechaListo;
         this.cliente=cliente;
     }
+
+    public Date getFechaPago(){
+        return this.fechaPago;
+    }
+
+    public void setFechaPago(Date fechaPago){
+        this.fechaPago = fechaPago;
+    }
+
+    public Date getFechaRecojo(){
+        return this.fechaRecojo;
+    }
+
+    public void setFechaRecojo(Date fechaRecojo){
+        this.fechaRecojo=fechaRecojo;
+    }
+
+    public Date getFechaListaParaRecojo(){
+        return this.fechaListaParaRecojo;
+    }
+
+    public void setFechaListaParaRecojo(Date fechaListaParaRecojo){
+        this.fechaListaParaRecojo=fechaListaParaRecojo;
+    }
+
 }

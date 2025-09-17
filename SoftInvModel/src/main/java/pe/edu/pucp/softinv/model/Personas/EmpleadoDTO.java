@@ -14,6 +14,10 @@ public class EmpleadoDTO extends UsuarioDTO{
         else rol="Empleado";
     }
 
+    public void setRol(String rol){
+        this.rol=rol;
+    }
+
     public ArrayList<ServicioDTO> getServicios() {
         return servicios;
     }

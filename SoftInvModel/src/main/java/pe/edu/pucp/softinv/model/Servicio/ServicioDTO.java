@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class ServicioDTO {
     private Integer idServicio;
     private String nombre;
+    private String descripcion;
     private TipoServicio tipo;
     private Double precio;
     private Double promedioValoracion;
@@ -65,6 +66,15 @@ public class ServicioDTO {
         this.tipo = tipo;
     }
 
+    public void setTipo(String tipo) {
+        if(tipo == "FACIAL")
+            this.tipo = TipoServicio.FACIAL;
+        else if (tipo == "CORPORAL")
+            this.tipo = TipoServicio.CORPORAL;
+        else if (tipo == "TERAPIA_COMPLEMENTARIA")
+            this.tipo = TipoServicio.TERAPIA_COMPLEMENTARIA;
+    }
+
     public Double getPrecio() {
         return precio;
     }
@@ -108,11 +118,12 @@ public class ServicioDTO {
         duracionHora=null;
         empleados=null;
         citas=null;
+        descripcion = null;
     }
 
     public ServicioDTO(Integer idServicio,String nombre,TipoServicio tipo,Double precio,Double promedioValoracion,
                        String urlImagen,ArrayList<ComentarioServicioDTO> comentarios, Integer duracionHora,
-                       ArrayList<EmpleadoDTO> empleados,ArrayList<CitaDTO> citas) {
+                       ArrayList<EmpleadoDTO> empleados,ArrayList<CitaDTO> citas, String descripcion) {
         this.idServicio=idServicio;
         this.nombre=nombre;
         this.tipo=tipo;
@@ -123,5 +134,14 @@ public class ServicioDTO {
         this.duracionHora=duracionHora;
         this.empleados=empleados;
         this.citas=citas;
+        this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
