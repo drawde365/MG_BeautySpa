@@ -27,9 +27,27 @@ public class ProductoDAOimplTest {
         producto.setModoUso("Producto que se usa asi");
         producto.setStock(20);
         producto.setUrlImagen("hola.jpg");
-        int result = productoDAO.insertar(producto);
-        assertNotEquals(0, result, "El empleado debería insertarse correctamente");
+        Integer result = productoDAO.insertar(producto);
+        producto.setIdProducto(result);
+        assertNotEquals(0, result, "El producto debería insertarse correctamente");
+        productoDAO.eliminar(producto);
+    }
 
+    @Test
+    void testObtenerProductoPorId(){
+        ProductoDTO producto = new ProductoDTO();
+        producto.setNombre("Crema1");
+        producto.setDescripcion("Crema que funciona como bloqueador");
+        producto.setTipoProducto(TipoProducto.CORPORAL);
+        producto.setPrecio(50.25);
+        producto.setModoUso("Producto que se usa asi");
+        producto.setStock(20);
+        producto.setUrlImagen("hola.jpg");
+        Integer result = productoDAO.insertar(producto);
+        producto.setIdProducto(result);
+        ProductoDTO final_prod = productoDAO.obtenerPorId(result);
+        assertNotNull(final_prod, "El producto debería ser encontrado correctamente");
+        productoDAO.eliminar(producto);
     }
 
     @Test
@@ -38,13 +56,13 @@ public class ProductoDAOimplTest {
         producto.setNombre("Crema1");
         producto.setDescripcion("Crema que funciona como bloqueador");
         int result = productoDAO.modificar(producto);
-        assertEquals(1, result, "El empleado debería fallar?");
+        assertEquals(1, result, "El producto debería fallar?");
     }
 
     @Test
     void testEliminarProducto() {
         ProductoDTO producto = new ProductoDTO();
         int result = productoDAO.eliminar(producto);
-        assertEquals(1, result, "El empleado debería eliminarse correctamente");
+        assertEquals(1, result, "El producto debería eliminarse correctamente");
     }
 }

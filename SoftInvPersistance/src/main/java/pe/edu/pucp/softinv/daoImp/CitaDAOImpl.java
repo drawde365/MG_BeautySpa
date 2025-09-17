@@ -1,9 +1,14 @@
+/*
 package pe.edu.pucp.softinv.daoImp;
 
 import pe.edu.pucp.softinv.dao.CitaDAO;
+import pe.edu.pucp.softinv.dao.ClienteDAO;
+import pe.edu.pucp.softinv.dao.EmpleadoDAO;
+import pe.edu.pucp.softinv.dao.ServicioDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
+import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,17 +62,24 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
             this.colocarSQLEnStatement(sql);
             this.ejecutarSelectEnDB();
             while (this.resultSet.next()) {
+                Date fecha=statement.getDate("FECHA");
+                if (fecha.compareTo(inicio) >= 0 && fecha.compareTo(fin) <= 0){
+                    int empleadoId, clienteId, servicioId;
+                    CitaDTO cita = new CitaDTO();
+                    EmpleadoDAO empleado = new EmpleadoDAOImpl();
+                    ClienteDAO cliente = new ClienteDAOimpl();
+                    ServicioDAO servicio = new ServicioDAOImpl();
 
-                if (resultSet.getDate("FECHA")>=inicio and resultSet.getDate("FECHA")<=fin){
-
-                    CitaDTO cita = new Cita();
-                    cita.setId(resultset.GEtIn("CITA_ID");
-                    cita.setEmpleado(resultset.GEtIn("EMPLEADO_ID");
-                    cita.setClienteId(resultset.GEtIn("CLIENTE_ID");
-                    cita.setServicioId(resultset.GEtIn("SERVICIO_ID");
-                    cita.setFecha(resultset.GEtIn("FECHA");
-                    cita.setHoraIni(resultset.GEtIn("HORA_INICIO");
-                    cita.setHoraFin(resultset.GEtIn("HORA_FIN");
+                    cita.setId(resultSet.getInt("CITA_ID"));
+                    empleadoId= resultSet.getInt("EMPLEADO_ID");
+                    cita.setEmpleado(empleado.obtenerPorId(empleadoId));
+                    clienteId= resultSet.getInt("CLIENTE_ID");
+                    cita.setCliente(cliente.obtenerPorId(clienteId));
+                    servicioId= resultSet.getInt("SERVICIO_ID");
+                    cita.setServicio(servicio.obtenerPorId(servicioId));
+                    cita.setFecha(resultSet.getDate("FECHA"));
+                    cita.setHoraIni(resultSet.getTime("HORA_INICIO"));
+                    cita.setHoraFin(resultSet.getTime("HORA_FIN"));
 
                     citas.add(cita);
                 }
@@ -79,3 +91,4 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
         }
     }
 }
+*/

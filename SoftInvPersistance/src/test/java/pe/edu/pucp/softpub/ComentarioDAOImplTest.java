@@ -1,10 +1,7 @@
 package pe.edu.pucp.softpub;
 
 import org.junit.jupiter.api.Test;
-import pe.edu.pucp.softinv.dao.ClienteDAO;
-import pe.edu.pucp.softinv.dao.ComentarioDAO;
-import pe.edu.pucp.softinv.dao.ProductoDAO;
-import pe.edu.pucp.softinv.dao.ServicioDAO;
+import pe.edu.pucp.softinv.dao.*;
 import pe.edu.pucp.softinv.daoImp.ClienteDAOimpl;
 import pe.edu.pucp.softinv.daoImp.ComentarioDAOImpl;
 import pe.edu.pucp.softinv.daoImp.ProductoDAOimpl;
@@ -81,7 +78,7 @@ class ComentarioDAOImplTest {
         return servicio;
     }
 
-    private void insertarComentarios(ArrayList<Integer> listaComentarios) {
+    public void insertarComentarios(ArrayList<Integer> listaComentarios) {
         ComentarioProductoDTO comentarioDTO = new ComentarioProductoDTO();
         comentarioDTO.setComentario("El producto estaba muy bueno");
         comentarioDTO.setValoracion(5);
@@ -117,11 +114,13 @@ class ComentarioDAOImplTest {
     }
 
     private void eliminarTodos() {
+        ClienteDAO cliente = new ClienteDAOimpl();
         for (ComentarioDTO comentario : comentarios) {
             Integer resul = comentarioDAO.eliminar(comentario);
             assertTrue(resul != 0);
             ComentarioDTO com = comentarioDAO.obtenerPorId(comentario.getIdComentario());
             assertNull(com);
+            cliente.eliminar(comentario.getCliente());
         }
         comentarios.clear();
     }
@@ -138,8 +137,13 @@ class ComentarioDAOImplTest {
         eliminarTodos();
     }
 
-//    @Test
-//    public void testObtenerComentarioPorId(){
-//      int
-//    }
+    @Test
+    public void testObtenerComentarioPorId() {
+        System.out.println("Obtener Comentario por ID");
+        ArrayList<Integer> listaComentariosId = new ArrayList<>();
+        insertarComentarios(listaComentariosId);
+        ComentarioDTO com = comentarioDAO.obtenerPorId(listaComentariosId.get(0));
+        assertNotNull(com);
+        eliminarTodos();
+    }
 }
