@@ -58,8 +58,13 @@ public class ServicioDTO {
         this.nombre = nombre;
     }
 
-    public TipoServicio getTipo() {
-        return tipo;
+    public String getTipo() {
+        if(tipo==TipoServicio.FACIAL)
+            return "FACIAL";
+        else if(tipo==TipoServicio.CORPORAL)
+            return "CORPORAL";
+        else if(tipo==TipoServicio.TERAPIA_COMPLEMENTARIA)
+            return "TERAPIA_COMPLEMENTARIA";
     }
 
     public void setTipo(TipoServicio tipo) {

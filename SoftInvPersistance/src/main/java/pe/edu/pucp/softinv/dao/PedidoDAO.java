@@ -7,6 +7,6 @@ public interface PedidoDAO {
     public Integer insertar(PedidoDTO pedido);
     public PedidoDTO optenerPorId(Integer id);
     public Integer modificar(PedidoDTO pedido);
-    public Integer eliminar(Integer id);
+    public Integer eliminar(PedidoDTO pedido);
     public ArrayList<PedidoDTO> listarPedidos(Integer id);
 }

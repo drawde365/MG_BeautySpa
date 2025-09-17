@@ -36,10 +36,9 @@ class   EmpleadoDAOImplTest {
 
         int result = empleadoDAO.insertar(emp);
         assertEquals(1, result, "El empleado debería insertarse correctamente");
-
-        // Guardamos el ID para las siguientes pruebas (asumiendo autoincrement en BD)
+        //Guardamos el ID para las siguientes pruebas (asumiendo autoincrement en BD)
         List<EmpleadoDTO> empleados = empleadoDAO.listarTodos();
-        EmpleadoDTO ultimo = empleados.get(empleados.size() - 1);
+        EmpleadoDTO ultimo = empleados.getLast();
         empleadoIdInsertado = ultimo.getIdUsuario();
 
         assertNotEquals(0, empleadoIdInsertado, "El empleado debe tener un ID asignado");
