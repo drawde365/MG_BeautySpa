@@ -1,0 +1,7 @@
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\bin\SoftInvWA.dll.config
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\bin\SoftInvWA.dll
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\bin\SoftInvWA.pdb
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\obj\Debug\SoftInvWA.csproj.AssemblyReference.cache
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\obj\Debug\SoftInvWA.csproj.CoreCompileInputs.cache
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\obj\Debug\SoftInvWA.dll
+C:\Users\jenny.000\Desktop\SoftInvWA\SoftInvWA\obj\Debug\SoftInvWA.pdb

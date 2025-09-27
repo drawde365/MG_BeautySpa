@@ -1,0 +1,33 @@
+﻿:root {
+    --color-principal: #6C8056; /* Verde oliva */
+    --color-secundario: #B85C4B; /* Terracota */
+    --color-fondo: #F2F6F1; /* Verde muy suave para body */
+    --color-header: #F8F3EA; /* Encabezado contrastante */
+    --color-texto: #333333; /* Texto principal */
+    --color-blanco: #ffffff; /* Blanco puro */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-fondo);
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
