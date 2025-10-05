@@ -322,3 +322,7 @@ D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.cspr
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvB.9831ED62.Up2Date
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.dll
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.pdb
+D:\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.AssemblyReference.cache
+D:\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.CoreCompileInputs.cache
+D:\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.dll
+D:\MG_BeautySpa\C#\SoftInvBusiness\obj\Debug\SoftInvBusiness.pdb

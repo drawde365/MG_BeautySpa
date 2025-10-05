@@ -316,3 +316,7 @@ D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistanc
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvP.15C9293D.Up2Date
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistance.dll
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistance.pdb
+D:\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistance.csproj.AssemblyReference.cache
+D:\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistance.csproj.CoreCompileInputs.cache
+D:\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistance.dll
+D:\MG_BeautySpa\C#\SoftInvPersistance\obj\Debug\SoftInvPersistance.pdb

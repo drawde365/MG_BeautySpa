@@ -1,0 +1,12 @@
+﻿@font-face {
+    font-family: 'ZCOOL XiaoWei';
+    src: url('TypeFonts/ZCOOLXiaoWei-Regular.woff2') format('woff2');
+    font-weight: normal;
+}
+
+.header {
+    color: white;
+    background-color: #107369;
+    font-family: 'ZCOOL XiaoWei', sans-serif;
+    
+}

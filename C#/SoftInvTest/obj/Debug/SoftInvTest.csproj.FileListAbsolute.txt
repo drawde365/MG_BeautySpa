@@ -369,3 +369,7 @@ D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvTest\bin\Debug\Microsoft.VisualStudio.T
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
 D:\Clases\Progra3\MG_BeautySpa\C#\SoftInvTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
+D:\MG_BeautySpa\C#\SoftInvTest\obj\Debug\SoftInvTest.csproj.AssemblyReference.cache
+D:\MG_BeautySpa\C#\SoftInvTest\obj\Debug\SoftInvTest.csproj.CoreCompileInputs.cache
+D:\MG_BeautySpa\C#\SoftInvTest\obj\Debug\SoftInvTest.dll
+D:\MG_BeautySpa\C#\SoftInvTest\obj\Debug\SoftInvTest.pdb
