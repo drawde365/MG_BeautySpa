@@ -8,7 +8,7 @@ public interface ComentarioDAO {
 
     public Integer insertar(ComentarioDTO comentario);
 
-    //public ComentarioDTO obtenerPorId(Integer idComentario); ESTO ES INÚTIL
+    public ComentarioDTO obtenerPorId(Integer idComentario); //ESTO ES INÚTIL fuera del dao
 
     ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer contadorPagina, Integer idProducto);
 

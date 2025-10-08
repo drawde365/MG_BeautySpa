@@ -82,17 +82,24 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.producto = null;
     }
 
+
+
     @Override
-    public Integer insertar(ProductoDTO producto) throws SQLException {
+    public Integer insertar(ProductoDTO producto) {
         this.producto = producto;
         Integer resultado = super.insertar(true,false);
-        ProductoTipoDAOImpl productoTipoDAO = new ProductoTipoDAOImpl();
-        productoTipoDAO.setConexion(this.conexion);
+        producto.setIdProducto(resultado);
+        ProductoTipoDAO productoTipoDAO = new ProductoTipoDAOImpl(this.conexion);
         ArrayList<ProductoTipoDTO> productos = producto.getProductosTipos();
         for(ProductoTipoDTO prod : productos){
+            prod.setProducto(producto);
             productoTipoDAO.insertar(prod,true,true);
         }
-        this.cerrarConexion();
+        try {
+            this.cerrarConexion();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return resultado;
     }
 
@@ -111,20 +118,14 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
     }
 
     @Override
-    public Integer eliminar(ProductoDTO producto) throws SQLException {
-        int count=0;
+    public Integer eliminar(ProductoDTO producto) {
         this.producto = producto;
-        ProductoTipoDAOImpl productoTipoDAO = new ProductoTipoDAOImpl();
+        this.abrirConexion();
+        ProductoTipoDAO productoTipoDAO = new ProductoTipoDAOImpl(this.conexion);
         ArrayList<ProductoTipoDTO> productos = producto.getProductosTipos();
-        for(ProductoTipoDTO prod : productos) {
-            if (count == 0) {
-                productoTipoDAO.eliminar(prod, true, false);
-                this.setConexion(productoTipoDAO.getConexion());
-                count++;
-            } else {
-                productoTipoDAO.eliminar(prod, true, true);
-            }
-        }
+        for(ProductoTipoDTO prod : productos)
+            productoTipoDAO.eliminar(prod, true, true);
+
         return super.eliminar(false, true);
     }
 

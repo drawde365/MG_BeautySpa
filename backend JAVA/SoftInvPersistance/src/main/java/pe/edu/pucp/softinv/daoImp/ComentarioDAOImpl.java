@@ -1,6 +1,7 @@
 package pe.edu.pucp.softinv.daoImp;
 import pe.edu.pucp.softinv.dao.ClienteDAO;
 import pe.edu.pucp.softinv.dao.ComentarioDAO;
+import pe.edu.pucp.softinv.dao.ServicioDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.daoImp.util.ComentariosParametros;
 import pe.edu.pucp.softinv.daoImp.util.ComentariosParametrosBuilder;
@@ -11,6 +12,7 @@ import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
 
@@ -34,8 +36,14 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
 
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
-        this.statement.setObject(1,comentario.getServicio().getIdServicio(),java.sql.Types.INTEGER);
-        this.statement.setObject(2,comentario.getProducto().getIdProducto(),java.sql.Types.INTEGER);
+        //if(comentario.getServicio()!=null)
+            this.statement.setObject(1,comentario.getServicio().getIdServicio(),java.sql.Types.INTEGER);
+        //else
+        //    this.statement.setObject(1,null,java.sql.Types.INTEGER);
+        //if(comentario.getProducto()!=null)
+            this.statement.setObject(2,comentario.getProducto().getIdProducto(),java.sql.Types.INTEGER);
+        //else
+        //    this.statement.setObject(2,null ,java.sql.Types.INTEGER);
         this.statement.setInt(3,comentario.getCliente().getIdUsuario());
         this.statement.setString(4,comentario.getComentario());
         this.statement.setInt(5,comentario.getValoracion());
@@ -44,8 +52,14 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
         // SET ( =?)
-        this.statement.setObject(1,comentario.getServicio().getIdServicio(),java.sql.Types.INTEGER);
-        this.statement.setObject(2,comentario.getProducto().getIdProducto(),java.sql.Types.INTEGER);
+        //if(comentario.getServicio()!=null)
+            this.statement.setObject(1,comentario.getServicio().getIdServicio(),java.sql.Types.INTEGER);
+        //else
+        //    this.statement.setObject(1,null,java.sql.Types.INTEGER);
+        //if(comentario.getProducto()!=null)
+            this.statement.setObject(2,comentario.getProducto().getIdProducto(),java.sql.Types.INTEGER);
+        //else
+        //    this.statement.setObject(2,null ,java.sql.Types.INTEGER);
         this.statement.setInt(3,comentario.getCliente().getIdUsuario());
         this.statement.setString(4,comentario.getComentario());
         this.statement.setInt(5,comentario.getValoracion());
@@ -63,22 +77,51 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
         this.statement.setInt(1, this.comentario.getIdComentario());
     }
 
+
     @Override
-    protected void instanciarObjetoDelResultSet() throws SQLException {
+    protected void instanciarObjetoDelResultSet() throws SQLException{
+        this.comentario = new ComentarioDTO();
+        this.comentario.setIdComentario(this.resultSet.getInt("COMENTARIO_ID"));
+        Integer Producto_ID = this.resultSet.getInt("PRODUCTO_ID");
+        if(Producto_ID == 0) Producto_ID = null;
+        Integer Servicio_ID = this.resultSet.getInt("SERVICIO_ID");
+        if(Servicio_ID == 0) Servicio_ID = null;
+        ProductoDTO producto = new ProductoDTO();
+        ServicioDTO servicio = new ServicioDTO();
+        producto.setIdProducto(Producto_ID);
+        servicio.setIdServicio(Servicio_ID);
+        this.comentario.setServicio(servicio);
+        this.comentario.setProducto(producto);
+        ClienteDTO cliente = new ClienteDTO();
+        cliente.setIdUsuario(this.resultSet.getInt("CLIENTE_ID"));
+        this.comentario.setCliente(cliente);
+        this.comentario.setComentario(this.resultSet.getString("DESCRIPCION"));
+        this.comentario.setValoracion(this.resultSet.getInt("VALORACION"));
+    }
+
+    protected void instanciarObjetoDelResultSetSP() throws SQLException {
+        this.comentario = new ComentarioDTO();
         this.comentario.setIdComentario(this.resultSet.getInt("COMENTARIO_ID"));
         Integer Producto_ID = this.resultSet.getInt("PRODUCTO_ID");
         Integer Servicio_ID = this.resultSet.getInt("SERVICIO_ID");
-        this.comentario = new ComentarioDTO();
+        ProductoDTO producto = new ProductoDTO();
+        ServicioDTO servicio = new ServicioDTO();
+        producto.setIdProducto(Producto_ID);
+        servicio.setIdServicio(Servicio_ID);
         if (Producto_ID>0  && Servicio_ID == 0) {
             comentario.getProducto().setIdProducto(Producto_ID);
+            comentario.getServicio().setIdServicio(null);
         }else if(Producto_ID == 0 && Servicio_ID>0){
             comentario.getServicio().setIdServicio(Servicio_ID);
+            comentario.getProducto().setIdProducto(null);
         }
         ClienteDTO cliente = this.instanciarCliente();
         this.comentario.setCliente(cliente);
         this.comentario.setComentario(this.resultSet.getString("DESCRIPCION"));
         this.comentario.setValoracion(this.resultSet.getInt("VALORACION"));
     }
+
+
 
     private ClienteDTO instanciarCliente() throws SQLException {
         ClienteDTO cliente = new ClienteDTO();
@@ -94,6 +137,12 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
     @Override
     protected void limpiarObjetoDelResultSet() {
         this.comentario = null;
+    }
+
+    @Override
+    protected void agregarObjetoALaListaSP(List lista) throws SQLException {
+        this.instanciarObjetoDelResultSetSP();
+        lista.add(comentario);
     }
 
     @Override
@@ -115,13 +164,21 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
     }
 
     @Override
+    public ComentarioDTO obtenerPorId(Integer idComentario) {
+        this.comentario = new ComentarioDTO();
+        comentario.setIdComentario(idComentario);
+        super.obtenerPorId();
+        return comentario;
+    }
+
+    @Override
     public ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer contadorPagina, Integer idProducto){
         Object parametros = new ComentariosParametrosBuilder()
                 .conContadorPagina(contadorPagina)
                 .conProducto_Id(idProducto)
                 .BuildComentariosParametros();
         String sql = "{call SP_Obtener_Comentarios_Producto(?,?)}";
-        return (ArrayList<ComentarioDTO>) super.listarTodos(sql,this::incluirParametrosParaListarPorProducto,parametros);
+        return (ArrayList<ComentarioDTO>) super.ejecutarProcedimientoAlmacenadoLectura(sql,this::incluirParametrosParaListarPorProducto,parametros);
     }
 
     private void incluirParametrosParaListarPorProducto(Object Parametros){
@@ -141,7 +198,7 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
                 .conServicio_Id(idServicio)
                 .BuildComentariosParametros();
         String sql = "{call SP_Obtener_Comentarios_Servicio(?,?)}";
-        return (ArrayList<ComentarioDTO>) super.listarTodos(sql,this::incluirParametrosParaListarPorServicio,parametros);
+        return (ArrayList<ComentarioDTO>) super.ejecutarProcedimientoAlmacenadoLectura(sql,this::incluirParametrosParaListarPorServicio,parametros);
     }
 
     private void incluirParametrosParaListarPorServicio(Object Parametros){

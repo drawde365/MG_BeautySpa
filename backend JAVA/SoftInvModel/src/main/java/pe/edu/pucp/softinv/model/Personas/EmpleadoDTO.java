@@ -10,11 +10,11 @@ public class EmpleadoDTO extends UsuarioDTO{
 
     @Override
     public void setRol(){
-        if(admin) rol="Admin";
-        else rol="Empleado";
+        if(admin) rol=3;
+        else rol=2;
     }
 
-    public void setRol(String rol){
+    public void setRol(Integer rol){
         this.rol=rol;
     }
 

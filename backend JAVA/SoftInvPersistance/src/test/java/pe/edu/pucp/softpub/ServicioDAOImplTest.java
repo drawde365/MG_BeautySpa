@@ -30,6 +30,7 @@ public class ServicioDAOImplTest {
         servicio.setUrlImagen("ejemploURL.com");
         servicio.setDuracionHora(2);
         servicio.setPromedioValoracion(3.4);
+        servicio.setActivo(1);
     }
 
     @Test
@@ -37,6 +38,7 @@ public class ServicioDAOImplTest {
         ServicioDTO servicio = new ServicioDTO();
         llenarDatos(servicio);
         int id_servicio_insertado = servicioDAO.insertar(servicio);
+        servicio.setIdServicio(id_servicio_insertado);
         System.out.println(id_servicio_insertado);
         assertEquals(1, id_servicio_insertado, "El servicio debería insertarse correctamente");
         servicioDAO.eliminar(servicio);
@@ -45,11 +47,12 @@ public class ServicioDAOImplTest {
     @Test
     void testObtenerServicioPorId(){
         ServicioDTO servicio = new ServicioDTO();
+        ServicioDTO servicioID = new ServicioDTO();
         llenarDatos(servicio);
         int resul = servicioDAO.insertar(servicio);
         servicio.setIdServicio(resul);
-        servicioDAO.obtenerPorId(servicio.getIdServicio());
-        assertNotNull(servicio, "El servicio debe existir en la BD");
+        servicioID = servicioDAO.obtenerPorId(servicio.getIdServicio());
+        assertNotNull(servicioID, "El servicio debe existir en la BD");
         assertEquals("ServiceSample", servicio.getNombre());
         servicioDAO.eliminar(servicio);
     }

@@ -43,6 +43,15 @@ public abstract class DAOImplBase {
         this.retornarLlavePrimaria = false;
         this.incluirListaDeColumnas();
         dejarConexionAbierta=false;
+
+    }
+
+    public DAOImplBase(String nombre_tabla, Connection conexion){
+        this.nombre_tabla = nombre_tabla;
+        this.retornarLlavePrimaria = false;
+        this.incluirListaDeColumnas();
+        dejarConexionAbierta=false;
+        this.conexion=conexion;
     }
 
     private void incluirListaDeColumnas() {
@@ -393,25 +402,25 @@ public abstract class DAOImplBase {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void ejecutarProcedimientoAlmacenado(String sql, Boolean conTransaccion) {
+    public List ejecutarProcedimientoAlmacenadoLectura(String sql,
+                                                       Consumer incluirValorDeParametros,
+                                                       Object parametros) {
+        List lista = new ArrayList<>();
         try {
-            if (conTransaccion) {
-                this.iniciarTransaccion();
+            this.abrirConexion();
+            if (sql == null) {
+                sql = this.generarSQLParaListarTodos();
             }
             this.colocarSQLEnStatement(sql);
-            this.ejecutarDMLEnBD();
-            if (conTransaccion) {
-                this.comitarTransaccion();
+            if (incluirValorDeParametros != null) {
+                incluirValorDeParametros.accept(parametros);
+            }
+            this.ejecutarSelectEnDB();
+            while (this.resultSet.next()) {
+                agregarObjetoALaListaSP(lista);
             }
         } catch (SQLException ex) {
-            System.err.println("Error al intentar ejecutar procedimiento almacenado: " + ex);
-            try {
-                if (conTransaccion) {
-                    this.rollbackTransaccion();
-                }
-            } catch (SQLException ex1) {
-                System.err.println("Error al hacer rollback - " + ex);
-            }
+            System.err.println("Error al intentar listarTodos - " + ex);
         } finally {
             try {
                 this.cerrarConexion();
@@ -419,5 +428,10 @@ public abstract class DAOImplBase {
                 System.err.println("Error al cerrar la conexión - " + ex);
             }
         }
+        return lista;
+    }
+
+    protected void agregarObjetoALaListaSP(List lista) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

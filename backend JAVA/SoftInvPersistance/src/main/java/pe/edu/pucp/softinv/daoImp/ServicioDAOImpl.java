@@ -76,7 +76,7 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
         this.servicio.setPromedioValoracion(this.resultSet.getDouble("PROM_VALORACIONES"));
         this.servicio.setUrlImagen(this.resultSet.getString("URL_IMAGEN"));
         this.servicio.setDuracionHora(this.resultSet.getInt("DURACION_HORAS"));
-        this.servicio.setDuracionHora(this.resultSet.getInt("ACTIVO"));
+        this.servicio.setActivo(this.resultSet.getInt("ACTIVO"));
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
                 empleado.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
                 empleado.setContrasenha(resultSet.getString("CONTRASENHA"));
                 empleado.setCelular(resultSet.getString("CELULAR"));
-                empleado.setRol(resultSet.getString("ROL"));
+                empleado.setRol(resultSet.getInt("ROL"));
                 empleado.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
                 empleado.setUrlFotoPerfil(resultSet.getString("ACTIVO"));
                 empleados.add(empleado);

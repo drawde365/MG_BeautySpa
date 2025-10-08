@@ -96,7 +96,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         this.statement.setString(i++, empleado.getCorreoElectronico());
         this.statement.setString(i++, empleado.getContrasenha());
         this.statement.setString(i++, empleado.getCelular());
-        this.statement.setString(i++, empleado.getRol());
+        this.statement.setInt(i++, empleado.getRol());
         this.statement.setString(i++, empleado.getUrlFotoPerfil());
         this.statement.setInt(i, empleado.getActivo());
     }
@@ -111,7 +111,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         this.statement.setString(i++, empleado.getCorreoElectronico());
         this.statement.setString(i++, empleado.getContrasenha());
         this.statement.setString(i++, empleado.getCelular());
-        this.statement.setString(i++, empleado.getRol());
+        this.statement.setInt(i++, empleado.getRol());
         this.statement.setString(i++, empleado.getUrlFotoPerfil());
         this.statement.setInt(i++, empleado.getActivo());
         // WHERE PK

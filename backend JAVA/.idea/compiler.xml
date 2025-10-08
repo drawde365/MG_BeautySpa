@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SoftInvModel" />
         <module name="SoftInvPersistance" />
+        <module name="SoftInvBusiness" />
         <module name="SoftInvDBManager" />
       </profile>
     </annotationProcessing>

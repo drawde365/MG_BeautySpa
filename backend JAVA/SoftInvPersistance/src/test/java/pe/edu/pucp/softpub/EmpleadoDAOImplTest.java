@@ -33,6 +33,7 @@ public class EmpleadoDAOImplTest {
         emp.setContrasenha("12345");
         emp.setCelular("9998777");
         emp.setUrlFotoPerfil("peril.jpg");
+        emp.setActivo(1);
         emp.setAdmin(true);
         emp.setRol();
 
@@ -52,9 +53,9 @@ public class EmpleadoDAOImplTest {
         nuevo.setCorreoElectronico("ana.ramirez@empra.com");
         nuevo.setCelular("999111222");
         nuevo.setContrasenha("clave123");
-        nuevo.setRol("EMPLEADO");
+        nuevo.setRol(1);
         nuevo.setUrlFotoPerfil("fotoAna.jpg");
-
+        nuevo.setActivo(1);
         Integer idGenerado = empleadoDAO.insertar(nuevo);
         assertNotEquals(0, idGenerado, "El ID generado no debe ser 0");
         nuevo.setIdUsuario(idGenerado);

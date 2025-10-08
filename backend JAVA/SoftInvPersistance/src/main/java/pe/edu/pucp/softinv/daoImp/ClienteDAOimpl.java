@@ -55,7 +55,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         statement.setString(4,cliente.getCorreoElectronico());
         statement.setString(5,cliente.getContrasenha());
         statement.setString(6,cliente.getCelular());
-        statement.setString(7,cliente.getRol());
+        statement.setInt(7,cliente.getRol());
         statement.setString(8,cliente.getUrlFotoPerfil());
         statement.setInt(9,cliente.getActivo());
     }
@@ -68,7 +68,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         statement.setString(4,cliente.getCorreoElectronico());
         statement.setString(5,cliente.getContrasenha());
         statement.setString(6,cliente.getCelular());
-        statement.setString(7,cliente.getRol());
+        statement.setInt(7,cliente.getRol());
         statement.setString(8,cliente.getUrlFotoPerfil());
         statement.setInt(9, cliente.getActivo());
         statement.setInt(10,cliente.getIdUsuario());

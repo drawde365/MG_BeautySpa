@@ -32,7 +32,7 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
         listaColumnas.add(new Columna("HORA_FIN", false, false));
         listaColumnas.add(new Columna("IGV", false, false));
         listaColumnas.add(new Columna("ACTIVO", false, false));
-        listaColumnas.add(new Columna("CDTR", false, false));
+        listaColumnas.add(new Columna("CODTR", false, false));
     }
 
     @Override
@@ -86,6 +86,8 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
         lista.add(fin);
         return (ArrayList<CitaDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorFechas,lista);
     }
+
+    //public ArrayList<CitaDTO> listarCitas;
 
     private void incluirValoresDeParametrosParaListarPorFechas(Object objetoParametros){
         ArrayList<Date> lista = (ArrayList<Date>) objetoParametros;
@@ -150,5 +152,4 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
     public CitaDTO obtenerPorId(CitaDTO idCita) {
         return null;
     }
-
 }

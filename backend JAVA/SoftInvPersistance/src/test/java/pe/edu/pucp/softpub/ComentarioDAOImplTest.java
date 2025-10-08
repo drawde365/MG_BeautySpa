@@ -21,6 +21,7 @@ class ComentarioDAOImplTest {
     private ProductoDAO productoDAO;
     private ServicioDAO servicioDAO;
     private ArrayList<ComentarioDTO> comentarios = new ArrayList<>();
+    private Integer idProd;
 
     public ComentarioDAOImplTest() {
         comentarioDAO = new ComentarioDAOImpl();
@@ -47,6 +48,7 @@ class ComentarioDAOImplTest {
         cliente.setCelular("999888777");
         cliente.setRol();
         cliente.setUrlFotoPerfil("dsajdjalds");
+        cliente.setActivo(1);
         return cliente;
     }
 
@@ -54,12 +56,11 @@ class ComentarioDAOImplTest {
         ProductoDTO producto = new ProductoDTO();
         producto.setNombre("Crema1");
         producto.setDescripcion("Crema que funciona como bloqueador");
-        producto.setTipoProducto(TipoProducto.CORPORAL);
         producto.setPrecio(50.25);
         producto.setModoUso("Producto que se usa asi");
-        producto.setStock(20);
         producto.setPromedioValoracion(4.2);
         producto.setUrlImagen("hola.jpg");
+        producto.setActivo(1);
         return producto;
     }
 
@@ -72,59 +73,74 @@ class ComentarioDAOImplTest {
         servicio.setTipo("FACIAL");
         servicio.setPrecio(100.01);
         servicio.setPromedioValoracion(2.3);
+        servicio.setActivo(1);
         return servicio;
     }
 
     public void insertarComentarios(ArrayList<Integer> listaComentarios) {
-        ComentarioDTO comentario = new  ComentarioDTO();
+        //Producto
+        ComentarioDTO comentarioProducto = new ComentarioDTO();
         ProductoDTO producto = definirProducto();
-        comentario.setProducto(producto);
-        ServicioDTO servicio = new ServicioDTO();
-        comentario.setServicio(servicio);
-
-        ComentarioProductoDTO comentarioDTO = new ComentarioProductoDTO();
-        comentarioDTO.setComentario("El producto estaba muy bueno");
-        comentarioDTO.setValoracion(5);
+        comentarioProducto.setComentario("El producto estaba muy bueno");
+        comentarioProducto.setValoracion(5);
         ClienteDTO cliente = definirCliente();
         int idUser = clienteDAO.insertar(cliente);
         assertTrue(idUser != 0);
-        cliente.setIdUsuario(idUser);
-        comentarioDTO.setCliente(cliente);
-        ProductoDTO producto = definirProducto();
-        int idProducto = productoDAO.insertar(producto);
-        assertTrue(idProducto != 0);
-        producto.setIdProducto(idProducto);
-        comentarioDTO.setProducto(producto);
-        int idComen = comentarioDAO.insertar(comentarioDTO);
-        comentarioDTO.setIdComentario(idComen);
-        listaComentarios.add(idComen);
-        comentarios.add(comentarioDTO);
 
-        ComentarioServicioDTO comentarioServicioDTO = new ComentarioServicioDTO();
-        comentarioServicioDTO.setComentario("El servicio fue malisimo");
-        comentarioServicioDTO.setValoracion(2);
-        comentarioServicioDTO.setCliente(cliente);
+        cliente.setIdUsuario(idUser);
+        comentarioProducto.setCliente(cliente);
+        int idProducto = productoDAO.insertar(producto);
+        this.idProd = idProducto;
+        assertTrue(idProducto != 0);
+
+        producto.setIdProducto(idProducto);
+        comentarioProducto.setProducto(producto);
+
+        int idComen = comentarioDAO.insertar(comentarioProducto);
+
+        comentarioProducto.setIdComentario(idComen);
+        listaComentarios.add(idComen);
+        comentarios.add(comentarioProducto);
+        ComentarioDTO comen2 = new ComentarioDTO();
+
+        comen2.setComentario("YOLOOOOO");
+        comen2.setValoracion(2);
+        comen2.setCliente(cliente);
+        comen2.setProducto(producto);
+        int idComen2 = comentarioDAO.insertar(comentarioProducto);
+        comen2.setIdComentario(idComen2);
+        listaComentarios.add(idComen2);
+        comentarios.add(comen2);
+
+        //Servicio
+        ComentarioDTO comentarioServicio = new ComentarioDTO();
+        comentarioServicio.setComentario("El servicio fue malisimo");
+        comentarioServicio.setValoracion(2);
+        comentarioServicio.setCliente(cliente);
 
         ServicioDTO servicio = definirServicio();
         int idSer = servicioDAO.insertar(servicio);
         assertTrue(idSer != 0);
         servicio.setIdServicio(idSer);
-        comentarioServicioDTO.setServicio(servicio);
-        idComen = comentarioDAO.insertar(comentarioServicioDTO);
+        comentarioServicio.setServicio(servicio);
+        idComen = comentarioDAO.insertar(comentarioServicio);
         listaComentarios.add(idComen);
-        comentarioServicioDTO.setIdComentario(idComen);
-        comentarios.add(comentarioServicioDTO);
+        comentarioServicio.setIdComentario(idComen);
+        comentarios.add(comentarioServicio);
     }
 
     private void eliminarTodos() {
-        ClienteDAO cliente = new ClienteDAOimpl();
+        int id_Cliente=0;
         for (ComentarioDTO comentario : comentarios) {
             Integer resul = comentarioDAO.eliminar(comentario);
+            id_Cliente = comentario.getCliente().getIdUsuario();
             assertTrue(resul != 0);
             ComentarioDTO com = comentarioDAO.obtenerPorId(comentario.getIdComentario());
             assertNull(com);
-            cliente.eliminar(comentario.getCliente());
         }
+        ClienteDTO cliente = new ClienteDTO();
+        cliente.setIdUsuario(id_Cliente);
+        clienteDAO.eliminar(cliente);
         comentarios.clear();
     }
 
@@ -147,6 +163,19 @@ class ComentarioDAOImplTest {
         insertarComentarios(listaComentariosId);
         ComentarioDTO com = comentarioDAO.obtenerPorId(listaComentariosId.get(0));
         assertNotNull(com);
+        eliminarTodos();
+    }
+
+    @Test
+    public void testProcedureObtenerComentariosProducto(){
+        System.out.println("SP obtener comentarios por producto");
+        ArrayList<Integer> listaComentarios = new ArrayList<>();
+        insertarComentarios(listaComentarios);
+        ArrayList<ComentarioDTO> listaCom = comentarioDAO.obtenerComentariosPorProducto(1,this.idProd);
+        for (ComentarioDTO comentario : listaCom) {
+            System.out.printf("%d   %s    %s   %d    %d\n",comentario.getIdComentario(),
+                    comentario.getCliente().getNombre(),comentario.getCliente().getPrimerapellido(),comentario.getProducto().getIdProducto(),comentario.getServicio().getIdServicio());
+        }// Qe fue?
         eliminarTodos();
     }
 }

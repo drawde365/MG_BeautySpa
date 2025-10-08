@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ProductoDAO {
-    public Integer insertar(ProductoDTO producto) throws SQLException;
+    public Integer insertar(ProductoDTO producto);
     public ProductoDTO obtenerPorId(Integer id);
     public Integer modificar(ProductoDTO producto);
-    public Integer eliminar(ProductoDTO idProducto) throws SQLException;
+    public Integer eliminar(ProductoDTO idProducto);
 }

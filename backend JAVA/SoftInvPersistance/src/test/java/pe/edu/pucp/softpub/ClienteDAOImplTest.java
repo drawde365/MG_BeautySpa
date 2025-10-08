@@ -37,6 +37,7 @@ class ClienteDAOImplTest {
         cliente.setCelular("999888777");
         cliente.setRol();
         cliente.setUrlFotoPerfil("dsajdjalds");
+        cliente.setActivo(1);
         Integer idGenerado = clienteDAO.insertar(cliente);
         cliente.setIdUsuario(idGenerado);
         assertTrue(idGenerado != 0);
@@ -51,6 +52,7 @@ class ClienteDAOImplTest {
         cliente.setCelular("920478163");
         cliente.setRol();
         cliente.setUrlFotoPerfil("dsajdjalds");
+        cliente.setActivo(1);
         idGenerado = clienteDAO.insertar(cliente);
         cliente.setIdUsuario(idGenerado);
         assertTrue(idGenerado != 0);
@@ -64,6 +66,7 @@ class ClienteDAOImplTest {
         cliente.setContrasenha("8752");
         cliente.setCelular("924175268");
         cliente.setUrlFotoPerfil("dsajdjalds");
+        cliente.setActivo(1);
         cliente.setRol();
         ultimoId = clienteDAO.insertar(cliente);
         cliente.setIdUsuario(ultimoId);
@@ -94,7 +97,7 @@ class ClienteDAOImplTest {
     }
 
     @Test
-    void testEliminar() {
+    void testEliminar() { //Es igual a insertar
         System.out.println("eliminar");
         insertarClientes();
         eliminarTodo();

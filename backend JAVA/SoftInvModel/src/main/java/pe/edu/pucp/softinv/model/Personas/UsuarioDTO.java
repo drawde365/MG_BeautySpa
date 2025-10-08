@@ -12,7 +12,7 @@ public abstract class UsuarioDTO {
     private String contrasenha;
     private String celular;
     private String urlFotoPerfil;
-    protected String rol;
+    protected Integer rol;
     private ArrayList<CitaDTO> citas;
     private Integer idUsuario;
     private Integer activo;
@@ -27,7 +27,7 @@ public abstract class UsuarioDTO {
 
     public abstract void setRol();
 
-    public String getRol(){
+    public Integer getRol(){
         return rol;
     }
 

@@ -65,7 +65,7 @@ public class ComentarioDTO {
         cliente = null;
         comentario = null;
         valoracion = null;
-        producto = new  ProductoDTO();
+        producto = new ProductoDTO();
         servicio = new ServicioDTO();
     }
 

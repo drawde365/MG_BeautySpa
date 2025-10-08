@@ -4,6 +4,7 @@ import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,11 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
 
     public ProductoTipoDAOImpl() {
         super("PRODUCTOS_TIPOS");
+        this.productoTipo = null;
+    }
+
+    public ProductoTipoDAOImpl(Connection conexion) {
+        super("PRODUCTOS_TIPOS",conexion);
         this.productoTipo = null;
     }
 
@@ -34,7 +40,7 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
         this.statement.setInt(3, productoTipo.getStock_fisico());
         this.statement.setInt(4, productoTipo.getStock_despacho());
         this.statement.setString(5, productoTipo.getIngredientes());
-        this.statement.setInt(5, productoTipo.getActivo());
+        this.statement.setInt(6, productoTipo.getActivo());
     }
 
     @Override
@@ -99,6 +105,7 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
         return super.insertar();
     }
 
+    @Override
     public Integer insertar(ProductoTipoDTO productoTipo, boolean dejarConexionAbierta, boolean transaccionInciada) {
         this.productoTipo = productoTipo;
         return super.insertar(dejarConexionAbierta, transaccionInciada);
@@ -127,6 +134,7 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
         return super.eliminar();
     }
 
+    @Override
     public Integer eliminar(ProductoTipoDTO productoTipo, boolean dejarConexionAbierta, boolean transaccionInciada){
         this.productoTipo = productoTipo;
         return super.eliminar(dejarConexionAbierta, transaccionInciada);

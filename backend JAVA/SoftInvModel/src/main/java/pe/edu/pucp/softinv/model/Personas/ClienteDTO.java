@@ -15,7 +15,7 @@ public class ClienteDTO extends UsuarioDTO {
 
     @Override
     public void setRol() {
-        super.rol = "Cliente";
+        super.rol = 1;
     }
 
     public ClienteDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico,

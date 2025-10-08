@@ -4,7 +4,7 @@ import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
 public class DetallePedidoDTO {
-    private ProductoTipoDTO producto;
+    private ProductoTipoDTO productoTipo;
     private PedidoDTO pedido;
     private Integer cantidad;
     private Double subtotal;
@@ -18,11 +18,11 @@ public class DetallePedidoDTO {
     }
 
     public ProductoTipoDTO getProducto() {
-        return producto;
+        return productoTipo;
     }
 
     public void setProducto(ProductoTipoDTO producto) {
-        this.producto = producto;
+        this.productoTipo = producto;
     }
 
     public Integer getCantidad() {
@@ -42,14 +42,14 @@ public class DetallePedidoDTO {
     }
 
     public DetallePedidoDTO() {
-        producto = null;
+        productoTipo = null;
         cantidad = null;
         subtotal = null;
         pedido = null;
     }
 
     public DetallePedidoDTO(ProductoTipoDTO producto, PedidoDTO pedido, Integer cantidad, Double subtotal) {
-        this.producto = producto;
+        this.productoTipo = producto;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
         this.pedido = pedido;
