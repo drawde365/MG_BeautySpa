@@ -54,8 +54,8 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.statement.setString(5, producto.getModoUso());
         this.statement.setDouble(6, producto.getPromedioValoracion());
         this.statement.setInt(7,producto.getActivo());
-        this.statement.setDouble(9, producto.getTamanho());
-        this.statement.setInt(10, producto.getIdProducto());
+        this.statement.setDouble(8, producto.getTamanho());
+        this.statement.setInt(9, producto.getIdProducto());
     }
 
     @Override
@@ -135,4 +135,55 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         return super.eliminar(false, true);
     }
 
+    @Override
+    public ArrayList<ProductoDTO> obtenerPorPagina(Integer pag){
+        String sql = "SELECT * FROM PRODUCTOS LIMIT ?, ?";
+        return (ArrayList<ProductoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPagina,pag);
+    }
+
+    @Override
+    public ArrayList<ProductoDTO> obtenerPorNombre(String nombre){
+        String sql = "SELECT * FROM PRODUCTOS WHERE NOMBRE LIKE %?%";
+        return (ArrayList<ProductoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorNombre,nombre);
+    }
+
+    @Override
+    protected void agregarObjetoALaLista(List lista) throws SQLException {
+        this.instanciarObjetoDelResultSet();
+        lista.add(this.producto);
+    }
+    private void incluirValoresDeParametrosParaListarPorNombre(Object objetoParametros){
+        String nombre = (String) objetoParametros;
+        try {
+            this.statement.setString(1, nombre);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void incluirValoresDeParametrosParaListarPagina(Object objetoParametros){
+        Integer pag = (Integer) objetoParametros;
+        try {
+            this.statement.setInt(1, (pag-1)*10+1);
+            this.statement.setInt(2, 10);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Integer obtenerCantPaginas() {
+        Integer cant;
+        String sql = "SELECT COUNT(*) AS COUNT FROM PRODUCTOS";
+        try {
+            this.iniciarTransaccion();
+            this.colocarSQLEnStatement(sql);
+            this.ejecutarSelectEnDB();
+            cant=this.resultSet.getInt("COUNT");
+            if(cant%10==0) return cant/10;
+            return cant/10+1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

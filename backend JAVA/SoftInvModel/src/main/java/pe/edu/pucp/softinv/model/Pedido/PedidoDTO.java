@@ -76,6 +76,10 @@ public class PedidoDTO {
         return detallesPedido;
     }
 
+    public void setDetallesPedido(ArrayList<DetallePedidoDTO> detallesPedido) {
+        this.detallesPedido = detallesPedido;
+    }
+
     public void agregarDetallesPedido(DetallePedidoDTO detallePedido) {
         this.detallesPedido.add(detallePedido);
     }

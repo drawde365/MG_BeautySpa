@@ -9,4 +9,7 @@ public interface ProductoDAO {
     public ProductoDTO obtenerPorId(Integer id);
     public Integer modificar(ProductoDTO producto);
     public Integer eliminar(ProductoDTO idProducto);
+    public ArrayList<ProductoDTO> obtenerPorNombre(String nombre);
+    public ArrayList<ProductoDTO> obtenerPorPagina(Integer pag);
+    public Integer obtenerCantPaginas();
 }

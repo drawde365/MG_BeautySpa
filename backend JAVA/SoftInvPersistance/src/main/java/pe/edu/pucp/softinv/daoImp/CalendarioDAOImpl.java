@@ -4,8 +4,10 @@ import pe.edu.pucp.softinv.dao.CalendarioDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Disponibilidad.CalendarioDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
+import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -104,5 +106,21 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
     public Integer eliminar(CalendarioDTO calendario){
         this.calendario = calendario;
         return super.eliminar();
+    }
+
+    @Override
+    public ArrayList<CalendarioDTO> listarCalendarioDeEmpleado(Integer empleadoId) {
+        String sql = "SELECT EMPLEADO_ID, FECHA, CANT_LIBRE, MOTIVO FROM CALENDARIOS_EMPLEADOS WHERE EMPLEADO_ID = ?" +
+                "  AND FECHA BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
+        return (ArrayList<CalendarioDTO>)listarTodos(sql, this::incluirId, empleadoId);
+    }
+
+    private void incluirId(Object objetoParametros){
+        Integer id = (Integer) objetoParametros;
+        try {
+            this.statement.setInt(1,id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

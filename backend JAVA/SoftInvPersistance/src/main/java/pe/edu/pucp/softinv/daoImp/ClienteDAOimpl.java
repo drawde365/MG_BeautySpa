@@ -24,7 +24,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         listaColumnas.add(new Columna("CORREO_ELECTRONICO",false,false));
         listaColumnas.add(new Columna("CONTRASENHA",false,false));
         listaColumnas.add(new Columna("CELULAR",false,false));
-        listaColumnas.add(new Columna("ROL",false,false));
+        listaColumnas.add(new Columna("ROL_ID",false,false));
         listaColumnas.add(new Columna("URL_IMAGEN",false,false));
         listaColumnas.add(new Columna("ACTIVO",false,false));
     }

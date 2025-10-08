@@ -68,7 +68,7 @@ public class ProductoDAOimplTest {
     @Test
     void testModificarProducto() {
         ProductoDTO producto = insertar();
-        producto.setNombre("Crema1");
+        producto.setNombre("Crema2");
         producto.setDescripcion("Crema que funciona como bloqueador");
         int result = productoDAO.modificar(producto);
         assertEquals(1, result, "El producto debería fallar?");

@@ -40,7 +40,7 @@ public class ServicioDAOImplTest {
         int id_servicio_insertado = servicioDAO.insertar(servicio);
         servicio.setIdServicio(id_servicio_insertado);
         System.out.println(id_servicio_insertado);
-        assertEquals(1, id_servicio_insertado, "El servicio debería insertarse correctamente");
+        assertTrue(id_servicio_insertado>0, "El servicio debería insertarse correctamente");
         servicioDAO.eliminar(servicio);
     }
 

@@ -8,56 +8,45 @@ import pe.edu.pucp.softinv.model.Disponibilidad.CalendarioDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class CalendarioBO {
     private CalendarioDAO calendarioDAO;
-    private Integer ultimoEmpleadoEncontrado;
+    private EmpleadoDTO ultimoEmpleadoEncontrado;
 
     public CalendarioBO(){
         calendarioDAO = new CalendarioDAOImpl();
         ultimoEmpleadoEncontrado = null;
     }
 
-    Integer Insertar(Integer idEmpleado, Date fecha, Integer cantLibre, String motivo){
-        //MEJORAR
-
-        EmpleadoDAO empleadoDAO = new EmpleadoDAOImpl();
-        EmpleadoDTO empleadoDTO = null;
-        if (ultimoEmpleadoEncontrado != null){
-            if(ultimoEmpleadoEncontrado != idEmpleado) {
-                empleadoDTO = empleadoDAO.obtenerPorId(idEmpleado);
-                if (empleadoDTO !=null)
-                ultimoEmpleadoEncontrado = idEmpleado;
-                else return null;
-            }
-        }else{
-            empleadoDTO = empleadoDAO.obtenerPorId(idEmpleado);
-            if(empleadoDTO != null)
-                ultimoEmpleadoEncontrado = idEmpleado;
-            else return null;
-        }
-        CalendarioDTO calendarioDTO = new CalendarioDTO(empleadoDTO,fecha,cantLibre,motivo);
-
+    public Integer insertar(Integer idEmpleado, Date fecha, Integer cantLibre, String motivo){
+        EmpleadoDTO empleado = new EmpleadoDTO();
+        empleado.setIdUsuario(idEmpleado);
+        CalendarioDTO calendario = new CalendarioDTO(empleado, fecha, cantLibre, motivo);
+        return calendarioDAO.insertar(calendario);
     }
 
-    Integer Modificar(Integer idEmpleado, Date fecha, Integer cantLibre, String motivo){
-        CalendarioDTO calendarioDTO = new CalendarioDTO();
-        EmpleadoDTO empleadoDTO = new EmpleadoDTO();
-        empleadoDTO.setIdUsuario(idEmpleado);
-        calendarioDTO.setEmpleado(empleadoDTO);
-        calendarioDTO.setFecha(fecha);
-        calendarioDTO.setCantLibre(cantLibre);
-        calendarioDTO.setMotivo(motivo);
+    public Integer insertar(CalendarioDTO calendario) {
+        return calendarioDAO.insertar(calendario);
+    }
+
+    public Integer modificar(Integer idEmpleado, Date fecha, Integer cantLibre, String motivo){
+        EmpleadoDTO empleado = new EmpleadoDTO();
+        empleado.setIdUsuario(idEmpleado);
+        CalendarioDTO calendarioDTO = new CalendarioDTO(empleado, fecha, cantLibre, motivo);
         return calendarioDAO.modificar(calendarioDTO);
     }
 
-    Integer Eliminar(Integer empleadoId, Date fecha){
-        CalendarioDTO calendarioDTO = new CalendarioDTO();
-        EmpleadoDTO empleadoDTO = new EmpleadoDTO();
-        empleadoDTO.setIdUsuario(empleadoId);
-        calendarioDTO.setEmpleado(empleadoDTO);
-        calendarioDTO.setFecha(fecha);
-        return calendarioDAO.eliminar(calendarioDTO);
+    public Integer modificar(CalendarioDTO calendario) {
+        return calendarioDAO.insertar(calendario);
     }
 
+    public Integer eliminar(CalendarioDTO calendario){
+        calendario.setCantLibre(-2);
+        return calendarioDAO.modificar(calendario);
+    }
+
+    public ArrayList<CalendarioDTO> listarCalendarioDeEmpleado(Integer empleadoId) {
+        return calendarioDAO.listarCalendarioDeEmpleado(empleadoId);
+    }
 }

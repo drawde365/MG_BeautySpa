@@ -42,9 +42,7 @@ public class HorarioTrabajoDTO {
         this.empleado = empleado;
     }
 
-    public Integer getIntervalos() {
-        return intervalos;
-    }
+    public Integer getIntervalos() {return intervalos; }
 
     public void setIntervalos(Integer intervalos) {
         this.intervalos = intervalos;

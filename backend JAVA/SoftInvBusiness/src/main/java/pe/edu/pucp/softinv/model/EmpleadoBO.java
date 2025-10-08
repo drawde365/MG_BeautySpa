@@ -1,8 +1,14 @@
 package pe.edu.pucp.softinv.model;
 
+import pe.edu.pucp.softinv.dao.CitaDAO;
 import pe.edu.pucp.softinv.dao.EmpleadoDAO;
+import pe.edu.pucp.softinv.dao.ServicioEmpleadoDAO;
+import pe.edu.pucp.softinv.daoImp.CitaDAOImpl;
 import pe.edu.pucp.softinv.daoImp.EmpleadoDAOImpl;
+import pe.edu.pucp.softinv.daoImp.ServicioEmpleadoDAOImpl;
+import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
+import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.util.ArrayList;
@@ -10,36 +16,63 @@ import java.util.ArrayList;
 public class EmpleadoBO
 {
     private EmpleadoDAO empleadoDAO;
-
+    private ServicioEmpleadoDAO SXEDAO;
+    private CitaDAO citaDAO;
     public  EmpleadoBO()
     {
         empleadoDAO = new EmpleadoDAOImpl();
+        SXEDAO = new ServicioEmpleadoDAOImpl();
+        citaDAO= new CitaDAOImpl();
     }
 
-    Integer Insertar(String nombre, String Primerapellido, String Segundoapellido,String correoElectronico, String contrasenha,
-                     String celular, String urlFotoPerfil, Boolean admin){
+    public Integer insertar(String nombre, String Primerapellido, String Segundoapellido,String correoElectronico,
+                     String contrasenha,String celular, String urlFotoPerfil, Boolean admin){
         EmpleadoDTO empleadoDTO = new EmpleadoDTO(nombre,  Primerapellido,  Segundoapellido,  correoElectronico,
                  contrasenha,celular,null, admin, urlFotoPerfil,null);
         return empleadoDAO.insertar(empleadoDTO);
     }
 
-    Integer Modificar(Integer idUsuario, String nombre, String Primerapellido, String Segundoapellido,String correoElectronico,
-                      String contrasenha, String celular, String urlFotoPerfil, ArrayList<ServicioDTO> servicios, Boolean admin){
+    public Integer insertar(EmpleadoDTO empleado) {
+        return empleadoDAO.insertar(empleado);
+    }
+/*
+    Integer modificar(Integer idUsuario, String nombre, String Primerapellido, String Segundoapellido,String correoElectronico,
+                      String contrasenha, String celular, String urlFotoPerfil, ArrayList<ServicioDTO> servicios,
+                      Boolean admin){
         EmpleadoDTO empleadoDTO = new EmpleadoDTO(nombre,  Primerapellido,  Segundoapellido,  correoElectronico,
                 contrasenha,celular,idUsuario, admin, urlFotoPerfil,servicios);
         return empleadoDAO.modificar(empleadoDTO);
     }
-
-    Integer Eliminar(Integer idUsuario){
-        return empleadoDAO.eliminar(idUsuario);
+*/
+    public Integer modificar(EmpleadoDTO empleado){
+        return empleadoDAO.modificar(empleado);
     }
 
-    EmpleadoDTO ObtenerPorId(Integer idUsuario){
+    public Integer eliminar(EmpleadoDTO empleado){
+        return empleadoDAO.modificar(empleado);
+    }
+
+    public EmpleadoDTO ObtenerPorId(Integer idUsuario){
         return empleadoDAO.obtenerPorId(idUsuario);
     }
 
-    ArrayList<EmpleadoDTO> ListarTodos(){
+    public ArrayList<EmpleadoDTO> ListarTodos(){
         return empleadoDAO.listarTodos();
     }
 
+    public void agregarServicio(Integer empleadoId, Integer servicioId) {
+        SXEDAO.insertar(servicioId, empleadoId);
+    }
+
+    public ArrayList<ServicioDTO> listarServicios(Integer empleadoId) {
+        return SXEDAO.listarServiciosDeEmpleado(empleadoId);
+    }
+
+    public ArrayList<CitaDTO> listarCitas(Integer empleadoId){
+
+        UsuarioDTO empleado=new EmpleadoDTO();
+        empleado.setIdUsuario(empleadoId);
+
+        return citaDAO.listarCitasPorUsuario(empleado);
+    }
 }

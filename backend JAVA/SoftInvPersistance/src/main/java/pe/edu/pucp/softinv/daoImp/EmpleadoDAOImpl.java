@@ -53,7 +53,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         try {
             this.abrirConexion();
             String sql = this.generarSQLParaListarTodos();
-            sql += " WHERE ROL='Empleado' OR ROL = 'Admin'";
+            sql += " WHERE ROL_ID=2 OR ROL_ID = 3";
             this.colocarSQLEnStatement(sql);
             this.ejecutarSelectEnDB();
             while (this.resultSet.next()) {

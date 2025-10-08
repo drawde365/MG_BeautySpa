@@ -109,38 +109,4 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
         this.servicio=servicio;
         return super.eliminar();
     }
-
-    @Override
-    public ArrayList<EmpleadoDTO> listarEmpleadosDeServicio(Integer servicioID){
-        ArrayList<EmpleadoDTO>empleados=new ArrayList<>();
-        try {
-            String sql="SELECT u.USUARIO_ID, u.PRIMER_APELLIDO, u.SEGUNDO_APELLIDO, u.NOMBRE, u.CORREO_ELECTRONICO, u.CONTRASENHA, u.CELULAR, u.ROL, u.URL_IMAGEN u.ACTIVO FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE s.SERVICIO_ID = ? AND u.ROL = 'EMPLEADO'";
-            this.abrirConexion();
-            this.colocarSQLEnStatement(sql);
-            this.ejecutarSelectEnDB();
-            while (this.resultSet.next()) {
-                EmpleadoDTO empleado =new EmpleadoDTO();
-                empleado.setIdUsuario(resultSet.getInt("USUARIO_ID"));
-                empleado.setPrimerapellido(resultSet.getString("PRIMER_APELLIDO"));
-                empleado.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
-                empleado.setNombre(resultSet.getString("NOMBRE"));
-                empleado.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
-                empleado.setContrasenha(resultSet.getString("CONTRASENHA"));
-                empleado.setCelular(resultSet.getString("CELULAR"));
-                empleado.setRol(resultSet.getInt("ROL"));
-                empleado.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
-                empleado.setUrlFotoPerfil(resultSet.getString("ACTIVO"));
-                empleados.add(empleado);
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error al intentar listarTodos - " + ex);
-        } finally {
-            try {
-                this.cerrarConexion();
-            } catch (SQLException ex) {
-                System.err.println("Error al cerrar la conexión - " + ex);
-            }
-        }
-        return empleados;
-    }
 }

@@ -40,7 +40,7 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
         this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
-        this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
+        this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto()); //TipoProducto.Producto.Id
         this.statement.setString(3, detallePedido.getProducto().getTipo());
         this.statement.setInt(4, detallePedido.getCantidad());
         this.statement.setDouble(5, detallePedido.getSubtotal());
@@ -48,11 +48,11 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
-        this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
-        this.statement.setString(3, detallePedido.getProducto().getTipo());
-        this.statement.setInt(4, detallePedido.getCantidad());
-        this.statement.setDouble(5, detallePedido.getSubtotal());
+        this.statement.setInt(3, detallePedido.getPedido().getIdPedido());
+        this.statement.setInt(4, detallePedido.getProducto().getProducto().getIdProducto());
+        this.statement.setString(5, detallePedido.getProducto().getTipo());
+        this.statement.setInt(1, detallePedido.getCantidad());
+        this.statement.setDouble(2, detallePedido.getSubtotal());
 
     }
 
@@ -98,9 +98,8 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
         productoTipo.setProducto(producto);
         productoTipo.setTipo(this.resultSet.getString("TIPO_PRODUCTO"));
         this.detallePedido.setProducto(productoTipo);
-        this.detallePedido.setProducto(productoTipo);
         pedido.setIdPedido(resultSet.getInt("PEDIDO_ID"));
-
+        this.detallePedido.setPedido(pedido);
         this.detallePedido.setCantidad(resultSet.getInt("CANTIDAD"));
         this.detallePedido.setSubtotal(resultSet.getDouble("SUBTOTAL"));
     }

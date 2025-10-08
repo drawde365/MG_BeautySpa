@@ -1,18 +1,24 @@
 package pe.edu.pucp.softinv.model;
 
 import pe.edu.pucp.softinv.dao.ClienteDAO;
+import pe.edu.pucp.softinv.dao.PedidoDAO;
 import pe.edu.pucp.softinv.daoImp.ClienteDAOimpl;
+import pe.edu.pucp.softinv.daoImp.PedidoDAOimpl;
+import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
-public class ClienteBO {
+import java.util.ArrayList;
 
+public class ClienteBO {
+    private PedidoDAO pedidoDAO;
     private ClienteDAO clienteDAO;
 
     public ClienteBO(){
         clienteDAO = new ClienteDAOimpl();
+        pedidoDAO = new PedidoDAOimpl();
     }
 
-    public Integer Insertar(String nombre, String Primerapellido, String Segundoapellido,String correoElectronico, String contrasenha,
+    public Integer insertar(String nombre, String Primerapellido, String Segundoapellido,String correoElectronico, String contrasenha,
                             String celular, String urlFotoPerfil){
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setNombre(nombre);
@@ -27,7 +33,11 @@ public class ClienteBO {
         return clienteDAO.insertar(clienteDTO);
     }
 
-    public Integer Modificar(Integer idUsuario, String nombre, String Primerapellido, String Segundoapellido,String correoElectronico,
+    public Integer insertar(ClienteDTO cliente) {
+        return clienteDAO.insertar(cliente);
+    }
+
+    public Integer modificar(Integer idUsuario, String nombre, String Primerapellido, String Segundoapellido,String correoElectronico,
                              String contrasenha, String celular, String urlFotoPerfil){
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setIdUsuario(idUsuario);
@@ -43,14 +53,26 @@ public class ClienteBO {
         return clienteDAO.modificar(clienteDTO);
     }
 
-    public Integer Eliminar(Integer idUsuario){
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setIdUsuario(idUsuario);
-        return  clienteDAO.eliminar(clienteDTO);
+    public Integer modificar(ClienteDTO cliente) {
+        return clienteDAO.insertar(cliente);
     }
 
-    public ClienteDTO ObtenerPorId(Integer idUsuario){
+    public Integer eliminar(Integer idUsuario){
+        ClienteDTO clienteDTO = clienteDAO.obtenerPorId(idUsuario);
+        clienteDTO.setActivo(0);
+        return  clienteDAO.modificar(clienteDTO);
+    }
+
+    public Integer eliminar(ClienteDTO cliente){
+        cliente.setActivo(0);
+        return  clienteDAO.modificar(cliente);
+    }
+
+    public ClienteDTO obtenerPorId(Integer idUsuario){
         return  clienteDAO.obtenerPorId(idUsuario);
     }
 
+    public ArrayList<PedidoDTO> listarPedidosDeCliente(Integer idCliente) {
+        return pedidoDAO.listarPedidos(idCliente);
+    }
 }

@@ -15,7 +15,13 @@ public class ProductoBO {
     private ProductoDAO productoDAO;
 
     public ProductoBO() {
+
         this.productoDAO = new ProductoDAOimpl();
+
+    }
+
+    public Integer obtenerCantPaginas(){
+        return productoDAO.obtenerCantPaginas();
     }
 
     public Integer insertar(String nombre, String descripcion, Double precio, Double tamanho, String urlImagen,
@@ -29,7 +35,7 @@ public class ProductoBO {
         productoDTO.setActivo(1);
         productoDTO.setDescripcion(descripcion);
         productoDTO.setPrecio(precio);
-        //productoDTO.setTamanho(tamanho);
+        productoDTO.setTamanho(tamanho);
         productoDTO.setUrlImagen(urlImagen);
         ArrayList<ProductoTipoDTO> productosTipos = new ArrayList<>();
 
@@ -45,21 +51,42 @@ public class ProductoBO {
         return productoDAO.insertar(productoDTO);
     }
 
-    public Integer modificar(ProductoDTO productoDTO) {
-        return productoDAO.modificar(productoDTO);
+    public Integer insertar(ProductoDTO producto){
+        return productoDAO.insertar(producto);
     }
 
-    public Integer modificar(String nombre, String descripcion, Double prom_valoraciones, Double precio,
-                             Double tamanho, String urlImagen, String modoDeUso, Integer activo) {
-
-        ProductoDTO producto = new ProductoDTO();
-        producto.setNombre(nombre);
-        producto.setDescripcion(descripcion);
-        producto.setPromedioValoracion();
+    public ProductoDTO obtenerPorId(Integer idProd) {
+        return productoDAO.obtenerPorId(idProd);
     }
 
-    public ArrayList<ProductoTipoDTO> devolverTiposProductos(String nombre) {
-
-
+//desde el front se llama a obtener por id, se modifica el campo que se quiere y se llama a este metodo
+    public Integer modificar(ProductoDTO producto) {
+        return productoDAO.modificar(producto);
     }
+
+//cambia el estado a inactivo, primero desde el front llamo a obtener por id
+    public Integer eliminar(ProductoDTO producto) {
+        producto.setActivo(0);
+        return productoDAO.modificar(producto);
+    }
+
+    public ArrayList<ProductoDTO> buscarPorNombre (String nombre){
+        return productoDAO.obtenerPorNombre(nombre);
+    }
+
+    public ArrayList<ProductoDTO> obtenerPagina (Integer pagina){
+        return productoDAO.obtenerPorPagina(pagina);
+    }
+
+    public Integer cantidadPaginas() {
+        return productoDAO.obtenerCantPaginas();
+    }
+
 }
+
+//lo borra de la BD, primero desde el front llamo a obtener por id
+/*
+    public Integer eliminarBorrandolo(ProductoDTO producto) {
+        return productoDAO.eliminar(producto);
+    }
+*/

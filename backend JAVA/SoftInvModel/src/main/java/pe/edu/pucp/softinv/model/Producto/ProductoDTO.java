@@ -117,11 +117,13 @@ public class ProductoDTO {
         promedioValoracion=null;
         productosTipos = null;
         activo = null;
+        tamanho = null;
     }
 
     public ProductoDTO(Integer idProducto,String nombre,String descripcion,Double precio,
                        ArrayList<ComentarioDTO> comentarios,String modoUso,
-                       String urlImagen,Double promedioValoracion,ArrayList<ProductoTipoDTO> productosTipos, Integer activo) {
+                       String urlImagen,Double promedioValoracion,ArrayList<ProductoTipoDTO> productosTipos, Integer activo,
+                       Double tamanho) {
         this.idProducto=idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -132,5 +134,6 @@ public class ProductoDTO {
         this.promedioValoracion = promedioValoracion;
         this.productosTipos = productosTipos;
         this.activo = activo;
+        this.tamanho = tamanho;
     }
 }

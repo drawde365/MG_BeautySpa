@@ -9,6 +9,7 @@ import pe.edu.pucp.softinv.daoImp.ServicioDAOImpl;
 import pe.edu.pucp.softinv.model.Comentario.ComentarioDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
+import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.util.ArrayList;
@@ -58,10 +59,30 @@ class ComentarioDAOImplTest {
         producto.setDescripcion("Crema que funciona como bloqueador");
         producto.setPrecio(50.25);
         producto.setModoUso("Producto que se usa asi");
-        producto.setPromedioValoracion(4.2);
         producto.setUrlImagen("hola.jpg");
+        producto.setPromedioValoracion(5.0);
         producto.setActivo(1);
         producto.setTamanho(2.5);
+
+        ProductoTipoDTO productoTipo = new ProductoTipoDTO();
+        productoTipo.setTipo("Grasa");
+        productoTipo.setStock_despacho(12);
+        productoTipo.setStock_fisico(120481038);
+        productoTipo.setIngredientes("Hola mundo");
+        productoTipo.setActivo(1);
+        ProductoTipoDTO productoTipo2 = new ProductoTipoDTO();
+        productoTipo2.setTipo("Suave");
+        productoTipo2.setStock_despacho(10);
+        productoTipo2.setStock_fisico(3543);
+        productoTipo2.setIngredientes("Adios mundo");
+        productoTipo2.setActivo(1);
+        ArrayList<ProductoTipoDTO> productos = new ArrayList<>();
+        productos.add(productoTipo);
+        productos.add(productoTipo2);
+        producto.setProductosTipos(productos);
+        Integer result = productoDAO.insertar(producto);
+        producto.setIdProducto(result);
+        assertNotEquals(0, result, "El producto debería insertarse correctamente");
         return producto;
     }
 
@@ -142,6 +163,8 @@ class ComentarioDAOImplTest {
         ClienteDTO cliente = new ClienteDTO();
         cliente.setIdUsuario(id_Cliente);
         clienteDAO.eliminar(cliente);
+        productoDAO.eliminar(comentarios.get(1).getProducto());
+        servicioDAO.eliminar(comentarios.get(2).getServicio());
         comentarios.clear();
     }
 
@@ -176,7 +199,7 @@ class ComentarioDAOImplTest {
         for (ComentarioDTO comentario : listaCom) {
             System.out.printf("%d   %s    %s   %d    %d\n",comentario.getIdComentario(),
                     comentario.getCliente().getNombre(),comentario.getCliente().getPrimerapellido(),comentario.getProducto().getIdProducto(),comentario.getServicio().getIdServicio());
-        }// Qe fue?
+        }
         eliminarTodos();
     }
 }

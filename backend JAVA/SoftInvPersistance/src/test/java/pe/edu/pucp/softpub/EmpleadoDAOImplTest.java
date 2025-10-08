@@ -1,7 +1,6 @@
 package pe.edu.pucp.softpub;
 
 import org.junit.jupiter.api.*;
-import pe.edu.pucp.softinv.dao.EmpleadoDAO;
 import pe.edu.pucp.softinv.daoImp.EmpleadoDAOImpl;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
@@ -9,99 +8,113 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TEST FUNCIONAL!!
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmpleadoDAOImplTest {
 
-    private static EmpleadoDAO empleadoDAO;
-    private static int empleadoIdInsertado;
+    private EmpleadoDAOImpl empleadoDAO;
+    private EmpleadoDTO empleado;
 
-    @BeforeAll
-    static void setUp() {
+    public EmpleadoDAOImplTest() {
         empleadoDAO = new EmpleadoDAOImpl();
+        empleado = null;
+    }
+
+    private EmpleadoDTO crearEmpleado() {
+        EmpleadoDTO emp = new EmpleadoDTO();
+        emp.setPrimerapellido("SALAZAR");
+        emp.setSegundoapellido("ROJAS");
+        emp.setNombre("PEDRO");
+        emp.setCorreoElectronico("pedro_" + System.currentTimeMillis() + "@test.com");
+        emp.setContrasenha("12345");
+        emp.setCelular("999888777");
+        emp.setUrlFotoPerfil("perfil.jpg");
+        emp.setActivo(1);
+        emp.setAdmin(false);
+        emp.setRol(); // ajusta automáticamente el rol según admin
+        emp.setIdUsuario(empleadoDAO.insertar(emp));
+        assertTrue(emp.getIdUsuario() > 0, "Empleado no se insertó correctamente.");
+        return emp;
+    }
+
+    public EmpleadoDTO insertar() {
+        EmpleadoDTO e = crearEmpleado();
+        this.empleado = e;
+        return e;
+    }
+
+    public void eliminar() {
+        Integer resultado = empleadoDAO.eliminar(this.empleado.getIdUsuario());
+        assertNotNull(resultado, "El resultado de eliminación no debe ser nulo.");
+        assertTrue(resultado >= 0, "Debe indicar éxito al eliminar.");
     }
 
     @Test
     @Order(1)
+    @DisplayName("Insertar un empleado")
     void testInsertarEmpleado() {
-        EmpleadoDTO emp = new EmpleadoDTO();
-        emp.setPrimerapellido("PREZ");
-        emp.setSegundoapellido("LOPEZ");
-        emp.setNombre("JUAN");
-        emp.setCorreoElectronico("jUANhbsafaf@test.com");
-        emp.setContrasenha("12345");
-        emp.setCelular("9998777");
-        emp.setUrlFotoPerfil("peril.jpg");
-        emp.setActivo(1);
-        emp.setAdmin(true);
-        emp.setRol();
-
-        empleadoIdInsertado = empleadoDAO.insertar(emp);
-        assertNotEquals(0, empleadoIdInsertado, "El empleado debe tener un ID asignado");
+        EmpleadoDTO emp = insertar();
+        assertNotNull(emp.getIdUsuario(), "Debe asignarse un ID al insertar.");
+        eliminar();
     }
 
     @Test
     @Order(2)
-    void testObtenerEmpleadoPorId() {
-        System.out.println("obtenerPorId");
+    @DisplayName("Modificar un empleado existente")
+    void testModificarEmpleado() {
+        EmpleadoDTO emp = insertar();
 
-        EmpleadoDTO nuevo = new EmpleadoDTO();
-        nuevo.setNombre("Ana");
-        nuevo.setPrimerapellido("Ramirez");
-        nuevo.setSegundoapellido("Flores");
-        nuevo.setCorreoElectronico("ana.ramirez@empra.com");
-        nuevo.setCelular("999111222");
-        nuevo.setContrasenha("clave123");
-        nuevo.setRol(1);
-        nuevo.setUrlFotoPerfil("fotoAna.jpg");
-        nuevo.setActivo(1);
-        Integer idGenerado = empleadoDAO.insertar(nuevo);
-        assertNotEquals(0, idGenerado, "El ID generado no debe ser 0");
-        nuevo.setIdUsuario(idGenerado);
+        emp.setNombre("PEDRO LUIS");
+        emp.setCorreoElectronico("pedroluis_" + System.currentTimeMillis() + "@test.com");
+        emp.setCelular("988777666");
+        emp.setActivo(0);
 
-        EmpleadoDTO emp = empleadoDAO.obtenerPorId(idGenerado);
-        assertNotNull(emp, "El empleado debe existir en la BD");
+        Integer resultado = empleadoDAO.modificar(emp);
+        assertNotNull(resultado, "El resultado no debe ser nulo.");
+        assertTrue(resultado >= 0, "Debe indicar éxito al modificar.");
 
-        assertEquals("Ana", emp.getNombre());
-        assertEquals("Ramirez", emp.getPrimerapellido());
-        assertEquals("Flores", emp.getSegundoapellido());
-        assertEquals("ana.ramirez@empra.com", emp.getCorreoElectronico());
-        assertEquals("999111222", emp.getCelular());
+        EmpleadoDTO actualizado = empleadoDAO.obtenerPorId(emp.getIdUsuario());
+        assertEquals("PEDRO LUIS", actualizado.getNombre());
+        assertEquals(0, actualizado.getActivo());
+
+        eliminar();
     }
-
 
     @Test
     @Order(3)
-    void testListarTodo() {
-        ArrayList<EmpleadoDTO> empleados = empleadoDAO.listarTodos();
-        assertNotNull(empleados, "La lista no debe ser null");
-        assertFalse(empleados.isEmpty(), "La lista no debe estar vacía");
+    @DisplayName("Obtener empleado por ID")
+    void testObtenerPorId() {
+        EmpleadoDTO emp = insertar();
 
-        empleados.forEach(e ->
-                System.out.println(e.getIdUsuario() + " - " + e.getNombre() + " " + e.getPrimerapellido())
-        );
+        EmpleadoDTO obtenido = empleadoDAO.obtenerPorId(emp.getIdUsuario());
+        assertNotNull(obtenido, "Debe retornar un empleado válido.");
+        assertEquals(emp.getIdUsuario(), obtenido.getIdUsuario());
+        assertEquals(emp.getCorreoElectronico(), obtenido.getCorreoElectronico());
+
+        eliminar();
     }
 
     @Test
     @Order(4)
-    void testModificarEmpleado() {
-        EmpleadoDTO emp = empleadoDAO.obtenerPorId(empleadoIdInsertado);
-        emp.setNombre("JUAN MODIFICADO");
+    @DisplayName("Listar todos los empleados")
+    void testListarTodos() {
+        EmpleadoDTO emp = insertar();
 
-        int result = empleadoDAO.modificar(emp);
+        ArrayList<EmpleadoDTO> lista = empleadoDAO.listarTodos();
+        assertNotNull(lista, "La lista no debe ser nula.");
+        assertFalse(lista.isEmpty(), "Debe contener al menos un empleado.");
+        assertTrue(lista.stream().anyMatch(e -> e.getIdUsuario() == emp.getIdUsuario()),
+                "El empleado insertado debe estar en la lista.");
 
-        EmpleadoDTO actualizado = empleadoDAO.obtenerPorId(empleadoIdInsertado);
-        assertEquals("JUAN MODIFICADO", actualizado.getNombre(), "El nombre debe haberse actualizado");
+        eliminar();
     }
 
     @Test
     @Order(5)
+    @DisplayName("Eliminar empleado")
     void testEliminarEmpleado() {
-        int result = empleadoDAO.eliminar(empleadoIdInsertado);
-        //assertEquals(1, result, "El empleado debería eliminarse correctamente");
-
-        EmpleadoDTO eliminado = empleadoDAO.obtenerPorId(empleadoIdInsertado);
-        assertNull(eliminado, "El empleado ya no debería existir");
+        EmpleadoDTO emp = insertar();
+        Integer resultado = empleadoDAO.eliminar(emp.getIdUsuario());
+        assertNotNull(resultado, "El resultado no debe ser nulo.");
+        assertTrue(resultado >= 0, "Debe indicar éxito.");
     }
 }

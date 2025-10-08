@@ -10,5 +10,4 @@ public interface ServicioDAO {
     ServicioDTO obtenerPorId(Integer id);
     Integer modificar(ServicioDTO servicio);
     Integer eliminar(ServicioDTO servicio);
-    ArrayList<EmpleadoDTO> listarEmpleadosDeServicio(Integer servicioID);
 }
