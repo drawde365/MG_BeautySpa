@@ -121,23 +121,14 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     @Override
     public Integer insertar(PedidoDTO pedido) {
-        try {
-            this.pedido = pedido;
-            Integer id=super.insertar();
-            for (DetallePedidoDTO detalle : pedido.getDetallesPedido()) {
-                String sql = "INSERT INTO DETALLES_PEDIDOS (PEDIDO_ID, PRODUCTO_ID, TIPO_PRODUCTO, CANTIDAD, SUBTOTAL) " +
-                        "VALUES (?,?,?,?,?)";
-                this.statement = this.conexion.prepareCall(sql);
-                this.statement.setInt(1, detalle.getPedido().getIdPedido());
-                this.statement.setInt(2, detalle.getProducto().getProducto().getIdProducto());
-                this.statement.setString(3, detalle.getProducto().getTipo());
-                this.statement.setInt(4, detalle.getCantidad());
-                this.statement.setDouble(5, detalle.getSubtotal());
-                this.statement.executeUpdate();
-            }
-            return id;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        this.pedido = pedido;
+        Integer resultado = super.insertar(true,false);
+        this.pedido.setIdPedido(resultado);
+        ArrayList<DetallePedidoDTO> detallesPedido = this.pedido.getDetallesPedido();
+        DetallePedidoDAO detalleDAO = new DetallePedidoDAOImpl(this.conexion);
+        for(DetallePedidoDTO detallePedido : detallesPedido){
+            detallePedido.setPedido(this.pedido);
+            detalleDAO.insertar(detallePedido,true,true);
         }
     }
 
