@@ -33,8 +33,8 @@ public class EmpleadoDTO extends UsuarioDTO{
     }
 
     public EmpleadoDTO(String nombre, String PrimerApellido, String SegundoApellido, String correoElectronico,
-                       String contrasenha, String celular,Integer idUsuario, Boolean admin,String urlFotoPerfil,ArrayList<ServicioDTO> servicios, Integer activo) {
-        super(nombre, PrimerApellido, SegundoApellido, correoElectronico, contrasenha, celular, urlFotoPerfil, idUsuario,activo);
+                       String contrasenha, String celular,Integer idUsuario, Boolean admin,String urlFotoPerfil,ArrayList<ServicioDTO> servicios) {
+        super(nombre, PrimerApellido, SegundoApellido, correoElectronico, contrasenha, celular, urlFotoPerfil, idUsuario);
         this.admin=admin;
         this.servicios=servicios;
         setRol();

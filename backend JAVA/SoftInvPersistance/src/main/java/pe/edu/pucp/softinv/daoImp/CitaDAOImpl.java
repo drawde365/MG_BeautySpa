@@ -5,6 +5,7 @@ import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
+import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.SQLException;
@@ -79,21 +80,56 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
     }
 
     @Override
-    public ArrayList<CitaDTO> listarCitasPorPeriodo(Date inicio, Date fin) {
-        String sql = "SELECT * FROM CITAS WHERE FECHA >= ? AND FECHA <= ?";
-        ArrayList<Date> lista = new ArrayList<>();
-        lista.add(inicio);
-        lista.add(fin);
-        return (ArrayList<CitaDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorFechas,lista);
+    public ArrayList<CitaDTO> listarCitasPorUsuario(UsuarioDTO usuario){
+        String filtro = "";
+        if(usuario.getRol()==1) filtro="CLIENTE_ID";
+        else if(usuario.getRol()==3 || usuario.getRol()==2) filtro="EMPLEADO_ID";
+        String sql = """
+                SELECT
+                    c.CITA_ID,
+                
+                    cli.USUARIO_ID AS Cliente_ID,
+                    cli.NOMBRE AS Cliente_Nombre,
+                    cli.PRIMER_APELLIDO AS Cliente_Primer_Apellido,
+                    cli.SEGUNDO_APELLIDO AS Cliente_Segundo_Apellido,
+                    cli.CORREO_ELECTRONICO AS Cliente_Correo,
+                    cli.CELULAR AS Cliente_Celular,
+                
+                    emp.USUARIO_ID AS Empleado_ID,
+                    emp.NOMBRE AS Empleado_Nombre,
+                    emp.PRIMER_APELLIDO AS Empleado_Primer_Apellido,
+                    emp.SEGUNDO_APELLIDO AS Empleado_Segundo_Apellido,
+                    emp.CORREO_ELECTRONICO AS Empleado_Correo,
+                    emp.CELULAR AS Empleado_Celular,
+                
+                    s.SERVICIO_ID AS Servicio_ID,
+                    s.NOMBRE AS Servicio_Nombre,
+                    s.TIPO AS Servicio_Tipo,
+                    s.PRECIO AS Servicio_Precio,
+                    s.DESCRIPCION AS Servicio_Descripcion,
+                    s.DURACION_HORAS AS Servicio_Duracion,
+                
+                    c.FECHA,
+                    c.HORA_INICIO,
+                    c.HORA_FIN,
+                    c.IGV,
+                    c.ACTIVO,
+                    c.CODTR
+                
+                FROM CITAS c
+                INNER JOIN USUARIOS cli ON c.CLIENTE_ID = cli.USUARIO_ID
+                INNER JOIN USUARIOS emp ON c.EMPLEADO_ID = emp.USUARIO_ID
+                INNER JOIN SERVICIOS s ON c.SERVICIO_ID = s.SERVICIO_ID
+                WHERE c.%s = ?
+                  AND c.FECHA >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                ORDER BY c.FECHA DESC;
+        """.formatted(filtro);
+        return (ArrayList<CitaDTO>) super.listarTodos(sql,this::incluirParametrosParaListarPorUsuario, usuario.getIdUsuario());
     }
 
-    //public ArrayList<CitaDTO> listarCitas;
-
-    private void incluirValoresDeParametrosParaListarPorFechas(Object objetoParametros){
-        ArrayList<Date> lista = (ArrayList<Date>) objetoParametros;
+    private void incluirParametrosParaListarPorUsuario(Object objetoParametros) {
         try {
-            this.statement.setDate(1, (java.sql.Date) lista.get(0));
-            this.statement.setDate(2, (java.sql.Date) lista.get(1));
+            this.statement.setInt(1,(Integer) objetoParametros);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -102,27 +138,57 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
     @Override
     protected void instanciarObjetoDelResultSet() throws SQLException {
         this.cita = new CitaDTO();
-        CitaDTO cita = new CitaDTO();
-        EmpleadoDTO empleado = new EmpleadoDTO();
-        ClienteDTO cliente = new ClienteDTO();
+        EmpleadoDTO empleado = this.instanciarEmpleadoDelResultSet();
+        ClienteDTO cliente = this.instanciarClienteDelResultSet();
         ServicioDTO servicio = new ServicioDTO();
 
         cita.setId(resultSet.getInt("CITA_ID"));
-        empleado.setIdUsuario(resultSet.getInt("EMPLEADO_ID")); ;
+        
         cita.setEmpleado(empleado);
-        cliente.setIdUsuario(resultSet.getInt("CLIENTE_ID"));
+
         cita.setCliente(cliente);
-        servicio.setIdServicio(resultSet.getInt("SERVICIO_ID"));
+
         cita.setServicio(servicio);
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Se necesita el contenido servicio y empleado
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         cita.setFecha(resultSet.getDate("FECHA"));
         cita.setHoraIni(resultSet.getTime("HORA_INICIO"));
         cita.setHoraFin(resultSet.getTime("HORA_FIN"));
         cita.setActivo(resultSet.getInt("ACTIVO"));
         cita.setIgv(resultSet.getDouble("IGV"));
         cita.setCodigoTransaccion(resultSet.getString("CODTR"));
+    }
+
+    private EmpleadoDTO instanciarEmpleadoDelResultSet() throws SQLException {
+        EmpleadoDTO empleado = new EmpleadoDTO();
+        empleado.setIdUsuario(resultSet.getInt("Empleado_ID"));
+        empleado.setNombre(resultSet.getString("Empleado_Nombre"));
+        empleado.setPrimerapellido(resultSet.getString("Empleado_Primer_Apellido"));
+        empleado.setSegundoapellido(resultSet.getString("Empleado_Segundo_Apellido"));
+        empleado.setCorreoElectronico(resultSet.getString("Empleado_Correo"));
+        empleado.setCelular(resultSet.getString("Empleado_Celular"));
+        return empleado;
+    }
+
+    private ClienteDTO instanciarClienteDelResultSet() throws SQLException {
+        ClienteDTO cliente = new ClienteDTO();
+        cliente.setIdUsuario(resultSet.getInt("Cliente_ID"));
+        cliente.setNombre(resultSet.getString("Cliente_Nombre"));
+        cliente.setPrimerapellido(resultSet.getString("Cliente_Primer_Apellido"));
+        cliente.setSegundoapellido(resultSet.getString("Cliente_Segundo_Apellido"));
+        cliente.setCorreoElectronico(resultSet.getString("Cliente_Correo"));
+        cliente.setCelular(resultSet.getString("Cliente_Celular"));
+        return cliente;
+    }
+
+    private ServicioDTO instanciarServicioDelResultSet() throws SQLException {
+        ServicioDTO servicio = new ServicioDTO();
+        servicio.setIdServicio(resultSet.getInt("Servicio_ID"));
+        servicio.setNombre(resultSet.getString("Servicio_Nombre"));
+        servicio.setTipo(resultSet.getString("Servicio_Tipo"));
+        servicio.setDescripcion(resultSet.getString("Servicio_Descripcion"));
+        servicio.setPrecio(resultSet.getDouble("Servicio_Precio"));
+        servicio.setDuracionHora(resultSet.getInt("Servicio_Duracion"));
+        return servicio;
     }
 
     @Override

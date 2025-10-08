@@ -15,12 +15,14 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
 
     public ProductoTipoDAOImpl() {
         super("PRODUCTOS_TIPOS");
+        this.retornarLlavePrimaria = true;
         this.productoTipo = null;
     }
 
     public ProductoTipoDAOImpl(Connection conexion) {
         super("PRODUCTOS_TIPOS",conexion);
         this.productoTipo = null;
+        this.retornarLlavePrimaria=false;
     }
 
     @Override

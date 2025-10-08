@@ -27,6 +27,7 @@ public class ProductoDAOimplTest {
         producto.setUrlImagen("hola.jpg");
         producto.setPromedioValoracion(5.0);
         producto.setActivo(1);
+        producto.setTamanho(2.5);
 
         ProductoTipoDTO productoTipo = new ProductoTipoDTO();
         productoTipo.setTipo("Grasa");

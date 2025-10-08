@@ -61,6 +61,7 @@ class ComentarioDAOImplTest {
         producto.setPromedioValoracion(4.2);
         producto.setUrlImagen("hola.jpg");
         producto.setActivo(1);
+        producto.setTamanho(2.5);
         return producto;
     }
 

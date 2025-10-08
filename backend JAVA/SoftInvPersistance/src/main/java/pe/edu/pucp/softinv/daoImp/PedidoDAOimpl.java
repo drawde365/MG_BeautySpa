@@ -1,6 +1,7 @@
 package pe.edu.pucp.softinv.daoImp;
 
 import pe.edu.pucp.softinv.dao.ClienteDAO;
+import pe.edu.pucp.softinv.dao.DetallePedidoDAO;
 import pe.edu.pucp.softinv.dao.PedidoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
@@ -91,6 +92,11 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     @Override
     protected void instanciarObjetoDelResultSet() throws SQLException {
+        int idPed = resultSet.getInt("PEDIDO_ID");
+        if(this.pedido.getIdPedido()!=idPed){
+            this.pedido = new PedidoDTO();
+            this.pedido.setIdPedido(idPed);
+        }
         ClienteDTO cliente = new ClienteDTO();
         cliente.setIdUsuario(this.resultSet.getInt("CLIENTE_ID"));
         pedido = new PedidoDTO();
@@ -130,6 +136,12 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
             detallePedido.setPedido(this.pedido);
             detalleDAO.insertar(detallePedido,true,true);
         }
+        try {
+            this.cerrarConexion();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return resultado;
     }
 
     @Override
@@ -149,12 +161,58 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     @Override
     public Integer eliminar(PedidoDTO pedido) {
         this.pedido = pedido;
-        return super.eliminar();
+        try {
+            this.iniciarTransaccion();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        DetallePedidoDAO detallePedidoDAO = new DetallePedidoDAOImpl(this.conexion);
+        ArrayList<DetallePedidoDTO> detallesPedido = this.pedido.getDetallesPedido();
+        for(DetallePedidoDTO detalle :  detallesPedido)
+            detallePedidoDAO.eliminar(detalle,true,true);
+
+        return super.eliminar(false,true);
     }
 
     @Override
     public ArrayList<PedidoDTO> listarPedidos(Integer idCliente) {
-        String sql = "SELECT * FROM PEDIDOS WHERE CLIENTE_ID = ?";
+        String sql = """
+    SELECT 
+        p.PEDIDO_ID,
+        p.CLIENTE_ID,
+
+        cli.NOMBRE AS Cliente_Nombre,
+        cli.PRIMER_APELLIDO AS Cliente_Primer_Apellido,
+        cli.SEGUNDO_APELLIDO AS Cliente_Segundo_Apellido,
+        cli.CORREO_ELECTRONICO AS Cliente_Correo,
+        cli.CELULAR AS Cliente_Celular,
+
+        p.FECHA_PAGO,
+        p.FECHA_LISTA_PARA_RECOGER,
+        p.FECHA_RECOGO,
+        p.TOTAL,
+        p.IGV,
+        p.ESTADO,
+        p.CODTR,
+
+        dp.DETALLE_ID,
+        dp.PRODUCTO_ID,
+        pr.NOMBRE AS Producto_Nombre,
+        pr.DESCRIPCION AS Producto_Descripcion,
+        pr.PRECIO AS Producto_Precio,
+        dp.CANTIDAD,
+        dp.SUBTOTAL
+
+    FROM PEDIDOS p
+    INNER JOIN USUARIOS cli ON p.CLIENTE_ID = cli.USUARIO_ID
+    INNER JOIN DETALLE_PEDIDO dp ON p.PEDIDO_ID = dp.PEDIDO_ID
+    INNER JOIN PRODUCTOS pr ON dp.PRODUCTO_ID = pr.PRODUCTO_ID
+    WHERE p.CLIENTE_ID = ?
+      AND p.FECHA >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+    ORDER BY p.FECHA DESC, dp.DETALLE_ID ASC;
+""";
+        this.pedido = new PedidoDTO();
+        this.pedido.setIdPedido(-1);
         return (ArrayList<PedidoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idCliente);
     }
 

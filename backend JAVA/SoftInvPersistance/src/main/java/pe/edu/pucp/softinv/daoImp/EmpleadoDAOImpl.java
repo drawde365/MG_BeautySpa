@@ -81,7 +81,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         this.listaColumnas.add(new Columna("CORREO_ELECTRONICO", false, false));
         this.listaColumnas.add(new Columna("CONTRASENHA",       false, false));
         this.listaColumnas.add(new Columna("CELULAR",          false, false));
-        this.listaColumnas.add(new Columna("ROL",              false, false));
+        this.listaColumnas.add(new Columna("ROL_ID",              false, false));
         this.listaColumnas.add(new Columna("URL_IMAGEN",       false, false));
         this.listaColumnas.add(new Columna("ACTIVO",       false, false));
     }
@@ -156,7 +156,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         e.setUrlFotoPerfil(rs.getString("URL_IMAGEN"));
         e.setActivo(rs.getInt("ACTIVO"));
         // Derivar admin/rol a partir de la columna ROL
-        String rolDb = rs.getString("ROL");
+        String rolDb = rs.getString("ROL_ID");
         boolean isAdmin = rolDb != null && rolDb.equalsIgnoreCase("ADMIN");
         e.setAdmin(isAdmin);
         e.setRol(); // ajusta el string de rol en el DTO según admin

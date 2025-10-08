@@ -1,6 +1,5 @@
 package pe.edu.pucp.softinv.daoImp;
 
-import pe.edu.pucp.softinv.dao.ComentarioDAO;
 import pe.edu.pucp.softinv.dao.DetallePedidoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
@@ -8,6 +7,7 @@ import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,13 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     public DetallePedidoDAOImpl() {
         super("DETALLES_PEDIDOS");
         this.detallePedido = null;
+        this.retornarLlavePrimaria=false;
+    }
+
+    public DetallePedidoDAOImpl(Connection c) {
+        super("DETALLES_PEDIDOS",c);
+        this.detallePedido = null;
+        this.retornarLlavePrimaria=false;
     }
 
     @Override
@@ -64,20 +71,20 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     }
 
     private void incluirValoresDeParametrosParaListarPorPedido(Object objetoParametros){
-        ProductoDTO producto = (ProductoDTO) objetoParametros;
+        PedidoDTO pedido = (PedidoDTO) objetoParametros;
         try {
-            this.statement.setInt(1,producto.getIdProducto());
+            this.statement.setInt(1,pedido.getIdPedido());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public ArrayList<ProductoTipoDTO> obtenerDetallesPedidosId(Integer idPedido) {
+    public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
         String sql = "SELECT * FROM DETALLES_PEDIDOS WHERE PEDIDO_ID = ?";
-        DetallePedidoDTO detallePedido = new DetallePedidoDTO();
-        detallePedido.getPedido().setIdPedido(idPedido);
-        return (ArrayList<ProductoTipoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorPedido,detallePedido);
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setIdPedido(idPedido);
+        return (ArrayList<DetallePedidoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorPedido,pedido);
     }
 
     @Override
@@ -111,23 +118,46 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
 
     @Override
     public Integer insertar(DetallePedidoDTO detallePedido) {
-
+        this.detallePedido =  detallePedido;
+        return super.insertar();
     }
+
+    @Override
+    public Integer insertar(DetallePedidoDTO detallePedido,boolean dejarConexionAbierta, boolean transaccionInciada){
+        this.detallePedido =  detallePedido;
+        return super.insertar(dejarConexionAbierta,transaccionInciada);
+    }
+
     @Override
     public DetallePedidoDTO obtener(Integer idPedido, Integer idProducto, String tipoProducto){
-
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setIdPedido(idPedido);
+        ProductoTipoDTO productoTipo = new ProductoTipoDTO();
+        productoTipo.setTipo(tipoProducto);
+        ProductoDTO producto = new ProductoDTO();
+        producto.setIdProducto(idProducto);
+        productoTipo.setProducto(producto);
+        this.detallePedido.setPedido(pedido);
+        this.detallePedido.setProducto(productoTipo);
+        super.obtenerPorId();
+        return detallePedido;
     }
+    
     @Override
     public Integer modificar(DetallePedidoDTO detallePedido){
-
+        this.detallePedido =  detallePedido;
+        return super.modificar();
     }
+    
     @Override
     public Integer eliminar(DetallePedidoDTO detallePedido){
-
+        this.detallePedido =  detallePedido;
+        return super.eliminar();
     }
+
     @Override
-    public ArrayList<DetallePedidoDTO> obtenerProductoId(Integer idPedido, Integer idProducto, String tipoProducto){
-
+    public Integer eliminar(DetallePedidoDTO detallePedido,boolean dejarConexionAbierta, boolean transaccionInciada){
+        this.detallePedido = detallePedido;
+        return super.eliminar(dejarConexionAbierta,transaccionInciada);
     }
-
 }

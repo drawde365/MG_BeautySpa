@@ -16,6 +16,16 @@ public class ProductoDTO {
     private ArrayList<ProductoTipoDTO> productosTipos;
     private Integer activo;
 
+    private Double tamanho;
+
+
+    public Double getTamanho() {
+        return tamanho;
+    }
+    public void setTamanho(Double tamaño) {
+        this.tamanho = tamaño;
+    }
+
     public Integer getActivo() {
         return activo;
     }

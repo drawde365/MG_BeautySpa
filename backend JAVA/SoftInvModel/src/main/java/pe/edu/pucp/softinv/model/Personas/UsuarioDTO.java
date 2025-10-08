@@ -65,7 +65,7 @@ public abstract class UsuarioDTO {
         activo=null;
     }
 
-    public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil,Integer idUsuario, Integer activo) {
+    public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil,Integer idUsuario) {
         this.nombre = nombre;
         this.Primerapellido = PrimerApellido;
         this.Segundoapellido = SegundoApellido;
@@ -74,7 +74,7 @@ public abstract class UsuarioDTO {
         this.celular = celular;
         this.urlFotoPerfil = urlFotoPerfil;
         this.idUsuario = idUsuario;
-        this.activo = activo;
+        this.activo = 1;
     }
 
     public String getPrimerapellido() {

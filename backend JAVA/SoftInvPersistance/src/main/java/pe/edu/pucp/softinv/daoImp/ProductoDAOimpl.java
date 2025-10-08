@@ -30,6 +30,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.listaColumnas.add(new Columna("MODO_DE_USO", false, false));
         this.listaColumnas.add(new Columna("PROM_VALORACIONES", false, false));
         this.listaColumnas.add(new Columna("ACTIVO", false, false));
+        this.listaColumnas.add(new Columna("TAMANHO", false, false));
     }
 
     @Override
@@ -41,6 +42,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.statement.setString(5, producto.getModoUso());
         this.statement.setDouble(6, producto.getPromedioValoracion());
         this.statement.setInt(7,producto.getActivo());
+        this.statement.setDouble(8, producto.getTamanho());
     }
 
     @Override
@@ -52,7 +54,8 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.statement.setString(5, producto.getModoUso());
         this.statement.setDouble(6, producto.getPromedioValoracion());
         this.statement.setInt(7,producto.getActivo());
-        this.statement.setInt(8, producto.getIdProducto());
+        this.statement.setDouble(9, producto.getTamanho());
+        this.statement.setInt(10, producto.getIdProducto());
     }
 
     @Override
@@ -75,6 +78,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.producto.setUrlImagen(this.resultSet.getString("URL_IMAGEN"));
         this.producto.setModoUso(this.resultSet.getString("MODO_DE_USO"));
         this.producto.setActivo(this.resultSet.getInt("ACTIVO"));
+        this.producto.setTamanho(this.resultSet.getDouble("TAMANHO"));
     }
 
     @Override
@@ -82,17 +86,15 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.producto = null;
     }
 
-
-
     @Override
     public Integer insertar(ProductoDTO producto) {
         this.producto = producto;
         Integer resultado = super.insertar(true,false);
-        producto.setIdProducto(resultado);
+        this.producto.setIdProducto(resultado);
         ProductoTipoDAO productoTipoDAO = new ProductoTipoDAOImpl(this.conexion);
-        ArrayList<ProductoTipoDTO> productos = producto.getProductosTipos();
+        ArrayList<ProductoTipoDTO> productos = this.producto.getProductosTipos();
         for(ProductoTipoDTO prod : productos){
-            prod.setProducto(producto);
+            prod.setProducto(this.producto);
             productoTipoDAO.insertar(prod,true,true);
         }
         try {
@@ -120,7 +122,11 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
     @Override
     public Integer eliminar(ProductoDTO producto) {
         this.producto = producto;
-        this.abrirConexion();
+        try {
+            this.iniciarTransaccion();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         ProductoTipoDAO productoTipoDAO = new ProductoTipoDAOImpl(this.conexion);
         ArrayList<ProductoTipoDTO> productos = producto.getProductosTipos();
         for(ProductoTipoDTO prod : productos)
