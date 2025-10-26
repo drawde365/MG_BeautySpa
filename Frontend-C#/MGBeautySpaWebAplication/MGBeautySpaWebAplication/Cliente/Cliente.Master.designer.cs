@@ -11,7 +11,7 @@ namespace MGBeautySpaWebAplication
 {
 
 
-    public partial class Cliente
+    public partial class ClienteMaster
     {
 
         /// <summary>

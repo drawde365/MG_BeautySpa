@@ -212,6 +212,7 @@
     </Compile>
     <Compile Include="Cliente\Cliente.Master.cs">
       <DependentUpon>Cliente.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cliente\Cliente.Master.designer.cs">
       <DependentUpon>Cliente.Master</DependentUpon>
