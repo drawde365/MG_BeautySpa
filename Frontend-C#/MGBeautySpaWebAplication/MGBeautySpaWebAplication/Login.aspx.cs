@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MGBeautySpaWebAplication.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -43,7 +44,7 @@ namespace MGBeautySpaWebAplication
                     switch (usuario.Rol)
                     {
                         case "Administrador":
-                            Response.Redirect("~/Admin/InicioAdmin.aspx");
+                            Response.Redirect("~/Admin/PanelDeControl.aspx");
                             break;
                         case "Empleado":
                             Response.Redirect("~/Empleado/MisCitas.aspx");
@@ -69,33 +70,6 @@ namespace MGBeautySpaWebAplication
 
             // Redirige al catálogo o página principal del cliente
             Response.Redirect("~/Cliente/InicioCliente.aspx");
-        }
-    }
-
-    // Clase modelo simple para prueba (luego la reemplazas por tu DAO real)
-    public class UsuarioDTO
-    {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Rol { get; set; }
-    }
-
-    // Simulación de acceso a datos
-    public static class UsuarioDAO
-    {
-        public static UsuarioDTO ValidarLogin(string correo, string contrasena)
-        {
-            // ⚠️ Ejemplo de prueba — luego conectarás con tu backend o base de datos
-            if (correo == "admin@gmail.com" && contrasena == "123")
-                return new UsuarioDTO { Id = 1, Nombre = "Mirelly Garcia", Rol = "Administrador" };
-
-            if (correo == "empleado@gmail.com" && contrasena == "123")
-                return new UsuarioDTO { Id = 2, Nombre = "Miguel Guanira", Rol = "Empleado" };
-
-            if (correo == "cliente@gmail.com" && contrasena == "123")
-                return new UsuarioDTO { Id = 3, Nombre = "Ronny Cueva", Rol = "Cliente" };
-
-            return null;
         }
     }
 }

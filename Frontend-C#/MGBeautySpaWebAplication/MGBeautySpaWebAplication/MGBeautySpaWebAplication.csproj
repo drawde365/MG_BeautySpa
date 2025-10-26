@@ -67,6 +67,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cliente\Carrito.aspx" />
+    <Content Include="Cliente\DetalleProducto.aspx" />
+    <Content Include="Cliente\Perfil.aspx" />
+    <Content Include="Cliente\Productos.aspx" />
+    <Content Include="Cliente\Resultados.aspx" />
+    <Content Include="Cliente\Servicios.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -113,57 +119,10 @@
     <Content Include="Content\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\icomoon\icomoon.css" />
     <Content Include="Content\icomoon\Read Me.txt" />
-    <Content Include="Content\images\arct-icon.png" />
-    <Content Include="Content\images\banner-large-image.png" />
-    <Content Include="Content\images\banner-large-image1.png" />
-    <Content Include="Content\images\banner-large-image2.jpg" />
-    <Content Include="Content\images\cat-large-item1.jpg" />
-    <Content Include="Content\images\cat-large-item2.jpg" />
-    <Content Include="Content\images\cat-large-item3.jpg" />
-    <Content Include="Content\images\category-banner-1.jpg" />
-    <Content Include="Content\images\category-banner-2.jpg" />
-    <Content Include="Content\images\category-banner-3.jpg" />
-    <Content Include="Content\images\collection-banner.jpg" />
-    <Content Include="Content\images\dhl-logo.png" />
-    <Content Include="Content\images\insta-item1.jpg" />
-    <Content Include="Content\images\insta-item2.jpg" />
-    <Content Include="Content\images\insta-item3.jpg" />
-    <Content Include="Content\images\insta-item4.jpg" />
-    <Content Include="Content\images\insta-item5.jpg" />
-    <Content Include="Content\images\insta-item6.jpg" />
-    <Content Include="Content\images\line.png" />
-    <Content Include="Content\images\logo1.png" />
-    <Content Include="Content\images\logo2.png" />
-    <Content Include="Content\images\logo3.png" />
-    <Content Include="Content\images\logo4.png" />
-    <Content Include="Content\images\logo5.png" />
-    <Content Include="Content\images\main-logo.png" />
-    <Content Include="Content\images\master-card.png" />
-    <Content Include="Content\images\newsletter-image.jpg" />
-    <Content Include="Content\images\pattern-bg.png" />
-    <Content Include="Content\images\paypal-card.png" />
-    <Content Include="Content\images\post-image1.jpg" />
-    <Content Include="Content\images\post-image2.jpg" />
-    <Content Include="Content\images\post-image3.jpg" />
-    <Content Include="Content\images\product-item1.jpg" />
-    <Content Include="Content\images\product-item10.jpg" />
-    <Content Include="Content\images\product-item11.jpg" />
-    <Content Include="Content\images\product-item12.jpg" />
-    <Content Include="Content\images\product-item13.jpg" />
-    <Content Include="Content\images\product-item14.jpg" />
-    <Content Include="Content\images\product-item15.jpg" />
-    <Content Include="Content\images\product-item2.jpg" />
-    <Content Include="Content\images\product-item3.jpg" />
-    <Content Include="Content\images\product-item4.jpg" />
-    <Content Include="Content\images\product-item5.jpg" />
-    <Content Include="Content\images\product-item6.jpg" />
-    <Content Include="Content\images\product-item7.jpg" />
-    <Content Include="Content\images\product-item8.jpg" />
-    <Content Include="Content\images\product-item9.jpg" />
-    <Content Include="Content\images\product-large-3.jpg" />
-    <Content Include="Content\images\product-thumb-1.jpg" />
-    <Content Include="Content\images\product-thumb-2.jpg" />
-    <Content Include="Content\images\visa-card.png" />
+    <Content Include="Content\images\CremaHidratante.jpg" />
+    <Content Include="Content\images\CremaReafirmante.jpeg" />
+    <Content Include="Content\images\CremaReductora.jpg" />
+    <Content Include="Content\images\CremaTermogenica.jpg" />
     <Content Include="Content\js\jquery-filestyle.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\modernizr.js" />
@@ -173,11 +132,11 @@
     <Content Include="Content\js\slideNav.js" />
     <Content Include="Content\js\slideNav.min.js" />
     <Content Include="Content\js\SmoothScroll.js" />
-    <Content Include="Admin\InicioAdmin.aspx" />
     <Content Include="Cliente\InicioCliente.aspx" />
     <Content Include="Content\style.css" />
-    <Content Include="Empleado\InicioEmpleado.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Empleado\MisCitas.aspx" />
+    <Content Include="Admin\PanelDeControl.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -200,6 +159,7 @@
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\MGBeautySpaScripts\SearchModal.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -210,12 +170,54 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
+    <Compile Include="Cliente\Carrito.aspx.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Carrito.aspx.designer.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cliente\Cliente.Master.cs">
       <DependentUpon>Cliente.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cliente\Cliente.Master.designer.cs">
       <DependentUpon>Cliente.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\DetalleProducto.aspx.cs">
+      <DependentUpon>DetalleProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\DetalleProducto.aspx.designer.cs">
+      <DependentUpon>DetalleProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Productos.aspx.cs">
+      <DependentUpon>Productos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Productos.aspx.designer.cs">
+      <DependentUpon>Productos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Resultados.aspx.cs">
+      <DependentUpon>Resultados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Resultados.aspx.designer.cs">
+      <DependentUpon>Resultados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Servicios.aspx.cs">
+      <DependentUpon>Servicios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Servicios.aspx.designer.cs">
+      <DependentUpon>Servicios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Empleado\Empleado.Master.cs">
       <DependentUpon>Empleado.Master</DependentUpon>
@@ -224,26 +226,12 @@
     <Compile Include="Empleado\Empleado.Master.designer.cs">
       <DependentUpon>Empleado.Master</DependentUpon>
     </Compile>
-    <Compile Include="Admin\InicioAdmin.aspx.cs">
-      <DependentUpon>InicioAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\InicioAdmin.aspx.designer.cs">
-      <DependentUpon>InicioAdmin.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Cliente\InicioCliente.aspx.cs">
       <DependentUpon>InicioCliente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cliente\InicioCliente.aspx.designer.cs">
       <DependentUpon>InicioCliente.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Empleado\InicioEmpleado.aspx.cs">
-      <DependentUpon>InicioEmpleado.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Empleado\InicioEmpleado.aspx.designer.cs">
-      <DependentUpon>InicioEmpleado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -252,7 +240,25 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleado\MisCitas.aspx.cs">
+      <DependentUpon>MisCitas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleado\MisCitas.aspx.designer.cs">
+      <DependentUpon>MisCitas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PanelDeControl.aspx.cs">
+      <DependentUpon>PanelDeControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PanelDeControl.aspx.designer.cs">
+      <DependentUpon>PanelDeControl.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ProductoDAO.cs" />
+    <Compile Include="Util\ProductoDTO.cs" />
+    <Compile Include="Util\UsuarioDAO.cs" />
+    <Compile Include="Util\UsuarioDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

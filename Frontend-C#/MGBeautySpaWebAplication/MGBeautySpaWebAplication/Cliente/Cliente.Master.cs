@@ -1,47 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace MGBeautySpaWebAplication
+namespace MGBeautySpaWebAplication.Cliente
 {
-    public partial class ClienteMaster : System.Web.UI.MasterPage
+    public partial class Cliente : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Debe existir sesión
-            if (Session["Rol"] == null || Session["Nombre"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("~/Login.aspx");
-                return;
-            }
+                // Nombre del usuario
+                var nombre = (Session["Nombre"] as string) ?? "Invitado";
+                litUserName.Text = nombre;
 
-            // Debe ser CLIENTE
-            if (!string.Equals(Session["Rol"].ToString(), "Cliente", StringComparison.OrdinalIgnoreCase))
-            {
-                // Redirige según el rol real
-                var rol = Session["Rol"].ToString();
-                if (rol.Equals("Administrador", StringComparison.OrdinalIgnoreCase))
-                    Response.Redirect("~/Admin/InicioAdmin.aspx");
-                else if (rol.Equals("Empleado", StringComparison.OrdinalIgnoreCase))
-                    Response.Redirect("~/Empleado/MisCitas.aspx");
-                else
-                    Response.Redirect("~/Login.aspx");
-                return;
+                // Contador del carrito
+                int count = 0;
+                if (Session["CartCount"] != null)
+                {
+                    int.TryParse(Session["CartCount"].ToString(), out count);
+                }
+                litCartCount.Text = count.ToString();
             }
-
-            // Pinta header
-            lblUsuario.Text = Session["Nombre"].ToString();
-            lblRol.Text = Session["Rol"].ToString();
         }
-
-        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            Session.Abandon();
             Response.Redirect("~/Login.aspx");
         }
+
+        protected void btnDoSearch_Click(object sender, EventArgs e)
+        {
+            var q = (txtSearchModal.Text ?? "").Trim();
+            var url = "~/Cliente/Resultados.aspx" + (string.IsNullOrEmpty(q) ? "" : ("?q=" + HttpUtility.UrlEncode(q)));
+            Response.Redirect(ResolveUrl(url));
+        }
+
     }
 }

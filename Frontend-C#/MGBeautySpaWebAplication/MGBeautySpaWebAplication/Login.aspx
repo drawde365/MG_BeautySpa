@@ -6,19 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Inicio de Sesión | MG Beauty Spa</title>
 
-    <!-- Estilos locales -->
+    <!-- Fuentes (prioridad para ZCOOL XiaoWei y Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css?v=3") %>" />
 </head>
 
-<body class="bg-light">
-    <form id="form1" runat="server" class="vh-100 d-flex align-items-center justify-content-center">
+<body class="page-auth">
+    <form id="form1" runat="server" class="min-vh-100 d-flex align-items-center justify-content-center">
         <div class="card shadow-sm p-4" style="max-width: 380px; width: 100%;">
             <div class="text-center mb-4">
                 <img src="<%: ResolveUrl("~/Content/images/main-logo.png") %>" alt="MG Beauty Spa" style="height:60px;">
-                <h5 class="mt-2 fw-semibold">Bienvenida a MG Beauty Spa</h5>
+                <h5 class="mt-3 fw-semibold">Bienvenida a MG Beauty Spa</h5>
                 <small class="text-muted">Inicia sesión o continúa como invitado</small>
             </div>
 
@@ -31,22 +36,29 @@
             <!-- Contraseña -->
             <div class="mb-3">
                 <label for="txtContrasena" class="form-label">Contraseña</label>
-                <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" CssClass="form-control" placeholder="••••••••"></asp:TextBox>
+                <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" CssClass="form-control" placeholder="Ingrese su contraseña"></asp:TextBox>
             </div>
 
+            <!-- Error -->
             <asp:Label ID="lblError" runat="server" CssClass="text-danger small d-block mb-3"></asp:Label>
 
             <!-- Botones -->
-            <asp:Button ID="btnIngresar" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary w-100 mb-2" OnClick="btnIngresar_Click" />
-            <asp:Button ID="btnInvitado" runat="server" Text="Continuar sin cuenta" CssClass="btn btn-outline-secondary w-100" OnClick="btnInvitado_Click" />
+            <asp:Button ID="btnIngresar" runat="server" Text="Iniciar sesión"
+                CssClass="btn btn-primary w-100 mb-2" OnClick="btnIngresar_Click" />
 
+            <asp:Button ID="btnInvitado" runat="server" Text="Continuar sin cuenta"
+                CssClass="btn btn-outline-secondary w-100" OnClick="btnInvitado_Click" />
+
+            <!-- Enlace -->
             <div class="text-center mt-3">
-                <small><a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a></small>
+                <small>
+                    <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                </small>
             </div>
         </div>
     </form>
 
-    <!-- Scripts locales -->
+    <!-- Scripts -->
     <script src="<%: ResolveUrl("~/Scripts/jquery.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
 </body>
