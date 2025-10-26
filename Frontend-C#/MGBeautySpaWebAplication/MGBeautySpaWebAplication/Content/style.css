@@ -1,0 +1,190 @@
+﻿/* =========================================================
+   CARE — Overrides de marca (pegar al final del CSS)
+   ========================================================= */
+
+/* 1) Configuración de tu color de marca */
+:root {
+    /* 👉 Cambia este color por el que me diste */
+    --brand: #107369; /* ← reemplaza aquí por tu HEX */
+    /* Derivados accesibles (no necesitas tocar) */
+    --brand-strong: color-mix(in srgb, var(--brand) 92%, black);
+    --brand-weak: color-mix(in srgb, var(--brand) 18%, white);
+    --brand-soft: color-mix(in srgb, var(--brand) 10%, white);
+    --brand-hover: color-mix(in srgb, var(--brand) 88%, black);
+}
+
+/* 2) Sincronizo el tema Bootstrap con tu marca */
+body {
+    --bs-primary: var(--brand);
+    --bs-primary-rgb: 212,150,150; /* opcional: solo para utilidades BS; ignóralo si no lo necesitas */
+    --bs-dark-secondarry: var(--brand);
+    --bs-link-color: var(--brand-strong);
+    --bs-link-hover-color: var(--brand);
+}
+
+/* 3) Fondo más limpio (opcional, quita el rosado base) */
+body {
+    background: #fff; /* si quieres mantener el rosado original, borra esta línea */
+}
+
+/* 4) Botones */
+.btn {
+    --bs-btn-border-radius: 999px; /* look más moderno/pastilla */
+    --bs-btn-font-size: 15px;
+    letter-spacing: 0.02em;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--brand);
+    --bs-btn-border-color: var(--brand);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand-hover);
+    --bs-btn-hover-border-color: var(--brand-hover);
+    --bs-btn-active-bg: var(--brand-strong);
+    --bs-btn-active-border-color: var(--brand-strong);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--brand) 25%, transparent);
+}
+
+.btn-light {
+    --bs-btn-bg: var(--brand-soft);
+    --bs-btn-border-color: var(--brand-soft);
+    --bs-btn-hover-bg: var(--brand-weak);
+    --bs-btn-hover-border-color: var(--brand-weak);
+    color: var(--bs-black);
+}
+
+/* Corrijo glitch en .btn-dark del CSS original */
+.btn-dark {
+    --bs-btn-color: #212529;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: #212529;
+    --bs-btn-hover-color: #111111;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-hover-border-color: #373b3e;
+    --bs-btn-active-bg: #4d5154;
+    --bs-btn-active-border-color: #373b3e;
+}
+
+/* 5) Nav y dropdowns con acento sutil */
+.navbar-nav {
+    --bs-nav-link-color: var(--brand-strong);
+    --bs-nav-link-hover-color: var(--brand);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    --bs-dropdown-link-active-bg: var(--brand);
+}
+
+/* 6) Paginación, tabs, breadcrumbs */
+.pagination {
+    --bs-pagination-active-bg: var(--brand);
+    --bs-pagination-active-border-color: var(--brand);
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: var(--brand);
+    border-color: var(--brand);
+}
+
+.breadcrumb {
+    --bs-breadcrumb-divider-color: var(--brand-strong);
+}
+
+.text-white .breadcrumb {
+    --bs-breadcrumb-divider-color: var(--bs-light);
+}
+
+/* 7) Enlaces con subrayado animado al color de marca */
+.border-animation a:after {
+    background: var(--brand);
+}
+
+/* 8) Contadores de wishlist y carrito */
+span.wishlist-count,
+span.cart-count {
+    color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 18%, white);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-weight: 600;
+}
+
+/* 9) Swiper: flechas, bullets, focus */
+.icon-arrow.no-outline {
+    background: var(--brand-weak) !important;
+}
+
+    .icon-arrow.no-outline:hover {
+        color: var(--brand-strong);
+    }
+
+.swiper-pagination-bullet-active {
+    background: var(--brand) !important;
+}
+
+/* 10) Testimonios y detalles */
+.testimonial-swiper .testimonial-item blockquote {
+    color: var(--brand);
+}
+
+/* 11) Productos: acciones flotantes y títulos */
+.product-item .btn-wishlist,
+.product-item .btn-cart {
+    color: var(--bs-black);
+    background: #fff;
+    border: 1px solid var(--brand-weak);
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--brand) 18%, transparent);
+}
+
+.product-item:hover .element-title {
+    text-decoration-color: var(--brand-strong);
+}
+
+/* 12) Acordeones y filtros */
+.product-filter .accordion {
+    --bs-accordion-active-color: var(--brand);
+}
+
+.product-filter .accordion-body > div,
+.product-filter .accordion-body a {
+    border: 1px solid color-mix(in srgb, var(--brand) 22%, #EBEBEA);
+}
+
+    .product-filter .accordion-body a:hover {
+        border-color: var(--brand);
+    }
+
+/* 13) Search popup: detalles al brand */
+.search-popup .cat-list-item a::after {
+    border-bottom-color: var(--brand);
+}
+
+/* 14) SVGs/íconos teñidos al brand cuando corresponda */
+svg.svg-color {
+    color: var(--brand);
+}
+
+/* 15) Radios/checkbox visual (coincidir color de selección) */
+.form-check-label input:checked ~ .checkmark {
+    background-color: var(--brand);
+}
+
+/* 16) Tabs/pills, estados activos generales */
+.active > .page-link,
+.page-link.active {
+    background-color: var(--brand);
+    border-color: var(--brand);
+}
+
+/* 17) Botón de enlace subrayado al brand */
+a.btn-link:after {
+    background-color: var(--brand);
+}
+
+/* 18) Sombras suaves coherentes con tu marca */
+.card, .product-item, .instagram .insta-item {
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--brand) 10%, transparent);
+}
