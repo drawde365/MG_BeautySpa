@@ -6,131 +6,369 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | MG Beauty Spa</title>
 
-    <!-- NuGet Bootstrap/JQuery (estilos locales) -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
+    
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+
+    <style>
+        /* Reglas que habilitan el "Sticky Footer" */
+        html, body, #form1 {
+            height: 100%;
+            min-height: 100vh; /* Fuerza la altura mínima del viewport */
+            margin: 0;
+            padding: 0;
+        }
+
+        body, #form1 {
+            display: flex; /* Habilita Flexbox en el body y/o form */
+            flex-direction: column; /* Organiza los hijos (header, content, footer) verticalmente */
+        }
+
+        /* Regla para el contenido principal (el ContentPlaceHolder) */
+        .content-body-wrapper {
+            flex-grow: 1; /* ¡CLAVE! Hace que el contenido principal ocupe todo el espacio restante */
+    
+            /* Reglas de centrado */
+            max-width: 960px; 
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px; 
+            padding: 0 15px; 
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 12px 40px;
+            gap: 32px;
+            width: 100%;
+            height: 71px;
+            background: #148C76;
+            box-sizing: border-box;
+            justify-content: space-between;
+        }
+
+        .logo-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+        }
+
+        .logo-icon-container {
+            width: 16px;
+            height: 16px;
+            background: #FFFFFF;
+        }
+        
+        .logo-text {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 23px;
+            color: #FFFFFF;
+        }
+
+        .nav-list-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 32px;
+            flex-grow: 1;
+            justify-content: flex-start;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 8px;
+            width: 583px;
+            height: 45.81px;
+            background: #FFFFFF;
+            border: 1px solid #D9D9D9;
+            border-radius: 9999px;
+            box-sizing: border-box;
+        }
+
+        .search-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 16px;
+            color: #1E1E1E;
+        }
+
+        .search-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .nav-buttons-group {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 36px;
+            margin-left: auto;
+        }
+
+        .nav-link {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 21px;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .icon-button {
+            width: 26px;
+            height: 26px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative; 
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF; 
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;     
+            right: -8px;    
+            
+            background-color: #19413A; 
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            
+            border-radius: 50%;
+            
+            padding: 2px 4px;
+            min-width: 18px; 
+            height: 18px;   
+            
+            text-align: center;
+            line-height: 14px; 
+            
+            z-index: 10;
+            display: block;
+        }
+        
+        .user-icon-container {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .user-name-display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 21px;
+            color: #FFFFFF;
+        }
+
+        .profile-img-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 5px;
+        }   
+
+        .footer-container {
+            /* Mantenemos el color y el ancho, pero lo hacemos un contenedor de columna para centrar mejor el contenido */
+            display: flex;
+            flex-direction: column; /* Cambiamos a columna */
+            justify-content: center;
+            align-items: center; /* Centra todo el contenido */
+    
+            width: 100%;
+            height: 200px; /* Mantener la altura total */
+            background: #107369;
+            box-sizing: border-box;
+            padding: 20px 40px; 
+            color: #FFFFFF;
+        }
+
+        .footer-content {
+            /* El contenido central del footer */
+            width: 100%;
+            max-width: 800px; /* Reducimos un poco el ancho para que los enlaces se vean centrados */
+            height: 100%;
+    
+            /* Usamos flexbox para organizar los elementos internos de forma vertical */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra los elementos de las filas */
+            justify-content: space-around; /* Distribuye el espacio entre las filas */
+            text-align: center;
+        }
+
+        /* PRIMERA FILA: Política, Términos, Contacto */
+        .footer-top-row {
+            display: flex;
+            gap: 60px; /* Espacio entre los enlaces */
+            margin-bottom: 5px; /* Pequeño espacio debajo de la fila */
+        }
+
+        /* Estilo para todos los enlaces del footer */
+        .footer-link {
+            color: #FFFFFF;
+            font-size: 16px;
+            text-decoration: none;
+            font-family: 'Plus Jakarta Sans', sans-serif; /* Usamos una fuente limpia */
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* SEGUNDA FILA: Iconos */
+        .footer-social-row {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0; /* Espacio arriba y abajo de los iconos */
+        }
+
+        .social-icon-link {
+            color: #FFFFFF;
+            font-size: 24px; /* Tamaño de los iconos */
+            text-decoration: none;
+        }
+
+        /* TERCERA FILA: Copyright */
+        .footer-bottom-row {
+            width: 100%;
+        }
+
+        .copyright-text {
+            margin: 0;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+
+    </style>
 </head>
+
 <body>
-    <form runat="server">
 
-        <!-- ===== Header Cliente ===== -->
-        <header class="header-client">
-          <div class="container-fluid">
-            <div class="row g-3 align-items-center">
-              <!-- Marca -->
-              <div class="col-12 col-md-3 d-flex align-items-center">
-                <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>" class="brand">
-                  <i class="icon-leaf"></i>
-                  <span>MG Beauty Spa</span>
-                </a>
-              </div>
+    <form id="form1" runat="server"> 
 
-              <!-- Buscador (más corto) -->
-              <div class="col-12 col-md-5">
-                <div class="header-search" role="button" onclick="openSearch()">
-                  <input type="text" placeholder="Buscar" disabled aria-label="Buscar productos" />
-                  <i class="icon-search"></i>
+        <header class="header-container">
+            
+            <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>" class="logo-group">
+                <div class="logo-icon-container">
                 </div>
-              </div>
+                <span class="logo-text">MG Beauty Spa</span>
+            </a>
 
-              <!-- Navegación derecha (más separación + dropdown perfil) -->
-              <div class="col-12 col-md-4 d-flex align-items-center justify-content-md-end nav-gap">
-                <a class="header-link" href="<%: ResolveUrl("~/Cliente/Productos.aspx") %>">Productos</a>
-                <a class="header-link" href="<%: ResolveUrl("~/Cliente/Servicios.aspx") %>">Servicios</a>
+            <nav class="nav-list-wrapper">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar producto">
+                    <div class="search-icon">
+                    </div>
+                </div>
+            </nav>
 
-                <!-- Carrito -->
-                <a class="header-icon position-relative" href="<%: ResolveUrl("~/Cliente/Carrito.aspx") %>" aria-label="Carrito">
-                  <i class="icon-shopping-cart"></i>
-                  <span class="badge bg-light text-dark rounded-pill position-absolute top-0 start-100 translate-middle">
-                    <asp:Literal ID="litCartCount" runat="server" />
-                  </span>
+            <div class="nav-buttons-group">
+                <a href="<%: ResolveUrl("~/Cliente/Productos.aspx") %>" class="nav-link">Productos</a>
+                <a href="<%: ResolveUrl("~/Cliente/Servicios.aspx") %>" class="nav-link">Servicios</a>
+                
+                <a href="<%: ResolveUrl("~/Cliente/Carrito.aspx") %>" class="icon-button" title="Ver Carrito">
+                    <i class="icon-shopping-cart"></i> 
+                    
+                    <span id="cartCountBadge" class="cart-badge" runat="server">
+                        <asp:Literal ID="litCartCount" runat="server"></asp:Literal>
+                    </span>
                 </a>
-
-                <!-- Perfil: dropdown -->
+                
                 <div class="dropdown">
-                  <a class="header-link dropdown-toggle d-inline-flex align-items-center"
-                     href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="icon-user"></i>
-                    <span class="ms-1"><asp:Literal ID="litUserName" runat="server" /></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil.aspx") %>">
-                        Mi perfil
-                      </a>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                      <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
-                                      OnClick="btnLogout_Click">
-                        Cerrar sesión
-                      </asp:LinkButton>
-                    </li>
-                  </ul>
+                    <a class="header-link dropdown-toggle d-inline-flex align-items-center"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+        
+                        <img id="imgProfile" runat="server" 
+                             src="~/Content/default_profile.png" 
+                             alt="Foto de perfil" 
+                             class="profile-img-small" />
+
+                        <span class="ms-1 user-name-display">
+                            <asp:Literal ID="litUserName" runat="server" />
+                        </span>
+                    </a>
+    
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil.aspx") %>">
+                                Mi perfil
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li>
+                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
+                                            OnClick="btnLogout_Click">
+                                Cerrar sesión
+                            </asp:LinkButton>
+                        </li>
+                    </ul>
                 </div>
-              </div>
             </div>
-          </div>
         </header>
 
-
-        <!-- ===== Contenido de cada página ===== -->
-        <main class="container py-4">
-           <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </main>
-
-        <!-- ===== Modal de búsqueda ===== -->
-        <div class="modal fade modal-search" id="modalSearch" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h6 class="modal-title">Buscar productos</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-              </div>
-              <div class="modal-body">
-                <div class="input-group">
-                  <asp:TextBox ID="txtSearchModal" runat="server" CssClass="form-control"
-                      placeholder="Escribe el nombre del producto..." />
-                  <asp:LinkButton ID="btnDoSearch" runat="server" CssClass="btn btn-primary"
-                      OnClick="btnDoSearch_Click" ToolTip="Buscar">
-                    <i class="icon-search"></i>
-                  </asp:LinkButton>
-                </div>
-                <small class="text-muted d-block mt-2">Busca solo por nombre de producto.</small>
-              </div>
-            </div>
-          </div>
+        <div class="content-body-wrapper">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
         </div>
 
+        <footer class="footer-container">
+            <div class="footer-content">
+        
+                <div class="footer-top-row">
+                    <a href="#" class="footer-link">Política de Privacidad</a>
+                    <a href="#" class="footer-link">Términos y Condiciones</a>
+                    <a href="#" class="footer-link">Contacto</a>
+                </div>
 
-       <!-- ===== Scripts ===== -->
-    <script src="<%: ResolveUrl("~/Scripts/jquery.min.js") %>"></script>
-    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+                <div class="footer-social-row">
+                    <a href="#" class="social-icon-link" aria-label="Instagram">
+                        <i class="icon-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon-link" aria-label="Facebook">
+                        <i class="icon-facebook"></i>
+                    </a>
+                </div>
 
-    <!-- Ruta correcta del helper de modales -->
-    <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/SearchModal.js?v=1") %>"></script>
-
-
-        <%--<script>
-          // Acción del botón del modal (redirección a Productos.aspx con query ?q=)
-          document.addEventListener('DOMContentLoaded', function () {
-            var btn = document.getElementById('btnDoSearch');
-            var input = document.getElementById('txtSearchModal');
-            if (btn && input) {
-              var go = function(){
-                var q = (input.value || '').trim();
-                var url = '<%= ResolveUrl("~/Cliente/Productos.aspx") %>' + (q ? ('?q=' + encodeURIComponent(q)) : '');
-                      window.location.href = url;
-                  };
-                  btn.addEventListener('click', go);
-                  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { go(); } });
-              }
-          });
-        </script>--%>
-
+                <div class="footer-bottom-row">
+                    <p class="copyright-text">
+                        © <%: DateTime.Now.Year %> MG Beauty Spa. Todos los derechos reservados.
+                    </p>
+                </div>
+        
+            </div>
+        </footer>
+        
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+
     </form>
 </body>
 </html>
