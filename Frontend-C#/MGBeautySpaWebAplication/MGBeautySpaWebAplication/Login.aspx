@@ -16,13 +16,15 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css?v=3") %>" />
+
+    <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
 </head>
 
 <body class="page-auth">
     <form id="form1" runat="server" class="min-vh-100 d-flex align-items-center justify-content-center">
         <div class="card shadow-sm p-4" style="max-width: 380px; width: 100%;">
             <div class="text-center mb-4">
-                <img src="<%: ResolveUrl("~/Content/images/main-logo.png") %>" alt="MG Beauty Spa" style="height:60px;">
+                <img src="<%: ResolveUrl("~/Content/images/MGLogo2.svg") %>" alt="MG Beauty Spa" style="height:60px;">
                 <h5 class="mt-3 fw-semibold">Bienvenido a MG Beauty Spa</h5>
                 <small class="text-muted">Inicia sesión o continúa como invitado</small>
             </div>

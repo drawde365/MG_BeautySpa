@@ -4,9 +4,16 @@
     font-weight: normal;
 }
 
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('TypeFonts/PlusJakartaSans.woff2') format('woff2');
+    font-weight: normal;
+}
+
 .header {
     color: white;
     background-color: #107369;
     font-family: 'ZCOOL XiaoWei', sans-serif;
-    
 }
+
+

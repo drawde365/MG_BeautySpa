@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace MGBeautySpaWebAplication
+namespace MGBeautySpaWebAplication.Cliente
 {
     public partial class InicioCliente : System.Web.UI.Page
     {

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+
+    <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
 </head>
 <body>
     <form runat="server">
@@ -22,7 +24,7 @@
               <!-- Marca -->
               <div class="col-12 col-md-3 d-flex align-items-center">
                 <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>" class="brand">
-                  <i class="icon-leaf"></i>
+                  <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="MG Beauty Spa" style="height:32px;" />
                   <span>MG Beauty Spa</span>
                 </a>
               </div>

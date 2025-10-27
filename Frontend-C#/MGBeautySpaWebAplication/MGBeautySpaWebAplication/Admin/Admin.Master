@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
 
+    <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
+
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body class="bg-light">
@@ -23,7 +25,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1f8b75;">
             <div class="container-fluid px-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="<%: ResolveUrl("~/Admin/InicioAdmin.aspx") %>">
-                    <img src="<%: ResolveUrl("~/Content/images/main-logo.png") %>" alt="MG Beauty Spa" style="height:32px;" />
+                    <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="MG Beauty Spa" style="height:32px;" />
                     <span class="fw-semibold text-white">MG Beauty Spa</span>
                 </a>
 
