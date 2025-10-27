@@ -33,7 +33,29 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
 
         /// <summary>
+<<<<<<< HEAD
         /// litCartCount control.
+=======
+        /// Control form1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        /// <summary>
+        /// Control cartCountBadge.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cartCountBadge;
+
+        /// <summary>
+        /// Control litCartCount.
+>>>>>>> 24bf40807ecd032c5840452bfca134e3c0fcd413
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -42,7 +64,20 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.Literal litCartCount;
 
         /// <summary>
+<<<<<<< HEAD
         /// litUserName control.
+=======
+        /// Control imgProfile.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgProfile;
+
+        /// <summary>
+        /// Control litUserName.
+>>>>>>> 24bf40807ecd032c5840452bfca134e3c0fcd413
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -69,6 +104,7 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
 
         /// <summary>
+<<<<<<< HEAD
         /// txtSearchModal control.
         /// </summary>
         /// <remarks>
@@ -88,6 +124,9 @@ namespace MGBeautySpaWebAplication.Cliente
 
         /// <summary>
         /// ScriptsContent control.
+=======
+        /// Control ScriptsContent.
+>>>>>>> 24bf40807ecd032c5840452bfca134e3c0fcd413
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

@@ -20,6 +20,19 @@ namespace MGBeautySpaWebAplication.Cliente
                     int.TryParse(Session["CartCount"].ToString(), out count);
                 }
                 litCartCount.Text = count.ToString();
+
+                var fotoUrl = Session["FotoPerfilUrl"] as string;
+
+                if (!string.IsNullOrEmpty(fotoUrl))
+                {
+                    // Si hay una URL de foto en Session, la usamos.
+                    imgProfile.Src = fotoUrl;
+                }
+                else
+                {
+                    // Si no hay foto, usamos la foto por defecto que ya pusimos en el HTML.
+                    // imgProfile.Src = "~/Content/default_profile.png"; 
+                }
             }
         }
         protected void btnLogout_Click(object sender, EventArgs e)
@@ -27,13 +40,13 @@ namespace MGBeautySpaWebAplication.Cliente
             Session.Clear();
             Response.Redirect("~/Login.aspx");
         }
-
+        /*
         protected void btnDoSearch_Click(object sender, EventArgs e)
         {
             var q = (txtSearchModal.Text ?? "").Trim();
             var url = "~/Cliente/Resultados.aspx" + (string.IsNullOrEmpty(q) ? "" : ("?q=" + HttpUtility.UrlEncode(q)));
             Response.Redirect(ResolveUrl(url));
         }
-
+        */
     }
 }
