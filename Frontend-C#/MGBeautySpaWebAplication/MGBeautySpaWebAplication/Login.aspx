@@ -23,7 +23,7 @@
         <div class="card shadow-sm p-4" style="max-width: 380px; width: 100%;">
             <div class="text-center mb-4">
                 <img src="<%: ResolveUrl("~/Content/images/main-logo.png") %>" alt="MG Beauty Spa" style="height:60px;">
-                <h5 class="mt-3 fw-semibold">Bienvenida a MG Beauty Spa</h5>
+                <h5 class="mt-3 fw-semibold">Bienvenido a MG Beauty Spa</h5>
                 <small class="text-muted">Inicia sesión o continúa como invitado</small>
             </div>
 
@@ -49,10 +49,19 @@
             <asp:Button ID="btnInvitado" runat="server" Text="Continuar sin cuenta"
                 CssClass="btn btn-outline-secondary w-100" OnClick="btnInvitado_Click" />
 
-            <!-- Enlace -->
+            <!-- Registro -->
+           <div class="text-center mt-3">
+                <small>
+                    <a href="Cuenta/Registro.aspx" class="text-decoration-none">
+                        ¿No tienes una cuenta asociada? ¡Regístrate!
+                    </a>
+                </small>
+            </div>
+            <!-- Recuperar Contraseña -->
             <div class="text-center mt-3">
                 <small>
-                    <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                    <a href="Cuenta/RecuperarContraseña.aspx" class="text-decoration-none">
+                        ¿Olvidaste tu contraseña?</a>
                 </small>
             </div>
         </div>

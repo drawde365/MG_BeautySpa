@@ -134,6 +134,9 @@
     <Content Include="Content\js\SmoothScroll.js" />
     <Content Include="Cliente\InicioCliente.aspx" />
     <Content Include="Content\style.css" />
+    <Content Include="Cuenta\RecuperarContraseña.aspx" />
+    <Content Include="Cuenta\Registro.aspx" />
+    <Content Include="Cuenta\ModificarContraseña.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Empleado\MisCitas.aspx" />
     <Content Include="Admin\PanelDeControl.aspx" />
@@ -219,6 +222,27 @@
     </Compile>
     <Compile Include="Cliente\Servicios.aspx.designer.cs">
       <DependentUpon>Servicios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuenta\RecuperarContraseña.aspx.cs">
+      <DependentUpon>RecuperarContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuenta\RecuperarContraseña.aspx.designer.cs">
+      <DependentUpon>RecuperarContraseña.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuenta\Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuenta\Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuenta\ModificarContraseña.aspx.cs">
+      <DependentUpon>ModificarContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuenta\ModificarContraseña.aspx.designer.cs">
+      <DependentUpon>ModificarContraseña.aspx</DependentUpon>
     </Compile>
     <Compile Include="Empleado\Empleado.Master.cs">
       <DependentUpon>Empleado.Master</DependentUpon>
