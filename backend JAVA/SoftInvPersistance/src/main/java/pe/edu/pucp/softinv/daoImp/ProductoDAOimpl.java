@@ -148,10 +148,16 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
     }
 
     @Override
+    public ArrayList<ProductoDTO> listarTodos(){
+        return (ArrayList<ProductoDTO>)super.listarTodos();
+    }
+    
+    @Override
     protected void agregarObjetoALaLista(List lista) throws SQLException {
         this.instanciarObjetoDelResultSet();
         lista.add(this.producto);
     }
+    
     private void incluirValoresDeParametrosParaListarPorNombre(Object objetoParametros){
         String nombre = (String) objetoParametros;
         try {

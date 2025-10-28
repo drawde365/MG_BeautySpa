@@ -1,4 +1,4 @@
-package pe.edu.pucp.softinv.model;
+package pe.edu.pucp.softinv.business.BO.Impl;
 
 import pe.edu.pucp.softinv.dao.ProductoDAO;
 import pe.edu.pucp.softinv.daoImp.ProductoDAOimpl;

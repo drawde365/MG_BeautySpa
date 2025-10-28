@@ -66,6 +66,6 @@ public class DBManager {
     }
 
     private String getUrl() {
-        return tipo_de_driver+"://"+host+":"+puerto+"/"+base_de_datos;
+        return tipo_de_driver+"://"+host+":"+puerto+"/"+base_de_datos+"?useSSL=false";
     }
 }

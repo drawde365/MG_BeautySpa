@@ -1,4 +1,4 @@
-package pe.edu.pucp.softinv.model;
+package pe.edu.pucp.softinv.business.BO.Impl;
 
 import pe.edu.pucp.softinv.dao.EmpleadoDAO;
 import pe.edu.pucp.softinv.dao.HorarioTrabajoDAO;

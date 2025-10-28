@@ -7,6 +7,7 @@ import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
 
@@ -108,5 +109,63 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     public Integer eliminar(ServicioDTO servicio){
         this.servicio=servicio;
         return super.eliminar();
+    }
+    
+    @Override
+    public ArrayList<ServicioDTO> obtenerPorPagina(Integer pag){
+        String sql = "SELECT * FROM PRODUCTOS LIMIT ?, ?";
+        return (ArrayList<ServicioDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPagina,pag);
+    }
+    
+    @Override
+    public ArrayList<ServicioDTO> obtenerPorNombre(String nombre){
+        String sql = "SELECT * FROM SERVICIOS WHERE NOMBRE LIKE %?%";
+        return (ArrayList<ServicioDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorNombre,nombre);
+    }
+    
+    @Override
+    public ArrayList<ServicioDTO> listarTodos(){
+        return (ArrayList<ServicioDTO>)super.listarTodos();
+    }
+    
+    @Override
+    protected void agregarObjetoALaLista(List lista) throws SQLException {
+        this.instanciarObjetoDelResultSet();
+        lista.add(this.servicio);
+    }
+    
+    private void incluirValoresDeParametrosParaListarPorNombre(Object objetoParametros){
+        String nombre = (String) objetoParametros;
+        try {
+            this.statement.setString(1, nombre);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    private void incluirValoresDeParametrosParaListarPagina(Object objetoParametros){
+        Integer pag = (Integer) objetoParametros;
+        try {
+            this.statement.setInt(1, (pag-1)*10+1);
+            this.statement.setInt(2, 10);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Override
+    public Integer obtenerCantPaginas() {
+        Integer cant;
+        String sql = "SELECT COUNT(*) AS COUNT FROM SERVICIOS";
+        try {
+            this.iniciarTransaccion();
+            this.colocarSQLEnStatement(sql);
+            this.ejecutarSelectEnDB();
+            cant=this.resultSet.getInt("COUNT");
+            if(cant%10==0) return cant/10;
+            return cant/10+1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
