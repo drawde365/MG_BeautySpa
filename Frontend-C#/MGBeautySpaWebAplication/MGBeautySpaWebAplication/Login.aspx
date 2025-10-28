@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css?v=3") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
 
     <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
 </head>
