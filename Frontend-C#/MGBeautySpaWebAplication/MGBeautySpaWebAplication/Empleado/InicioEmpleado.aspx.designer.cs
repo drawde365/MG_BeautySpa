@@ -11,7 +11,7 @@ namespace MGBeautySpaWebAplication.Empleado
 {
 
 
-    public partial class MisCitas
+    public partial class InicioEmpleado
     {
     }
 }

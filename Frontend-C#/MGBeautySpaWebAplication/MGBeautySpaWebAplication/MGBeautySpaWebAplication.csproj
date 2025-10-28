@@ -159,10 +159,17 @@
     <Content Include="Content\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\icomoon\icomoon.css" />
     <Content Include="Content\icomoon\Read Me.txt" />
+    <Content Include="Content\images\Cliente\Bienvenida.jpg" />
     <Content Include="Content\images\CremaHidratante.jpg" />
     <Content Include="Content\images\CremaReafirmante.jpeg" />
+    <Content Include="Content\images\CremaReafirmante.jpg" />
     <Content Include="Content\images\CremaReductora.jpg" />
     <Content Include="Content\images\CremaTermogenica.jpg" />
+    <Content Include="Content\images\Empleado\blank-photo.jpg" />
+    <Content Include="Content\images\Empleado\InicioEmpleado.png" />
+    <Content Include="Content\images\MGFavicon.svg" />
+    <Content Include="Content\images\MGLogo.svg" />
+    <Content Include="Content\images\MGLogo2.svg" />
     <Content Include="Content\InicioClienteStyle.css" />
     <Content Include="Content\js\jquery-filestyle.min.js" />
     <Content Include="Content\js\jquery.min.js" />
@@ -179,6 +186,10 @@
     <Content Include="Cuenta\RecuperarContraseña.aspx" />
     <Content Include="Cuenta\Registro.aspx" />
     <Content Include="Cuenta\ModificarContraseña.aspx" />
+    <Content Include="Empleado\AgregarExcepcion.aspx" />
+    <Content Include="Empleado\InicioEmpleado.aspx" />
+    <Content Include="Empleado\MiHorario.aspx" />
+    <Content Include="Empleado\Perfil\Perfil.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Empleado\MisCitas.aspx" />
     <Content Include="Admin\PanelDeControl.aspx" />
@@ -342,6 +353,8 @@
     <Compile Include="Cuenta\ModificarContraseña.aspx.designer.cs">
       <DependentUpon>ModificarContraseña.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleado\AgregarExcepcion.aspx.cs" />
+    <Compile Include="Empleado\AgregarExcepcion.aspx.designer.cs" />
     <Compile Include="Empleado\Empleado.Master.cs">
       <DependentUpon>Empleado.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -356,6 +369,13 @@
     <Compile Include="Cliente\InicioCliente.aspx.designer.cs">
       <DependentUpon>InicioCliente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Empleado\HorarioRow.cs" />
+    <Compile Include="Empleado\InicioEmpleado.aspx.cs" />
+    <Compile Include="Empleado\InicioEmpleado.aspx.designer.cs" />
+    <Compile Include="Empleado\MiHorario.aspx.cs" />
+    <Compile Include="Empleado\MiHorario.aspx.designer.cs" />
+    <Compile Include="Empleado\Perfil\Perfil.aspx.cs" />
+    <Compile Include="Empleado\Perfil\Perfil.aspx.designer.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Empleado
 {
-    public partial class MisCitas : System.Web.UI.Page
+    public partial class InicioEmpleado : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
