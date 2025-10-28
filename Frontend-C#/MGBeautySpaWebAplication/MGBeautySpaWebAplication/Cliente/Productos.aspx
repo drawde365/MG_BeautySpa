@@ -123,7 +123,7 @@
             align-items: flex-start;
             padding: 0px 0px 12px;
             gap: 12px;
-            width: 300px; /* Tamaño para 3 columnas (300px * 3 + 12px * 2 = 924px) */
+            width: calc(33.333% - 8px); /* Tamaño para 3 columnas (300px * 3 + 12px * 2 = 924px) */
             text-decoration: none;
             color: inherit;
         }

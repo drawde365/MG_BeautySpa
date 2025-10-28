@@ -105,7 +105,7 @@
             align-items: flex-start;
             padding: 0px 0px 12px;
             gap: 12px;
-            width: 301px; /* Tamaño para 3 columnas */
+            width: calc(33.333% - 8px); /* Tamaño para 3 columnas */
             text-decoration: none;
             color: inherit;
         }
