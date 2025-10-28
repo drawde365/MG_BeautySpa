@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Resultados" Language="C#" MasterPageFile="~/Cliente/Cliente.Master"
+﻿    <%@ Page Title="Resultados" Language="C#" MasterPageFile="~/Cliente/Cliente.Master"
     AutoEventWireup="true" CodeBehind="Resultados.aspx.cs"
     Inherits="MGBeautySpaWebAplication.Cliente.Resultados" %>
 

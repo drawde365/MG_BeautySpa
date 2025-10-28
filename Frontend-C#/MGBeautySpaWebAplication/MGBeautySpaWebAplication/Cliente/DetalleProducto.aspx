@@ -44,9 +44,9 @@
                     <asp:TextBox ID="txtCantidad" runat="server" 
                                  Text="0" 
                                  CssClass="form-control text-center qty" />
-                 
+                    
                     <button type="button" class="btn btn-outline-secondary plus">+</button>
-                </div>
+                </div> 
 
                   <asp:LinkButton ID="btnIngredientes" runat="server"
                                   CommandName="ver"

@@ -41,7 +41,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                Response.Redirect(ResolveUrl($"~/Cliente/ResultadosBusqueda.aspx?q={HttpUtility.UrlEncode(searchTerm)}"));
+                Response.Redirect(ResolveUrl($"~/Cliente/Resultados.aspx?q={HttpUtility.UrlEncode(searchTerm)}"));
             }
         }
 
