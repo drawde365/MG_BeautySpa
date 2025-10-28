@@ -48,5 +48,20 @@ namespace MGBeautySpaWebAplication.Cliente
             Response.Redirect(ResolveUrl(url));
         }
         */
+        public string SearchText
+        {
+            get
+            {
+                return txtSearchProduct.Text;
+            }
+        }
+
+        // Opcional: Manejador del evento de texto
+        protected void txtSearchProduct_TextChanged(object sender, EventArgs e)
+        {
+            var q = (txtSearchProduct.Text ?? "").Trim();
+            var url = "~/Cliente/Resultados.aspx" + (string.IsNullOrEmpty(q) ? "" : ("?q=" + HttpUtility.UrlEncode(q)));
+            Response.Redirect(ResolveUrl(url));
+        }
     }
 }
