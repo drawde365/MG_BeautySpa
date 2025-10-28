@@ -175,10 +175,20 @@
             <div class="category-tabs">
                 <ul>
                     <li>
-                        <button class="tab-button active" data-category="facial">Productos Faciales</button>
+                        <asp:LinkButton ID="btnFaciales" runat="server" 
+                                        CssClass="tab-button active"  
+                                        CommandArgument="facial"
+                                        OnClick="FilterProducts_Click">
+                            Productos Faciales
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <button class="tab-button" data-category="corporal">Productos Corporales</button>
+                        <asp:LinkButton ID="btnCorporales" runat="server" 
+                                        CssClass="tab-button" 
+                                        CommandArgument="corporal"
+                                        OnClick="FilterProducts_Click">
+                            Productos Corporales
+                        </asp:LinkButton>
                     </li>
                     </ul>
             </div>

@@ -15,7 +15,11 @@ namespace MGBeautySpaWebAplication.Cliente
     {
 
         /// <summary>
+<<<<<<< HEAD
         /// litQuery control.
+=======
+        /// Control litQuery.
+>>>>>>> 3e6643333b77ecf14af7fd0e5e447e26cf6bd90d
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -24,7 +28,11 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.Literal litQuery;
 
         /// <summary>
+<<<<<<< HEAD
         /// litCount control.
+=======
+        /// Control litCount.
+>>>>>>> 3e6643333b77ecf14af7fd0e5e447e26cf6bd90d
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -33,29 +41,53 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.Literal litCount;
 
         /// <summary>
+<<<<<<< HEAD
         /// pnlNoResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
+=======
+        /// Control pnlNoResults.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+>>>>>>> 3e6643333b77ecf14af7fd0e5e447e26cf6bd90d
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlNoResults;
 
         /// <summary>
+<<<<<<< HEAD
         /// Literal1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
+=======
+        /// Control Literal1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+>>>>>>> 3e6643333b77ecf14af7fd0e5e447e26cf6bd90d
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal1;
 
         /// <summary>
+<<<<<<< HEAD
         /// rptProductos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
+=======
+        /// Control rptProductos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+>>>>>>> 3e6643333b77ecf14af7fd0e5e447e26cf6bd90d
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptProductos;
     }
