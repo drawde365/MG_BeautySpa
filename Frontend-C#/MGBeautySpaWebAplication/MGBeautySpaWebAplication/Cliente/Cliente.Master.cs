@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Web;
+using System.Web.UI;
+using System.Web.Security;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
@@ -9,59 +13,50 @@ namespace MGBeautySpaWebAplication.Cliente
         {
             if (!IsPostBack)
             {
-                // Nombre del usuario
-                var nombre = (Session["Nombre"] as string) ?? "Invitado";
-                litUserName.Text = nombre;
-
-                // Contador del carrito
-                int count = 0;
-                if (Session["CartCount"] != null)
-                {
-                    int.TryParse(Session["CartCount"].ToString(), out count);
-                }
-                litCartCount.Text = count.ToString();
-
-                var fotoUrl = Session["FotoPerfilUrl"] as string;
-
-                if (!string.IsNullOrEmpty(fotoUrl))
-                {
-                    // Si hay una URL de foto en Session, la usamos.
-                    imgProfile.Src = fotoUrl;
-                }
-                else
-                {
-                    // Si no hay foto, usamos la foto por defecto que ya pusimos en el HTML.
-                    // imgProfile.Src = "~/Content/default_profile.png"; 
-                }
+                LoadUserData();
             }
+            UpdateCartDisplay();
         }
+
+        private void LoadUserData()
+        {
+            string nombre = (Session["UserName"] as string) ?? "Invitado";
+            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/default_profile.png";
+
+            litUserName.Text = nombre;
+        }
+
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            Response.Redirect("~/Login.aspx");
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+
+            Response.Redirect(ResolveUrl("~/Login.aspx"));
         }
-        /*
-        protected void btnDoSearch_Click(object sender, EventArgs e)
+
+        protected void txtSearchProduct_TextChanged(object sender, EventArgs e)
         {
-            var q = (txtSearchModal.Text ?? "").Trim();
-            var url = "~/Cliente/Resultados.aspx" + (string.IsNullOrEmpty(q) ? "" : ("?q=" + HttpUtility.UrlEncode(q)));
-            Response.Redirect(ResolveUrl(url));
-        }
-        */
-        public string SearchText
-        {
-            get
+            string searchTerm = txtSearchProduct.Text.Trim();
+
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                return txtSearchProduct.Text;
+                Response.Redirect(ResolveUrl($"~/Cliente/ResultadosBusqueda.aspx?q={HttpUtility.UrlEncode(searchTerm)}"));
             }
         }
 
-        // Opcional: Manejador del evento de texto
-        protected void txtSearchProduct_TextChanged(object sender, EventArgs e)
+        public void UpdateCartDisplay()
         {
-            var q = (txtSearchProduct.Text ?? "").Trim();
-            var url = "~/Cliente/Resultados.aspx" + (string.IsNullOrEmpty(q) ? "" : ("?q=" + HttpUtility.UrlEncode(q)));
-            Response.Redirect(ResolveUrl(url));
+            int count = (Session["CartCount"] as int?) ?? 0;
+
+            litCartCount.Text = count.ToString();
+
+            HtmlGenericControl badge = (HtmlGenericControl)this.FindControl("cartCountBadge");
+            badge.Visible = true;
+            //if (badge != null)
+            //{
+            //    badge.Visible = count > 0;
+            //}
         }
     }
 }

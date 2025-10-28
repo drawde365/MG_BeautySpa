@@ -66,21 +66,12 @@
                                 src="~/Content/default_profile.png" 
                                 alt="Foto de perfil" 
                                 class="profile-img-small" />
-
-<<<<<<< HEAD
                         <!--<i class="fa-solid fa-user" style="color: #ffffff;"></i>-->
 
-                        <span class="ms-1 user-name-display">
-                            <asp:Literal ID="litUserName" runat="server" />
-                        </span>
-                    </a>
-=======
-                            <span class="ms-1 user-name-display">
+                         <span class="ms-1 user-name-display">
                                 <asp:Literal ID="litUserName" runat="server" />
                             </span>
-                        </a>
->>>>>>> 3e6643333b77ecf14af7fd0e5e447e26cf6bd90d
-                    
+                    </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil/Perfil.aspx") %>">

@@ -38,11 +38,15 @@
                 <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
                   <span class="btn btn-light px-3" style="min-width: 120px;"><%# Eval("Tipo") %></span>
 
-                  <div class="input-group" style="width: 150px;">
+                  <div class="input-group quantity-control" style="width: 150px;">
                     <button type="button" class="btn btn-outline-secondary minus">-</button>
-                    <input type="text" class="form-control text-center qty" value="0" />
+    
+                    <asp:TextBox ID="txtCantidad" runat="server" 
+                                 Text="0" 
+                                 CssClass="form-control text-center qty" />
+                 
                     <button type="button" class="btn btn-outline-secondary plus">+</button>
-                  </div>
+                </div>
 
                   <asp:LinkButton ID="btnIngredientes" runat="server"
                                   CommandName="ver"

@@ -102,9 +102,71 @@ namespace MGBeautySpaWebAplication.Cliente
         // Suma al contador de carrito (demo)
         protected void btnAddCart_Click(object sender, EventArgs e)
         {
-            int n = 0;
-            int.TryParse(Convert.ToString(Session["CartCount"]), out n);
-            Session["CartCount"] = n + 1;
+            List<CartItemDTO> cartItems = Session["Carrito"] as List<CartItemDTO>;
+            if (cartItems == null)
+            {
+                cartItems = new List<CartItemDTO>();
+            }
+
+            int totalItemsAdded = 0;
+            ProductoDTODetalle productoBase = ProductoActual;
+            if (productoBase == null) return;
+
+            foreach (RepeaterItem item in rpPresentaciones.Items)
+            {
+                if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                {
+                    TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
+                    LinkButton btnIngredientes = (LinkButton)item.FindControl("btnIngredientes");
+
+                    if (txtCantidad != null && btnIngredientes != null &&
+                        int.TryParse(btnIngredientes.CommandArgument, out int itemIndex) &&
+                        int.TryParse(txtCantidad.Text, out int cantidad) && cantidad > 0)
+                    {
+                        ProductoTipoDTODetalle presentacion = productoBase.ProductosTipos[itemIndex];
+
+                        CartItemDTO newItem = new CartItemDTO
+                        {
+                            ProductId = productoBase.IdProducto,
+                            Nombre = productoBase.Nombre,
+                            PrecioUnitario = (decimal)productoBase.Precio,
+                            ImagenUrl = productoBase.UrlImagen,
+                            TipoPiel = presentacion.Tipo,
+                            Tamano = productoBase.Tamaño.ToString(),
+                            Cantidad = cantidad
+                        };
+
+                        CartItemDTO existingItem = cartItems.FirstOrDefault(i =>
+                            i.ProductId == newItem.ProductId && i.TipoPiel == newItem.TipoPiel);
+
+                        if (existingItem != null)
+                        {
+                            existingItem.Cantidad += cantidad;
+                        }
+                        else
+                        {
+                            cartItems.Add(newItem);
+                        }
+
+                        totalItemsAdded += cantidad;
+                        txtCantidad.Text = "0";
+                    }
+                }
+            }
+
+            if (totalItemsAdded > 0)
+            {
+                Session["Carrito"] = cartItems;
+
+                int currentCartCount = (Session["CartCount"] as int?) ?? 0;
+                Session["CartCount"] = currentCartCount + totalItemsAdded;
+
+                Cliente masterPage = this.Master as Cliente;
+                if (masterPage != null)
+                {
+                    masterPage.UpdateCartDisplay();
+                }
+            }
         }
 
         // Crea un comentario y refresca la pestaña “Reseñas”
@@ -184,40 +246,39 @@ namespace MGBeautySpaWebAplication.Cliente
             };
         }
 
-        
-    }
 
-    /* =====================  DTOs  ===================== */
+        /* =====================  DTOs  ===================== */
 
-    public class ComentarioDTODetalle
-    {
-        public string Autor { get; set; }
-        public string Texto { get; set; }
-        public DateTime Fecha { get; set; }
-    }
+        public class ComentarioDTODetalle
+        {
+            public string Autor { get; set; }
+            public string Texto { get; set; }
+            public DateTime Fecha { get; set; }
+        }
 
-    public class ProductoDTODetalle
-    {
-        public int IdProducto { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public double Precio { get; set; }
-        public string ModoUso { get; set; }
-        public string UrlImagen { get; set; }
-        public List<ComentarioDTODetalle> Comentarios { get; set; }
-        public double PromedioValoracion { get; set; }
-        public List<ProductoTipoDTODetalle> ProductosTipos { get; set; }
-        public int Activo { get; set; }
-        public double Tamaño { get; set; }
-    }
+        public class ProductoDTODetalle
+        {
+            public int IdProducto { get; set; }
+            public string Nombre { get; set; }
+            public string Descripcion { get; set; }
+            public double Precio { get; set; }
+            public string ModoUso { get; set; }
+            public string UrlImagen { get; set; }
+            public List<ComentarioDTODetalle> Comentarios { get; set; }
+            public double PromedioValoracion { get; set; }
+            public List<ProductoTipoDTODetalle> ProductosTipos { get; set; }
+            public int Activo { get; set; }
+            public double Tamaño { get; set; }
+        }
 
-    public class ProductoTipoDTODetalle
-    {
-        public ProductoDTODetalle Producto { get; set; }
-        public int Stock_fisico { get; set; }
-        public int Stock_despacho { get; set; }
-        public string Ingredientes { get; set; }
-        public string Tipo { get; set; }
-        public int Activo { get; set; }
+        public class ProductoTipoDTODetalle
+        {
+            public ProductoDTODetalle Producto { get; set; }
+            public int Stock_fisico { get; set; }
+            public int Stock_despacho { get; set; }
+            public string Ingredientes { get; set; }
+            public string Tipo { get; set; }
+            public int Activo { get; set; }
+        }
     }
 }

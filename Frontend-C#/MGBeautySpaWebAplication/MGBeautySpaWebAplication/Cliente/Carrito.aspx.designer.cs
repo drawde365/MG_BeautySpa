@@ -15,6 +15,24 @@ namespace MGBeautySpaWebAplication.Cliente
     {
 
         /// <summary>
+        /// Control smCarrito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager smCarrito;
+
+        /// <summary>
+        /// Control upCartContent.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upCartContent;
+
+        /// <summary>
         /// Control rpCartItems.
         /// </summary>
         /// <remarks>
@@ -31,15 +49,6 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litSubtotal;
-
-        /// <summary>
-        /// Control litEnvio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litEnvio;
 
         /// <summary>
         /// Control litImpuestos.

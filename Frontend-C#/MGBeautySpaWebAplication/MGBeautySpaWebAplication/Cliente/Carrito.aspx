@@ -1,13 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
 <asp:Content ID="ctMain" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <asp:ScriptManager ID="smCarrito" runat="server" /> 
     <style>
         .cart-page-content {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            /*align-items: flex-start;*/
             width: 100%;
-            max-width: 960px;
+            /*max-width: 960px;*/
         }
 
         /* Título del Carrito */
@@ -35,7 +35,7 @@
             gap: 10px;
         }
 
-        /* Tarjeta de Producto Individual (dentro del Repeater) */
+        /* Tarjeta de Producto Individual */
         .product-item-card {
             display: flex;
             flex-direction: row;
@@ -93,23 +93,31 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 8px;
+            gap: 20px; /* Espacio extra para separar botones del centro */
+            padding: 0 10px;
         }
 
         .qty-button {
+            /* Estilo del círculo de contorno */
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 28px;
-            height: 28px;
-            background: #F5F2F2;
-            border-radius: 14px;
-            border: none;
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            border: 2px solid #148C76; 
+            border-radius: 50%;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 16px;
-            color: #171214;
-            line-height: 1;
+            font-weight: 700;
+            font-size: 18px;
+            color: #148C76;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .qty-button:hover {
+            background-color: #148C76;
+            color: #FFFFFF;
+            border-color: #148C76;
         }
         
         .qty-display {
@@ -125,8 +133,8 @@
             padding: 16px 16px 8px;
             width: 100%;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 24px; 
             font-weight: 700;
-            font-size: 24px;
             line-height: 23px;
             color: #171214;
             margin: 0;
@@ -164,10 +172,17 @@
             line-height: 21px;
             color: #171214;
         }
-        
+        .summary-row-separate {
+            /* La línea delgada divisoria que se ve en la imagen */
+            border-bottom: 1px solid #148C76; 
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Estilo para la fila del Total, asegurando que se separe de la línea anterior */
         .total-value-row {
-            padding-top: 16px;
-            border-top: 1px solid #148C76; /* Línea separadora */
+            /* Asegúrate de que esta regla NO tenga un border-top: */
+            padding-top: 0;
         }
 
         /* Botón de Pago */
@@ -201,69 +216,74 @@
 
     <div class="cart-page-content">
 
-        <nav class="breadcrumbs">
-            <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>">Inicio</a> /
-            <strong>Carrito</strong>
-        </nav>
+        <asp:UpdatePanel ID="upCartContent" runat="server">
+            <ContentTemplate>
+                
+                <div class="products-list-container">
+                    <asp:Repeater ID="rpCartItems" runat="server">
+                      <ItemTemplate>
+                            <div class="product-item-card">
+        
+                                <div class="product-details-group">
+                                    <img src='<%# Eval("ImagenUrl") %>' alt='<%# Eval("Nombre") %>' class="product-image-small" />
+                                    <div class="product-text-group">
+                                        <h2 class="item-name"><%# Eval("Nombre") %></h2>
+                                        <p class="item-variant">Tamaño: <%# Eval("Tamano") %></p>
+                                        <p class="item-variant">Tipo de piel: <%# Eval("TipoPiel") %></p>
+                                    </div>
+                                </div>
 
-        <div class="cart-header">
-            <h1 class="cart-title">Tu Carrito</h1>
-        </div>
-
-        <div class="products-list-container">
-            <asp:Repeater ID="rpCartItems" runat="server">
-                <ItemTemplate>
-                    <div class="product-item-card">
-                        
-                        <div class="product-details-group">
-                            <img src='<%# Eval("ImagenUrl") %>' alt='<%# Eval("Nombre") %>' class="product-image-small" />
-                            <div class="product-text-group">
-                                <h2 class="item-name"><%# Eval("Nombre") %></h2>
-                                <p class="item-variant">Tamaño: <%# Eval("Tamano") %></p>
-                                <p class="item-variant">Tipo de piel: <%# Eval("TipoPiel") %></p>
+                                <div class="quantity-control">
+            
+                                    <asp:LinkButton ID="btnDecrement" runat="server" 
+                                                    CssClass="qty-button" 
+                                                    Text="-" 
+                                                    CommandName="Decrement"
+                            
+                                                    CommandArgument='<%# Eval("ProductId") + "|" + Eval("TipoPiel") %>' 
+                            
+                                                    OnClick="Quantity_Click" />
+            
+                                    <span class="qty-display"><%# Eval("Cantidad") %></span>
+            
+                                    <asp:LinkButton ID="btnIncrement" runat="server" 
+                                                    CssClass="qty-button" 
+                                                    Text="+" 
+                                                    CommandName="Increment"
+                            
+                                                    CommandArgument='<%# Eval("ProductId") + "|" + Eval("TipoPiel") %>' 
+                            
+                                                    OnClick="Quantity_Click" />
+                                </div>
                             </div>
-                        </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
 
-                        <div class="quantity-control">
-                            <button type="button" class="qty-button" data-action="minus" data-id="<%# Eval("Id") %>">-</button>
-                            
-                            <span class="qty-display"><%# Eval("Cantidad") %></span>
-                            
-                            <button type="button" class="qty-button" data-action="plus" data-id="<%# Eval("Id") %>">+</button>
-                            
-                            </div>
+                <div class="summary-detail-container">
+                    <h2 class="summary-title">Resumen del Pedido</h2>
+    
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-value">S/ <asp:Literal ID="litSubtotal" runat="server"></asp:Literal></span>
                     </div>
-                </ItemTemplate>
-            </asp:Repeater>
-        </div>
+    
+                    <div class="summary-row">
+                        <span class="summary-label">IGV</span>
+                        <span class="summary-value">S/ <asp:Literal ID="litImpuestos" runat="server"></asp:Literal></span>
+                    </div>
+    
+                    <div class="summary-row total-value-row">
+                        <span class="summary-label">Total</span>
+                        <span class="summary-value">S/ <asp:Literal ID="litTotal" runat="server"></asp:Literal></span>
+                    </div>
+                </div>
 
-        <div class="summary-detail-container">
-            <h2 class="summary-title">Resumen del Pedido</h2>
-            
-            <div class="summary-row">
-                <span class="summary-label">Subtotal</span>
-                <span class="summary-value">S/ <asp:Literal ID="litSubtotal" runat="server">105.00</asp:Literal></span>
-            </div>
-            
-            <div class="summary-row">
-                <span class="summary-label">Envío</span>
-                <span class="summary-value">S/ <asp:Literal ID="litEnvio" runat="server">7.50</asp:Literal></span>
-            </div>
-            
-            <div class="summary-row">
-                <span class="summary-label">Impuestos</span>
-                <span class="summary-value">S/ <asp:Literal ID="litImpuestos" runat="server">18.90</asp:Literal></span>
-            </div>
-            
-            <div class="summary-row total-value-row">
-                <span class="summary-label">Total</span>
-                <span class="summary-value">S/ <asp:Literal ID="litTotal" runat="server">123.90</asp:Literal></span>
-            </div>
-        </div>
+                <div class="checkout-button-wrapper">
+                    <asp:Button ID="btnCheckout" runat="server" Text="Proceder al Pago" CssClass="checkout-button" OnClick="btnCheckout_Click" />
+                </div>
 
-        <div class="checkout-button-wrapper">
-            <asp:Button ID="btnCheckout" runat="server" Text="Proceder al Pago" CssClass="checkout-button" OnClick="btnCheckout_Click" />
-        </div>
-
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </div>
 </asp:Content>
