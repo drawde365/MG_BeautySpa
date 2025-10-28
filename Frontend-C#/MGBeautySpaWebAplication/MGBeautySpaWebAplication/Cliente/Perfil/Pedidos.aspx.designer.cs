@@ -7,30 +7,39 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MGBeautySpaWebAplication.Cliente
+namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
 
 
-    public partial class SeleccionarEmpleado
+    public partial class Pedidos
     {
 
         /// <summary>
-        /// ScriptManager1 control.
+        /// rptPedidos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.Repeater rptPedidos;
 
         /// <summary>
-        /// rpEmpleados control.
+        /// btnVerMas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rpEmpleados;
+        protected global::System.Web.UI.WebControls.Button btnVerMas;
+
+        /// <summary>
+        /// btnRegresar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRegresar;
 
         /// <summary>
         /// Master property.
@@ -38,11 +47,11 @@ namespace MGBeautySpaWebAplication.Cliente
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new MGBeautySpaWebAplication.Cliente.Cliente Master
+        public new MGBeautySpaWebAplication.Cliente.PerfilMaster Master
         {
             get
             {
-                return ((MGBeautySpaWebAplication.Cliente.Cliente)(base.Master));
+                return ((MGBeautySpaWebAplication.Cliente.PerfilMaster)(base.Master));
             }
         }
     }

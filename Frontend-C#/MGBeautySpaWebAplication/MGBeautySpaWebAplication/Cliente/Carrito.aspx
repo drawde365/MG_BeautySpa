@@ -15,7 +15,7 @@
         <nav class="breadcrumbs">
             <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>">Inicio</a> /
             <strong>Carrito</strong>
-        </nav>
+        </nav> 
         <div class="cart-header">
             <h1 class="cart-title">Tu Carrito</h1>
         </div>

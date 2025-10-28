@@ -67,6 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cliente\Calendario.aspx" />
+    <Content Include="Cliente\Calendario.css">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+    </Content>
     <Content Include="Cliente\Carrito.aspx" />
     <Content Include="Cliente\CarritoCliente.css">
       <DependentUpon>Carrito.aspx</DependentUpon>
@@ -77,12 +81,24 @@
       <DependentUpon>DetalleServicio.aspx</DependentUpon>
     </Content>
     <Content Include="Cliente\Perfil\CambiarPassword.aspx" />
+    <Content Include="Cliente\Perfil\DetallePedido.aspx" />
+    <Content Include="Cliente\Perfil\DetallePedido.css">
+      <DependentUpon>DetallePedido.aspx</DependentUpon>
+    </Content>
+    <Content Include="Cliente\Perfil\Pedidos.aspx" />
+    <Content Include="Cliente\Perfil\Pedidos.css">
+      <DependentUpon>Pedidos.aspx</DependentUpon>
+    </Content>
     <Content Include="Cliente\Perfil\PerfilUsuario.aspx" />
     <Content Include="Cliente\Perfil\PerfilUsuario.css">
       <DependentUpon>PerfilUsuario.aspx</DependentUpon>
     </Content>
     <Content Include="Cliente\Perfil\PerfilMaster.css">
       <DependentUpon>Perfil.master</DependentUpon>
+    </Content>
+    <Content Include="Cliente\Perfil\Reservas.aspx" />
+    <Content Include="Cliente\Perfil\Reservas.css">
+      <DependentUpon>Reservas.aspx</DependentUpon>
     </Content>
     <Content Include="Cliente\ProductoClienteStyle.css">
       <DependentUpon>Productos.aspx</DependentUpon>
@@ -201,6 +217,13 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
+    <Compile Include="Cliente\Calendario.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Calendario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Calendario.aspx.designer.cs">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cliente\Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
     </Compile>
@@ -235,6 +258,20 @@
     <Compile Include="Cliente\Perfil\CambiarPassword.aspx.designer.cs">
       <DependentUpon>CambiarPassword.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cliente\Perfil\DetallePedido.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>DetallePedido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil\DetallePedido.aspx.designer.cs">
+      <DependentUpon>DetallePedido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil\Pedidos.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Pedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil\Pedidos.aspx.designer.cs">
+      <DependentUpon>Pedidos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cliente\Perfil\Perfil.master.cs">
       <DependentUpon>Perfil.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -248,6 +285,13 @@
     </Compile>
     <Compile Include="Cliente\Perfil\PerfilUsuario.aspx.designer.cs">
       <DependentUpon>PerfilUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil\Reservas.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Reservas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil\Reservas.aspx.designer.cs">
+      <DependentUpon>Reservas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente\Productos.aspx.cs">
       <DependentUpon>Productos.aspx</DependentUpon>

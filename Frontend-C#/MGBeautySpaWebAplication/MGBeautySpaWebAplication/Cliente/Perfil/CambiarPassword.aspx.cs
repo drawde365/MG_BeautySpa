@@ -3,55 +3,50 @@ using System.Web.UI;
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
-    public partial class CambiarPassword : System.Web.UI.Page
+    public partial class CambiarPassword : Page
     {
+        // Simulamos que la contraseña actual es "123"
+        private const string ContraseñaActual = "123";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                lblInfo.Text = string.Empty;
-            }
+            // No necesitamos lógica en la carga inicial.
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            string actual = txtAntigua.Text.Trim();
+            string antigua = txtAntigua.Text.Trim();
             string nueva = txtNueva.Text.Trim();
             string verificar = txtVerificar.Text.Trim();
 
-            if (string.IsNullOrEmpty(actual) || string.IsNullOrEmpty(nueva) || string.IsNullOrEmpty(verificar))
+            // 1️⃣ Validar contraseña actual
+            if (antigua != ContraseñaActual)
             {
-                lblInfo.CssClass = "text-danger";
-                lblInfo.Text = "Por favor, completa todos los campos.";
+                lblInfo.Text = "⚠️ La contraseña actual no es correcta.";
+                lblInfo.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
+            // 2️⃣ Validar que las nuevas contraseñas coincidan
             if (nueva != verificar)
             {
-                lblInfo.CssClass = "text-danger";
-                lblInfo.Text = "Las contraseñas nuevas no coinciden.";
+                lblInfo.Text = "⚠️ Las nuevas contraseñas no coinciden.";
+                lblInfo.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
-            // Lógica simulada de cambio de contraseña
-            bool cambioExitoso = true;
+            // 3️⃣ Simular guardado de la nueva contraseña
+            // (En tu proyecto real aquí iría la lógica para actualizar la contraseña en base de datos)
+            // GuardarContraseñaUsuario(usuarioId, nueva);
 
-            if (cambioExitoso)
-            {
-                lblInfo.CssClass = "text-success";
-                lblInfo.Text = "Tu contraseña ha sido actualizada correctamente.";
-                txtAntigua.Text = txtNueva.Text = txtVerificar.Text = string.Empty;
-            }
-            else
-            {
-                lblInfo.CssClass = "text-danger";
-                lblInfo.Text = "Ocurrió un error al cambiar la contraseña.";
-            }
+            // 4️⃣ Mostrar mensaje y redirigir
+            Session["NuevaContraseña"] = nueva; // Opcional: ejemplo
+            Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            // Redirige al perfil del usuario
+            // Redirige de vuelta al perfil del usuario
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
     }

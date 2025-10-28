@@ -2,20 +2,6 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-    min-height: 800px;
-    background: #ECFFFD;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: 0;
-}
-
 /* --- Contenedor Principal --- */
 .container {
     display: flex;
@@ -47,7 +33,6 @@ body {
     font-size: 48px;
     line-height: 40px;
     color: #148C76;
-    border: 0.5px solid #148C76;
 }
 
 .service-info {

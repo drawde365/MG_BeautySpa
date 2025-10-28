@@ -49,7 +49,7 @@
                 <asp:Button ID="btnRevisarCalendario" runat="server" 
                     Text="Reservar cita" 
                     CssClass="btn btn-primary" 
-                    OnClick="btnRevisarCalendario_Click" />
+                    OnClick="btnReservarCita_Click" />
             </div>
         </section>
 

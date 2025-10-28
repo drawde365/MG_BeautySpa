@@ -154,9 +154,10 @@ namespace MGBeautySpaWebAplication.Cliente
 
         // --- Eventos de Botones ---
         
-        protected void btnRevisarCalendario_Click(object sender, EventArgs e)
+        protected void btnReservarCita_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Calendario.aspx?servicioId=" + Request.QueryString["id"]);
+            //Response.Redirect("SeleccionarEmpleado.aspx?servicioId=" + Request.QueryString["id"]);
+            Response.Redirect("~/Cliente/SeleccionarEmpleado.aspx");
         }
 
         protected void btnEnviarResena_Click(object sender, EventArgs e)
