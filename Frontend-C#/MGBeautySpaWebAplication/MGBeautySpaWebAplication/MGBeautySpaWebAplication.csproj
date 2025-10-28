@@ -69,7 +69,7 @@
   <ItemGroup>
     <Content Include="Cliente\Carrito.aspx" />
     <Content Include="Cliente\DetalleProducto.aspx" />
-    <Content Include="Cliente\Perfil.aspx" />
+    <Content Include="Cliente\Perfil\Perfil.aspx" />
     <Content Include="Cliente\Productos.aspx" />
     <Content Include="Cliente\Resultados.aspx" />
     <Content Include="Cliente\Servicios.aspx" />
@@ -157,6 +157,7 @@
     <Content Include="Cliente\Cliente.Master" />
     <Content Include="Admin\Admin.Master" />
     <Content Include="Empleado\Empleado.Master" />
+    <Content Include="Cliente\Perfil\Perfil.master" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -195,11 +196,18 @@
     <Compile Include="Cliente\DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cliente\Perfil.aspx.cs">
+    <Compile Include="Cliente\Perfil\Perfil.master.cs">
+      <DependentUpon>Perfil.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente\Perfil\Perfil.master.designer.cs">
+      <DependentUpon>Perfil.master</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente\Perfil\Perfil.aspx.cs">
       <DependentUpon>Perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cliente\Perfil.aspx.designer.cs">
+    <Compile Include="Cliente\Perfil\Perfil.aspx.designer.cs">
       <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente\Productos.aspx.cs">

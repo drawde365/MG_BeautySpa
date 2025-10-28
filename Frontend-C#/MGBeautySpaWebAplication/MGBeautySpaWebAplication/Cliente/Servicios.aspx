@@ -147,17 +147,31 @@
                     Descubre una amplia gama de tratamientos personalizados para realzar tu belleza y bienestar. Desde rejuvenecedores tratamientos faciales hasta relajantes terapias corporales, nuestro equipo de expertos está comprometido a brindarte una experiencia excepcional.
                 </p>
             </div>
-            
             <div class="category-tabs">
                 <ul>
                     <li>
-                        <button class="tab-button active" data-category="facial">Faciales</button>
+                        <asp:LinkButton ID="btnFaciales" runat="server" 
+                                        CssClass="tab-button active" 
+                                        CommandArgument="facial"
+                                        OnClick="FilterServices_Click">
+                            Faciales
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <button class="tab-button" data-category="corporal">Corporales</button>
+                        <asp:LinkButton ID="btnCorporales" runat="server" 
+                                        CssClass="tab-button" 
+                                        CommandArgument="corporal"
+                                        OnClick="FilterServices_Click">
+                            Corporales
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <button class="tab-button" data-category="terapias">Terapias Complementarias</button>
+                        <asp:LinkButton ID="btnTerapias" runat="server" 
+                                        CssClass="tab-button" 
+                                        CommandArgument="terapias"
+                                        OnClick="FilterServices_Click">
+                            Terapias Complementarias
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </div>

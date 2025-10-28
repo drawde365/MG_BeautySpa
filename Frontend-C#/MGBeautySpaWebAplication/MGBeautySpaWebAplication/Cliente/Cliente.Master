@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | MG Beauty Spa</title>
@@ -291,35 +292,35 @@
                     </span>
                 </a>
                 
-                <div class="dropdown">
-                    <a class="header-link dropdown-toggle d-inline-flex align-items-center"
-                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                    <div class="dropdown">
+                        <a class="header-link dropdown-toggle d-inline-flex align-items-center"
+                            href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                         
-                        <img id="imgProfile" runat="server" 
-                            src="~/Content/default_profile.png" 
-                            alt="Foto de perfil" 
-                            class="profile-img-small" />
+                            <img id="imgProfile" runat="server" 
+                                src="~/Content/default_profile.png" 
+                                alt="Foto de perfil" 
+                                class="profile-img-small" />
 
-                        <span class="ms-1 user-name-display">
-                            <asp:Literal ID="litUserName" runat="server" />
-                        </span>
-                    </a>
+                            <span class="ms-1 user-name-display">
+                                <asp:Literal ID="litUserName" runat="server" />
+                            </span>
+                        </a>
                     
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil.aspx") %>">
-                                Mi perfil
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li>
-                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
-                                            OnClick="btnLogout_Click">
-                                Cerrar sesión
-                            </asp:LinkButton>
-                        </li>
-                    </ul>
-                </div>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil/Perfil.aspx") %>">
+                                    Mi perfil
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
+                                                OnClick="btnLogout_Click">
+                                    Cerrar sesión
+                                </asp:LinkButton>
+                            </li>
+                        </ul>
+                    </div>
             </div>
         </header>
 
