@@ -7,48 +7,66 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MGBeautySpaWebAplication.Cliente
+namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
 
 
-    public partial class PerfilMaster
+    public partial class CambiarPassword
     {
 
         /// <summary>
-        /// imgProfileSidebar control.
+        /// txtAntigua control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgProfileSidebar;
+        protected global::System.Web.UI.WebControls.TextBox txtAntigua;
 
         /// <summary>
-        /// litSidebarUserName control.
+        /// txtNueva control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litSidebarUserName;
+        protected global::System.Web.UI.WebControls.TextBox txtNueva;
 
         /// <summary>
-        /// btnLogoutSidebar control.
+        /// txtVerificar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogoutSidebar;
+        protected global::System.Web.UI.WebControls.TextBox txtVerificar;
 
         /// <summary>
-        /// ProfileBodyContent control.
+        /// btnGuardar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ProfileBodyContent;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
+
+        /// <summary>
+        /// btnCancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
+
+        /// <summary>
+        /// lblInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
         /// Master property.
@@ -56,11 +74,11 @@ namespace MGBeautySpaWebAplication.Cliente
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new MGBeautySpaWebAplication.Cliente.Cliente Master
+        public new MGBeautySpaWebAplication.Cliente.PerfilMaster Master
         {
             get
             {
-                return ((MGBeautySpaWebAplication.Cliente.Cliente)(base.Master));
+                return ((MGBeautySpaWebAplication.Cliente.PerfilMaster)(base.Master));
             }
         }
     }

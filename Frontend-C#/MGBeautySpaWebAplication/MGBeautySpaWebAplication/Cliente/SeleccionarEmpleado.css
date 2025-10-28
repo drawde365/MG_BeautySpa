@@ -1,0 +1,147 @@
+﻿/* --- Reseteo Básico y Configuración Global --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    min-height: 800px;
+    background: #ECFFFD;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+}
+
+/* --- Contenedor Principal --- */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 50px;
+    width: 993px;
+    max-width: 100%;
+}
+
+/* --- Encabezado y Títulos --- */
+.page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+}
+
+.main-title {
+    width: 100%;
+    margin: 0;
+    padding: 16px 16px 16px 0px;
+    font-family: 'ZCOOL+XiaoWei', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 40px;
+    color: #148C76;
+    border: 0.5px solid #148C76;
+}
+
+.service-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-title {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    color: #121217;
+}
+
+.service-subtitle {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 21px;
+    color: #000000;
+}
+
+/* --- Cuadrícula de Empleados --- */
+.employee-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 13px;
+    width: 100%;
+}
+
+/* --- Tarjeta de Empleado --- */
+.employee-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 8px;
+    width: 215px;
+    height: 261px;
+    background: #D7F2EF;
+    border-radius: 20px;
+    flex-grow: 1;
+    min-width: 215px;
+}
+
+.avatar {
+    width: 139px;
+    height: 141px;
+    border-radius: 64px;
+    background-color: #FFFFFF; /* Color de fondo si la imagen falla */
+    background-size: cover;
+    background-position: center;
+}
+
+.employee-name {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    color: #148C76;
+}
+
+.btn-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    width: 100%;
+    height: 40px;
+    background: #1EC3B6;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    transition: background-color 0.2s ease;
+}
+
+.btn-select:hover {
+    background: #148C76;
+}

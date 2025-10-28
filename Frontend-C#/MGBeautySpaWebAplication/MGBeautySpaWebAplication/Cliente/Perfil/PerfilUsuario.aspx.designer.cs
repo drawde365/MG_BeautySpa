@@ -11,106 +11,93 @@ namespace MGBeautySpaWebAplication.Cliente
 {
 
 
-    public partial class Cliente
+    public partial class PerfilUsuario
     {
 
         /// <summary>
-        /// TitleContent control.
+        /// litUserNameGreeting control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder TitleContent;
+        protected global::System.Web.UI.WebControls.Literal litUserNameGreeting;
 
         /// <summary>
-        /// HeadContent control.
+        /// litNombres control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+        protected global::System.Web.UI.WebControls.Literal litNombres;
 
         /// <summary>
-        /// form1 control.
+        /// litApellidos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Literal litApellidos;
 
         /// <summary>
-        /// txtSearchProduct control.
+        /// litEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchProduct;
+        protected global::System.Web.UI.WebControls.Literal litEmail;
 
         /// <summary>
-        /// cartCountBadge control.
+        /// litTelefono control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cartCountBadge;
+        protected global::System.Web.UI.WebControls.Literal litTelefono;
 
         /// <summary>
-        /// litCartCount control.
+        /// litFechaNac control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litCartCount;
+        protected global::System.Web.UI.WebControls.Literal litFechaNac;
 
         /// <summary>
-        /// imgProfile control.
+        /// litSexo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgProfile;
+        protected global::System.Web.UI.WebControls.Literal litSexo;
 
         /// <summary>
-        /// litUserName control.
+        /// btnEditar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litUserName;
+        protected global::System.Web.UI.WebControls.Button btnEditar;
 
         /// <summary>
-        /// btnLogout control.
+        /// Master property.
         /// </summary>
         /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
+        /// Auto-generated property.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
-
-        /// <summary>
-        /// MainContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-
-        /// <summary>
-        /// ScriptsContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ScriptsContent;
+        public new MGBeautySpaWebAplication.Cliente.PerfilMaster Master
+        {
+            get
+            {
+                return ((MGBeautySpaWebAplication.Cliente.PerfilMaster)(base.Master));
+            }
+        }
     }
 }

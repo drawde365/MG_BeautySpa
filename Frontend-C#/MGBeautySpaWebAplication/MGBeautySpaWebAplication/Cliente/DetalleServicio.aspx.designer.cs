@@ -11,106 +11,147 @@ namespace MGBeautySpaWebAplication.Cliente
 {
 
 
-    public partial class Cliente
+    public partial class DetalleServicio
     {
 
         /// <summary>
-        /// TitleContent control.
+        /// litNombreBreadcrumb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder TitleContent;
+        protected global::System.Web.UI.WebControls.Literal litNombreBreadcrumb;
 
         /// <summary>
-        /// HeadContent control.
+        /// litNombreServicio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+        protected global::System.Web.UI.WebControls.Literal litNombreServicio;
 
         /// <summary>
-        /// form1 control.
+        /// litDescripcionCorta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Literal litDescripcionCorta;
 
         /// <summary>
-        /// txtSearchProduct control.
+        /// imgServicio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchProduct;
+        protected global::System.Web.UI.WebControls.Image imgServicio;
 
         /// <summary>
-        /// cartCountBadge control.
+        /// litDescripcionLarga control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cartCountBadge;
+        protected global::System.Web.UI.WebControls.Literal litDescripcionLarga;
 
         /// <summary>
-        /// litCartCount control.
+        /// litPrecio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litCartCount;
+        protected global::System.Web.UI.WebControls.Literal litPrecio;
 
         /// <summary>
-        /// imgProfile control.
+        /// btnRevisarCalendario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgProfile;
+        protected global::System.Web.UI.WebControls.Button btnRevisarCalendario;
 
         /// <summary>
-        /// litUserName control.
+        /// rpBeneficios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litUserName;
+        protected global::System.Web.UI.WebControls.Repeater rpBeneficios;
 
         /// <summary>
-        /// btnLogout control.
+        /// litReviewScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+        protected global::System.Web.UI.WebControls.Literal litReviewScore;
 
         /// <summary>
-        /// MainContent control.
+        /// litReviewCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Literal litReviewCount;
 
         /// <summary>
-        /// ScriptsContent control.
+        /// rpRatingBars control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ScriptsContent;
+        protected global::System.Web.UI.WebControls.Repeater rpRatingBars;
+
+        /// <summary>
+        /// rpResenas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rpResenas;
+
+        /// <summary>
+        /// txtNuevaResena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNuevaResena;
+
+        /// <summary>
+        /// btnEnviarResena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEnviarResena;
+
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new MGBeautySpaWebAplication.Cliente.Cliente Master
+        {
+            get
+            {
+                return ((MGBeautySpaWebAplication.Cliente.Cliente)(base.Master));
+            }
+        }
     }
 }
