@@ -23,49 +23,49 @@
 </head>
 
 <body>
-    <form id="form1" runat="server">
-        <header class="header-container">
+        <form id="form2" runat="server">
+    <header class="header-sticky text-white shadow-sm">
+<div class="container-fluid py-2">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+        
+        <!-- LOGO -->
+        <a href="<%: ResolveUrl("~/Empleado/InicioEmpleado.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
+            <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="Logo" style="height: 50px;" class="me-2">
+            <span class="fw-bold fs-5">MG Beauty Spa</span>
+        </a>
+
+        <!-- ENLACES Y PERFIL -->
+        <div class="d-flex align-items-center flex-wrap gap-2">
             
-            <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>" class="logo-group">
-                     <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" style="height:60px;">
-                <span class="logo-text">MG Beauty Spa</span>
-            </a>
+            <!-- Links -->
+            <a href="<%: ResolveUrl("~/Empleado/MiHorario.aspx") %>" class="nav-link text-white p-0">Mi Horario</a>
+            <a href="<%: ResolveUrl("~/Empleado/MisCitas.aspx") %>" class="nav-link text-white p-0">Mis Citas</a>
 
-            <div class="nav-buttons-group">
-                <a href="<%: ResolveUrl("~/Empleado/MiHorario.aspx") %>" class="nav-link">Mi horario</a>
-                <a href="<%: ResolveUrl("~/Empleado/MisCitas.aspx") %>" class="nav-link">Mis citas</a>
-                
-                
-                    <div class="dropdown">
-                        <a class="header-link dropdown-toggle d-inline-flex align-items-center"
-                            href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
-                        
-                            <img id="imgProfile" runat="server" 
-                                src="~/Content/images/Empleado/blank-photo.jpg" 
-                                alt="Foto de perfil" 
-                                class="profile-img-small" />
-                        <!--<i class="fa-solid fa-user" style="color: #ffffff;"></i>-->
-
-                         <span class="ms-1 user-name-display">
-                                <asp:Literal ID="litUserName" runat="server" />
-                            </span>
-                    </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="<%: ResolveUrl("~/Empleado/Perfil/Perfil.aspx") %>">
-                                    Mi perfil
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li>
-                                <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
-                                                OnClick="btnLogout_Click">
-                                    Cerrar sesión
-                                </asp:LinkButton>
-                            </li>
-                        </ul>
-                    </div>
+            <!-- Perfil -->
+            <div class="dropdown">
+                <a class="header-link dropdown-toggle d-inline-flex align-items-center text-white text-decoration-none"
+                   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="imgProfile" runat="server"
+                         src="~/Content/default_profile.png"
+                         alt="Foto de perfil"
+                         class="rounded-circle me-1" style="width:32px;height:32px;object-fit:cover;">
+                    </img>
+                    <span class="user-name-display">
+                        <asp:Literal ID="litUserName" runat="server" />
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="<%: ResolveUrl("~/Empleado/Perfil/Perfil.aspx") %>">Mi perfil</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                        <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
+                                        OnClick="btnLogout_Click">Cerrar sesión</asp:LinkButton>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </div>
+</div>
         </header>
 
         <div class="content-body-wrapper">

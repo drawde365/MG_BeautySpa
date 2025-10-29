@@ -47,7 +47,7 @@ namespace MGBeautySpaWebAplication
                             Response.Redirect("~/Admin/PanelDeControl.aspx");
                             break;
                         case "Empleado":
-                            Response.Redirect("~/Empleado/MisCitas.aspx");
+                            Response.Redirect("~/Empleado/InicioEmpleado.aspx");
                             break;
                         default:
                             Response.Redirect("~/Cliente/InicioCliente.aspx");
