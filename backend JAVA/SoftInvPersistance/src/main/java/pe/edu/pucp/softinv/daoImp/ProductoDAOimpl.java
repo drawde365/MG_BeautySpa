@@ -143,7 +143,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
 
     @Override
     public ArrayList<ProductoDTO> obtenerPorNombre(String nombre){
-        String sql = "SELECT * FROM PRODUCTOS WHERE NOMBRE LIKE %?%";
+        String sql = "SELECT * FROM PRODUCTOS WHERE NOMBRE LIKE ?";
         return (ArrayList<ProductoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorNombre,nombre);
     }
 
@@ -161,7 +161,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
     private void incluirValoresDeParametrosParaListarPorNombre(Object objetoParametros){
         String nombre = (String) objetoParametros;
         try {
-            this.statement.setString(1, nombre);
+            this.statement.setString(1,'%'+nombre+'%');
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

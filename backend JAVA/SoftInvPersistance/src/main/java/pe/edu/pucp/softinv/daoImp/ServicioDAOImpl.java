@@ -119,7 +119,7 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     
     @Override
     public ArrayList<ServicioDTO> obtenerPorNombre(String nombre){
-        String sql = "SELECT * FROM SERVICIOS WHERE NOMBRE LIKE %?%";
+        String sql = "SELECT * FROM SERVICIOS WHERE NOMBRE LIKE ?";
         return (ArrayList<ServicioDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorNombre,nombre);
     }
     
@@ -137,7 +137,7 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     private void incluirValoresDeParametrosParaListarPorNombre(Object objetoParametros){
         String nombre = (String) objetoParametros;
         try {
-            this.statement.setString(1, nombre);
+            this.statement.setString(1,'%'+nombre+'%');
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

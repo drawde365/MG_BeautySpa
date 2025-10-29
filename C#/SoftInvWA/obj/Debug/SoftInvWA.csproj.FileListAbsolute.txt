@@ -1,7 +1,0 @@
-D:\MG_BeautySpa\C#\SoftInvWA\bin\SoftInvWA.dll.config
-D:\MG_BeautySpa\C#\SoftInvWA\bin\SoftInvWA.dll
-D:\MG_BeautySpa\C#\SoftInvWA\bin\SoftInvWA.pdb
-D:\MG_BeautySpa\C#\SoftInvWA\obj\Debug\SoftInvWA.csproj.AssemblyReference.cache
-D:\MG_BeautySpa\C#\SoftInvWA\obj\Debug\SoftInvWA.csproj.CoreCompileInputs.cache
-D:\MG_BeautySpa\C#\SoftInvWA\obj\Debug\SoftInvWA.dll
-D:\MG_BeautySpa\C#\SoftInvWA\obj\Debug\SoftInvWA.pdb

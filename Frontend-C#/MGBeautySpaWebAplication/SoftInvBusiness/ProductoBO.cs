@@ -1,0 +1,24 @@
+﻿using SoftInvBusiness.SoftInvWSProductos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SoftInvBusiness
+{
+    public class ProductoBO
+    {
+        private ProductosClient productoSOAP;
+
+        public ProductoBO()
+        {
+            productoSOAP = new ProductosClient();
+        }
+
+        public IList<productoDTO> buscarPorNombre(string texto)
+        {
+            return productoSOAP.buscarProductos(texto);
+        }
+    }
+}
