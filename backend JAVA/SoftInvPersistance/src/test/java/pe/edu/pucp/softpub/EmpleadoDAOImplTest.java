@@ -102,7 +102,7 @@ public class EmpleadoDAOImplTest {
         ArrayList<EmpleadoDTO> lista = empleadoDAO.listarTodos();
         assertNotNull(lista, "La lista no debe ser nula.");
         assertFalse(lista.isEmpty(), "Debe contener al menos un empleado.");
-        assertTrue(lista.stream().anyMatch(e -> e.getIdUsuario() == emp.getIdUsuario()),
+        assertTrue(lista.stream().anyMatch(e -> e.getIdUsuario().equals(emp.getIdUsuario())),
                 "El empleado insertado debe estar en la lista.");
 
         eliminar();
