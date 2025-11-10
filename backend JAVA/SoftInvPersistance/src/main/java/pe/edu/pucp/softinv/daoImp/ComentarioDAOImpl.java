@@ -83,9 +83,9 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
         this.comentario = new ComentarioDTO();
         this.comentario.setIdComentario(this.resultSet.getInt("COMENTARIO_ID"));
         Integer Producto_ID = this.resultSet.getInt("PRODUCTO_ID");
-        if(Producto_ID == 0) Producto_ID = null;
+        if(Producto_ID.equals(0)) Producto_ID = null;
         Integer Servicio_ID = this.resultSet.getInt("SERVICIO_ID");
-        if(Servicio_ID == 0) Servicio_ID = null;
+        if(Servicio_ID.equals(0)) Servicio_ID = null;
         ProductoDTO producto = new ProductoDTO();
         ServicioDTO servicio = new ServicioDTO();
         producto.setIdProducto(Producto_ID);
@@ -108,10 +108,10 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
         ServicioDTO servicio = new ServicioDTO();
         producto.setIdProducto(Producto_ID);
         servicio.setIdServicio(Servicio_ID);
-        if (Producto_ID>0  && Servicio_ID == 0) {
+        if (Producto_ID.compareTo(0)>0  && Servicio_ID.equals(0)) {
             comentario.getProducto().setIdProducto(Producto_ID);
             comentario.getServicio().setIdServicio(null);
-        }else if(Producto_ID == 0 && Servicio_ID>0){
+        }else if(Producto_ID.equals(0) && Servicio_ID.compareTo(0)>0){
             comentario.getServicio().setIdServicio(Servicio_ID);
             comentario.getProducto().setIdProducto(null);
         }

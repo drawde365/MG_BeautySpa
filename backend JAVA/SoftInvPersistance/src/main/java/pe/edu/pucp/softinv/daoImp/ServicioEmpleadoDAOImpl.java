@@ -12,7 +12,7 @@ import java.util.List;
 public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpleadoDAO {
     ServicioDTO servicio;
     EmpleadoDTO empleado;
-    Integer EXS; //Esta variable se utilizara para listar los empleados que brindan un servicio o
+    int EXS; //Esta variable se utilizara para listar los empleados que brindan un servicio o
     //Los servicios que brinda un empleado, entonces para agregar un nuevo objeto a la lista
     //EXS=0 cuando listas los servicios que brinda un empleado
     //EXS=1 cuando listas los empleados que brindan un servicio

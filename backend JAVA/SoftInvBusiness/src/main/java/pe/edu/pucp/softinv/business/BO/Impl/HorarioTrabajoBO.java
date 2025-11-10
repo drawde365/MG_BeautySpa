@@ -21,23 +21,6 @@ public class HorarioTrabajoBO
         horarioTrabajoDAO = new HorarioTrabajoDAOImpl();
         empleadoDAO=new  EmpleadoDAOImpl();
     }
-/*
-    Integer insertar(Integer idEmpleado, Integer diaSemana, Time horaInicio, Time horaFin){
-        EmpleadoDAO empleadoDAO = new EmpleadoDAOImpl();
-        if(ultimoEmpleadoEncontrado != null){
-            if (ultimoEmpleadoEncontrado.getIdUsuario() != idEmpleado) {
-                ultimoEmpleadoEncontrado = empleadoDAO.obtenerPorId(idEmpleado);
-                if (ultimoEmpleadoEncontrado == null) return null;
-            }
-        }else{
-            ultimoEmpleadoEncontrado = empleadoDAO.obtenerPorId(idEmpleado);
-            if (ultimoEmpleadoEncontrado == null) return null;
-        }
-        Duration duracion;
-
-        HorarioTrabajoDTO horarioTrabajoDTO = new HorarioTrabajoDTO(ultimoEmpleadoEncontrado,)
-    }
-*/
     public Integer insertar(Integer idEmpleado, Integer diaSemana, Time horaInicio, Time horaFin){
 
         EmpleadoDTO empleado=new EmpleadoDTO();

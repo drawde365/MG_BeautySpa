@@ -155,7 +155,7 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     
     @Override
     public Integer obtenerCantPaginas() {
-        Integer cant;
+        int cant;
         String sql = "SELECT COUNT(*) AS COUNT FROM SERVICIOS";
         try {
             this.iniciarTransaccion();

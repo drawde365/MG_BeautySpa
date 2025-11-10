@@ -179,7 +179,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
 
     @Override
     public Integer obtenerCantPaginas() {
-        Integer cant;
+        int cant;
         String sql = "SELECT COUNT(*) AS COUNT FROM PRODUCTOS";
         try {
             this.iniciarTransaccion();

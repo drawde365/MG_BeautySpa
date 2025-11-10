@@ -38,7 +38,7 @@ public class CalendarioBO {
     }
 
     public Integer modificar(CalendarioDTO calendario) {
-        return calendarioDAO.insertar(calendario);
+        return calendarioDAO.modificar(calendario);
     }
 
     public Integer eliminar(CalendarioDTO calendario){

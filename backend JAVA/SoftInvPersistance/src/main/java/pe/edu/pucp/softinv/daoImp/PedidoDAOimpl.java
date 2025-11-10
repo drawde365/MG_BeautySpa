@@ -100,7 +100,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     protected int instanciarObjetoDelResultSetEspecial() throws SQLException {
         int result=0;
         int idPed = resultSet.getInt("PEDIDO_ID");
-        if(this.pedido.getIdPedido()!=idPed || this.pedido.getEstadoPedido()==null){
+        if(!this.pedido.getIdPedido().equals(idPed) || this.pedido.getEstadoPedido()==null){
             this.pedido = this.instanciarPedidoDelResultSet(idPed);
              result=1;
         }

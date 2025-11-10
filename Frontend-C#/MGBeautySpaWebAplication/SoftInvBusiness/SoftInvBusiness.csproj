@@ -54,7 +54,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ProductoBO.cs" />
-    <Compile Include="ProductoTipo.cs" />
+    <Compile Include="ProductoTipoBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

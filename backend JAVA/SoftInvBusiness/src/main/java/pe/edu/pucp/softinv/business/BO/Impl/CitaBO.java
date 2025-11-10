@@ -20,18 +20,6 @@ public class CitaBO {
 
     public Integer insertar(Integer empleadoId, Integer clienteId, Integer servicioId, Date fecha, Time horaIni,
                             Time horaFin,Double igv,Integer activo,String codTransacc) {
-        /*
-        private Integer id;
-        private Time horaIni;
-        private Time horaFin;
-        private ClienteDTO cliente;
-        private ServicioDTO servicio;
-        private EmpleadoDTO empleado;
-        private java.sql.Date fecha;
-        private Integer activo;
-        private Double IGV;
-        private String codigoTransaccion;
-        */
          ClienteDTO cliente=new ClienteDTO();
          cliente.setIdUsuario(empleadoId);
 

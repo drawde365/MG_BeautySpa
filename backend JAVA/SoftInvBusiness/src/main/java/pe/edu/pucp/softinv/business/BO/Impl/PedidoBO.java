@@ -52,17 +52,18 @@ public class PedidoBO {
     public Integer modificarDetalle(DetallePedidoDTO detallePedido) {
         DetallePedidoDTO detallle = detallePedidoDAO.obtener(detallePedido.getPedido().getIdPedido(),
                 detallePedido.getProducto().getProducto().getIdProducto(), detallePedido.getProducto().getTipo());
-
-        if(detallePedido.getSubtotal() != detallePedido.getSubtotal()) {
+        if(!detallle.getSubtotal().equals(detallePedido.getSubtotal())) {
             PedidoDTO pedido = pedidoDAO.obtenerPorId(detallePedido.getPedido().getIdPedido());
-            pedido.setTotal(pedido.getTotal()+detallePedido.getSubtotal()-detallePedido.getSubtotal());
+            double nuevoTotal = pedido.getTotal() - detallle.getSubtotal() + detallePedido.getSubtotal();
+            pedido.setTotal(nuevoTotal);
             pedidoDAO.modificar(pedido);
         }
         return detallePedidoDAO.modificar(detallePedido);
+
     }
     public Integer eliminarDetalle(DetallePedidoDTO detallePedido) {
         PedidoDTO pedido = pedidoDAO.obtenerPorId(detallePedido.getPedido().getIdPedido());
-        pedido.setTotal(pedido.getTotal()+detallePedido.getSubtotal());
+        pedido.setTotal(pedido.getTotal()-  detallePedido.getSubtotal());
         pedidoDAO.modificar(pedido);
         return detallePedidoDAO.eliminar(detallePedido);
     }
