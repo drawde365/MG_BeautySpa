@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="4900b3a3-6ed8-4965-9870-e587100e7c17" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="792f8ad8-4923-44df-a7f7-1a5ceb4e903b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
-    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
-    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
@@ -22,8 +21,8 @@
     <MetadataSource Address="http://localhost:8080/SoftInvWS/Productos?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Productos.xsd" MetadataType="Schema" ID="9be47788-f0ee-41c7-94ba-9b90f12d2797" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Productos?xsd=1" />
-    <MetadataFile FileName="Productos.wsdl" MetadataType="Wsdl" ID="4df44cb2-5206-4693-97b9-1193b2684bba" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Productos?wsdl" />
+    <MetadataFile FileName="Productos.xsd" MetadataType="Schema" ID="63e9d825-2955-464d-8f83-9b69ad7e44d2" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Productos?xsd=1" />
+    <MetadataFile FileName="Productos.wsdl" MetadataType="Wsdl" ID="e5fbc2f7-c178-4f0d-8ddb-8f9b54fab0f4" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Productos?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

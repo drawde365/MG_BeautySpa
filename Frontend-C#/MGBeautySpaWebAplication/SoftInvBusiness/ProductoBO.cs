@@ -20,5 +20,20 @@ namespace SoftInvBusiness
         {
             return productoSOAP.buscarProductos(texto);
         }
+
+        public IList<productoDTO> pagina(int n)
+        {
+            return productoSOAP.obtenerProdPag(n);
+        }
+
+        public int numeroPaginas()
+        {
+            return productoSOAP.cantidadPagProd();
+        }
+
+        public productoDTO buscarPorId(int id)
+        {
+            return productoSOAP.ObtenerProducto(id);
+        }
     }
 }

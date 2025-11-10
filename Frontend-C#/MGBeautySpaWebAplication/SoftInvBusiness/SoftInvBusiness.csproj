@@ -48,7 +48,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\SoftInvWSProductoTipo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ProductoBO.cs" />
+    <Compile Include="ProductoTipo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,36 +66,32 @@
     <None Include="Connected Services\SoftInvWSProductos\Productos.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.buscarProductosResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.cantidadPagProdResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.ModificarProductoResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.obtenerProdPagResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.ObtenerProductoResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.productoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo.wsdl" />
+    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.EliminarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.InsertarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ModificarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ObtenerProductosTiposIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductos\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSProductoTipo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SoftInvWSProductos\configuration91.svcinfo" />
@@ -99,6 +101,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SoftInvWSProductos\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSProductoTipo\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSProductoTipo\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSProductoTipo\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

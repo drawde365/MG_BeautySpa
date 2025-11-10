@@ -1,120 +1,179 @@
-﻿<%@ Page Title="Detalle de producto" Language="C#" MasterPageFile="~/Cliente/Cliente.Master"
-    AutoEventWireup="true" CodeBehind="DetalleProducto.aspx.cs"
+﻿<%@ Page Title="Detalle de Producto" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" 
+    AutoEventWireup="true" CodeBehind="DetalleProducto.aspx.cs" 
     Inherits="MGBeautySpaWebAplication.Cliente.DetalleProducto" %>
 
-<asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server"></asp:Content>
-
-<asp:Content ID="ctTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    <asp:Literal ID="litTitulo" runat="server" />
+<%-- 1. CONTENIDO DEL HEAD: CSS, Fuentes y JS --%>
+<asp:Content ID="Content1" ContentPlaceHolderID="ScriptsContent" runat="server">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link href="DetalleProducto.css" rel="stylesheet" />
+    
+    <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/ProductDetail.js?v=1") %>"></script>
 </asp:Content>
 
-<asp:Content ID="ctMain" ContentPlaceHolderID="MainContent" runat="server">
+
+<%-- 2. CONTENIDO PRINCIPAL (Tu diseño deseado) --%>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    <%-- El ID 'smDetalle' coincide con tu C# --%>
     <asp:ScriptManager ID="smDetalle" runat="server" EnablePartialRendering="true" />
-    <!-- Migas -->
-    <nav class="mb-3 small">
-        <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>">Inicio</a> /
-        <a href="<%: ResolveUrl("~/Cliente/Productos.aspx") %>">Productos</a> /
-        <strong><asp:Literal ID="litNombreProd" runat="server" /></strong>
-    </nav>
 
-    <div class="row g-4 align-items-start">
-        <!-- Imagen -->
-        <div class="col-lg-6">
-            <asp:Image ID="imgProducto" runat="server" CssClass="img-fluid rounded shadow-sm" />
-        </div>
+    <div class="page-container">
+        
+        <nav class="breadcrumb-nav">
+            <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>">Inicio</a>
+            <span>/</span>
+            <a href="<%: ResolveUrl("~/Cliente/Productos.aspx") %>">Productos</a>
+            <span>/</span>
+            <strong><asp:Literal ID="litNombreProd" runat="server" /></strong> <%-- ID del C# --%>
+        </nav>
 
-        <!-- Info principal -->
-        <div class="col-lg-6">
-            <h1 class="h2 mb-3"><asp:Literal ID="litNombre" runat="server" /></h1>
-            <p class="lead"><asp:Literal ID="litDescripcion" runat="server" /></p>
+        <section class="product-main-layout">
+            
+            <div class="product-image-column">
+                <asp:Image ID="imgProducto" runat="server" CssClass="product-image-css" />
+            </div>
 
-            <div class="display-6 fw-bold my-3">S/. <asp:Literal ID="litPrecio" runat="server" /></div>
-
-            <h5 class="mb-3">Seleccionar Tipo de Piel y Cantidad</h5>
-
-            <!-- Variantes / tipos -->
-            <asp:Repeater ID="rpPresentaciones" runat="server" OnItemDataBound="rpPresentaciones_ItemDataBound">
-              <ItemTemplate>
-                <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
-                  <span class="btn btn-light px-3" style="min-width: 120px;"><%# Eval("Tipo") %></span>
-
-                  <div class="input-group quantity-control" style="width: 150px;">
-                    <button type="button" class="btn btn-outline-secondary minus">-</button>
-    
-                    <asp:TextBox ID="txtCantidad" runat="server" 
-                                 Text="0" 
-                                 CssClass="form-control text-center qty" />
-                    
-                    <button type="button" class="btn btn-outline-secondary plus">+</button>
-                </div> 
-
-                  <asp:LinkButton ID="btnIngredientes" runat="server"
-                                  CommandName="ver"
-                                  CommandArgument='<%# Eval("Tipo") %>'
-                                  CssClass="btn btn-primary"
-                                  OnClick="btnIngredientes_Click">
-                    Ver ingredientes
-                  </asp:LinkButton>
+            <div class="product-details-column">
+                <h1><asp:Literal ID="litNombre" runat="server" /></h1>
+                <p><asp:Literal ID="litDescripcion" runat="server" /></p>
+                
+                <div class="price">
+                    S/ <asp:Literal ID="litPrecio" runat="server" />
                 </div>
-              </ItemTemplate>
-            </asp:Repeater>
+                
+                <h5 class="options-title">Seleccionar Tipo de Piel y Cantidad</h5>
+                
+                <%-- REPEATER (Con IDs del C#) --%>
+                <asp:Repeater ID="rpPresentaciones" runat="server" OnItemDataBound="rpPresentaciones_ItemDataBound">
+                  <ItemTemplate>
+                    <%-- Este es el contenedor de fila de tu diseño de Figma --%>
+                    <div class="tipo-item-row">
+      
+                      <%-- 1. Botón de Tipo de Piel (usa la clase de Figma) --%>
+                      <span class="tipo-name-btn"><%# Eval("Tipo") %></span>
 
-            <asp:Button ID="btnAddCart" runat="server" CssClass="btn btn-primary btn-lg mt-2"
-                Text="Añadir al carrito" OnClick="btnAddCart_Click" />
-        </div>
-    </div>
+                      <%-- 2. Selector de Cantidad (usa las clases de Figma) --%>
+                      <div class="quantity-picker">
+                        <button type="button" class="qty-btn-minus">-</button>
+        
+                        <asp:TextBox ID="txtCantidad" runat="server" Text="0" 
+                            CssClass="qty-display" />
+        
+                        <button type="button" class="qty-btn-plus">+</button>
+                      </div> 
 
-    <!-- Tabs de detalle -->
-    <div class="mt-5">
-        <ul class="nav nav-tabs" id="tabsProd" role="tablist">
-            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-det">Detalles</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-uso">Modo de uso</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-com">Reseñas</button></li>
-        </ul>
+                      <%-- 3. Botón de Ingredientes (usa la clase de Figma) --%>
+                      <asp:LinkButton ID="btnIngredientes" runat="server"
+                            CommandName="ver"
+                            CssClass="add-button-small"
+                            OnClick="btnIngredientes_Click">
+                        Ingredientes
+                      </asp:LinkButton>
+                    </div>
+                </ItemTemplate>
+                </asp:Repeater>
+                
+                <asp:Button ID="btnAddCart" runat="server" CssClass="add-button-main"
+                    Text="Añadir al carrito" OnClick="btnAddCart_Click" />
 
-        <div class="tab-content p-3 border-bottom border-start border-end rounded-bottom">
-            <div class="tab-pane fade show active" id="tab-det">
-                <h5>Descripción</h5>
-                <p><asp:Literal ID="litDescripcionLarga" runat="server" /></p>
+                <asp:Label ID="lblCartMessage" runat="server" Visible="false" CssClass="cart-message"></asp:Label>
             </div>
-            <div class="tab-pane fade" id="tab-uso">
-                <h5>Modo de uso</h5>
-                <p><asp:Literal ID="litModoUso" runat="server" /></p>
+        </section>
+
+        <section class="product-info-section">
+            <h3 class="section-title">Detalles del Producto</h3>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-item-label">Tamaño</span>
+                    <span class="detail-item-value"><asp:Literal ID="litTamano" runat="server" /></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-item-label">Beneficios</span>
+                    <span class="detail-item-value"><asp:Literal ID="litBeneficios" runat="server" /></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-item-label">Cómo Usar</span>
+                    <span class="detail-item-value"><asp:Literal ID="litComoUsar" runat="server" /></span>
+                </div>
             </div>
-            <div class="tab-pane fade" id="tab-com">
-                <asp:UpdatePanel ID="upComentarios" runat="server">
-                    <ContentTemplate>
-                        <h5 class="mb-3">Escribe tu comentario</h5>
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <asp:TextBox ID="txtNombreComent" runat="server" CssClass="form-control" placeholder="Tu nombre (opcional)"></asp:TextBox>
-                            </div>
-                            <div class="col-md-8">
-                                <asp:TextBox ID="txtComentario" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" placeholder="¿Qué te pareció el producto?"></asp:TextBox>
-                            </div>
-                        </div>
-                        <asp:Button ID="btnEnviarComent" runat="server" CssClass="btn btn-primary mb-3"
-                            Text="Publicar comentario" OnClick="btnEnviarComent_Click" />
+        </section>
 
-                        <asp:Panel ID="pnlNoComments" runat="server" CssClass="text-muted">Aún no hay comentarios.</asp:Panel>
+        <section class="product-reviews-section">
+            <h3 class="section-title">Reseñas</h3>
 
-                        <asp:Repeater ID="rpComentarios" runat="server">
-                            <ItemTemplate>
-                                <div class="border rounded p-3 mb-2">
-                                    <div class="small text-muted">
-                                        <strong><%# Eval("Autor") %></strong> — <%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy HH:mm") %>
-                                    </div>
-                                    <div><%# Eval("Texto") %></div>
+            <div class="review-summary-grid">
+                <div class="review-score">
+                    <div class="score-number"><asp:Literal ID="litReviewScore" runat="server" /></div>
+                    <div class="score-stars">★ ★ ★ ★ ☆</div>
+                    <div class="score-count"><asp:Literal ID="litReviewCount" runat="server" /></div>
+                </div>
+                <div class="review-bars">
+                    <asp:Repeater ID="rpRatingBars" runat="server">
+                        <ItemTemplate>
+                            <div class="bar-row">
+                                <span><%# Eval("Stars") %></span>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: <%# Eval("Percentage") %>%;"></div>
                                 </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
+                                <span><%# Eval("Count") %></span>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Modal Ingredientes -->
+            <div class="review-list">
+                <%-- ID 'rpComentarios' adaptado a 'rpResenas' para que C# funcione --%>
+                <asp:Repeater ID="rpComentarios" runat="server">
+                    <ItemTemplate>
+                        <article class="review-item">
+                            <div class="review-header">
+                                <asp:Image ID="imgAvatar" runat="server" ImageUrl='<%# Eval("AvatarUrl", "~{0}") %>' CssClass="review-avatar" />
+                                <div class="review-author-info">
+                                    <span class="review-author-name"><%# Eval("Autor") %></span>
+                                    <span class="review-date"><%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %></span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★ ★ ★ ★ ★</div>
+                            <p class="review-body"><%# Eval("Texto") %></p>
+                            <%-- Los botones de Like/Dislike de tu diseño (necesitarían C# adicional) --%>
+                            <div class="review-actions">
+                                <asp:LinkButton ID="btnLike" runat="server" CssClass="review-action-btn" CommandName="Like">👍 <span>0</span></asp:LinkButton>
+                                <asp:LinkButton ID="btnDislike" runat="server" CssClass="review-action-btn" CommandName="Dislike">👎 <span>0</span></asp:LinkButton>
+                            </div>
+                        </article>
+                    </ItemTemplate>
+                </asp:Repeater>
+                
+                <%-- Panel 'pnlNoComments' del C# --%>
+                <asp:Panel ID="pnlNoComments" runat="server" CssClass="text-muted" Visible="false">
+                    Aún no hay reseñas para este producto.
+                </asp:Panel>
+            </div>
+
+            <div class="add-review-form">
+                <img class="review-avatar" src="/avatar-placeholder-user.png" alt="Tu avatar" />
+                <div class="add-review-content">
+                    <%-- IDs 'txtNombreComent' y 'txtComentario' del C# --%>
+                    <asp:TextBox ID="txtNombreComent" runat="server" CssClass="review-textarea" placeholder="Tu nombre (opcional)" Rows="1" style="height: 40px; margin-bottom: 5px;"/>
+                    <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="review-textarea" placeholder="Escribe tu reseña..." />
+                    <div class="review-form-footer">
+                        <div class="review-rating-input">
+                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                        </div>
+                        <%-- ID 'btnEnviarComent' del C# --%>
+                        <asp:Button ID="btnEnviarComent" runat="server" Text="Enviar" CssClass="btn-submit-review" OnClick="btnEnviarComent_Click" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div> <%-- Fin de .page-container --%>
+
+
     <div class="modal fade" id="modalIng" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <asp:UpdatePanel ID="upModalIng" runat="server" UpdateMode="Conditional">
@@ -134,14 +193,4 @@
         </asp:UpdatePanel>
       </div>
     </div>
-
-
-
-
-
-</asp:Content>
-
-<asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
-    <!-- JS externo -->
-    <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/ProductDetail.js?v=1") %>"></script>
 </asp:Content>

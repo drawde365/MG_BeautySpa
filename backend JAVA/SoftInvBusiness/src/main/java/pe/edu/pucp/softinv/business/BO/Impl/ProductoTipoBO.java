@@ -14,7 +14,7 @@ public class ProductoTipoBO {
     }
 
     public ArrayList<ProductoTipoDTO> obtenerProductoId(Integer idProducto){
-        return obtenerProductoId(idProducto);
+        return productoTipoDAO.obtenerProductoId(idProducto);
     }
 
     public Integer insertar(ProductoTipoDTO productoTipo) {

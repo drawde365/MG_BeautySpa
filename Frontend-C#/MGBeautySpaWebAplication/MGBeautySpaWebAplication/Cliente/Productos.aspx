@@ -44,18 +44,18 @@
                 
                 <asp:Repeater ID="rpProductos" runat="server">
                     <ItemTemplate>
-                        <a href='<%# ResolveUrl("~/Cliente/DetalleProducto.aspx?id=" + Eval("Id")) %>' class="product-card">
+                        <a href='<%# ResolveUrl("~/Cliente/DetalleProducto.aspx?id=" + Eval("idProducto")) %>' class="product-card">
                             
                             <div class="product-image-container">
                                 <asp:Image ID="imgProd" runat="server" 
-                                           ImageUrl='<%# Eval("ImagenUrl") %>' 
-                                           AlternateText='<%# Eval("Nombre") %>' 
+                                           ImageUrl='<%# Eval("urlImagen") %>' 
+                                           AlternateText='<%# Eval("nombre") %>' 
                                            style="width:100%;height:100%;object-fit:cover;" />
                             </div>
 
                             <div class="product-details">
-                                <h2 class="product-name"><%# Eval("Nombre") %></h2>
-                                <p class="product-description"><%# Eval("DescripcionCorta") %></p>
+                                <h2 class="product-name"><%# Eval("nombre") %></h2>
+                                <p class="product-description"><%# Eval("descripcion") %></p>
                             </div>
                         </a>
                     </ItemTemplate>

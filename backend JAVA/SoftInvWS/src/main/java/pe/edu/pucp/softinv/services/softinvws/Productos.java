@@ -24,7 +24,7 @@ public class Productos {
     }
     
     @WebMethod(operationName = "insertarConDatos")
-    public Integer insertar(@WebParam(name = "nombre")String nombre,@WebParam(name = "descripcion")String descripcion,@WebParam(name = "precio")Double precio,
+    public Integer insertarProducto1(@WebParam(name = "nombre")String nombre,@WebParam(name = "descripcion")String descripcion,@WebParam(name = "precio")Double precio,
                             @WebParam(name = "tamanho")Double tamanho,@WebParam(name = "urlImagen")String urlImagen,
                             @WebParam(name = "tipos")ArrayList<String> tipos,@WebParam(name = "ingreientes")ArrayList<String> ingredientes, 
                             @WebParam(name = "stocks")ArrayList<Integer> stock_fisico){
@@ -32,37 +32,37 @@ public class Productos {
     }
     
     @WebMethod(operationName = "insertarProducto")
-    public Integer insertarProducto(@WebParam(name = "producto")ProductoDTO producto){
+    public Integer insertarProducto2(@WebParam(name = "producto")ProductoDTO producto){
         return productoBO.insertar(producto);
     }
     
     @WebMethod(operationName = "ObtenerProducto")
-    public ProductoDTO obtenerPorId(@WebParam(name = "id")Integer idProd){
+    public ProductoDTO obtenerPorIdProducto(@WebParam(name = "id")Integer idProd){
         return productoBO.obtenerPorId(idProd);
     }
     
     @WebMethod(operationName = "ModificarProducto")
-    public Integer modificar(@WebParam(name = "producto")ProductoDTO producto){
+    public Integer modificarProducto(@WebParam(name = "producto")ProductoDTO producto){
         return productoBO.modificar(producto);
     }
     
     @WebMethod(operationName = "EliminarProducto")
-    public Integer eliminar(@WebParam(name = "producto")ProductoDTO producto){
+    public Integer eliminarProducto(@WebParam(name = "producto")ProductoDTO producto){
         return productoBO.eliminar(producto);
     }
     
     @WebMethod(operationName = "buscarProductos")
-    public ArrayList<ProductoDTO> buscarPorNombre (@WebParam(name = "nombre")String nombre){
+    public ArrayList<ProductoDTO> buscarPorNombreProducto (@WebParam(name = "nombre")String nombre){
         return productoBO.buscarPorNombre(nombre);
     }
     
     @WebMethod(operationName = "obtenerProdPag")
-    public ArrayList<ProductoDTO> obtenerPagina (@WebParam(name = "pagina")Integer pagina){
+    public ArrayList<ProductoDTO> obtenerPaginaProducto (@WebParam(name = "pagina")Integer pagina){
         return productoBO.obtenerPagina(pagina);
     }
     
     @WebMethod(operationName = "cantidadPagProd")
-    public Integer cantidadPaginas(){
+    public Integer cantidadPaginasProducto(){
         return productoBO.cantidadPaginas();
     }
 }

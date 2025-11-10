@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Oo/V+mCa2YE=",
+  "success": true,
+  "projectFilePath": "D:\\Clases\\Progra3\\MG_BeautySpa\\Frontend-C#\\MGBeautySpaWebAplication\\Tester\\Tester.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Flavio\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.20\\microsoft.windowsdesktop.app.ref.8.0.20.nupkg.sha512",
+    "C:\\Users\\Flavio\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.20\\microsoft.netcore.app.ref.8.0.20.nupkg.sha512",
+    "C:\\Users\\Flavio\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.20\\microsoft.aspnetcore.app.ref.8.0.20.nupkg.sha512",
+    "C:\\Users\\Flavio\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.20\\microsoft.netcore.app.host.win-x64.8.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}

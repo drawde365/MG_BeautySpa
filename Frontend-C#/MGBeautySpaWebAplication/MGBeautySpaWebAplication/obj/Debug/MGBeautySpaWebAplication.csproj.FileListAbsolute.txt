@@ -358,3 +358,6 @@ D:\Rodrigo doc\INFORMATICA\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAp
 D:\Rodrigo doc\INFORMATICA\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\obj\Debug\MGBeauty.5A3F71BC.Up2Date
 D:\Rodrigo doc\INFORMATICA\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\obj\Debug\MGBeautySpaWebAplication.dll
 D:\Rodrigo doc\INFORMATICA\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\obj\Debug\MGBeautySpaWebAplication.pdb
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.dll
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.pdb
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.dll.config

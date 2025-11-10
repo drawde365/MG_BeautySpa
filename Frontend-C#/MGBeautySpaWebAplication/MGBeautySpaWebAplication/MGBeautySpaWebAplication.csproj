@@ -76,6 +76,7 @@
       <DependentUpon>Carrito.aspx</DependentUpon>
     </Content>
     <Content Include="Cliente\DetalleProducto.aspx" />
+    <Content Include="Cliente\DetalleProducto.css" />
     <Content Include="Cliente\DetalleServicio.aspx" />
     <Content Include="Cliente\DetalleServicio.css">
       <DependentUpon>DetalleServicio.aspx</DependentUpon>
@@ -250,7 +251,6 @@
     </Compile>
     <Compile Include="Cliente\DetalleProducto.aspx.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cliente\DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>

@@ -5,3 +5,10 @@ D:\Rodrigo doc\INFORMATICA\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebA
 D:\Rodrigo doc\INFORMATICA\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.CoreCompileInputs.cache
 D:\Rodrigo doc\INFORMATICA\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.dll
 D:\Rodrigo doc\INFORMATICA\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.pdb
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.AssemblyReference.cache
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.CoreCompileInputs.cache
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.dll
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.pdb
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.dll.config
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.dll
+D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.pdb

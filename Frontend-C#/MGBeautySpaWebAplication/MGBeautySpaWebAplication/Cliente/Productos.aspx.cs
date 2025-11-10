@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
+using SoftInvBusiness.SoftInvWSProductos;
 using System.Web.UI;
+using SoftInvBusiness;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
     public partial class Productos : System.Web.UI.Page
-    {
+    {   /*
         // 1. DTO SIMULADO (Debe coincidir con lo que esperas de Java)
         public class ProductoDTO
         {
@@ -32,6 +34,13 @@ namespace MGBeautySpaWebAplication.Cliente
             };
         }
 
+        */
+
+        ProductoBO productoBO;
+        public Productos()
+        {
+            productoBO = new ProductoBO();
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -59,10 +68,10 @@ namespace MGBeautySpaWebAplication.Cliente
             btnFaciales.CssClass = "tab-button";
             btnCorporales.CssClass = "tab-button";
 
-            var todosProductos = GetFullCatalog();
-            List<ProductoDTO> productosFiltrados;
+            //var todosProductos = GetFullCatalog();
+            var listaProductos = productoBO.pagina(1);
 
-            // Lógica de filtrado y activación de estilos
+            /*
             if (activeCategory == "corporal")
             {
                 btnCorporales.CssClass += " active";
@@ -73,9 +82,10 @@ namespace MGBeautySpaWebAplication.Cliente
                 btnFaciales.CssClass += " active";
                 productosFiltrados = todosProductos.Where(p => p.Categoria == "facial").ToList();
             }
+            */
 
             // Enlazar datos al Repeater (asumo que se llama rpProductos)
-            rpProductos.DataSource = productosFiltrados;
+            rpProductos.DataSource = listaProductos;
             rpProductos.DataBind();
         }
     }
