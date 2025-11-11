@@ -156,7 +156,7 @@ public class CitaDAOImplTest {
 
         ArrayList<CitaDTO> listaEmpleado = citaDAO.listarCitasPorUsuario(empleado);
         assertNotNull(listaEmpleado, "La lista no debe ser nula.");
-        assertFalse(listaEmpleado.isEmpty(), "Debe contener al menos una cita.");
+        assertFalse(listaEmpleado.isEmpty(), "Debe contener al menos una cita E.");
 
         ClienteDTO cliente = new ClienteDTO();
         cliente.setIdUsuario(c.getCliente().getIdUsuario());
@@ -164,7 +164,7 @@ public class CitaDAOImplTest {
 
         ArrayList<CitaDTO> listaCliente = citaDAO.listarCitasPorUsuario(cliente);
         assertNotNull(listaCliente, "La lista no debe ser nula.");
-        assertFalse(listaCliente.isEmpty(), "Debe contener al menos una cita.");
+        assertFalse(listaCliente.isEmpty(), "Debe contener al menos una cita C.");
 
         eliminar();
     }

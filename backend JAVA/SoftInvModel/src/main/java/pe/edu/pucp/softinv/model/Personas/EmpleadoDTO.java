@@ -37,4 +37,7 @@ public class EmpleadoDTO extends UsuarioDTO{
         this.admin = admin;
     }
 
+    public void setRol(){
+        super.setRol(2);
+    }
 }
