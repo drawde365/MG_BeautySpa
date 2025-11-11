@@ -47,7 +47,7 @@ class ComentarioDAOImplTest {
         cliente.setCorreoElectronico("a20834215@mail.com");
         cliente.setContrasenha("1234");
         cliente.setCelular("999888777");
-        cliente.setRol();
+        cliente.setRol(1);
         cliente.setUrlFotoPerfil("dsajdjalds");
         cliente.setActivo(1);
         return cliente;

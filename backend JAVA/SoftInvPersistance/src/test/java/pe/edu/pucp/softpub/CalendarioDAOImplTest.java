@@ -34,7 +34,7 @@ public class CalendarioDAOImplTest {
         emp.setUrlFotoPerfil("peril.jpg");
         emp.setActivo(1);
         emp.setAdmin(true);
-        emp.setRol();
+        emp.setRol(2);
         emp.setIdUsuario(empleadoDAO.insertar(emp));
         return emp;
     }

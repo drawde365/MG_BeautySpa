@@ -35,7 +35,7 @@ class ClienteDAOImplTest {
         cliente.setCorreoElectronico("juan@mail.com");
         cliente.setContrasenha("1234");
         cliente.setCelular("999888777");
-        cliente.setRol();
+        cliente.setRol(1);
         cliente.setUrlFotoPerfil("dsajdjalds");
         cliente.setActivo(1);
         Integer idGenerado = clienteDAO.insertar(cliente);
@@ -50,7 +50,7 @@ class ClienteDAOImplTest {
         cliente.setCorreoElectronico("rodrigo@mail.com");
         cliente.setContrasenha("14652");
         cliente.setCelular("920478163");
-        cliente.setRol();
+        cliente.setRol(1);
         cliente.setUrlFotoPerfil("dsajdjalds");
         cliente.setActivo(1);
         idGenerado = clienteDAO.insertar(cliente);
@@ -67,7 +67,7 @@ class ClienteDAOImplTest {
         cliente.setCelular("924175268");
         cliente.setUrlFotoPerfil("dsajdjalds");
         cliente.setActivo(1);
-        cliente.setRol();
+        cliente.setRol(1);
         ultimoId = clienteDAO.insertar(cliente);
         cliente.setIdUsuario(ultimoId);
         assertTrue(ultimoId != 0);

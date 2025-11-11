@@ -30,7 +30,7 @@ public class EmpleadoDAOImplTest {
         emp.setUrlFotoPerfil("perfil.jpg");
         emp.setActivo(1);
         emp.setAdmin(false);
-        emp.setRol(); // ajusta automáticamente el rol según admin
+        emp.setRol(2); // ajusta automáticamente el rol según admin
         emp.setIdUsuario(empleadoDAO.insertar(emp));
         assertTrue(emp.getIdUsuario() > 0, "Empleado no se insertó correctamente.");
         return emp;
