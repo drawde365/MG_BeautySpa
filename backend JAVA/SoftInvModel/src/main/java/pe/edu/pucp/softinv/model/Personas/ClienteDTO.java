@@ -23,5 +23,9 @@ public class ClienteDTO extends UsuarioDTO {
     public ArrayList<PedidoDTO> getPedidos() {
         return pedidos;
     }
+    
+    public void setRol() {
+        super.setRol(1);
+    }
 
 }
