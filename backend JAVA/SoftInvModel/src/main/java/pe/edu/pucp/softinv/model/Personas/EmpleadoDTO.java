@@ -23,8 +23,9 @@ public class EmpleadoDTO extends UsuarioDTO{
     }
 
     public EmpleadoDTO(String nombre, String PrimerApellido, String SegundoApellido, String correoElectronico,
-                       String contrasenha, String celular,Integer idUsuario, Boolean admin,String urlFotoPerfil,ArrayList<ServicioDTO> servicios) {
-        super(nombre, PrimerApellido, SegundoApellido, correoElectronico, contrasenha, celular, urlFotoPerfil, idUsuario);
+                       String contrasenha, String celular,Integer idUsuario, Boolean admin,String urlFotoPerfil,ArrayList<ServicioDTO> servicios,
+                       Integer rol) {
+        super(nombre, PrimerApellido, SegundoApellido, correoElectronico, contrasenha, celular, urlFotoPerfil, idUsuario,rol);
         this.servicios=servicios;
     }
 

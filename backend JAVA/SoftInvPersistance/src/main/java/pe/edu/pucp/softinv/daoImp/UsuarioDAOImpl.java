@@ -37,7 +37,7 @@ public class UsuarioDAOImpl extends DAOImplBase {
         usuario.setCorreoElectronico(correo);
         String sql = "SELECT USUARIO_ID, PRIMER_APELLIDO, SEGUNDO_APELLIDO,"
                 + "NOMBRE, CORREO_ELECTRONICO, CONTRASENHA, CELULAR,"
-                + "ROL_ID, URL_IMAGEN, ACTIVO FROM USUARIOS WHERE CORREO_ELECTRONICO = ?";
+                + " ROL_ID, URL_IMAGEN, ACTIVO FROM USUARIOS WHERE CORREO_ELECTRONICO = ?";
         super.obtenerPorId(sql);
         return usuario;
     }

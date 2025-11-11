@@ -19,7 +19,7 @@ public class UsuarioBO {
     public UsuarioDTO inicioSesion(String correoElectronico, String contrasenha) {
         UsuarioDTO u = usuario.busquedaPorCorreo(correoElectronico);
         if (u == null) {
-             u = new UsuarioDTO(temp, temp, temp, temp, temp, temp, temp, 0);
+             u = new UsuarioDTO(temp, temp, temp, temp, temp, temp, temp, 0,0);
         }
         return u;
     }

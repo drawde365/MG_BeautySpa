@@ -26,9 +26,9 @@ public class EmpleadoBO
     }
 
     public Integer insertar(String nombre, String Primerapellido, String Segundoapellido,String correoElectronico,
-                     String contrasenha,String celular, String urlFotoPerfil, Boolean admin){
+                     String contrasenha,String celular, String urlFotoPerfil, Boolean admin,Integer rol){
         EmpleadoDTO empleadoDTO = new EmpleadoDTO(nombre,  Primerapellido,  Segundoapellido,  correoElectronico,
-                 contrasenha,celular,null, admin, urlFotoPerfil,null);
+                 contrasenha,celular,null, admin, urlFotoPerfil,null,rol);
         return empleadoDAO.insertar(empleadoDTO);
     }
 
