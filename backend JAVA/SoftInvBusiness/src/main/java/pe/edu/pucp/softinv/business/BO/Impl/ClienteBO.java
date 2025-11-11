@@ -28,7 +28,7 @@ public class ClienteBO {
         clienteDTO.setContrasenha(contrasenha);
         clienteDTO.setCelular(celular);
         clienteDTO.setUrlFotoPerfil(urlFotoPerfil);
-        clienteDTO.setRol();
+        clienteDTO.setRol(1);
         clienteDTO.setActivo(1);
         return clienteDAO.insertar(clienteDTO);
     }
@@ -48,7 +48,7 @@ public class ClienteBO {
         clienteDTO.setContrasenha(contrasenha);
         clienteDTO.setCelular(celular);
         clienteDTO.setUrlFotoPerfil(urlFotoPerfil);
-        clienteDTO.setRol();
+        clienteDTO.setRol(1);
         clienteDTO.setActivo(1);
         return clienteDAO.modificar(clienteDTO);
     }

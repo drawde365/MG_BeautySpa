@@ -4,6 +4,11 @@ import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Alvaro
+ */
+
 public class UsuarioDTO {
     private String nombre;
     private String Primerapellido;
@@ -12,7 +17,7 @@ public class UsuarioDTO {
     private String contrasenha;
     private String celular;
     private String urlFotoPerfil;
-    protected Integer rol;
+    private Integer rol;
     private ArrayList<CitaDTO> citas;
     private Integer idUsuario;
     private Integer activo;
@@ -25,9 +30,6 @@ public class UsuarioDTO {
         this.activo = activo;
     }
 
-    public void setRol(){
-    }
-    
     public void setRol(int rol){
         this.rol=rol;
     }

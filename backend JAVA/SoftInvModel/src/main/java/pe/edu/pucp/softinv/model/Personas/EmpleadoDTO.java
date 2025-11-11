@@ -8,16 +8,6 @@ public class EmpleadoDTO extends UsuarioDTO{
     private Boolean admin;
     private ArrayList<ServicioDTO> servicios;
 
-    @Override
-    public void setRol(){
-        if(admin) rol=3;
-        else rol=2;
-    }
-
-    public void setRol(Integer rol){
-        this.rol=rol;
-    }
-
     public ArrayList<ServicioDTO> getServicios() {
         return servicios;
     }
@@ -35,9 +25,7 @@ public class EmpleadoDTO extends UsuarioDTO{
     public EmpleadoDTO(String nombre, String PrimerApellido, String SegundoApellido, String correoElectronico,
                        String contrasenha, String celular,Integer idUsuario, Boolean admin,String urlFotoPerfil,ArrayList<ServicioDTO> servicios) {
         super(nombre, PrimerApellido, SegundoApellido, correoElectronico, contrasenha, celular, urlFotoPerfil, idUsuario);
-        this.admin=admin;
         this.servicios=servicios;
-        setRol();
     }
 
     public Boolean isAdmin() {

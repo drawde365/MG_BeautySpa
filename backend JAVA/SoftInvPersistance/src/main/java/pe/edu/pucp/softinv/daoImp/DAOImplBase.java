@@ -326,11 +326,16 @@ public abstract class DAOImplBase {
         }
         return resultado;
     }
+    
+    public void obtenerPorId(){
+        obtenerPorId(null);
+    }
 
-    public void obtenerPorId() {
+    public void obtenerPorId(String sql) {
         try {
             this.abrirConexion();
-            String sql = this.generarSQLParaObtenerPorId();
+            if(sql==null)
+                sql = this.generarSQLParaObtenerPorId();
             this.colocarSQLEnStatement(sql);
             this.incluirValorDeParametrosParaObtenerPorId();
             this.ejecutarSelectEnDB();

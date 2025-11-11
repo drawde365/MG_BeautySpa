@@ -37,7 +37,8 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
 
     @Override
     public int eliminar(int empleadoId) {
-        this.empleado = empleado;
+        this.empleado = new EmpleadoDTO();
+        this.empleado.setIdUsuario(empleadoId);
         return super.eliminar();
     }
 
@@ -153,13 +154,13 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         e.setCorreoElectronico(rs.getString("CORREO_ELECTRONICO"));
         e.setContrasenha(rs.getString("CONTRASENHA"));
         e.setCelular(rs.getString("CELULAR"));
+        e.setRol(rs.getInt("ROL_ID"));
         e.setUrlFotoPerfil(rs.getString("URL_IMAGEN"));
         e.setActivo(rs.getInt("ACTIVO"));
         // Derivar admin/rol a partir de la columna ROL
         String rolDb = rs.getString("ROL_ID");
         boolean isAdmin = rolDb != null && rolDb.equalsIgnoreCase("ADMIN");
         e.setAdmin(isAdmin);
-        e.setRol(); // ajusta el string de rol en el DTO según admin
 
         return e;
     }

@@ -13,17 +13,11 @@ public class ClienteDTO extends UsuarioDTO {
         pedidos=null;
     }
 
-    @Override
-    public void setRol() {
-        super.rol = 1;
-    }
-
     public ClienteDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico,
                       String contrasenha, String celular,Integer idUsuario,ArrayList<PedidoDTO> pedidos,
                       String urlFotoPerfil, Integer activo){
         super(nombre, PrimerApellido, SegundoApellido, correoElectronico, contrasenha, celular,urlFotoPerfil, activo);
         this.pedidos=pedidos;
-        setRol();
     }
 
     public ArrayList<PedidoDTO> getPedidos() {

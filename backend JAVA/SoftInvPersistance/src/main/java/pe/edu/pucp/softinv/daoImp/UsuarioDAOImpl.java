@@ -2,10 +2,12 @@ package pe.edu.pucp.softinv.daoImp;
 
 import java.sql.SQLException;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
-import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
-import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
+/**
+ *
+ * @author Alvaro
+ */
 public class UsuarioDAOImpl extends DAOImplBase {
 
     private UsuarioDTO usuario;
@@ -33,69 +35,18 @@ public class UsuarioDAOImpl extends DAOImplBase {
     public UsuarioDTO busquedaPorCorreo(String correo) {
         usuario = new UsuarioDTO();
         usuario.setCorreoElectronico(correo);
-        try {
-            this.abrirConexion();
-            intercambiarPK();
-            String sql = this.generarSQLParaObtenerPorId();
-            this.colocarSQLEnStatement(sql);
-            this.incluirValorDeParametrosParaBuscarPorCorreo();
-            this.ejecutarSelectEnDB();
-            if (this.resultSet.next()) {
-                this.instanciarObjetoDelResultSet();
-                //no se si esto es lo más eficiente
-                if(usuario.getRol()==1){
-                    ClienteDTO cliente = new ClienteDTO(usuario.getNombre(), usuario.getPrimerapellido(),
-                    usuario.getSegundoapellido(), usuario.getCorreoElectronico(), usuario.getContrasenha(),
-                    usuario.getCelular(), usuario.getIdUsuario(), null, usuario.getUrlFotoPerfil(), usuario.getActivo());
-                    usuario=cliente;
-                }
-                else{
-                    boolean esAdmin=false;
-                    if(usuario.getRol()==3){
-                        esAdmin=true;
-                    }
-                    EmpleadoDTO empleado = new EmpleadoDTO(usuario.getNombre(), usuario.getPrimerapellido(),
-                    usuario.getSegundoapellido(), usuario.getCorreoElectronico(), usuario.getContrasenha(),
-                    usuario.getCelular(), usuario.getIdUsuario(), esAdmin, usuario.getUrlFotoPerfil(), null);
-                    usuario=empleado;
-                }
-            } else {
-                this.limpiarObjetoDelResultSet();
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error al intentar buscar por correo - " + ex);
-        } finally {
-            try {
-                intercambiarPK();
-                this.cerrarConexion();
-            } catch (SQLException ex) {
-                System.err.println("Error al cerrar la conexión - " + ex);
-            }
-        }
+        String sql = "SELECT USUARIO_ID, PRIMER_APELLIDO, SEGUNDO_APELLIDO,"
+                + "NOMBRE, CORREO_ELECTRONICO, CONTRASENHA, CELULAR,"
+                + "ROL_ID, URL_IMAGEN, ACTIVO FROM USUARIOS WHERE CORREO_ELECTRONICO = ?";
+        super.obtenerPorId(sql);
         return usuario;
     }
 
-    void intercambiarPK() {
-        for (Columna c : this.listaColumnas) {
-            if (c.getNombre().equals("USUARIO_ID")) {
-                if (c.getEsLlavePrimaria()) {
-                    c.setEsLlavePrimaria(false);
-                } else {
-                    c.setEsLlavePrimaria(true);
-                }
-            }
-            if (c.getNombre().equals("CORREO_ELECTRONICO")) {
-                if (c.getEsLlavePrimaria()) {
-                    c.setEsLlavePrimaria(false);
-                } else {
-                    c.setEsLlavePrimaria(true);
-                }
-            }
-        }
-    }
-
-    protected void incluirValorDeParametrosParaBuscarPorCorreo() throws SQLException {
-        statement.setString(1, usuario.getCorreoElectronico());
+    @Override
+    protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
+        String as = "";
+        as += usuario.getCorreoElectronico();
+        statement.setString(1, as);
     }
 
     @Override
