@@ -44,6 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CitaBO.cs" />
+    <Compile Include="Connected Services\SoftInvWSCita\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SoftInvWSEmpleado\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SoftInvWSPedido\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\SoftInvWSProductos\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -54,6 +70,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadoBO.cs" />
+    <Compile Include="PedidoBO.cs" />
     <Compile Include="ProductoBO.cs" />
     <Compile Include="ProductoTipoBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,15 +81,117 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\SoftInvWSProductos\Productos.wsdl" />
-    <None Include="Connected Services\SoftInvWSProductos\Productos.xsd">
+    <None Include="Connected Services\SoftInvWSCita\Cita.wsdl" />
+    <None Include="Connected Services\SoftInvWSCita\Cita.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.citaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.EliminarCitaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.InsertarCitaPorPartesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ModificarCitaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ObtenerCitaPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\Empleado.wsdl" />
+    <None Include="Connected Services\SoftInvWSEmpleado\Empleado.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.citaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ListarTodosEmpleadosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ObtenerEmpleadoPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.servicioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\Pedido.wsdl" />
+    <None Include="Connected Services\SoftInvWSPedido\Pedido.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.InsertarDetallePedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ListarPedidosDeClienteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ModificarDetallePedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerDetallesPorPedidoIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.pedidoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSProductos\Productos1.wsdl" />
+    <None Include="Connected Services\SoftInvWSProductos\Productos1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.productoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo.wsdl" />
-    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo.xsd">
+    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo1.wsdl" />
+    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.EliminarResponse.datasource">
@@ -91,6 +211,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSCita\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSEmpleado\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSPedido\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductos\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductoTipo\" />
   </ItemGroup>
@@ -114,6 +237,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SoftInvWSProductoTipo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSPedido\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSPedido\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSPedido\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSEmpleado\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSEmpleado\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSEmpleado\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCita\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCita\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCita\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -2,7 +2,7 @@
 <definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="ProductoTipo" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <xsd:schema>
-      <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/ProductoTipo?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
+      <xsd:import schemaLocation="http://192.168.1.37:8080/SoftInvWS/ProductoTipo?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
   <message name="Insertar">
@@ -11,17 +11,17 @@
   <message name="InsertarResponse">
     <part name="parameters" element="tns:InsertarResponse" />
   </message>
-  <message name="Eliminar">
-    <part name="parameters" element="tns:Eliminar" />
-  </message>
-  <message name="EliminarResponse">
-    <part name="parameters" element="tns:EliminarResponse" />
-  </message>
   <message name="Modificar">
     <part name="parameters" element="tns:Modificar" />
   </message>
   <message name="ModificarResponse">
     <part name="parameters" element="tns:ModificarResponse" />
+  </message>
+  <message name="Eliminar">
+    <part name="parameters" element="tns:Eliminar" />
+  </message>
+  <message name="EliminarResponse">
+    <part name="parameters" element="tns:EliminarResponse" />
   </message>
   <message name="ObtenerProductosTiposId">
     <part name="parameters" element="tns:ObtenerProductosTiposId" />
@@ -34,13 +34,13 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/InsertarRequest" message="tns:Insertar" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/InsertarResponse" message="tns:InsertarResponse" />
     </operation>
-    <operation name="Eliminar">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarRequest" message="tns:Eliminar" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarResponse" message="tns:EliminarResponse" />
-    </operation>
     <operation name="Modificar">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarRequest" message="tns:Modificar" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarResponse" message="tns:ModificarResponse" />
+    </operation>
+    <operation name="Eliminar">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarRequest" message="tns:Eliminar" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarResponse" message="tns:EliminarResponse" />
     </operation>
     <operation name="ObtenerProductosTiposId">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdRequest" message="tns:ObtenerProductosTiposId" />
@@ -58,7 +58,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="Eliminar">
+    <operation name="Modificar">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -67,7 +67,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="Modificar">
+    <operation name="Eliminar">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -88,7 +88,7 @@
   </binding>
   <service name="ProductoTipo">
     <port name="ProductosTipoPort" binding="tns:ProductosTipoPortBinding">
-      <soap:address location="http://localhost:8080/SoftInvWS/ProductoTipo" />
+      <soap:address location="http://192.168.1.37:8080/SoftInvWS/ProductoTipo" />
     </port>
   </service>
 </definitions>

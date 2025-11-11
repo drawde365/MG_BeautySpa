@@ -12,14 +12,31 @@ namespace SoftInvBusiness
     public class ProductoTipoBO
     {
         private ProductosTipoClient productoTipoSOAP;
+
         public ProductoTipoBO()
         {
             productoTipoSOAP = new ProductosTipoClient();
         }
 
-        public IList<productoTipoDTO> ObtenerProductosTiposId(int id)
+        public IList<productoTipoDTO> ObtenerPorIdProducto(int idProducto)
         {
-            return productoTipoSOAP.ObtenerProductosTiposId(id);
+            return productoTipoSOAP.ObtenerProductosTiposId(idProducto);
+        }
+
+        public int Insertar(productoTipoDTO productoTipo)
+        {
+            return productoTipoSOAP.Insertar(productoTipo);
+        }
+
+        public int Modificar(productoTipoDTO productoTipo)
+        {
+            return productoTipoSOAP.Modificar(productoTipo);
+        }
+
+        public int Eliminar(productoTipoDTO productoTipo)
+        {
+            return productoTipoSOAP.Eliminar(productoTipo);
         }
     }
 }
+

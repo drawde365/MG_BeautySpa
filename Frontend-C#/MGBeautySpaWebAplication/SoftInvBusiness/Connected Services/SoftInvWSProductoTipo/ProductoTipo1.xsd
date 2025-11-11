@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="EliminarProducto" type="tns:EliminarProducto" />
-  <xs:element name="EliminarProductoResponse" type="tns:EliminarProductoResponse" />
-  <xs:element name="ModificarProducto" type="tns:ModificarProducto" />
-  <xs:element name="ModificarProductoResponse" type="tns:ModificarProductoResponse" />
-  <xs:element name="ObtenerProducto" type="tns:ObtenerProducto" />
-  <xs:element name="ObtenerProductoResponse" type="tns:ObtenerProductoResponse" />
-  <xs:element name="buscarProductos" type="tns:buscarProductos" />
-  <xs:element name="buscarProductosResponse" type="tns:buscarProductosResponse" />
-  <xs:element name="cantidadPagProd" type="tns:cantidadPagProd" />
-  <xs:element name="cantidadPagProdResponse" type="tns:cantidadPagProdResponse" />
-  <xs:element name="insertarConDatos" type="tns:insertarConDatos" />
-  <xs:element name="insertarConDatosResponse" type="tns:insertarConDatosResponse" />
-  <xs:element name="insertarProducto" type="tns:insertarProducto" />
-  <xs:element name="insertarProductoResponse" type="tns:insertarProductoResponse" />
-  <xs:element name="obtenerProdPag" type="tns:obtenerProdPag" />
-  <xs:element name="obtenerProdPagResponse" type="tns:obtenerProdPagResponse" />
-  <xs:complexType name="insertarProducto">
+  <xs:element name="Eliminar" type="tns:Eliminar" />
+  <xs:element name="EliminarResponse" type="tns:EliminarResponse" />
+  <xs:element name="Insertar" type="tns:Insertar" />
+  <xs:element name="InsertarResponse" type="tns:InsertarResponse" />
+  <xs:element name="Modificar" type="tns:Modificar" />
+  <xs:element name="ModificarResponse" type="tns:ModificarResponse" />
+  <xs:element name="ObtenerProductosTiposId" type="tns:ObtenerProductosTiposId" />
+  <xs:element name="ObtenerProductosTiposIdResponse" type="tns:ObtenerProductosTiposIdResponse" />
+  <xs:complexType name="Eliminar">
     <xs:sequence>
+      <xs:element minOccurs="0" name="productoTipo" type="tns:productoTipoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="productoTipoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element minOccurs="0" name="ingredientes" type="xs:string" />
       <xs:element minOccurs="0" name="producto" type="tns:productoDTO" />
+      <xs:element minOccurs="0" name="stock_despacho" type="xs:int" />
+      <xs:element minOccurs="0" name="stock_fisico" type="xs:int" />
+      <xs:element minOccurs="0" name="tipo" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="productoDTO">
@@ -53,7 +55,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="usuarioDTO" abstract="true">
+  <xs:complexType name="usuarioDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="activo" type="xs:int" />
       <xs:element minOccurs="0" name="celular" type="xs:string" />
@@ -112,94 +114,39 @@
   <xs:complexType name="time">
     <xs:sequence />
   </xs:complexType>
-  <xs:complexType name="productoTipoDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element minOccurs="0" name="ingredientes" type="xs:string" />
-      <xs:element minOccurs="0" name="producto" type="tns:productoDTO" />
-      <xs:element minOccurs="0" name="stock_despacho" type="xs:int" />
-      <xs:element minOccurs="0" name="stock_fisico" type="xs:int" />
-      <xs:element minOccurs="0" name="tipo" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="insertarProductoResponse">
+  <xs:complexType name="EliminarResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EliminarProducto">
+  <xs:complexType name="Modificar">
     <xs:sequence>
-      <xs:element minOccurs="0" name="producto" type="tns:productoDTO" />
+      <xs:element minOccurs="0" name="productoTipo" type="tns:productoTipoDTO" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EliminarProductoResponse">
+  <xs:complexType name="ModificarResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="cantidadPagProd">
-    <xs:sequence />
+  <xs:complexType name="Insertar">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="productoTipo" type="tns:productoTipoDTO" />
+    </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="cantidadPagProdResponse">
+  <xs:complexType name="InsertarResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerProducto">
+  <xs:complexType name="ObtenerProductosTiposId">
     <xs:sequence>
-      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idProducto" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerProductoResponse">
+  <xs:complexType name="ObtenerProductosTiposIdResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:productoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ModificarProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="producto" type="tns:productoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ModificarProductoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="buscarProductos">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="nombre" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="buscarProductosResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="obtenerProdPag">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="pagina" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="obtenerProdPagResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="insertarConDatos">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="nombre" type="xs:string" />
-      <xs:element minOccurs="0" name="descripcion" type="xs:string" />
-      <xs:element minOccurs="0" name="precio" type="xs:double" />
-      <xs:element minOccurs="0" name="tamanho" type="xs:double" />
-      <xs:element minOccurs="0" name="urlImagen" type="xs:string" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="tipos" type="xs:string" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ingreientes" type="xs:string" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="stocks" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="insertarConDatosResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoTipoDTO" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

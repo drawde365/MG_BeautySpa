@@ -364,3 +364,6 @@ D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaW
 D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.dll
 D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.pdb
 D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.dll.config
+D:\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.dll
+D:\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.pdb
+D:\Repositorios\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\MGBeautySpaWebAplication\bin\SoftInvBusiness.dll.config
