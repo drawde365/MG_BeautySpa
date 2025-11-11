@@ -65,4 +65,12 @@ public class Productos {
     public Integer cantidadPaginasProducto(){
         return productoBO.cantidadPaginas();
     }
+    @WebMethod(operationName = "obtenerCorporales")
+    public ArrayList<ProductoDTO> obtenerCorporales (){
+        return productoBO.obtenerCorporales();
+    } 
+    @WebMethod(operationName = "obtenerFaciales")
+    public ArrayList<ProductoDTO> obtenerFaciales (){
+        return productoBO.obtenerFaciales();
+    } 
 }

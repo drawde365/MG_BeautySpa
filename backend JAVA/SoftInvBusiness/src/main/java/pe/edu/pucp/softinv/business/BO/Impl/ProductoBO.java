@@ -82,6 +82,12 @@ public class ProductoBO {
         return productoDAO.obtenerCantPaginas();
     }
 
+    public ArrayList<ProductoDTO> obtenerCorporales (){
+        return productoDAO.obtenerPorFiltro("Corporal");
+    } 
+    public ArrayList<ProductoDTO> obtenerFaciales (){
+        return productoDAO.obtenerPorFiltro("Facial");
+    } 
 }
 
 //lo borra de la BD, primero desde el front llamo a obtener por id
