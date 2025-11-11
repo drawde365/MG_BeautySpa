@@ -22,16 +22,15 @@ namespace SoftInvBusiness
             int empleadoId,
             int clienteId,
             int servicioId,
-            DateTime fecha,
-            TimeSpan horaIni,
-            TimeSpan horaFin,
+            date fecha,
+            time horaIni,
+            time horaFin,
             double igv,
             int activo,
             string codTransacc)
         {
             return citaSOAP.InsertarCitaPorPartes(
-                empleadoId, clienteId, servicioId,
-                fecha, horaIni, horaFin, igv, activo, codTransacc);
+                empleadoId, clienteId, servicioId, fecha, horaIni, horaFin, igv, activo, codTransacc);
         }
 
         public int ModificarCita(citaDTO cita)

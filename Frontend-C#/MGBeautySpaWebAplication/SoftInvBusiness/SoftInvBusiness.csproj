@@ -81,8 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\SoftInvWSCita\Cita.wsdl" />
-    <None Include="Connected Services\SoftInvWSCita\Cita.xsd">
+    <None Include="Connected Services\SoftInvWSCita\Cita1.wsdl" />
+    <None Include="Connected Services\SoftInvWSCita\Cita1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.citaDTO.datasource">
