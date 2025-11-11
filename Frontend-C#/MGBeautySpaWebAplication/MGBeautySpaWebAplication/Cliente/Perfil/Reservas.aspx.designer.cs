@@ -31,28 +31,5 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVerMas;
-
-        /// <summary>
-        /// btnRegresar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegresar;
-
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new MGBeautySpaWebAplication.Cliente.PerfilMaster Master
-        {
-            get
-            {
-                return ((MGBeautySpaWebAplication.Cliente.PerfilMaster)(base.Master));
-            }
-        }
     }
 }

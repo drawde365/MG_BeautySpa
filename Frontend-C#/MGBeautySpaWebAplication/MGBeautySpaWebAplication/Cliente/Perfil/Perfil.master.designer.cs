@@ -49,19 +49,5 @@ namespace MGBeautySpaWebAplication.Cliente
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ProfileBodyContent;
-
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new MGBeautySpaWebAplication.Cliente.Cliente Master
-        {
-            get
-            {
-                return ((MGBeautySpaWebAplication.Cliente.Cliente)(base.Master));
-            }
-        }
     }
 }

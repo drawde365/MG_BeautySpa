@@ -76,28 +76,5 @@ namespace MGBeautySpaWebAplication.Cliente
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litSexo;
-
-        /// <summary>
-        /// btnEditar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditar;
-
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new MGBeautySpaWebAplication.Cliente.PerfilMaster Master
-        {
-            get
-            {
-                return ((MGBeautySpaWebAplication.Cliente.PerfilMaster)(base.Master));
-            }
-        }
     }
 }
