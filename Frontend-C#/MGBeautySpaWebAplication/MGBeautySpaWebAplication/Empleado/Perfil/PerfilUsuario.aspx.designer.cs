@@ -7,39 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MGBeautySpaWebAplication.Empleado.Perfil
+namespace MGBeautySpaWebAplication.Empleado
 {
 
 
-    public partial class Perfil
+    public partial class PerfilUsuario
     {
 
         /// <summary>
-        /// litNombreEmpleado control.
+        /// litUserNameGreeting control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litNombreEmpleado;
-
-        /// <summary>
-        /// btnLogoutSidebar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogoutSidebar;
-
-        /// <summary>
-        /// litNombreSaludo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litNombreSaludo;
+        protected global::System.Web.UI.WebControls.Literal litUserNameGreeting;
 
         /// <summary>
         /// litNombres control.
@@ -78,30 +60,21 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
         protected global::System.Web.UI.WebControls.Literal litTelefono;
 
         /// <summary>
-        /// litFechaNacimiento control.
+        /// litFechaNac control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litFechaNacimiento;
+        protected global::System.Web.UI.WebControls.Literal litFechaNac;
 
         /// <summary>
-        /// litDNI control.
+        /// litSexo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDNI;
-
-        /// <summary>
-        /// btnEditar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditar;
+        protected global::System.Web.UI.WebControls.Literal litSexo;
     }
 }

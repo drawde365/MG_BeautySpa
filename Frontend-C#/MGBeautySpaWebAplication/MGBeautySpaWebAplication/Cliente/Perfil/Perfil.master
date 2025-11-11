@@ -46,16 +46,13 @@
                         <i class="icon-calendar-12"></i>
                         <span class="nav-item-text">Reservas</span>
                     </a>
+                     <asp:LinkButton ID="btnLogoutSidebar" runat="server" 
+                        CssClass="logout-button"
+                        OnClick="btnLogout_Click">
+                        <i class="icon-log-out"></i>
+                        <span class="nav-item-text">Cerrar sesión</span>
+                     </asp:LinkButton>
                 </nav>
-            </div>
-
-            <div class="logout-section">
-                <asp:LinkButton ID="btnLogoutSidebar" runat="server" 
-                                CssClass="logout-button"
-                                OnClick="btnLogout_Click">
-                    <i class="icon-log-out"></i>
-                    <span class="nav-item-text">Cerrar sesión</span>
-                </asp:LinkButton>
             </div>
         </div>
 

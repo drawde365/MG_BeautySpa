@@ -12,3 +12,10 @@ D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusin
 D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.dll.config
 D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.dll
 D:\Clases\Progra3\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.pdb
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.dll.config
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.dll
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\bin\Debug\SoftInvBusiness.pdb
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.AssemblyReference.cache
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.csproj.CoreCompileInputs.cache
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.dll
+D:\MG_BeautySpa\Frontend-C#\MGBeautySpaWebAplication\SoftInvBusiness\obj\Debug\SoftInvBusiness.pdb

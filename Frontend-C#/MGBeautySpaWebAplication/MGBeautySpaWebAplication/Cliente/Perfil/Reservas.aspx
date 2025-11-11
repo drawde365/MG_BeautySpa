@@ -34,11 +34,6 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
                         Text="Ver Más"
                         CssClass="btn-vermas"
                         OnClick="btnVerMas_Click" />
-
-            <asp:Button ID="btnRegresar" runat="server"
-                        Text="Regresar"
-                        CssClass="btn-regresar"
-                        OnClick="btnRegresar_Click" />
         </div>
     </div>
 
