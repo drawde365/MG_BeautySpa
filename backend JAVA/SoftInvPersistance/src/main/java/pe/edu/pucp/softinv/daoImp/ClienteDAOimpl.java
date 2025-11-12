@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
     private ClienteDTO cliente;
-
     public ClienteDAOimpl() {
         super("USUARIOS");
         cliente = null;

@@ -16,7 +16,7 @@ import java.util.List;
 public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
 
     private EmpleadoDTO empleado;
-
+    private final int rol=2;
     public EmpleadoDAOImpl() {
         super("USUARIOS");
         this.empleado = null;

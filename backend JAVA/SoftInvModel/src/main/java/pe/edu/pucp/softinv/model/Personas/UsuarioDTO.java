@@ -24,6 +24,7 @@ public class UsuarioDTO {
     public void setRol(Integer rol) {
         this.rol = rol;
     }
+    
     private String nombre;
     private String Primerapellido;
     private String Segundoapellido;
