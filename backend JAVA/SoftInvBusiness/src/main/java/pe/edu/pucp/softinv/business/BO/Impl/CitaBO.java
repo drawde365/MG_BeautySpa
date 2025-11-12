@@ -32,6 +32,10 @@ public class CitaBO {
         CitaDTO cita=new CitaDTO(1,horaIni,horaFin,cliente,servicio,empleado,fecha,activo,igv,codTransacc);
         return citaDAO.insertar(cita);
     }
+    
+    public Integer insertar(CitaDTO cita) {
+        return citaDAO.insertar(cita);
+    }
 
     public Integer modificar(CitaDTO cita) {
         return citaDAO.modificar(cita);
