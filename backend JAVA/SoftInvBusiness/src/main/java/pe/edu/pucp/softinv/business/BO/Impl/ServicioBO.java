@@ -79,5 +79,9 @@ public class ServicioBO {
     public ArrayList<ServicioDTO> listarTodos (){
         return servicioDAO.listarTodos();
     }
+    
+    public ArrayList<ServicioDTO> listarFiltro (String filtro) {
+        return servicioDAO.listarFiltro(filtro);
+    }
 
 }

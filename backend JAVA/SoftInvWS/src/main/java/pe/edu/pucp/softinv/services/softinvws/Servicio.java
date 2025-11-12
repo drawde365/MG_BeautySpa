@@ -61,4 +61,8 @@ public class Servicio {
     public ArrayList<ServicioDTO> listarTodosServicios (){
         return servicioBO.listarTodos();
     }
+    @WebMethod(operationName = "ListarFiltro")
+    public ArrayList<ServicioDTO> listarFiltro (String filtro) {
+        return servicioBO.listarFiltro(filtro);
+    }
 }
