@@ -11,8 +11,26 @@ namespace MGBeautySpaWebAplication.Admin
 {
 
 
-    public partial class PanelDeControl
+    public partial class AdmServicios
     {
+
+        /// <summary>
+        /// hlAddService control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlAddService;
+
+        /// <summary>
+        /// rptServicios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptServicios;
 
         /// <summary>
         /// btnVerMas control.

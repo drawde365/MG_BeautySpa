@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Admin
 {
-    public partial class PanelDeControl : System.Web.UI.Page
+    public partial class AdmProductos : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,5 +18,8 @@ namespace MGBeautySpaWebAplication.Admin
         {
             
         }
+
+
+
     }
 }

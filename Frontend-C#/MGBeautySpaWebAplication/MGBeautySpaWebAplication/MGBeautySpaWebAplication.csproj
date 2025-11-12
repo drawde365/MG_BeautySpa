@@ -67,6 +67,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AdminContacto.aspx" />
+    <Content Include="Admin\AdminPolitica.aspx" />
+    <Content Include="Admin\AdminTerminos.aspx" />
+    <Content Include="Admin\AdmProductos.aspx" />
+    <Content Include="Admin\AdmServicios.aspx" />
+    <Content Include="Admin\InsertarProducto.aspx" />
+    <Content Include="Admin\InsertarServicio.aspx" />
     <Content Include="Cliente\Calendario.aspx" />
     <Content Include="Cliente\Calendario.css">
       <DependentUpon>Calendario.aspx</DependentUpon>
@@ -247,6 +254,55 @@
     </Compile>
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminContacto.aspx.cs">
+      <DependentUpon>AdminContacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminContacto.aspx.designer.cs">
+      <DependentUpon>AdminContacto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminPolitica.aspx.cs">
+      <DependentUpon>AdminPolitica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminPolitica.aspx.designer.cs">
+      <DependentUpon>AdminPolitica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminTerminos.aspx.cs">
+      <DependentUpon>AdminTerminos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminTerminos.aspx.designer.cs">
+      <DependentUpon>AdminTerminos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdmProductos.aspx.cs">
+      <DependentUpon>AdmProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdmProductos.aspx.designer.cs">
+      <DependentUpon>AdmProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdmServicios.aspx.cs">
+      <DependentUpon>AdmServicios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdmServicios.aspx.designer.cs">
+      <DependentUpon>AdmServicios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\InsertarProducto.aspx.cs">
+      <DependentUpon>InsertarProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\InsertarProducto.aspx.designer.cs">
+      <DependentUpon>InsertarProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\InsertarServicio.aspx.cs">
+      <DependentUpon>InsertarServicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\InsertarServicio.aspx.designer.cs">
+      <DependentUpon>InsertarServicio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente\Calendario.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>

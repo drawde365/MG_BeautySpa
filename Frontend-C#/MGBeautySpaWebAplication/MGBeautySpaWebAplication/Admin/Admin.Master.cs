@@ -1,35 +1,31 @@
 ﻿using System;
 using System.Web;
 using System.Web.UI;
+using System.Web.Security;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
-namespace MGBeautySpaWebAplication
+namespace MGBeautySpaWebAplication.Admin
 {
     public partial class AdminMaster : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Rol"] == null || Session["Nombre"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("~/Login.aspx");
-                return;
+                LoadUserData();
             }
-
-            if (!string.Equals(Session["Rol"].ToString(), "Administrador", StringComparison.OrdinalIgnoreCase))
-            {
-                var rol = Session["Rol"].ToString();
-                if (rol.Equals("Empleado", StringComparison.OrdinalIgnoreCase))
-                    Response.Redirect("~/Empleado/MisCitas.aspx");
-                else if (rol.Equals("Cliente", StringComparison.OrdinalIgnoreCase))
-                    Response.Redirect("~/Cliente/InicioCliente.aspx");
-                else
-                    Response.Redirect("~/Login.aspx");
-                return;
-            }
-
-            lblUsuario.Text = Session["Nombre"].ToString();
         }
 
-        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        private void LoadUserData()
+        {
+            string nombre = (Session["UserName"] as string) ?? "Invitado";
+            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/default_profile.png";
+
+            litUserName.Text = nombre;
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();

@@ -11,16 +11,16 @@ namespace MGBeautySpaWebAplication.Admin
 {
 
 
-    public partial class PanelDeControl
+    public partial class AdminTerminos
     {
 
         /// <summary>
-        /// btnVerMas control.
+        /// TerminosContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnVerMas;
+        protected global::System.Web.UI.UserControl TerminosContent;
     }
 }

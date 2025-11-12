@@ -1,0 +1,71 @@
+﻿.content-body-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    /* Se mantiene el 'd-flex' que agregamos en el .master */
+}
+
+/* 2. ESTILOS BARRA LATERAL (con tu nuevo color #148C76) */
+.sidebar {
+    background-color: #148C76; /* TU NUEVO COLOR DE FONDO */
+    border-right: 1px solid #0e6f64; /* Un borde un poco más oscuro */
+    /* El 'width: 320px' está en línea en el .master */
+}
+
+    .sidebar .nav-link {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 20px;
+        color: #FFFFFF; /* CAMBIO: Texto ahora es blanco */
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0.8; /* Un look más suave para los inactivos */
+    }
+
+        /* Hover (cuando pones el mouse encima) */
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Un hover sutil blanco */
+            opacity: 1;
+        }
+
+        /* Botón 'activo' (la página actual) */
+        .sidebar .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.15); /* Un fondo oscuro sutil para destacar */
+            color: #FFFFFF;
+            font-weight: bold; /* Lo hacemos 'bold' para que destaque */
+            opacity: 1;
+        }
+
+        /* Iconos (Icomoon) */
+        .sidebar .nav-link i {
+            color: #FFFFFF !important; /* CAMBIO: Iconos blancos */
+            /* (los demás estilos de icono ya están en el .master) */
+        }
+
+/* 3. ESTILOS CONTENIDO PRINCIPAL */
+.main-content {
+    background-color: #FFFFFF;
+    overflow-y: auto;
+    /* Altura calculada para header (aprox 70px) y footer (aprox 100px) */
+    height: calc(100vh - 170px);
+    padding: 24px; /* Un padding estándar de Bootstrap */
+}
+
+
+/* 4. ARREGLO RESPONSIVE (Móvil) */
+@media (max-width: 768px) {
+    /* Ocultamos la barra lateral en pantallas pequeñas */
+    .sidebar {
+        display: none !important;
+    }
+
+    /* Hacemos que el contenido principal ocupe todo el ancho */
+    .main-content {
+        width: 100%;
+        padding: 16px; /* Reducimos el padding en móvil */
+    }
+}

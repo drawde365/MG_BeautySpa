@@ -7,16 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Admin
 {
-    public partial class PanelDeControl : System.Web.UI.Page
+    public partial class AdminContacto : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void btnVerMas_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }
