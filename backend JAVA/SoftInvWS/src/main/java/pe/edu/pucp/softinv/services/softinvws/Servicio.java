@@ -57,4 +57,8 @@ public class Servicio {
             @WebParam(name = "servicioId") Integer servicioId) {
         return servicioBO.listarEmpleadosDeServicio(servicioId);
     }
+    @WebMethod(operationName = "ListarTodos")
+    public ArrayList<ServicioDTO> listarTodosServicios (){
+        return servicioBO.listarTodos();
+    }
 }

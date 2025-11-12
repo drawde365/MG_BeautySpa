@@ -75,5 +75,9 @@ public class ServicioBO {
     public ArrayList<EmpleadoDTO> listarEmpleadosDeServicio(Integer servicioId){
         return SXEDAO.listarEmpleadosDeServicio(servicioId);
     }
+    
+    public ArrayList<ServicioDTO> listarTodos (){
+        return servicioDAO.listarTodos();
+    }
 
 }

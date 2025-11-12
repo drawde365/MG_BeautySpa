@@ -66,4 +66,9 @@ public class Cita {
             @WebParam(name = "usuarioDTO")UsuarioDTO usuario) {
         return citaBO.listarCitasPorUsuario(usuario);
     }
+    
+    @WebMethod(operationName = "ListarTodosCita")
+    public ArrayList<CitaDTO> listarTodosCita(){
+        return citaBO.listarTodos();
+    }
 }

@@ -55,4 +55,8 @@ public class CitaBO {
     public ArrayList<CitaDTO> listarCitasPorUsuario(UsuarioDTO usuario) {
         return citaDAO.listarCitasPorUsuario(usuario);
     }
+    
+    public ArrayList<CitaDTO> listarTodos(){
+        return citaDAO.listarTodos();
+    }
 }

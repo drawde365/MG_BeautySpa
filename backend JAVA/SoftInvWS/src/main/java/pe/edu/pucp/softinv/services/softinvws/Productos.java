@@ -73,4 +73,8 @@ public class Productos {
     public ArrayList<ProductoDTO> obtenerFaciales (){
         return productoBO.obtenerFaciales();
     } 
+    @WebMethod(operationName = "listarTodos")
+    public ArrayList<ProductoDTO> listarTodosProductos (){
+        return productoBO.listarTodos();
+    } 
 }

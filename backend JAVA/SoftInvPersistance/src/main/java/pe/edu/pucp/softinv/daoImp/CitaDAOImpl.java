@@ -217,6 +217,12 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
 
     @Override
     public CitaDTO obtenerPorId(CitaDTO idCita) {
-        return null;
+        this.cita = idCita;
+        super.obtenerPorId();
+        return cita;
+    }
+    @Override
+    public ArrayList<CitaDTO> listarTodos() {
+        return (ArrayList<CitaDTO>) super.listarTodos();
     }
 }
