@@ -1,40 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="EliminarCita" type="tns:EliminarCita" />
-  <xs:element name="EliminarCitaResponse" type="tns:EliminarCitaResponse" />
-  <xs:element name="InsertarCitaPorPartes" type="tns:InsertarCitaPorPartes" />
-  <xs:element name="InsertarCitaPorPartesResponse" type="tns:InsertarCitaPorPartesResponse" />
-  <xs:element name="ModificarCita" type="tns:ModificarCita" />
-  <xs:element name="ModificarCitaResponse" type="tns:ModificarCitaResponse" />
-  <xs:element name="ObtenerCitaPorId" type="tns:ObtenerCitaPorId" />
-  <xs:element name="ObtenerCitaPorIdResponse" type="tns:ObtenerCitaPorIdResponse" />
-  <xs:complexType name="InsertarCitaPorPartes">
+  <xs:element name="EliminarCalendario" type="tns:EliminarCalendario" />
+  <xs:element name="EliminarCalendarioResponse" type="tns:EliminarCalendarioResponse" />
+  <xs:element name="InsertarCalendario" type="tns:InsertarCalendario" />
+  <xs:element name="InsertarCalendarioPorPartes" type="tns:InsertarCalendarioPorPartes" />
+  <xs:element name="InsertarCalendarioPorPartesResponse" type="tns:InsertarCalendarioPorPartesResponse" />
+  <xs:element name="InsertarCalendarioResponse" type="tns:InsertarCalendarioResponse" />
+  <xs:element name="ListarCalendarioDeEmpleado" type="tns:ListarCalendarioDeEmpleado" />
+  <xs:element name="ListarCalendarioDeEmpleadoResponse" type="tns:ListarCalendarioDeEmpleadoResponse" />
+  <xs:element name="ModificarCalendario" type="tns:ModificarCalendario" />
+  <xs:element name="ModificarCalendarioPorPartes" type="tns:ModificarCalendarioPorPartes" />
+  <xs:element name="ModificarCalendarioPorPartesResponse" type="tns:ModificarCalendarioPorPartesResponse" />
+  <xs:element name="ModificarCalendarioResponse" type="tns:ModificarCalendarioResponse" />
+  <xs:complexType name="ModificarCalendarioPorPartes">
     <xs:sequence>
-      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
-      <xs:element minOccurs="0" name="clienteId" type="xs:int" />
-      <xs:element minOccurs="0" name="servicioId" type="xs:int" />
+      <xs:element minOccurs="0" name="idEmpleado" type="xs:int" />
       <xs:element minOccurs="0" name="fecha" type="tns:date" />
-      <xs:element minOccurs="0" name="horaIni" type="tns:time" />
-      <xs:element minOccurs="0" name="horaFin" type="tns:time" />
-      <xs:element minOccurs="0" name="igv" type="xs:double" />
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element minOccurs="0" name="codTransacc" type="xs:string" />
+      <xs:element minOccurs="0" name="cantLibre" type="xs:int" />
+      <xs:element minOccurs="0" name="motivo" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="date">
     <xs:sequence />
   </xs:complexType>
-  <xs:complexType name="time">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:complexType name="InsertarCitaPorPartesResponse">
+  <xs:complexType name="ModificarCalendarioPorPartesResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EliminarCita">
+  <xs:complexType name="ListarCalendarioDeEmpleado">
     <xs:sequence>
-      <xs:element minOccurs="0" name="cita" type="tns:citaDTO" />
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarCalendarioDeEmpleadoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:calendarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="calendarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cantLibre" type="xs:int" />
+      <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
+      <xs:element minOccurs="0" name="fecha" type="tns:date" />
+      <xs:element minOccurs="0" name="motivo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="empleadoDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:usuarioDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="admin" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="servicios" nillable="true" type="tns:servicioDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="usuarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element minOccurs="0" name="celular" type="xs:string" />
+      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
+      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
+      <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
+      <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="citas" nillable="true" type="tns:citaDTO" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="comentarios" nillable="true" type="tns:comentarioDTO" />
+      <xs:element minOccurs="0" name="descripcion" type="xs:string" />
+      <xs:element minOccurs="0" name="duracionHora" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="empleados" nillable="true" type="tns:empleadoDTO" />
+      <xs:element minOccurs="0" name="idServicio" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="precio" type="xs:double" />
+      <xs:element minOccurs="0" name="promedioValoracion" type="xs:double" />
+      <xs:element minOccurs="0" name="tipo" type="xs:string" />
+      <xs:element minOccurs="0" name="urlImagen" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="citaDTO">
@@ -58,44 +107,8 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="usuarioDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element minOccurs="0" name="celular" type="xs:string" />
-      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
-      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
-      <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
-      <xs:element minOccurs="0" name="nombre" type="xs:string" />
-      <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
-      <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
-      <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="empleadoDTO">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:usuarioDTO">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="admin" type="xs:boolean" />
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="servicios" nillable="true" type="tns:servicioDTO" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="servicioDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="citas" nillable="true" type="tns:citaDTO" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="comentarios" nillable="true" type="tns:comentarioDTO" />
-      <xs:element minOccurs="0" name="descripcion" type="xs:string" />
-      <xs:element minOccurs="0" name="duracionHora" type="xs:int" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="empleados" nillable="true" type="tns:empleadoDTO" />
-      <xs:element minOccurs="0" name="idServicio" type="xs:int" />
-      <xs:element minOccurs="0" name="nombre" type="xs:string" />
-      <xs:element minOccurs="0" name="precio" type="xs:double" />
-      <xs:element minOccurs="0" name="promedioValoracion" type="xs:double" />
-      <xs:element minOccurs="0" name="tipo" type="xs:string" />
-      <xs:element minOccurs="0" name="urlImagen" type="xs:string" />
-    </xs:sequence>
+  <xs:complexType name="time">
+    <xs:sequence />
   </xs:complexType>
   <xs:complexType name="comentarioDTO">
     <xs:sequence>
@@ -132,27 +145,45 @@
       <xs:element minOccurs="0" name="tipo" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EliminarCitaResponse">
+  <xs:complexType name="InsertarCalendario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="calendario" type="tns:calendarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsertarCalendarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerCitaPorId">
+  <xs:complexType name="ModificarCalendario">
     <xs:sequence>
-      <xs:element minOccurs="0" name="citaBusqueda" type="tns:citaDTO" />
+      <xs:element minOccurs="0" name="calendario" type="tns:calendarioDTO" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerCitaPorIdResponse">
+  <xs:complexType name="ModificarCalendarioResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:citaDTO" />
+      <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ModificarCita">
+  <xs:complexType name="InsertarCalendarioPorPartes">
     <xs:sequence>
-      <xs:element minOccurs="0" name="cita" type="tns:citaDTO" />
+      <xs:element minOccurs="0" name="idEmpleado" type="xs:int" />
+      <xs:element minOccurs="0" name="fecha" type="tns:date" />
+      <xs:element minOccurs="0" name="cantLibre" type="xs:int" />
+      <xs:element minOccurs="0" name="motivo" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ModificarCitaResponse">
+  <xs:complexType name="InsertarCalendarioPorPartesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EliminarCalendario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="calendario" type="tns:calendarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EliminarCalendarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

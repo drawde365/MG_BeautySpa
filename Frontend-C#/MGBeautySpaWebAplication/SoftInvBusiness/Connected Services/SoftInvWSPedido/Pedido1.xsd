@@ -57,6 +57,7 @@
       <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="nombre" type="xs:string" />
       <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
       <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
       <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
     </xs:sequence>
@@ -175,6 +176,16 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="ObtenerCarritoPorCliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerCarritoPorClienteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pedidoDTO" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="ObtenerDetallePedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="idPedido" type="xs:int" />
@@ -185,16 +196,6 @@
   <xs:complexType name="ObtenerDetallePedidoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:detallePedidoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ObtenerCarritoPorCliente">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ObtenerCarritoPorClienteResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:pedidoDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarDetallePedido">

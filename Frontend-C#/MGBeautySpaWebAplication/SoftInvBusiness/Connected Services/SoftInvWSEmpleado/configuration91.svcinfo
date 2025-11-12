@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="2uJRUWnzMZiLGwkT2ER09Zd1Ponf38UHc86xrOyoN34=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="fcEhM7RUnGM46Vp+ymzM5y9qZtwgyOddoYFOJUlHk+4=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="EmpleadoPortBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="EmpleadoPort" contract="SoftInvWSEmpleado.Empleado" bindingType="basicHttpBinding" address="http://192.168.1.37:8080/SoftInvWS/Empleado" bindingConfiguration="EmpleadoPortBinding">
+    <endpoint name="EmpleadoPort" contract="SoftInvWSEmpleado.Empleado" bindingType="basicHttpBinding" address="http://localhost:8080/SoftInvWS/Empleado" bindingConfiguration="EmpleadoPortBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.37:8080/SoftInvWS/Empleado</serializedValue>
+          <serializedValue>http://localhost:8080/SoftInvWS/Empleado</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

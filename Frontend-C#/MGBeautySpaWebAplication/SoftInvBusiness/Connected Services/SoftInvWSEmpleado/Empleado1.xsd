@@ -68,6 +68,7 @@
       <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="nombre" type="xs:string" />
       <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
       <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
       <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
     </xs:sequence>
@@ -183,16 +184,6 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ListarServiciosDeEmpleado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ListarServiciosDeEmpleadoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:servicioDTO" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="ObtenerEmpleadoPorId">
     <xs:sequence>
       <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
@@ -201,6 +192,16 @@
   <xs:complexType name="ObtenerEmpleadoPorIdResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:empleadoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarServiciosDeEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarServiciosDeEmpleadoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:servicioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ModificarEmpleado">

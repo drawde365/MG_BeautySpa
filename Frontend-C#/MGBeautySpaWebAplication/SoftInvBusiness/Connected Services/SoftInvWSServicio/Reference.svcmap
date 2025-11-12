@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.1.37:8080/SoftInvWS/Servicio?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8080/SoftInvWS/Servicio?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="b6a23560-b889-448d-804d-c495769924b7" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Servicio?wsdl" />
-    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="735dc753-a1ae-4b0a-9bb8-e6ec653f36a8" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Servicio?xsd=1" />
+    <MetadataFile FileName="Servicio1.wsdl" MetadataType="Wsdl" ID="2510f600-ee6d-45bc-9251-ecc999354aae" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Servicio?wsdl" />
+    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="7042b61b-e31d-4159-9405-6352e5f59b88" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Servicio?xsd=1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

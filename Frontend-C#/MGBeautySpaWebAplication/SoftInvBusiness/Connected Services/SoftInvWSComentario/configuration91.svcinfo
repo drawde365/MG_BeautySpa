@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="TRIHRTKiNgUuhQpUiK0q9Yv98ZPzBHoWmj18qljGuBA=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="SyPTEgUFHBmPknPgsNTFQyfU3ajUGjcvF81Kp02qR64=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ComentarioPortBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ComentarioPort" contract="SoftInvWSComentario.Comentario" bindingType="basicHttpBinding" address="http://192.168.1.37:8080/SoftInvWS/Comentario" bindingConfiguration="ComentarioPortBinding">
+    <endpoint name="ComentarioPort" contract="SoftInvWSComentario.Comentario" bindingType="basicHttpBinding" address="http://localhost:8080/SoftInvWS/Comentario" bindingConfiguration="ComentarioPortBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.37:8080/SoftInvWS/Comentario</serializedValue>
+          <serializedValue>http://localhost:8080/SoftInvWS/Comentario</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

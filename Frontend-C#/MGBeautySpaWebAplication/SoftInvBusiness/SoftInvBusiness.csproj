@@ -111,8 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\SoftInvWSCalendario\Calendario.wsdl" />
-    <None Include="Connected Services\SoftInvWSCalendario\Calendario.xsd">
+    <None Include="Connected Services\SoftInvWSCalendario\Calendario1.wsdl" />
+    <None Include="Connected Services\SoftInvWSCalendario\Calendario1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.calendarioDTO.datasource">
@@ -136,8 +136,8 @@
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSCita\Cita1.wsdl" />
-    <None Include="Connected Services\SoftInvWSCita\Cita1.xsd">
+    <None Include="Connected Services\SoftInvWSCita\Cita.wsdl" />
+    <None Include="Connected Services\SoftInvWSCita\Cita.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.citaDTO.datasource">
@@ -149,14 +149,23 @@
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.InsertarCitaPorPartesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.InsertarCitaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ListarCitasPorUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ListarTodosCitaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ModificarCitaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ObtenerCitaPorIdResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSCliente\Cliente.wsdl" />
-    <None Include="Connected Services\SoftInvWSCliente\Cliente.xsd">
+    <None Include="Connected Services\SoftInvWSCliente\Cliente1.wsdl" />
+    <None Include="Connected Services\SoftInvWSCliente\Cliente1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSCliente\SoftInvBusiness.SoftInvWSCliente.crearClienteResponse.datasource">
@@ -168,8 +177,8 @@
     <None Include="Connected Services\SoftInvWSCliente\SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSComentario\Comentario.wsdl" />
-    <None Include="Connected Services\SoftInvWSComentario\Comentario.xsd">
+    <None Include="Connected Services\SoftInvWSComentario\Comentario1.wsdl" />
+    <None Include="Connected Services\SoftInvWSComentario\Comentario1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.comentarioDTO.datasource">
@@ -193,8 +202,8 @@
     <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.ObtenerComentariosPorServicioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSEmpleado\Empleado.wsdl" />
-    <None Include="Connected Services\SoftInvWSEmpleado\Empleado.xsd">
+    <None Include="Connected Services\SoftInvWSEmpleado\Empleado1.wsdl" />
+    <None Include="Connected Services\SoftInvWSEmpleado\Empleado1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoResponse.datasource">
@@ -233,8 +242,8 @@
     <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.servicioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSPedido\Pedido.wsdl" />
-    <None Include="Connected Services\SoftInvWSPedido\Pedido.xsd">
+    <None Include="Connected Services\SoftInvWSPedido\Pedido1.wsdl" />
+    <None Include="Connected Services\SoftInvWSPedido\Pedido1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO.datasource">
@@ -276,15 +285,15 @@
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.pedidoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSProductos\Productos1.wsdl" />
-    <None Include="Connected Services\SoftInvWSProductos\Productos1.xsd">
+    <None Include="Connected Services\SoftInvWSProductos\Productos.wsdl" />
+    <None Include="Connected Services\SoftInvWSProductos\Productos.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSProductos\SoftInvBusiness.SoftInvWSProductos.productoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo1.wsdl" />
-    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo1.xsd">
+    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo.wsdl" />
+    <None Include="Connected Services\SoftInvWSProductoTipo\ProductoTipo.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.EliminarResponse.datasource">
@@ -302,8 +311,8 @@
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSServicio\Servicio.wsdl" />
-    <None Include="Connected Services\SoftInvWSServicio\Servicio.xsd">
+    <None Include="Connected Services\SoftInvWSServicio\Servicio1.wsdl" />
+    <None Include="Connected Services\SoftInvWSServicio\Servicio1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.EliminarServicioResponse.datasource">
@@ -339,8 +348,8 @@
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.usuarioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSUsuario\Usuario.wsdl" />
-    <None Include="Connected Services\SoftInvWSUsuario\Usuario.xsd">
+    <None Include="Connected Services\SoftInvWSUsuario\Usuario1.wsdl" />
+    <None Include="Connected Services\SoftInvWSUsuario\Usuario1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

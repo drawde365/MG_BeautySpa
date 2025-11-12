@@ -2,9 +2,21 @@
 <definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Cita" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <xsd:schema>
-      <xsd:import schemaLocation="http://192.168.1.37:8080/SoftInvWS/Cita?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
+      <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Cita?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
+  <message name="ListarCitasPorUsuario">
+    <part name="parameters" element="tns:ListarCitasPorUsuario" />
+  </message>
+  <message name="ListarCitasPorUsuarioResponse">
+    <part name="parameters" element="tns:ListarCitasPorUsuarioResponse" />
+  </message>
+  <message name="InsertarCita">
+    <part name="parameters" element="tns:InsertarCita" />
+  </message>
+  <message name="InsertarCitaResponse">
+    <part name="parameters" element="tns:InsertarCitaResponse" />
+  </message>
   <message name="ModificarCita">
     <part name="parameters" element="tns:ModificarCita" />
   </message>
@@ -17,19 +29,33 @@
   <message name="ObtenerCitaPorIdResponse">
     <part name="parameters" element="tns:ObtenerCitaPorIdResponse" />
   </message>
-  <message name="EliminarCita">
-    <part name="parameters" element="tns:EliminarCita" />
-  </message>
-  <message name="EliminarCitaResponse">
-    <part name="parameters" element="tns:EliminarCitaResponse" />
-  </message>
   <message name="InsertarCitaPorPartes">
     <part name="parameters" element="tns:InsertarCitaPorPartes" />
   </message>
   <message name="InsertarCitaPorPartesResponse">
     <part name="parameters" element="tns:InsertarCitaPorPartesResponse" />
   </message>
+  <message name="EliminarCita">
+    <part name="parameters" element="tns:EliminarCita" />
+  </message>
+  <message name="EliminarCitaResponse">
+    <part name="parameters" element="tns:EliminarCitaResponse" />
+  </message>
+  <message name="ListarTodosCita">
+    <part name="parameters" element="tns:ListarTodosCita" />
+  </message>
+  <message name="ListarTodosCitaResponse">
+    <part name="parameters" element="tns:ListarTodosCitaResponse" />
+  </message>
   <portType name="Cita">
+    <operation name="ListarCitasPorUsuario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarCitasPorUsuarioRequest" message="tns:ListarCitasPorUsuario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarCitasPorUsuarioResponse" message="tns:ListarCitasPorUsuarioResponse" />
+    </operation>
+    <operation name="InsertarCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaRequest" message="tns:InsertarCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaResponse" message="tns:InsertarCitaResponse" />
+    </operation>
     <operation name="ModificarCita">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaRequest" message="tns:ModificarCita" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaResponse" message="tns:ModificarCitaResponse" />
@@ -38,17 +64,39 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdRequest" message="tns:ObtenerCitaPorId" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdResponse" message="tns:ObtenerCitaPorIdResponse" />
     </operation>
-    <operation name="EliminarCita">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaRequest" message="tns:EliminarCita" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaResponse" message="tns:EliminarCitaResponse" />
-    </operation>
     <operation name="InsertarCitaPorPartes">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesRequest" message="tns:InsertarCitaPorPartes" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesResponse" message="tns:InsertarCitaPorPartesResponse" />
     </operation>
+    <operation name="EliminarCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaRequest" message="tns:EliminarCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaResponse" message="tns:EliminarCitaResponse" />
+    </operation>
+    <operation name="ListarTodosCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarTodosCitaRequest" message="tns:ListarTodosCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarTodosCitaResponse" message="tns:ListarTodosCitaResponse" />
+    </operation>
   </portType>
   <binding name="CitaPortBinding" type="tns:Cita">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ListarCitasPorUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertarCita">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
     <operation name="ModificarCita">
       <soap:operation soapAction="" />
       <input>
@@ -67,6 +115,15 @@
         <soap:body use="literal" />
       </output>
     </operation>
+    <operation name="InsertarCitaPorPartes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
     <operation name="EliminarCita">
       <soap:operation soapAction="" />
       <input>
@@ -76,7 +133,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="InsertarCitaPorPartes">
+    <operation name="ListarTodosCita">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -88,7 +145,7 @@
   </binding>
   <service name="Cita">
     <port name="CitaPort" binding="tns:CitaPortBinding">
-      <soap:address location="http://192.168.1.37:8080/SoftInvWS/Cita" />
+      <soap:address location="http://localhost:8080/SoftInvWS/Cita" />
     </port>
   </service>
 </definitions>

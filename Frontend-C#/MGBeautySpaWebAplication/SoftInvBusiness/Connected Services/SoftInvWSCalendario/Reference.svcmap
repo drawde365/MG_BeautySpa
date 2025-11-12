@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.1.37:8080/SoftInvWS/Calendario?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8080/SoftInvWS/Calendario?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Calendario.xsd" MetadataType="Schema" ID="a4604c3f-ddd5-4e05-ba0f-279a6bb8beb3" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Calendario?xsd=1" />
-    <MetadataFile FileName="Calendario.wsdl" MetadataType="Wsdl" ID="7523bd39-3245-4b8f-8e28-fa954753cfe4" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Calendario?wsdl" />
+    <MetadataFile FileName="Calendario1.xsd" MetadataType="Schema" ID="0fb0b64e-728b-4aaf-a0cb-c98548f738fb" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Calendario?xsd=1" />
+    <MetadataFile FileName="Calendario1.wsdl" MetadataType="Wsdl" ID="613a496f-6b83-4a3a-a0a4-a560b94810b9" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Calendario?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

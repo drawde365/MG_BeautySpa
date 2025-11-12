@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="lvVgMRo7zP3shBJEUEBwVcASytppOHB1I1R5Fod1yMg=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="JDv4xMDBsqKwXVJuPOKzaWSgRIxQfb1XY5eKgDxLxUs=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ProductosTipoPortBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ProductosTipoPort" contract="SoftInvWSProductoTipo.ProductosTipo" bindingType="basicHttpBinding" address="http://192.168.1.37:8080/SoftInvWS/ProductoTipo" bindingConfiguration="ProductosTipoPortBinding">
+    <endpoint name="ProductosTipoPort" contract="SoftInvWSProductoTipo.ProductosTipo" bindingType="basicHttpBinding" address="http://localhost:8080/SoftInvWS/ProductoTipo" bindingConfiguration="ProductosTipoPortBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.37:8080/SoftInvWS/ProductoTipo</serializedValue>
+          <serializedValue>http://localhost:8080/SoftInvWS/ProductoTipo</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="FIUMVz8sHw6Tnl09MRn6lqkTN4rpUfoedP8Y79vlL3g=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="LogiIO2ttgWlDjKAuwHNsAOzMko3dCZ6cUHZr8KOrDk=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ServicioPortBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ServicioPort" contract="SoftInvWSServicio.Servicio" bindingType="basicHttpBinding" address="http://192.168.1.37:8080/SoftInvWS/Servicio" bindingConfiguration="ServicioPortBinding">
+    <endpoint name="ServicioPort" contract="SoftInvWSServicio.Servicio" bindingType="basicHttpBinding" address="http://localhost:8080/SoftInvWS/Servicio" bindingConfiguration="ServicioPortBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.37:8080/SoftInvWS/Servicio</serializedValue>
+          <serializedValue>http://localhost:8080/SoftInvWS/Servicio</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

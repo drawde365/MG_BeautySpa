@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.1.37:8080/SoftInvWS/Comentario?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8080/SoftInvWS/Comentario?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Comentario.wsdl" MetadataType="Wsdl" ID="6d7360df-68d8-45ea-8959-a803d3d93a86" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Comentario?wsdl" />
-    <MetadataFile FileName="Comentario.xsd" MetadataType="Schema" ID="c01b7158-67ac-4516-81ac-5dfe077ffd5d" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Comentario?xsd=1" />
+    <MetadataFile FileName="Comentario1.wsdl" MetadataType="Wsdl" ID="ec9b0075-f29e-47de-8e5f-151a4d27161d" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Comentario?wsdl" />
+    <MetadataFile FileName="Comentario1.xsd" MetadataType="Schema" ID="30fdd45f-7bd2-4e62-b5a3-905ce701a5a7" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Comentario?xsd=1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -64,6 +64,7 @@
       <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="nombre" type="xs:string" />
       <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
       <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
       <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
     </xs:sequence>

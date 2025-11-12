@@ -2,20 +2,20 @@
 <definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Calendario" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <xsd:schema>
-      <xsd:import schemaLocation="http://192.168.1.37:8080/SoftInvWS/Calendario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
+      <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Calendario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="InsertarCalendarioPorPartes">
-    <part name="parameters" element="tns:InsertarCalendarioPorPartes" />
+  <message name="ListarCalendarioDeEmpleado">
+    <part name="parameters" element="tns:ListarCalendarioDeEmpleado" />
   </message>
-  <message name="InsertarCalendarioPorPartesResponse">
-    <part name="parameters" element="tns:InsertarCalendarioPorPartesResponse" />
+  <message name="ListarCalendarioDeEmpleadoResponse">
+    <part name="parameters" element="tns:ListarCalendarioDeEmpleadoResponse" />
   </message>
-  <message name="ModificarCalendarioPorPartes">
-    <part name="parameters" element="tns:ModificarCalendarioPorPartes" />
+  <message name="ModificarCalendario">
+    <part name="parameters" element="tns:ModificarCalendario" />
   </message>
-  <message name="ModificarCalendarioPorPartesResponse">
-    <part name="parameters" element="tns:ModificarCalendarioPorPartesResponse" />
+  <message name="ModificarCalendarioResponse">
+    <part name="parameters" element="tns:ModificarCalendarioResponse" />
   </message>
   <message name="EliminarCalendario">
     <part name="parameters" element="tns:EliminarCalendario" />
@@ -29,26 +29,26 @@
   <message name="InsertarCalendarioResponse">
     <part name="parameters" element="tns:InsertarCalendarioResponse" />
   </message>
-  <message name="ModificarCalendario">
-    <part name="parameters" element="tns:ModificarCalendario" />
+  <message name="InsertarCalendarioPorPartes">
+    <part name="parameters" element="tns:InsertarCalendarioPorPartes" />
   </message>
-  <message name="ModificarCalendarioResponse">
-    <part name="parameters" element="tns:ModificarCalendarioResponse" />
+  <message name="InsertarCalendarioPorPartesResponse">
+    <part name="parameters" element="tns:InsertarCalendarioPorPartesResponse" />
   </message>
-  <message name="ListarCalendarioDeEmpleado">
-    <part name="parameters" element="tns:ListarCalendarioDeEmpleado" />
+  <message name="ModificarCalendarioPorPartes">
+    <part name="parameters" element="tns:ModificarCalendarioPorPartes" />
   </message>
-  <message name="ListarCalendarioDeEmpleadoResponse">
-    <part name="parameters" element="tns:ListarCalendarioDeEmpleadoResponse" />
+  <message name="ModificarCalendarioPorPartesResponse">
+    <part name="parameters" element="tns:ModificarCalendarioPorPartesResponse" />
   </message>
   <portType name="Calendario">
-    <operation name="InsertarCalendarioPorPartes">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesRequest" message="tns:InsertarCalendarioPorPartes" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesResponse" message="tns:InsertarCalendarioPorPartesResponse" />
+    <operation name="ListarCalendarioDeEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoRequest" message="tns:ListarCalendarioDeEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoResponse" message="tns:ListarCalendarioDeEmpleadoResponse" />
     </operation>
-    <operation name="ModificarCalendarioPorPartes">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesRequest" message="tns:ModificarCalendarioPorPartes" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesResponse" message="tns:ModificarCalendarioPorPartesResponse" />
+    <operation name="ModificarCalendario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioRequest" message="tns:ModificarCalendario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioResponse" message="tns:ModificarCalendarioResponse" />
     </operation>
     <operation name="EliminarCalendario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRequest" message="tns:EliminarCalendario" />
@@ -58,18 +58,18 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRequest" message="tns:InsertarCalendario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioResponse" message="tns:InsertarCalendarioResponse" />
     </operation>
-    <operation name="ModificarCalendario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioRequest" message="tns:ModificarCalendario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioResponse" message="tns:ModificarCalendarioResponse" />
+    <operation name="InsertarCalendarioPorPartes">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesRequest" message="tns:InsertarCalendarioPorPartes" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesResponse" message="tns:InsertarCalendarioPorPartesResponse" />
     </operation>
-    <operation name="ListarCalendarioDeEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoRequest" message="tns:ListarCalendarioDeEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoResponse" message="tns:ListarCalendarioDeEmpleadoResponse" />
+    <operation name="ModificarCalendarioPorPartes">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesRequest" message="tns:ModificarCalendarioPorPartes" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesResponse" message="tns:ModificarCalendarioPorPartesResponse" />
     </operation>
   </portType>
   <binding name="CalendarioPortBinding" type="tns:Calendario">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="InsertarCalendarioPorPartes">
+    <operation name="ListarCalendarioDeEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -78,7 +78,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ModificarCalendarioPorPartes">
+    <operation name="ModificarCalendario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -105,7 +105,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ModificarCalendario">
+    <operation name="InsertarCalendarioPorPartes">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -114,7 +114,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarCalendarioDeEmpleado">
+    <operation name="ModificarCalendarioPorPartes">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -126,7 +126,7 @@
   </binding>
   <service name="Calendario">
     <port name="CalendarioPort" binding="tns:CalendarioPortBinding">
-      <soap:address location="http://192.168.1.37:8080/SoftInvWS/Calendario" />
+      <soap:address location="http://localhost:8080/SoftInvWS/Calendario" />
     </port>
   </service>
 </definitions>

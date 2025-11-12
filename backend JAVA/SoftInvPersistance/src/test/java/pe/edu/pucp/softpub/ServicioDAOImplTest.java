@@ -80,7 +80,7 @@ public class ServicioDAOImplTest {
         int resul = servicioDAO.insertar(servicio);
         servicio.setIdServicio(resul);
         servicioDAO.eliminar(servicio);
-        servicio = servicioDAO.obtenerPorId(1);
+        servicio = servicioDAO.obtenerPorId(resul);
         assertNull(servicio, "El servicio ya no debería existir");
     }
     

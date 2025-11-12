@@ -613,6 +613,10 @@ namespace SoftInvBusiness.SoftInvWSProductoTipo {
         
         private string primerapellidoField;
         
+        private int rolField;
+        
+        private bool rolFieldSpecified;
+        
         private string segundoapellidoField;
         
         private string urlFotoPerfilField;
@@ -727,6 +731,30 @@ namespace SoftInvBusiness.SoftInvWSProductoTipo {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public int rol {
+            get {
+                return this.rolField;
+            }
+            set {
+                this.rolField = value;
+                this.RaisePropertyChanged("rol");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool rolSpecified {
+            get {
+                return this.rolFieldSpecified;
+            }
+            set {
+                this.rolFieldSpecified = value;
+                this.RaisePropertyChanged("rolSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
         public string segundoapellido {
             get {
                 return this.segundoapellidoField;
@@ -738,7 +766,7 @@ namespace SoftInvBusiness.SoftInvWSProductoTipo {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
         public string urlFotoPerfil {
             get {
                 return this.urlFotoPerfilField;

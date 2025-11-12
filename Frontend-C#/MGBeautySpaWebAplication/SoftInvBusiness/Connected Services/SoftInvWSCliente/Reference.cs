@@ -16,16 +16,6 @@ namespace SoftInvBusiness.SoftInvWSCliente {
     public interface Cliente {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCliente.crearClienteResponse crearCliente(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteReques" +
             "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteRespon" +
             "se")]
@@ -48,6 +38,16 @@ namespace SoftInvBusiness.SoftInvWSCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSCliente.crearClienteResponse crearCliente(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request);
     }
     
     /// <remarks/>
@@ -263,42 +263,6 @@ namespace SoftInvBusiness.SoftInvWSCliente {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="crearCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class crearClienteRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente;
-        
-        public crearClienteRequest() {
-        }
-        
-        public crearClienteRequest(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
-            this.Cliente = Cliente;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="crearClienteResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class crearClienteResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public crearClienteResponse() {
-        }
-        
-        public crearClienteResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="modificarDatosCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class modificarDatosClienteRequest {
         
@@ -368,6 +332,42 @@ namespace SoftInvBusiness.SoftInvWSCliente {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="crearCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class crearClienteRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente;
+        
+        public crearClienteRequest() {
+        }
+        
+        public crearClienteRequest(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
+            this.Cliente = Cliente;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="crearClienteResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class crearClienteResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public crearClienteResponse() {
+        }
+        
+        public crearClienteResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ClienteChannel : SoftInvBusiness.SoftInvWSCliente.Cliente, System.ServiceModel.IClientChannel {
     }
@@ -393,29 +393,6 @@ namespace SoftInvBusiness.SoftInvWSCliente {
         
         public ClienteClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCliente.crearClienteResponse SoftInvBusiness.SoftInvWSCliente.Cliente.crearCliente(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request) {
-            return base.Channel.crearCliente(request);
-        }
-        
-        public int crearCliente(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
-            SoftInvBusiness.SoftInvWSCliente.crearClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.crearClienteRequest();
-            inValue.Cliente = Cliente;
-            SoftInvBusiness.SoftInvWSCliente.crearClienteResponse retVal = ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).crearCliente(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> SoftInvBusiness.SoftInvWSCliente.Cliente.crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request) {
-            return base.Channel.crearClienteAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
-            SoftInvBusiness.SoftInvWSCliente.crearClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.crearClienteRequest();
-            inValue.Cliente = Cliente;
-            return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).crearClienteAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -462,6 +439,29 @@ namespace SoftInvBusiness.SoftInvWSCliente {
             SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest inValue = new SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest();
             inValue.arg0 = arg0;
             return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).eliminarCuentaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCliente.crearClienteResponse SoftInvBusiness.SoftInvWSCliente.Cliente.crearCliente(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request) {
+            return base.Channel.crearCliente(request);
+        }
+        
+        public int crearCliente(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
+            SoftInvBusiness.SoftInvWSCliente.crearClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.crearClienteRequest();
+            inValue.Cliente = Cliente;
+            SoftInvBusiness.SoftInvWSCliente.crearClienteResponse retVal = ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).crearCliente(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> SoftInvBusiness.SoftInvWSCliente.Cliente.crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request) {
+            return base.Channel.crearClienteAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
+            SoftInvBusiness.SoftInvWSCliente.crearClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.crearClienteRequest();
+            inValue.Cliente = Cliente;
+            return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).crearClienteAsync(inValue);
         }
     }
 }
