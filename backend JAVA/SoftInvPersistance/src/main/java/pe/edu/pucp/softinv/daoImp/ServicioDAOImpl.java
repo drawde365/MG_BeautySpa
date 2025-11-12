@@ -168,4 +168,21 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    
+    @Override
+    public ArrayList<ServicioDTO> listarFiltro (String filtro){
+        String sql = "SELECT * FROM SPA.SERVICIOS\n" +
+                        "WHERE TIPO = ?";
+        return (ArrayList<ServicioDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarFiltro, filtro);
+    }
+    
+    private void incluirValoresDeParametrosParaListarFiltro(Object objetoParametros) {
+        String filtro = (String) objetoParametros;
+        try {
+            this.statement.setString(1, filtro);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

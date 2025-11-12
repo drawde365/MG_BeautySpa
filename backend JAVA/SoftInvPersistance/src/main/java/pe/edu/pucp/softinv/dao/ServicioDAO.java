@@ -14,4 +14,5 @@ public interface ServicioDAO {
     public ArrayList<ServicioDTO> obtenerPorPagina(Integer pag);
     Integer obtenerCantPaginas();
     ArrayList<ServicioDTO> listarTodos();
+    ArrayList<ServicioDTO> listarFiltro (String filtro);
 }

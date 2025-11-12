@@ -5,8 +5,10 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.sql.Time;
 import java.sql.Date;
+import java.util.ArrayList;
 import pe.edu.pucp.softinv.business.BO.Impl.CitaBO;
 import pe.edu.pucp.softinv.model.Cita.CitaDTO;
+import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 /**
  *
@@ -35,6 +37,12 @@ public class Cita {
         
         return citaBO.insertar(empleadoId, clienteId, servicioId, fecha, horaIni, horaFin, igv, activo, codTransacc);
     }
+    @WebMethod(operationName = "InsertarCita")
+    public Integer insertarCitaDTO(
+            @WebParam(name = "citaDTO") CitaDTO cita) {
+        
+        return citaBO.insertar(cita);
+    }
     
     @WebMethod(operationName = "ModificarCita")
     public Integer modificarCita(
@@ -52,5 +60,15 @@ public class Cita {
     public CitaDTO obtenerCitaPorId(
             @WebParam(name = "citaBusqueda") CitaDTO citaBusqueda) {
         return citaBO.obtenerPorId(citaBusqueda);
+    }
+    @WebMethod(operationName = "ListarCitasPorUsuario")
+    public ArrayList<CitaDTO> listarCitasPorUsuario(
+            @WebParam(name = "usuarioDTO")UsuarioDTO usuario) {
+        return citaBO.listarCitasPorUsuario(usuario);
+    }
+    
+    @WebMethod(operationName = "ListarTodosCita")
+    public ArrayList<CitaDTO> listarTodosCita(){
+        return citaBO.listarTodos();
     }
 }

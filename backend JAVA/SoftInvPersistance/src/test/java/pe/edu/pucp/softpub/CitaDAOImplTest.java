@@ -48,7 +48,7 @@ public class CitaDAOImplTest {
         emp.setUrlFotoPerfil("perfil.jpg");
         emp.setActivo(1);
         emp.setAdmin(true);
-        emp.setRol();
+        emp.setRol(2);
         emp.setIdUsuario(empleadoDAO.insertar(emp));
         assertTrue(emp.getIdUsuario() > 0, "Empleado no se insertó correctamente.");
         return emp;
@@ -64,7 +64,7 @@ public class CitaDAOImplTest {
         cli.setCelular("987654321");
         cli.setUrlFotoPerfil("perfil2.jpg");
         cli.setActivo(1);
-        cli.setRol();
+        cli.setRol(1);
         cli.setIdUsuario(clienteDAO.insertar(cli));
         assertTrue(cli.getIdUsuario() > 0, "Cliente no se insertó correctamente.");
         return cli;
@@ -152,19 +152,19 @@ public class CitaDAOImplTest {
         EmpleadoDTO empleado = new EmpleadoDTO();
         empleado.setIdUsuario(c.getEmpleado().getIdUsuario());
         empleado.setAdmin(false);
-        empleado.setRol(); // Empleado
+        empleado.setRol(2); // Empleado
 
         ArrayList<CitaDTO> listaEmpleado = citaDAO.listarCitasPorUsuario(empleado);
         assertNotNull(listaEmpleado, "La lista no debe ser nula.");
-        assertFalse(listaEmpleado.isEmpty(), "Debe contener al menos una cita.");
+        assertFalse(listaEmpleado.isEmpty(), "Debe contener al menos una cita E.");
 
         ClienteDTO cliente = new ClienteDTO();
         cliente.setIdUsuario(c.getCliente().getIdUsuario());
-        cliente.setRol(); // Cliente
+        cliente.setRol(1); // Cliente
 
         ArrayList<CitaDTO> listaCliente = citaDAO.listarCitasPorUsuario(cliente);
         assertNotNull(listaCliente, "La lista no debe ser nula.");
-        assertFalse(listaCliente.isEmpty(), "Debe contener al menos una cita.");
+        assertFalse(listaCliente.isEmpty(), "Debe contener al menos una cita C.");
 
         eliminar();
     }

@@ -10,9 +10,9 @@ public interface ComentarioDAO {
 
     public ComentarioDTO obtenerPorId(Integer idComentario); //ESTO ES INÚTIL fuera del dao
 
-    ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer contadorPagina, Integer idProducto);
+    ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer idProducto);
 
-    ArrayList<ComentarioDTO> obtenerComentariosPorServicio(Integer contadorPagina, Integer idServicio);
+    ArrayList<ComentarioDTO> obtenerComentariosPorServicio(Integer idServicio);
 
     public Integer modificar(ComentarioDTO comentario);
 

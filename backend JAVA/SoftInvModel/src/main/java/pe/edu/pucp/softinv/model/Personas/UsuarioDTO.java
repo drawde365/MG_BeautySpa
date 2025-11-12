@@ -4,7 +4,27 @@ import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Alvaro
+ */
+
 public class UsuarioDTO {
+
+    /**
+     * @return the rol
+     */
+    public Integer getRol() {
+        return rol;
+    }
+
+    /**
+     * @param rol the rol to set
+     */
+    public void setRol(Integer rol) {
+        this.rol = rol;
+    }
+    
     private String nombre;
     private String Primerapellido;
     private String Segundoapellido;
@@ -12,7 +32,7 @@ public class UsuarioDTO {
     private String contrasenha;
     private String celular;
     private String urlFotoPerfil;
-    protected Integer rol;
+    private Integer rol;
     private ArrayList<CitaDTO> citas;
     private Integer idUsuario;
     private Integer activo;
@@ -25,16 +45,7 @@ public class UsuarioDTO {
         this.activo = activo;
     }
 
-    public void setRol(){
-    }
     
-    public void setRol(int rol){
-        this.rol=rol;
-    }
-
-    public Integer getRol(){
-        return rol;
-    }
 
     public ArrayList<CitaDTO> getCitas() {
         return citas;
@@ -70,13 +81,15 @@ public class UsuarioDTO {
         activo=null;
     }
 
-    public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil,Integer idUsuario) {
+    public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil,Integer idUsuario,
+            Integer rol) {
         this.nombre = nombre;
         this.Primerapellido = PrimerApellido;
         this.Segundoapellido = SegundoApellido;
         this.correoElectronico = correoElectronico;
         this.contrasenha = contrasenha;
         this.celular = celular;
+        this.rol = rol;
         this.urlFotoPerfil = urlFotoPerfil;
         this.idUsuario = idUsuario;
         this.activo = 1;

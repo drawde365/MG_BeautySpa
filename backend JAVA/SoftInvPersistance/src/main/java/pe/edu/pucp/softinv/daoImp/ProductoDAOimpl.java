@@ -134,6 +134,27 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
 
         return super.eliminar(false, true);
     }
+    
+    @Override
+    public ArrayList<ProductoDTO> obtenerPorFiltro(String filtro){
+        String sql="";
+        if(filtro.equals("Corporal")) {
+            sql += "SELECT DISTINCT p.*\n" +
+                    "FROM SPA.PRODUCTOS p\n" +
+                    "INNER JOIN SPA.PRODUCTOS_TIPOS pt ON p.PRODUCTO_ID = pt.PRODUCTO_ID\n" +
+                    "WHERE pt.TIPO_PRODUCTO = 'Corporal'";
+        } else {
+           sql = "SELECT p.*\n" +
+                "FROM SPA.PRODUCTOS p\n" +
+                "WHERE p.PRODUCTO_ID NOT IN (\n"+
+                "    SELECT pt.PRODUCTO_ID\n" +
+                "    FROM SPA.PRODUCTOS_TIPOS pt\n" +
+                "    WHERE pt.TIPO_PRODUCTO = 'Corporal'\n" +
+                ");";
+        }
+        
+        return (ArrayList<ProductoDTO>)super.listarTodos(sql,null,null);
+    }
 
     @Override
     public ArrayList<ProductoDTO> obtenerPorPagina(Integer pag){

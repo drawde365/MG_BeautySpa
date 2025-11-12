@@ -29,8 +29,7 @@ namespace SoftInvBusiness
             string codTransacc)
         {
             return citaSOAP.InsertarCitaPorPartes(
-                empleadoId, clienteId, servicioId,
-                fecha, horaIni, horaFin, igv, activo, codTransacc);
+                empleadoId, clienteId, servicioId, fecha, horaIni, horaFin, igv, activo, codTransacc);
         }
 
         public int ModificarCita(citaDTO cita)

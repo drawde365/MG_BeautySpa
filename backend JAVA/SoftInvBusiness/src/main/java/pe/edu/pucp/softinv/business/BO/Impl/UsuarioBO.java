@@ -3,23 +3,25 @@ package pe.edu.pucp.softinv.business.BO.Impl;
 import pe.edu.pucp.softinv.daoImp.UsuarioDAOImpl;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
+/**
+ *
+ * @author Alvaro
+ */
 public class UsuarioBO {
 
     private UsuarioDAOImpl usuario;
+    private String temp = "NO_ENCONTRADO";
 
     public UsuarioBO() {
         usuario = new UsuarioDAOImpl();
     }
-    
-    public boolean inicioSesion(String correoElectronico, String contrasenha){
-        UsuarioDTO u = usuario.busquedaPorCorreo(correoElectronico);
-        if(u!=null){
-            //verificar contraseña
-            if(u.getContrasenha().equals(contrasenha)){
-                return true;
-            }
+
+    public UsuarioDTO inicioSesion(String correoElectronico, String contrasenha) {
+        UsuarioDTO u = usuario.busquedaPorCorreo(correoElectronico,contrasenha);
+        if (u == null) {
+             u = new UsuarioDTO(temp, temp, temp, temp, temp, temp, temp, 0,0);
         }
-        return false;
+        return u;
     }
 
 }

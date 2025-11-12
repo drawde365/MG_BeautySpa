@@ -9,6 +9,8 @@ import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.Time;
 import java.sql.Date;
+import java.util.ArrayList;
+import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 public class CitaBO {
 
@@ -32,6 +34,10 @@ public class CitaBO {
         CitaDTO cita=new CitaDTO(1,horaIni,horaFin,cliente,servicio,empleado,fecha,activo,igv,codTransacc);
         return citaDAO.insertar(cita);
     }
+    
+    public Integer insertar(CitaDTO cita) {
+        return citaDAO.insertar(cita);
+    }
 
     public Integer modificar(CitaDTO cita) {
         return citaDAO.modificar(cita);
@@ -44,5 +50,13 @@ public class CitaBO {
 
     public CitaDTO obtenerPorId(CitaDTO idCita) {
         return citaDAO.obtenerPorId(idCita);
+    }
+    
+    public ArrayList<CitaDTO> listarCitasPorUsuario(UsuarioDTO usuario) {
+        return citaDAO.listarCitasPorUsuario(usuario);
+    }
+    
+    public ArrayList<CitaDTO> listarTodos(){
+        return citaDAO.listarTodos();
     }
 }

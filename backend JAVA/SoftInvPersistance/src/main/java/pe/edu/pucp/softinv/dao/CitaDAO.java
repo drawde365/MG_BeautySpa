@@ -12,4 +12,5 @@ public interface CitaDAO {
     Integer modificar(CitaDTO cita);
     Integer eliminar(CitaDTO cita);
     ArrayList<CitaDTO> listarCitasPorUsuario(UsuarioDTO usuario);
+    ArrayList<CitaDTO> listarTodos();
 }

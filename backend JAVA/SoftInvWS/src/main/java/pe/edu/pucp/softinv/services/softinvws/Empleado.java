@@ -33,7 +33,7 @@ public class Empleado {
             @WebParam(name = "urlFotoPerfil") String urlFotoPerfil,
             @WebParam(name = "admin") Boolean admin) {
         
-        return empleadoBO.insertar(nombre, Primerapellido, Segundoapellido, correoElectronico, contrasenha, celular, urlFotoPerfil, admin);
+        return empleadoBO.insertar(nombre, Primerapellido, Segundoapellido, correoElectronico, contrasenha, celular, urlFotoPerfil, admin,2);
     }
     
     @WebMethod(operationName = "InsertarEmpleado")

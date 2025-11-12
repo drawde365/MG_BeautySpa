@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
     private ClienteDTO cliente;
-
     public ClienteDAOimpl() {
         super("USUARIOS");
         cliente = null;
@@ -102,7 +101,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         cliente.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
         cliente.setContrasenha(resultSet.getString("CONTRASENHA"));
         cliente.setCelular(resultSet.getString("CELULAR"));
-        cliente.setRol();
+        cliente.setRol(resultSet.getInt("ROL_ID"));
         cliente.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
         cliente.setActivo(resultSet.getInt("ACTIVO"));
     }

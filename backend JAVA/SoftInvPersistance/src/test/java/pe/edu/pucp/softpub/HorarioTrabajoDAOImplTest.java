@@ -35,7 +35,7 @@ public class HorarioTrabajoDAOImplTest {
         emp.setUrlFotoPerfil("perfil.jpg");
         emp.setActivo(1);
         emp.setAdmin(true);
-        emp.setRol();
+        emp.setRol(3);
         emp.setIdUsuario(empleadoDAO.insertar(emp));
 
         assertTrue(emp.getIdUsuario() > 0, "El empleado no se insertó correctamente");
