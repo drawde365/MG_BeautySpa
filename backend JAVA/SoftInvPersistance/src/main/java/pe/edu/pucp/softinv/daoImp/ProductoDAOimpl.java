@@ -158,7 +158,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
 
     @Override
     public ArrayList<ProductoDTO> obtenerPorPagina(Integer pag){
-        String sql = "SELECT * FROM PRODUCTOS LIMIT ?, ?";
+        String sql = "SELECT * FROM PRODUCTOS WHERE ACTIVO=1 LIMIT ?, ?";
         return (ArrayList<ProductoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPagina,pag);
     }
 
@@ -201,7 +201,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
     @Override
     public Integer obtenerCantPaginas() {
         int cant;
-        String sql = "SELECT COUNT(*) AS COUNT FROM PRODUCTOS";
+        String sql = "SELECT COUNT(*) AS COUNT FROM PRODUCTOS WHERE ACTIVO = 1";
         try {
             this.iniciarTransaccion();
             this.colocarSQLEnStatement(sql);

@@ -15,6 +15,15 @@ namespace MGBeautySpaWebAplication.Admin
     {
 
         /// <summary>
+        /// h1Titulo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h1Titulo;
+
+        /// <summary>
         /// txtTitulo control.
         /// </summary>
         /// <remarks>
@@ -51,15 +60,6 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.TextBox txtTamaño;
 
         /// <summary>
-        /// txtBeneficios control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBeneficios;
-
-        /// <summary>
         /// txtComoUsar control.
         /// </summary>
         /// <remarks>
@@ -78,6 +78,15 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoProducto;
 
         /// <summary>
+        /// fileUploadWrapper control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileUploadWrapper;
+
+        /// <summary>
         /// fileUpload control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,24 @@ namespace MGBeautySpaWebAplication.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileUpload;
+
+        /// <summary>
+        /// hdnImagenActual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnImagenActual;
+
+        /// <summary>
+        /// litError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label litError;
 
         /// <summary>
         /// btnCancelar control.

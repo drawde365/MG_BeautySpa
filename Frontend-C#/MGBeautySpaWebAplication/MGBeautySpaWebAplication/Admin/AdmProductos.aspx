@@ -82,21 +82,18 @@
         
     </div>
 
-            <div class="input-group admin-search-box" style="width: 300px;">
+    <div class="input-group admin-search-box" style="width: 300px;">
     <span class="input-group-text">
         <i class="bi bi-search"></i>
     </span>
     
-    <asp:TextBox ID="txtBuscar" runat="server" 
-                 CssClass="form-control" 
-                 placeholder="Buscar por nombre, código, tipo..." 
-                 ClientIDMode="Static">
+    <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por nombre, código, ..." ClientIDMode="Static">
     </asp:TextBox>
     </div>
 
     <div class="table-container">
         
-        <asp:Repeater ID="rptProductos" runat="server">
+        <asp:Repeater ID="rptProductos" runat="server" OnItemCommand="rptProductos_ItemCommand">
             
             <HeaderTemplate>
                 <table class="table product-list-table align-middle">
@@ -104,7 +101,6 @@
                         <tr>
                             <th colspan="2">Producto</th>
                             <th>Codigo</th> 
-                            <th>Tipo</th> 
                             <th>Precio</th> 
                             <th>Valoración</th> 
                             <th class="text-center">Acciones</th>
@@ -118,23 +114,19 @@
                 <tr class="producto-fila">
                     <td>
                         <asp:Image ID="imgProducto" runat="server" 
-                                   ImageUrl='<%# Eval("RutaImagen", "~{0}") %>' 
+                                   ImageUrl='<%# Eval("urlImagen", "~{0}") %>' 
                                    CssClass="product-image-thumb" />
                     </td>
                     <td>
-                        <asp:HyperLink ID="hlNombre" runat="server" 
-                                       NavigateUrl='<%# Eval("UrlEditar", "~{0}") %>' 
-                                       Text='<%# Eval("NombreProducto") %>' 
+                        <asp:HyperLink ID="hlNombre" runat="server"  
+                                       Text='<%# Eval("nombre") %>' 
                                        CssClass="product-name-link" />
                     </td>
                     <td>
-                        <asp:Label ID="lblCodigo" runat="server" Text='<%# Eval("Codigo") %>' />
+                        <asp:Label ID="lblCodigo" runat="server" Text='<%# Eval("idProducto") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="lblTipo" runat="server" Text='<%# Eval("Tipo") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="lblPrecio" runat="server" Text='<%# Eval("Precio", "S/. {0:F2}") %>' CssClass="product-price" />
+                        <asp:Label ID="lblPrecio" runat="server" Text='<%# Eval("precio", "S/. {0:F2}") %>' CssClass="product-price" />
                     </td>
                     <td>
                         <div class="rating-stars">
@@ -145,16 +137,16 @@
                         <asp:LinkButton ID="btnEditar" runat="server" 
                                         CssClass="btn btn-action btn-edit-admin" 
                                         CommandName="Editar" 
-                                        CommandArgument='<%# Eval("IDProducto") %>'
+                                        CommandArgument='<%# Eval("idProducto") %>'
                                         ToolTip="Editar">
                             <i class="bi bi-pencil-fill"></i>
                         </asp:LinkButton>
                         <asp:LinkButton ID="btnEliminar" runat="server" 
                                         CssClass="btn btn-action btn-delete-admin" 
                                         CommandName="Eliminar" 
-                                        CommandArgument='<%# Eval("IDProducto") %>'
+                                        CommandArgument='<%# Eval("idProducto") %>'
                                         ToolTip="Eliminar"
-                                        OnClientClick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                        OnClientClick="return confirm('¿Estás seguro de que deseas dar de baja a este producto?');">
                             <i class="bi bi-trash-fill"></i>
                         </asp:LinkButton>
                     </td>

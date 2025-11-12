@@ -148,18 +148,28 @@
             color: #FCF7FA;
         }
 
+        .file-upload-wrapper.has-preview {
+            border-style: solid;
+            border-color: #148C76;
+            background-size: cover; /* Hace que la imagen llene el contenedor */
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+/* Cuando tenemos un preview, ocultamos el texto ("Subir imagen", etc.)
+*/
+            .file-upload-wrapper.has-preview .file-upload-label {
+                display: none;
+            }
+
     </style>
 </asp:Content>
 
 
-<%-- 
-    2. CONTENIDO PRINCIPAL
-    Este es el formulario, que se insertará en el "MainContent"
-    de tu Master Page (en el <main> blanco a la derecha).
---%>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h1 class="h1-add-product">Añadir Producto</h1>
+    <h1 class="h1-add-product" ID="h1Titulo" runat="server">Añadir Producto</h1>
 
     <div class="form-group-wrapper">
         <label for="txtTitulo" class="form-label">Título</label>
@@ -188,15 +198,10 @@
     </div>
 
     <div class="form-group-wrapper">
-        <label for="txtBeneficios" class="form-label">Beneficios</label>
-        <asp:TextBox ID="txtBeneficios" runat="server" CssClass="form-control" placeholder="Ingrese los beneficios" TextMode="MultiLine" Rows="5"></asp:TextBox>
-    </div>
-
-    <div class="form-group-wrapper">
         <label for="txtComoUsar" class="form-label">Cómo usar</label>
         <asp:TextBox ID="txtComoUsar" runat="server" CssClass="form-control" placeholder="Ingrese cómo se debería usar" TextMode="MultiLine" Rows="5"></asp:TextBox>
     </div>
-
+    <!--
     <div class="form-group-wrapper">
         <label for="ddlTipoProducto" class="form-label">Tipo de producto</label>
         <asp:DropDownList ID="ddlTipoProducto" runat="server" CssClass="form-select">
@@ -204,33 +209,89 @@
             <asp:ListItem Value="Facial" Text="Facial"></asp:ListItem>
             <asp:ListItem Value="Corporal" Text="Corporal"></asp:ListItem>
             <asp:ListItem Value="Cabello" Text="Cabello"></asp:ListItem>
-            <%-- Agrega más tipos de producto aquí --%>
         </asp:DropDownList>
     </div>
+    -->
 
     <div class="mb-4">
         <label class="form-label">Subir imagen</label>
-        <div class="file-upload-wrapper">
+        <div class="file-upload-wrapper" ID="fileUploadWrapper" runat="server">
             <asp:FileUpload ID="fileUpload" runat="server" CssClass="file-upload-input" />
             <div class="file-upload-label">
                 <strong>Subir imagen</strong>
                 <span class="file-upload-text">Arrastra y suelta o haz click para subir</span>
             </div>
+            <asp:HiddenField ID="hdnImagenActual" runat="server" Value="" />
         </div>
     </div>
-
+    <asp:Label ID="litError" runat="server" CssClass="text-danger d-block mb-3"></asp:Label>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-3">
         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-admin btn-admin-cancel" OnClick="btnCancelar_Click" CausesValidation="false" />
-        <asp:Button ID="btnGuardar" runat="server" Text="Añadir Producto" CssClass="btn btn-admin btn-admin-submit" OnClick="btnInsertarProducto_Click" />
+        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Producto" CssClass="btn btn-admin btn-admin-submit" OnClick="btnInsertarProducto_Click" />
     </div>
 
 </asp:Content>
 
-
-<%-- 
-    3. SCRIPTS (Opcional)
-    Puedes agregar JS aquí si lo necesitas.
---%>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptsContent" runat="server">
-    <%-- Por ejemplo, un script para mostrar el nombre del archivo cargado --%>
+    <script type(text/javascript)>
+        $(document).ready(function () {
+            
+            // 1. Seleccionamos tu <asp:FileUpload> por su CSS class
+            //    y escuchamos por el evento 'change' (cuando se selecciona un archivo).
+            $(".file-upload-input").on("change", function () {
+                
+                // 'this' es el input de archivo. this.files[0] es el archivo seleccionado
+                const file = this.files[0];
+                
+                // Encontramos los elementos de texto y el 'wrapper' (contenedor)
+                const $wrapper = $(this).closest(".file-upload-wrapper");
+                const $label = $wrapper.find(".file-upload-label");
+                const $labelText = $wrapper.find(".file-upload-text");
+                const $labelStrong = $wrapper.find("strong");
+
+                if (file) {
+                    // 2. Revisamos si el archivo es de tipo imagen
+                    if (file.type.startsWith("image/")) {
+                        // --- ES UNA IMAGEN: MOSTRAR PREVIEW ---
+                        
+                        const reader = new FileReader();
+                        
+                        // 3. Cuando el lector termine de cargar el archivo...
+                        reader.onload = function (e) {
+                            // ...ponemos la imagen como fondo del 'wrapper'
+                            $wrapper.css("background-image", "url(" + e.target.result + ")");
+                            // ...añadimos la clase CSS para ocultar el texto
+                            $wrapper.addClass("has-preview");
+                            $label.hide(); 
+                        };
+                        
+                        // 4. Le decimos al lector que lea el archivo como una URL de datos
+                        reader.readAsDataURL(file);
+                        
+                    } else {
+                        // --- NO ES IMAGEN: MOSTRAR NOMBRE DE ARCHIVO ---
+                        
+                        // 1. Cambiamos los textos
+                        $labelStrong.text("Archivo seleccionado:");
+                        $labelText.text(file.name); // Muestra ej: "mi_documento.pdf"
+                        
+                        // 2. Nos aseguramos de que no haya un preview de imagen anterior
+                        $wrapper.css("background-image", "none");
+                        $wrapper.removeClass("has-preview");
+                        $label.show();
+                    }
+                } else {
+                    // --- NO HAY ARCHIVO (El usuario presionó "Cancelar") ---
+                    
+                    // 1. Reseteamos todo al estado original
+                    $labelStrong.text("Subir imagen");
+                    $labelText.text("Arrastra y suelta o haz click para subir");
+                    $wrapper.css("background-image", "none");
+                    $wrapper.removeClass("has-preview");
+                    $label.show();
+                }
+            });
+        });
+   
+    </script>
 </asp:Content>
