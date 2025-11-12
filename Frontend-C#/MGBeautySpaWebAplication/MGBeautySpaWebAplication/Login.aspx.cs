@@ -1,4 +1,6 @@
-﻿using SoftInvBusiness;
+﻿using MGBeautySpaWebAplication.Util;
+using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace MGBeautySpaWebAplication
             string contrasena = txtContrasena.Text.Trim();
 
             // Validar usuario
-            var usuario = user.IniciarSesion(correo, contrasena);
+            usuarioDTO usuario = user.IniciarSesion(correo, contrasena);
 
             if (usuario.idUsuario != 0)
             {
@@ -61,9 +63,9 @@ namespace MGBeautySpaWebAplication
         protected void btnInvitado_Click(object sender, EventArgs e)
         {
             // Crear sesión temporal como invitado
-            Session["UsuarioId"] = null;
-            Session["Nombre"] = "Invitado";
-            Session["Rol"] = "Invitado";
+            //Session["UsuarioId"] = null;
+            //Session["Nombre"] = "Invitado";
+            //Session["Rol"] = "Invitado";
 
             // Redirige al catálogo o página principal del cliente
             Response.Redirect("~/Cliente/InicioCliente.aspx");

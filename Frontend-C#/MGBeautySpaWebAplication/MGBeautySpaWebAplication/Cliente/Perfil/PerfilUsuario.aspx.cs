@@ -1,4 +1,4 @@
-﻿using SoftInvBusiness.SoftInvWSCliente;
+﻿using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Web.UI;
 
@@ -23,15 +23,18 @@ namespace MGBeautySpaWebAplication.Cliente
             {
                 // Si no hay sesión, redirigir o mostrar mensaje
                 Response.Redirect("~/Login.aspx");
-                return;
+                
+            } else
+            {
+                // Asignar los datos del usuario a los controles ASP.NET Literal
+                litUserNameGreeting.Text = usuario.nombre;
+                litNombres.Text = usuario.nombre;
+                litApellidos.Text = $"{usuario.primerapellido} {usuario.segundoapellido}";
+                litEmail.Text = usuario.correoElectronico;
+                litTelefono.Text = usuario.celular;
             }
 
-            // Asignar los datos del usuario a los controles ASP.NET Literal
-            litUserNameGreeting.Text = usuario.nombre;
-            litNombres.Text = usuario.nombre;
-            litApellidos.Text = $"{usuario.primerapellido} {usuario.segundoapellido}";
-            litEmail.Text = usuario.correoElectronico;
-            litTelefono.Text = usuario.celular;
+                
         }
     }
 }

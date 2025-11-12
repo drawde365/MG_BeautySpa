@@ -132,27 +132,27 @@
                     <ItemTemplate>
                         <article class="review-item">
                             <div class="review-header">
-                                <asp:Image ID="imgAvatar" runat="server" ImageUrl='<%# Eval("AvatarUrl", "~{0}") %>' CssClass="review-avatar" />
+                                <asp:Image ID="imgAvatar" runat="server" ImageUrl='<%# Eval("cliente.urlFotoPerfil", "~{0}") %>' CssClass="review-avatar" />
                                 <div class="review-author-info">
-                                    <span class="review-author-name"><%# Eval("Autor") %></span>
-                                    <span class="review-date"><%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %></span>
+                                    <span class="review-author-name"><%# Eval("cliente.nombre") %></span>
+                                    <!--<span class="review-date">
+                                        <# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") >
+                                        </span>-->
                                 </div>
                             </div>
                             <%--<div class="review-stars">★ ★ ★ ★ ★</div>--%>
-                            <p class="review-body"><%# Eval("Texto") %></p>
+                            <p class="review-body"><%# Eval("comentario") %></p>
                             <%-- Los botones de Like/Dislike de tu diseño (necesitarían C# adicional) --%>
-                            <div class="review-actions">
-                                <asp:LinkButton ID="btnLike" runat="server" CssClass="review-action-btn" CommandName="Like">👍 <span>0</span></asp:LinkButton>
-                                <asp:LinkButton ID="btnDislike" runat="server" CssClass="review-action-btn" CommandName="Dislike">👎 <span>0</span></asp:LinkButton>
-                            </div>
+
                         </article>
                     </ItemTemplate>
                 </asp:Repeater>
                 
-                <%-- Panel 'pnlNoComments' del C# --%>
+                <%-- Panel 'pnlNoComments' del C# 
                 <asp:Panel ID="pnlNoComments" runat="server" CssClass="text-muted" Visible="false">
                     Aún no hay reseñas para este producto.
                 </asp:Panel>
+                    --%>
             </div>
 
             <div class="add-review-form">
