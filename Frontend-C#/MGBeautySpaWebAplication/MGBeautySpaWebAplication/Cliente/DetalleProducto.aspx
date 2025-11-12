@@ -148,11 +148,11 @@
                     </ItemTemplate>
                 </asp:Repeater>
                 
-                <%-- Panel 'pnlNoComments' del C# 
+                <%--Panel 'pnlNoComments' del C# --%>
                 <asp:Panel ID="pnlNoComments" runat="server" CssClass="text-muted" Visible="false">
                     Aún no hay reseñas para este producto.
                 </asp:Panel>
-                    --%>
+                    
             </div>
 
             <div class="add-review-form">

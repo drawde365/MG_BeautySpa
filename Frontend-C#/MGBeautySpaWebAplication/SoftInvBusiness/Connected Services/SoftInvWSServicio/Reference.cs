@@ -96,6 +96,20 @@ namespace SoftInvBusiness.SoftInvWSServicio {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ModificarServicioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ModificarServicioResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSServicio.ModificarServicioResponse> ModificarServicioAsync(SoftInvBusiness.SoftInvWSServicio.ModificarServicioRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTORequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTORespons" +
+            "e")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse InsertarServicioDTO(SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTORequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTORespons" +
+            "e")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse> InsertarServicioDTOAsync(SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest request);
     }
     
     /// <remarks/>
@@ -1653,6 +1667,42 @@ namespace SoftInvBusiness.SoftInvWSServicio {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarServicioDTO", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarServicioDTORequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio;
+        
+        public InsertarServicioDTORequest() {
+        }
+        
+        public InsertarServicioDTORequest(SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio) {
+            this.servicio = servicio;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarServicioDTOResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarServicioDTOResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public InsertarServicioDTOResponse() {
+        }
+        
+        public InsertarServicioDTOResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ServicioChannel : SoftInvBusiness.SoftInvWSServicio.Servicio, System.ServiceModel.IClientChannel {
     }
@@ -1847,6 +1897,29 @@ namespace SoftInvBusiness.SoftInvWSServicio {
             SoftInvBusiness.SoftInvWSServicio.ModificarServicioRequest inValue = new SoftInvBusiness.SoftInvWSServicio.ModificarServicioRequest();
             inValue.servicio = servicio;
             return ((SoftInvBusiness.SoftInvWSServicio.Servicio)(this)).ModificarServicioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse SoftInvBusiness.SoftInvWSServicio.Servicio.InsertarServicioDTO(SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest request) {
+            return base.Channel.InsertarServicioDTO(request);
+        }
+        
+        public int InsertarServicioDTO(SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio) {
+            SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest inValue = new SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest();
+            inValue.servicio = servicio;
+            SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse retVal = ((SoftInvBusiness.SoftInvWSServicio.Servicio)(this)).InsertarServicioDTO(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse> SoftInvBusiness.SoftInvWSServicio.Servicio.InsertarServicioDTOAsync(SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest request) {
+            return base.Channel.InsertarServicioDTOAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse> InsertarServicioDTOAsync(SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio) {
+            SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest inValue = new SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTORequest();
+            inValue.servicio = servicio;
+            return ((SoftInvBusiness.SoftInvWSServicio.Servicio)(this)).InsertarServicioDTOAsync(inValue);
         }
     }
 }

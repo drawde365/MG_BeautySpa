@@ -162,6 +162,12 @@
         <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" placeholder="Ingrese la descripción" TextMode="MultiLine" Rows="5"></asp:TextBox>
     </div>
 
+    <!-- Pega esto en InsertarServicio.aspx -->
+    <div class="form-group-wrapper">
+        <label for="txtDuracion" class="form-label">Duración (horas)</label>
+        <asp:TextBox ID="txtDuracion" runat="server" CssClass="form-control" placeholder="Ej: 2" TextMode="Number"></asp:TextBox>
+    </div>
+
     <div class="form-group-wrapper">
          <label for="txtPrecio" class="form-label">Precio</label>
          <div class="input-group">
@@ -174,10 +180,9 @@
         <label for="ddlTipoServicio" class="form-label">Tipo de servicio</label>
         <asp:DropDownList ID="ddlTipoServicio" runat="server" CssClass="form-select">
             <asp:ListItem Value="" Text="Seleccione"></asp:ListItem>
-            <asp:ListItem Value="Facial" Text="Tratamiento Facial"></asp:ListItem>
-            <asp:ListItem Value="Masaje" Text="Masaje Corporal"></asp:ListItem>
-            <asp:ListItem Value="Manicure" Text="Manicure"></asp:ListItem>
-            <asp:ListItem Value="Pedicure" Text="Pedicure"></asp:ListItem>
+            <asp:ListItem Value="Facial" Text="Facial"></asp:ListItem>
+            <asp:ListItem Value="Masaje" Text="Corporal"></asp:ListItem>
+            <asp:ListItem Value="Terapia Complementaria" Text="Terapia Complementaria"></asp:ListItem>
             <%-- Agrega más tipos de servicio aquí --%>
         </asp:DropDownList>
     </div>

@@ -42,5 +42,10 @@ namespace SoftInvBusiness
         public IList<productoDTO> filtroFacial() {
             return productoSOAP.obtenerFaciales();
         }
+
+        public IList<productoDTO> ListarTodos()
+        {
+            return productoSOAP.listarTodos();
+        }
     }
 }

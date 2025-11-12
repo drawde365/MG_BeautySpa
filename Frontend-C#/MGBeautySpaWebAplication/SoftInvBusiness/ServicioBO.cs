@@ -16,8 +16,27 @@ namespace SoftInvBusiness
             servicioSOAP = new ServicioClient();
         }
 
+        public int insertar(servicioDTO servicio)
+        {
+            return servicioSOAP.InsertarServicioDTO(servicio); 
+        }
+
+        public int eliminar(servicioDTO servicio)
+        {
+            return servicioSOAP.EliminarServicio(servicio);
+        }
+
+        public servicioDTO obtenerPorId(int id)
+        {
+            return servicioSOAP.ObtenerServicioPorId(id);
+        }
+
         public IList<servicioDTO> ListarFiltro(string filtro) {
             return servicioSOAP.ListarFiltro(filtro);
+        }
+        public IList<servicioDTO> ListarTodo()
+        {
+            return servicioSOAP.ListarTodos();
         }
     }
 }

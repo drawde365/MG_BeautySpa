@@ -47,6 +47,12 @@
   <message name="ModificarServicioResponse">
     <part name="parameters" element="tns:ModificarServicioResponse" />
   </message>
+  <message name="InsertarServicioDTO">
+    <part name="parameters" element="tns:InsertarServicioDTO" />
+  </message>
+  <message name="InsertarServicioDTOResponse">
+    <part name="parameters" element="tns:InsertarServicioDTOResponse" />
+  </message>
   <portType name="Servicio">
     <operation name="ObtenerServicioPorId">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ObtenerServicioPorIdRequest" message="tns:ObtenerServicioPorId" />
@@ -75,6 +81,10 @@
     <operation name="ModificarServicio">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ModificarServicioRequest" message="tns:ModificarServicio" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ModificarServicioResponse" message="tns:ModificarServicioResponse" />
+    </operation>
+    <operation name="InsertarServicioDTO">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTORequest" message="tns:InsertarServicioDTO" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTOResponse" message="tns:InsertarServicioDTOResponse" />
     </operation>
   </portType>
   <binding name="ServicioPortBinding" type="tns:Servicio">
@@ -134,6 +144,15 @@
       </output>
     </operation>
     <operation name="ModificarServicio">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertarServicioDTO">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

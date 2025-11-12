@@ -125,7 +125,8 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     
     @Override
     public ArrayList<ServicioDTO> listarTodos(){
-        return (ArrayList<ServicioDTO>)super.listarTodos();
+        String sql="SELECT * FROM SERVICIOS ORDER BY ACTIVO DESC";
+        return (ArrayList<ServicioDTO>)super.listarTodos(sql, null,null );
     }
     
     @Override

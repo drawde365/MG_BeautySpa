@@ -2,6 +2,8 @@
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="EliminarServicio" type="tns:EliminarServicio" />
   <xs:element name="EliminarServicioResponse" type="tns:EliminarServicioResponse" />
+  <xs:element name="InsertarServicioDTO" type="tns:InsertarServicioDTO" />
+  <xs:element name="InsertarServicioDTOResponse" type="tns:InsertarServicioDTOResponse" />
   <xs:element name="InsertarServicioPorPartes" type="tns:InsertarServicioPorPartes" />
   <xs:element name="InsertarServicioPorPartesResponse" type="tns:InsertarServicioPorPartesResponse" />
   <xs:element name="ListarEmpleadosDeServicio" type="tns:ListarEmpleadosDeServicio" />
@@ -142,6 +144,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ModificarServicioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsertarServicioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="servicio" type="tns:servicioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsertarServicioDTOResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

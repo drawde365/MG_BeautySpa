@@ -25,6 +25,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         
         <%-- 1. TU HEADER (Sin cambios) --%>
         <header class="header-sticky text-white ">
@@ -141,6 +142,9 @@
         </footer>
         
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+            <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </div>
 
     </form>
 </body>

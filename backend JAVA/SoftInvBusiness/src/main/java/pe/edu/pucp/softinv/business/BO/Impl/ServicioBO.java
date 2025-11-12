@@ -31,6 +31,9 @@ public class ServicioBO {
         servicioDTO.setActivo(1);
         return servicioDAO.insertar(servicioDTO);
     }
+     public Integer insertar(ServicioDTO servicio){
+        return servicioDAO.insertar(servicio);
+    }
 
 /*
     public Integer eliminar(Integer idServicio){

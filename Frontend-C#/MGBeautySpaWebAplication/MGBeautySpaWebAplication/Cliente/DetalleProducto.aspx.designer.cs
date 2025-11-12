@@ -159,6 +159,15 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.Repeater rpComentarios;
 
         /// <summary>
+        /// Control pnlNoComments.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoComments;
+
+        /// <summary>
         /// Control txtNombreComent.
         /// </summary>
         /// <remarks>

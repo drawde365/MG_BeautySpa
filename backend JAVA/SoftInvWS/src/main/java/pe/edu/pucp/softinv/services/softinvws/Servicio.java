@@ -34,6 +34,12 @@ public class Servicio {
         return servicioBO.insertar(nombre, descripcion, tipo, precio, urlImagen, duracionHora);
     }
     
+    @WebMethod(operationName = "InsertarServicioDTO")
+    public Integer insertarServicio(
+            @WebParam(name = "servicio") ServicioDTO servicio) {
+        
+        return servicioBO.insertar(servicio);
+    }
     @WebMethod(operationName = "ModificarServicio")
     public Integer modificarServicio(
             @WebParam(name = "servicio") ServicioDTO servicio) {

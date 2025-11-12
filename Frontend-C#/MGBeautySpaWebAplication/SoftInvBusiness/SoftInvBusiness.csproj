@@ -321,6 +321,9 @@
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.empleadoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.InsertarServicioDTOResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.InsertarServicioPorPartesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
