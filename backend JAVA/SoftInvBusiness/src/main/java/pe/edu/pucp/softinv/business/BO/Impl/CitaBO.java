@@ -9,6 +9,8 @@ import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.Time;
 import java.sql.Date;
+import java.util.ArrayList;
+import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 public class CitaBO {
 
@@ -48,5 +50,9 @@ public class CitaBO {
 
     public CitaDTO obtenerPorId(CitaDTO idCita) {
         return citaDAO.obtenerPorId(idCita);
+    }
+    
+    public ArrayList<CitaDTO> listarCitasPorUsuario(UsuarioDTO usuario) {
+        return citaDAO.listarCitasPorUsuario(usuario);
     }
 }

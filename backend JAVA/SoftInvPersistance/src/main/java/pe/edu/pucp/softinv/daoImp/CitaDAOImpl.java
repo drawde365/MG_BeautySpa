@@ -122,6 +122,7 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
                 INNER JOIN SERVICIOS s ON c.SERVICIO_ID = s.SERVICIO_ID
                 WHERE c.%s = ?
                   AND c.FECHA >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                  AND c.ACTIVO = 1
                 ORDER BY c.FECHA DESC;
         """.formatted(filtro);
         return (ArrayList<CitaDTO>) super.listarTodos(sql,this::incluirParametrosParaListarPorUsuario, usuario.getIdUsuario());

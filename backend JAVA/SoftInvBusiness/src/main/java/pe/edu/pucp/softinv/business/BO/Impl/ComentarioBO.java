@@ -63,11 +63,11 @@ public class ComentarioBO {
         return comentarioDAO.eliminar(comentario);
     }
 
-    public ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer contadorPagina, Integer idProducto){
-        return comentarioDAO.obtenerComentariosPorProducto(contadorPagina,idProducto);
+    public ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer idProducto){
+        return comentarioDAO.obtenerComentariosPorProducto(idProducto);
     }
 
-    public ArrayList<ComentarioDTO> obtenerComentariosPorServicio(Integer contadorPagina, Integer idServicio){
-        return comentarioDAO.obtenerComentariosPorServicio(contadorPagina,idServicio);
+    public ArrayList<ComentarioDTO> obtenerComentariosPorServicio(Integer idServicio){
+        return comentarioDAO.obtenerComentariosPorServicio(idServicio);
     }
 }

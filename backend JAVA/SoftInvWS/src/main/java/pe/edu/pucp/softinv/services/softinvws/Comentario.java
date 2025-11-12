@@ -54,15 +54,13 @@ public class Comentario {
     
     @WebMethod(operationName = "ObtenerComentariosPorProducto")
     public ArrayList<ComentarioDTO> obtenerComentariosPorProducto(
-            @WebParam(name = "contadorPagina") Integer contadorPagina,
             @WebParam(name = "idProducto") Integer idProducto) {
-        return comentarioBO.obtenerComentariosPorProducto(contadorPagina, idProducto);
+        return comentarioBO.obtenerComentariosPorProducto(idProducto);
     }
     
     @WebMethod(operationName = "ObtenerComentariosPorServicio")
     public ArrayList<ComentarioDTO> obtenerComentariosPorServicio(
-            @WebParam(name = "contadorPagina") Integer contadorPagina,
             @WebParam(name = "idServicio") Integer idServicio) {
-        return comentarioBO.obtenerComentariosPorServicio(contadorPagina, idServicio);
+        return comentarioBO.obtenerComentariosPorServicio(idServicio);
     }
 }

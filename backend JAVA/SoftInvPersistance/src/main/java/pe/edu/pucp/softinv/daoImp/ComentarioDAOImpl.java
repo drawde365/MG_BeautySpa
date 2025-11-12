@@ -172,40 +172,36 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
     }
 
     @Override
-    public ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer contadorPagina, Integer idProducto){
+    public ArrayList<ComentarioDTO> obtenerComentariosPorProducto(Integer idProducto){
         Object parametros = new ComentariosParametrosBuilder()
-                .conContadorPagina(contadorPagina)
                 .conProducto_Id(idProducto)
                 .BuildComentariosParametros();
-        String sql = "{call SP_Obtener_Comentarios_Producto(?,?)}";
+        String sql = "{call SP_Obtener_Comentarios_Producto(?)}";
         return (ArrayList<ComentarioDTO>) super.ejecutarProcedimientoAlmacenadoLectura(sql,this::incluirParametrosParaListarPorProducto,parametros);
     }
 
     private void incluirParametrosParaListarPorProducto(Object Parametros){
         ComentariosParametros parametros = (ComentariosParametros) Parametros;
         try {
-            this.statement.setInt(1,parametros.getContadorPagina());
-            this.statement.setInt(2,parametros.getProducto_Id());
+            this.statement.setInt(1,parametros.getProducto_Id());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public ArrayList<ComentarioDTO> obtenerComentariosPorServicio(Integer contadorPagina, Integer idServicio){
+    public ArrayList<ComentarioDTO> obtenerComentariosPorServicio(Integer idServicio){
         Object parametros = new ComentariosParametrosBuilder()
-                .conContadorPagina(contadorPagina)
                 .conServicio_Id(idServicio)
                 .BuildComentariosParametros();
-        String sql = "{call SP_Obtener_Comentarios_Servicio(?,?)}";
+        String sql = "{call SP_Obtener_Comentarios_Servicio(?)}";
         return (ArrayList<ComentarioDTO>) super.ejecutarProcedimientoAlmacenadoLectura(sql,this::incluirParametrosParaListarPorServicio,parametros);
     }
 
     private void incluirParametrosParaListarPorServicio(Object Parametros){
         ComentariosParametros parametros = (ComentariosParametros) Parametros;
         try {
-            this.statement.setInt(1,parametros.getContadorPagina());
-            this.statement.setInt(2,parametros.getServicio_Id());
+            this.statement.setInt(1,parametros.getServicio_Id());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -195,7 +195,7 @@ class ComentarioDAOImplTest {
         System.out.println("SP obtener comentarios por producto");
         ArrayList<Integer> listaComentarios = new ArrayList<>();
         insertarComentarios(listaComentarios);
-        ArrayList<ComentarioDTO> listaCom = comentarioDAO.obtenerComentariosPorProducto(1,this.idProd);
+        ArrayList<ComentarioDTO> listaCom = comentarioDAO.obtenerComentariosPorProducto(this.idProd);
         for (ComentarioDTO comentario : listaCom) {
             System.out.printf("%d   %s    %s   %d    %d\n",comentario.getIdComentario(),
                     comentario.getCliente().getNombre(),comentario.getCliente().getPrimerapellido(),comentario.getProducto().getIdProducto(),comentario.getServicio().getIdServicio());

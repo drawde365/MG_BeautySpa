@@ -3,7 +3,6 @@ package pe.edu.pucp.softinv.daoImp.util;
 import pe.edu.pucp.softinv.dao.ComentarioDAO;
 
 public class ComentariosParametrosBuilder {
-    private Integer contadorPagina;
     private Integer producto_Id;
     private Integer servicio_Id;
 
@@ -23,24 +22,12 @@ public class ComentariosParametrosBuilder {
         this.producto_Id = producto_Id;
     }
 
-    public Integer getContadorPagina() {
-        return contadorPagina;
-    }
-
-    public void setContadorPagina(Integer contadorPagina) {
-        this.contadorPagina = contadorPagina;
-    }
 
     public ComentariosParametrosBuilder(){
-        this.contadorPagina = null;
         this.producto_Id = null;
         this.servicio_Id = null;
     }
 
-    public ComentariosParametrosBuilder conContadorPagina(Integer contadorPagina) {
-        this.contadorPagina=contadorPagina;
-        return this;
-    }
 
     public ComentariosParametrosBuilder conProducto_Id(Integer producto_Id) {
         this.producto_Id=producto_Id;
@@ -54,7 +41,6 @@ public class ComentariosParametrosBuilder {
 
     public ComentariosParametros BuildComentariosParametros(){
         ComentariosParametros comentariosParametros = new ComentariosParametros();
-        comentariosParametros.setContadorPagina(contadorPagina);
         comentariosParametros.setProducto_Id(producto_Id);
         comentariosParametros.setServicio_Id(servicio_Id);
         return comentariosParametros;
