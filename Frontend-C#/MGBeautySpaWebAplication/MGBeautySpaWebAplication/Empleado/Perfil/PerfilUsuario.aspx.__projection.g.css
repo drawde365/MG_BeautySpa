@@ -1,0 +1,99 @@
+
+/* BEGIN EXTERNAL SOURCE */
+
+            .btn-custom-teal {
+                /* Estilo de los botones 'Depth 5, Frame 1' */
+                background-color: #1EC3B6;
+                color: #FCF7FA;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 21px;
+                /* Dimensiones y alineación del botón */
+                width: 143px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+            }
+        
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+max-width: 600px; margin: 2rem auto; padding: 1rem 2rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+h2 {
+margin-bottom: 1rem;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+margin-bottom: 1rem;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+p {
+width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; margin: 6px 0 0 0;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+margin-bottom: 1rem;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+p {
+width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; margin: 6px 0 0 0;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+margin-bottom: 1rem;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+p {
+width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; margin: 6px 0 0 0;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+margin-bottom: 1rem;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+p {
+width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; margin: 6px 0 0 0;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+margin-top: 1rem; display: flex; gap: 10px;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+Button {
+background-color: #107369; color: white; border: none; padding: 8px 16px; border-radius: 6px;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+Button {
+background-color: #aaa; color: white; border: none; padding: 8px 16px; border-radius: 6px;
+}
+/* END EXTERNAL SOURCE */

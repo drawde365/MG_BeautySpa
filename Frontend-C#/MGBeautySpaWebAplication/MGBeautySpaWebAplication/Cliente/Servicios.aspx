@@ -180,18 +180,18 @@
                 
                 <asp:Repeater ID="rpServicios" runat="server">
                     <ItemTemplate>
-                        <a href='<%# ResolveUrl("~/Cliente/DetalleServicio.aspx?id=" + Eval("Id")) %>' class="service-card">
+                        <a href='<%# ResolveUrl("~/Cliente/DetalleServicio.aspx?id=" + Eval("idServicio")) %>' class="service-card">
                             
                             <div class="service-image-container">
                                 <asp:Image ID="imgServicio" runat="server" 
-                                           ImageUrl='<%# Eval("ImagenUrl") %>' 
-                                           AlternateText='<%# Eval("Nombre") %>' 
+                                           ImageUrl='<%# Eval("urlImagen") %>' 
+                                           AlternateText='<%# Eval("nombre") %>' 
                                            style="width:100%;height:100%;object-fit:cover;" />
                             </div>
 
                             <div class="product-details">
-                                <h2 class="service-name"><%# Eval("Nombre") %></h2>
-                                <p class="service-description"><%# Eval("DescripcionCorta") %></p>
+                                <h2 class="service-name"><%# Eval("nombre") %></h2>
+                                <p class="service-description"><%# Eval("descripcion") %></p>
                             </div>
                         </a>
                     </ItemTemplate>

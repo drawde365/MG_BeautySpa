@@ -1,4 +1,4 @@
-﻿using MGBeautySpaWebAplication.Util;
+﻿using SoftInvBusiness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,38 +21,35 @@ namespace MGBeautySpaWebAplication
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
+            UsuarioBO user = new UsuarioBO();
+
             string correo = txtCorreo.Text.Trim();
             string contrasena = txtContrasena.Text.Trim();
 
             // Validar usuario
-            var usuario = UsuarioDAO.ValidarLogin(correo, contrasena);
+            var usuario = user.IniciarSesion(correo, contrasena);
 
-            if (usuario != null)
+            if (usuario.idUsuario != 0)
             {
-                Session["UsuarioId"] = usuario.Id;
-                Session["Nombre"] = usuario.Nombre;
-                Session["Rol"] = usuario.Rol;
+                Session["UsuarioActual"] = usuario;
 
-                // Si venía redirigido desde otra página (por ejemplo, ReturnUrl del carrito)
-                if (Request.QueryString["ReturnUrl"] != null)
+                // Redirigir según rol
+                switch (usuario.rol)
                 {
-                    Response.Redirect(Request.QueryString["ReturnUrl"]);
-                }
-                else
-                {
-                    // Redirigir según rol
-                    switch (usuario.Rol)
-                    {
-                        case "Administrador":
-                            Response.Redirect("~/Admin/PanelDeControl.aspx");
-                            break;
-                        case "Empleado":
-                            Response.Redirect("~/Empleado/InicioEmpleado.aspx");
-                            break;
-                        default:
-                            Response.Redirect("~/Cliente/InicioCliente.aspx");
-                            break;
-                    }
+                    case 3:
+                        Response.Redirect("~/Admin/PanelDeControl.aspx");
+                        break;
+                    case 2:
+                        Response.Redirect("~/Empleado/InicioEmpleado.aspx");
+                        break;
+                    case 1:
+                        // Si venía redirigido desde otra página (por ejemplo, ReturnUrl del carrito)
+                        if (Request.QueryString["ReturnUrl"] != null)
+                        {
+                            Response.Redirect(Request.QueryString["ReturnUrl"]);
+                        }
+                        else Response.Redirect("~/Cliente/InicioCliente.aspx");
+                        break;
                 }
             }
             else

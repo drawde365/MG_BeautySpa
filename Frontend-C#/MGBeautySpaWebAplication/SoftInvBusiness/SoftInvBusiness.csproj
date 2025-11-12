@@ -44,8 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarioBO.cs" />
     <Compile Include="CitaBO.cs" />
+    <Compile Include="ClienteBO.cs" />
+    <Compile Include="ComentarioBO.cs" />
+    <Compile Include="Connected Services\SoftInvWSCalendario\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\SoftInvWSCita\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SoftInvWSCliente\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SoftInvWSComentario\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -70,19 +88,56 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\SoftInvWSServicio\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SoftInvWSUsuario\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="EmpleadoBO.cs" />
     <Compile Include="PedidoBO.cs" />
     <Compile Include="ProductoBO.cs" />
     <Compile Include="ProductoTipoBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicioBO.cs" />
+    <Compile Include="UsuarioBO.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\SoftInvWSCita\Cita.wsdl" />
-    <None Include="Connected Services\SoftInvWSCita\Cita.xsd">
+    <None Include="Connected Services\SoftInvWSCalendario\Calendario.wsdl" />
+    <None Include="Connected Services\SoftInvWSCalendario\Calendario.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.calendarioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioPorPartesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioPorPartesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCita\Cita1.wsdl" />
+    <None Include="Connected Services\SoftInvWSCita\Cita1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.citaDTO.datasource">
@@ -98,6 +153,44 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.ObtenerCitaPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCliente\Cliente.wsdl" />
+    <None Include="Connected Services\SoftInvWSCliente\Cliente.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSCliente\SoftInvBusiness.SoftInvWSCliente.crearClienteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCliente\SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCliente\SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\Comentario.wsdl" />
+    <None Include="Connected Services\SoftInvWSComentario\Comentario.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.comentarioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.EliminarComentarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.InsertarComentarioDeProductoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.InsertarComentarioDeServicioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.ModificarComentarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.ObtenerComentariosPorProductoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.ObtenerComentariosPorServicioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSEmpleado\Empleado.wsdl" />
@@ -209,13 +302,59 @@
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSServicio\Servicio.wsdl" />
+    <None Include="Connected Services\SoftInvWSServicio\Servicio.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.EliminarServicioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.empleadoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.InsertarServicioPorPartesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ListarEmpleadosDeServicioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ListarFiltroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ListarTodosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ModificarServicioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ObtenerServicioPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.servicioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.usuarioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\Usuario.wsdl" />
+    <None Include="Connected Services\SoftInvWSUsuario\Usuario.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSCalendario\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSCita\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSCliente\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSComentario\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSEmpleado\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSPedido\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductos\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductoTipo\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSServicio\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSUsuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SoftInvWSProductos\configuration91.svcinfo" />
@@ -273,6 +412,66 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SoftInvWSCita\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCalendario\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCalendario\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCalendario\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSUsuario\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSUsuario\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSUsuario\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCliente\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCliente\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSCliente\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSComentario\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSComentario\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSComentario\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSServicio\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSServicio\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSServicio\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

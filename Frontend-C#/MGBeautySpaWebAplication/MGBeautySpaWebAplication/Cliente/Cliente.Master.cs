@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SoftInvBusiness.SoftInvWSUsuario;
+using System;
 using System.Web;
-using System.Web.UI;
 using System.Web.Security;
-using System.Web.UI.WebControls;
+using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
@@ -16,6 +17,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 LoadUserData();
             }
             UpdateCartDisplay();
+            VerificarSesion();
         }
 
         private void LoadUserData()
@@ -24,6 +26,24 @@ namespace MGBeautySpaWebAplication.Cliente
             string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/default_profile.png";
 
             litUserName.Text = nombre;
+        }
+
+        private void VerificarSesion()
+        {
+            var usuario = Session["UsuarioActual"] as usuarioDTO;
+
+            if (usuario != null)
+            {
+                divPerfil.Visible = true;
+                divLogin.Visible = false;
+
+                litUserName.Text = usuario.nombre;
+            }
+            else
+            {
+                divPerfil.Visible = false;
+                divLogin.Visible = true;
+            }
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

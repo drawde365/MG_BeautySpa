@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8080/SoftInvWS/Cita?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://192.168.1.37:8080/SoftInvWS/Cita?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Cita.xsd" MetadataType="Schema" ID="1202cf27-fe10-401a-a412-d2121bffbb30" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Cita?xsd=1" />
-    <MetadataFile FileName="Cita.wsdl" MetadataType="Wsdl" ID="5b09882d-598f-4fc9-8e35-5cedeb65ccd2" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/Cita?wsdl" />
+    <MetadataFile FileName="Cita1.wsdl" MetadataType="Wsdl" ID="a394ba2c-21fd-47d6-915e-79e66c2b9c33" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Cita?wsdl" />
+    <MetadataFile FileName="Cita1.xsd" MetadataType="Schema" ID="61469cff-c464-4bef-ab4c-ed2f56e2fe25" SourceId="1" SourceUrl="http://192.168.1.37:8080/SoftInvWS/Cita?xsd=1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

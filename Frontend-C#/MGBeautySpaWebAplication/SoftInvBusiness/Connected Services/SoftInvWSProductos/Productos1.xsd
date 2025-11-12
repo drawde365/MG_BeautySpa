@@ -14,6 +14,10 @@
   <xs:element name="insertarConDatosResponse" type="tns:insertarConDatosResponse" />
   <xs:element name="insertarProducto" type="tns:insertarProducto" />
   <xs:element name="insertarProductoResponse" type="tns:insertarProductoResponse" />
+  <xs:element name="obtenerCorporales" type="tns:obtenerCorporales" />
+  <xs:element name="obtenerCorporalesResponse" type="tns:obtenerCorporalesResponse" />
+  <xs:element name="obtenerFaciales" type="tns:obtenerFaciales" />
+  <xs:element name="obtenerFacialesResponse" type="tns:obtenerFacialesResponse" />
   <xs:element name="obtenerProdPag" type="tns:obtenerProdPag" />
   <xs:element name="obtenerProdPagResponse" type="tns:obtenerProdPagResponse" />
   <xs:complexType name="insertarProducto">
@@ -62,6 +66,7 @@
       <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="nombre" type="xs:string" />
       <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
       <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
       <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
     </xs:sequence>
@@ -127,6 +132,14 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="obtenerCorporales">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="obtenerCorporalesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoDTO" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="EliminarProducto">
     <xs:sequence>
       <xs:element minOccurs="0" name="producto" type="tns:productoDTO" />
@@ -171,6 +184,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="buscarProductosResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obtenerFaciales">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="obtenerFacialesResponse">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoDTO" />
     </xs:sequence>

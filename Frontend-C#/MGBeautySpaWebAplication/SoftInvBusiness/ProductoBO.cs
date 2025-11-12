@@ -35,5 +35,12 @@ namespace SoftInvBusiness
         {
             return productoSOAP.ObtenerProducto(id);
         }
+
+        public IList<productoDTO> filtroCorporal() {
+            return productoSOAP.obtenerCorporales();
+        }
+        public IList<productoDTO> filtroFacial() {
+            return productoSOAP.obtenerFaciales();
+        }
     }
 }

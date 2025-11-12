@@ -17,14 +17,13 @@ namespace SoftInvBusiness
         }
 
         // ----- Citas -----
-
         public int InsertarCitaPorPartes(
             int empleadoId,
             int clienteId,
             int servicioId,
-            DateTime fecha,
-            TimeSpan horaIni,
-            TimeSpan horaFin,
+            date fecha,
+            time horaIni,
+            time horaFin,
             double igv,
             int activo,
             string codTransacc)

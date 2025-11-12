@@ -41,7 +41,7 @@
                 <p><asp:Literal ID="litDescripcion" runat="server" /></p>
                 
                 <div class="price">
-                    S/ <asp:Literal ID="litPrecio" runat="server" />
+                    <asp:Literal ID="litPrecio" runat="server" />
                 </div>
                 
                 <h5 class="options-title">Seleccionar Tipo de Piel y Cantidad</h5>
@@ -102,12 +102,13 @@
         </section>
 
         <section class="product-reviews-section">
+
             <h3 class="section-title">Reseñas</h3>
 
             <div class="review-summary-grid">
                 <div class="review-score">
                     <div class="score-number"><asp:Literal ID="litReviewScore" runat="server" /></div>
-                    <div class="score-stars">★ ★ ★ ★ ☆</div>
+                    <%--<div class="score-stars">★ ★ ★ ★ ☆</div>--%>
                     <div class="score-count"><asp:Literal ID="litReviewCount" runat="server" /></div>
                 </div>
                 <div class="review-bars">
@@ -137,7 +138,7 @@
                                     <span class="review-date"><%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %></span>
                                 </div>
                             </div>
-                            <div class="review-stars">★ ★ ★ ★ ★</div>
+                            <%--<div class="review-stars">★ ★ ★ ★ ★</div>--%>
                             <p class="review-body"><%# Eval("Texto") %></p>
                             <%-- Los botones de Like/Dislike de tu diseño (necesitarían C# adicional) --%>
                             <div class="review-actions">

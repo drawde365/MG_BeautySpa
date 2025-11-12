@@ -22,7 +22,7 @@ namespace MGBeautySpaWebAplication.Cliente
     public partial class Carrito : Page
     {
         // Constantes para la lógica de negocio
-        private const decimal TASA_IGV = 0.18m;
+        private const double TASA_IGV = 0.18;
         // Declaraciones de controles (Visual Studio las genera, pero las listamos por referencia)
         // protected System.Web.UI.WebControls.Repeater rpCartItems;
         // protected System.Web.UI.WebControls.Literal litSubtotal, litEnvio, litImpuestos, litTotal;
@@ -56,14 +56,13 @@ namespace MGBeautySpaWebAplication.Cliente
         private void LoadOrderSummary(List<CartItemDTO> items)
         {
             // CÁLCULO 1: Subtotal
-            decimal subtotal = items.Sum(item => item.PrecioUnitario * item.Cantidad);
+            decimal total = items.Sum(item => item.PrecioUnitario * item.Cantidad);
 
             // CÁLCULO 3: Impuestos (Calculado sobre el subtotal base)
-            decimal impuestos = Math.Round((subtotal * TASA_IGV), 2);
+            double impuestos = ((double)total) * 0.18;
 
             // CÁLCULO 4: Total Final
-            decimal total = subtotal + impuestos;
-
+            double subtotal = ((double)total)*0.82;
             // Asignar los valores a los Literales
             litSubtotal.Text = subtotal.ToString("N2");
             litImpuestos.Text = impuestos.ToString("N2");

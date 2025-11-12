@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSServicio;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
     public partial class Servicios : System.Web.UI.Page
     {
         // 1. DTO SIMULADO para servicios
-        public class ServicioDTO 
+        /*public class ServicioDTO 
         { 
             public int Id { get; set; } 
             public string Nombre { get; set; } 
@@ -17,9 +19,11 @@ namespace MGBeautySpaWebAplication.Cliente
             public string DescripcionCorta { get; set; } 
             public string ImagenUrl { get; set; } 
         }
+        */
 
         // 2. CATÁLOGO SIMULADO (MOCK DATA)
-        private List<ServicioDTO> GetFullServiceCatalog()
+        /*
+        private IList<ServicioDTO> GetFullServiceCatalog()
         {
             return new List<ServicioDTO>
             {
@@ -30,6 +34,12 @@ namespace MGBeautySpaWebAplication.Cliente
                 
                 new ServicioDTO { Id = 301, Nombre = "Aromaterapia", Categoria = "terapias", DescripcionCorta = "Terapia con aceites esenciales.", ImagenUrl = ResolveUrl("~/Content/images/s4.jpg") },
             };
+        }
+        */
+        ServicioBO servicioBO;
+        public Servicios()
+        {
+            servicioBO = new ServicioBO();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -60,24 +70,23 @@ namespace MGBeautySpaWebAplication.Cliente
             btnCorporales.CssClass = "tab-button";
             btnTerapias.CssClass = "tab-button"; // ¡Asegúrate de declarar este ID en el diseñador!
             
-            var todosServicios = GetFullServiceCatalog();
-            List<ServicioDTO> serviciosFiltrados;
+            IList<servicioDTO> serviciosFiltrados;
 
             // 4. Lógica de filtrado y activación de estilos
             if (activeCategory == "corporal")
             {
                 btnCorporales.CssClass += " active";
-                serviciosFiltrados = todosServicios.Where(s => s.Categoria == "corporal").ToList();
+                serviciosFiltrados = servicioBO.ListarFiltro("Corporal");
             }
             else if (activeCategory == "terapias")
             {
                 btnTerapias.CssClass += " active";
-                serviciosFiltrados = todosServicios.Where(s => s.Categoria == "terapias").ToList();
+                serviciosFiltrados = servicioBO.ListarFiltro("Terapia Complementaria");
             }
             else // 'facial' por defecto
             {
                 btnFaciales.CssClass += " active";
-                serviciosFiltrados = todosServicios.Where(s => s.Categoria == "facial").ToList();
+                serviciosFiltrados = servicioBO.ListarFiltro("Facial");
             }
 
             // Enlazar datos al Repeater (asumo que se llama rpServicios en tu ASPX)

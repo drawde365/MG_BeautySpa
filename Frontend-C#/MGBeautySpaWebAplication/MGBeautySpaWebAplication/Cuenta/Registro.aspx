@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="MGBeautySpaWebAplication.Cuenta.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="MGBeautySpaWebAplication.Cuenta.WebForm1" UnobtrusiveValidationMode="None"%>
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
@@ -276,33 +276,57 @@
                     </div>
                 
                     <div class="form-group">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" id="nombre" class="form-input" placeholder="Ingrese su nombre">
+                        <label class="form-label">Nombres</label>
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-input" placeholder="Ingrese su nombre" />
+                        <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." ForeColor="Red" Display="Dynamic" />
                     </div>
                 
                     <div class="form-group">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" id="apellido" class="form-input" placeholder="Ingrese su apellido">
+                        <label class="form-label">Apellido Paterno</label>
+                        <asp:TextBox ID="txtApellidoP" runat="server" CssClass="form-input" placeholder="Ingrese su apellido paterno" />
+                        <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellidoP"
+                            ErrorMessage="El apellido paterno es obligatorio." ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
-                        <label for="celular" class="form-label">Número de celular</label>
-                        <input type="tel" id="celular" class="form-input" placeholder="Ingrese su número de celular">
+                        <label class="form-label">Apellido Materno</label>
+                        <asp:TextBox ID="txtApellidoM" runat="server" CssClass="form-input" placeholder="Ingrese su apellido materno" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtApellidoM"
+                            ErrorMessage="El apellido materno es obligatorio." ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" id="email" class="form-input" placeholder="Ingrese su correo electrónico">
+                        <label class="form-label">Número de celular</label>
+                        <asp:TextBox ID="txtCelular" runat="server" CssClass="form-input" placeholder="Ingrese su número de celular" />
+                        <asp:RequiredFieldValidator ID="rfvCelular" runat="server" ControlToValidate="txtCelular"
+                            ErrorMessage="El número de celular es obligatorio." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revCelular" runat="server" ControlToValidate="txtCelular"
+                            ValidationExpression="^\d{9}$" ErrorMessage="Debe ingresar un número válido de 9 dígitos." ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" id="password" class="form-input" placeholder="Ingrese su contraseña">
+                        <label class="form-label">Correo electrónico</label>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input" placeholder="Ingrese su correo electrónico" />
+                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail"
+                            ErrorMessage="El correo electrónico es obligatorio." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
+                            ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Ingrese un correo electrónico válido." ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
-                        <label for="confirm-password" class="form-label">Confirmar contraseña</label>
-                        <input type="password" id="confirm-password" class="form-input" placeholder="Confirme su contraseña">
+                        <label class="form-label">Contraseña</label>
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input" TextMode="Password" placeholder="Ingrese su contraseña" />
+                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
+                            ErrorMessage="La contraseña es obligatoria." ForeColor="Red" Display="Dynamic" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirmar contraseña</label>
+                        <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-input" TextMode="Password" placeholder="Confirme su contraseña" />
+                        <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
+                            ErrorMessage="Debe confirmar su contraseña." ForeColor="Red" Display="Dynamic" />
+                        <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
+                            ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="terms-container">

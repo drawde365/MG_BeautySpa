@@ -56,6 +56,7 @@
                             <div class="product-details">
                                 <h2 class="product-name"><%# Eval("nombre") %></h2>
                                 <p class="product-description"><%# Eval("descripcion") %></p>
+                                <p class="product-precio">S/ <%#Eval("precio") %></p>
                             </div>
                         </a>
                     </ItemTemplate>

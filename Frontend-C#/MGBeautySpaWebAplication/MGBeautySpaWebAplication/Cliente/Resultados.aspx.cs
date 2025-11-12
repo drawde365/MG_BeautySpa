@@ -22,6 +22,9 @@ namespace MGBeautySpaWebAplication.Cliente
             string q = (Request.QueryString["q"] ?? "").Trim();
             litQuery.Text = q;
 
+            Literal1.Text = q;
+            Literal1.DataBind();
+
             // Filtrado simple: contiene (case-insensitive)
             var productos = productoBO.buscarPorNombre(q);
 

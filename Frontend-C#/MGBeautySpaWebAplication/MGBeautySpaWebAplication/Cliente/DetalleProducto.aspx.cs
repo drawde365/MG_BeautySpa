@@ -4,6 +4,7 @@ using SoftInvBusiness.SoftInvWSProductoTipo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,13 +12,13 @@ using System.Web.UI.WebControls;
 namespace MGBeautySpaWebAplication.Cliente
 {
     // --- DTOs (Definidos fuera de la clase principal) ---
-    public class ComentarioDTODetalle
-    {
-        public string Autor { get; set; }
-        public string Texto { get; set; }
-        public DateTime Fecha { get; set; }
-        public string AvatarUrl { get; set; } // Añadido para el diseño
-    }
+    //public class ComentarioDTODetalle
+    //{
+    //    public string Autor { get; set; }
+    //    public string Texto { get; set; }
+    //    public DateTime Fecha { get; set; }
+    //    public string AvatarUrl { get; set; } // Añadido para el diseño
+    //}
     /*
     public class ProductoTipoDTODetalle
     {
@@ -58,6 +59,7 @@ namespace MGBeautySpaWebAplication.Cliente
         }
         */
         private ProductoBO productoBO;
+        private ComentarioBO comentarioBO;
         private ProductoTipoBO productoTipoBO;
         private SoftInvBusiness.SoftInvWSProductos.productoDTO producto;
         private IList<SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO> tipos;
@@ -66,6 +68,7 @@ namespace MGBeautySpaWebAplication.Cliente
         {
             productoBO = new ProductoBO();
             productoTipoBO = new ProductoTipoBO();
+            comentarioBO = new ComentarioBO();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -87,7 +90,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 {
                     // Llama a tus servicios SOAP/BO
                     producto = productoBO.buscarPorId(idProducto);
-                    tipos = productoTipoBO.ObtenerProductosTiposId(idProducto);
+                    tipos = productoTipoBO.ObtenerPorIdProducto(idProducto);
 
                     // ¡GUÁRDALOS EN SESSION para el próximo PostBack!
                     Session["detalle_producto"] = producto;
@@ -120,7 +123,7 @@ namespace MGBeautySpaWebAplication.Cliente
             litNombreProd.Text = producto.nombre; // Breadcrumb
             litNombre.Text = producto.nombre;     // Título H1
             litDescripcion.Text = producto.descripcion; // Descripción corta
-            litPrecio.Text = producto.precio.ToString("0.00");
+            litPrecio.Text = producto.precio.ToString("C", new CultureInfo("es-PE")); // "S/. 1,234.56"
             imgProducto.ImageUrl = ResolveUrl(producto.urlImagen);
 
             // --- SECCIÓN "Detalles del Producto" ---
@@ -131,6 +134,8 @@ namespace MGBeautySpaWebAplication.Cliente
             // Repeater de Tipos
             rpPresentaciones.DataSource = tipos;
             rpPresentaciones.DataBind();
+
+            PintarResenas();
         }
 
         /// <summary>
@@ -139,30 +144,39 @@ namespace MGBeautySpaWebAplication.Cliente
         /// 
         private void PintarResenas()
         {
-            var listaComentarios = new List<ComentarioDTODetalle>();
-
+            
+            var listaComentarios = comentarioBO.ObtenerComentariosPorProducto(producto.idProducto);
+            //ACAAAAAAA
             // 1. Pintar lista de reseñas (ID 'rpComentarios' del C#)
             rpComentarios.DataSource = listaComentarios;
             rpComentarios.DataBind();
+            if (listaComentarios == null)
+            {
+                pnlNoComments.Visible = false;
+            } else
+            {
+                pnlNoComments.Visible = true;
+                litReviewScore.Text = producto.promedioValoracion.ToString("0.0");
+                litReviewCount.Text = $"{listaComentarios.Count} reseñas";
+            }
 
             // Panel de no comentarios (ID 'pnlNoComments' del C#)
-            pnlNoComments.Visible = listaComentarios.Count == 0;
+            
 
             // 2. Pintar Resumen de Calificación
-            litReviewScore.Text = producto.promedioValoracion.ToString("0.0");
-            litReviewCount.Text = $"{listaComentarios.Count} reseñas";
+            
 
             // 3. Pintar Barras de Calificación (Datos de demo)
-            var ratingBars = new[]
-            {
-                new { Stars = "5", Percentage = 70, Count = listaComentarios.Count(c => c.Autor == "Sofía Castro") },
-                new { Stars = "4", Percentage = 20, Count = listaComentarios.Count(c => c.Autor != "Sofía Castro") },
-                new { Stars = "3", Percentage = 5, Count = 0 },
-                new { Stars = "2", Percentage = 2, Count = 0 },
-                new { Stars = "1", Percentage = 3, Count = 0 }
-            };
-            rpRatingBars.DataSource = ratingBars;
-            rpRatingBars.DataBind();
+            //var ratingBars = new[]
+            //{
+            //    new { Stars = "5", Percentage = 70, Count = listaComentarios.Count(c => c. == "Sofía Castro") },
+            //    new { Stars = "4", Percentage = 20, Count = listaComentarios.Count(c => c.Autor != "Sofía Castro") },
+            //    new { Stars = "3", Percentage = 5, Count = 0 },
+            //    new { Stars = "2", Percentage = 2, Count = 0 },
+            //    new { Stars = "1", Percentage = 3, Count = 0 }
+            //};
+            //rpRatingBars.DataSource = ratingBars;
+            //rpRatingBars.DataBind();
         }
         protected void rpPresentaciones_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {

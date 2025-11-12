@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoftInvBusiness.SoftInvWSCliente;
+using System;
 using System.Web.UI;
 
 namespace MGBeautySpaWebAplication.Cliente
@@ -15,24 +16,22 @@ namespace MGBeautySpaWebAplication.Cliente
 
         private void CargarPerfil()
         {
-            // Aquí simulo los datos que vendrían del usuario autenticado.
-            // En tu caso, deberías reemplazar esto por la obtención real desde sesión o base de datos.
-            string nombreUsuario = "Sophia Bennett";
-            string nombres = "Sophia";
-            string apellidos = "Bennett";
-            string email = "a20230636@pucp.edu.pe";
-            string telefono = "999888777";
-            string fechaNacimiento = "12/02/2000";
-            string sexo = "Femenino";
+            // Recuperar el usuario actual desde la sesión
+            var usuario = Session["UsuarioActual"] as usuarioDTO;
 
-            // Asignación de valores a los controles ASP.NET Literal
-            litUserNameGreeting.Text = nombreUsuario;
-            litNombres.Text = nombres;
-            litApellidos.Text = apellidos;
-            litEmail.Text = email;
-            litTelefono.Text = telefono;
-            litFechaNac.Text = fechaNacimiento;
-            litSexo.Text = sexo;
+            if (usuario == null)
+            {
+                // Si no hay sesión, redirigir o mostrar mensaje
+                Response.Redirect("~/Login.aspx");
+                return;
+            }
+
+            // Asignar los datos del usuario a los controles ASP.NET Literal
+            litUserNameGreeting.Text = usuario.nombre;
+            litNombres.Text = usuario.nombre;
+            litApellidos.Text = $"{usuario.primerapellido} {usuario.segundoapellido}";
+            litEmail.Text = usuario.correoElectronico;
+            litTelefono.Text = usuario.celular;
         }
     }
 }

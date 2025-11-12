@@ -1,0 +1,18 @@
+
+/* BEGIN EXTERNAL SOURCE */
+img {
+height: 50px;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+min-width: 180px;
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+img {
+width: 32px; height: 32px; object-fit: cover;
+}
+/* END EXTERNAL SOURCE */

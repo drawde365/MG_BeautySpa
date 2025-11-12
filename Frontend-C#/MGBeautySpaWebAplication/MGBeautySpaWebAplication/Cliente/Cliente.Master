@@ -1,11 +1,14 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Cliente.Master.cs" Inherits="MGBeautySpaWebAplication.Cliente.Cliente" %>
+
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/html">
 <head runat="server">
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
     <meta charset="utf-8x" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | MG Beauty Spa</title>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+        | MG Beauty Spa</title>
 
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
@@ -13,83 +16,92 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
-    
-    <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
-    
-    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
 
+                <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
+
+                <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 
 <body>
     <form id="form1" runat="server">
         <header class="header-sticky text-white shadow-sm">
-    <div class="container-fluid py-2">
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-            
-            <!-- LOGO -->
-            <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
-                <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="Logo" style="height: 50px;" class="me-2">
-                <span class="fw-bold fs-5">MG Beauty Spa</span>
-            </a>
+            <div class="container-fluid py-2">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
 
-            <!-- Búscador: solo caja redondeada -->
-            <div class="search-container mx-2 flex-grow-1" style="min-width: 180px;">
-                <div class="input-group">
-                    <!-- etiqueta accesible (oculta visualmente) -->
-                    <label for="<%= txtSearchProduct.ClientID %>" class="visually-hidden">Buscar</label>
-
-                    <asp:TextBox ID="txtSearchProduct"
-                                 runat="server"
-                                 CssClass="form-control search-input rounded-pill"
-                                 placeholder="Buscar productos o servicios..."
-                                 AutoPostBack="true"
-                                 OnTextChanged="txtSearchProduct_TextChanged" />
-                </div>
-            </div>
-
-            <!-- ENLACES Y PERFIL -->
-            <div class="d-flex align-items-center flex-wrap gap-2">
-                
-                <!-- Links -->
-                <a href="<%: ResolveUrl("~/Cliente/Productos.aspx") %>" class="nav-link text-white p-0">Productos</a>
-                <a href="<%: ResolveUrl("~/Cliente/Servicios.aspx") %>" class="nav-link text-white p-0">Servicios</a>
-
-                <!-- Carrito -->
-                <a href="<%: ResolveUrl("~/Cliente/Carrito.aspx") %>" class="icon-button position-relative text-white" title="Ver Carrito">
-                    <i class="icon-shopping-cart fs-5"></i>
-                    <span id="cartCountBadge" class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" runat="server">
-                        <asp:Literal ID="litCartCount" runat="server"></asp:Literal>
-                    </span>
-                </a>
-
-                <!-- Perfil -->
-                <div class="dropdown">
-                    <a class="header-link dropdown-toggle d-inline-flex align-items-center text-white text-decoration-none"
-                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img id="imgProfile" runat="server"
-                             src="~/Content/default_profile.png"
-                             alt="Foto de perfil"
-                             class="rounded-circle me-1" style="width:32px;height:32px;object-fit:cover;">
-                        </img>
-                        <span class="user-name-display">
-                            <asp:Literal ID="litUserName" runat="server" />
-                        </span>
+                    <!-- LOGO -->
+                    <a href="<%: ResolveUrl("~/Cliente/InicioCliente.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
+                        <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="Logo" style="height: 50px;" class="me-2">
+                            <span class="fw-bold fs-5">MG Beauty Spa</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil/PerfilUsuario.aspx") %>">Mi perfil</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li>
-                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
+
+                    <!-- Búscador: solo caja redondeada -->
+                    <div class="search-container mx-2 flex-grow-1" style="min-width: 180px;">
+                        <div class="input-group">
+                            <!-- etiqueta accesible (oculta visualmente) -->
+                            <label for="<%= txtSearchProduct.ClientID %>" class="visually-hidden">Buscar</label>
+
+                            <asp:TextBox ID="txtSearchProduct"
+                                runat="server"
+                                CssClass="form-control search-input rounded-pill"
+                                placeholder="Buscar productos o servicios..."
+                                AutoPostBack="true"
+                                OnTextChanged="txtSearchProduct_TextChanged" />
+                        </div>
+                    </div>
+
+                    <!-- ENLACES Y PERFIL -->
+                    <div class="d-flex align-items-center flex-wrap gap-3">
+
+                        <!-- Links -->
+                        <a href="<%: ResolveUrl("~/Cliente/Productos.aspx") %>" class="nav-link text-white p-0">Productos</a>
+                        <a href="<%: ResolveUrl("~/Cliente/Servicios.aspx") %>" class="nav-link text-white p-0">Servicios</a>
+
+                        <!-- Carrito -->
+                        <a href="<%: ResolveUrl("~/Cliente/Carrito.aspx") %>" class="icon-button position-relative text-white" title="Ver Carrito">
+                            <i class="icon-shopping-cart fs-5"></i>
+                            <span id="cartCountBadge" class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" runat="server">
+                                <asp:Literal ID="litCartCount" runat="server"></asp:Literal>
+                            </span>
+                        </a>
+
+                        <!-- Perfil -->
+                        <!-- ✅ Sección visible SOLO si hay sesión -->
+                        <div id="divPerfil" runat="server" visible="false">
+                            <div class="dropdown">
+                                <a class="header-link dropdown-toggle d-inline-flex align-items-center text-white text-decoration-none"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img id="imgProfile" runat="server"
+                                        src="~/Content/default_profile.png"
+                                        alt="Foto de perfil"
+                                        class="rounded-circle me-1" style="width: 32px; height: 32px; object-fit: cover;">
+                                        <span class="user-name-display">
+                                            <asp:Literal ID="litUserName" runat="server" />
+                                        </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="<%: ResolveUrl("~/Cliente/Perfil/PerfilUsuario.aspx") %>">Mi perfil</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li>
+                                        <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
                                             OnClick="btnLogout_Click">Cerrar sesión</asp:LinkButton>
-                        </li>
-                    </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ✅ Sección visible SOLO si NO hay sesión -->
+                        <div id="divLogin" runat="server" visible="false">
+                            <a href="<%: ResolveUrl("../Login.aspx") %>" class="btn btn-outline-light rounded-pill px-3 py-1">Iniciar sesión
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</header>
+        </header>
 
         <div class="content-body-wrapper">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
@@ -119,7 +131,7 @@
                 </div>
             </div>
         </footer>
-        
+
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
 
     </form>

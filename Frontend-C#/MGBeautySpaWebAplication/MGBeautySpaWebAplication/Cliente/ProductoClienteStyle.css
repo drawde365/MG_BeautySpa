@@ -150,3 +150,12 @@
     line-height: 21px;
     color: #826670; /* Color de texto del diseño */
 }
+
+.product-precio {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600; /* Un poco más grueso para resaltar el precio */
+    font-size: 15px;
+    line-height: 22px;
+    color: #B86B77; /* Tono rosado/terracota similar a tu paleta */
+}
