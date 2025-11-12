@@ -1,4 +1,5 @@
 ﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSComentario;
 using SoftInvBusiness.SoftInvWSProductos;
 using SoftInvBusiness.SoftInvWSProductoTipo;
 using System;
