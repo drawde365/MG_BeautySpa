@@ -32,7 +32,7 @@ class ClienteDAOImplTest {
         cliente.setPrimerapellido("Perez");
         cliente.setSegundoapellido("Gomez");
         cliente.setNombre("Juan");
-        cliente.setCorreoElectronico("juan@mail.com");
+        cliente.setCorreoElectronico("juaan@mail.com");
         cliente.setContrasenha("1234");
         cliente.setCelular("999888777");
         cliente.setRol(1);
@@ -42,7 +42,7 @@ class ClienteDAOImplTest {
         cliente.setIdUsuario(idGenerado);
         assertTrue(idGenerado != 0);
         listaClientesId.add(cliente);
-
+        
         cliente = new ClienteDTO();
         cliente.setPrimerapellido("Armas");
         cliente.setSegundoapellido("Agurto");

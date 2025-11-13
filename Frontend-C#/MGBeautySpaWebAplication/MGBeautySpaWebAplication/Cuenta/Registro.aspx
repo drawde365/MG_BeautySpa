@@ -360,6 +360,20 @@
                 </div>
             </div>
         </div>
+
+        <div id="modalError" class="modal-superpuesto" style="display: none;">
+            <div class="success-box">
+                <h1 class="success-title" style="color: #b91c1c;">Error</h1>
+                <p class="success-message">
+                    Ocurrió un problema al crear su cuenta. Intente nuevamente más tarde.
+                </p>
+                <div class="button-wrapper">
+                    <button class="login-button" onclick="document.getElementById('modalError').style.display='none';">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
     </form>
 
 </body>

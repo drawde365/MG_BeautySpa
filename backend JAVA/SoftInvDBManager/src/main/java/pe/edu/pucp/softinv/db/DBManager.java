@@ -76,11 +76,14 @@ public class DBManager {
         config.setJdbcUrl(this.getUrl());
         config.setUsername(usuario);
         config.setPassword(Cifrado.descifrarMD5(contraseña));
+        config.setDriverClassName(driver);
+        
         config.setMaximumPoolSize(15);
-        config.setMinimumIdle(3);
+        config.setMinimumIdle(5);
         config.setIdleTimeout(60000); 
         config.setConnectionTimeout(20000);
-        config.setLeakDetectionThreshold(10000);
+        config.setMaxLifetime(1800000);
+        
         dataSource = new HikariDataSource(config);
     }
 }

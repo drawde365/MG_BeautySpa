@@ -44,8 +44,8 @@ namespace MGBeautySpaWebAplication.Cuenta
                 urlFotoPerfil = "Hola.jpg"
             };
 
-
-            if (clienteBO.CrearCliente(cliente) >0)
+            int seCreo = clienteBO.CrearCliente(cliente);
+            if (seCreo>0)
             {
                 // Preparamos el script de JavaScript
                 string script = @"document.getElementById('modalExito').style.display = 'flex';";

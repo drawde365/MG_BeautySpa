@@ -5,7 +5,7 @@ import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 public class Cifrado {
 
@@ -25,7 +25,7 @@ public class Cifrado {
 
             byte[] plainTextBytes = texto.getBytes("utf-8");
             byte[] buf = cipher.doFinal(plainTextBytes);
-            byte[] base64Bytes = Base64.getMimeEncoder().encode(buf);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
             base64EncryptedString = new String(base64Bytes);
 
         } catch (Exception ex) {
@@ -38,7 +38,7 @@ public class Cifrado {
         String base64EncryptedString = "";
 
         try {
-            byte[] message = Base64.getDecoder().decode(textoEncriptado.getBytes("utf-8"));
+            byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] digestOfPassword = md.digest(llave.getBytes("utf-8"));
             byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
