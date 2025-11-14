@@ -96,9 +96,19 @@ public abstract class DBManager {
         
         config.setMaximumPoolSize(15);
         config.setMinimumIdle(5);
-        config.setIdleTimeout(60000); 
+        config.setIdleTimeout(600000); 
         config.setConnectionTimeout(20000);
         config.setMaxLifetime(1800000);
+        
+         // Optimizaciones
+        config.setAutoCommit(true);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("useServerPrepStmts", "true");
+
+        // Pool name para debugging
+        config.setPoolName("SoftInvHikariPool");
         
         dataSource = new HikariDataSource(config);
     }
