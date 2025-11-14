@@ -4,6 +4,9 @@ Frontend-C#/MGBeautySpaWebAplication/*.suo
 Frontend-C#/MGBeautySpaWebAplication/*.user
 Frontend-C#/MGBeautySpaWebAplication/.vs/
 
+**/*.dll
+**/*.pdb
+**/*.cache
 **/[Oo]bj/
 **/[Bb]in/
 
