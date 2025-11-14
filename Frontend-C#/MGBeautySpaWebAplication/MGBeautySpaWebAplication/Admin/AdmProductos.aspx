@@ -161,8 +161,11 @@
         </asp:Repeater>
     </div>
 
-    <asp:LinkButton ID="btnVerMas" runat="server" CssClass="btn btn-custom-teal rounded-pill"
-        OnClick="btnVerMas_Click">Ver más</asp:LinkButton>
+    <div class.="d-flex justify-content-center align-items-center gap-3 mt-4">
+        <button id="btnPagPrev" class="btn btn-custom-teal rounded-pill">&laquo; Anterior</button>
+        <span id="lblPaginaActual" class="fw-bold">Página 1</span>
+        <button id="btnPagNext" class="btn btn-custom-teal rounded-pill">Siguiente &raquo;</button>
+    </div>
 
 </asp:Content>
 
@@ -170,36 +173,80 @@
 <%-- 
     3. SCRIPTS
 --%>
-zz<asp:Content ID="Content3" ContentPlaceHolderID="ScriptsContent" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="ScriptsContent" runat="server">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script type="text/javascript">
-        // Espera a que la página esté completamente cargada
         $(document).ready(function () {
-            
-            // Busca el <input> con id "txtBuscar" y escucha el evento "keyup"
-            // (se dispara cada vez que levantas una tecla)
-            $("#txtBuscar").on("keyup", function () {
-                
-                // 1. Obtiene el texto del buscador y lo convierte a minúsculas
-                var searchTerm = $(this).val().toLowerCase();
 
-                // 2. Itera sobre cada fila (tr) que tenga la clase "producto-fila"
-                //    (que están dentro del <tbody> de nuestra tabla)
-                $(".product-list-table tbody .producto-fila").each(function () {
-                    
-                    // 3. Obtiene TODO el texto de esa fila y lo convierte a minúsculas
+            // --- Variables de Estado de Paginación ---
+            let currentPage = 1;
+            const itemsPerPage = 10; // Muestra 10 productos por página
+            let $filas = $(".product-list-table tbody .producto-fila"); // Guarda todas las filas
+
+            // --- Función Principal que Dibuja la Vista ---
+            function actualizarVista() {
+                // 1. Obtiene el término de búsqueda
+                var searchTerm = $("#txtBuscar").val().toLowerCase();
+
+                // 2. Filtra las filas por la búsqueda
+                // .filter() crea una nueva lista de jQuery con solo las filas que coinciden
+                var $filasFiltradas = $filas.filter(function () {
                     var rowText = $(this).text().toLowerCase();
-
-                    // 4. Comprueba si el texto de la fila INCLUYE el término de búsqueda
-                    if (rowText.includes(searchTerm)) {
-                        // Si lo incluye, muestra la fila
-                        $(this).show();
-                    } else {
-                        // Si NO lo incluye, oculta la fila
-                        $(this).hide();
-                    }
+                    return rowText.includes(searchTerm);
                 });
+
+                // 3. Calcula el total de páginas BASADO EN LAS FILAS FILTRADAS
+                var totalPages = Math.ceil($filasFiltradas.length / itemsPerPage);
+                if (totalPages === 0) totalPages = 1;
+                if (currentPage > totalPages) {
+                    currentPage = 1; // Resetea si la búsqueda reduce las páginas
+                }
+
+                // 4. Oculta TODAS las filas (las filtradas y las no filtradas)
+                $filas.hide();
+
+                // 5. Calcula qué filas mostrar para la página actual
+                var startIndex = (currentPage - 1) * itemsPerPage;
+                var endIndex = startIndex + itemsPerPage;
+
+                // 6. Muestra solo las filas filtradas Y paginadas
+                $filasFiltradas.slice(startIndex, endIndex).show();
+
+                // 7. Actualiza los controles
+                $("#lblPaginaActual").text(`Página ${currentPage} de ${totalPages}`);
+
+                // Deshabilita/Habilita botones
+                $("#btnPagPrev").prop("disabled", currentPage === 1);
+                $("#btnPagNext").prop("disabled", currentPage === totalPages);
+            }
+
+            // --- Eventos (Listeners) ---
+
+            // 1. Al buscar (keyup)
+            $("#txtBuscar").on("keyup", function () {
+                currentPage = 1; // Siempre vuelve a la página 1 al buscar
+                actualizarVista();
             });
+
+            // 2. Botón Siguiente
+            $("#btnPagNext").on("click", function () {
+                currentPage++;
+                actualizarVista();
+            });
+
+            // 3. Botón Anterior
+            $("#btnPagPrev").on("click", function () {
+                currentPage--;
+                actualizarVista();
+            });
+
+            // --- Carga Inicial ---
+            // Asegúrate de que $filas tenga los elementos correctos
+            $filas = $(".product-list-table tbody .producto-fila");
+            actualizarVista(); // Llama a la función 1 vez al cargar la página
+
         });
     </script>
-    </asp:Content>
+</asp:Content>

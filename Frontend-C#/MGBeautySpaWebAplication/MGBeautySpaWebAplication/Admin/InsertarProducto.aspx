@@ -157,11 +157,72 @@
         }
 
 /* Cuando tenemos un preview, ocultamos el texto ("Subir imagen", etc.)
-*/
-            .file-upload-wrapper.has-preview .file-upload-label {
-                display: none;
-            }
+        */
+        .file-upload-wrapper.has-preview .file-upload-label {
+            display: none;
+        }
 
+        .tipo-producto-radios,
+        .tipo-piel-checkboxes {
+        display: flex;       /* ¡La clave! */
+        flex-wrap: wrap;     /* ¡La responsividad! */
+        gap: 16px 24px;      /* Espacio vertical y horizontal entre items */
+        width: 100%;         /* Asegura que ocupe el ancho disponible */
+        }
+
+        /* * Hijos (los <span> que envuelven cada checkbox/radio)
+        * Les decimos que no se partan por dentro (ej. no separar el check del texto)
+        */
+        .tipo-producto-radios > span,
+        .tipo-piel-checkboxes > span {
+        display: inline-flex;  /* Mantiene el input y el label juntos */
+        align-items: center;   /* Alinea verticalmente el check/radio con el texto */
+        white-space: nowrap; /* Evita que "Tipo de Piel" se parta */
+        }
+
+        /* * Estilo del texto (Label)
+        * (Quitamos 'margin-right' porque ahora 'gap' lo maneja mejor)
+        */
+        .tipo-producto-radios label,
+        .tipo-piel-checkboxes label {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 16px;
+        color: #5A5A5A;
+        cursor: pointer;
+        /* margin-right: 20px; <-- ELIMINADO */
+        }
+
+        /* * Estilo del Input (Checkbox/Radio)
+        * (Se mantiene igual)
+        */
+        .tipo-producto-radios input,
+        .tipo-piel-checkboxes input {
+            margin-right: 8px;
+        }
+
+        .tipo-ingrediente-bloque {
+            border: 1px solid #E3D4D9; /* Borde sutil */
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            background-color: #FAFAFA; /* Fondo ligeramente gris */
+            max-width: 480px;
+        }
+
+        /* Título del bloque (ej. "Para: Piel Grasa") */
+        .tipo-ingrediente-bloque > .form-label-tipo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #148C76; /* Color de tu tema */
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* Ajuste para que los campos de stock no sean tan anchos */
+        .stock-input-wrapper {
+            max-width: 200px; /* Ancho máximo para el campo de stock */
+        }
     </style>
 </asp:Content>
 
@@ -180,6 +241,32 @@
         <label for="txtDescripcion" class="form-label">Descripción</label>
         <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" placeholder="Ingrese la descripción" TextMode="MultiLine" Rows="5"></asp:TextBox>
     </div>
+
+    <div class="form-group-wrapper">
+        <label class="form-label">Tipo de Producto</label>
+        <asp:RadioButtonList ID="rblTipoProducto" runat="server" CssClass="tipo-producto-radios" RepeatDirection="Horizontal" RepeatLayout="Flow">
+            <asp:ListItem Value="Facial" Text="Facial" Selected="True" />
+            <asp:ListItem Value="Corporal" Text="Corporal" />
+        </asp:RadioButtonList>
+    </div>
+
+    <%-- Este panel solo se mostrará si se elige "Facial" --%>
+    <div id="pnlTiposPiel" class="form-group-wrapper" style="display: none;">
+        <label class="form-label">Tipos de Piel (para Facial)</label>
+        <asp:CheckBoxList ID="cblTiposPiel" runat="server" CssClass="tipo-piel-checkboxes" RepeatDirection="Horizontal" RepeatLayout="Flow">
+            <asp:ListItem Value="Grasa" Text="Grasa" />
+            <asp:ListItem Value="Mixta" Text="Mixta" />
+            <asp:ListItem Value="Sensible" Text="Sensible" />
+            <asp:ListItem Value="Seca" Text="Seca" />
+        </asp:CheckBoxList>
+    </div>
+
+    <%-- Aquí se generarán dinámicamente los campos de ingredientes --%>
+    <div id="ingredientesContainer" class="mb-3">
+        </div>
+
+    <%-- Este campo oculto guardará los ingredientes como un JSON --%>
+    <asp:HiddenField ID="hdnIngredientesPorTipo" runat="server" />
 
     <div class="form-group-wrapper">
          <label for="txtPrecio" class="form-label">Precio</label>
@@ -233,57 +320,39 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptsContent" runat="server">
-    <script type(text/javascript)>
+    
+    <%-- 1. AÑADIMOS JQUERY (Necesario para que '$' funcione) --%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <%-- 2. Corregí el 'type' de tu etiqueta script --%>
+    <script type="text/javascript">
         $(document).ready(function () {
-            
-            // 1. Seleccionamos tu <asp:FileUpload> por su CSS class
-            //    y escuchamos por el evento 'change' (cuando se selecciona un archivo).
+
+            // --- INICIO: LÓGICA DE UPLOAD DE IMAGEN (Tu script original) ---
             $(".file-upload-input").on("change", function () {
-                
-                // 'this' es el input de archivo. this.files[0] es el archivo seleccionado
                 const file = this.files[0];
-                
-                // Encontramos los elementos de texto y el 'wrapper' (contenedor)
                 const $wrapper = $(this).closest(".file-upload-wrapper");
                 const $label = $wrapper.find(".file-upload-label");
                 const $labelText = $wrapper.find(".file-upload-text");
                 const $labelStrong = $wrapper.find("strong");
 
                 if (file) {
-                    // 2. Revisamos si el archivo es de tipo imagen
                     if (file.type.startsWith("image/")) {
-                        // --- ES UNA IMAGEN: MOSTRAR PREVIEW ---
-                        
                         const reader = new FileReader();
-                        
-                        // 3. Cuando el lector termine de cargar el archivo...
                         reader.onload = function (e) {
-                            // ...ponemos la imagen como fondo del 'wrapper'
                             $wrapper.css("background-image", "url(" + e.target.result + ")");
-                            // ...añadimos la clase CSS para ocultar el texto
                             $wrapper.addClass("has-preview");
-                            $label.hide(); 
+                            $label.hide();
                         };
-                        
-                        // 4. Le decimos al lector que lea el archivo como una URL de datos
                         reader.readAsDataURL(file);
-                        
                     } else {
-                        // --- NO ES IMAGEN: MOSTRAR NOMBRE DE ARCHIVO ---
-                        
-                        // 1. Cambiamos los textos
                         $labelStrong.text("Archivo seleccionado:");
-                        $labelText.text(file.name); // Muestra ej: "mi_documento.pdf"
-                        
-                        // 2. Nos aseguramos de que no haya un preview de imagen anterior
+                        $labelText.text(file.name);
                         $wrapper.css("background-image", "none");
                         $wrapper.removeClass("has-preview");
                         $label.show();
                     }
                 } else {
-                    // --- NO HAY ARCHIVO (El usuario presionó "Cancelar") ---
-                    
-                    // 1. Reseteamos todo al estado original
                     $labelStrong.text("Subir imagen");
                     $labelText.text("Arrastra y suelta o haz click para subir");
                     $wrapper.css("background-image", "none");
@@ -291,7 +360,120 @@
                     $label.show();
                 }
             });
+            // --- FIN: LÓGICA DE UPLOAD DE IMAGEN ---
+
+
+            // 1. Selectores (igual que antes)
+            const $rblTipoProducto = $("#<%= rblTipoProducto.ClientID %> input");
+            const $cblTiposPiel = $("#<%= cblTiposPiel.ClientID %> input");
+            const $pnlTiposPiel = $("#pnlTiposPiel");
+            const $ingredientesContainer = $("#ingredientesContainer");
+            const $hdnIngredientes = $("#<%= hdnIngredientesPorTipo.ClientID %>");
+
+            // 2. Función que actualiza la UI (MODIFICADA)
+            function actualizarFormularioTipos() {
+                const mainType = $rblTipoProducto.filter(":checked").val();
+                let tiposParaIngredientes = [];
+
+                // A. Mostrar/Ocultar panel (igual que antes)
+                if (mainType === "Facial") {
+                    $pnlTiposPiel.slideDown();
+                    $cblTiposPiel.filter(":checked").each(function () {
+                        tiposParaIngredientes.push($(this).val());
+                    });
+                } else {
+                    $pnlTiposPiel.slideUp();
+                    if (mainType) {
+                        tiposParaIngredientes.push(mainType);
+                    }
+                }
+
+                // B. (Re)Generar los campos (MODIFICADO para incluir STOCK)
+                $ingredientesContainer.empty(); // Limpia campos antiguos
+
+                // Lee los datos antiguos del JSON (si existen) para repoblar
+                let oldData = {};
+                try {
+                    JSON.parse($hdnIngredientes.val() || '[]').forEach(item => {
+                        oldData[item.tipo] = item;
+                    });
+                } catch (e) { }
+
+                tiposParaIngredientes.forEach(function (tipo) {
+
+                    // Obtiene valores antiguos si existen
+                    const oldItem = oldData[tipo] || {};
+                    const oldIngredientes = oldItem.ingredientes || "";
+                    const oldStock = oldItem.stock || "";
+
+                    // Crea el HTML para el bloque completo
+                    const html = `
+                        <div class="tipo-ingrediente-bloque" data-tipo="${tipo}">
+                            <label class="form-label-tipo">Para: ${tipo}</label>
+                            
+                            <div class="form-group-wrapper">
+                                <label class="form-label" for="ing-${tipo}">Ingredientes</label>
+                                <textarea id="ing-${tipo}" 
+                                          class="form-control ingredientes-input" 
+                                          placeholder="Ingrese ingredientes para el tipo de piel ${tipo}" 
+                                          rows="3"
+                                          data-tipo="${tipo}">${oldIngredientes}</textarea>
+                            </div>
+                            
+                            <div class="form-group-wrapper stock-input-wrapper">
+                                <label class="form-label" for="stock-${tipo}">Stock de este tipo</label>
+                                <input type="number" id="stock-${tipo}" 
+                                       class="form-control stock-input" 
+                                       placeholder="0" 
+                                       value="${oldStock}"
+                                       min="0"
+                                       data-tipo="${tipo}" />
+                            </div>
+                        </div>
+                    `;
+                    // Usamos .replace() para que 'textarea' funcione
+                    $ingredientesContainer.append(html.replace(/textarea/g, 'textarea'));
+                });
+
+                // C. Actualizar el campo oculto
+                serializarIngredientes();
+            }
+
+            // 3. Función que serializa los datos (MODIFICADA)
+            function serializarIngredientes() {
+                let data = [];
+                // Itera sobre cada BLOQUE (no sobre cada input)
+                $ingredientesContainer.find(".tipo-ingrediente-bloque").each(function () {
+                    const $bloque = $(this);
+                    const tipo = $bloque.data("tipo");
+                    const ingredientes = $bloque.find(".ingredientes-input").val();
+                    const stock = $bloque.find(".stock-input").val(); // <-- OBTIENE EL STOCK
+
+                    data.push({
+                        tipo: tipo,
+                        ingredientes: ingredientes,
+                        // Convierte el stock a número, o 0 si está vacío
+                        stock: stock ? parseInt(stock) : 0
+                    });
+                });
+
+                // Convertimos a JSON y guardamos (igual que antes)
+                $hdnIngredientes.val(JSON.stringify(data));
+            }
+
+            // 4. Asignar los Eventos (igual que antes)
+            $rblTipoProducto.on("change", actualizarFormularioTipos);
+            $cblTiposPiel.on("change", actualizarFormularioTipos);
+
+            // 5. Evento para actualizar el JSON (MODIFICADO)
+            //    Ahora escucha AMBOS campos (ingredientes y stock)
+            //    Usamos 'input' en vez de 'keyup' para capturar cambios en el campo numérico
+            $ingredientesContainer.on("input", ".ingredientes-input, .stock-input", serializarIngredientes);
+
+            // 6. Carga inicial (igual que antes)
+            actualizarFormularioTipos();
+
+            // --- FIN: NUEVA LÓGICA DE TIPOS E INGREDIENTES ---
         });
-   
     </script>
 </asp:Content>

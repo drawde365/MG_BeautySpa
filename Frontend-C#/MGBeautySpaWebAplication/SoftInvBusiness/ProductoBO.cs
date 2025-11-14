@@ -48,16 +48,6 @@ namespace SoftInvBusiness
             return productoSOAP.listarTodos();
         }
 
-        public IList<productoDTO> obtenerProdsPagina(int pag)
-        {
-            return productoSOAP.obtenerProdPag(pag);
-        }
-
-        public int GetCantPaginas()
-        {
-            return productoSOAP.cantidadPagProd();
-        }
-
         public int eliminar(productoDTO producto)
         {
             return productoSOAP.EliminarProducto(producto);
