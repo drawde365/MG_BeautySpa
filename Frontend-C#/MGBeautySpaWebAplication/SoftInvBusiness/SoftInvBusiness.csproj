@@ -348,6 +348,9 @@
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.usuarioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

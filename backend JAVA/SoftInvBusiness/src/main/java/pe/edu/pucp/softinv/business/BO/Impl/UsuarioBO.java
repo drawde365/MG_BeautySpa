@@ -10,18 +10,21 @@ import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 public class UsuarioBO {
 
     private UsuarioDAOImpl usuario;
-    private String temp = "NO_ENCONTRADO";
+    private final String temp = "NO_ENCONTRADO";
 
     public UsuarioBO() {
         usuario = new UsuarioDAOImpl();
     }
 
     public UsuarioDTO inicioSesion(String correoElectronico, String contrasenha) {
-        UsuarioDTO u = usuario.busquedaPorCorreo(correoElectronico,contrasenha);
-        if (u == null) {
+        UsuarioDTO u = usuario.busquedaPorCorreo(correoElectronico);
+        if (u == null || !(contrasenha.equals(u.getContrasenha()))) {
              u = new UsuarioDTO(temp, temp, temp, temp, temp, temp, temp, 0,0);
         }
         return u;
     }
-
+    
+    public UsuarioDTO buscarUsuarioCorreo(String correoElectronico){
+        return usuario.busquedaPorCorreo(correoElectronico);
+    }
 }

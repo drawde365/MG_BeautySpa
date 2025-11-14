@@ -32,13 +32,12 @@ public class UsuarioDAOImpl extends DAOImplBase {
         listaColumnas.add(new Columna("ACTIVO", false, false));
     }
 
-    public UsuarioDTO busquedaPorCorreo(String correo,String contrasenha) {
+    public UsuarioDTO busquedaPorCorreo(String correo) {
         usuario = new UsuarioDTO();
         usuario.setCorreoElectronico(correo);
-        usuario.setContrasenha(contrasenha);
         String sql = "SELECT USUARIO_ID, PRIMER_APELLIDO, SEGUNDO_APELLIDO,"
                 + "NOMBRE, CORREO_ELECTRONICO, CONTRASENHA, CELULAR,"
-                + " ROL_ID, URL_IMAGEN, ACTIVO FROM USUARIOS WHERE CORREO_ELECTRONICO = ? AND CONTRASENHA = ?";
+                + " ROL_ID, URL_IMAGEN, ACTIVO FROM USUARIOS WHERE CORREO_ELECTRONICO = ?";
         super.obtenerPorId(sql);
         return usuario;
     }
@@ -48,7 +47,6 @@ public class UsuarioDAOImpl extends DAOImplBase {
         String as = "";
         as += usuario.getCorreoElectronico();
         statement.setString(1, as);
-        statement.setString(2, usuario.getContrasenha());
     }
 
     @Override

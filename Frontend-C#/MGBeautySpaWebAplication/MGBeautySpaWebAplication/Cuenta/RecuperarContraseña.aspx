@@ -4,7 +4,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Inicio de Sesión | MG Beauty Spa</title>
+    <title>Recuperar Contraseña | MG Beauty Spa</title>
 
     <!-- Fuentes (prioridad para ZCOOL XiaoWei y Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css?v=3") %>" />
+    
 </head>
 <head>
     <meta charset="UTF-8">
@@ -192,15 +193,19 @@
                 </p>
             </div>
 
-            <form action="#" method="POST" style="display: contents;">
+            <form id="form1" runat="server" style="display: contents;">
                 <div class="input-wrapper">
-                    <input type="email" class="form-input" placeholder="Ingrese su correo electrónico">
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input" TextMode="Email" 
+                     placeholder="Ingrese su correo electrónico" />
+                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail"
+                        ErrorMessage="El correo electrónico es obligatorio." ForeColor="Red" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
+                        ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Ingrese un correo electrónico válido." ForeColor="Red" Display="Dynamic" />
                 </div>
+                <asp:Label ID="lblMensaje" runat="server" />
 
                 <div class="button-wrapper">
-                    <a href="ModificarContraseña.aspx" class="submit-button" style="text-decoration: none;">
-                        Enviar link al correo
-                    </a>
+                    <asp:Button ID="btnEnviar" runat="server" Text="Enviar link al correo" CssClass="submit-button" onclick="btnEnviar_Click"/>
                 </div>
             </form>
 

@@ -21,6 +21,11 @@ namespace SoftInvBusiness
         {
             return usuarioSOAP.IniciarSesion(correoElectronico, contrasenha);
         }
+
+        public usuarioDTO ObtenerUsuarioPorCorreo(string correoElectronico)
+        {
+            return usuarioSOAP.ObtenerUsuario(correoElectronico);
+        }
     }
 }
 

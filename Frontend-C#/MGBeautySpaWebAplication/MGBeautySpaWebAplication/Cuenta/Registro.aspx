@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
@@ -25,7 +25,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-        
+    
+    <script>
+        function togglePassword(textBoxId, icon) {
+            var input = document.getElementById(textBoxId);
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            }
+        }
+    </script>
+
     <style>
         html, body {
         height: 100%;
@@ -258,6 +274,25 @@
             cursor: pointer;
             border: none;
         }
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper .form-input {
+            padding-right: 45px; /* espacio para el icono */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -279,6 +314,12 @@
                         <label class="form-label">Nombres</label>
                         <asp:TextBox ID="txtNombre" runat="server" CssClass="form-input" placeholder="Ingrese su nombre" />
                         <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator 
+                            ID="revNombre" runat="server"
+                            ControlToValidate="txtNombre"
+                            ValidationExpression="^.{1,30}$"
+                            ErrorMessage="El nombre no puede exceder los 30 caracteres."
+                            ForeColor="Red" Display="Dynamic" />
                     </div>
                 
                     <div class="form-group">
@@ -286,6 +327,12 @@
                         <asp:TextBox ID="txtApellidoP" runat="server" CssClass="form-input" placeholder="Ingrese su apellido paterno" />
                         <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellidoP"
                             ErrorMessage="El apellido paterno es obligatorio." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator 
+                            ID="revApellidoP" runat="server"
+                            ControlToValidate="txtApellidoP"
+                            ValidationExpression="^.{1,30}$"
+                            ErrorMessage="El apellido paterno no puede exceder los 30 caracteres."
+                            ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
@@ -293,6 +340,12 @@
                         <asp:TextBox ID="txtApellidoM" runat="server" CssClass="form-input" placeholder="Ingrese su apellido materno" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtApellidoM"
                             ErrorMessage="El apellido materno es obligatorio." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator 
+                            ID="revApellidoM" runat="server"
+                            ControlToValidate="txtApellidoM"
+                            ValidationExpression="^.{1,30}$"
+                            ErrorMessage="El apellido materno no puede exceder los 30 caracteres."
+                            ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
@@ -311,22 +364,46 @@
                             ErrorMessage="El correo electrónico es obligatorio." ForeColor="Red" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
                             ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Ingrese un correo electrónico válido." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator 
+                            ID="revEmailLength" runat="server"
+                            ControlToValidate="txtEmail"
+                            ValidationExpression="^.{1,100}$"
+                            ErrorMessage="El correo no puede exceder los 100 caracteres."
+                            ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Contraseña</label>
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input" TextMode="Password" placeholder="Ingrese su contraseña" />
-                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
-                            ErrorMessage="La contraseña es obligatoria." ForeColor="Red" Display="Dynamic" />
+                            <div class="password-wrapper">
+                                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input"
+                                             TextMode="Password" placeholder="Ingrese su contraseña" />
+                                <i class="bi bi-eye-slash toggle-password"
+                                   onclick="togglePassword('txtPassword', this)"></i>
+                            </div>
+                            <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
+                                ErrorMessage="La contraseña es obligatoria." ForeColor="Red" Display="Dynamic" />
+                            <asp:RegularExpressionValidator 
+                                ID="revPasswordLength" runat="server"
+                                ControlToValidate="txtPassword"
+                                ValidationExpression="^.{1,30}$"
+                                ErrorMessage="La contraseña no puede exceder los 30 caracteres."
+                                ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Confirmar contraseña</label>
-                        <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-input" TextMode="Password" placeholder="Confirme su contraseña" />
-                        <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
-                            ErrorMessage="Debe confirmar su contraseña." ForeColor="Red" Display="Dynamic" />
-                        <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
-                            ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
+
+                            <div class="password-wrapper">
+                                <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-input"
+                                             TextMode="Password" placeholder="Confirme su contraseña" />
+                                <i class="bi bi-eye-slash toggle-password"
+                                   onclick="togglePassword('txtConfirmar', this)"></i>
+                            </div>
+
+                            <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
+                                ErrorMessage="Debe confirmar su contraseña." ForeColor="Red" Display="Dynamic" />
+                            <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
+                                ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
                     </div>
 
                     <div class="terms-container">
@@ -342,7 +419,14 @@
                                     CssClass="submit-button"
                                     OnClick="btnCrearCuenta_Click" />
                     </div>
-
+                    
+                    <div class="text-center mt-3">
+                         <small>
+                             <a href="/Login.aspx" class="text-decoration-none">
+                                 ¿Ya tienes una cuenta asociada? ¡Inicia Sesión!
+                             </a>
+                         </small>
+                     </div>
                 </main>
             </div>
         </div>
@@ -365,10 +449,10 @@
             <div class="success-box">
                 <h1 class="success-title" style="color: #b91c1c;">Error</h1>
                 <p class="success-message">
-                    Ocurrió un problema al crear su cuenta. Intente nuevamente más tarde.
+                    Ya existe una cuenta registrada con este correo electrónico. Por favor, utilice otro correo o inicie sesión.
                 </p>
                 <div class="button-wrapper">
-                    <button class="login-button" onclick="document.getElementById('modalError').style.display='none';">
+                    <button class="login-button" onclick="document.getElementById('modalError').style.display='none';return false;">
                         Cerrar
                     </button>
                 </div>

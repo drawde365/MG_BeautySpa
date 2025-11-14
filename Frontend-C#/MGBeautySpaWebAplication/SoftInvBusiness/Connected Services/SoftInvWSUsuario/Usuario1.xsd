@@ -2,13 +2,14 @@
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="IniciarSesion" type="tns:IniciarSesion" />
   <xs:element name="IniciarSesionResponse" type="tns:IniciarSesionResponse" />
-  <xs:complexType name="IniciarSesion">
+  <xs:element name="ObtenerUsuario" type="tns:ObtenerUsuario" />
+  <xs:element name="ObtenerUsuarioResponse" type="tns:ObtenerUsuarioResponse" />
+  <xs:complexType name="ObtenerUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
-      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="IniciarSesionResponse">
+  <xs:complexType name="ObtenerUsuarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:usuarioDTO" />
     </xs:sequence>
@@ -25,6 +26,17 @@
       <xs:element minOccurs="0" name="rol" type="xs:int" />
       <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
       <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IniciarSesion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
+      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IniciarSesionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuarioDTO" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

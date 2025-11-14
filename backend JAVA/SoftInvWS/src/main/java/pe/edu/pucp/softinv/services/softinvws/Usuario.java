@@ -24,6 +24,10 @@ public class Usuario {
     public UsuarioDTO inicioSesion(@WebParam(name="correoElectronico") String correoElectronico, @WebParam(name="contrasenha") String contrasenha) {
         return usuario.inicioSesion(correoElectronico, contrasenha);
     }
-
+    
+    @WebMethod(operationName = "ObtenerUsuario")
+    public UsuarioDTO buscarUsuarioCorreo(@WebParam(name = "correoElectronico") String correoElectronico){
+        return usuario.buscarUsuarioCorreo(correoElectronico);
+    }
 }
     
