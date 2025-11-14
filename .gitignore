@@ -1,10 +1,16 @@
-.vs/
-C#/packages/
-C#/SoftInvBusiness/bin
-C#/SoftInvDBManager/bin
-C#/SoftInvModel/bin
-C#/SoftInvTest/bin
-C#/SoftInvBusiness/bin
-C#/TestResults/
 /backend JAVA/SoftInvBusiness/target/
 /backend JAVA/SoftInvWS/target/
+Frontend-C#/MGBeautySpaWebAplication/*.suo
+Frontend-C#/MGBeautySpaWebAplication/*.user
+Frontend-C#/MGBeautySpaWebAplication/.vs/
+
+**/[Oo]bj/
+**/[Bb]in/
+
+**/[Rr]elease/
+**/[Dd]ebug/
+
+_ReSharper*/
+*.[Rr]esharper
+
+Frontend-C#/MGBeautySpaWebAplication/packages/
