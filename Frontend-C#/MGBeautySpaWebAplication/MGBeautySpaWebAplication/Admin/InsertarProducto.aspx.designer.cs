@@ -114,6 +114,15 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.CompareValidator cvPrecio;
 
         /// <summary>
+        /// Control rvPrecio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvPrecio;
+
+        /// <summary>
         /// Control txtTamaño.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace MGBeautySpaWebAplication.Admin
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvTamaño;
+
+        /// <summary>
+        /// Control rvTamaño.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvTamaño;
 
         /// <summary>
         /// Control txtComoUsar.

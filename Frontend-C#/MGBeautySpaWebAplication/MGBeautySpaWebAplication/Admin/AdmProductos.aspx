@@ -34,8 +34,27 @@
         .btn-add-product { color: #107369; font-size: 50px; line-height: 1; text-decoration: none; }
         .btn-add-product:hover { color: #148C76; }
         /* Botón 'Ver Más' */
-        .btn-custom-teal { background-color: #1EC3B6; color: #FCF7FA; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; line-height: 21px; width: 143px; height: 40px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-        /* Badges */
+        .btn-custom-teal { 
+            background-color: #1EC3B6; 
+            color: #FCF7FA; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            font-weight: 700; 
+            font-size: 14px; 
+            line-height: 21px; 
+            width: 143px; 
+            height: 40px; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            border-radius: 20px; 
+            border: none; 
+            cursor: pointer; 
+        }
+        .btn-custom-teal:disabled { 
+            background-color: #E3D4D9; 
+            cursor: not-allowed; 
+        }
         .badge-estado { padding: 4px 16px; height: 32px; min-width: 84px; font-weight: 500; font-size: 14px; line-height: 24px; border-radius: 16px; display: inline-block; }
 
         /* ▼▼▼ ESTILO NUEVO PARA EL BUSCADOR ▼▼▼ */
@@ -161,10 +180,10 @@
         </asp:Repeater>
     </div>
 
-    <div class.="d-flex justify-content-center align-items-center gap-3 mt-4">
-        <button id="btnPagPrev" class="btn btn-custom-teal rounded-pill">&laquo; Anterior</button>
+    <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+        <button id="btnPagPrev" class="btn btn-custom-teal">&laquo; Anterior</button>
         <span id="lblPaginaActual" class="fw-bold">Página 1</span>
-        <button id="btnPagNext" class="btn btn-custom-teal rounded-pill">Siguiente &raquo;</button>
+        <button id="btnPagNext" class="btn btn-custom-teal">Siguiente &raquo;</button>
     </div>
 
 </asp:Content>
