@@ -91,7 +91,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 {
                     // Llama a tus servicios SOAP/BO
                     producto = productoBO.buscarPorId(idProducto);
-                    tipos = productoTipoBO.ObtenerPorIdProducto(idProducto);
+                    tipos = productoTipoBO.ObtenerPorIdProductoActivo(idProducto);
 
                     // ¡GUÁRDALOS EN SESSION para el próximo PostBack!
                     Session["detalle_producto"] = producto;

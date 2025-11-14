@@ -48,6 +48,11 @@ namespace SoftInvBusiness
             return productoSOAP.listarTodos();
         }
 
+        public IList<productoDTO> ListarTodosActivos()
+        {
+            return productoSOAP.listarTodosActivos();
+        }
+
         public int eliminar(productoDTO producto)
         {
             return productoSOAP.EliminarProducto(producto);

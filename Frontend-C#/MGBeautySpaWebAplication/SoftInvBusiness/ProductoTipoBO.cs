@@ -23,6 +23,11 @@ namespace SoftInvBusiness
             return productoTipoSOAP.ObtenerProductosTiposId(idProducto);
         }
 
+        public IList<productoTipoDTO> ObtenerPorIdProductoActivo(int idProducto)
+        {
+            return productoTipoSOAP.ObtenerProductosTiposIdActivo(idProducto);
+        }
+
         public int Insertar(productoTipoDTO productoTipo)
         {
             return productoTipoSOAP.Insertar(productoTipo);

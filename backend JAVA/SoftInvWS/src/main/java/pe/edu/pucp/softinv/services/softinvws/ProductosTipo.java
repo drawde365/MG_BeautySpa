@@ -23,6 +23,10 @@ public class ProductosTipo {
     public ArrayList<ProductoTipoDTO> obtenerProductoIdProductoTipo(@WebParam(name = "idProducto") Integer idProducto) {
         return productoTipoBO.obtenerProductoId(idProducto);
     }
+    @WebMethod(operationName = "ObtenerProductosTiposIdActivo")
+    public ArrayList<ProductoTipoDTO> obtenerProductoIdActivosProductoTipo(@WebParam(name = "idProducto") Integer idProducto) {
+        return productoTipoBO.obtenerProductoIdActivo(idProducto);
+    }
     @WebMethod(operationName = "Insertar")
     public Integer insertarProductoTipo(@WebParam(name = "productoTipo")ProductoTipoDTO productoTipo) {
         return productoTipoBO.insertar(productoTipo);   

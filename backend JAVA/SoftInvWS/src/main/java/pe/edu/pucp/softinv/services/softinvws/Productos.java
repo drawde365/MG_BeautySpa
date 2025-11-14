@@ -77,4 +77,8 @@ public class Productos {
     public ArrayList<ProductoDTO> listarTodosProductos (){
         return productoBO.listarTodos();
     } 
+    @WebMethod(operationName = "listarTodosActivos")
+    public ArrayList<ProductoDTO> listarTodosActivosProductos (){
+        return productoBO.listarTodosActivos();
+    }
 }

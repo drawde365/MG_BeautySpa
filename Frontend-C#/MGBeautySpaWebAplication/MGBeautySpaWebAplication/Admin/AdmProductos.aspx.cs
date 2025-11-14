@@ -18,7 +18,7 @@ namespace MGBeautySpaWebAplication.Admin
             if (!IsPostBack)
             {
                 // 1. Carga TODOS los productos
-                List<productoDTO> todosLosProductos = productoBO.ListarTodos().ToList();
+                List<productoDTO> todosLosProductos = productoBO.ListarTodosActivos().ToList();
 
                 // 2. Los enlaza al Repeater y NADA MÁS.
                 rptProductos.DataSource = todosLosProductos;

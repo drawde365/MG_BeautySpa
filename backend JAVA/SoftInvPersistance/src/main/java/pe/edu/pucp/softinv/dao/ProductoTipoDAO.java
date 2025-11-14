@@ -12,4 +12,5 @@ public interface ProductoTipoDAO {
     public Integer eliminar(ProductoTipoDTO productoTipo);
     public Integer eliminar(ProductoTipoDTO productoTipo, boolean dejarConexion, boolean transaccionInicada);
     public ArrayList<ProductoTipoDTO> obtenerProductoId(Integer idProducto);
+    public ArrayList<ProductoTipoDTO> obtenerProductoIdActivos(Integer idProducto);
 }

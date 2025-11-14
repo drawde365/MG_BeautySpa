@@ -7,15 +7,20 @@ import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import pe.edu.pucp.softinv.dao.ProductoTipoDAO;
+import pe.edu.pucp.softinv.daoImp.ProductoTipoDAOImpl;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class ProductoBO {
 
     private ProductoDAO productoDAO;
+    private ProductoTipoDAO productoTipoDAO;
 
     public ProductoBO() {
-
+        this.productoTipoDAO = new ProductoTipoDAOImpl();
         this.productoDAO = new ProductoDAOimpl();
 
     }
@@ -59,8 +64,38 @@ public class ProductoBO {
         return productoDAO.obtenerPorId(idProd);
     }
 
-//desde el front se llama a obtener por id, se modifica el campo que se quiere y se llama a este metodo
     public Integer modificar(ProductoDTO producto) {
+            ArrayList<ProductoTipoDTO> listaAntigua = productoTipoDAO.obtenerProductoId(producto.getIdProducto());
+            ArrayList<ProductoTipoDTO> listaNueva = producto.getProductosTipos();
+
+            Map<String, ProductoTipoDTO> mapaNuevos = new HashMap<>();
+            for (ProductoTipoDTO tipoNuevo : listaNueva) {
+                mapaNuevos.put(tipoNuevo.getTipo(), tipoNuevo);
+            }
+
+            for (ProductoTipoDTO tipoAntiguo : listaAntigua) {
+                ProductoTipoDTO tipoNuevo = mapaNuevos.get(tipoAntiguo.getTipo());
+
+                if (tipoNuevo != null) {
+                    tipoAntiguo.setActivo(1);
+                    tipoAntiguo.setStock_fisico(tipoNuevo.getStock_fisico());
+                    tipoAntiguo.setIngredientes(tipoNuevo.getIngredientes());
+                    productoTipoDAO.modificar(tipoAntiguo);
+                    mapaNuevos.remove(tipoAntiguo.getTipo());
+                } else {
+                    tipoAntiguo.setActivo(0);
+                    productoTipoDAO.modificar(tipoAntiguo);
+                }
+            }
+
+            for (ProductoTipoDTO tipoParaInsertar : mapaNuevos.values()) {
+                tipoParaInsertar.setProducto(producto);
+                tipoParaInsertar.setActivo(1);
+                tipoParaInsertar.setStock_despacho(0);
+
+                productoTipoDAO.insertar(tipoParaInsertar);
+            }
+
         return productoDAO.modificar(producto);
     }
 
@@ -90,6 +125,9 @@ public class ProductoBO {
     } 
     public ArrayList<ProductoDTO> listarTodos (){
         return productoDAO.listarTodos();
+    } 
+    public ArrayList<ProductoDTO> listarTodosActivos (){
+        return productoDAO.listarTodosActivos();
     } 
 }
 

@@ -149,5 +149,13 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
         producto.setIdProducto(idProducto);
         return (ArrayList<ProductoTipoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorProducto,producto);
     }
+    
+    @Override
+    public ArrayList<ProductoTipoDTO> obtenerProductoIdActivos(Integer idProducto) {
+        String sql = "SELECT * FROM PRODUCTOS_TIPOS WHERE PRODUCTO_ID = ? AND ACTIVO = 1";
+        ProductoDTO producto = new ProductoDTO();
+        producto.setIdProducto(idProducto);
+        return (ArrayList<ProductoTipoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorProducto,producto);
+    }
 
 }

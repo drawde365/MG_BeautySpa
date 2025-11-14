@@ -142,7 +142,8 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
             sql += "SELECT DISTINCT p.*\n" +
                     "FROM SPA.PRODUCTOS p\n" +
                     "INNER JOIN SPA.PRODUCTOS_TIPOS pt ON p.PRODUCTO_ID = pt.PRODUCTO_ID\n" +
-                    "WHERE pt.TIPO_PRODUCTO = 'Corporal'";
+                    "WHERE pt.TIPO_PRODUCTO = 'Corporal'"
+                    + "AND p.ACTIVO = 1";
         } else {
            sql = "SELECT p.*\n" +
                 "FROM SPA.PRODUCTOS p\n" +
@@ -150,7 +151,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
                 "    SELECT pt.PRODUCTO_ID\n" +
                 "    FROM SPA.PRODUCTOS_TIPOS pt\n" +
                 "    WHERE pt.TIPO_PRODUCTO = 'Corporal'\n" +
-                ");";
+                ") AND p.ACTIVO = 1";
         }
         
         return (ArrayList<ProductoDTO>)super.listarTodos(sql,null,null);
@@ -164,13 +165,19 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
 
     @Override
     public ArrayList<ProductoDTO> obtenerPorNombre(String nombre){
-        String sql = "SELECT * FROM PRODUCTOS WHERE NOMBRE LIKE ?";
+        String sql = "SELECT * FROM PRODUCTOS WHERE NOMBRE LIKE ? AND ACTIVO = 1";
         return (ArrayList<ProductoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorNombre,nombre);
     }
 
     @Override
     public ArrayList<ProductoDTO> listarTodos(){
         return (ArrayList<ProductoDTO>)super.listarTodos();
+    }
+    
+    @Override
+    public ArrayList<ProductoDTO> listarTodosActivos(){
+        String sql = "SELECT * FROM PRODUCTOS WHERE ACTIVO = 1";
+        return (ArrayList<ProductoDTO>)super.listarTodos(sql, null, null);
     }
     
     @Override

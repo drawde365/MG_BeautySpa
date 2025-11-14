@@ -305,6 +305,9 @@
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ModificarResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ObtenerProductosTiposIdActivoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ObtenerProductosTiposIdResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -331,6 +334,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ListarFiltroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ListarTodosActivosResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.ListarTodosResponse.datasource">

@@ -14,4 +14,5 @@ public interface ProductoDAO {
     public ArrayList<ProductoDTO> obtenerPorPagina(Integer pag);
     public Integer obtenerCantPaginas();
     public ArrayList<ProductoDTO> obtenerPorFiltro(String filtro);
+    public ArrayList<ProductoDTO> listarTodosActivos();
 }

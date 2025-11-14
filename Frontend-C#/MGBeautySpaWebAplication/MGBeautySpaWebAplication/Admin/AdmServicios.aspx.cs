@@ -47,7 +47,7 @@ namespace MGBeautySpaWebAplication.Admin
                 // Por ejemplo: bo.ListarServiciosPaginados(CurrentPage, PageSize);
                 // *** INICIO: DATOS DE EJEMPLO (REEMPLAZAR) ***
                 // Voy a simular una lista de servicios para este ejemplo
-                var todosLosServicios = servicioBO.ListarTodo();
+                var todosLosServicios = servicioBO.ListarTodoActivo();
 
                 // Simular paginación
                 var serviciosPaginados = todosLosServicios
