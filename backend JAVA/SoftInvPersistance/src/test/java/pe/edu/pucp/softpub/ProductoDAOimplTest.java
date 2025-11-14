@@ -14,8 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductoDAOimplTest {
     private ProductoDAO productoDAO;
+    private ArrayList<ProductoTipoDTO>lista; 
     public ProductoDAOimplTest() {
         productoDAO = new ProductoDAOimpl();
+        lista = new ArrayList<ProductoTipoDTO>();
     }
 
     public ProductoDTO insertar() {

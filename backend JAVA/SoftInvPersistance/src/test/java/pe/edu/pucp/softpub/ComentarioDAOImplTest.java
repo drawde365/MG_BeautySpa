@@ -82,6 +82,7 @@ class ComentarioDAOImplTest {
         producto.setProductosTipos(productos);
         Integer result = productoDAO.insertar(producto);
         producto.setIdProducto(result);
+        this.idProd=result;
         assertNotEquals(0, result, "El producto debería insertarse correctamente");
         return producto;
     }
@@ -111,13 +112,7 @@ class ComentarioDAOImplTest {
 
         cliente.setIdUsuario(idUser);
         comentarioProducto.setCliente(cliente);
-        int idProducto = productoDAO.insertar(producto);
-        this.idProd = idProducto;
-        assertTrue(idProducto != 0);
-
-        producto.setIdProducto(idProducto);
         comentarioProducto.setProducto(producto);
-
         int idComen = comentarioDAO.insertar(comentarioProducto);
 
         comentarioProducto.setIdComentario(idComen);
