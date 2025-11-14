@@ -5,6 +5,7 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import pe.edu.pucp.softinv.business.BO.Impl.UsuarioBO;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
+import pe.edu.pucp.softinv.model.Token.ContrasenhaTokenDTO;
 
 /**
  *
@@ -28,6 +29,26 @@ public class Usuario {
     @WebMethod(operationName = "ObtenerUsuario")
     public UsuarioDTO buscarUsuarioCorreo(@WebParam(name = "correoElectronico") String correoElectronico){
         return usuario.buscarUsuarioCorreo(correoElectronico);
+    }
+    
+    @WebMethod(operationName = "ModificarContrasenha")
+    public Integer actualizarContrasenha(@WebParam(name = "usuarioId") Integer usuarioId,@WebParam(name = "nuevaContrasenha") String nuevaPassword){
+        return usuario.actualizarContrasenha(usuarioId, nuevaPassword);
+    }
+    
+    @WebMethod(operationName = "RegistrarToken")
+    public Integer insertarTokenRecuperacion(@WebParam(name = "usuarioId") Integer usuarioId,@WebParam(name = "token") String token){
+        return usuario.insertarTokenRecuperacion(usuarioId, token);
+    }
+    
+    @WebMethod(operationName = "ObtenerTokenDelUsuario")
+    public ContrasenhaTokenDTO obtenerToken(@WebParam(name = "token") String token){
+        return usuario.obtenerToken(token);
+    }
+    
+    @WebMethod(operationName = "MarcarTokenComoUsado")
+    public Integer marcarTokenUsado(ContrasenhaTokenDTO token){
+        return usuario.marcarTokenUsado(token);
     }
 }
     

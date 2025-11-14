@@ -1,6 +1,7 @@
 package pe.edu.pucp.softinv.daoImp;
 
 import java.sql.SQLException;
+import pe.edu.pucp.softinv.dao.UsuarioDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
@@ -8,7 +9,7 @@ import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
  *
  * @author Alvaro
  */
-public class UsuarioDAOImpl extends DAOImplBase {
+public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
 
     private UsuarioDTO usuario;
 
@@ -32,6 +33,7 @@ public class UsuarioDAOImpl extends DAOImplBase {
         listaColumnas.add(new Columna("ACTIVO", false, false));
     }
 
+    @Override
     public UsuarioDTO busquedaPorCorreo(String correo) {
         usuario = new UsuarioDTO();
         usuario.setCorreoElectronico(correo);
@@ -69,4 +71,18 @@ public class UsuarioDAOImpl extends DAOImplBase {
         usuario = null;
     }
 
+    @Override
+    protected void incluirValorDeParametrosParaModificacion() throws SQLException{
+        statement.setString(1,usuario.getContrasenha());
+        statement.setInt(2,usuario.getIdUsuario());
+    }
+    
+    @Override
+    public Integer actualizarContrasenha(Integer usuarioId,String nuevaContrasenha){
+        String sql = "UPDATE USUARIOS SET CONTRASENHA=? WHERE USUARIO_ID=?";
+        usuario = new UsuarioDTO();
+        usuario.setIdUsuario(usuarioId);
+        usuario.setContrasenha(nuevaContrasenha);
+        return super.modificar(sql);
+    }
 }
