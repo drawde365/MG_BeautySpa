@@ -2,6 +2,7 @@ package pe.edu.pucp.softinv.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,36 +10,42 @@ import java.sql.SQLException;
 import java.util.Properties;
 import javax.sql.DataSource;
 import pe.edu.pucp.softinv.db.util.Cifrado;
+import pe.edu.pucp.softinv.db.util.MotorDeBaseDeDatos;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class DBManager {
+public abstract class DBManager {
     private static DBManager dbManager = null;
     private DataSource dataSource;
     private static final String archvo_conf = "jdbc.properties";
-    private String driver;
-    private String tipo_de_driver;
-    private String base_de_datos;
-    private String host;
-    private String puerto;
-    private String usuario;
-    private String contraseña;
+    protected String driver;
+    protected String tipo_de_driver;
+    protected String base_de_datos;
+    protected String nombre_de_host;
+    protected String host;
+    protected String puerto;
+    protected String usuario;
+    protected String contraseña;
 
-    private DBManager() {
+    protected DBManager() {
         
     }
 
     public static DBManager getInstance() {
-        if (dbManager == null) {
+        if (DBManager.dbManager == null) {
             DBManager.createInstance();
         }
-        return dbManager;
+        return DBManager.dbManager;
     }
 
     private static void createInstance() {
-        dbManager = new DBManager();
-        DBManager.dbManager.leer_archivo_configuracion();
-        DBManager.dbManager.createDataSource();
+        if (DBManager.dbManager == null) {
+            if (DBManager.obtenerMotorDeBaseDeDato() == MotorDeBaseDeDatos.MYSQL) {
+                DBManager.dbManager = new DBManagerMySQL();
+            } else{
+                DBManager.dbManager = new DBManagerMSSQL();
+            }
+            DBManager.dbManager.leer_archivo_configuracion();
+            dbManager.createDataSource();
+        }
     }
 
     private void leer_archivo_configuracion() {
@@ -46,13 +53,24 @@ public class DBManager {
         String nomArch = "/"+archvo_conf;
         try {
             prop.load(this.getClass().getResourceAsStream(nomArch));
-            driver = prop.getProperty("driver");
             tipo_de_driver = prop.getProperty("tipo_de_driver");
-            base_de_datos = prop.getProperty("base_de_datos");
-            host = prop.getProperty("host");
-            puerto = prop.getProperty("puerto");
-            usuario = prop.getProperty("usuario");
-            contraseña = prop.getProperty("contrasenha");
+            if (tipo_de_driver.equals("jdbc:mysql")) {
+                driver = prop.getProperty("driverMySQL");
+                base_de_datos = prop.getProperty("base_de_datosMySQL");
+                host = prop.getProperty("hostMySQL");
+                puerto = prop.getProperty("puertoMySQL");
+                usuario = prop.getProperty("usuarioMySQL");
+                contraseña = prop.getProperty("contrasenhaMySQL");
+            }
+            else {
+                driver = prop.getProperty("driverMSSQL");
+                base_de_datos = prop.getProperty("base_de_datosMSSQL");
+                host = prop.getProperty("hostMSSQL");
+                puerto = prop.getProperty("puertoMSSQL");
+                usuario = prop.getProperty("usuarioMSSQL");
+                contraseña = prop.getProperty("contrasenhaMSSQL");
+            }
+            
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,13 +85,11 @@ public class DBManager {
         return null;
     }
 
-    private String getUrl() {
-        return tipo_de_driver+"://"+host+":"+puerto+"/"+base_de_datos+"?useSSL=false";
-    }
+    protected abstract String getURL();
 
     private void createDataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(this.getUrl());
+        config.setJdbcUrl(this.getURL());
         config.setUsername(usuario);
         config.setPassword(Cifrado.descifrarMD5(contraseña));
         config.setDriverClassName(driver);
@@ -86,4 +102,26 @@ public class DBManager {
         
         dataSource = new HikariDataSource(config);
     }
+    
+    private static MotorDeBaseDeDatos obtenerMotorDeBaseDeDato() {
+        Properties properties = new Properties();
+        try {
+            String nmArchivoConf = "/" + archvo_conf;
+
+            //al ser un método estático, no se puede invocar al getResoucer así
+            //properties.load(this.getClass().getResourceAsStream(nmArchivoConf));            
+            properties.load(DBManager.class.getResourceAsStream(nmArchivoConf));            
+            String tipo_de_driver = properties.getProperty("tipo_de_driver");
+            if (tipo_de_driver.equals("jdbc:mysql"))
+                return MotorDeBaseDeDatos.MYSQL;
+            else
+                return MotorDeBaseDeDatos.MSSQL;
+        } catch (FileNotFoundException ex) {
+            System.err.println("Error al leer el archivo de propiedades - " + ex);
+        } catch (IOException ex) {
+            System.err.println("Error al leer el archivo de propiedades - " + ex);
+        }
+        return null;
+    }
+     public abstract String retornarSQLParaUltimoAutoGenerado();
 }

@@ -140,7 +140,7 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
     }
 
     @Override
-    protected void agregarObjetoALaListaSP(List lista) throws SQLException {
+    protected void agregarObjetoALaLista(List lista) throws SQLException {
         this.instanciarObjetoDelResultSetSP();
         lista.add(comentario);
     }
@@ -176,8 +176,23 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
         Object parametros = new ComentariosParametrosBuilder()
                 .conProducto_Id(idProducto)
                 .BuildComentariosParametros();
-        String sql = "{call SP_Obtener_Comentarios_Producto(?)}";
-        return (ArrayList<ComentarioDTO>) super.ejecutarProcedimientoAlmacenadoLectura(sql,this::incluirParametrosParaListarPorProducto,parametros);
+        String sql = "SELECT \n" +
+            "        c.COMENTARIO_ID,\n" +
+            "        c.SERVICIO_ID,\n" +
+            "        c.PRODUCTO_ID,\n" +
+            "        c.DESCRIPCION,\n" +
+            "        c.VALORACION,\n" +
+            "        u.USUARIO_ID AS CLIENTE_ID,\n" +
+            "        u.NOMBRE,\n" +
+            "        u.PRIMER_APELLIDO,\n" +
+            "        u.SEGUNDO_APELLIDO,\n" +
+            "        u.CORREO_ELECTRONICO,\n" +
+            "        u.URL_IMAGEN\n" +
+            "    FROM COMENTARIOS c\n" +
+            "    INNER JOIN USUARIOS u ON u.USUARIO_ID = c.CLIENTE_ID\n" +
+            "    WHERE c.PRODUCTO_ID = ?\n" +
+            "    ORDER BY c.VALORACION DESC;";
+        return (ArrayList<ComentarioDTO>) super.listarTodos(sql,this::incluirParametrosParaListarPorProducto,parametros);
     }
 
     private void incluirParametrosParaListarPorProducto(Object Parametros){
@@ -194,8 +209,23 @@ public class ComentarioDAOImpl extends DAOImplBase implements ComentarioDAO {
         Object parametros = new ComentariosParametrosBuilder()
                 .conServicio_Id(idServicio)
                 .BuildComentariosParametros();
-        String sql = "{call SP_Obtener_Comentarios_Servicio(?)}";
-        return (ArrayList<ComentarioDTO>) super.ejecutarProcedimientoAlmacenadoLectura(sql,this::incluirParametrosParaListarPorServicio,parametros);
+        String sql = "SELECT \n" +
+        "        c.COMENTARIO_ID,\n" +
+        "	 c.SERVICIO_ID,\n" +
+        "	 c.PRODUCTO_ID,\n" +
+        "        c.DESCRIPCION,\n" +
+        "        c.VALORACION,\n" +
+        "        u.USUARIO_ID AS CLIENTE_ID,\n" +
+        "        u.NOMBRE,\n" +
+        "        u.PRIMER_APELLIDO,\n" +
+        "        u.SEGUNDO_APELLIDO,\n" +
+        "        u.CORREO_ELECTRONICO,\n" +
+        "        u.URL_IMAGEN\n" +
+        "    FROM COMENTARIOS c\n" +
+        "    INNER JOIN USUARIOS u ON u.USUARIO_ID = c.CLIENTE_ID\n" +
+        "    WHERE c.SERVICIO_ID = ?\n" +
+        "    ORDER BY c.VALORACION DESC;";
+        return (ArrayList<ComentarioDTO>) super.listarTodos(sql,this::incluirParametrosParaListarPorServicio,parametros);
     }
 
     private void incluirParametrosParaListarPorServicio(Object Parametros){
