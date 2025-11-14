@@ -20,7 +20,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Tag;
 
+@Tag("integration")
 public class PedidoDAOImplTest {
     private PedidoDAO pedidoDAO;
     private ClienteDAO clienteDAO;

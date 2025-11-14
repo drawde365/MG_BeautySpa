@@ -15,7 +15,9 @@ import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Tag;
 
+@Tag("integration")
 class ComentarioDAOImplTest {
     private ComentarioDAO comentarioDAO;
     private ClienteDAO clienteDAO;

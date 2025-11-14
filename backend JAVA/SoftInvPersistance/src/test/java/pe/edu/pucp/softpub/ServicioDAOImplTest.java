@@ -10,9 +10,9 @@ import pe.edu.pucp.softinv.model.Servicio.TipoServicio;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Tag;
 
-//TEST FUNCIONAL!!
-
+@Tag("integration")
 public class ServicioDAOImplTest {
     private static ServicioDAO servicioDAO;
     private ArrayList<ServicioDTO> servicios;

@@ -9,8 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TEST FUNCIONAL!!
-
+@Tag("integration")
 class ClienteDAOImplTest {
     private Integer ultimoId;
     private ClienteDAO clienteDAO;
