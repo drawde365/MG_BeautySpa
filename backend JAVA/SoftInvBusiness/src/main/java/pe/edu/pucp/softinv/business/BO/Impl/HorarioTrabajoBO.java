@@ -22,22 +22,17 @@ public class HorarioTrabajoBO
         horarioTrabajoDAO = new HorarioTrabajoDAOImpl();
         empleadoDAO=new  EmpleadoDAOImpl();
     }
-    public Integer insertar(Integer idEmpleado, Integer diaSemana, Time horaInicio, Time horaFin){
-
-        EmpleadoDTO empleado=new EmpleadoDTO();
-        empleado.setIdUsuario(idEmpleado);
-        Integer numIntervalos= (int)(horaFin.getTime()-horaInicio.getTime())/(1000*60*60);
-        HorarioTrabajoDTO horarioTrabajo=new HorarioTrabajoDTO(numIntervalos,empleado,diaSemana,horaInicio,
-                horaFin);
-        return horarioTrabajoDAO.insertar(horarioTrabajo);
-    }
 
     public Integer insertar(HorarioTrabajoDTO horarioTrabajo) {
         return horarioTrabajoDAO.insertar(horarioTrabajo);
     }
 
-    public HorarioTrabajoDTO obtenerPorId(Integer empleadoId, Integer diaSemana) {
-        return horarioTrabajoDAO.obtenerPorId(empleadoId, diaSemana);
+    public HorarioTrabajoDTO obtenerPorId(Integer horarioId) {
+        return horarioTrabajoDAO.obtenerPorId(horarioId);
+    }
+
+    public ArrayList<HorarioTrabajoDTO> obtenerPorEmpleadoYFecha(Integer empleadoId, Integer diaSemana) {
+        return horarioTrabajoDAO.obtenerPorEmpleadoYFecha(empleadoId, diaSemana);
     }
 
     public Integer modificar(HorarioTrabajoDTO horarioTrabajo){

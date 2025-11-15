@@ -31,7 +31,7 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(2, calendario.getFecha());
+        this.statement.setDate(2, (java.sql.Date) calendario.getFecha());
         this.statement.setInt(3, calendario.getCantLibre());
         this.statement.setString(4,calendario.getMotivo());
     }
@@ -41,19 +41,19 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         this.statement.setInt(1, calendario.getCantLibre());
         this.statement.setString(2,calendario.getMotivo());
         this.statement.setInt(3, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(4, calendario.getFecha());
+        this.statement.setDate(4, (java.sql.Date) calendario.getFecha());
     }
 
     @Override
     protected void incluirValorDeParametrosParaEliminacion() throws SQLException {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(2, calendario.getFecha());
+        this.statement.setDate(2, (java.sql.Date) calendario.getFecha());
     }
 
     @Override
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(2, calendario.getFecha());
+        this.statement.setDate(2, (java.sql.Date) calendario.getFecha());
     }
 
     @Override

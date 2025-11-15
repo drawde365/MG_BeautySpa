@@ -16,19 +16,19 @@ namespace SoftInvBusiness
             horarioSOAP = new HorarioTrabajoClient();
         }
 
-        public int insertarHorarioDeEmpleadoPorPartes(int idEmpleado, int idDiaSemana, string horaInicio, string horaFin)
-        {
-            return horarioSOAP.InsertarHorarioTrabajoPorPartes(idEmpleado, idDiaSemana, horaInicio, horaFin);
-        }
-
         public int insertarHorarioDeEmpleado(horarioTrabajoDTO horario)
         {
             return horarioSOAP.InsertarHorarioTrabajo(horario);
         }
 
-        public horarioTrabajoDTO obtenerHorarioDeEmpleadoPorId(int idEmpleado, int idDiaSemana)
+        public horarioTrabajoDTO obtenerHorarioPorId(int horarioId)
         {
-            return horarioSOAP.ObtenerHorarioTrabajoPorId(idEmpleado, idDiaSemana);
+            return horarioSOAP.ObtenerHorarioTrabajoPorId(horarioId);
+        }
+
+        public IList<horarioTrabajoDTO> obtenerHorariosDeEmpleadoPorDia(int idEmpleado, int idDiaSemana)
+        {
+            return horarioSOAP.ObtenerHorariosPorEmpleadoYFecha(idEmpleado, idDiaSemana);
         }
 
         public int modificarHorarioTrabajo(horarioTrabajoDTO horario)

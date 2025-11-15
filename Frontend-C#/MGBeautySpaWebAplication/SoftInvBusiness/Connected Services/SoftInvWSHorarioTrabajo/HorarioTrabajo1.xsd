@@ -3,8 +3,6 @@
   <xs:element name="EliminarHorarioTrabajo" type="tns:EliminarHorarioTrabajo" />
   <xs:element name="EliminarHorarioTrabajoResponse" type="tns:EliminarHorarioTrabajoResponse" />
   <xs:element name="InsertarHorarioTrabajo" type="tns:InsertarHorarioTrabajo" />
-  <xs:element name="InsertarHorarioTrabajoPorPartes" type="tns:InsertarHorarioTrabajoPorPartes" />
-  <xs:element name="InsertarHorarioTrabajoPorPartesResponse" type="tns:InsertarHorarioTrabajoPorPartesResponse" />
   <xs:element name="InsertarHorarioTrabajoResponse" type="tns:InsertarHorarioTrabajoResponse" />
   <xs:element name="ListarPorEmpleado" type="tns:ListarPorEmpleado" />
   <xs:element name="ListarPorEmpleadoResponse" type="tns:ListarPorEmpleadoResponse" />
@@ -12,10 +10,11 @@
   <xs:element name="ModificarHorarioTrabajoResponse" type="tns:ModificarHorarioTrabajoResponse" />
   <xs:element name="ObtenerHorarioTrabajoPorId" type="tns:ObtenerHorarioTrabajoPorId" />
   <xs:element name="ObtenerHorarioTrabajoPorIdResponse" type="tns:ObtenerHorarioTrabajoPorIdResponse" />
+  <xs:element name="ObtenerHorariosPorEmpleadoYFecha" type="tns:ObtenerHorariosPorEmpleadoYFecha" />
+  <xs:element name="ObtenerHorariosPorEmpleadoYFechaResponse" type="tns:ObtenerHorariosPorEmpleadoYFechaResponse" />
   <xs:complexType name="ObtenerHorarioTrabajoPorId">
     <xs:sequence>
-      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
-      <xs:element minOccurs="0" name="diaSemana" type="xs:int" />
+      <xs:element minOccurs="0" name="horarioId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ObtenerHorarioTrabajoPorIdResponse">
@@ -25,11 +24,11 @@
   </xs:complexType>
   <xs:complexType name="horarioTrabajoDTO">
     <xs:sequence>
-      <xs:element minOccurs="0" name="diaSemana" type="xs:int" />
-      <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
-      <xs:element minOccurs="0" name="horaFin" type="tns:time" />
-      <xs:element minOccurs="0" name="horaInicio" type="tns:time" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
+      <xs:element minOccurs="0" name="diaSemana" type="xs:int" />
+      <xs:element minOccurs="0" name="horaInicio" type="xs:string" />
+      <xs:element minOccurs="0" name="horaFin" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="empleadoDTO">
@@ -180,17 +179,15 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="InsertarHorarioTrabajoPorPartes">
+  <xs:complexType name="ObtenerHorariosPorEmpleadoYFecha">
     <xs:sequence>
-      <xs:element minOccurs="0" name="idEmpleado" type="xs:int" />
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
       <xs:element minOccurs="0" name="diaSemana" type="xs:int" />
-      <xs:element minOccurs="0" name="horaInicio" type="tns:time" />
-      <xs:element minOccurs="0" name="horaFin" type="tns:time" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="InsertarHorarioTrabajoPorPartesResponse">
+  <xs:complexType name="ObtenerHorariosPorEmpleadoYFechaResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:horarioTrabajoDTO" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

@@ -2,8 +2,56 @@
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="IniciarSesion" type="tns:IniciarSesion" />
   <xs:element name="IniciarSesionResponse" type="tns:IniciarSesionResponse" />
+  <xs:element name="MarcarTokenComoUsado" type="tns:MarcarTokenComoUsado" />
+  <xs:element name="MarcarTokenComoUsadoResponse" type="tns:MarcarTokenComoUsadoResponse" />
+  <xs:element name="ModificarContrasenha" type="tns:ModificarContrasenha" />
+  <xs:element name="ModificarContrasenhaResponse" type="tns:ModificarContrasenhaResponse" />
+  <xs:element name="ObtenerTokenDelUsuario" type="tns:ObtenerTokenDelUsuario" />
+  <xs:element name="ObtenerTokenDelUsuarioResponse" type="tns:ObtenerTokenDelUsuarioResponse" />
   <xs:element name="ObtenerUsuario" type="tns:ObtenerUsuario" />
   <xs:element name="ObtenerUsuarioResponse" type="tns:ObtenerUsuarioResponse" />
+  <xs:element name="RegistrarToken" type="tns:RegistrarToken" />
+  <xs:element name="RegistrarTokenResponse" type="tns:RegistrarTokenResponse" />
+  <xs:complexType name="ObtenerTokenDelUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="token" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerTokenDelUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:contrasenhaTokenDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contrasenhaTokenDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fecha_expiracion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="token" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenId" type="xs:int" />
+      <xs:element minOccurs="0" name="usado" type="xs:int" />
+      <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistrarToken">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
+      <xs:element minOccurs="0" name="token" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistrarTokenResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MarcarTokenComoUsado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:contrasenhaTokenDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MarcarTokenComoUsadoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="ObtenerUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
@@ -37,6 +85,17 @@
   <xs:complexType name="IniciarSesionResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:usuarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ModificarContrasenha">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
+      <xs:element minOccurs="0" name="nuevaContrasenha" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ModificarContrasenhaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

@@ -5,18 +5,6 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Calendario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="InsertarCalendarioPorPartes">
-    <part name="parameters" element="tns:InsertarCalendarioPorPartes" />
-  </message>
-  <message name="InsertarCalendarioPorPartesResponse">
-    <part name="parameters" element="tns:InsertarCalendarioPorPartesResponse" />
-  </message>
-  <message name="ModificarCalendarioPorPartes">
-    <part name="parameters" element="tns:ModificarCalendarioPorPartes" />
-  </message>
-  <message name="ModificarCalendarioPorPartesResponse">
-    <part name="parameters" element="tns:ModificarCalendarioPorPartesResponse" />
-  </message>
   <message name="EliminarCalendario">
     <part name="parameters" element="tns:EliminarCalendario" />
   </message>
@@ -41,15 +29,19 @@
   <message name="ModificarCalendarioResponse">
     <part name="parameters" element="tns:ModificarCalendarioResponse" />
   </message>
+  <message name="InsertarCalendarioPorPartes">
+    <part name="parameters" element="tns:InsertarCalendarioPorPartes" />
+  </message>
+  <message name="InsertarCalendarioPorPartesResponse">
+    <part name="parameters" element="tns:InsertarCalendarioPorPartesResponse" />
+  </message>
+  <message name="ModificarCalendarioPorPartes">
+    <part name="parameters" element="tns:ModificarCalendarioPorPartes" />
+  </message>
+  <message name="ModificarCalendarioPorPartesResponse">
+    <part name="parameters" element="tns:ModificarCalendarioPorPartesResponse" />
+  </message>
   <portType name="Calendario">
-    <operation name="InsertarCalendarioPorPartes">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesRequest" message="tns:InsertarCalendarioPorPartes" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesResponse" message="tns:InsertarCalendarioPorPartesResponse" />
-    </operation>
-    <operation name="ModificarCalendarioPorPartes">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesRequest" message="tns:ModificarCalendarioPorPartes" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesResponse" message="tns:ModificarCalendarioPorPartesResponse" />
-    </operation>
     <operation name="EliminarCalendario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRequest" message="tns:EliminarCalendario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioResponse" message="tns:EliminarCalendarioResponse" />
@@ -66,27 +58,17 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioRequest" message="tns:ModificarCalendario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioResponse" message="tns:ModificarCalendarioResponse" />
     </operation>
+    <operation name="InsertarCalendarioPorPartes">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesRequest" message="tns:InsertarCalendarioPorPartes" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioPorPartesResponse" message="tns:InsertarCalendarioPorPartesResponse" />
+    </operation>
+    <operation name="ModificarCalendarioPorPartes">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesRequest" message="tns:ModificarCalendarioPorPartes" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioPorPartesResponse" message="tns:ModificarCalendarioPorPartesResponse" />
+    </operation>
   </portType>
   <binding name="CalendarioPortBinding" type="tns:Calendario">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="InsertarCalendarioPorPartes">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="ModificarCalendarioPorPartes">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
     <operation name="EliminarCalendario">
       <soap:operation soapAction="" />
       <input>
@@ -115,6 +97,24 @@
       </output>
     </operation>
     <operation name="ModificarCalendario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertarCalendarioPorPartes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ModificarCalendarioPorPartes">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

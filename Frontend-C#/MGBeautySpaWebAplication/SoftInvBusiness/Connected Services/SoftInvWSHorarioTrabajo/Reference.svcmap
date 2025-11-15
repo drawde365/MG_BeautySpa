@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:45294/SoftInvWS/HorarioTrabajo?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8080/SoftInvWS/HorarioTrabajo?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="HorarioTrabajo.xsd" MetadataType="Schema" ID="48f2a1ec-a33e-48b3-9f23-cd3d73f891a1" SourceId="1" SourceUrl="http://localhost:45294/SoftInvWS/HorarioTrabajo?xsd=1" />
-    <MetadataFile FileName="HorarioTrabajo.wsdl" MetadataType="Wsdl" ID="11e7a633-96c4-4c04-8d2d-5af8a2cdfcf9" SourceId="1" SourceUrl="http://localhost:45294/SoftInvWS/HorarioTrabajo?wsdl" />
+    <MetadataFile FileName="HorarioTrabajo1.wsdl" MetadataType="Wsdl" ID="0679aa4a-b1e8-4524-99d6-85e111e03c4b" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/HorarioTrabajo?wsdl" />
+    <MetadataFile FileName="HorarioTrabajo1.xsd" MetadataType="Schema" ID="816bf424-9a83-421a-ba1f-7316fec67ba2" SourceId="1" SourceUrl="http://localhost:8080/SoftInvWS/HorarioTrabajo?xsd=1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

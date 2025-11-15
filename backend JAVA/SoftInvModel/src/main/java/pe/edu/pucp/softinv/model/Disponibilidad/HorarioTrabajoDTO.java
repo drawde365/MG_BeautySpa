@@ -1,31 +1,29 @@
 package pe.edu.pucp.softinv.model.Disponibilidad;
-import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
+import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
+import pe.edu.pucp.softinv.model.util.TimeAdapter; // Asumo que creaste esto
 import java.sql.Time;
 
+// --- AÑADE ESTAS IMPORTACIONES ---
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+// --- AÑADE ESTA ANOTACIÓN A LA CLASE ---
+@XmlAccessorType(XmlAccessType.FIELD)
 public class HorarioTrabajoDTO {
+    
     private Integer id;
     private EmpleadoDTO empleado;
     private Integer diaSemana;
-    private String horaInicio;
-    private String horaFin;
-
-    public String getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(String horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public String getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(String horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
+    
+    @XmlJavaTypeAdapter(TimeAdapter.class) // Esta anotación ahora es segura
+    private Time horaInicio;
+    
+    @XmlJavaTypeAdapter(TimeAdapter.class) // Esta anotación ahora es segura
+    private Time horaFin;
+    
+    
     public Integer getDiaSemana() {
         return diaSemana;
     }
@@ -48,7 +46,6 @@ public class HorarioTrabajoDTO {
         this.id = id;
     }
 
-
     public HorarioTrabajoDTO () {
         this.id=null;
         this.empleado=null;
@@ -57,11 +54,27 @@ public class HorarioTrabajoDTO {
         this.horaFin=null;
     }
 
-    public HorarioTrabajoDTO(Integer id, EmpleadoDTO empleado, Integer diaSemana, String horaInicio, String horaFin) {
+    public HorarioTrabajoDTO(Integer id, EmpleadoDTO empleado, Integer diaSemana, Time horaInicio, Time horaFin) {
         this.id=id;
         this.empleado=empleado;
         this.diaSemana=diaSemana;
         this.horaInicio=horaInicio;
         this.horaFin=horaFin;
+    }
+
+    public Time getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Time horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Time getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(Time horaFin) {
+        this.horaFin = horaFin;
     }
 }

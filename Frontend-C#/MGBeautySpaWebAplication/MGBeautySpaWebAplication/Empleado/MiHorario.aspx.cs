@@ -7,12 +7,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
 
 namespace MGBeautySpaWebAplication.Empleado
 {
     public partial class MiHorario : System.Web.UI.Page
     {
-
         public MiHorario()
         {
             horarioTrabajoBO = new HorarioTrabajoBO();
@@ -23,16 +23,21 @@ namespace MGBeautySpaWebAplication.Empleado
         {
             if (!IsPostBack)
             {
-                // Revisa si hay un mensaje "flash" ANTES de cargar el horario
                 MostrarMensajeFlash();
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-                CargarHorario(usuario.idUsuario);
+                if (usuario != null)
+                {
+                    CargarHorario(usuario.idUsuario);
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
             }
         }
 
         protected void MostrarMensajeFlash()
         {
-            // 1. Revisa si hay un mensaje en la Sesión
             if (Session["FlashMessage"] != null)
             {
                 litAlertMessage.Text = Session["FlashMessage"].ToString();
@@ -44,9 +49,10 @@ namespace MGBeautySpaWebAplication.Empleado
 
         private void CargarHorario(int empleadoId)
         {
-            // Usamos un Diccionario para acceso rápido (ej. buscar "9:00")
+            // const string TimeFormat = "HH:mm:ss"; <-- YA NO ES NECESARIO
+
             var horarioMap = new Dictionary<int, HorarioRow>();
-            for (int i = 8; i <= 20; i++) // De 8:00 a 20:00
+            for (int i = 8; i <= 20; i++)
             {
                 horarioMap[i] = new HorarioRow
                 {
@@ -60,30 +66,46 @@ namespace MGBeautySpaWebAplication.Empleado
                 };
             }
 
-            // --- 2. OBTENER LOS BLOQUES OCUPADOS DE LA BD ---
-            List<horarioTrabajoDTO> horarioArrayList = horarioTrabajoBO.ListarHorarioDeEmpleado(empleadoId).ToList();
+            var horarioDesdeSOAP = horarioTrabajoBO.ListarHorarioDeEmpleado(empleadoId);
+            List<horarioTrabajoDTO> horarioArrayList = new List<horarioTrabajoDTO>();
+            if (horarioDesdeSOAP != null)
+            {
+                horarioArrayList = horarioDesdeSOAP.ToList();
+            }
 
-            // --- 3. "PINTAR" LA GRILLA CON LOS BLOQUES OCUPADOS ---
             foreach (horarioTrabajoDTO bloque in horarioArrayList)
             {
-                string horaInicioString = bloque.horaInicio;
-                string horaFinString = bloque.horaFin;
+                // 1. Validamos que los objetos existan (es la validación más fiable)
+                if (bloque.horaInicio == null || bloque.horaFin == null)
+                {
+                    continue;
+                }
 
-                TimeSpan tsInicio = TimeSpan.Parse(horaInicioString);
-                TimeSpan tsFin = TimeSpan.Parse(horaFinString);
+                string horaInicioString = bloque.horaInicio.ToString();
+                string horaFinString = bloque.horaFin.ToString();
 
                 if (string.IsNullOrEmpty(horaInicioString) || string.IsNullOrEmpty(horaFinString))
                 {
                     continue;
                 }
 
+                // --- CORRECCIÓN FINAL ---
+                // Intentamos parsear usando TryParse con cultura Invariante,
+                // ya que no podemos confiar en el formato exacto del ToString() del proxy.
+                TimeSpan tsInicio, tsFin;
+
+                if (!TimeSpan.TryParse(horaInicioString, CultureInfo.InvariantCulture, out tsInicio) ||
+                    !TimeSpan.TryParse(horaFinString, CultureInfo.InvariantCulture, out tsFin))
+                {
+                    // Si el parseo falla, salta este bloque de horario
+                    continue;
+                }
+
                 int horaInicio = tsInicio.Hours;
                 int horaFin = tsFin.Hours;
 
-                // Recorremos cada hora dentro del bloque (ej. 9, 10, 11, 12)
                 for (int horaActual = horaInicio; horaActual < horaFin; horaActual++)
                 {
-                    // Verificamos que la hora exista en nuestra grilla (8-20)
                     if (horarioMap.ContainsKey(horaActual))
                     {
                         HorarioRow filaDeLaHora = horarioMap[horaActual];
@@ -101,12 +123,9 @@ namespace MGBeautySpaWebAplication.Empleado
                 }
             }
 
-            // --- 4. ENLAZAR LA GRILLA YA "PINTADA" AL REPEATER ---
-
-            // Convertimos el Diccionario a una Lista y la ordenamos por hora
             List<HorarioRow> listaHorario = horarioMap.Values
-                                                .OrderBy(h => int.Parse(h.Hora.Split(':')[0]))
-                                                .ToList();
+                                                   .OrderBy(h => int.Parse(h.Hora.Split(':')[0]))
+                                                   .ToList();
 
             rptHorario.DataSource = listaHorario;
             rptHorario.DataBind();
@@ -115,6 +134,17 @@ namespace MGBeautySpaWebAplication.Empleado
         protected string GetCellClass(bool isOccupied)
         {
             return isOccupied ? "cell-occupied" : "cell-free";
+        }
+
+        public class HorarioRow
+        {
+            public string Hora { get; set; }
+            public bool Lunes { get; set; }
+            public bool Martes { get; set; }
+            public bool Miercoles { get; set; }
+            public bool Jueves { get; set; }
+            public bool Viernes { get; set; }
+            public bool Sabado { get; set; }
         }
     }
 }

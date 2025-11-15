@@ -248,17 +248,14 @@
     <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.servicioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSHorarioTrabajo\HorarioTrabajo.wsdl" />
-    <None Include="Connected Services\SoftInvWSHorarioTrabajo\HorarioTrabajo.xsd">
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\HorarioTrabajo1.wsdl" />
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\HorarioTrabajo1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoPorPartesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoResponse.datasource">
@@ -268,6 +265,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.ModificarHorarioTrabajoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorarioTrabajoPorIdResponse.datasource">
@@ -385,10 +385,25 @@
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.servicioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.usuarioDTO.datasource">

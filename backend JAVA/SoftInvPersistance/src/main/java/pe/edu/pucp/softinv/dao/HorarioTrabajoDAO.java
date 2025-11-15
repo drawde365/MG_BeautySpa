@@ -12,7 +12,9 @@ public interface HorarioTrabajoDAO {
 
     Integer eliminar(HorarioTrabajoDTO horarioTrabajo);
 
-    HorarioTrabajoDTO obtenerPorId(Integer empleadoId, Integer diaSemana);
+    ArrayList<HorarioTrabajoDTO> obtenerPorEmpleadoYFecha(Integer empleadoId, Integer diaSemana);
+    
+    HorarioTrabajoDTO obtenerPorId(Integer horarioId);
     
     ArrayList<HorarioTrabajoDTO> listarPorEmpleado(Integer idEmpleado);
 

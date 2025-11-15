@@ -42,7 +42,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="cantLibre" type="xs:int" />
       <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
-      <xs:element minOccurs="0" name="fecha" type="tns:date" />
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
       <xs:element minOccurs="0" name="motivo" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

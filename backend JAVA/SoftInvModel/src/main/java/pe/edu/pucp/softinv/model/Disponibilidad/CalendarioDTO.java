@@ -2,7 +2,7 @@ package pe.edu.pucp.softinv.model.Disponibilidad;
 
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class CalendarioDTO {
     private EmpleadoDTO empleado;

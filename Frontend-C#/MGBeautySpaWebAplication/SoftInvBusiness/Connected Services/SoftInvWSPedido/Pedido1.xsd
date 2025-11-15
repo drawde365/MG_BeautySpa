@@ -161,16 +161,6 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EliminarPedido">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="pedido" type="tns:pedidoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EliminarPedidoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="InsertarDetallePedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="detallePedido" type="tns:detallePedidoDTO" />
@@ -182,14 +172,14 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerCarritoPorCliente">
+  <xs:complexType name="EliminarPedido">
     <xs:sequence>
-      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="pedido" type="tns:pedidoDTO" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerCarritoPorClienteResponse">
+  <xs:complexType name="EliminarPedidoResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:pedidoDTO" />
+      <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ObtenerDetallePedido">
@@ -202,6 +192,16 @@
   <xs:complexType name="ObtenerDetallePedidoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:detallePedidoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerCarritoPorCliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerCarritoPorClienteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pedidoDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarDetallePedido">

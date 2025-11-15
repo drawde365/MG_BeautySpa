@@ -184,6 +184,14 @@
       <xs:element minOccurs="0" name="return" type="tns:servicioDTO" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="ListarTodos">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="ListarTodosResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:servicioDTO" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="EliminarServicio">
     <xs:sequence>
       <xs:element minOccurs="0" name="servicio" type="tns:servicioDTO" />
@@ -192,14 +200,6 @@
   <xs:complexType name="EliminarServicioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ListarTodos">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:complexType name="ListarTodosResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:servicioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="InsertarServicioPorPartes">

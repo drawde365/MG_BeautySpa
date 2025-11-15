@@ -2,6 +2,7 @@ package pe.edu.pucp.softpub;
 
 import org.junit.jupiter.api.*;
 import pe.edu.pucp.softinv.dao.EmpleadoDAO;
+import pe.edu.pucp.softinv.dao.HorarioTrabajoDAO;
 import pe.edu.pucp.softinv.daoImp.EmpleadoDAOImpl;
 import pe.edu.pucp.softinv.daoImp.HorarioTrabajoDAOImpl;
 import pe.edu.pucp.softinv.model.Disponibilidad.HorarioTrabajoDTO;
@@ -17,16 +18,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HorarioTrabajoDAOImplTest {
 
     private EmpleadoDAO empleadoDAO;
-    private HorarioTrabajoDAOImpl horarioTrabajoDAO;
-    private HorarioTrabajoDTO horarioTrabajo;
+    private HorarioTrabajoDAO horarioTrabajoDAO;
+    private ArrayList<HorarioTrabajoDTO> horariosInsertados;
+    private EmpleadoDTO empleadoGlobal;
 
     public HorarioTrabajoDAOImplTest() {
         empleadoDAO = new EmpleadoDAOImpl();
         horarioTrabajoDAO = new HorarioTrabajoDAOImpl();
-        horarioTrabajo = null;
+        horariosInsertados = new ArrayList<>();
+        empleadoGlobal = null;
     }
 
     private EmpleadoDTO creaEmpleado() {
+        if (empleadoGlobal != null) {
+            return empleadoGlobal;
+        }
         EmpleadoDTO emp = new EmpleadoDTO();
         emp.setPrimerapellido("PEREZ");
         emp.setSegundoapellido("LOPEZ");
@@ -41,77 +47,108 @@ public class HorarioTrabajoDAOImplTest {
         emp.setIdUsuario(empleadoDAO.insertar(emp));
 
         assertTrue(emp.getIdUsuario() > 0, "El empleado no se insertó correctamente");
+        empleadoGlobal = emp;
         return emp;
     }
 
-    public HorarioTrabajoDTO insertar() {
+    public void insertarMultiplesHorarios() {
         EmpleadoDTO empleado = creaEmpleado();
 
-        HorarioTrabajoDTO horario = new HorarioTrabajoDTO();
-        horario.setEmpleado(empleado);
-        horario.setDiaSemana(2); // Lunes = 1, Martes = 2
-        horario.setHoraInicio("08:00:00");
-        horario.setHoraFin("17:00:00");
+        HorarioTrabajoDTO horario1 = new HorarioTrabajoDTO();
+        horario1.setEmpleado(empleado);
+        horario1.setDiaSemana(2); 
+        horario1.setHoraInicio(Time.valueOf("08:00:00"));
+        horario1.setHoraFin(Time.valueOf("12:00:00"));
+        int id1 = horarioTrabajoDAO.insertar(horario1);
+        horario1.setId(id1);
+        horariosInsertados.add(horario1);
 
-        horarioTrabajoDAO.insertar(horario);
-        this.horarioTrabajo = horario;
-        return horario;
+        HorarioTrabajoDTO horario2 = new HorarioTrabajoDTO();
+        horario2.setEmpleado(empleado);
+        horario2.setDiaSemana(2); 
+        horario2.setHoraInicio(Time.valueOf("14:00:00"));
+        horario2.setHoraFin(Time.valueOf("18:00:00"));
+        int id2 = horarioTrabajoDAO.insertar(horario2);
+        horario2.setId(id2);
+        horariosInsertados.add(horario2);
     }
 
     public void eliminar() {
-        EmpleadoDTO emp = this.horarioTrabajo.getEmpleado();
-        Integer resultado = horarioTrabajoDAO.eliminar(this.horarioTrabajo);
-        empleadoDAO.eliminar(emp.getIdUsuario());
-
-        assertNotNull(resultado, "El resultado no debe ser nulo");
-        assertTrue(resultado >= 0, "Debe indicar éxito");
+        for (HorarioTrabajoDTO horario : horariosInsertados) {
+            Integer resultado = horarioTrabajoDAO.eliminar(horario);
+            assertNotNull(resultado, "El resultado no debe ser nulo");
+            assertTrue(resultado >= 0, "Debe indicar éxito");
+        }
+        horariosInsertados.clear();
+        
+        if (empleadoGlobal != null) {
+            empleadoDAO.eliminar(empleadoGlobal.getIdUsuario());
+            empleadoGlobal = null;
+        }
     }
 
     @Test
-    @Order(1)
     @DisplayName("Insertar un horario de trabajo")
     void testInsertarHorarioTrabajo() {
-        HorarioTrabajoDTO horario = insertar();
+        insertarMultiplesHorarios();
         eliminar();
     }
 
     @Test
-    @Order(2)
-    @DisplayName("Obtener un horario de trabajo por ID")
-    void testObtenerPorId() {
-        HorarioTrabajoDTO horario = insertar();
+    @DisplayName("Obtener horarios por Empleado y Día")
+    void testObtenerPorEmpleadoYFecha() {
+        insertarMultiplesHorarios();
+        
+        HorarioTrabajoDTO primerHorario = horariosInsertados.get(0);
 
-        HorarioTrabajoDTO obtenido = horarioTrabajoDAO.obtenerPorId(
-                horario.getEmpleado().getIdUsuario(),
-                horario.getDiaSemana()
+        ArrayList<HorarioTrabajoDTO> obtenidos = horarioTrabajoDAO.obtenerPorEmpleadoYFecha(
+                primerHorario.getEmpleado().getIdUsuario(),
+                primerHorario.getDiaSemana()
         );
 
-        assertNotNull(obtenido, "Debe retornar un objeto horario");
-        assertEquals(horario.getEmpleado().getIdUsuario(), obtenido.getEmpleado().getIdUsuario());
-        assertEquals(horario.getDiaSemana(), obtenido.getDiaSemana());
+        assertNotNull(obtenidos, "La lista no debe ser nula");
+        assertEquals(2, obtenidos.size(), "Debe retornar 2 horarios para el Martes");
+        assertEquals(primerHorario.getEmpleado().getIdUsuario(), obtenidos.get(0).getEmpleado().getIdUsuario());
+        assertEquals(primerHorario.getDiaSemana(), obtenidos.get(0).getDiaSemana());
 
         eliminar();
     }
 
     @Test
-    @Order(3)
     @DisplayName("Modificar un horario de trabajo")
     void testModificarHorarioTrabajo() {
-        HorarioTrabajoDTO horario = insertar();
-        horario.setHoraInicio("09:00:00");
-        horario.setHoraFin("18:00:00");
+        insertarMultiplesHorarios();
+        
+        HorarioTrabajoDTO horarioAModificar = horariosInsertados.get(0);
+        
+        Time nuevaHoraInicio = Time.valueOf("09:00:00");
+        Time nuevaHoraFin = Time.valueOf("13:00:00");
+        
+        horarioAModificar.setHoraInicio(nuevaHoraInicio);
+        horarioAModificar.setHoraFin(nuevaHoraFin);
 
-        Integer resultado = horarioTrabajoDAO.modificar(horario);
+        Integer resultado = horarioTrabajoDAO.modificar(horarioAModificar);
         assertNotNull(resultado, "El resultado no debe ser nulo");
         assertTrue(resultado >= 0, "Debe indicar éxito");
 
-        HorarioTrabajoDTO actualizado = horarioTrabajoDAO.obtenerPorId(horario.getEmpleado().getIdUsuario(),
-                horario.getDiaSemana()
-        );
+        HorarioTrabajoDTO actualizado = horarioTrabajoDAO.obtenerPorId(horarioAModificar.getId());
 
-        assertEquals(Time.valueOf("09:00:00"), actualizado.getHoraInicio());
-        assertEquals(Time.valueOf("18:00:00"), actualizado.getHoraFin());
+        assertEquals(nuevaHoraInicio, actualizado.getHoraInicio());
+        assertEquals(nuevaHoraFin, actualizado.getHoraFin());
 
+        eliminar();
+    }
+
+    @Test
+    @DisplayName("Listar todos los horarios de un empleado")
+    void testListarPorEmpleado() {
+        insertarMultiplesHorarios();
+        
+        ArrayList<HorarioTrabajoDTO> lista = horarioTrabajoDAO.listarPorEmpleado(empleadoGlobal.getIdUsuario());
+        
+        assertNotNull(lista, "La lista no debe ser nula");
+        assertEquals(2, lista.size(), "Debe devolver los 2 horarios insertados");
+        
         eliminar();
     }
 }

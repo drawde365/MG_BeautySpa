@@ -101,7 +101,7 @@ public abstract class DBManager {
         config.setMaxLifetime(1800000);
         
          // Optimizaciones
-        config.setAutoCommit(true);
+        config.setAutoCommit(false);
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

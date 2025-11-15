@@ -16,18 +16,14 @@ namespace SoftInvBusiness.SoftInvWSCliente {
     public interface Cliente {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteRespon" +
-            "se")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse modificarDatosCliente(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request);
+        SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse eliminarCuenta(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteRespon" +
-            "se")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse> modificarDatosClienteAsync(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteResponse")]
@@ -40,14 +36,18 @@ namespace SoftInvBusiness.SoftInvWSCliente {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.crearClienteResponse> crearClienteAsync(SoftInvBusiness.SoftInvWSCliente.crearClienteRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteRespon" +
+            "se")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse eliminarCuenta(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request);
+        SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse modificarDatosCliente(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteRespon" +
+            "se")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse> modificarDatosClienteAsync(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request);
     }
     
     /// <remarks/>
@@ -263,35 +263,35 @@ namespace SoftInvBusiness.SoftInvWSCliente {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="modificarDatosCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class modificarDatosClienteRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminarCuenta", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class eliminarCuentaRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente;
+        public SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0;
         
-        public modificarDatosClienteRequest() {
+        public eliminarCuentaRequest() {
         }
         
-        public modificarDatosClienteRequest(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
-            this.Cliente = Cliente;
+        public eliminarCuentaRequest(SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0) {
+            this.arg0 = arg0;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="modificarDatosClienteResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class modificarDatosClienteResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminarCuentaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class eliminarCuentaResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public modificarDatosClienteResponse() {
+        public eliminarCuentaResponse() {
         }
         
-        public modificarDatosClienteResponse(int @return) {
+        public eliminarCuentaResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -335,35 +335,35 @@ namespace SoftInvBusiness.SoftInvWSCliente {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminarCuenta", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class eliminarCuentaRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="modificarDatosCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class modificarDatosClienteRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0;
+        public SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente;
         
-        public eliminarCuentaRequest() {
+        public modificarDatosClienteRequest() {
         }
         
-        public eliminarCuentaRequest(SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0) {
-            this.arg0 = arg0;
+        public modificarDatosClienteRequest(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
+            this.Cliente = Cliente;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminarCuentaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class eliminarCuentaResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="modificarDatosClienteResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class modificarDatosClienteResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public eliminarCuentaResponse() {
+        public modificarDatosClienteResponse() {
         }
         
-        public eliminarCuentaResponse(int @return) {
+        public modificarDatosClienteResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -396,26 +396,26 @@ namespace SoftInvBusiness.SoftInvWSCliente {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse SoftInvBusiness.SoftInvWSCliente.Cliente.modificarDatosCliente(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request) {
-            return base.Channel.modificarDatosCliente(request);
+        SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse SoftInvBusiness.SoftInvWSCliente.Cliente.eliminarCuenta(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request) {
+            return base.Channel.eliminarCuenta(request);
         }
         
-        public int modificarDatosCliente(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
-            SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest();
-            inValue.Cliente = Cliente;
-            SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse retVal = ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).modificarDatosCliente(inValue);
+        public int eliminarCuenta(SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0) {
+            SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest inValue = new SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest();
+            inValue.arg0 = arg0;
+            SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse retVal = ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).eliminarCuenta(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse> SoftInvBusiness.SoftInvWSCliente.Cliente.modificarDatosClienteAsync(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request) {
-            return base.Channel.modificarDatosClienteAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> SoftInvBusiness.SoftInvWSCliente.Cliente.eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request) {
+            return base.Channel.eliminarCuentaAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse> modificarDatosClienteAsync(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
-            SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest();
-            inValue.Cliente = Cliente;
-            return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).modificarDatosClienteAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0) {
+            SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest inValue = new SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest();
+            inValue.arg0 = arg0;
+            return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).eliminarCuentaAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -442,26 +442,26 @@ namespace SoftInvBusiness.SoftInvWSCliente {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse SoftInvBusiness.SoftInvWSCliente.Cliente.eliminarCuenta(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request) {
-            return base.Channel.eliminarCuenta(request);
+        SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse SoftInvBusiness.SoftInvWSCliente.Cliente.modificarDatosCliente(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request) {
+            return base.Channel.modificarDatosCliente(request);
         }
         
-        public int eliminarCuenta(SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0) {
-            SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest inValue = new SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest();
-            inValue.arg0 = arg0;
-            SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse retVal = ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).eliminarCuenta(inValue);
+        public int modificarDatosCliente(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
+            SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest();
+            inValue.Cliente = Cliente;
+            SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse retVal = ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).modificarDatosCliente(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> SoftInvBusiness.SoftInvWSCliente.Cliente.eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest request) {
-            return base.Channel.eliminarCuentaAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse> SoftInvBusiness.SoftInvWSCliente.Cliente.modificarDatosClienteAsync(SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest request) {
+            return base.Channel.modificarDatosClienteAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.eliminarCuentaResponse> eliminarCuentaAsync(SoftInvBusiness.SoftInvWSCliente.clienteDTO arg0) {
-            SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest inValue = new SoftInvBusiness.SoftInvWSCliente.eliminarCuentaRequest();
-            inValue.arg0 = arg0;
-            return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).eliminarCuentaAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteResponse> modificarDatosClienteAsync(SoftInvBusiness.SoftInvWSCliente.clienteDTO Cliente) {
+            SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest inValue = new SoftInvBusiness.SoftInvWSCliente.modificarDatosClienteRequest();
+            inValue.Cliente = Cliente;
+            return ((SoftInvBusiness.SoftInvWSCliente.Cliente)(this)).modificarDatosClienteAsync(inValue);
         }
     }
 }
