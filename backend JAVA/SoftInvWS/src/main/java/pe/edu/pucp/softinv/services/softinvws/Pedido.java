@@ -8,10 +8,6 @@ import pe.edu.pucp.softinv.business.BO.Impl.PedidoBO;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
 import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 
-/**
- *
- * @author softinv
- */
 @WebService(serviceName = "Pedido")
 public class Pedido {
 
@@ -67,8 +63,8 @@ public class Pedido {
     public DetallePedidoDTO obtenerDetallePedido(
             @WebParam(name = "idPedido") Integer idPedido,
             @WebParam(name = "idProducto") Integer idProducto,
-            @WebParam(name = "tipoProducto") String tipoProducto) {
-        return pedidoBO.obtenerDetalle(idPedido, idProducto, tipoProducto);
+            @WebParam(name = "tipoId") Integer tipoId) {
+        return pedidoBO.obtenerDetalle(idPedido, idProducto, tipoId);
     }
 
     @WebMethod(operationName = "ModificarDetallePedido")

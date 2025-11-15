@@ -7,6 +7,7 @@ import pe.edu.pucp.softinv.daoImp.ProductoDAOimpl;
 import pe.edu.pucp.softinv.daoImp.ProductoTipoDAOImpl;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
+import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,10 @@ public class ProductoTipoDAOImplTest {
 
         productoTipo = new ProductoTipoDTO();
         productoTipo.setProducto(producto);
-        productoTipo.setTipo("Grasa");
+        
+        TipoProdDTO tipoGrasa = new TipoProdDTO(2, "Grasa");
+        productoTipo.setTipo(tipoGrasa);
+        
         productoTipo.setStock_fisico(50);
         productoTipo.setStock_despacho(20);
         productoTipo.setIngredientes("Extracto de menta, sulfato, agua");
@@ -58,7 +62,10 @@ public class ProductoTipoDAOImplTest {
 
         this.productoTipo = new ProductoTipoDTO();
         this.productoTipo.setProducto(this.producto);
-        this.productoTipo.setTipo("Seca");
+        
+        TipoProdDTO tipoSeca = new TipoProdDTO(3, "Seca");
+        this.productoTipo.setTipo(tipoSeca);
+        
         this.productoTipo.setStock_fisico(70);
         this.productoTipo.setStock_despacho(45);
         this.productoTipo.setIngredientes("Extracto de vainilla, sulfato, agua");
@@ -90,12 +97,12 @@ public class ProductoTipoDAOImplTest {
         insertar();
         ProductoTipoDTO obtenido = productoTipoDAO.obtener(
                 productoTipo.getProducto().getIdProducto(),
-                productoTipo.getTipo()
+                productoTipo.getTipo().getId()
         );
 
         assertNotNull(obtenido, "Debe retornar un objeto ProductoTipoDTO.");
         assertEquals(productoTipo.getProducto().getIdProducto(), obtenido.getProducto().getIdProducto());
-        assertEquals(productoTipo.getTipo(), obtenido.getTipo());
+        assertEquals(productoTipo.getTipo().getId(), obtenido.getTipo().getId());
         eliminar();
     }
 
@@ -115,7 +122,7 @@ public class ProductoTipoDAOImplTest {
 
         ProductoTipoDTO actualizado = productoTipoDAO.obtener(
                 productoTipo.getProducto().getIdProducto(),
-                productoTipo.getTipo()
+                productoTipo.getTipo().getId()
         );
 
         assertEquals(80, actualizado.getStock_fisico());
@@ -134,6 +141,7 @@ public class ProductoTipoDAOImplTest {
         ArrayList<ProductoTipoDTO> lista = productoTipoDAO.obtenerProductoId(productoTipo.getProducto().getIdProducto());
         assertNotNull(lista, "La lista no debe ser nula.");
         assertFalse(lista.isEmpty(), "Debe contener al menos un tipo.");
+        assertEquals(2, lista.size());
         assertEquals(productoTipo.getProducto().getIdProducto(), lista.get(0).getProducto().getIdProducto());
 
         eliminar();

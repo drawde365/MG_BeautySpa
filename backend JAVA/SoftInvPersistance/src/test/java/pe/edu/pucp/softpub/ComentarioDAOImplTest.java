@@ -10,6 +10,7 @@ import pe.edu.pucp.softinv.model.Comentario.ComentarioDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
+import pe.edu.pucp.softinv.model.Producto.TipoProdDTO; // <-- IMPORTANTE
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.util.ArrayList;
@@ -66,25 +67,43 @@ class ComentarioDAOImplTest {
         producto.setActivo(1);
         producto.setTamanho(2.5);
 
+        // ----- INICIO DE LA CORRECCIÓN -----
+        
+        // 1. Crear los objetos TipoProdDTO (basado en los IDs de tu script)
+        TipoProdDTO tipoGrasa = new TipoProdDTO();
+        tipoGrasa.setId(2); // Asumiendo ID 2 = Grasa
+        tipoGrasa.setNombre("Grasa");
+
+        // "Suave" no existe, usamos "Sensible" (ID 5) como ejemplo
+        TipoProdDTO tipoSensible = new TipoProdDTO();
+        tipoSensible.setId(5); // Asumiendo ID 5 = Sensible
+        tipoSensible.setNombre("Sensible");
+
+        // 2. Crear ProductoTipoDTO usando los objetos TipoProdDTO
         ProductoTipoDTO productoTipo = new ProductoTipoDTO();
-        productoTipo.setTipo("Grasa");
+        productoTipo.setTipo(tipoGrasa); // <-- CORREGIDO
         productoTipo.setStock_despacho(12);
         productoTipo.setStock_fisico(120481038);
         productoTipo.setIngredientes("Hola mundo");
         productoTipo.setActivo(1);
+        
         ProductoTipoDTO productoTipo2 = new ProductoTipoDTO();
-        productoTipo2.setTipo("Suave");
+        productoTipo2.setTipo(tipoSensible); // <-- CORREGIDO
         productoTipo2.setStock_despacho(10);
         productoTipo2.setStock_fisico(3543);
         productoTipo2.setIngredientes("Adios mundo");
         productoTipo2.setActivo(1);
+        
+        // ----- FIN DE LA CORRECCIÓN -----
+
         ArrayList<ProductoTipoDTO> productos = new ArrayList<>();
         productos.add(productoTipo);
         productos.add(productoTipo2);
-        producto.setProductosTipos(productos);
+        producto.setProductosTipos(productos); // Asumiendo que tu DTO acepta ArrayList
+        
         Integer result = productoDAO.insertar(producto);
         producto.setIdProducto(result);
-        this.idProd=result;
+        this.idProd = result;
         assertNotEquals(0, result, "El producto debería insertarse correctamente");
         return producto;
     }
@@ -103,7 +122,6 @@ class ComentarioDAOImplTest {
     }
 
     public void insertarComentarios(ArrayList<Integer> listaComentarios) {
-        //Producto
         ComentarioDTO comentarioProducto = new ComentarioDTO();
         ProductoDTO producto = definirProducto();
         comentarioProducto.setComentario("El producto estaba muy bueno");
@@ -126,12 +144,12 @@ class ComentarioDAOImplTest {
         comen2.setValoracion(2);
         comen2.setCliente(cliente);
         comen2.setProducto(producto);
-        int idComen2 = comentarioDAO.insertar(comentarioProducto);
+        // ERROR LÓGICO: Estabas insertando el primer comentario de nuevo.
+        int idComen2 = comentarioDAO.insertar(comen2); // <-- CORREGIDO
         comen2.setIdComentario(idComen2);
         listaComentarios.add(idComen2);
         comentarios.add(comen2);
 
-        //Servicio
         ComentarioDTO comentarioServicio = new ComentarioDTO();
         comentarioServicio.setComentario("El servicio fue malisimo");
         comentarioServicio.setValoracion(2);
@@ -149,7 +167,7 @@ class ComentarioDAOImplTest {
     }
 
     private void eliminarTodos() {
-        int id_Cliente=0;
+        int id_Cliente = 0;
         for (ComentarioDTO comentario : comentarios) {
             Integer resul = comentarioDAO.eliminar(comentario);
             id_Cliente = comentario.getCliente().getIdUsuario();
@@ -173,7 +191,7 @@ class ComentarioDAOImplTest {
         ComentarioDTO com = comentarioDAO.obtenerPorId(listaComentariosId.get(0));
         com.setComentario("RETRACTO MI COMENTARIOOOO!!! YOLOO");
         int res = comentarioDAO.modificar(com);
-        assertTrue(res!=0);
+        assertTrue(res != 0);
         eliminarTodos();
     }
 

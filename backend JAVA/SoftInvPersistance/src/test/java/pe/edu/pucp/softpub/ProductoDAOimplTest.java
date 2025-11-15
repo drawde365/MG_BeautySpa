@@ -5,6 +5,7 @@ import pe.edu.pucp.softinv.dao.ProductoDAO;
 import pe.edu.pucp.softinv.daoImp.ProductoDAOimpl;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
+import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("integration")
 public class ProductoDAOimplTest {
     private ProductoDAO productoDAO;
-    private ArrayList<ProductoTipoDTO>lista; 
+    private ArrayList<ProductoTipoDTO>lista;
     public ProductoDAOimplTest() {
         productoDAO = new ProductoDAOimpl();
         lista = new ArrayList<ProductoTipoDTO>();
@@ -31,22 +32,33 @@ public class ProductoDAOimplTest {
         producto.setActivo(1);
         producto.setTamanho(2.5);
 
+        TipoProdDTO tipoGrasa = new TipoProdDTO();
+        tipoGrasa.setId(2);
+        tipoGrasa.setNombre("Grasa");
+
+        TipoProdDTO tipoSensible = new TipoProdDTO();
+        tipoSensible.setId(5); 
+        tipoSensible.setNombre("Sensible");
+
         ProductoTipoDTO productoTipo = new ProductoTipoDTO();
-        productoTipo.setTipo("Grasa");
+        productoTipo.setTipo(tipoGrasa);
         productoTipo.setStock_despacho(12);
         productoTipo.setStock_fisico(120481038);
         productoTipo.setIngredientes("Hola mundo");
         productoTipo.setActivo(1);
+        
         ProductoTipoDTO productoTipo2 = new ProductoTipoDTO();
-        productoTipo2.setTipo("Suave");
+        productoTipo2.setTipo(tipoSensible);
         productoTipo2.setStock_despacho(10);
         productoTipo2.setStock_fisico(3543);
         productoTipo2.setIngredientes("Adios mundo");
         productoTipo2.setActivo(1);
+        
         ArrayList<ProductoTipoDTO> productos = new ArrayList<>();
         productos.add(productoTipo);
         productos.add(productoTipo2);
         producto.setProductosTipos(productos);
+        
         Integer result = productoDAO.insertar(producto);
         producto.setIdProducto(result);
         assertNotEquals(0, result, "El producto debería insertarse correctamente");
@@ -73,7 +85,7 @@ public class ProductoDAOimplTest {
         producto.setNombre("Crema2");
         producto.setDescripcion("Crema que funciona como bloqueador");
         int result = productoDAO.modificar(producto);
-        assertEquals(1, result, "El producto debería fallar?");
+        assertEquals(1, result, "El producto debería modificarse correctamente");
         productoDAO.eliminar(producto);
     }
 

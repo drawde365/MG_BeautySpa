@@ -46,12 +46,16 @@ public class PedidoBO {
         pedidoDAO.modificar(pedido);
         return detallePedidoDAO.insertar(detallePedido);
     }
-    public DetallePedidoDTO obtenerDetalle(Integer idPedido, Integer idProducto, String tipoProducto) {
-        return detallePedidoDAO.obtener(idPedido, idProducto, tipoProducto);
+
+    public DetallePedidoDTO obtenerDetalle(Integer idPedido, Integer idProducto, Integer tipoId) {
+        return detallePedidoDAO.obtener(idPedido, idProducto, tipoId);
     }
+    
     public Integer modificarDetalle(DetallePedidoDTO detallePedido) {
         DetallePedidoDTO detallle = detallePedidoDAO.obtener(detallePedido.getPedido().getIdPedido(),
-                detallePedido.getProducto().getProducto().getIdProducto(), detallePedido.getProducto().getTipo());
+                detallePedido.getProducto().getProducto().getIdProducto(), 
+                detallePedido.getProducto().getTipo().getId());
+                
         if(!detallle.getSubtotal().equals(detallePedido.getSubtotal())) {
             PedidoDTO pedido = pedidoDAO.obtenerPorId(detallePedido.getPedido().getIdPedido());
             double nuevoTotal = pedido.getTotal() - detallle.getSubtotal() + detallePedido.getSubtotal();

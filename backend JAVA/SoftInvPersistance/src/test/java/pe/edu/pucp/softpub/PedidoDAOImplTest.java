@@ -15,6 +15,7 @@ import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
+import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -51,22 +52,33 @@ public class PedidoDAOImplTest {
         producto.setActivo(1);
         producto.setTamanho(2.5);
 
+        TipoProdDTO tipoGrasa = new TipoProdDTO();
+        tipoGrasa.setId(2); 
+        tipoGrasa.setNombre("Grasa");
+
+        TipoProdDTO tipoSensible = new TipoProdDTO();
+        tipoSensible.setId(5); 
+        tipoSensible.setNombre("Sensible");
+
         ProductoTipoDTO productoTipo = new ProductoTipoDTO();
-        productoTipo.setTipo("Grasa");
+        productoTipo.setTipo(tipoGrasa);
         productoTipo.setStock_despacho(12);
         productoTipo.setStock_fisico(120481038);
         productoTipo.setIngredientes("Hola mundo");
         productoTipo.setActivo(1);
+        
         ProductoTipoDTO productoTipo2 = new ProductoTipoDTO();
-        productoTipo2.setTipo("Suave");
+        productoTipo2.setTipo(tipoSensible);
         productoTipo2.setStock_despacho(10);
         productoTipo2.setStock_fisico(3543);
         productoTipo2.setIngredientes("Adios mundo");
         productoTipo2.setActivo(1);
+        
         productos = new ArrayList<>();
         productos.add(productoTipo);
         productos.add(productoTipo2);
         producto.setProductosTipos(productos);
+        
         idProducto = productoDAO.insertar(producto);
         producto.setIdProducto(idProducto);
         assertNotEquals(0, idProducto, "El producto debería insertarse correctamente");
@@ -143,7 +155,7 @@ public class PedidoDAOImplTest {
             ,pedido.getCliente().getNombre(),pedido.getFechaPago());
             for(DetallePedidoDTO detalle : pedido.getDetallesPedido()){
                 System.out.printf("Detalle: %d  %.2f  %s   %s\n",detalle.getCantidad(),detalle.getSubtotal(),
-                        detalle.getProducto().getProducto().getNombre(),detalle.getProducto().getTipo());
+                        detalle.getProducto().getProducto().getNombre(),detalle.getProducto().getTipo().getNombre());
             }
         }
     }

@@ -10,6 +10,7 @@ import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
+import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -81,7 +82,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     private EstadoPedido DefinirEstado(String estado){
-        // EnCarrito,ELIMINADO,CONFIRMADO,LISTO_PARA_RECOGER, RECOGIDO, NO_RECOGIDO
         if (estado.equals(EstadoPedido.ELIMINADO.name()))
             return EstadoPedido.ELIMINADO;
         else if (estado.equals(EstadoPedido.CONFIRMADO.name()))
@@ -122,7 +122,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     private PedidoDTO instanciarPedidoDelResultSet(Integer idPed) throws SQLException {
-        //Datos del pedido
         PedidoDTO pedido = new  PedidoDTO();
         pedido.setIdPedido(idPed);
         pedido.setTotal(this.resultSet.getDouble("TOTAL"));
@@ -134,9 +133,9 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         pedido.setFechaRecojo(this.resultSet.getDate("FECHA_RECOJO"));
         pedido.setIGV(this.resultSet.getDouble("IGV"));
         pedido.setCodigoTransaccion(this.resultSet.getString("CODTR"));
-        ArrayList<DetallePedidoDTO> detales = new ArrayList<>(); //Se inicializa para agrear detalles
+        ArrayList<DetallePedidoDTO> detales = new ArrayList<>();
         pedido.setDetallesPedido(detales);
-        //Datos del cliente que hizo el pedido
+        
         ClienteDTO cliente = new ClienteDTO();
         cliente.setIdUsuario(this.resultSet.getInt("CLIENTE_ID"));
         cliente.setNombre(this.resultSet.getString("Cliente_Nombre"));
@@ -149,21 +148,25 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     private DetallePedidoDTO instanciarDetallePedidoDelResultSet() throws SQLException {
-        //Informacion de los detalles
         DetallePedidoDTO detalle = new  DetallePedidoDTO();
         detalle.setPedido(this.pedido);
         detalle.setCantidad(this.resultSet.getInt("CANTIDAD"));
         detalle.setSubtotal(this.resultSet.getDouble("SUBTOTAL"));
-        //Informacion del producto por el tipo (Corporal, Facial grasa, Facial seca, etc)
+
+        TipoProdDTO tipoProd = new TipoProdDTO();
+        tipoProd.setId(this.resultSet.getInt("TIPO_ID"));
+        tipoProd.setNombre(this.resultSet.getString("TIPO_NOMBRE"));
+
         ProductoTipoDTO productoT = new ProductoTipoDTO();
-        productoT.setTipo(this.resultSet.getString("TIPO_PRODUCTO"));
-        //Informacion del producto
+        productoT.setTipo(tipoProd);
+
         ProductoDTO producto = new  ProductoDTO();
         producto.setIdProducto(this.resultSet.getInt("PRODUCTO_ID"));
         producto.setNombre(this.resultSet.getString("Producto_Nombre"));
         producto.setUrlImagen(this.resultSet.getString("Producto_Imagen"));
         producto.setPrecio(this.resultSet.getDouble("Producto_Precio"));
         productoT.setProducto(producto);
+        
         detalle.setProducto(productoT);
         return detalle;
     }
@@ -190,7 +193,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     @Override
     public PedidoDTO obtenerPorId(Integer idPedido) {
         this.pedido = new PedidoDTO();
-        this.pedido.setIdPedido(-1); //Lo inicializamos en -1 para que se pueda crear el primer pedido, se comparan los ids
+        this.pedido.setIdPedido(-1); 
         String sql = this.ObtenerQueryPorId();
         ArrayList<PedidoDTO> pedido = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idPedido);
         this.pedido=pedido.isEmpty() ? null : pedido.get(0);
@@ -268,7 +271,8 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         p.CODTR,
 
         dp.PRODUCTO_ID,
-        dp.TIPO_PRODUCTO,
+        dp.TIPO_ID,
+        tp.NOMBRE AS TIPO_NOMBRE,
         pr.NOMBRE AS Producto_Nombre,
         pr.URL_IMAGEN AS Producto_Imagen,
         pr.PRECIO AS Producto_Precio,     
@@ -279,6 +283,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         INNER JOIN USUARIOS cli ON p.CLIENTE_ID = cli.USUARIO_ID
         INNER JOIN DETALLES_PEDIDOS dp ON p.PEDIDO_ID = dp.PEDIDO_ID
         INNER JOIN PRODUCTOS pr ON dp.PRODUCTO_ID = pr.PRODUCTO_ID
+        INNER JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID
         """;
         return sql;
     }

@@ -5,7 +5,7 @@ public class ProductoTipoDTO {
     private Integer stock_fisico;
     private Integer stock_despacho;
     private String Ingredientes;
-    private String tipo;
+    private TipoProdDTO tipo; // <-- CAMBIO 1: De String a TipoProdDTO
     private Integer activo;
 
     public Integer getActivo() {
@@ -22,9 +22,11 @@ public class ProductoTipoDTO {
         stock_despacho = null;
         Ingredientes = null;
         tipo = null;
+        activo = null; // Añadido para consistencia
     }
 
-    public ProductoTipoDTO(ProductoDTO producto, String tipo, Integer stock_fisico, Integer stock_despacho, String ingredientes, Integer activo) {
+    // --- CAMBIO 2: Constructor actualizado ---
+    public ProductoTipoDTO(ProductoDTO producto, TipoProdDTO tipo, Integer stock_fisico, Integer stock_despacho, String ingredientes, Integer activo) {
         this.producto = producto;
         this.tipo = tipo;
         this.stock_fisico = stock_fisico;
@@ -41,11 +43,12 @@ public class ProductoTipoDTO {
         this.producto = producto;
     }
 
-    public String getTipo() {
+    // --- CAMBIO 3: Getters y Setters actualizados ---
+    public TipoProdDTO getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoProdDTO tipo) {
         this.tipo = tipo;
     }
 
@@ -72,5 +75,4 @@ public class ProductoTipoDTO {
     public void setIngredientes(String ingredientes) {
         Ingredientes = ingredientes;
     }
-
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface ProductoTipoDAO {
     public Integer insertar(ProductoTipoDTO productoTipo);
     public Integer insertar(ProductoTipoDTO productoTipo, boolean dejarConexion, boolean transaccionInicada);
-    public ProductoTipoDTO obtener(Integer id, String tipo);
+    public ProductoTipoDTO obtener(Integer id, Integer tipoId);
     public Integer modificar(ProductoTipoDTO productoTipo);
     public Integer eliminar(ProductoTipoDTO productoTipo);
     public Integer eliminar(ProductoTipoDTO productoTipo, boolean dejarConexion, boolean transaccionInicada);

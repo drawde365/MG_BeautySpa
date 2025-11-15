@@ -23,14 +23,6 @@ public class Productos {
         this.productoBO = new ProductoBO();
     }
     
-    @WebMethod(operationName = "insertarConDatos")
-    public Integer insertarProducto1(@WebParam(name = "nombre")String nombre,@WebParam(name = "descripcion")String descripcion,@WebParam(name = "precio")Double precio,
-                            @WebParam(name = "tamanho")Double tamanho,@WebParam(name = "urlImagen")String urlImagen,
-                            @WebParam(name = "tipos")ArrayList<String> tipos,@WebParam(name = "ingreientes")ArrayList<String> ingredientes, 
-                            @WebParam(name = "stocks")ArrayList<Integer> stock_fisico){
-        return productoBO.insertar(nombre, descripcion, precio, tamanho, urlImagen, tipos, ingredientes, stock_fisico);
-    }
-    
     @WebMethod(operationName = "insertarProducto")
     public Integer insertarProducto2(@WebParam(name = "producto")ProductoDTO producto){
         return productoBO.insertar(producto);
