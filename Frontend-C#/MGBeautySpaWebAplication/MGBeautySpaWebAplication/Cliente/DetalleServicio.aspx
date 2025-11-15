@@ -23,9 +23,6 @@
             <div class="header-text">
                 <%-- DATO DINÁMICO --%>
                 <h1><asp:Literal ID="litNombreServicio" runat="server" /></h1>
-                <%-- DATO DINÁMICO --%>
-                <p><asp:Literal ID="litDescripcionCorta" runat="server" /></p>
-            </div>
         </header>
 
         <section class="product-main-info">
@@ -42,7 +39,7 @@
                 
                 <div class="price-section">
                     <%-- DATO DINÁMICO --%>
-                    <span class="price">S/ <asp:Literal ID="litPrecio" runat="server" /></span>
+                    <span class="price"><asp:Literal ID="litPrecio" runat="server" /></span>
                 </div>
                 
                 <%-- CONTROL DE SERVIDOR --%>
@@ -53,23 +50,6 @@
             </div>
         </section>
 
-        <section class="product-benefits">
-            <h3>Beneficios</h3>
-            
-            <%-- LISTA DINÁMICA (REPEATER) --%>
-            <asp:Repeater ID="rpBeneficios" runat="server">
-                <HeaderTemplate>
-                    <ul>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <li><%# Container.DataItem.ToString() %></li>
-                </ItemTemplate>
-                <FooterTemplate>
-                    </ul>
-                </FooterTemplate>
-            </asp:Repeater>
-            
-        </section>
 
         <section class="product-reviews">
             <h3>Reseñas</h3>

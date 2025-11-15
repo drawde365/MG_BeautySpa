@@ -73,6 +73,7 @@
                                             <h2 class="item-name"><%# Eval("Nombre") %></h2>
                                             <p class="item-variant">Tamaño: <%# Eval("Tamano") %></p>
                                             <p class="item-variant">Tipo de piel: <%# Eval("TipoPiel") %></p>
+                                            <span class="item-unit-price">S/ <%# Eval("PrecioUnitario", "{0:N2}") %></span>
                                         </div>
                                     </div>
 

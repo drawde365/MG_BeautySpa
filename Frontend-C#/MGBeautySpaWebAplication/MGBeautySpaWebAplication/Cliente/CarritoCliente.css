@@ -1,6 +1,6 @@
 ﻿/* =====================================================
    CARRITO DE COMPRAS - MG Beauty Spa
-   DISEÑO v2 - CORREGIDO
+   DISEÑO v2 - AJUSTE DE ANCHOS
    ===================================================== */
 
 /* === VARIABLES === */
@@ -80,10 +80,27 @@ body {
 /* === LAYOUT DE DOS COLUMNAS === */
 .cart-layout-wrapper {
     display: grid;
-    grid-template-columns: 1fr 420px;
+    /* CAMBIO CLAVE: 3fr (75%) para productos y 1fr (25%) para resumen */
+    grid-template-columns: 3fr 1fr;
     gap: 24px;
     padding: 0 16px 24px;
     align-items: start;
+}
+
+@media (max-width: 1200px) {
+    .cart-layout-wrapper {
+        /* Mantiene la relación 3/1 en pantallas medianas */
+        grid-template-columns: 3fr 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .cart-layout-wrapper {
+        /* Colapsa a una sola columna en móvil */
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
 }
 
 /* =====================================================
@@ -100,6 +117,7 @@ body {
     border: 1px solid var(--border-color);
 }
 
+/* --- NUEVO: Cabecera de la tarjeta de productos --- */
 .cart-products-header {
     display: flex;
     justify-content: space-between;
@@ -136,10 +154,11 @@ body {
     accent-color: var(--primary-color);
 }
 
+
 /* --- FILA DE PRODUCTO --- */
 .product-item-card {
     display: grid;
-    /* CORRECCIÓN: 3 Columnas: [Detalle (1fr)] [Cantidad (auto)] [Eliminar (auto)] */
+    /* 3 Columnas: Detalle | Cantidad | Eliminar */
     grid-template-columns: 1fr auto auto;
     align-items: center;
     gap: 20px;
@@ -160,6 +179,7 @@ body {
         background-color: var(--bg-light);
     }
 
+/* Grupo de Imagen + Texto */
 .product-details-group {
     display: flex;
     flex-direction: row;
@@ -206,6 +226,7 @@ body {
     white-space: nowrap;
 }
 
+/* --- CONTROL DE CANTIDAD --- */
 .quantity-control {
     display: flex;
     flex-direction: row;
@@ -281,6 +302,7 @@ body {
         background-color: #ffebee;
         color: #C31E1E;
     }
+
 
 /* =====================================================
    COLUMNA DERECHA: RESUMEN DEL PEDIDO
@@ -420,15 +442,47 @@ body {
    MODAL Y RESPONSIVE
    ===================================================== */
 
-/* (Tu CSS para el modal de pago... no necesita cambios) */
-.payment-interface {
-    ...
-}
-/* (Tu CSS para @media... no necesita cambios) */
 @media (max-width: 991px) {
-    ...
+    .cart-layout-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-summary-section {
+        position: relative;
+        top: 0;
+    }
 }
 
 @media (max-width: 768px) {
-    ...
+    .product-item-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .product-details-group {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .quantity-control {
+        grid-row: 2;
+        grid-column: 1;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .qty-button-remove {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+
+    .cart-checkbox {
+        display: none;
+    }
+
+    .item-price {
+        display: none;
+    }
 }

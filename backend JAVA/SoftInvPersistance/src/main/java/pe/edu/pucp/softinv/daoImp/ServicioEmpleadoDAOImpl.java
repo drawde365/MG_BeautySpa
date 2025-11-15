@@ -12,10 +12,7 @@ import java.util.List;
 public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpleadoDAO {
     ServicioDTO servicio;
     EmpleadoDTO empleado;
-    int EXS; //Esta variable se utilizara para listar los empleados que brindan un servicio o
-    //Los servicios que brinda un empleado, entonces para agregar un nuevo objeto a la lista
-    //EXS=0 cuando listas los servicios que brinda un empleado
-    //EXS=1 cuando listas los empleados que brindan un servicio
+    int EXS; 
 
     public ServicioEmpleadoDAOImpl() {
         super("EMPLEADOS_SERVICIOS");
@@ -82,7 +79,7 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
         empleado.setCelular(resultSet.getString("CELULAR"));
         empleado.setRol(resultSet.getInt("ROL_ID"));
         empleado.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
-        empleado.setUrlFotoPerfil(resultSet.getString("ACTIVO"));
+        empleado.setActivo(resultSet.getInt("ACTIVO")); // <-- CORREGIDO
         lista.add(empleado);
     }
 
@@ -93,14 +90,12 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
         } else {
             agregarEmpleado(lista);
         }
-        this.instanciarObjetoDelResultSet();
-
     }
     @Override
     public ArrayList<ServicioDTO> listarServiciosDeEmpleado(Integer empleadoId) {
         String sql = "SELECT s.SERVICIO_ID, s.NOMBRE, s.TIPO, s.PRECIO, s.DESCRIPCION," +
                 " s.PROM_VALORACIONES, s.URL_IMAGEN, s.DURACION_HORAS, s.ACTIVO" +
-                "FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID" +
+                " FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID" +
                 " JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE u.USUARIO_ID = ?";
         EXS=0;
         return (ArrayList<ServicioDTO>)listarTodos(sql, this::incluirId, empleadoId);
@@ -116,10 +111,8 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
     }
     @Override
     public ArrayList<EmpleadoDTO> listarEmpleadosDeServicio(Integer servicioId){
-        String sql="SELECT u.USUARIO_ID, u.PRIMER_APELLIDO, u.SEGUNDO_APELLIDO, u.NOMBRE, u.CORREO_ELECTRONICO, u.CONTRASENHA," +
-                " u.CELULAR, u.ROL_ID, u.URL_IMAGEN u.ACTIVO FROM USUARIOS AS u " +
-                "JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID " +
-                "JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE s.SERVICIO_ID = ?";
+        String sql="SELECT u.USUARIO_ID, u.PRIMER_APELLIDO, u.SEGUNDO_APELLIDO, u.NOMBRE, u.CORREO_ELECTRONICO, u.CONTRASENHA, u.CELULAR, u.ROL_ID, u.URL_IMAGEN, u.ACTIVO \n" +
+"                    	FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE s.SERVICIO_ID = ?";
         EXS=1;
         return (ArrayList<EmpleadoDTO>)listarTodos(sql, this::incluirId, servicioId);
     }

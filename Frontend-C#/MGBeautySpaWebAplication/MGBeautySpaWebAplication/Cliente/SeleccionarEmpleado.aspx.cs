@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSEmpleado; // Para EmpleadoBO y empleadoDTO
+using SoftInvBusiness.SoftInvWSServicio;  // Para obtener el nombre del servicio
+using System.Web;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
     // --- 1. MODELO DE DATOS ---
-    // (Puedes poner esta clase en un archivo separado, ej: Empleado.cs)
-    public class Empleado
+    public class EmpleadoDisplay
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -16,73 +20,64 @@ namespace MGBeautySpaWebAplication.Cliente
 
     public partial class SeleccionarEmpleado : System.Web.UI.Page
     {
+        private EmpleadoBO empleadoBO;
+        private ServicioBO servicioBO;
+
+        public SeleccionarEmpleado()
+        {
+            empleadoBO = new EmpleadoBO();
+            servicioBO = new ServicioBO();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                // Carga y enlaza los datos solo en la primera carga de la página
-                CargarEmpleados();
+                if (int.TryParse(Request.QueryString["servicioId"], out int servicioId))
+                {
+                    CargarEmpleados(servicioId);
+                }
+                else
+                {
+                    // Manejo de error si no hay ID de servicio
+                    Response.Redirect("~/Cliente/Servicios.aspx");
+                }
             }
         }
 
-        // --- 2. SIMULACIÓN DE DATOS ---
-        private void CargarEmpleados()
+        // --- 2. LÓGICA DINÁMICA ---
+        private void CargarEmpleados(int servicioId)
         {
-            // Esta es tu "base de datos" simulada de empleados.
-            var listaEmpleados = new List<Empleado>
-            {
-                new Empleado
-                {
-                    Id = 1,
-                    Nombre = "Sophia Bennet",
-                    AvatarUrl = "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=140&h=140&fit=crop&q=80"
-                },
-                new Empleado
-                {
-                    Id = 2,
-                    Nombre = "Emma Raducana",
-                    AvatarUrl = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=140&h=140&fit=crop&q=80"
-                },
-                new Empleado
-                {
-                    Id = 3,
-                    Nombre = "Ana Paula Cuadros",
-                    AvatarUrl = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=140&h=140&fit=crop&q=80"
-                },
-                new Empleado
-                {
-                    Id = 4,
-                    Nombre = "Carlos Alcaraz",
-                    AvatarUrl = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=140&h=140&fit=crop&q=80"
-                }
-            };
+            // 1. Obtiene la lista de empleados que ofrecen este servicio desde el BO
+            // (Asumo que tu BO tiene el método ListarEmpleadosDeServicio, que creamos antes)
+            var listaWSDTO = servicioBO.empleadosPorServicio(servicioId).ToList();
 
-            // Enlaza la lista al control Repeater
-            rpEmpleados.DataSource = listaEmpleados;
-            rpEmpleados.DataBind(); // ¡Importante! Dibuja los datos en la página.
+            // 2. Mapeo a la clase local de display (EmpleadoDisplay)
+            var listaEmpleadosDisplay = listaWSDTO.Select(e => new EmpleadoDisplay
+            {
+                Id = e.idUsuario,
+                Nombre = $"{e.nombre} {e.primerapellido}", // Combina Nombre y Apellido
+                AvatarUrl = e.urlFotoPerfil ?? "/Content/Images/user_placeholder.png"
+            }).ToList();
+
+            // 3. Enlaza la lista al control Repeater
+            rpEmpleados.DataSource = listaEmpleadosDisplay;
+            rpEmpleados.DataBind();
         }
 
-        // --- 3. LÓGICA DE SIMULACIÓN (MANEJO DE CLICS) ---
+        // --- 3. LÓGICA DE EVENTOS ---
         protected void rpEmpleados_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            // Verifica que el comando sea el que esperamos ("Select")
             if (e.CommandName == "Select")
             {
-                // Obtiene los datos que pasamos en el CommandArgument
-                string commandArgument = e.CommandArgument.ToString();
-                string[] args = commandArgument.Split('|');
-                
-                string id = args[0];
-                string nombre = args[1];
+                // El CommandArgument debe tener el ID del empleado.
+                string empleadoId = e.CommandArgument.ToString();
 
-                // Simulación: Muestra una alerta JavaScript desde C#
-                // Usamos '\n' para un salto de línea en la alerta.
-                //string script = $"alert('Has seleccionado a {nombre} (ID: {id}).\\nAhora se mostraría su calendario...');";
-                //ScriptManager.RegisterStartupScript(this, GetType(), "EmployeeSelectedAlert", script, true);
+                // Obtenemos el ID del servicio de la URL (lo necesitamos para la cita)
+                string servicioId = Request.QueryString["servicioId"];
 
-                // En una aplicación real, en lugar de la alerta, harías esto:
-                // Response.Redirect($"Calendario.aspx?empleadoId={id}");
-                Response.Redirect($"Calendario.aspx");
+                // Redirige al calendario
+                Response.Redirect($"Calendario.aspx?empleadoId={empleadoId}&servicioId={servicioId}");
             }
         }
     }

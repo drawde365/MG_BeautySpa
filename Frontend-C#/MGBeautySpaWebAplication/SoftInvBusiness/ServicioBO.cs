@@ -47,5 +47,10 @@ namespace SoftInvBusiness
         {
             return servicioSOAP.ListarTodosActivos();
         }
+
+        public IList<empleadoDTO> empleadosPorServicio(int idServicio)
+        {
+            return servicioSOAP.ListarEmpleadosDeServicio(idServicio);
+        }
     }
 }
