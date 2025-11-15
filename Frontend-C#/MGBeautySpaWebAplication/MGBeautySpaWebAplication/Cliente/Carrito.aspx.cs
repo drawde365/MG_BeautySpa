@@ -3,81 +3,99 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web; // Necesario para Session
+using System.Web;
+using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSPedido;
+using SoftInvBusiness.SoftInvWSProductoTipo;
+using SoftInvBusiness.SoftInvWSUsuario;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
-    // DTO para representar un ítem en el carrito
-    public class CartItemDTO
-    {
-        public int ProductId { get; set; }
-        public string Nombre { get; set; }
-        public decimal PrecioUnitario { get; set; }
-        public int Cantidad { get; set; }
-        public string ImagenUrl { get; set; }
-        public string Tamano { get; set; }
-        public string TipoPiel { get; set; }
-    }
-
     public partial class Carrito : Page
     {
-        // Constantes para la lógica de negocio
         private const double TASA_IGV = 0.18;
-        // Declaraciones de controles (Visual Studio las genera, pero las listamos por referencia)
-        // protected System.Web.UI.WebControls.Repeater rpCartItems;
-        // protected System.Web.UI.WebControls.Literal litSubtotal, litEnvio, litImpuestos, litTotal;
+        private PedidoBO pedidoBO;
+
+        public Carrito()
+        {
+            pedidoBO = new PedidoBO();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                List<CartItemDTO> cartItems = GetCurrentCartItems();
-
-                // La carga inicial se hace a través del método auxiliar
-                RebindCartAndSummary(cartItems);
+                CargarCarrito();
             }
         }
 
-        // Obtiene o inicializa el carrito sin agregar productos por defecto (MOCK)
-        private List<CartItemDTO> GetCurrentCartItems()
+        private void CargarCarrito()
         {
-            var cart = Session["Carrito"] as List<CartItemDTO>;
-
-            if (cart == null)
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            if (usuario == null)
             {
-                cart = new List<CartItemDTO>();
-                Session["Carrito"] = cart;
+                Response.Redirect("~/Login.aspx");
+                return;
             }
 
-            return cart;
+            pedidoDTO carrito = Session["Carrito"] as pedidoDTO;
+
+            if (carrito == null)
+            {
+                carrito = pedidoBO.ObtenerCarritoPorCliente(usuario.idUsuario);
+            }
+
+            if (carrito == null)
+            {
+                carrito = new pedidoDTO
+                {
+                    detallesPedido = new detallePedidoDTO[0],
+                    cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO { idUsuario = usuario.idUsuario, idUsuarioSpecified = true },
+                    estadoPedido = estadoPedido.EnCarrito,
+                    estadoPedidoSpecified = true,
+                    total = 0,
+                    totalSpecified = true
+                };
+            }
+
+            Session["Carrito"] = carrito;
+
+            RebindCartAndSummary(carrito);
         }
 
-        // Lógica de cálculo y asignación de valores al resumen
-        private void LoadOrderSummary(List<CartItemDTO> items)
+        private void LoadOrderSummary(pedidoDTO carrito)
         {
-            // CÁLCULO 1: Subtotal
-            decimal total = items.Sum(item => item.PrecioUnitario * item.Cantidad);
+            double total = carrito.total;
+            double subtotal = total / (1 + TASA_IGV);
+            double impuestos = total - subtotal;
 
-            // CÁLCULO 3: Impuestos (Calculado sobre el subtotal base)
-            double impuestos = ((double)total) * 0.18;
-
-            // CÁLCULO 4: Total Final
-            double subtotal = ((double)total)*0.82;
-            // Asignar los valores a los Literales
             litSubtotal.Text = subtotal.ToString("N2");
             litImpuestos.Text = impuestos.ToString("N2");
             litTotal.Text = total.ToString("N2");
         }
 
-        // Método auxiliar para recargar la vista y los totales después de cualquier cambio
-        private void RebindCartAndSummary(List<CartItemDTO> cartItems)
+        private void RebindCartAndSummary(pedidoDTO carrito)
         {
-            // Re-enlazar el Repeater
-            rpCartItems.DataSource = cartItems;
+            if (carrito.detallesPedido == null)
+            {
+                carrito.detallesPedido = new detallePedidoDTO[0];
+            }
+
+            var itemsParaRepeater = carrito.detallesPedido.Select(d => new
+            {
+                ProductId = d.producto.producto.idProducto,
+                Nombre = d.producto.producto.nombre,
+                PrecioUnitario = d.producto.producto.precio,
+                Cantidad = d.cantidad,
+                ImageUrl = ResolveUrl(d.producto.producto.urlImagen),
+                Tamano = d.producto.producto.tamanho.ToString() + "ml",
+                TipoPiel = d.producto.tipo.nombre
+            }).ToList();
+
+            rpCartItems.DataSource = itemsParaRepeater;
             rpCartItems.DataBind();
 
-            // Re-ejecutar la lógica de resumen de pedido
-            LoadOrderSummary(cartItems);
+            LoadOrderSummary(carrito);
 
             Cliente masterPage = this.Master as Cliente;
             if (masterPage != null)
@@ -86,148 +104,197 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
-        // ----------------------------------------------------
-        // MANEJADORES DE EVENTOS
-        // ----------------------------------------------------
+        // ▼▼▼ MÉTODO ELIMINADO ▼▼▼
+        // protected void Quantity_Click(object sender, EventArgs e) { ... }
 
-        // Manejador para los botones + / -
-        protected void Quantity_Click(object sender, EventArgs e)
+
+        // ▼▼▼ NUEVO MÉTODO DE ACTUALIZACIÓN ▼▼▼
+        protected void btnActualizarCarrito_Click(object sender, EventArgs e)
         {
-            LinkButton clickedButton = (LinkButton)sender;
-            string argument = clickedButton.CommandArgument; // Obtiene "123|Sensible"
+            pedidoDTO carrito = Session["Carrito"] as pedidoDTO;
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
-            // 1. Descomponer el CommandArgument en ID y Tipo
-            string[] parts = argument.Split('|');
-            if (parts.Length != 2 || !int.TryParse(parts[0], out int productId))
-                return; // Salir si el argumento es inválido
-
-            string action = clickedButton.CommandName;
-            string tipoPiel = parts[1]; // El valor de la variante
-
-            List<CartItemDTO> cartItems = GetCurrentCartItems();
-
-            // 2. 🌟 Búsqueda con CLAVE COMPUESTA 🌟
-            CartItemDTO itemToUpdate = cartItems.FirstOrDefault(i =>
-                i.ProductId == productId && i.TipoPiel == tipoPiel);
-
-            if (itemToUpdate != null)
+            if (carrito == null || usuario == null)
             {
-                int delta = 0;
+                Response.Redirect("~/Login.aspx");
+                return;
+            }
 
-                if (action == "Increment")
+            var listaDetalles = new List<detallePedidoDTO>(carrito.detallesPedido);
+            int totalItemsChanged = 0;
+
+            foreach (RepeaterItem item in rpCartItems.Items)
+            {
+                if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
                 {
-                    itemToUpdate.Cantidad++;
-                    delta = 1;
-                }
-                else if (action == "Decrement")
-                {
-                    if (itemToUpdate.Cantidad > 1)
+                    var txtCantidad = (TextBox)item.FindControl("txtCantidad");
+                    var hdnItemKey = (HiddenField)item.FindControl("hdnItemKey");
+
+                    if (txtCantidad == null || hdnItemKey == null ||
+                        !int.TryParse(txtCantidad.Text, out int nuevaCantidad))
                     {
-                        itemToUpdate.Cantidad--;
-                        delta = -1;
+                        continue;
+                    }
+
+                    string[] parts = hdnItemKey.Value.Split('|');
+                    int productId = int.Parse(parts[0]);
+                    string tipoPielNombre = parts[1];
+
+                    detallePedidoDTO itemToUpdate = listaDetalles.FirstOrDefault(i =>
+                        i.producto.producto.idProducto == productId &&
+                        i.producto.tipo.nombre == tipoPielNombre);
+
+                    if (itemToUpdate == null) continue;
+
+                    int cantidadOriginal = itemToUpdate.cantidad;
+
+                    if (nuevaCantidad == cantidadOriginal)
+                    {
+                        continue; // No hay cambios
+                    }
+
+                    if (nuevaCantidad == 0)
+                    {
+                        listaDetalles.Remove(itemToUpdate);
+                        pedidoBO.EliminarDetalle(itemToUpdate);
                     }
                     else
                     {
-                        // Eliminar el producto si la cantidad llega a 0
-                        cartItems.Remove(itemToUpdate);
-                        delta = -1;
+                        itemToUpdate.cantidad = nuevaCantidad;
+                        itemToUpdate.subtotal = itemToUpdate.producto.producto.precio * itemToUpdate.cantidad;
+                        pedidoBO.ModificarDetalle(itemToUpdate, carrito.idPedido);
                     }
+                    totalItemsChanged++;
                 }
+            }
 
-                // Actualizar el contador global de ítems
-                UpdateCartCount(delta);
+            // Si se hizo algún cambio, recarga todo desde la BD para tener el total correcto
+            if (totalItemsChanged > 0)
+            {
+                carrito = pedidoBO.ObtenerCarritoPorCliente(usuario.idUsuario);
+                Session["Carrito"] = carrito;
 
-                // Actualizar el carrito en la Sesión
-                Session["Carrito"] = cartItems;
+                // Actualiza el contador global de la cabecera
+                int currentCount = carrito.detallesPedido.Sum(d => d.cantidad);
+                Session["CartCount"] = currentCount;
+            }
 
-                // Recargar la vista y los totales
-                RebindCartAndSummary(cartItems);
-                Cliente masterPage = this.Master as Cliente;
-                masterPage.UpdateCartDisplay();
+            RebindCartAndSummary(carrito);
+        }
+
+        // ▼▼▼ NUEVO MÉTODO PARA ELIMINAR FILA ▼▼▼
+        protected void btnEliminarItem_Click(object sender, EventArgs e)
+        {
+            LinkButton clickedButton = (LinkButton)sender;
+            string argument = clickedButton.CommandArgument;
+            string[] parts = argument.Split('|');
+
+            if (parts.Length != 2 || !int.TryParse(parts[0], out int productId))
+                return;
+
+            string tipoPielNombre = parts[1];
+            pedidoDTO carrito = Session["Carrito"] as pedidoDTO;
+            if (carrito == null || carrito.detallesPedido == null) return;
+
+            var listaDetalles = new List<detallePedidoDTO>(carrito.detallesPedido);
+
+            detallePedidoDTO itemToRemove = listaDetalles.FirstOrDefault(i =>
+                i.producto.producto.idProducto == productId &&
+                i.producto.tipo.nombre == tipoPielNombre);
+
+            if (itemToRemove != null)
+            {
+                listaDetalles.Remove(itemToRemove);
+                pedidoBO.EliminarDetalle(itemToRemove); // Elimina de BD
+
+                UpdateCartCount(-itemToRemove.cantidad); // Actualiza contador de cabecera
+
+                // Recalcula el total y guarda en BD y Sesión
+                carrito.detallesPedido = listaDetalles.ToArray();
+                carrito.total = listaDetalles.Sum(d => d.subtotal);
+                carrito.totalSpecified = true;
+                pedidoBO.Modificar(carrito);
+
+                Session["Carrito"] = carrito;
+                RebindCartAndSummary(carrito);
             }
         }
 
-        // Actualiza el contador global de la cabecera
+
         private void UpdateCartCount(int delta)
         {
             int currentCount = (Session["CartCount"] as int?) ?? 0;
             Session["CartCount"] = Math.Max(0, currentCount + delta);
         }
+
         protected void btnCheckout_Click(object sender, EventArgs e)
         {
-            // 1. (Opcional: Verificar stock/finalizar lógica de carrito)
-            //if (GetCurrentCartItems().Count > 0)
-            // 2. Ejecutar JavaScript para mostrar el modal
+            pedidoDTO carrito = Session["Carrito"] as pedidoDTO;
+            if (carrito == null || carrito.detallesPedido.Length == 0)
+            {
+                return;
+            }
+
             ScriptManager.RegisterStartupScript(
-                this.Page, this.GetType(), 
-                "ShowPaymentModal", 
-                "var myModal = new bootstrap.Modal(document.getElementById('paymentModal')); myModal.show();", 
+                this.Page, this.GetType(),
+                "ShowPaymentModal",
+                "var myModal = new bootstrap.Modal(document.getElementById('paymentModal')); myModal.show();",
                 true
             );
-            // IMPORTANTE: NO uses Response.Redirect aquí, o el modal no se abrirá.
         }
+
         protected void btnProcessPayment_Click(object sender, EventArgs e)
         {
-            // Limpiar mensajes de error previos (asumiendo que litPaymentError existe en el modal)
-            // if (litPaymentError != null) litPaymentError.Text = "";
-
-            // 1. Obtener y validar datos de entrada
             string cardNumber = txtCardNumber.Text.Trim().Replace(" ", "");
             string cvv = txtCVV.Text.Trim();
             string expiry = txtExpiryDate.Text.Trim();
             string name = txtNameOnCard.Text.Trim();
 
-            if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length < 15 || 
+            if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length < 15 ||
                 string.IsNullOrEmpty(cvv) || cvv.Length < 3 ||
                 string.IsNullOrEmpty(expiry) || string.IsNullOrEmpty(name))
             {
-                // Mostrar error si la validación falla
-                // if (litPaymentError != null) litPaymentError.Text = "<span style='color: red;'>Por favor, complete todos los campos de la tarjeta correctamente.</span>";
-                
-                // Reabrir el modal después del PostBack
-                ShowPaymentModal(); 
+                ShowPaymentModal();
                 return;
             }
 
-            // 2. Simulación del procesamiento de pago (Lógica de Negocio/Integración de API)
             bool paymentSuccess = SimulatePaymentIntegration(cardNumber);
 
             if (paymentSuccess)
             {
-                // 3. Si el pago es exitoso:
-                // Limpiar el carrito de la sesión
+                pedidoDTO carrito = Session["Carrito"] as pedidoDTO;
+                if (carrito == null) return;
+
+                carrito.estadoPedido = estadoPedido.CONFIRMADO;
+                carrito.estadoPedidoSpecified = true;
+                carrito.fechaPago = DateTime.Now;
+                carrito.fechaPagoSpecified = true;
+                carrito.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
+
+                pedidoBO.Modificar(carrito);
+
                 Session["Carrito"] = null;
                 Session["CartCount"] = 0;
 
-                // Redirigir a la página de confirmación de pedido
                 Response.Redirect(ResolveUrl("~/Cliente/ConfirmacionPedido.aspx"));
             }
             else
             {
-                // 4. Si el pago falla (simulación de rechazo)
-                // if (litPaymentError != null) litPaymentError.Text = "<span style='color: red;'>El pago fue rechazado. Verifique los datos e intente de nuevo.</span>";
-                
-                // Reabrir el modal con el mensaje de error visible
-                ShowPaymentModal(); 
+                ShowPaymentModal();
             }
         }
 
-        // Método auxiliar para simular la integración de pago (REEMPLAZAR CON TU LÓGICA REAL)
         private bool SimulatePaymentIntegration(string cardNumber)
         {
-            // En un entorno real, aquí se llamaría a una API de pago (Stripe, PayPal, EzPay).
-            // Simulación: Falla si el número termina en 0, es exitoso si termina en 1.
             if (cardNumber.EndsWith("0"))
             {
                 return false;
             }
             return true;
         }
-        
-        // Método auxiliar para mostrar el modal (Se asume que la página no tiene UpdatePanel)
+
         private void ShowPaymentModal()
         {
-            // El script para abrir el modal de Bootstrap
             string script = "var myModal = new bootstrap.Modal(document.getElementById('paymentModal')); myModal.show();";
             ScriptManager.RegisterStartupScript(this, GetType(), "ReopenModal", script, true);
         }

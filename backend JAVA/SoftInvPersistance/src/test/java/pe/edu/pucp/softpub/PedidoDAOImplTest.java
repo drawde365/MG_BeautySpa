@@ -132,6 +132,23 @@ public class PedidoDAOImplTest {
         return pedido;
     }
 
+    private PedidoDTO definirCarrito(ClienteDTO cliente, ProductoDTO productoDTO) {
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setCliente(cliente);
+        ArrayList<ProductoTipoDTO> listaProductos = productoTipoDAO.obtenerProductoId(productoDTO.getIdProducto());
+        assertNotNull(listaProductos.get(0), "DEBERIA HABER PRODUCTOS");
+        ArrayList<DetallePedidoDTO> detalles = definirDetalles(listaProductos);
+        pedido.setDetallesPedido(detalles);
+        pedido.setEstadoPedido(EstadoPedido.EnCarrito);
+        pedido.setTotal(100.00);
+        pedido.setIGV(18.00);
+        pedido.setCodigoTransaccion(null);
+        pedido.setFechaPago(null);
+        pedido.setFechaRecojo(null);
+        pedido.setFechaListaParaRecojo(null);
+        return pedido;
+    }
+
     @Test
     void testInsertarPedido(){
         ProductoDTO productoDTO = insertar();
@@ -147,6 +164,35 @@ public class PedidoDAOImplTest {
         listarPedido();
         eliminarPedido();
     }
+    
+    @Test
+    void testObtenerCarritoPorCliente() {
+        System.out.println("Obtener Carrito por Cliente");
+        ProductoDTO productoDTO = insertar();
+        ClienteDTO cliente = definirCliente();
+        int idUser = clienteDAO.insertar(cliente);
+        assertTrue(idUser != 0);
+        cliente.setIdUsuario(idUser);
+
+        
+        PedidoDTO carrito = this.definirCarrito(cliente, productoDTO);
+        int idCarrito = pedidoDAO.insertar(carrito);
+        assertNotEquals(0, idCarrito, "DEBERIA HABER CARRITO");
+        carrito.setIdPedido(idCarrito);
+        pedidos.add(carrito); 
+        
+        PedidoDTO carritoObtenido = pedidoDAO.obtenerCarritoPorCliente(idUser);
+        
+        assertNotNull(carritoObtenido, "El carrito no debería ser nulo");
+        assertEquals(idCarrito, carritoObtenido.getIdPedido(), "El ID del carrito debe coincidir");
+        assertEquals(idUser, carritoObtenido.getCliente().getIdUsuario(), "El ID del cliente debe coincidir");
+        assertEquals(EstadoPedido.EnCarrito, carritoObtenido.getEstadoPedido(), "El estado debe ser EnCarrito");
+        assertEquals(2, carritoObtenido.getDetallesPedido().size(), "Debe tener 2 detalles");
+        
+        eliminarPedido();
+        clienteDAO.eliminar(cliente);
+    }
+
 
     private void listarPedido(){
         ArrayList<PedidoDTO> listaDevolver = pedidoDAO.listarPedidos(pedidos.get(0).getCliente().getIdUsuario());

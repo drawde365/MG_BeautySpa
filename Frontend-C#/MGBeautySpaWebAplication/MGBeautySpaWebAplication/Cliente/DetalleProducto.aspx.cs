@@ -6,9 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSComentario;
+using SoftInvBusiness.SoftInvWSPedido;
 using SoftInvBusiness.SoftInvWSProductos;
 using SoftInvBusiness.SoftInvWSProductoTipo;
-using SoftInvBusiness.SoftInvWSUsuario; // Asumo que necesitas esto para el cliente
+using SoftInvBusiness.SoftInvWSUsuario;
 using System.Globalization;
 using System.Web.Script.Serialization;
 
@@ -19,6 +20,7 @@ namespace MGBeautySpaWebAplication.Cliente
         private ProductoBO productoBO;
         private ComentarioBO comentarioBO;
         private ProductoTipoBO productoTipoBO;
+        private PedidoBO pedidoBO; // <-- 1. AÑADIDO
         private SoftInvBusiness.SoftInvWSProductos.productoDTO producto;
         private IList<SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO> tipos;
 
@@ -27,6 +29,7 @@ namespace MGBeautySpaWebAplication.Cliente
             productoBO = new ProductoBO();
             productoTipoBO = new ProductoTipoBO();
             comentarioBO = new ComentarioBO();
+            pedidoBO = new PedidoBO(); // <-- 2. AÑADIDO
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -137,9 +140,34 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnAddCart_Click(object sender, EventArgs e)
         {
-            List<CartItemDTO> cartItems = Session["Carrito"] as List<CartItemDTO>;
-            if (cartItems == null) cartItems = new List<CartItemDTO>();
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            if (usuario == null)
+            {
+                Response.Redirect("~/Login.aspx");
+                return;
+            }
 
+            SoftInvBusiness.SoftInvWSPedido.pedidoDTO carrito = Session["Carrito"] as SoftInvBusiness.SoftInvWSPedido.pedidoDTO;
+
+            if (carrito == null)
+            {
+                carrito = new SoftInvBusiness.SoftInvWSPedido.pedidoDTO();
+                carrito.detallesPedido = new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0];
+                carrito.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO
+                {
+                    idUsuario = usuario.idUsuario,
+                    idUsuarioSpecified = true
+                };
+                carrito.estadoPedido = SoftInvBusiness.SoftInvWSPedido.estadoPedido.EnCarrito;
+                carrito.estadoPedidoSpecified = true;
+
+                // ----- 3. INSERTA EL NUEVO CARRITO PARA OBTENER ID -----
+                int nuevoPedidoID = pedidoBO.Insertar(carrito);
+                carrito.idPedido = nuevoPedidoID;
+                carrito.idPedidoSpecified = true;
+            }
+
+            var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
             int totalItemsAdded = 0;
 
             foreach (RepeaterItem item in rpPresentaciones.Items)
@@ -154,29 +182,42 @@ namespace MGBeautySpaWebAplication.Cliente
                     {
                         SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO presentacion = tipos[itemIndex];
 
-                        CartItemDTO newItem = new CartItemDTO
-                        {
-                            ProductId = producto.idProducto,
-                            Nombre = producto.nombre,
-                            PrecioUnitario = (decimal)producto.precio,
-                            ImagenUrl = producto.urlImagen,
-                            TipoPiel = presentacion.tipo.nombre,
-                            Tamano = producto.tamanho.ToString(),
-                            Cantidad = cantidad
-                        };
-
-                        CartItemDTO existingItem = cartItems.FirstOrDefault(i =>
-                            i.ProductId == newItem.ProductId && i.TipoPiel == newItem.TipoPiel);
+                        var existingItem = listaDetalles.FirstOrDefault(d =>
+                            d.producto != null &&
+                            d.producto.producto != null &&
+                            d.producto.tipo != null &&
+                            d.producto.producto.idProducto == this.producto.idProducto &&
+                            d.producto.tipo.id == presentacion.tipo.id
+                        );
 
                         if (existingItem != null)
                         {
-                            existingItem.Cantidad += cantidad;
+                            existingItem.cantidad += cantidad;
+                            existingItem.subtotal = (double)this.producto.precio * existingItem.cantidad;
+
+                            // ----- 4. LLAMA AL BO PARA MODIFICAR EL DETALLE EN DB -----
+                            pedidoBO.ModificarDetalle(existingItem, carrito.idPedido);
                         }
                         else
                         {
-                            cartItems.Add(newItem);
+                            var nuevoDetalle = new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO
+                            {
+                                producto = new SoftInvBusiness.SoftInvWSPedido.productoTipoDTO
+                                {
+                                    producto = new SoftInvBusiness.SoftInvWSPedido.productoDTO { idProducto = this.producto.idProducto, idProductoSpecified = true },
+                                    tipo = new SoftInvBusiness.SoftInvWSPedido.tipoProdDTO { id = presentacion.tipo.id, nombre = presentacion.tipo.nombre },
+                                    ingredientes = presentacion.ingredientes,
+                                    stock_fisico = presentacion.stock_fisico,
+                                    stock_fisicoSpecified = presentacion.stock_fisicoSpecified
+                                },
+                                cantidad = cantidad,
+                                cantidadSpecified = true,
+                                subtotal = (double)this.producto.precio * cantidad,
+                                subtotalSpecified = true
+                            };
+                            pedidoBO.InsertarDetalle(nuevoDetalle, carrito.idPedido);
+                            listaDetalles.Add(nuevoDetalle);
                         }
-
                         totalItemsAdded += cantidad;
                         txtCantidad.Text = "0";
                     }
@@ -185,7 +226,11 @@ namespace MGBeautySpaWebAplication.Cliente
 
             if (totalItemsAdded > 0)
             {
-                Session["Carrito"] = cartItems;
+                carrito.detallesPedido = listaDetalles.ToArray();
+                carrito.total = carrito.detallesPedido.Sum(d => d.subtotal);
+                carrito.totalSpecified = true;
+
+                Session["Carrito"] = carrito;
 
                 int currentCartCount = (Session["CartCount"] as int?) ?? 0;
                 Session["CartCount"] = currentCartCount + totalItemsAdded;
@@ -212,7 +257,7 @@ namespace MGBeautySpaWebAplication.Cliente
             string texto = txtComentario.Text?.Trim();
             if (string.IsNullOrEmpty(texto)) return;
 
-            var usuario = Session["usuario"] as usuarioDTO;
+            var usuario = Session["UsuarioActual"] as usuarioDTO;
             if (usuario == null)
             {
                 Response.Redirect("~/Login.aspx");
@@ -222,9 +267,7 @@ namespace MGBeautySpaWebAplication.Cliente
             var nuevoComentario = new SoftInvBusiness.SoftInvWSComentario.comentarioDTO();
             nuevoComentario.descripcion = texto;
 
-            // Asumiendo que tienes un control de estrellas (ej. rblRating)
-            // nuevoComentario.valoracion = int.Parse(rblRating.SelectedValue); 
-            nuevoComentario.valoracion = 5; // Valor de ejemplo si no hay input
+            nuevoComentario.valoracion = 5;
             nuevoComentario.valoracionSpecified = true;
 
             nuevoComentario.cliente = new SoftInvBusiness.SoftInvWSComentario.clienteDTO
@@ -239,7 +282,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 idProductoSpecified = true
             };
 
-            comentarioBO.InsertarComentarioDeProducto(nuevoComentario);
+            comentarioBO.Insertar(nuevoComentario);
 
             txtNombreComent.Text = "";
             txtComentario.Text = "";

@@ -65,7 +65,6 @@
   <xs:complexType name="detallePedidoDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="pedido" type="tns:pedidoDTO" />
       <xs:element minOccurs="0" name="producto" type="tns:productoTipoDTO" />
       <xs:element minOccurs="0" name="subtotal" type="xs:double" />
     </xs:sequence>
@@ -175,6 +174,7 @@
   <xs:complexType name="InsertarDetallePedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="detallePedido" type="tns:detallePedidoDTO" />
+      <xs:element minOccurs="0" name="idPedido" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="InsertarDetallePedidoResponse">
@@ -217,6 +217,7 @@
   <xs:complexType name="ModificarDetallePedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="detallePedido" type="tns:detallePedidoDTO" />
+      <xs:element minOccurs="0" name="idPedido" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ModificarDetallePedidoResponse">

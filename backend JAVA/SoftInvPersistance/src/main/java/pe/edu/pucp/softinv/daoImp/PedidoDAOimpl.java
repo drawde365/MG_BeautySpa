@@ -48,10 +48,10 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.statement.setDouble(2, pedido.getTotal());
         this.statement.setString(3, pedido.getEstadoPedidoS());
         this.setFechaEnST(4, (Date) pedido.getFechaPago());
-        this.setFechaEnST(5, (Date) pedido.getFechaListaParaRecojo());
+        this.setFechaEnST(5, (Date) pedido.getFechaListaParaRecojo());  
         this.setFechaEnST(6, (Date) pedido.getFechaRecojo());
-        this.statement.setDouble(7, pedido.getIGV());
-        this.statement.setString(8, pedido.getCodigoTransaccion());
+        this.setDoubleEnST(7, pedido.getIGV());
+        this.setStringEnST(8, pedido.getCodigoTransaccion());
     }
 
     @Override
@@ -62,8 +62,8 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.setFechaEnST(4, (Date) pedido.getFechaPago());
         this.setFechaEnST(5, (Date) pedido.getFechaListaParaRecojo());
         this.setFechaEnST(6, (Date) pedido.getFechaRecojo());
-        this.statement.setDouble(7, pedido.getIGV());
-        this.statement.setString(8, pedido.getCodigoTransaccion());
+        this.setDoubleEnST(7, pedido.getIGV());
+        this.setStringEnST(8, pedido.getCodigoTransaccion());
         this.statement.setInt(9,pedido.getIdPedido());
     }
 
@@ -79,6 +79,21 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
             this.statement.setNull(indice,java.sql.Types.DATE);
     }
 
+    private void setDoubleEnST(int indice, Double valor) throws SQLException {
+        if (valor != null) {
+            this.statement.setDouble(indice, valor);
+        } else {
+            this.statement.setNull(indice, java.sql.Types.DOUBLE);
+        }
+    }
+
+    private void setStringEnST(int indice, String valor) throws SQLException {
+        if (valor != null) {
+            this.statement.setString(indice, valor);
+        } else {
+            this.statement.setNull(indice, java.sql.Types.VARCHAR);
+        }
+    }
     @Override
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
         this.statement.setInt(1, this.pedido.getIdPedido());
@@ -103,7 +118,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     protected int instanciarObjetoDelResultSetEspecial() throws SQLException {
         int result=0;
         int idPed = resultSet.getInt("PEDIDO_ID");
-        if(!this.pedido.getIdPedido().equals(idPed) || this.pedido.getEstadoPedido()==null){
+        if(this.pedido == null || !this.pedido.getIdPedido().equals(idPed) || this.pedido.getEstadoPedido()==null){
             this.pedido = this.instanciarPedidoDelResultSet(idPed);
              result=1;
         }
@@ -168,6 +183,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         producto.setNombre(this.resultSet.getString("Producto_Nombre"));
         producto.setUrlImagen(this.resultSet.getString("Producto_Imagen"));
         producto.setPrecio(this.resultSet.getDouble("Producto_Precio"));
+        producto.setTamanho(this.resultSet.getDouble("Producto_Tamanho"));
         productoT.setProducto(producto);
         
         detalle.setProducto(productoT);
@@ -180,14 +196,16 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.pedido = pedido;
         Integer resultado = super.insertar(true,false);
         this.pedido.setIdPedido(resultado);
-        ArrayList<DetallePedidoDTO> detallesPedido = this.pedido.getDetallesPedido();
-        DetallePedidoDAO detalleDAO = new DetallePedidoDAOImpl(this.conexion);
-        for(DetallePedidoDTO detallePedido : detallesPedido) {
-            detallePedido.setPedido(this.pedido);
-            total += detallePedido.getSubtotal();
-            detalleDAO.insertar(detallePedido, true, true);
+        if(pedido.getDetallesPedido() != null) {
+            ArrayList<DetallePedidoDTO> detallesPedido = this.pedido.getDetallesPedido();
+            DetallePedidoDAO detalleDAO = new DetallePedidoDAOImpl(this.conexion);
+            for(DetallePedidoDTO detallePedido : detallesPedido) {
+                detallePedido.setPedido(this.pedido);
+                total += detallePedido.getSubtotal();
+                detalleDAO.insertar(detallePedido, true, true);
+            }
         }
-        this.pedido.setIdPedido(resultado);
+        //this.pedido.setIdPedido(resultado);
         this.pedido.setTotal(total);
         super.modificar(false, true);
         return resultado;
@@ -198,8 +216,8 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.pedido = new PedidoDTO();
         this.pedido.setIdPedido(-1); 
         String sql = this.ObtenerQueryPorId();
-        ArrayList<PedidoDTO> pedido = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idPedido);
-        this.pedido=pedido.isEmpty() ? null : pedido.get(0);
+        ArrayList<PedidoDTO> pedidoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idPedido);
+        this.pedido = pedidoLista.isEmpty() ? null : pedidoLista.get(0);
         return this.pedido;
     }
 
@@ -208,10 +226,14 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.pedido = new PedidoDTO();
         this.pedido.setIdPedido(-1);
         String sql = this.ObtenerQueryCarrito();
-        ArrayList<PedidoDTO> carrito = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idCliente);
-        this.pedido=carrito.isEmpty() ? null : carrito.get(0);
-        this.pedido.setDetallesPedido(detallePedidoDAO.obtenerDetallesPedidosId(pedido.getIdPedido()));
-        return this.pedido;
+        ArrayList<PedidoDTO> carritoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idCliente);
+        
+        if (carritoLista.isEmpty()) {
+            return null;
+        } else {
+            this.pedido = carritoLista.get(0);
+            return this.pedido;
+        }
     }
 
     @Override
@@ -279,15 +301,16 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         tp.NOMBRE AS TIPO_NOMBRE,
         pr.NOMBRE AS Producto_Nombre,
         pr.URL_IMAGEN AS Producto_Imagen,
-        pr.PRECIO AS Producto_Precio,     
+        pr.PRECIO AS Producto_Precio, 
+        pr.TAMANHO AS Producto_Tamanho,  
         dp.CANTIDAD,
         dp.SUBTOTAL
 
         FROM PEDIDOS p
         INNER JOIN USUARIOS cli ON p.CLIENTE_ID = cli.USUARIO_ID
-        INNER JOIN DETALLES_PEDIDOS dp ON p.PEDIDO_ID = dp.PEDIDO_ID
-        INNER JOIN PRODUCTOS pr ON dp.PRODUCTO_ID = pr.PRODUCTO_ID
-        INNER JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID
+        LEFT JOIN DETALLES_PEDIDOS dp ON p.PEDIDO_ID = dp.PEDIDO_ID
+        LEFT JOIN PRODUCTOS pr ON dp.PRODUCTO_ID = pr.PRODUCTO_ID
+        LEFT JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID
         """;
         return sql;
     }
@@ -307,7 +330,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     private String ObtenerQueryCarrito(){
         return this.ObtenerBaseQueryPedidos() + """
         WHERE p.CLIENTE_ID = ?
-          AND p.ESTADO = 'EnCarrito'
+        AND p.ESTADO = 'EnCarrito'
     """;
     }
 }

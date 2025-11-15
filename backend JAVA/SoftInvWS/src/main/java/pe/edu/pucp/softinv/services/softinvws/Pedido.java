@@ -55,8 +55,9 @@ public class Pedido {
 
     @WebMethod(operationName = "InsertarDetallePedido")
     public Integer insertarDetallePedido(
-            @WebParam(name = "detallePedido") DetallePedidoDTO detallePedido) {
-        return pedidoBO.insertarDetalle(detallePedido);
+            @WebParam(name = "detallePedido") DetallePedidoDTO detallePedido,
+            @WebParam(name = "idPedido") Integer idPedido) { // <-- AÑADE ESTE PARÁMETRO
+        return pedidoBO.insertarDetalle(detallePedido, idPedido);
     }
 
     @WebMethod(operationName = "ObtenerDetallePedido")
@@ -69,8 +70,9 @@ public class Pedido {
 
     @WebMethod(operationName = "ModificarDetallePedido")
     public Integer modificarDetallePedido(
-            @WebParam(name = "detallePedido") DetallePedidoDTO detallePedido) {
-        return pedidoBO.modificarDetalle(detallePedido);
+            @WebParam(name = "detallePedido") DetallePedidoDTO detallePedido,
+            @WebParam(name = "idPedido") Integer idPedido) { // <-- AÑADE EL PARÁMETRO
+        return pedidoBO.modificarDetalle(detallePedido, idPedido);
     }
 
     @WebMethod(operationName = "EliminarDetallePedido")

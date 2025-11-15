@@ -305,6 +305,9 @@
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ModificarResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ObtenerPorIdProductoYTipoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSProductoTipo\SoftInvBusiness.SoftInvWSProductoTipo.ObtenerProductosTiposIdActivoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

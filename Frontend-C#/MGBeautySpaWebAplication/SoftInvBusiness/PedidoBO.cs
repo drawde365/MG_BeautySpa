@@ -51,9 +51,9 @@ namespace SoftInvBusiness
 
         // ----- Detalles de Pedido -----
 
-        public int InsertarDetalle(detallePedidoDTO detalle)
+        public int InsertarDetalle(detallePedidoDTO detalle, int idPedido)
         {
-            return pedidoSOAP.InsertarDetallePedido(detalle);
+            return pedidoSOAP.InsertarDetallePedido(detalle, idPedido);
         }
 
         public detallePedidoDTO ObtenerDetalle(int idPedido, int idProducto, int id_tipoProducto)
@@ -61,9 +61,9 @@ namespace SoftInvBusiness
             return pedidoSOAP.ObtenerDetallePedido(idPedido, idProducto, id_tipoProducto);
         }
 
-        public int ModificarDetalle(detallePedidoDTO detalle)
+        public int ModificarDetalle(detallePedidoDTO detalle, int idPedido)
         {
-            return pedidoSOAP.ModificarDetallePedido(detalle);
+            return pedidoSOAP.ModificarDetallePedido(detalle, idPedido);
         }
 
         public int EliminarDetalle(detallePedidoDTO detalle)

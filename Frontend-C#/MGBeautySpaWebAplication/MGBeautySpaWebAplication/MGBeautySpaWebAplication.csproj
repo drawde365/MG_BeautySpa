@@ -313,6 +313,7 @@
     </Compile>
     <Compile Include="Cliente\Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cliente\Carrito.aspx.designer.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>

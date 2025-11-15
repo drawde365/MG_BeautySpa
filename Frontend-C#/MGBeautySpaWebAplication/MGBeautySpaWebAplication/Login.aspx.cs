@@ -1,5 +1,6 @@
 ﻿using MGBeautySpaWebAplication.Util;
 using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSPedido;
 using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace MGBeautySpaWebAplication
         {
             if (!IsPostBack)
             {
-                // Limpiar sesión previa (por si el usuario viene de Cerrar Sesión)
                 Session.Clear();
             }
         }
@@ -28,14 +28,12 @@ namespace MGBeautySpaWebAplication
             string correo = txtCorreo.Text.Trim();
             string contrasena = txtContrasena.Text.Trim();
 
-            // Validar usuario
-            usuarioDTO usuario = user.IniciarSesion(correo, contrasena);
+            SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = user.IniciarSesion(correo, contrasena);
 
             if (usuario.idUsuario != 0)
             {
                 Session["UsuarioActual"] = usuario;
 
-                // Redirigir según rol
                 switch (usuario.rol)
                 {
                     case 3:
@@ -45,7 +43,34 @@ namespace MGBeautySpaWebAplication
                         Response.Redirect("~/Empleado/InicioEmpleado.aspx");
                         break;
                     case 1:
-                        // Si venía redirigido desde otra página (por ejemplo, ReturnUrl del carrito)
+                        PedidoBO pedidoBO = new PedidoBO();
+                        pedidoDTO carrito = pedidoBO.ObtenerCarritoPorCliente(usuario.idUsuario);
+
+                        if (carrito == null)
+                        {
+                            pedidoDTO carro = new pedidoDTO();
+                            carro.cliente = new clienteDTO();
+                            carro.cliente.idUsuario = usuario.idUsuario;
+                            carro.cliente.idUsuarioSpecified = true;
+                            carro.total = 0;
+                            carro.totalSpecified = true;
+                            carro.estadoPedido = estadoPedido.EnCarrito;
+                            carro.estadoPedidoSpecified = true;
+                            carro.detallesPedido = new detallePedidoDTO[0];
+                            carro.idPedido = pedidoBO.Insertar(carro);
+
+                            carrito = carro;
+                        }
+
+                        Session["Carrito"] = carrito;
+
+                        int cartCount = 0;
+                        if (carrito.detallesPedido != null)
+                        {
+                            cartCount = carrito.detallesPedido.Sum(d => d.cantidad);
+                        }
+                        Session["CartCount"] = cartCount;
+
                         if (Request.QueryString["ReturnUrl"] != null)
                         {
                             Response.Redirect(Request.QueryString["ReturnUrl"]);
@@ -62,12 +87,6 @@ namespace MGBeautySpaWebAplication
 
         protected void btnInvitado_Click(object sender, EventArgs e)
         {
-            // Crear sesión temporal como invitado
-            //Session["UsuarioId"] = null;
-            //Session["Nombre"] = "Invitado";
-            //Session["Rol"] = "Invitado";
-
-            // Redirige al catálogo o página principal del cliente
             Response.Redirect("~/Cliente/InicioCliente.aspx");
         }
     }

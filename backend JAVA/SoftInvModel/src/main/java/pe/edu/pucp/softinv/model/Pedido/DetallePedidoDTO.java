@@ -1,14 +1,16 @@
-    package pe.edu.pucp.softinv.model.Pedido;
-
+package pe.edu.pucp.softinv.model.Pedido;
+import jakarta.xml.bind.annotation.XmlTransient;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
 public class DetallePedidoDTO {
     private ProductoTipoDTO productoTipo;
+    @XmlTransient // <-- ¡ESTA ES LA SOLUCIÓN!
     private PedidoDTO pedido;
     private Integer cantidad;
     private Double subtotal;
-
+    
+    @XmlTransient
     public PedidoDTO getPedido() {
         return pedido;
     }
