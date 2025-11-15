@@ -20,6 +20,10 @@ namespace SoftInvBusiness
         {
             return servicioSOAP.InsertarServicioDTO(servicio); 
         }
+        public int modificar(servicioDTO servicio)
+        {
+            return servicioSOAP.ModificarServicio(servicio);
+        }
 
         public int eliminar(servicioDTO servicio)
         {

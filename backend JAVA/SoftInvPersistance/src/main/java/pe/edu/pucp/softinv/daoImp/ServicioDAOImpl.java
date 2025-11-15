@@ -74,6 +74,7 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
         this.servicio.setNombre(this.resultSet.getString("NOMBRE"));
         this.servicio.setPrecio(this.resultSet.getDouble("PRECIO"));
         this.servicio.setDescripcion(this.resultSet.getString("DESCRIPCION"));
+        this.servicio.setTipo(this.resultSet.getString("TIPO"));
         this.servicio.setPromedioValoracion(this.resultSet.getDouble("PROM_VALORACIONES"));
         this.servicio.setUrlImagen(this.resultSet.getString("URL_IMAGEN"));
         this.servicio.setDuracionHora(this.resultSet.getInt("DURACION_HORAS"));

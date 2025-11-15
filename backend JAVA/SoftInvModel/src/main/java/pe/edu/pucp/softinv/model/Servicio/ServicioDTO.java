@@ -69,13 +69,18 @@ public class ServicioDTO {
     }
 
     public String getTipo() {
-        if(tipo==TipoServicio.FACIAL)
-            return "FACIAL";
-        else if(tipo==TipoServicio.CORPORAL)
-            return "CORPORAL";
-        else if(tipo==TipoServicio.TERAPIA_COMPLEMENTARIA)
-            return "TERAPIA_COMPLEMENTARIA";
-        return "";
+        if (this.tipo == null) {
+            return null;
+        }
+        if (this.tipo.equals(TipoServicio.FACIAL)) {
+            return "Facial";
+        } else if (this.tipo.equals(TipoServicio.CORPORAL)) {
+            return "Corporal";
+        } else if (this.tipo.equals(TipoServicio.TERAPIA_COMPLEMENTARIA)) {
+            return "Terapia Complementaria";
+        }
+
+        return null;
     }
 
     public void setTipo(TipoServicio tipo) {
@@ -83,12 +88,20 @@ public class ServicioDTO {
     }
 
     public void setTipo(String tipo) {
-        if(tipo == "FACIAL")
+        if (tipo == null) {
+            this.tipo = null; 
+            return;
+        }
+        String tipoLimpio = tipo.trim().toUpperCase();
+        if (tipoLimpio.equals("FACIAL")) {
             this.tipo = TipoServicio.FACIAL;
-        else if (tipo == "CORPORAL")
+        } else if (tipoLimpio.equals("CORPORAL")) {
             this.tipo = TipoServicio.CORPORAL;
-        else if (tipo == "TERAPIA_COMPLEMENTARIA")
+        } else if (tipoLimpio.equals("TERAPIA COMPLEMENTARIA")) {
             this.tipo = TipoServicio.TERAPIA_COMPLEMENTARIA;
+        } else {
+            this.tipo = null; 
+        }
     }
 
     public Double getPrecio() {

@@ -15,6 +15,15 @@ namespace MGBeautySpaWebAplication.Admin
     {
 
         /// <summary>
+        /// Control h1Titulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h1Titulo;
+
+        /// <summary>
         /// Control txtTitulo.
         /// </summary>
         /// <remarks>
@@ -60,6 +69,15 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoServicio;
 
         /// <summary>
+        /// Control fileUploadWrapper.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileUploadWrapper;
+
+        /// <summary>
         /// Control fileUpload.
         /// </summary>
         /// <remarks>
@@ -67,6 +85,24 @@ namespace MGBeautySpaWebAplication.Admin
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileUpload;
+
+        /// <summary>
+        /// Control hdnImagenActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnImagenActual;
+
+        /// <summary>
+        /// Control litError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label litError;
 
         /// <summary>
         /// Control btnCancelar.
