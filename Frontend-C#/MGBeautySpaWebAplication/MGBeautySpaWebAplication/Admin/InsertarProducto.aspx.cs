@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSProductos;
-using System.Web.Script.Serialization; // Necesario para JSON
+using System.Web.Script.Serialization;
 
 namespace MGBeautySpaWebAplication.Admin
 {
@@ -50,33 +50,32 @@ namespace MGBeautySpaWebAplication.Admin
                     txtPrecio.Text = producto.precio.ToString("F2");
                     txtTamaño.Text = producto.tamanho.ToString();
                     txtComoUsar.Text = producto.modoUso;
+
                     var tiposProductos = productoTipoBO.ObtenerPorIdProductoActivo(idProducto);
-                    // --- INICIO: Lógica para cargar Tipos, Ingredientes y Stock ---
+
                     if (tiposProductos != null && tiposProductos.Count > 0)
                     {
                         var serializer = new JavaScriptSerializer();
                         var listaParaJson = new List<TipoProductoInput>();
                         bool esProductoFacial = false;
 
-                        // Define los tipos de piel para saber si es Facial
                         var tiposDePielFacial = new List<string> { "Grasa", "Mixta", "Sensible", "Seca" };
 
                         foreach (var itemDTO in tiposProductos)
                         {
-                            // 1. Repoblar el JSON para el HiddenField
+                            if (itemDTO.tipo == null) continue;
+
                             listaParaJson.Add(new TipoProductoInput
                             {
-                                // --> CAMBIO AQUÍ: Mapeo de tu DTO
-                                tipo = itemDTO.tipo,
+                                tipo = itemDTO.tipo.nombre,
                                 ingredientes = itemDTO.ingredientes,
-                                stock = (int)itemDTO.stock_fisico // Asumiendo que stock_fisico es int/double
+                                stock = itemDTO.stock_fisicoSpecified ? itemDTO.stock_fisico : 0
                             });
 
-                            // 2. Marcar los Checkboxes de Tipo de Piel
-                            if (tiposDePielFacial.Contains(itemDTO.tipo))
+                            if (tiposDePielFacial.Contains(itemDTO.tipo.nombre))
                             {
                                 esProductoFacial = true;
-                                var itemCheckbox = cblTiposPiel.Items.FindByValue(itemDTO.tipo);
+                                var itemCheckbox = cblTiposPiel.Items.FindByValue(itemDTO.tipo.nombre);
                                 if (itemCheckbox != null)
                                 {
                                     itemCheckbox.Selected = true;
@@ -84,21 +83,17 @@ namespace MGBeautySpaWebAplication.Admin
                             }
                         }
 
-                        // 3. Seleccionar el RadioButton Principal
                         if (esProductoFacial)
                         {
                             rblTipoProducto.SelectedValue = "Facial";
                         }
-                        else if (tiposProductos.Count > 0)
+                        else if (tiposProductos.Count > 0 && tiposProductos[0].tipo != null)
                         {
-                            // Asume el primer tipo si no es facial (ej. "Corporal")
-                            rblTipoProducto.SelectedValue = tiposProductos[0].tipo;
+                            rblTipoProducto.SelectedValue = tiposProductos[0].tipo.nombre;
                         }
 
-                        // 4. Guardar el JSON en el HiddenField para que JS lo lea
                         hdnIngredientesPorTipo.Value = serializer.Serialize(listaParaJson);
                     }
-                    // --- FIN: Lógica de carga ---
 
                     if (!string.IsNullOrEmpty(producto.urlImagen))
                     {
@@ -178,17 +173,11 @@ namespace MGBeautySpaWebAplication.Admin
                 producto.activo = 1;
                 producto.activoSpecified = true;
 
-
-                // --- INICIO: LÓGICA PARA OBTENER TIPOS, INGREDIENTES Y STOCK ---
-
-                // 1. Obtén el JSON del HiddenField
                 string jsonTipos = hdnIngredientesPorTipo.Value;
 
-                // 2. Deserializa el JSON
                 var serializer = new JavaScriptSerializer();
                 var listaDeTiposInput = serializer.Deserialize<List<TipoProductoInput>>(jsonTipos);
 
-                // 3. Convierte la lista de "Input" a tu lista de "DTO"
                 var listaDto = new List<productoTipoDTO>();
                 if (listaDeTiposInput != null)
                 {
@@ -196,14 +185,25 @@ namespace MGBeautySpaWebAplication.Admin
                     {
                         var productoTipo = new productoTipoDTO();
 
-                        // --> CAMBIO AQUÍ: Mapeo basado en tu DTO
-                        productoTipo.tipo = itemInput.tipo;
+                        var tipoProd = new tipoProdDTO();
+
+                        switch (itemInput.tipo)
+                        {
+                            case "Corporal": tipoProd.id = 1; break;
+                            case "Grasa": tipoProd.id = 2; break;
+                            case "Seca": tipoProd.id = 3; break;
+                            case "Mixta": tipoProd.id = 4; break;
+                            case "Sensible": tipoProd.id = 5; break;
+                            default: tipoProd.id = 0; break;
+                        }
+                        tipoProd.nombre = itemInput.tipo;
+
+                        productoTipo.tipo = tipoProd;
                         productoTipo.ingredientes = itemInput.ingredientes;
                         productoTipo.stock_fisico = itemInput.stock;
-                        productoTipo.stock_despacho = 0; // Valor por defecto
-                        productoTipo.activo = 1;         // Valor por defecto
+                        productoTipo.stock_despacho = 0;
+                        productoTipo.activo = 1;
 
-                        // Asumiendo campos 'Specified' para Web Service
                         productoTipo.stock_fisicoSpecified = true;
                         productoTipo.stock_despachoSpecified = true;
                         productoTipo.activoSpecified = true;
@@ -212,11 +212,7 @@ namespace MGBeautySpaWebAplication.Admin
                     }
                 }
 
-                // 4. Asigna la lista convertida a tu objeto principal
                 producto.productosTipos = listaDto.ToArray();
-
-                // --- FIN: LÓGICA DE TIPOS ---
-
 
                 if (Request.QueryString["id"] != null)
                 {
@@ -243,11 +239,6 @@ namespace MGBeautySpaWebAplication.Admin
         }
     }
 
-    /// <summary>
-    /// Clase Helper para deserializar el JSON que viene del JavaScript.
-    /// Sus propiedades (tipo, ingredientes, stock) deben coincidir
-    /// con las claves del JSON que creamos en el script.
-    /// </summary>
     public class TipoProductoInput
     {
         public string tipo { get; set; }

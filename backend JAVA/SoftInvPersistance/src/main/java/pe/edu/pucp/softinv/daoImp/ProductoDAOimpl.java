@@ -137,26 +137,27 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
     
     @Override
     public ArrayList<ProductoDTO> obtenerPorFiltro(String filtro){
-        String sql="";
+        String sql = "";
         if(filtro.equals("Corporal")) {
-            sql += "SELECT DISTINCT p.*\n" +
-                    "FROM SPA.PRODUCTOS p\n" +
-                    "INNER JOIN SPA.PRODUCTOS_TIPOS pt ON p.PRODUCTO_ID = pt.PRODUCTO_ID\n" +
-                    "WHERE pt.TIPO_PRODUCTO = 'Corporal'"
-                    + "AND p.ACTIVO = 1";
+            sql = "SELECT DISTINCT p.*\n" +
+                  "FROM SPA.PRODUCTOS p\n" +
+                  "INNER JOIN SPA.PRODUCTOS_TIPOS pt ON p.PRODUCTO_ID = pt.PRODUCTO_ID\n" +
+                  "INNER JOIN SPA.TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID\n" + // <-- JOIN agregado
+                  "WHERE tp.NOMBRE = 'Corporal'" + // <-- CAMBIO DE COLUMNA
+                  "AND p.ACTIVO = 1";
         } else {
-           sql = "SELECT p.*\n" +
-                "FROM SPA.PRODUCTOS p\n" +
-                "WHERE p.PRODUCTO_ID NOT IN (\n"+
-                "    SELECT pt.PRODUCTO_ID\n" +
-                "    FROM SPA.PRODUCTOS_TIPOS pt\n" +
-                "    WHERE pt.TIPO_PRODUCTO = 'Corporal'\n" +
-                ") AND p.ACTIVO = 1";
+            sql = "SELECT p.*\n" +
+                  "FROM SPA.PRODUCTOS p\n" +
+                  "WHERE p.PRODUCTO_ID NOT IN (\n"+
+                  "    SELECT pt.PRODUCTO_ID\n" +
+                  "    FROM SPA.PRODUCTOS_TIPOS pt\n" +
+                  "    INNER JOIN SPA.TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID\n" + // <-- JOIN agregado
+                  "    WHERE tp.NOMBRE = 'Corporal'\n" + // <-- CAMBIO DE COLUMNA
+                  ") AND p.ACTIVO = 1";
         }
         
         return (ArrayList<ProductoDTO>)super.listarTodos(sql,null,null);
     }
-
     @Override
     public ArrayList<ProductoDTO> obtenerPorPagina(Integer pag){
         String sql = "SELECT * FROM PRODUCTOS WHERE ACTIVO=1 LIMIT ?, ?";

@@ -16,41 +16,20 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     public interface Productos {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarConDatosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarConDatosResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse insertarConDatos(SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarConDatosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarConDatosResponse")]
-        System.IAsyncResult BegininsertarConDatos(SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest request, System.AsyncCallback callback, object asyncState);
-        
-        SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse EndinsertarConDatos(System.IAsyncResult result);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRespons" +
+            "e")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse EliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse listarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoResponse")]
-        System.IAsyncResult BeginEliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRespons" +
+            "e")]
+        System.IAsyncResult BeginlistarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request, System.AsyncCallback callback, object asyncState);
         
-        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse EndEliminarProducto(System.IAsyncResult result);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesResponse" +
-            "")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse obtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesResponse" +
-            "")]
-        System.IAsyncResult BeginobtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request, System.AsyncCallback callback, object asyncState);
-        
-        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse EndobtenerCorporales(System.IAsyncResult result);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse EndlistarTodosActivos(System.IAsyncResult result);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerFacialesRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerFacialesResponse")]
@@ -63,6 +42,18 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         System.IAsyncResult BeginobtenerFaciales(SoftInvBusiness.SoftInvWSProductos.obtenerFacialesRequest request, System.AsyncCallback callback, object asyncState);
         
         SoftInvBusiness.SoftInvWSProductos.obtenerFacialesResponse EndobtenerFaciales(System.IAsyncResult result);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse insertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoResponse")]
+        System.IAsyncResult BegininsertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request, System.AsyncCallback callback, object asyncState);
+        
+        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse EndinsertarProducto(System.IAsyncResult result);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/ModificarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/ModificarProductoResponse" +
@@ -79,16 +70,30 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         SoftInvBusiness.SoftInvWSProductos.ModificarProductoResponse EndModificarProducto(System.IAsyncResult result);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesResponse" +
+            "")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse insertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request);
+        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse obtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/insertarProductoResponse")]
-        System.IAsyncResult BegininsertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/obtenerCorporalesResponse" +
+            "")]
+        System.IAsyncResult BeginobtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request, System.AsyncCallback callback, object asyncState);
         
-        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse EndinsertarProducto(System.IAsyncResult result);
+        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse EndobtenerCorporales(System.IAsyncResult result);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse EliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/EliminarProductoResponse")]
+        System.IAsyncResult BeginEliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request, System.AsyncCallback callback, object asyncState);
+        
+        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse EndEliminarProducto(System.IAsyncResult result);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/ObtenerProductoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/ObtenerProductoResponse")]
@@ -127,18 +132,6 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         SoftInvBusiness.SoftInvWSProductos.obtenerProdPagResponse EndobtenerProdPag(System.IAsyncResult result);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse listarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosResponse")]
-        System.IAsyncResult BeginlistarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request, System.AsyncCallback callback, object asyncState);
-        
-        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse EndlistarTodos(System.IAsyncResult result);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/cantidadPagProdRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/cantidadPagProdResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
@@ -151,91 +144,16 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         SoftInvBusiness.SoftInvWSProductos.cantidadPagProdResponse EndcantidadPagProd(System.IAsyncResult result);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRespons" +
-            "e")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse listarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse listarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosActivosRespons" +
-            "e")]
-        System.IAsyncResult BeginlistarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Productos/listarTodosResponse")]
+        System.IAsyncResult BeginlistarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request, System.AsyncCallback callback, object asyncState);
         
-        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse EndlistarTodosActivos(System.IAsyncResult result);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="insertarConDatos", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class insertarConDatosRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string nombre;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string descripcion;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public double precio;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=3)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public double tamanho;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=4)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string urlImagen;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=5)]
-        [System.Xml.Serialization.XmlElementAttribute("tipos", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] tipos;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=6)]
-        [System.Xml.Serialization.XmlElementAttribute("ingreientes", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] ingreientes;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=7)]
-        [System.Xml.Serialization.XmlElementAttribute("stocks", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int[] stocks;
-        
-        public insertarConDatosRequest() {
-        }
-        
-        public insertarConDatosRequest(string nombre, string descripcion, double precio, double tamanho, string urlImagen, string[] tipos, string[] ingreientes, int[] stocks) {
-            this.nombre = nombre;
-            this.descripcion = descripcion;
-            this.precio = precio;
-            this.tamanho = tamanho;
-            this.urlImagen = urlImagen;
-            this.tipos = tipos;
-            this.ingreientes = ingreientes;
-            this.stocks = stocks;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="insertarConDatosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class insertarConDatosResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public insertarConDatosResponse() {
-        }
-        
-        public insertarConDatosResponse(int @return) {
-            this.@return = @return;
-        }
+        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse EndlistarTodos(System.IAsyncResult result);
     }
     
     /// <remarks/>
@@ -827,6 +745,52 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class tipoProdDTO : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private string nombreField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string nombre {
+            get {
+                return this.nombreField;
+            }
+            set {
+                this.nombreField = value;
+                this.RaisePropertyChanged("nombre");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
     public partial class productoTipoDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
         private int activoField;
@@ -845,7 +809,7 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         
         private bool stock_fisicoFieldSpecified;
         
-        private string tipoField;
+        private tipoProdDTO tipoField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -945,7 +909,7 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
-        public string tipo {
+        public tipoProdDTO tipo {
             get {
                 return this.tipoField;
             }
@@ -1511,63 +1475,27 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarProducto", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarProductoRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodosActivos", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class listarTodosActivosRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO producto;
-        
-        public EliminarProductoRequest() {
-        }
-        
-        public EliminarProductoRequest(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
-            this.producto = producto;
+        public listarTodosActivosRequest() {
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarProductoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarProductoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public EliminarProductoResponse() {
-        }
-        
-        public EliminarProductoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="obtenerCorporales", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class obtenerCorporalesRequest {
-        
-        public obtenerCorporalesRequest() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="obtenerCorporalesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class obtenerCorporalesResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodosActivosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class listarTodosActivosResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return;
         
-        public obtenerCorporalesResponse() {
+        public listarTodosActivosResponse() {
         }
         
-        public obtenerCorporalesResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
+        public listarTodosActivosResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
             this.@return = @return;
         }
     }
@@ -1596,6 +1524,42 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         }
         
         public obtenerFacialesResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="insertarProducto", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class insertarProductoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO producto;
+        
+        public insertarProductoRequest() {
+        }
+        
+        public insertarProductoRequest(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
+            this.producto = producto;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="insertarProductoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class insertarProductoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public insertarProductoResponse() {
+        }
+        
+        public insertarProductoResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1639,17 +1603,45 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="insertarProducto", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class insertarProductoRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="obtenerCorporales", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class obtenerCorporalesRequest {
+        
+        public obtenerCorporalesRequest() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="obtenerCorporalesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class obtenerCorporalesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return;
+        
+        public obtenerCorporalesResponse() {
+        }
+        
+        public obtenerCorporalesResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarProducto", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarProductoRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public SoftInvBusiness.SoftInvWSProductos.productoDTO producto;
         
-        public insertarProductoRequest() {
+        public EliminarProductoRequest() {
         }
         
-        public insertarProductoRequest(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
+        public EliminarProductoRequest(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
             this.producto = producto;
         }
     }
@@ -1657,17 +1649,17 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="insertarProductoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class insertarProductoResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarProductoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarProductoResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public insertarProductoResponse() {
+        public EliminarProductoResponse() {
         }
         
-        public insertarProductoResponse(int @return) {
+        public EliminarProductoResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1783,34 +1775,6 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodos", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class listarTodosRequest {
-        
-        public listarTodosRequest() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class listarTodosResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return;
-        
-        public listarTodosResponse() {
-        }
-        
-        public listarTodosResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="cantidadPagProd", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class cantidadPagProdRequest {
         
@@ -1839,27 +1803,27 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodosActivos", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class listarTodosActivosRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodos", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class listarTodosRequest {
         
-        public listarTodosActivosRequest() {
+        public listarTodosRequest() {
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodosActivosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class listarTodosActivosResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="listarTodosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class listarTodosResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return;
         
-        public listarTodosActivosResponse() {
+        public listarTodosResponse() {
         }
         
-        public listarTodosActivosResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
+        public listarTodosResponse(SoftInvBusiness.SoftInvWSProductos.productoDTO[] @return) {
             this.@return = @return;
         }
     }
@@ -1870,49 +1834,11 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class insertarConDatosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class listarTodosActivosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public insertarConDatosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public int Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class EliminarProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public EliminarProductoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public int Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class obtenerCorporalesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public obtenerCorporalesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public listarTodosActivosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -1946,6 +1872,25 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class insertarProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public insertarProductoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ModificarProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -1965,11 +1910,30 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class insertarProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class obtenerCorporalesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public insertarProductoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public obtenerCorporalesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((SoftInvBusiness.SoftInvWSProductos.productoDTO[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EliminarProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EliminarProductoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2041,25 +2005,6 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class listarTodosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public listarTodosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((SoftInvBusiness.SoftInvWSProductos.productoDTO[])(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class cantidadPagProdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -2079,11 +2024,11 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class listarTodosActivosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class listarTodosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public listarTodosActivosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public listarTodosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2100,23 +2045,11 @@ namespace SoftInvBusiness.SoftInvWSProductos {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ProductosClient : System.ServiceModel.ClientBase<SoftInvBusiness.SoftInvWSProductos.Productos>, SoftInvBusiness.SoftInvWSProductos.Productos {
         
-        private BeginOperationDelegate onBegininsertarConDatosDelegate;
+        private BeginOperationDelegate onBeginlistarTodosActivosDelegate;
         
-        private EndOperationDelegate onEndinsertarConDatosDelegate;
+        private EndOperationDelegate onEndlistarTodosActivosDelegate;
         
-        private System.Threading.SendOrPostCallback oninsertarConDatosCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginEliminarProductoDelegate;
-        
-        private EndOperationDelegate onEndEliminarProductoDelegate;
-        
-        private System.Threading.SendOrPostCallback onEliminarProductoCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginobtenerCorporalesDelegate;
-        
-        private EndOperationDelegate onEndobtenerCorporalesDelegate;
-        
-        private System.Threading.SendOrPostCallback onobtenerCorporalesCompletedDelegate;
+        private System.Threading.SendOrPostCallback onlistarTodosActivosCompletedDelegate;
         
         private BeginOperationDelegate onBeginobtenerFacialesDelegate;
         
@@ -2124,17 +2057,29 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         
         private System.Threading.SendOrPostCallback onobtenerFacialesCompletedDelegate;
         
+        private BeginOperationDelegate onBegininsertarProductoDelegate;
+        
+        private EndOperationDelegate onEndinsertarProductoDelegate;
+        
+        private System.Threading.SendOrPostCallback oninsertarProductoCompletedDelegate;
+        
         private BeginOperationDelegate onBeginModificarProductoDelegate;
         
         private EndOperationDelegate onEndModificarProductoDelegate;
         
         private System.Threading.SendOrPostCallback onModificarProductoCompletedDelegate;
         
-        private BeginOperationDelegate onBegininsertarProductoDelegate;
+        private BeginOperationDelegate onBeginobtenerCorporalesDelegate;
         
-        private EndOperationDelegate onEndinsertarProductoDelegate;
+        private EndOperationDelegate onEndobtenerCorporalesDelegate;
         
-        private System.Threading.SendOrPostCallback oninsertarProductoCompletedDelegate;
+        private System.Threading.SendOrPostCallback onobtenerCorporalesCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEliminarProductoDelegate;
+        
+        private EndOperationDelegate onEndEliminarProductoDelegate;
+        
+        private System.Threading.SendOrPostCallback onEliminarProductoCompletedDelegate;
         
         private BeginOperationDelegate onBeginObtenerProductoDelegate;
         
@@ -2154,23 +2099,17 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         
         private System.Threading.SendOrPostCallback onobtenerProdPagCompletedDelegate;
         
-        private BeginOperationDelegate onBeginlistarTodosDelegate;
-        
-        private EndOperationDelegate onEndlistarTodosDelegate;
-        
-        private System.Threading.SendOrPostCallback onlistarTodosCompletedDelegate;
-        
         private BeginOperationDelegate onBegincantidadPagProdDelegate;
         
         private EndOperationDelegate onEndcantidadPagProdDelegate;
         
         private System.Threading.SendOrPostCallback oncantidadPagProdCompletedDelegate;
         
-        private BeginOperationDelegate onBeginlistarTodosActivosDelegate;
+        private BeginOperationDelegate onBeginlistarTodosDelegate;
         
-        private EndOperationDelegate onEndlistarTodosActivosDelegate;
+        private EndOperationDelegate onEndlistarTodosDelegate;
         
-        private System.Threading.SendOrPostCallback onlistarTodosActivosCompletedDelegate;
+        private System.Threading.SendOrPostCallback onlistarTodosCompletedDelegate;
         
         public ProductosClient() {
         }
@@ -2191,17 +2130,17 @@ namespace SoftInvBusiness.SoftInvWSProductos {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<insertarConDatosCompletedEventArgs> insertarConDatosCompleted;
-        
-        public event System.EventHandler<EliminarProductoCompletedEventArgs> EliminarProductoCompleted;
-        
-        public event System.EventHandler<obtenerCorporalesCompletedEventArgs> obtenerCorporalesCompleted;
+        public event System.EventHandler<listarTodosActivosCompletedEventArgs> listarTodosActivosCompleted;
         
         public event System.EventHandler<obtenerFacialesCompletedEventArgs> obtenerFacialesCompleted;
         
+        public event System.EventHandler<insertarProductoCompletedEventArgs> insertarProductoCompleted;
+        
         public event System.EventHandler<ModificarProductoCompletedEventArgs> ModificarProductoCompleted;
         
-        public event System.EventHandler<insertarProductoCompletedEventArgs> insertarProductoCompleted;
+        public event System.EventHandler<obtenerCorporalesCompletedEventArgs> obtenerCorporalesCompleted;
+        
+        public event System.EventHandler<EliminarProductoCompletedEventArgs> EliminarProductoCompleted;
         
         public event System.EventHandler<ObtenerProductoCompletedEventArgs> ObtenerProductoCompleted;
         
@@ -2209,247 +2148,75 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         
         public event System.EventHandler<obtenerProdPagCompletedEventArgs> obtenerProdPagCompleted;
         
-        public event System.EventHandler<listarTodosCompletedEventArgs> listarTodosCompleted;
-        
         public event System.EventHandler<cantidadPagProdCompletedEventArgs> cantidadPagProdCompleted;
         
-        public event System.EventHandler<listarTodosActivosCompletedEventArgs> listarTodosActivosCompleted;
+        public event System.EventHandler<listarTodosCompletedEventArgs> listarTodosCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse SoftInvBusiness.SoftInvWSProductos.Productos.insertarConDatos(SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest request) {
-            return base.Channel.insertarConDatos(request);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse SoftInvBusiness.SoftInvWSProductos.Productos.listarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request) {
+            return base.Channel.listarTodosActivos(request);
         }
         
-        public int insertarConDatos(string nombre, string descripcion, double precio, double tamanho, string urlImagen, string[] tipos, string[] ingreientes, int[] stocks) {
-            SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest();
-            inValue.nombre = nombre;
-            inValue.descripcion = descripcion;
-            inValue.precio = precio;
-            inValue.tamanho = tamanho;
-            inValue.urlImagen = urlImagen;
-            inValue.tipos = tipos;
-            inValue.ingreientes = ingreientes;
-            inValue.stocks = stocks;
-            SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).insertarConDatos(inValue);
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] listarTodosActivos() {
+            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest();
+            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).listarTodosActivos(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BegininsertarConDatos(SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BegininsertarConDatos(request, callback, asyncState);
+        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginlistarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginlistarTodosActivos(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegininsertarConDatos(string nombre, string descripcion, double precio, double tamanho, string urlImagen, string[] tipos, string[] ingreientes, int[] stocks, System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.insertarConDatosRequest();
-            inValue.nombre = nombre;
-            inValue.descripcion = descripcion;
-            inValue.precio = precio;
-            inValue.tamanho = tamanho;
-            inValue.urlImagen = urlImagen;
-            inValue.tipos = tipos;
-            inValue.ingreientes = ingreientes;
-            inValue.stocks = stocks;
-            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BegininsertarConDatos(inValue, callback, asyncState);
+        public System.IAsyncResult BeginlistarTodosActivos(System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest();
+            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginlistarTodosActivos(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndinsertarConDatos(System.IAsyncResult result) {
-            return base.Channel.EndinsertarConDatos(result);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndlistarTodosActivos(System.IAsyncResult result) {
+            return base.Channel.EndlistarTodosActivos(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public int EndinsertarConDatos(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.insertarConDatosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndinsertarConDatos(result);
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] EndlistarTodosActivos(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndlistarTodosActivos(result);
             return retVal.@return;
         }
         
-        private System.IAsyncResult OnBegininsertarConDatos(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string nombre = ((string)(inValues[0]));
-            string descripcion = ((string)(inValues[1]));
-            double precio = ((double)(inValues[2]));
-            double tamanho = ((double)(inValues[3]));
-            string urlImagen = ((string)(inValues[4]));
-            string[] tipos = ((string[])(inValues[5]));
-            string[] ingreientes = ((string[])(inValues[6]));
-            int[] stocks = ((int[])(inValues[7]));
-            return this.BegininsertarConDatos(nombre, descripcion, precio, tamanho, urlImagen, tipos, ingreientes, stocks, callback, asyncState);
+        private System.IAsyncResult OnBeginlistarTodosActivos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginlistarTodosActivos(callback, asyncState);
         }
         
-        private object[] OnEndinsertarConDatos(System.IAsyncResult result) {
-            int retVal = this.EndinsertarConDatos(result);
+        private object[] OnEndlistarTodosActivos(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.productoDTO[] retVal = this.EndlistarTodosActivos(result);
             return new object[] {
                     retVal};
         }
         
-        private void OninsertarConDatosCompleted(object state) {
-            if ((this.insertarConDatosCompleted != null)) {
+        private void OnlistarTodosActivosCompleted(object state) {
+            if ((this.listarTodosActivosCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.insertarConDatosCompleted(this, new insertarConDatosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.listarTodosActivosCompleted(this, new listarTodosActivosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void insertarConDatosAsync(string nombre, string descripcion, double precio, double tamanho, string urlImagen, string[] tipos, string[] ingreientes, int[] stocks) {
-            this.insertarConDatosAsync(nombre, descripcion, precio, tamanho, urlImagen, tipos, ingreientes, stocks, null);
+        public void listarTodosActivosAsync() {
+            this.listarTodosActivosAsync(null);
         }
         
-        public void insertarConDatosAsync(string nombre, string descripcion, double precio, double tamanho, string urlImagen, string[] tipos, string[] ingreientes, int[] stocks, object userState) {
-            if ((this.onBegininsertarConDatosDelegate == null)) {
-                this.onBegininsertarConDatosDelegate = new BeginOperationDelegate(this.OnBegininsertarConDatos);
+        public void listarTodosActivosAsync(object userState) {
+            if ((this.onBeginlistarTodosActivosDelegate == null)) {
+                this.onBeginlistarTodosActivosDelegate = new BeginOperationDelegate(this.OnBeginlistarTodosActivos);
             }
-            if ((this.onEndinsertarConDatosDelegate == null)) {
-                this.onEndinsertarConDatosDelegate = new EndOperationDelegate(this.OnEndinsertarConDatos);
+            if ((this.onEndlistarTodosActivosDelegate == null)) {
+                this.onEndlistarTodosActivosDelegate = new EndOperationDelegate(this.OnEndlistarTodosActivos);
             }
-            if ((this.oninsertarConDatosCompletedDelegate == null)) {
-                this.oninsertarConDatosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OninsertarConDatosCompleted);
+            if ((this.onlistarTodosActivosCompletedDelegate == null)) {
+                this.onlistarTodosActivosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnlistarTodosActivosCompleted);
             }
-            base.InvokeAsync(this.onBegininsertarConDatosDelegate, new object[] {
-                        nombre,
-                        descripcion,
-                        precio,
-                        tamanho,
-                        urlImagen,
-                        tipos,
-                        ingreientes,
-                        stocks}, this.onEndinsertarConDatosDelegate, this.oninsertarConDatosCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.EliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request) {
-            return base.Channel.EliminarProducto(request);
-        }
-        
-        public int EliminarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
-            SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest();
-            inValue.producto = producto;
-            SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EliminarProducto(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginEliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginEliminarProducto(request, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginEliminarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest();
-            inValue.producto = producto;
-            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginEliminarProducto(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndEliminarProducto(System.IAsyncResult result) {
-            return base.Channel.EndEliminarProducto(result);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public int EndEliminarProducto(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndEliminarProducto(result);
-            return retVal.@return;
-        }
-        
-        private System.IAsyncResult OnBeginEliminarProducto(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.productoDTO producto = ((SoftInvBusiness.SoftInvWSProductos.productoDTO)(inValues[0]));
-            return this.BeginEliminarProducto(producto, callback, asyncState);
-        }
-        
-        private object[] OnEndEliminarProducto(System.IAsyncResult result) {
-            int retVal = this.EndEliminarProducto(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnEliminarProductoCompleted(object state) {
-            if ((this.EliminarProductoCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.EliminarProductoCompleted(this, new EliminarProductoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void EliminarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
-            this.EliminarProductoAsync(producto, null);
-        }
-        
-        public void EliminarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, object userState) {
-            if ((this.onBeginEliminarProductoDelegate == null)) {
-                this.onBeginEliminarProductoDelegate = new BeginOperationDelegate(this.OnBeginEliminarProducto);
-            }
-            if ((this.onEndEliminarProductoDelegate == null)) {
-                this.onEndEliminarProductoDelegate = new EndOperationDelegate(this.OnEndEliminarProducto);
-            }
-            if ((this.onEliminarProductoCompletedDelegate == null)) {
-                this.onEliminarProductoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEliminarProductoCompleted);
-            }
-            base.InvokeAsync(this.onBeginEliminarProductoDelegate, new object[] {
-                        producto}, this.onEndEliminarProductoDelegate, this.onEliminarProductoCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse SoftInvBusiness.SoftInvWSProductos.Productos.obtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request) {
-            return base.Channel.obtenerCorporales(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] obtenerCorporales() {
-            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest inValue = new SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest();
-            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).obtenerCorporales(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginobtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginobtenerCorporales(request, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginobtenerCorporales(System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest inValue = new SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest();
-            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginobtenerCorporales(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndobtenerCorporales(System.IAsyncResult result) {
-            return base.Channel.EndobtenerCorporales(result);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] EndobtenerCorporales(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndobtenerCorporales(result);
-            return retVal.@return;
-        }
-        
-        private System.IAsyncResult OnBeginobtenerCorporales(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginobtenerCorporales(callback, asyncState);
-        }
-        
-        private object[] OnEndobtenerCorporales(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.productoDTO[] retVal = this.EndobtenerCorporales(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnobtenerCorporalesCompleted(object state) {
-            if ((this.obtenerCorporalesCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.obtenerCorporalesCompleted(this, new obtenerCorporalesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void obtenerCorporalesAsync() {
-            this.obtenerCorporalesAsync(null);
-        }
-        
-        public void obtenerCorporalesAsync(object userState) {
-            if ((this.onBeginobtenerCorporalesDelegate == null)) {
-                this.onBeginobtenerCorporalesDelegate = new BeginOperationDelegate(this.OnBeginobtenerCorporales);
-            }
-            if ((this.onEndobtenerCorporalesDelegate == null)) {
-                this.onEndobtenerCorporalesDelegate = new EndOperationDelegate(this.OnEndobtenerCorporales);
-            }
-            if ((this.onobtenerCorporalesCompletedDelegate == null)) {
-                this.onobtenerCorporalesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnobtenerCorporalesCompleted);
-            }
-            base.InvokeAsync(this.onBeginobtenerCorporalesDelegate, null, this.onEndobtenerCorporalesDelegate, this.onobtenerCorporalesCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginlistarTodosActivosDelegate, null, this.onEndlistarTodosActivosDelegate, this.onlistarTodosActivosCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2517,6 +2284,77 @@ namespace SoftInvBusiness.SoftInvWSProductos {
                 this.onobtenerFacialesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnobtenerFacialesCompleted);
             }
             base.InvokeAsync(this.onBeginobtenerFacialesDelegate, null, this.onEndobtenerFacialesDelegate, this.onobtenerFacialesCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.insertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request) {
+            return base.Channel.insertarProducto(request);
+        }
+        
+        public int insertarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
+            SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest();
+            inValue.producto = producto;
+            SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).insertarProducto(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BegininsertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BegininsertarProducto(request, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BegininsertarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest();
+            inValue.producto = producto;
+            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BegininsertarProducto(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndinsertarProducto(System.IAsyncResult result) {
+            return base.Channel.EndinsertarProducto(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public int EndinsertarProducto(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndinsertarProducto(result);
+            return retVal.@return;
+        }
+        
+        private System.IAsyncResult OnBegininsertarProducto(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.productoDTO producto = ((SoftInvBusiness.SoftInvWSProductos.productoDTO)(inValues[0]));
+            return this.BegininsertarProducto(producto, callback, asyncState);
+        }
+        
+        private object[] OnEndinsertarProducto(System.IAsyncResult result) {
+            int retVal = this.EndinsertarProducto(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OninsertarProductoCompleted(object state) {
+            if ((this.insertarProductoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.insertarProductoCompleted(this, new insertarProductoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void insertarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
+            this.insertarProductoAsync(producto, null);
+        }
+        
+        public void insertarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, object userState) {
+            if ((this.onBegininsertarProductoDelegate == null)) {
+                this.onBegininsertarProductoDelegate = new BeginOperationDelegate(this.OnBegininsertarProducto);
+            }
+            if ((this.onEndinsertarProductoDelegate == null)) {
+                this.onEndinsertarProductoDelegate = new EndOperationDelegate(this.OnEndinsertarProducto);
+            }
+            if ((this.oninsertarProductoCompletedDelegate == null)) {
+                this.oninsertarProductoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OninsertarProductoCompleted);
+            }
+            base.InvokeAsync(this.onBegininsertarProductoDelegate, new object[] {
+                        producto}, this.onEndinsertarProductoDelegate, this.oninsertarProductoCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2591,74 +2429,141 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.insertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request) {
-            return base.Channel.insertarProducto(request);
+        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse SoftInvBusiness.SoftInvWSProductos.Productos.obtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request) {
+            return base.Channel.obtenerCorporales(request);
         }
         
-        public int insertarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
-            SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest();
-            inValue.producto = producto;
-            SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).insertarProducto(inValue);
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] obtenerCorporales() {
+            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest inValue = new SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest();
+            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).obtenerCorporales(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BegininsertarProducto(SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BegininsertarProducto(request, callback, asyncState);
+        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginobtenerCorporales(SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginobtenerCorporales(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegininsertarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.insertarProductoRequest();
-            inValue.producto = producto;
-            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BegininsertarProducto(inValue, callback, asyncState);
+        public System.IAsyncResult BeginobtenerCorporales(System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest inValue = new SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesRequest();
+            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginobtenerCorporales(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndinsertarProducto(System.IAsyncResult result) {
-            return base.Channel.EndinsertarProducto(result);
+        SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndobtenerCorporales(System.IAsyncResult result) {
+            return base.Channel.EndobtenerCorporales(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public int EndinsertarProducto(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.insertarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndinsertarProducto(result);
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] EndobtenerCorporales(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.obtenerCorporalesResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndobtenerCorporales(result);
             return retVal.@return;
         }
         
-        private System.IAsyncResult OnBegininsertarProducto(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.productoDTO producto = ((SoftInvBusiness.SoftInvWSProductos.productoDTO)(inValues[0]));
-            return this.BegininsertarProducto(producto, callback, asyncState);
+        private System.IAsyncResult OnBeginobtenerCorporales(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginobtenerCorporales(callback, asyncState);
         }
         
-        private object[] OnEndinsertarProducto(System.IAsyncResult result) {
-            int retVal = this.EndinsertarProducto(result);
+        private object[] OnEndobtenerCorporales(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.productoDTO[] retVal = this.EndobtenerCorporales(result);
             return new object[] {
                     retVal};
         }
         
-        private void OninsertarProductoCompleted(object state) {
-            if ((this.insertarProductoCompleted != null)) {
+        private void OnobtenerCorporalesCompleted(object state) {
+            if ((this.obtenerCorporalesCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.insertarProductoCompleted(this, new insertarProductoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.obtenerCorporalesCompleted(this, new obtenerCorporalesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void insertarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
-            this.insertarProductoAsync(producto, null);
+        public void obtenerCorporalesAsync() {
+            this.obtenerCorporalesAsync(null);
         }
         
-        public void insertarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, object userState) {
-            if ((this.onBegininsertarProductoDelegate == null)) {
-                this.onBegininsertarProductoDelegate = new BeginOperationDelegate(this.OnBegininsertarProducto);
+        public void obtenerCorporalesAsync(object userState) {
+            if ((this.onBeginobtenerCorporalesDelegate == null)) {
+                this.onBeginobtenerCorporalesDelegate = new BeginOperationDelegate(this.OnBeginobtenerCorporales);
             }
-            if ((this.onEndinsertarProductoDelegate == null)) {
-                this.onEndinsertarProductoDelegate = new EndOperationDelegate(this.OnEndinsertarProducto);
+            if ((this.onEndobtenerCorporalesDelegate == null)) {
+                this.onEndobtenerCorporalesDelegate = new EndOperationDelegate(this.OnEndobtenerCorporales);
             }
-            if ((this.oninsertarProductoCompletedDelegate == null)) {
-                this.oninsertarProductoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OninsertarProductoCompleted);
+            if ((this.onobtenerCorporalesCompletedDelegate == null)) {
+                this.onobtenerCorporalesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnobtenerCorporalesCompleted);
             }
-            base.InvokeAsync(this.onBegininsertarProductoDelegate, new object[] {
-                        producto}, this.onEndinsertarProductoDelegate, this.oninsertarProductoCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginobtenerCorporalesDelegate, null, this.onEndobtenerCorporalesDelegate, this.onobtenerCorporalesCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.EliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request) {
+            return base.Channel.EliminarProducto(request);
+        }
+        
+        public int EliminarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
+            SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest();
+            inValue.producto = producto;
+            SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EliminarProducto(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginEliminarProducto(SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEliminarProducto(request, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEliminarProducto(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest inValue = new SoftInvBusiness.SoftInvWSProductos.EliminarProductoRequest();
+            inValue.producto = producto;
+            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginEliminarProducto(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndEliminarProducto(System.IAsyncResult result) {
+            return base.Channel.EndEliminarProducto(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public int EndEliminarProducto(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.EliminarProductoResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndEliminarProducto(result);
+            return retVal.@return;
+        }
+        
+        private System.IAsyncResult OnBeginEliminarProducto(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.productoDTO producto = ((SoftInvBusiness.SoftInvWSProductos.productoDTO)(inValues[0]));
+            return this.BeginEliminarProducto(producto, callback, asyncState);
+        }
+        
+        private object[] OnEndEliminarProducto(System.IAsyncResult result) {
+            int retVal = this.EndEliminarProducto(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEliminarProductoCompleted(object state) {
+            if ((this.EliminarProductoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EliminarProductoCompleted(this, new EliminarProductoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EliminarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto) {
+            this.EliminarProductoAsync(producto, null);
+        }
+        
+        public void EliminarProductoAsync(SoftInvBusiness.SoftInvWSProductos.productoDTO producto, object userState) {
+            if ((this.onBeginEliminarProductoDelegate == null)) {
+                this.onBeginEliminarProductoDelegate = new BeginOperationDelegate(this.OnBeginEliminarProducto);
+            }
+            if ((this.onEndEliminarProductoDelegate == null)) {
+                this.onEndEliminarProductoDelegate = new EndOperationDelegate(this.OnEndEliminarProducto);
+            }
+            if ((this.onEliminarProductoCompletedDelegate == null)) {
+                this.onEliminarProductoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEliminarProductoCompleted);
+            }
+            base.InvokeAsync(this.onBeginEliminarProductoDelegate, new object[] {
+                        producto}, this.onEndEliminarProductoDelegate, this.onEliminarProductoCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2875,73 +2780,6 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse SoftInvBusiness.SoftInvWSProductos.Productos.listarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request) {
-            return base.Channel.listarTodos(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] listarTodos() {
-            SoftInvBusiness.SoftInvWSProductos.listarTodosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosRequest();
-            SoftInvBusiness.SoftInvWSProductos.listarTodosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).listarTodos(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginlistarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginlistarTodos(request, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginlistarTodos(System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.listarTodosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosRequest();
-            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginlistarTodos(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndlistarTodos(System.IAsyncResult result) {
-            return base.Channel.EndlistarTodos(result);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] EndlistarTodos(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.listarTodosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndlistarTodos(result);
-            return retVal.@return;
-        }
-        
-        private System.IAsyncResult OnBeginlistarTodos(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginlistarTodos(callback, asyncState);
-        }
-        
-        private object[] OnEndlistarTodos(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.productoDTO[] retVal = this.EndlistarTodos(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnlistarTodosCompleted(object state) {
-            if ((this.listarTodosCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.listarTodosCompleted(this, new listarTodosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void listarTodosAsync() {
-            this.listarTodosAsync(null);
-        }
-        
-        public void listarTodosAsync(object userState) {
-            if ((this.onBeginlistarTodosDelegate == null)) {
-                this.onBeginlistarTodosDelegate = new BeginOperationDelegate(this.OnBeginlistarTodos);
-            }
-            if ((this.onEndlistarTodosDelegate == null)) {
-                this.onEndlistarTodosDelegate = new EndOperationDelegate(this.OnEndlistarTodos);
-            }
-            if ((this.onlistarTodosCompletedDelegate == null)) {
-                this.onlistarTodosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnlistarTodosCompleted);
-            }
-            base.InvokeAsync(this.onBeginlistarTodosDelegate, null, this.onEndlistarTodosDelegate, this.onlistarTodosCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSProductos.cantidadPagProdResponse SoftInvBusiness.SoftInvWSProductos.Productos.cantidadPagProd(SoftInvBusiness.SoftInvWSProductos.cantidadPagProdRequest request) {
             return base.Channel.cantidadPagProd(request);
         }
@@ -3009,70 +2847,70 @@ namespace SoftInvBusiness.SoftInvWSProductos {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse SoftInvBusiness.SoftInvWSProductos.Productos.listarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request) {
-            return base.Channel.listarTodosActivos(request);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse SoftInvBusiness.SoftInvWSProductos.Productos.listarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request) {
+            return base.Channel.listarTodos(request);
         }
         
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] listarTodosActivos() {
-            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest();
-            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).listarTodosActivos(inValue);
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] listarTodos() {
+            SoftInvBusiness.SoftInvWSProductos.listarTodosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosRequest();
+            SoftInvBusiness.SoftInvWSProductos.listarTodosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).listarTodos(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginlistarTodosActivos(SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginlistarTodosActivos(request, callback, asyncState);
+        System.IAsyncResult SoftInvBusiness.SoftInvWSProductos.Productos.BeginlistarTodos(SoftInvBusiness.SoftInvWSProductos.listarTodosRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginlistarTodos(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginlistarTodosActivos(System.AsyncCallback callback, object asyncState) {
-            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosActivosRequest();
-            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginlistarTodosActivos(inValue, callback, asyncState);
+        public System.IAsyncResult BeginlistarTodos(System.AsyncCallback callback, object asyncState) {
+            SoftInvBusiness.SoftInvWSProductos.listarTodosRequest inValue = new SoftInvBusiness.SoftInvWSProductos.listarTodosRequest();
+            return ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).BeginlistarTodos(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndlistarTodosActivos(System.IAsyncResult result) {
-            return base.Channel.EndlistarTodosActivos(result);
+        SoftInvBusiness.SoftInvWSProductos.listarTodosResponse SoftInvBusiness.SoftInvWSProductos.Productos.EndlistarTodos(System.IAsyncResult result) {
+            return base.Channel.EndlistarTodos(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] EndlistarTodosActivos(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.listarTodosActivosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndlistarTodosActivos(result);
+        public SoftInvBusiness.SoftInvWSProductos.productoDTO[] EndlistarTodos(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.listarTodosResponse retVal = ((SoftInvBusiness.SoftInvWSProductos.Productos)(this)).EndlistarTodos(result);
             return retVal.@return;
         }
         
-        private System.IAsyncResult OnBeginlistarTodosActivos(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginlistarTodosActivos(callback, asyncState);
+        private System.IAsyncResult OnBeginlistarTodos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginlistarTodos(callback, asyncState);
         }
         
-        private object[] OnEndlistarTodosActivos(System.IAsyncResult result) {
-            SoftInvBusiness.SoftInvWSProductos.productoDTO[] retVal = this.EndlistarTodosActivos(result);
+        private object[] OnEndlistarTodos(System.IAsyncResult result) {
+            SoftInvBusiness.SoftInvWSProductos.productoDTO[] retVal = this.EndlistarTodos(result);
             return new object[] {
                     retVal};
         }
         
-        private void OnlistarTodosActivosCompleted(object state) {
-            if ((this.listarTodosActivosCompleted != null)) {
+        private void OnlistarTodosCompleted(object state) {
+            if ((this.listarTodosCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.listarTodosActivosCompleted(this, new listarTodosActivosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.listarTodosCompleted(this, new listarTodosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void listarTodosActivosAsync() {
-            this.listarTodosActivosAsync(null);
+        public void listarTodosAsync() {
+            this.listarTodosAsync(null);
         }
         
-        public void listarTodosActivosAsync(object userState) {
-            if ((this.onBeginlistarTodosActivosDelegate == null)) {
-                this.onBeginlistarTodosActivosDelegate = new BeginOperationDelegate(this.OnBeginlistarTodosActivos);
+        public void listarTodosAsync(object userState) {
+            if ((this.onBeginlistarTodosDelegate == null)) {
+                this.onBeginlistarTodosDelegate = new BeginOperationDelegate(this.OnBeginlistarTodos);
             }
-            if ((this.onEndlistarTodosActivosDelegate == null)) {
-                this.onEndlistarTodosActivosDelegate = new EndOperationDelegate(this.OnEndlistarTodosActivos);
+            if ((this.onEndlistarTodosDelegate == null)) {
+                this.onEndlistarTodosDelegate = new EndOperationDelegate(this.OnEndlistarTodos);
             }
-            if ((this.onlistarTodosActivosCompletedDelegate == null)) {
-                this.onlistarTodosActivosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnlistarTodosActivosCompleted);
+            if ((this.onlistarTodosCompletedDelegate == null)) {
+                this.onlistarTodosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnlistarTodosCompleted);
             }
-            base.InvokeAsync(this.onBeginlistarTodosActivosDelegate, null, this.onEndlistarTodosActivosDelegate, this.onlistarTodosActivosCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginlistarTodosDelegate, null, this.onEndlistarTodosDelegate, this.onlistarTodosCompletedDelegate, userState);
         }
     }
 }

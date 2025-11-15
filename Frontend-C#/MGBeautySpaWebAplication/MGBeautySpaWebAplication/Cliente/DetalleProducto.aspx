@@ -52,8 +52,7 @@
                     <%-- Este es el contenedor de fila de tu diseño de Figma --%>
                     <div class="tipo-item-row">
       
-                      <%-- 1. Botón de Tipo de Piel (usa la clase de Figma) --%>
-                      <span class="tipo-name-btn"><%# Eval("Tipo") %></span>
+                      <span class="tipo-name-btn"><%# Eval("tipo.nombre") %></span>
 
                       <%-- 2. Selector de Cantidad (usa las clases de Figma) --%>
                       <div class="quantity-picker">

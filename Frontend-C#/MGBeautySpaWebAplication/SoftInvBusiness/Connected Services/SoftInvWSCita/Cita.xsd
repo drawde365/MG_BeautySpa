@@ -38,28 +38,9 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ListarCitasPorUsuario">
+  <xs:complexType name="EliminarCita">
     <xs:sequence>
-      <xs:element minOccurs="0" name="usuarioDTO" type="tns:usuarioDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="usuarioDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element minOccurs="0" name="celular" type="xs:string" />
-      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
-      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
-      <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
-      <xs:element minOccurs="0" name="nombre" type="xs:string" />
-      <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
-      <xs:element minOccurs="0" name="rol" type="xs:int" />
-      <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
-      <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ListarCitasPorUsuarioResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:citaDTO" />
+      <xs:element minOccurs="0" name="cita" type="tns:citaDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="citaDTO">
@@ -82,6 +63,20 @@
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="usuarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element minOccurs="0" name="celular" type="xs:string" />
+      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
+      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
+      <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
+      <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="empleadoDTO">
     <xs:complexContent mixed="false">
@@ -141,17 +136,28 @@
       <xs:element minOccurs="0" name="producto" type="tns:productoDTO" />
       <xs:element minOccurs="0" name="stock_despacho" type="xs:int" />
       <xs:element minOccurs="0" name="stock_fisico" type="xs:int" />
-      <xs:element minOccurs="0" name="tipo" type="xs:string" />
+      <xs:element minOccurs="0" name="tipo" type="tns:tipoProdDTO" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EliminarCita">
+  <xs:complexType name="tipoProdDTO">
     <xs:sequence>
-      <xs:element minOccurs="0" name="cita" type="tns:citaDTO" />
+      <xs:element name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarCitaResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarCitasPorUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuarioDTO" type="tns:usuarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarCitasPorUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:citaDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="InsertarCita">

@@ -16,17 +16,61 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
     public interface Empleado {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
-            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse ModificarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse> ModificarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse InsertarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse> InsertarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse EliminarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse> EliminarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
+            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
             "esponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse InsertarEmpleadoPorPartes(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request);
+        SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse ListarServiciosDeEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
-            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
+            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
             "esponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse> InsertarEmpleadoPorPartesAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse> ListarServiciosDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request);
+        
+        // CODEGEN: El parámetro 'empleadoId' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
+            "quest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
+            "sponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoResponse AgregarServicioAEmpleado(SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
+            "quest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
+            "sponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoResponse> AgregarServicioAEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarCitasDeEmpleadoReque" +
@@ -41,19 +85,6 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
             "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarCitasDeEmpleadoRespo" +
             "nse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse> ListarCitasDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest request);
-        
-        // CODEGEN: El parámetro 'empleadoId' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
-            "quest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
-            "sponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoResponse AgregarServicioAEmpleado(SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
-            "quest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRe" +
-            "sponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoResponse> AgregarServicioAEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.AgregarServicioAEmpleadoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerEmpleadoPorIdReques" +
@@ -84,118 +115,324 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarTodosEmpleadosResponse> ListarTodosEmpleadosAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarTodosEmpleadosRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
-            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
+            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
             "esponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse ListarServiciosDeEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request);
+        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse InsertarEmpleadoPorPartes(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
-            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoR" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
+            "equest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesR" +
             "esponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse> ListarServiciosDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse EliminarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse> EliminarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse InsertarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse> InsertarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse ModificarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse> ModificarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse> InsertarEmpleadoPorPartesAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request);
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleadoPorPartes", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarEmpleadoPorPartesRequest {
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class empleadoDTO : usuarioDTO {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string nombre;
+        private bool adminField;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Primerapellido;
+        private bool adminFieldSpecified;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Segundoapellido;
+        private servicioDTO[] serviciosField;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=3)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string correoElectronico;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=4)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string contrasenha;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=5)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string celular;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=6)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string urlFotoPerfil;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=7)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool admin;
-        
-        public InsertarEmpleadoPorPartesRequest() {
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public bool admin {
+            get {
+                return this.adminField;
+            }
+            set {
+                this.adminField = value;
+                this.RaisePropertyChanged("admin");
+            }
         }
         
-        public InsertarEmpleadoPorPartesRequest(string nombre, string Primerapellido, string Segundoapellido, string correoElectronico, string contrasenha, string celular, string urlFotoPerfil, bool admin) {
-            this.nombre = nombre;
-            this.Primerapellido = Primerapellido;
-            this.Segundoapellido = Segundoapellido;
-            this.correoElectronico = correoElectronico;
-            this.contrasenha = contrasenha;
-            this.celular = celular;
-            this.urlFotoPerfil = urlFotoPerfil;
-            this.admin = admin;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool adminSpecified {
+            get {
+                return this.adminFieldSpecified;
+            }
+            set {
+                this.adminFieldSpecified = value;
+                this.RaisePropertyChanged("adminSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("servicios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public servicioDTO[] servicios {
+            get {
+                return this.serviciosField;
+            }
+            set {
+                this.serviciosField = value;
+                this.RaisePropertyChanged("servicios");
+            }
         }
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleadoPorPartesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarEmpleadoPorPartesResponse {
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class servicioDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
+        private int activoField;
         
-        public InsertarEmpleadoPorPartesResponse() {
+        private bool activoFieldSpecified;
+        
+        private citaDTO[] citasField;
+        
+        private comentarioDTO[] comentariosField;
+        
+        private string descripcionField;
+        
+        private int duracionHoraField;
+        
+        private bool duracionHoraFieldSpecified;
+        
+        private empleadoDTO[] empleadosField;
+        
+        private int idServicioField;
+        
+        private bool idServicioFieldSpecified;
+        
+        private string nombreField;
+        
+        private double precioField;
+        
+        private bool precioFieldSpecified;
+        
+        private double promedioValoracionField;
+        
+        private bool promedioValoracionFieldSpecified;
+        
+        private string tipoField;
+        
+        private string urlImagenField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public int activo {
+            get {
+                return this.activoField;
+            }
+            set {
+                this.activoField = value;
+                this.RaisePropertyChanged("activo");
+            }
         }
         
-        public InsertarEmpleadoPorPartesResponse(int @return) {
-            this.@return = @return;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool activoSpecified {
+            get {
+                return this.activoFieldSpecified;
+            }
+            set {
+                this.activoFieldSpecified = value;
+                this.RaisePropertyChanged("activoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("citas", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public citaDTO[] citas {
+            get {
+                return this.citasField;
+            }
+            set {
+                this.citasField = value;
+                this.RaisePropertyChanged("citas");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("comentarios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=2)]
+        public comentarioDTO[] comentarios {
+            get {
+                return this.comentariosField;
+            }
+            set {
+                this.comentariosField = value;
+                this.RaisePropertyChanged("comentarios");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string descripcion {
+            get {
+                return this.descripcionField;
+            }
+            set {
+                this.descripcionField = value;
+                this.RaisePropertyChanged("descripcion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public int duracionHora {
+            get {
+                return this.duracionHoraField;
+            }
+            set {
+                this.duracionHoraField = value;
+                this.RaisePropertyChanged("duracionHora");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool duracionHoraSpecified {
+            get {
+                return this.duracionHoraFieldSpecified;
+            }
+            set {
+                this.duracionHoraFieldSpecified = value;
+                this.RaisePropertyChanged("duracionHoraSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("empleados", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=5)]
+        public empleadoDTO[] empleados {
+            get {
+                return this.empleadosField;
+            }
+            set {
+                this.empleadosField = value;
+                this.RaisePropertyChanged("empleados");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        public int idServicio {
+            get {
+                return this.idServicioField;
+            }
+            set {
+                this.idServicioField = value;
+                this.RaisePropertyChanged("idServicio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idServicioSpecified {
+            get {
+                return this.idServicioFieldSpecified;
+            }
+            set {
+                this.idServicioFieldSpecified = value;
+                this.RaisePropertyChanged("idServicioSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public string nombre {
+            get {
+                return this.nombreField;
+            }
+            set {
+                this.nombreField = value;
+                this.RaisePropertyChanged("nombre");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        public double precio {
+            get {
+                return this.precioField;
+            }
+            set {
+                this.precioField = value;
+                this.RaisePropertyChanged("precio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool precioSpecified {
+            get {
+                return this.precioFieldSpecified;
+            }
+            set {
+                this.precioFieldSpecified = value;
+                this.RaisePropertyChanged("precioSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
+        public double promedioValoracion {
+            get {
+                return this.promedioValoracionField;
+            }
+            set {
+                this.promedioValoracionField = value;
+                this.RaisePropertyChanged("promedioValoracion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool promedioValoracionSpecified {
+            get {
+                return this.promedioValoracionFieldSpecified;
+            }
+            set {
+                this.promedioValoracionFieldSpecified = value;
+                this.RaisePropertyChanged("promedioValoracionSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
+        public string tipo {
+            get {
+                return this.tipoField;
+            }
+            set {
+                this.tipoField = value;
+                this.RaisePropertyChanged("tipo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
+        public string urlImagen {
+            get {
+                return this.urlImagenField;
+            }
+            set {
+                this.urlImagenField = value;
+                this.RaisePropertyChanged("urlImagen");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
         }
     }
     
@@ -616,25 +853,35 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class time : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class tipoProdDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        private int idField;
         
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        private string nombreField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("id");
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class date : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string nombre {
+            get {
+                return this.nombreField;
+            }
+            set {
+                this.nombreField = value;
+                this.RaisePropertyChanged("nombre");
+            }
+        }
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -670,7 +917,7 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
         
         private bool stock_fisicoFieldSpecified;
         
-        private string tipoField;
+        private tipoProdDTO tipoField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -770,7 +1017,7 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
-        public string tipo {
+        public tipoProdDTO tipo {
             get {
                 return this.tipoField;
             }
@@ -1168,245 +1415,7 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class servicioDTO : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private int activoField;
-        
-        private bool activoFieldSpecified;
-        
-        private citaDTO[] citasField;
-        
-        private comentarioDTO[] comentariosField;
-        
-        private string descripcionField;
-        
-        private int duracionHoraField;
-        
-        private bool duracionHoraFieldSpecified;
-        
-        private empleadoDTO[] empleadosField;
-        
-        private int idServicioField;
-        
-        private bool idServicioFieldSpecified;
-        
-        private string nombreField;
-        
-        private double precioField;
-        
-        private bool precioFieldSpecified;
-        
-        private double promedioValoracionField;
-        
-        private bool promedioValoracionFieldSpecified;
-        
-        private string tipoField;
-        
-        private string urlImagenField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public int activo {
-            get {
-                return this.activoField;
-            }
-            set {
-                this.activoField = value;
-                this.RaisePropertyChanged("activo");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool activoSpecified {
-            get {
-                return this.activoFieldSpecified;
-            }
-            set {
-                this.activoFieldSpecified = value;
-                this.RaisePropertyChanged("activoSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("citas", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
-        public citaDTO[] citas {
-            get {
-                return this.citasField;
-            }
-            set {
-                this.citasField = value;
-                this.RaisePropertyChanged("citas");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("comentarios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=2)]
-        public comentarioDTO[] comentarios {
-            get {
-                return this.comentariosField;
-            }
-            set {
-                this.comentariosField = value;
-                this.RaisePropertyChanged("comentarios");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string descripcion {
-            get {
-                return this.descripcionField;
-            }
-            set {
-                this.descripcionField = value;
-                this.RaisePropertyChanged("descripcion");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public int duracionHora {
-            get {
-                return this.duracionHoraField;
-            }
-            set {
-                this.duracionHoraField = value;
-                this.RaisePropertyChanged("duracionHora");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool duracionHoraSpecified {
-            get {
-                return this.duracionHoraFieldSpecified;
-            }
-            set {
-                this.duracionHoraFieldSpecified = value;
-                this.RaisePropertyChanged("duracionHoraSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("empleados", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=5)]
-        public empleadoDTO[] empleados {
-            get {
-                return this.empleadosField;
-            }
-            set {
-                this.empleadosField = value;
-                this.RaisePropertyChanged("empleados");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
-        public int idServicio {
-            get {
-                return this.idServicioField;
-            }
-            set {
-                this.idServicioField = value;
-                this.RaisePropertyChanged("idServicio");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool idServicioSpecified {
-            get {
-                return this.idServicioFieldSpecified;
-            }
-            set {
-                this.idServicioFieldSpecified = value;
-                this.RaisePropertyChanged("idServicioSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
-        public string nombre {
-            get {
-                return this.nombreField;
-            }
-            set {
-                this.nombreField = value;
-                this.RaisePropertyChanged("nombre");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
-        public double precio {
-            get {
-                return this.precioField;
-            }
-            set {
-                this.precioField = value;
-                this.RaisePropertyChanged("precio");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool precioSpecified {
-            get {
-                return this.precioFieldSpecified;
-            }
-            set {
-                this.precioFieldSpecified = value;
-                this.RaisePropertyChanged("precioSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
-        public double promedioValoracion {
-            get {
-                return this.promedioValoracionField;
-            }
-            set {
-                this.promedioValoracionField = value;
-                this.RaisePropertyChanged("promedioValoracion");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool promedioValoracionSpecified {
-            get {
-                return this.promedioValoracionFieldSpecified;
-            }
-            set {
-                this.promedioValoracionFieldSpecified = value;
-                this.RaisePropertyChanged("promedioValoracionSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
-        public string tipo {
-            get {
-                return this.tipoField;
-            }
-            set {
-                this.tipoField = value;
-                this.RaisePropertyChanged("tipo");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
-        public string urlImagen {
-            get {
-                return this.urlImagenField;
-            }
-            set {
-                this.urlImagenField = value;
-                this.RaisePropertyChanged("urlImagen");
-            }
-        }
+    public partial class time : object, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -1424,48 +1433,192 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class empleadoDTO : usuarioDTO {
+    public partial class date : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private bool adminField;
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
-        private bool adminFieldSpecified;
-        
-        private servicioDTO[] serviciosField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public bool admin {
-            get {
-                return this.adminField;
-            }
-            set {
-                this.adminField = value;
-                this.RaisePropertyChanged("admin");
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ModificarEmpleadoRequest {
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool adminSpecified {
-            get {
-                return this.adminFieldSpecified;
-            }
-            set {
-                this.adminFieldSpecified = value;
-                this.RaisePropertyChanged("adminSpecified");
-            }
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado;
+        
+        public ModificarEmpleadoRequest() {
         }
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("servicios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
-        public servicioDTO[] servicios {
-            get {
-                return this.serviciosField;
-            }
-            set {
-                this.serviciosField = value;
-                this.RaisePropertyChanged("servicios");
-            }
+        public ModificarEmpleadoRequest(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            this.empleado = empleado;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ModificarEmpleadoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public ModificarEmpleadoResponse() {
+        }
+        
+        public ModificarEmpleadoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarEmpleadoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado;
+        
+        public InsertarEmpleadoRequest() {
+        }
+        
+        public InsertarEmpleadoRequest(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            this.empleado = empleado;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarEmpleadoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public InsertarEmpleadoResponse() {
+        }
+        
+        public InsertarEmpleadoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarEmpleadoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado;
+        
+        public EliminarEmpleadoRequest() {
+        }
+        
+        public EliminarEmpleadoRequest(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            this.empleado = empleado;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarEmpleadoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public EliminarEmpleadoResponse() {
+        }
+        
+        public EliminarEmpleadoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarServiciosDeEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarServiciosDeEmpleadoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int empleadoId;
+        
+        public ListarServiciosDeEmpleadoRequest() {
+        }
+        
+        public ListarServiciosDeEmpleadoRequest(int empleadoId) {
+            this.empleadoId = empleadoId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarServiciosDeEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarServiciosDeEmpleadoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSEmpleado.servicioDTO[] @return;
+        
+        public ListarServiciosDeEmpleadoResponse() {
+        }
+        
+        public ListarServiciosDeEmpleadoResponse(SoftInvBusiness.SoftInvWSEmpleado.servicioDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AgregarServicioAEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class AgregarServicioAEmpleadoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int empleadoId;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int servicioId;
+        
+        public AgregarServicioAEmpleadoRequest() {
+        }
+        
+        public AgregarServicioAEmpleadoRequest(int empleadoId, int servicioId) {
+            this.empleadoId = empleadoId;
+            this.servicioId = servicioId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AgregarServicioAEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class AgregarServicioAEmpleadoResponse {
+        
+        public AgregarServicioAEmpleadoResponse() {
         }
     }
     
@@ -1502,39 +1655,6 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
         
         public ListarCitasDeEmpleadoResponse(SoftInvBusiness.SoftInvWSEmpleado.citaDTO[] @return) {
             this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="AgregarServicioAEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class AgregarServicioAEmpleadoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int empleadoId;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int servicioId;
-        
-        public AgregarServicioAEmpleadoRequest() {
-        }
-        
-        public AgregarServicioAEmpleadoRequest(int empleadoId, int servicioId) {
-            this.empleadoId = empleadoId;
-            this.servicioId = servicioId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="AgregarServicioAEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class AgregarServicioAEmpleadoResponse {
-        
-        public AgregarServicioAEmpleadoResponse() {
         }
     }
     
@@ -1605,143 +1725,70 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarServiciosDeEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ListarServiciosDeEmpleadoRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleadoPorPartes", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarEmpleadoPorPartesRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int empleadoId;
+        public string nombre;
         
-        public ListarServiciosDeEmpleadoRequest() {
-        }
-        
-        public ListarServiciosDeEmpleadoRequest(int empleadoId) {
-            this.empleadoId = empleadoId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarServiciosDeEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ListarServiciosDeEmpleadoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSEmpleado.servicioDTO[] @return;
-        
-        public ListarServiciosDeEmpleadoResponse() {
-        }
-        
-        public ListarServiciosDeEmpleadoResponse(SoftInvBusiness.SoftInvWSEmpleado.servicioDTO[] @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarEmpleadoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado;
+        public string Primerapellido;
         
-        public EliminarEmpleadoRequest() {
-        }
-        
-        public EliminarEmpleadoRequest(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            this.empleado = empleado;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarEmpleadoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
+        public string Segundoapellido;
         
-        public EliminarEmpleadoResponse() {
-        }
-        
-        public EliminarEmpleadoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarEmpleadoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado;
+        public string correoElectronico;
         
-        public InsertarEmpleadoRequest() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string contrasenha;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string celular;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string urlFotoPerfil;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool admin;
+        
+        public InsertarEmpleadoPorPartesRequest() {
         }
         
-        public InsertarEmpleadoRequest(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            this.empleado = empleado;
+        public InsertarEmpleadoPorPartesRequest(string nombre, string Primerapellido, string Segundoapellido, string correoElectronico, string contrasenha, string celular, string urlFotoPerfil, bool admin) {
+            this.nombre = nombre;
+            this.Primerapellido = Primerapellido;
+            this.Segundoapellido = Segundoapellido;
+            this.correoElectronico = correoElectronico;
+            this.contrasenha = contrasenha;
+            this.celular = celular;
+            this.urlFotoPerfil = urlFotoPerfil;
+            this.admin = admin;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarEmpleadoResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarEmpleadoPorPartesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarEmpleadoPorPartesResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public InsertarEmpleadoResponse() {
+        public InsertarEmpleadoPorPartesResponse() {
         }
         
-        public InsertarEmpleadoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ModificarEmpleadoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado;
-        
-        public ModificarEmpleadoRequest() {
-        }
-        
-        public ModificarEmpleadoRequest(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            this.empleado = empleado;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarEmpleadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ModificarEmpleadoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public ModificarEmpleadoResponse() {
-        }
-        
-        public ModificarEmpleadoResponse(int @return) {
+        public InsertarEmpleadoPorPartesResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1774,63 +1821,95 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleadoPorPartes(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request) {
-            return base.Channel.InsertarEmpleadoPorPartes(request);
+        SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.ModificarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request) {
+            return base.Channel.ModificarEmpleado(request);
         }
         
-        public int InsertarEmpleadoPorPartes(string nombre, string Primerapellido, string Segundoapellido, string correoElectronico, string contrasenha, string celular, string urlFotoPerfil, bool admin) {
-            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest();
-            inValue.nombre = nombre;
-            inValue.Primerapellido = Primerapellido;
-            inValue.Segundoapellido = Segundoapellido;
-            inValue.correoElectronico = correoElectronico;
-            inValue.contrasenha = contrasenha;
-            inValue.celular = celular;
-            inValue.urlFotoPerfil = urlFotoPerfil;
-            inValue.admin = admin;
-            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleadoPorPartes(inValue);
+        public int ModificarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest();
+            inValue.empleado = empleado;
+            SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ModificarEmpleado(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleadoPorPartesAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request) {
-            return base.Channel.InsertarEmpleadoPorPartesAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.ModificarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request) {
+            return base.Channel.ModificarEmpleadoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse> InsertarEmpleadoPorPartesAsync(string nombre, string Primerapellido, string Segundoapellido, string correoElectronico, string contrasenha, string celular, string urlFotoPerfil, bool admin) {
-            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest();
-            inValue.nombre = nombre;
-            inValue.Primerapellido = Primerapellido;
-            inValue.Segundoapellido = Segundoapellido;
-            inValue.correoElectronico = correoElectronico;
-            inValue.contrasenha = contrasenha;
-            inValue.celular = celular;
-            inValue.urlFotoPerfil = urlFotoPerfil;
-            inValue.admin = admin;
-            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleadoPorPartesAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse> ModificarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest();
+            inValue.empleado = empleado;
+            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ModificarEmpleadoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarCitasDeEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest request) {
-            return base.Channel.ListarCitasDeEmpleado(request);
+        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request) {
+            return base.Channel.InsertarEmpleado(request);
         }
         
-        public SoftInvBusiness.SoftInvWSEmpleado.citaDTO[] ListarCitasDeEmpleado(int empleadoId) {
-            SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest();
-            inValue.empleadoId = empleadoId;
-            SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarCitasDeEmpleado(inValue);
+        public int InsertarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest();
+            inValue.empleado = empleado;
+            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleado(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarCitasDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest request) {
-            return base.Channel.ListarCitasDeEmpleadoAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request) {
+            return base.Channel.InsertarEmpleadoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse> ListarCitasDeEmpleadoAsync(int empleadoId) {
-            SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest();
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse> InsertarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest();
+            inValue.empleado = empleado;
+            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleadoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.EliminarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request) {
+            return base.Channel.EliminarEmpleado(request);
+        }
+        
+        public int EliminarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest();
+            inValue.empleado = empleado;
+            SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).EliminarEmpleado(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.EliminarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request) {
+            return base.Channel.EliminarEmpleadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse> EliminarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
+            SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest();
+            inValue.empleado = empleado;
+            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).EliminarEmpleadoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarServiciosDeEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request) {
+            return base.Channel.ListarServiciosDeEmpleado(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSEmpleado.servicioDTO[] ListarServiciosDeEmpleado(int empleadoId) {
+            SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest();
             inValue.empleadoId = empleadoId;
-            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarCitasDeEmpleadoAsync(inValue);
+            SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarServiciosDeEmpleado(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarServiciosDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request) {
+            return base.Channel.ListarServiciosDeEmpleadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse> ListarServiciosDeEmpleadoAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarServiciosDeEmpleadoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1855,6 +1934,29 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
             inValue.empleadoId = empleadoId;
             inValue.servicioId = servicioId;
             return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).AgregarServicioAEmpleadoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarCitasDeEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest request) {
+            return base.Channel.ListarCitasDeEmpleado(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSEmpleado.citaDTO[] ListarCitasDeEmpleado(int empleadoId) {
+            SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest();
+            inValue.empleadoId = empleadoId;
+            SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarCitasDeEmpleado(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarCitasDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest request) {
+            return base.Channel.ListarCitasDeEmpleadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoResponse> ListarCitasDeEmpleadoAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarCitasDeEmpleadoRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarCitasDeEmpleadoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1902,95 +2004,40 @@ namespace SoftInvBusiness.SoftInvWSEmpleado {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarServiciosDeEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request) {
-            return base.Channel.ListarServiciosDeEmpleado(request);
+        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleadoPorPartes(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request) {
+            return base.Channel.InsertarEmpleadoPorPartes(request);
         }
         
-        public SoftInvBusiness.SoftInvWSEmpleado.servicioDTO[] ListarServiciosDeEmpleado(int empleadoId) {
-            SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest();
-            inValue.empleadoId = empleadoId;
-            SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarServiciosDeEmpleado(inValue);
+        public int InsertarEmpleadoPorPartes(string nombre, string Primerapellido, string Segundoapellido, string correoElectronico, string contrasenha, string celular, string urlFotoPerfil, bool admin) {
+            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest();
+            inValue.nombre = nombre;
+            inValue.Primerapellido = Primerapellido;
+            inValue.Segundoapellido = Segundoapellido;
+            inValue.correoElectronico = correoElectronico;
+            inValue.contrasenha = contrasenha;
+            inValue.celular = celular;
+            inValue.urlFotoPerfil = urlFotoPerfil;
+            inValue.admin = admin;
+            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleadoPorPartes(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.ListarServiciosDeEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest request) {
-            return base.Channel.ListarServiciosDeEmpleadoAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleadoPorPartesAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest request) {
+            return base.Channel.InsertarEmpleadoPorPartesAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoResponse> ListarServiciosDeEmpleadoAsync(int empleadoId) {
-            SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ListarServiciosDeEmpleadoRequest();
-            inValue.empleadoId = empleadoId;
-            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ListarServiciosDeEmpleadoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.EliminarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request) {
-            return base.Channel.EliminarEmpleado(request);
-        }
-        
-        public int EliminarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest();
-            inValue.empleado = empleado;
-            SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).EliminarEmpleado(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.EliminarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest request) {
-            return base.Channel.EliminarEmpleadoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoResponse> EliminarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.EliminarEmpleadoRequest();
-            inValue.empleado = empleado;
-            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).EliminarEmpleadoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request) {
-            return base.Channel.InsertarEmpleado(request);
-        }
-        
-        public int InsertarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest();
-            inValue.empleado = empleado;
-            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleado(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.InsertarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest request) {
-            return base.Channel.InsertarEmpleadoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoResponse> InsertarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoRequest();
-            inValue.empleado = empleado;
-            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleadoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse SoftInvBusiness.SoftInvWSEmpleado.Empleado.ModificarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request) {
-            return base.Channel.ModificarEmpleado(request);
-        }
-        
-        public int ModificarEmpleado(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest();
-            inValue.empleado = empleado;
-            SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ModificarEmpleado(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse> SoftInvBusiness.SoftInvWSEmpleado.Empleado.ModificarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest request) {
-            return base.Channel.ModificarEmpleadoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoResponse> ModificarEmpleadoAsync(SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado) {
-            SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.ModificarEmpleadoRequest();
-            inValue.empleado = empleado;
-            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).ModificarEmpleadoAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesResponse> InsertarEmpleadoPorPartesAsync(string nombre, string Primerapellido, string Segundoapellido, string correoElectronico, string contrasenha, string celular, string urlFotoPerfil, bool admin) {
+            SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest inValue = new SoftInvBusiness.SoftInvWSEmpleado.InsertarEmpleadoPorPartesRequest();
+            inValue.nombre = nombre;
+            inValue.Primerapellido = Primerapellido;
+            inValue.Segundoapellido = Segundoapellido;
+            inValue.correoElectronico = correoElectronico;
+            inValue.contrasenha = contrasenha;
+            inValue.celular = celular;
+            inValue.urlFotoPerfil = urlFotoPerfil;
+            inValue.admin = admin;
+            return ((SoftInvBusiness.SoftInvWSEmpleado.Empleado)(this)).InsertarEmpleadoPorPartesAsync(inValue);
         }
     }
 }

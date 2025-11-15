@@ -17,17 +17,17 @@
   <message name="ObtenerProductosTiposIdResponse">
     <part name="parameters" element="tns:ObtenerProductosTiposIdResponse" />
   </message>
-  <message name="Modificar">
-    <part name="parameters" element="tns:Modificar" />
-  </message>
-  <message name="ModificarResponse">
-    <part name="parameters" element="tns:ModificarResponse" />
-  </message>
   <message name="Insertar">
     <part name="parameters" element="tns:Insertar" />
   </message>
   <message name="InsertarResponse">
     <part name="parameters" element="tns:InsertarResponse" />
+  </message>
+  <message name="Modificar">
+    <part name="parameters" element="tns:Modificar" />
+  </message>
+  <message name="ModificarResponse">
+    <part name="parameters" element="tns:ModificarResponse" />
   </message>
   <message name="Eliminar">
     <part name="parameters" element="tns:Eliminar" />
@@ -44,13 +44,13 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdRequest" message="tns:ObtenerProductosTiposId" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdResponse" message="tns:ObtenerProductosTiposIdResponse" />
     </operation>
-    <operation name="Modificar">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarRequest" message="tns:Modificar" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarResponse" message="tns:ModificarResponse" />
-    </operation>
     <operation name="Insertar">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/InsertarRequest" message="tns:Insertar" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/InsertarResponse" message="tns:InsertarResponse" />
+    </operation>
+    <operation name="Modificar">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarRequest" message="tns:Modificar" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarResponse" message="tns:ModificarResponse" />
     </operation>
     <operation name="Eliminar">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarRequest" message="tns:Eliminar" />
@@ -77,7 +77,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="Modificar">
+    <operation name="Insertar">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -86,7 +86,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="Insertar">
+    <operation name="Modificar">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
