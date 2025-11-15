@@ -14,16 +14,19 @@ import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     private PedidoDTO pedido;
+    private DetallePedidoDAO detallePedidoDAO;
 
     public PedidoDAOimpl() {
         super("PEDIDOS");
         this.pedido = null;
         this.retornarLlavePrimaria = true;
+        detallePedidoDAO = new DetallePedidoDAOImpl();
     }
 
     @Override
@@ -207,6 +210,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         String sql = this.ObtenerQueryCarrito();
         ArrayList<PedidoDTO> carrito = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idCliente);
         this.pedido=carrito.isEmpty() ? null : carrito.get(0);
+        this.pedido.setDetallesPedido(detallePedidoDAO.obtenerDetallesPedidosId(pedido.getIdPedido()));
         return this.pedido;
     }
 

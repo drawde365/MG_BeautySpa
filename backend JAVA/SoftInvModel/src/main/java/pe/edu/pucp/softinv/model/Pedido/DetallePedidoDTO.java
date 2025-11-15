@@ -1,4 +1,4 @@
-package pe.edu.pucp.softinv.model.Pedido;
+    package pe.edu.pucp.softinv.model.Pedido;
 
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
