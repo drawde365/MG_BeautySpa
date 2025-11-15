@@ -5,6 +5,12 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/ProductoTipo?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
+  <message name="ObtenerPorIdProductoYTipo">
+    <part name="parameters" element="tns:ObtenerPorIdProductoYTipo" />
+  </message>
+  <message name="ObtenerPorIdProductoYTipoResponse">
+    <part name="parameters" element="tns:ObtenerPorIdProductoYTipoResponse" />
+  </message>
   <message name="ObtenerProductosTiposIdActivo">
     <part name="parameters" element="tns:ObtenerProductosTiposIdActivo" />
   </message>
@@ -36,6 +42,10 @@
     <part name="parameters" element="tns:EliminarResponse" />
   </message>
   <portType name="ProductosTipo">
+    <operation name="ObtenerPorIdProductoYTipo">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerPorIdProductoYTipoRequest" message="tns:ObtenerPorIdProductoYTipo" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerPorIdProductoYTipoResponse" message="tns:ObtenerPorIdProductoYTipoResponse" />
+    </operation>
     <operation name="ObtenerProductosTiposIdActivo">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdActivoRequest" message="tns:ObtenerProductosTiposIdActivo" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdActivoResponse" message="tns:ObtenerProductosTiposIdActivoResponse" />
@@ -59,6 +69,15 @@
   </portType>
   <binding name="ProductosTipoPortBinding" type="tns:ProductosTipo">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ObtenerPorIdProductoYTipo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
     <operation name="ObtenerProductosTiposIdActivo">
       <soap:operation soapAction="" />
       <input>

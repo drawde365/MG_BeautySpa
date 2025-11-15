@@ -39,4 +39,8 @@ public class ProductosTipo {
     public Integer eliminarProductoTipo(@WebParam(name = "productoTipo")ProductoTipoDTO productoTipo){
         return productoTipoBO.eliminar(productoTipo);
     }
+    @WebMethod(operationName = "ObtenerPorIdProductoYTipo")
+    public ProductoTipoDTO obtenerProductoTipo(@WebParam(name = "idProducto")int idProducto, @WebParam(name = "idTipo")int idTipo){
+        return productoTipoBO.obtener(idProducto, idTipo);
+    }
 }

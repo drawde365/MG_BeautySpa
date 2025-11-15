@@ -42,6 +42,11 @@ namespace SoftInvBusiness
         {
             return productoTipoSOAP.Eliminar(productoTipo);
         }
+
+        public productoTipoDTO obtener(int idProducto, int idTipo)
+        {
+            return productoTipoSOAP.ObtenerPorIdProductoYTipo(idProducto, idTipo);
+        }
     }
 }
 

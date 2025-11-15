@@ -32,4 +32,7 @@ public class ProductoTipoBO {
         productoTipo.setActivo(0);
         return productoTipoDAO.modificar(productoTipo);
     }
+    public ProductoTipoDTO obtener(int idProducto, int idTipo){
+        return productoTipoDAO.obtener(idProducto, idTipo);
+    }
 }
