@@ -22,7 +22,7 @@ public class DBManagerMySQL extends DBManager {
         url = url.concat(this.puerto);
         url = url.concat("/");
         url = url.concat(this.base_de_datos);
-        url = url.concat("?useSSL=false");
+        url = url.concat("?useSSL=false&serverTimezone=UTC-5");
         //System.out.println(url);
         return url;
     }

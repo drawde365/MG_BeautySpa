@@ -100,51 +100,58 @@ public abstract class DAOImplBase {
     }
 
     protected Integer insertar(boolean dejarConexionAbierta, boolean transaccionIniciada){
-        return this.ejecuta_DML(Tipo_Operacion.INSERTAR, dejarConexionAbierta,transaccionIniciada);
+        return this.ejecuta_DML(Tipo_Operacion.INSERTAR, dejarConexionAbierta,transaccionIniciada,null);
     }
 
     protected Integer modificar(boolean dejarConexionAbierta, boolean transaccionIniciada) {
-        return this.ejecuta_DML(Tipo_Operacion.MODIFICAR,dejarConexionAbierta,transaccionIniciada);
+        return this.ejecuta_DML(Tipo_Operacion.MODIFICAR,dejarConexionAbierta,transaccionIniciada,null);
     }
 
     protected Integer eliminar(boolean dejarConexionAbierta, boolean transaccionIniciada) {
-        return this.ejecuta_DML(Tipo_Operacion.ELIMINAR,dejarConexionAbierta,transaccionIniciada);
+        return this.ejecuta_DML(Tipo_Operacion.ELIMINAR,dejarConexionAbierta,transaccionIniciada,null);
     }
 
     protected Integer insertar() {
         boolean dejarConexionAbierta = false;
         boolean transaccionIniciada = false;
-        return this.ejecuta_DML(Tipo_Operacion.INSERTAR,dejarConexionAbierta,transaccionIniciada);
+        return this.ejecuta_DML(Tipo_Operacion.INSERTAR,dejarConexionAbierta,transaccionIniciada,null);
     }
 
+    protected Integer modificar(String sql){
+        boolean dejarConexionAbierta = false;
+        boolean transaccionIniciada = false;
+        return this.ejecuta_DML(Tipo_Operacion.MODIFICAR,dejarConexionAbierta,transaccionIniciada,sql);
+    }
+    
     protected Integer modificar() {
         boolean dejarConexionAbierta = false;
         boolean transaccionIniciada = false;
-        return this.ejecuta_DML(Tipo_Operacion.MODIFICAR,dejarConexionAbierta,transaccionIniciada);
+        return this.ejecuta_DML(Tipo_Operacion.MODIFICAR,dejarConexionAbierta,transaccionIniciada,null);
     }
 
     protected Integer eliminar() {
         boolean dejarConexionAbierta = false;
         boolean transaccionIniciada = false;
-        return this.ejecuta_DML(Tipo_Operacion.ELIMINAR,dejarConexionAbierta,transaccionIniciada);
+        return this.ejecuta_DML(Tipo_Operacion.ELIMINAR,dejarConexionAbierta,transaccionIniciada,null);
     }
 
-    private Integer ejecuta_DML(Tipo_Operacion tipo_operacion,Boolean dejarConexionAbierta,Boolean transaccionIniciada) {
+    private Integer ejecuta_DML(Tipo_Operacion tipo_operacion,Boolean dejarConexionAbierta,Boolean transaccionIniciada,String sql) {
         Integer resultado = 0;
         try {
             if(!transaccionIniciada)
                 this.iniciarTransaccion();
-            String sql = null;
-            switch (tipo_operacion) {
-                case Tipo_Operacion.INSERTAR:
-                    sql = this.generarSQLParaInsercion();
-                    break;
-                case Tipo_Operacion.MODIFICAR:
-                    sql = this.generarSQLParaModificacion();
-                    break;
-                case Tipo_Operacion.ELIMINAR:
-                    sql = this.generarSQLParaEliminacion();
-                    break;
+            if(sql==null){
+                switch (tipo_operacion) {
+                    case Tipo_Operacion.INSERTAR:
+                        sql = this.generarSQLParaInsercion();
+                        break;
+                    case Tipo_Operacion.MODIFICAR:
+                        sql = this.generarSQLParaModificacion();
+                        break;
+                    case Tipo_Operacion.ELIMINAR:
+                        sql = this.generarSQLParaEliminacion();
+                        break;
+                }
             }
             this.colocarSQLEnStatement(sql);
             switch (tipo_operacion) {
