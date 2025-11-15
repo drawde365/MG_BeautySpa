@@ -9,6 +9,7 @@ import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.sql.Time;
 import java.time.Duration;
+import java.util.ArrayList;
 
 public class HorarioTrabajoBO
 {
@@ -45,5 +46,9 @@ public class HorarioTrabajoBO
 
     public Integer eliminar(HorarioTrabajoDTO horarioTrabajo){
         return horarioTrabajoDAO.eliminar(horarioTrabajo);
+    }
+    
+    public ArrayList<HorarioTrabajoDTO> listarPorEmpleado(Integer empleadoId){
+        return horarioTrabajoDAO.listarPorEmpleado(empleadoId);
     }
 }

@@ -6,6 +6,7 @@ import pe.edu.pucp.softinv.model.Disponibilidad.HorarioTrabajoDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajoDAO {
@@ -19,28 +20,27 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
 
     @Override
     protected void configurarListaDeColumnas() {
-        this.listaColumnas.add(new Columna("EMPLEADO_ID", true, false));
-        this.listaColumnas.add(new Columna("DIA_SEMANA", true, false));
+        this.listaColumnas.add(new Columna("ID", true, true));
+        this.listaColumnas.add(new Columna("EMPLEADO_ID", false, false));
+        this.listaColumnas.add(new Columna("DIA_SEMANA", false, false));
         this.listaColumnas.add(new Columna("HORA_INICIO", false, false));
         this.listaColumnas.add(new Columna("HORA_FIN", false, false));
-        this.listaColumnas.add(new Columna("NUM_INTERVALOS", false, false));
     }
 
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
         this.statement.setInt(1, horarioTrabajo.getEmpleado().getIdUsuario());
         this.statement.setInt(2, horarioTrabajo.getDiaSemana());
-        this.statement.setTime(4, horarioTrabajo.getHoraFin());
-        this.statement.setTime(3,horarioTrabajo.getHoraInicio());
-        this.statement.setInt(5, horarioTrabajo.getIntervalos());
+        this.statement.setString(4, horarioTrabajo.getHoraFin());
+        this.statement.setString(3,horarioTrabajo.getHoraInicio());
     }
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        this.statement.setTime(2, horarioTrabajo.getHoraFin());
-        this.statement.setTime(1,horarioTrabajo.getHoraInicio());
-        this.statement.setInt(3, horarioTrabajo.getIntervalos());
-        this.statement.setInt(4, horarioTrabajo.getEmpleado().getIdUsuario());
+        this.statement.setString(4, horarioTrabajo.getHoraFin());
+        this.statement.setString(3,horarioTrabajo.getHoraInicio());
+        this.statement.setInt(1, horarioTrabajo.getEmpleado().getIdUsuario());
+        this.statement.setInt(2, horarioTrabajo.getDiaSemana());
         this.statement.setInt(5, horarioTrabajo.getDiaSemana());
     }
 
@@ -64,9 +64,9 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
 
         this.horarioTrabajo.setEmpleado(empleado);
         this.horarioTrabajo.setDiaSemana(this.resultSet.getInt("DIA_SEMANA"));
-        this.horarioTrabajo.setHoraFin(this.resultSet.getTime("HORA_FIN"));
-        this.horarioTrabajo.setHoraInicio(this.resultSet.getTime("HORA_INICIO"));
-        this.horarioTrabajo.setIntervalos(this.resultSet.getInt("NUM_INTERVALOS"));
+        this.horarioTrabajo.setHoraFin(this.resultSet.getString("HORA_FIN"));
+        this.horarioTrabajo.setHoraInicio(this.resultSet.getString("HORA_INICIO"));
+        this.horarioTrabajo.setId(this.resultSet.getInt("ID"));
     }
 
     @Override
@@ -107,6 +107,24 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
     public Integer eliminar(HorarioTrabajoDTO horarioTrabajo){
         this.horarioTrabajo = horarioTrabajo;
         return super.eliminar();
+    }
+    
+    public ArrayList<HorarioTrabajoDTO> listarPorEmpleado(Integer idEmpleado){
+        ArrayList<HorarioTrabajoDTO> lista = new ArrayList<HorarioTrabajoDTO>();
+        String sql = "SELECT * FROM HORARIO_TRABAJO WHERE EMPLEADO_ID = ?";
+        try {
+            this.iniciarTransaccion();
+            this.colocarSQLEnStatement(sql);
+            this.statement.setInt(1, idEmpleado);
+            this.ejecutarSelectEnDB();
+            while (this.resultSet.next()) {
+                this.instanciarObjetoDelResultSet();
+                lista.add(this.horarioTrabajo);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

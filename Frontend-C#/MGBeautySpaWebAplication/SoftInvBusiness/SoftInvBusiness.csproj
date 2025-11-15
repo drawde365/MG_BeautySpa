@@ -73,6 +73,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\SoftInvWSHorarioTrabajo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\SoftInvWSPedido\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,6 +104,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoBO.cs" />
+    <Compile Include="HorarioTrabajoBO.cs" />
     <Compile Include="PedidoBO.cs" />
     <Compile Include="ProductoBO.cs" />
     <Compile Include="ProductoTipoBO.cs" />
@@ -242,6 +248,31 @@
     <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.servicioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\HorarioTrabajo.wsdl" />
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\HorarioTrabajo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoPorPartesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.ModificarHorarioTrabajoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorarioTrabajoPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSPedido\Pedido1.wsdl" />
     <None Include="Connected Services\SoftInvWSPedido\Pedido1.xsd">
       <SubType>Designer</SubType>
@@ -374,6 +405,7 @@
     <WCFMetadataStorage Include="Connected Services\SoftInvWSCliente\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSComentario\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSEmpleado\" />
+    <WCFMetadataStorage Include="Connected Services\SoftInvWSHorarioTrabajo\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSPedido\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductos\" />
     <WCFMetadataStorage Include="Connected Services\SoftInvWSProductoTipo\" />
@@ -496,6 +528,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SoftInvWSServicio\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SoftInvWSHorarioTrabajo\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -4,6 +4,7 @@ import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.sql.Time;
+import java.util.ArrayList;
 import pe.edu.pucp.softinv.business.BO.Impl.HorarioTrabajoBO;
 import pe.edu.pucp.softinv.model.Disponibilidad.HorarioTrabajoDTO;
 
@@ -53,5 +54,11 @@ public class HorarioTrabajo {
     public Integer eliminarHorarioTrabajo(
             @WebParam(name = "horarioTrabajo") HorarioTrabajoDTO horarioTrabajo) {
         return horarioTrabajoBO.eliminar(horarioTrabajo);
+    }
+    
+    @WebMethod(operationName = "ListarPorEmpleado")
+    public ArrayList<HorarioTrabajoDTO> listarPorEmpleado(
+            @WebParam(name = "empleadoId") Integer empleadoId) {
+        return horarioTrabajoBO.listarPorEmpleado(empleadoId);
     }
 }

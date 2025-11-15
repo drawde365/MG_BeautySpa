@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSHorarioTrabajo;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,19 +12,21 @@ namespace MGBeautySpaWebAplication.Empleado
 {
     public partial class MiHorario : System.Web.UI.Page
     {
+
+        public MiHorario()
+        {
+            horarioTrabajoBO = new HorarioTrabajoBO();
+        }
+
+        private HorarioTrabajoBO horarioTrabajoBO;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CargarHorario();
-            }
-            if (!IsPostBack)
-            {
                 // Revisa si hay un mensaje "flash" ANTES de cargar el horario
                 MostrarMensajeFlash();
-
-                // Tu lógica existente para cargar la tabla
-                CargarHorario();
+                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+                CargarHorario(usuario.idUsuario);
             }
         }
 
@@ -30,50 +35,83 @@ namespace MGBeautySpaWebAplication.Empleado
             // 1. Revisa si hay un mensaje en la Sesión
             if (Session["FlashMessage"] != null)
             {
-                // 2. Asigna el texto al Literal
                 litAlertMessage.Text = Session["FlashMessage"].ToString();
-
-                // 3. Asigna la clase CSS de Bootstrap (verde)
                 pnlAlert.CssClass = "alert alert-success alert-dismissible fade show";
-
-                // 4. Haz visible el panel
                 pnlAlert.Visible = true;
-
-                // 5 Borra el mensaje de la Sesión para que no aparezca de nuevo
                 Session["FlashMessage"] = null;
             }
         }
 
-        private void CargarHorario()
+        private void CargarHorario(int empleadoId)
         {
-            // En un futuro, estos datos vendrían de la base de datos
-            // new HorarioService().GetHorarioPorEmpleado(empleadoId);
-
-            // Usamos "true" para 'ocupado' y "false" para 'libre'
-            var listaHorario = new List<HorarioRow>
+            // Usamos un Diccionario para acceso rápido (ej. buscar "9:00")
+            var horarioMap = new Dictionary<int, HorarioRow>();
+            for (int i = 8; i <= 20; i++) // De 8:00 a 20:00
             {
-                new HorarioRow { Hora = "8:00", Lunes = false, Martes = false, Miercoles = false, Jueves = false, Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "9:00", Lunes = true,  Martes = false, Miercoles = true,  Jueves = false, Viernes = true,  Sabado = false },
-                new HorarioRow { Hora = "10:00", Lunes = true,  Martes = false, Miercoles = true,  Jueves = false, Viernes = true,  Sabado = false },
-                new HorarioRow { Hora = "11:00", Lunes = true,  Martes = false, Miercoles = true,  Jueves = false, Viernes = true,  Sabado = false },
-                new HorarioRow { Hora = "12:00", Lunes = true,  Martes = false, Miercoles = true,  Jueves = false, Viernes = true,  Sabado = false },
-                new HorarioRow { Hora = "13:00", Lunes = false, Martes = false, Miercoles = false, Jueves = false, Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "14:00", Lunes = false, Martes = true,  Miercoles = false, Jueves = true,  Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "15:00", Lunes = true,  Martes = true,  Miercoles = true,  Jueves = true,  Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "16:00", Lunes = true,  Martes = true,  Miercoles = true,  Jueves = true,  Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "17:00", Lunes = true,  Martes = true,  Miercoles = true,  Jueves = true,  Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "18:00", Lunes = false, Martes = true,  Miercoles = false, Jueves = true,  Viernes = false, Sabado = false },
-                new HorarioRow { Hora = "19:00", Lunes = false, Martes = false, Miercoles = false, Jueves = true,  Viernes = false, Sabado = true  },
-                new HorarioRow { Hora = "20:00", Lunes = false, Martes = false, Miercoles = false, Jueves = true,  Viernes = false, Sabado = true  }
-            };
+                horarioMap[i] = new HorarioRow
+                {
+                    Hora = $"{i}:00",
+                    Lunes = false,
+                    Martes = false,
+                    Miercoles = false,
+                    Jueves = false,
+                    Viernes = false,
+                    Sabado = false
+                };
+            }
 
-            // Enlazamos la lista de datos con el control Repeater del .aspx
+            // --- 2. OBTENER LOS BLOQUES OCUPADOS DE LA BD ---
+            List<horarioTrabajoDTO> horarioArrayList = horarioTrabajoBO.ListarHorarioDeEmpleado(empleadoId).ToList();
+
+            // --- 3. "PINTAR" LA GRILLA CON LOS BLOQUES OCUPADOS ---
+            foreach (horarioTrabajoDTO bloque in horarioArrayList)
+            {
+                string horaInicioString = bloque.horaInicio;
+                string horaFinString = bloque.horaFin;
+
+                TimeSpan tsInicio = TimeSpan.Parse(horaInicioString);
+                TimeSpan tsFin = TimeSpan.Parse(horaFinString);
+
+                if (string.IsNullOrEmpty(horaInicioString) || string.IsNullOrEmpty(horaFinString))
+                {
+                    continue;
+                }
+
+                int horaInicio = tsInicio.Hours;
+                int horaFin = tsFin.Hours;
+
+                // Recorremos cada hora dentro del bloque (ej. 9, 10, 11, 12)
+                for (int horaActual = horaInicio; horaActual < horaFin; horaActual++)
+                {
+                    // Verificamos que la hora exista en nuestra grilla (8-20)
+                    if (horarioMap.ContainsKey(horaActual))
+                    {
+                        HorarioRow filaDeLaHora = horarioMap[horaActual];
+
+                        switch (bloque.diaSemana)
+                        {
+                            case 1: filaDeLaHora.Lunes = true; break;
+                            case 2: filaDeLaHora.Martes = true; break;
+                            case 3: filaDeLaHora.Miercoles = true; break;
+                            case 4: filaDeLaHora.Jueves = true; break;
+                            case 5: filaDeLaHora.Viernes = true; break;
+                            case 6: filaDeLaHora.Sabado = true; break;
+                        }
+                    }
+                }
+            }
+
+            // --- 4. ENLAZAR LA GRILLA YA "PINTADA" AL REPEATER ---
+
+            // Convertimos el Diccionario a una Lista y la ordenamos por hora
+            List<HorarioRow> listaHorario = horarioMap.Values
+                                                .OrderBy(h => int.Parse(h.Hora.Split(':')[0]))
+                                                .ToList();
+
             rptHorario.DataSource = listaHorario;
             rptHorario.DataBind();
         }
 
-        // --- MÉTODO DE AYUDA ---
-        // Este método se llamará desde el .aspx para poner la clase CSS correcta
         protected string GetCellClass(bool isOccupied)
         {
             return isOccupied ? "cell-occupied" : "cell-free";

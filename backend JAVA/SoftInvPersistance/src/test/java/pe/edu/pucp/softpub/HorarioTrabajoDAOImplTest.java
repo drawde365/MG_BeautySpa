@@ -8,6 +8,7 @@ import pe.edu.pucp.softinv.model.Disponibilidad.HorarioTrabajoDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,9 +50,8 @@ public class HorarioTrabajoDAOImplTest {
         HorarioTrabajoDTO horario = new HorarioTrabajoDTO();
         horario.setEmpleado(empleado);
         horario.setDiaSemana(2); // Lunes = 1, Martes = 2
-        horario.setHoraInicio(Time.valueOf("08:00:00"));
-        horario.setHoraFin(Time.valueOf("17:00:00"));
-        horario.setIntervalos(2);
+        horario.setHoraInicio("08:00:00");
+        horario.setHoraFin("17:00:00");
 
         horarioTrabajoDAO.insertar(horario);
         this.horarioTrabajo = horario;
@@ -98,9 +98,8 @@ public class HorarioTrabajoDAOImplTest {
     @DisplayName("Modificar un horario de trabajo")
     void testModificarHorarioTrabajo() {
         HorarioTrabajoDTO horario = insertar();
-        horario.setHoraInicio(Time.valueOf("09:00:00"));
-        horario.setHoraFin(Time.valueOf("18:00:00"));
-        horario.setIntervalos(3);
+        horario.setHoraInicio("09:00:00");
+        horario.setHoraFin("18:00:00");
 
         Integer resultado = horarioTrabajoDAO.modificar(horario);
         assertNotNull(resultado, "El resultado no debe ser nulo");
@@ -112,7 +111,6 @@ public class HorarioTrabajoDAOImplTest {
 
         assertEquals(Time.valueOf("09:00:00"), actualizado.getHoraInicio());
         assertEquals(Time.valueOf("18:00:00"), actualizado.getHoraFin());
-        assertEquals(3, actualizado.getIntervalos());
 
         eliminar();
     }
