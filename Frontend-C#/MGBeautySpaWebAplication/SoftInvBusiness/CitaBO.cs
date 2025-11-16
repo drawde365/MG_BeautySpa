@@ -46,5 +46,9 @@ namespace SoftInvBusiness
         {
             return citaSOAP.ObtenerCitaPorId(citaBusqueda);
         }
+        public IList<citaDTO> ListarPorUsuario(usuarioDTO usuario)
+        {
+            return citaSOAP.ListarCitasPorUsuario(usuario);
+        }
     }
 }

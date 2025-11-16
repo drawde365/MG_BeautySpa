@@ -1,53 +1,105 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using SoftInvBusiness; // Para los BOs
+using SoftInvBusiness.SoftInvWSCita; // Para citaDTO
+using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
     public partial class Reservas : Page
     {
+        private CitaBO citaBO;
+
+        private int LimiteReservas
+        {
+            get { return (int)(ViewState["LimiteReservas"] ?? 3); }
+            set { ViewState["LimiteReservas"] = value; }
+        }
+
+        private List<citaDTO> ListaCompletaReservas
+        {
+            get { return (List<citaDTO>)Session["ListaReservasCliente"]; }
+            set { Session["ListaReservasCliente"] = value; }
+        }
+
+        public Reservas()
+        {
+            citaBO = new CitaBO();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
+                LimiteReservas = 3;
                 CargarReservas();
+            }
         }
 
         private void CargarReservas()
         {
-            // Cargar en duro las reservas
-            DataTable dt = new DataTable();
-            dt.Columns.Add("NumeroReserva", typeof(string));
-            dt.Columns.Add("Servicio", typeof(string));
-            dt.Columns.Add("Fecha", typeof(string));
-            dt.Columns.Add("Empleado", typeof(string));
-            dt.Columns.Add("Total", typeof(string));
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            if (usuario == null)
+            {
+                Response.Redirect("~/Login.aspx?ReturnUrl=" + Request.RawUrl);
+                return;
+            }
 
-            dt.Rows.Add("001", "Masaje relajante de 60 min", "12/08/2025", "Lucía Ramos", "90.00");
-            dt.Rows.Add("002", "Tratamiento facial rejuvenecedor", "25/09/2025", "Carolina Pérez", "120.00");
-            dt.Rows.Add("003", "Manicure y Pedicure", "05/10/2025", "Andrea Torres", "70.00");
+            // 1. Obtener datos (de la BD o de la Sesión)
+            if (ListaCompletaReservas == null)
+            {
+                SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
+                user.idUsuario = usuario.idUsuario;
+                user.idUsuarioSpecified = true;
+                user.rol = 1;
+                user.rolSpecified = true;
+                // El BO de C# debe exponer el método del WS
+                var reservas = citaBO.ListarPorUsuario(user);
+                ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
+            }
 
-            rptReservas.DataSource = dt;
-            rptReservas.DataBind();
+            var listaCompleta = ListaCompletaReservas;
+
+            // 2. Validar si hay reservas
+            if (listaCompleta == null || !listaCompleta.Any())
+            {
+                rptReservas.Visible = false;
+                btnVerMas.Visible = false;
+                pnlNoReservas.Visible = true;
+            }
+            else
+            {
+                rptReservas.Visible = true;
+                pnlNoReservas.Visible = false;
+
+                // 3. Mapear y Limitar la lista para el Repeater
+                var listaMapeada = listaCompleta.Select(c => new {
+                    NumeroReserva = c.id.ToString("D3"), // Formato "001"
+                    Servicio = c.servicio.nombre,
+                    Fecha = c.fechaSpecified ? c.fecha.ToString("dd/MM/yyyy") : "N/A",
+                    Empleado = $"{c.empleado.nombre} {c.empleado.primerapellido}",
+                    Total = c.servicio.precioSpecified ? c.servicio.precio.ToString("C", new CultureInfo("es-PE")) : "S/ 0.00"
+                });
+
+                var listaLimitada = listaMapeada.Take(LimiteReservas).ToList();
+
+                // 4. Enlazar Datos y mostrar/ocultar botón
+                rptReservas.DataSource = listaLimitada;
+                rptReservas.DataBind();
+
+                btnVerMas.Visible = (LimiteReservas < listaCompleta.Count);
+            }
         }
 
         protected void btnVerMas_Click(object sender, EventArgs e)
         {
-            // Cargar más reservas (todo en duro)
-            DataTable dt = new DataTable();
-            dt.Columns.Add("NumeroReserva", typeof(string));
-            dt.Columns.Add("Servicio", typeof(string));
-            dt.Columns.Add("Fecha", typeof(string));
-            dt.Columns.Add("Empleado", typeof(string));
-            dt.Columns.Add("Total", typeof(string));
-
-            dt.Rows.Add("001", "Masaje relajante de 60 min", "12/08/2025", "Lucía Ramos", "90.00");
-            dt.Rows.Add("002", "Tratamiento facial rejuvenecedor", "25/09/2025", "Carolina Pérez", "120.00");
-            dt.Rows.Add("003", "Manicure y Pedicure", "05/10/2025", "Andrea Torres", "70.00");
-            dt.Rows.Add("004", "Depilación con cera", "10/10/2025", "Mónica Vega", "60.00");
-            dt.Rows.Add("005", "Masaje con piedras calientes", "15/10/2025", "Lucía Ramos", "150.00");
-
-            rptReservas.DataSource = dt;
-            rptReservas.DataBind();
+            LimiteReservas += 3;
+            CargarReservas();
         }
 
         protected void btnRegresar_Click(object sender, EventArgs e)

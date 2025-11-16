@@ -23,17 +23,30 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
                     </div>
                     <div class="reserva-total">
                         <span class="total-label">Total:</span>
-                        <strong>S/ <%# Eval("Total") %></strong>
+                        <strong><%# Eval("Total") %></strong> <%-- Formato de moneda se aplica en C# --%>
                     </div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+
+        <%-- ▼▼▼ MENSAJE DE RESERVAS VACÍAS AÑADIDO ▼▼▼ --%>
+        <asp:Panel ID="pnlNoReservas" runat="server" CssClass="no-pedidos-mensaje" Visible="false">
+            Aún no tienes reservas en tu historial.
+        </asp:Panel>
+        <%-- ▲▲▲ FIN DEL MENSAJE ▲▲▲ --%>
 
         <div class="reservas-footer">
             <asp:Button ID="btnVerMas" runat="server"
                         Text="Ver Más"
                         CssClass="btn-vermas"
                         OnClick="btnVerMas_Click" />
+            
+            <%-- El botón Regresar no estaba en tu C#, pero lo dejamos por si
+                 lo tienes en el .aspx.designer.cs --%>
+            <asp:Button ID="btnRegresar" runat="server"
+                        Text="Regresar"
+                        CssClass="btn-regresar"
+                        OnClick="btnRegresar_Click" />
         </div>
     </div>
 

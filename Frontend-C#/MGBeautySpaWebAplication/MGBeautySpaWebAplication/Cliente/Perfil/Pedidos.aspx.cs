@@ -1,46 +1,101 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SoftInvBusiness; // Para PedidoBO
+using SoftInvBusiness.SoftInvWSPedido; // Para pedidoDTO
+using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
     public partial class Pedidos : Page
     {
-        private static int limite = 3; // cuántos pedidos mostrar inicialmente
+        private PedidoBO pedidoBO;
+
+        // Propiedad para mantener el límite en ViewState y que persista entre postbacks
+        private int LimitePedidos
+        {
+            get { return (int)(ViewState["LimitePedidos"] ?? 3); }
+            set { ViewState["LimitePedidos"] = value; }
+        }
+
+        // Propiedad para almacenar la lista completa en Sesión
+        private List<pedidoDTO> ListaCompletaPedidos
+        {
+            get { return (List<pedidoDTO>)Session["ListaPedidosCliente"]; }
+            set { Session["ListaPedidosCliente"] = value; }
+        }
+
+        public Pedidos()
+        {
+            pedidoBO = new PedidoBO();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
+                // Limpiamos el límite al cargar la página por primera vez
+                LimitePedidos = 3;
                 CargarPedidos();
+            }
         }
 
         private void CargarPedidos()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("NumeroPedido", typeof(string));
-            dt.Columns.Add("FechaCompra", typeof(string));
-            dt.Columns.Add("Subtotal", typeof(string));
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            if (usuario == null)
+            {
+                Response.Redirect("~/Login.aspx?ReturnUrl=" + Request.RawUrl);
+                return;
+            }
 
-            // Datos en duro
-            dt.Rows.Add("1001", "21/05/2025", "129.90");
-            dt.Rows.Add("1002", "10/06/2025", "89.50");
-            dt.Rows.Add("1003", "02/08/2025", "45.00");
-            dt.Rows.Add("1004", "05/10/2025", "230.00");
-            dt.Rows.Add("1005", "17/10/2025", "152.40");
-            dt.Rows.Add("1006", "20/10/2025", "99.90");
-            dt.Rows.Add("1007", "27/10/2025", "60.00");
+            // --- 1. Obtener datos (de la BD o de la Sesión) ---
+            if (ListaCompletaPedidos == null)
+            {
+                // Si no está en caché (Sesión), la pedimos al Web Service
+                if (ListaCompletaPedidos == null)
+                {
+                    var pedidos = pedidoBO.ListarPorCliente(usuario.idUsuario);
+                    // Si el WS devuelve null, inicializamos una lista vacía para evitar errores
+                    ListaCompletaPedidos = (pedidos != null) ? pedidos.ToList() : new List<pedidoDTO>();
+                }
+            }
 
-            // Mostrar solo los primeros N pedidos
-            DataTable dtLimitado = dt.Clone();
-            for (int i = 0; i < Math.Min(limite, dt.Rows.Count); i++)
-                dtLimitado.ImportRow(dt.Rows[i]);
+            var listaCompleta = ListaCompletaPedidos;
 
-            rptPedidos.DataSource = dtLimitado;
-            rptPedidos.DataBind();
+            if (listaCompleta == null || !listaCompleta.Any())
+            {
+                // No hay pedidos: Oculta todo y muestra el mensaje
+                rptPedidos.Visible = false;
+                btnVerMas.Visible = false;
+                pnlNoPedidos.Visible = true;
+            } else
+            {
+                rptPedidos.Visible = true;
+                pnlNoPedidos.Visible = false;
+                var listaMapeada = listaCompleta.Select(p => new
+                {
+                    NumeroPedido = p.idPedido,
+                    // Asumiendo que 'fechaPago' es un DateTime y no el 'date' wrapper
+                    FechaCompra = p.fechaPagoSpecified ? p.fechaPago.ToString("dd/MM/yyyy") : "Pendiente",
+                    Subtotal = p.total.ToString("C", new CultureInfo("es-PE")) // Formato de moneda
+                });
 
-            // Si ya se mostraron todos, ocultamos el botón "Ver más"
-            btnVerMas.Visible = (limite < dt.Rows.Count);
+                // Aplicamos el límite
+                var listaLimitada = listaMapeada.Take(LimitePedidos).ToList();
+
+                // --- 3. Enlazar Datos y mostrar/ocultar botón ---
+                rptPedidos.DataSource = listaLimitada;
+                rptPedidos.DataBind();
+
+                // Si el límite es menor que el total, muestra el botón "Ver más"
+                btnVerMas.Visible = (LimitePedidos < listaCompleta.Count);
+            }
+                
         }
 
         protected void btnDetalles_Command(object sender, CommandEventArgs e)
@@ -52,7 +107,8 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
         protected void btnVerMas_Click(object sender, EventArgs e)
         {
             // Aumenta el número de pedidos visibles
-            limite += 3;
+            LimitePedidos += 3;
+            // Vuelve a cargar, esta vez leerá de la Sesión y aplicará el nuevo límite
             CargarPedidos();
         }
 
