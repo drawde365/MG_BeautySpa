@@ -1,12 +1,12 @@
-﻿using System;
+﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSUsuario;
+using System;
 using System.Web.UI;
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
     public partial class CambiarPassword : Page
     {
-        // Simulamos que la contraseña actual es "123"
-        private const string ContraseñaActual = "123";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,8 +19,14 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             string nueva = txtNueva.Text.Trim();
             string verificar = txtVerificar.Text.Trim();
 
+            usuarioDTO usuario = Session["UsuarioActual"] as usuarioDTO;
+            if (usuario == null)
+            {
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
+            }
+
             // 1️⃣ Validar contraseña actual
-            if (antigua != ContraseñaActual)
+            if (antigua != usuario.contrasenha)
             {
                 lblInfo.Text = "⚠️ La contraseña actual no es correcta.";
                 lblInfo.ForeColor = System.Drawing.Color.Red;
@@ -35,12 +41,26 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 return;
             }
 
-            // 3️⃣ Simular guardado de la nueva contraseña
-            // (En tu proyecto real aquí iría la lógica para actualizar la contraseña en base de datos)
-            // GuardarContraseñaUsuario(usuarioId, nueva);
+            ClienteBO clienteBO = new ClienteBO();
+            SoftInvBusiness.SoftInvWSCliente.clienteDTO user = new SoftInvBusiness.SoftInvWSCliente.clienteDTO
+            {
+                nombre = usuario.nombre,
+                primerapellido = usuario.primerapellido,
+                segundoapellido = usuario.segundoapellido,
+                correoElectronico = usuario.correoElectronico,
+                contrasenha = usuario.contrasenha,
+                celular = usuario.celular,
+                urlFotoPerfil = usuario.urlFotoPerfil,
+                rol = 1,
+                idUsuario = usuario.idUsuario,
+                activo = 1,
+                rolSpecified = true,
+                idUsuarioSpecified = true,
+                activoSpecified = true
+            };
 
-            // 4️⃣ Mostrar mensaje y redirigir
-            Session["NuevaContraseña"] = nueva; // Opcional: ejemplo
+            clienteBO.ModificarDatosCliente(user);
+
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
 
