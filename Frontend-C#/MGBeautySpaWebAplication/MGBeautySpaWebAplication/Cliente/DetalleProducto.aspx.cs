@@ -236,6 +236,8 @@ namespace MGBeautySpaWebAplication.Cliente
 
             if (totalItemsAdded > 0)
             {
+                if (listaDetalles[0].producto.producto.idProducto == 0)
+                    listaDetalles.Remove(listaDetalles[0]);
                 carrito.detallesPedido = listaDetalles.ToArray();
                 carrito.total = carrito.detallesPedido.Sum(d => d.subtotal);
                 carrito.totalSpecified = true;

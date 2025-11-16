@@ -74,60 +74,75 @@ namespace MGBeautySpaWebAplication.Cliente
             litTotal.Text = total.ToString("N2");
         }
 
+        private void invalido()
+        {
+            pnlCarritoVacio.Visible = true;
+            pnlCarritoLleno.Visible = false;
+
+            // Asegúrate de que el Repeater esté vacío
+            rpCartItems.DataSource = null;
+            rpCartItems.DataBind();
+
+            // Pon los totales en 0
+            litSubtotal.Text = "0.00";
+            litImpuestos.Text = "0.00";
+            litTotal.Text = "0.00";
+        }
+
         private void RebindCartAndSummary(pedidoDTO carrito)
         {
-            if (carrito == null || carrito.detallesPedido[0].producto.producto.idProducto==0)
+            if(carrito.detallesPedido.Count() == 0)
             {
-                // --- INICIO DE LA CORRECCIÓN ---
-                // NO HAY ITEMS: Muestra el mensaje de vacío y oculta el carrito
-                pnlCarritoVacio.Visible = true;
-                pnlCarritoLleno.Visible = false;
-
-                // Asegúrate de que el Repeater esté vacío
-                rpCartItems.DataSource = null;
-                rpCartItems.DataBind();
-
-                // Pon los totales en 0
-                litSubtotal.Text = "0.00";
-                litImpuestos.Text = "0.00";
-                litTotal.Text = "0.00";
-                // --- FIN DE LA CORRECCIÓN ---
+                invalido();
+                return;
+            }
+            if (carrito.detallesPedido[0].producto.producto.idProducto==0)
+            {
+                invalido();
+                return;
             }
             else
             {
-                // --- HAY ITEMS: Muestra el carrito y oculta el mensaje de vacío ---
-                pnlCarritoVacio.Visible = false;
-                pnlCarritoLleno.Visible = true;
-
-                // Tu bloque IF para el bug de idProducto == 0 (si aún lo necesitas)
-                if (carrito.detallesPedido[0].producto.producto.idProducto == 0)
+                if (carrito.detallesPedido == null || carrito.detallesPedido.Length == 0)
                 {
-                    // (Manejar este caso si es un bug conocido)
+                    invalido();
+                    return;
+                } else
+                {
+                    pnlCarritoVacio.Visible = false;
+                    pnlCarritoLleno.Visible = true;
+
+                    // Tu bloque IF para el bug de idProducto == 0 (si aún lo necesitas)
+                    if (carrito.detallesPedido[0].producto.producto.idProducto == 0)
+                    {
+                        // (Manejar este caso si es un bug conocido)
+                    }
+
+                    var itemsParaRepeater = carrito.detallesPedido.Select(d => new
+                    {
+                        ProductId = d.producto.producto.idProducto,
+                        Nombre = d.producto.producto.nombre,
+                        PrecioUnitario = d.producto.producto.precio,
+                        Cantidad = d.cantidad,
+                        ImageUrl = ResolveUrl(d.producto.producto.urlImagen),
+                        Tamano = d.producto.producto.tamanho.ToString() + "ml",
+                        TipoPiel = d.producto.tipo.nombre
+                    }).ToList();
+
+                    rpCartItems.DataSource = itemsParaRepeater;
+                    rpCartItems.DataBind();
+
+                    LoadOrderSummary(carrito);
                 }
 
-                var itemsParaRepeater = carrito.detallesPedido.Select(d => new
+                // Actualizar el contador del MasterPage (esto debe ir fuera del 'else')
+                Cliente masterPage = this.Master as Cliente;
+                if (masterPage != null)
                 {
-                    ProductId = d.producto.producto.idProducto,
-                    Nombre = d.producto.producto.nombre,
-                    PrecioUnitario = d.producto.producto.precio,
-                    Cantidad = d.cantidad,
-                    ImageUrl = ResolveUrl(d.producto.producto.urlImagen),
-                    Tamano = d.producto.producto.tamanho.ToString() + "ml",
-                    TipoPiel = d.producto.tipo.nombre
-                }).ToList();
-
-                rpCartItems.DataSource = itemsParaRepeater;
-                rpCartItems.DataBind();
-
-                LoadOrderSummary(carrito);
+                    masterPage.UpdateCartDisplay();
+                }
             }
-
-            // Actualizar el contador del MasterPage (esto debe ir fuera del 'else')
-            Cliente masterPage = this.Master as Cliente;
-            if (masterPage != null)
-            {
-                masterPage.UpdateCartDisplay();
-            }
+                    
         }
 
         // ▼▼▼ MÉTODO ELIMINADO ▼▼▼
