@@ -1,8 +1,8 @@
 /backend JAVA/SoftInvBusiness/target/
 /backend JAVA/SoftInvWS/target/
-Frontend-C#/MGBeautySpaWebAplication/*.suo
-Frontend-C#/MGBeautySpaWebAplication/*.user
-Frontend-C#/MGBeautySpaWebAplication/.vs/
+/Frontend-C#/MGBeautySpaWebAplication/*.suo
+/Frontend-C#/MGBeautySpaWebAplication/*.user
+/Frontend-C#/MGBeautySpaWebAplication/.vs/
 
 **/[Oo]bj/
 **/[Bb]in/
@@ -13,4 +13,6 @@ Frontend-C#/MGBeautySpaWebAplication/.vs/
 _ReSharper*/
 *.[Rr]esharper
 
-Frontend-C#/MGBeautySpaWebAplication/packages/
+/Frontend-C#/MGBeautySpaWebAplication/packages/
+/Frontend-C#/MGBeautySpaWebAplication/SoftInvBusiness/app.config
+/Frontend-C#/MGBeautySpaWebAplication/MGBeautySpaWebAplication/web.config

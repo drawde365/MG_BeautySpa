@@ -9,10 +9,12 @@ namespace MGBeautySpaWebAplication.Cliente
     public partial class Resultados : Page
     {
         private ProductoBO productoBO;
+        private ServicioBO servicioBO;
 
         public Resultados()
         {
             productoBO = new ProductoBO();
+            servicioBO = new ServicioBO();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,23 +23,42 @@ namespace MGBeautySpaWebAplication.Cliente
 
             string q = (Request.QueryString["q"] ?? "").Trim();
             litQuery.Text = q;
+            Literal1.Text = q; // Asigna la query al panel de "no resultados"
 
-            Literal1.Text = q;
-            Literal1.DataBind();
+            // 1. OBTENER PRODUCTOS
+            // Proyectamos a un tipo anónimo con propiedades comunes
+            var productos = productoBO.ListarTodosActivos()
+                .Select(p => new {
+                    // Esta 'urlDestino' la usaremos en el href del ASPX
+                    urlDestino = ResolveUrl("~/Cliente/DetalleProducto.aspx?id=" + p.idProducto),
+                    urlImagen = p.urlImagen,
+                    nombre = p.nombre,
+                    precio = p.precio,
+                    tipo = "Producto" // Etiqueta para JS y CSS
+                });
 
-            // Filtrado simple: contiene (case-insensitive)
-            var productos = productoBO.buscarPorNombre(q);
+            // 2. OBTENER SERVICIOS
+            // Proyectamos al MISMO tipo anónimo
+            var servicios = servicioBO.ListarTodoActivo()
+                .Select(s => new {
+                    // Asumimos una página de detalle diferente para servicios
+                    urlDestino = ResolveUrl("~/Cliente/DetalleServicio.aspx?id=" + s.idServicio),
+                    urlImagen = s.urlImagen, // Asumo que servicios también tienen urlImagen
+                    nombre = s.nombre,
+                    precio = s.precio,
+                    tipo = "Servicio" // Etiqueta para JS y CSS
+                });
 
-            if (productos == null || productos.Count == 0)
-            {
-                pnlNoResults.Visible = true;
-                litCount.Text = "0 resultados";
-                return;
-            }
+            // 3. COMBINAR AMBAS LISTAS
+            // Usamos Concat() para unir las dos listas y ToList() para ejecutar la consulta
+            var productosYServicios = productos.Concat(servicios).ToList();
 
-            rptProductos.DataSource = productos;
+            // 4. ENLAZAR (BIND) LA LISTA COMBINADA
+            rptProductos.DataSource = productosYServicios;
             rptProductos.DataBind();
-            litCount.Text = productos.Count + " resultado(s)";
+
+            // El conteo de resultados lo hará el JS en el cliente.
+            litCount.Text = "";
         }
     }
 }
