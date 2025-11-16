@@ -60,7 +60,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             };
 
             clienteBO.ModificarDatosCliente(user);
-
+            Session["UsuarioActual"] = usuario;
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
 
