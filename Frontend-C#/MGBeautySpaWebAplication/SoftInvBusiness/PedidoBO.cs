@@ -66,9 +66,9 @@ namespace SoftInvBusiness
             return pedidoSOAP.ModificarDetallePedido(detalle, idPedido);
         }
 
-        public int EliminarDetalle(detallePedidoDTO detalle, int idPedidp)
+        public int EliminarDetalle(detallePedidoDTO detalle, int idPedido)
         {
-            return pedidoSOAP.EliminarDetallePedido(detalle, idPedidp);
+            return pedidoSOAP.EliminarDetallePedido(detalle, idPedido);
         }
 
         public IList<detallePedidoDTO> ObtenerDetallesPorPedido(int idPedido)

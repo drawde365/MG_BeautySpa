@@ -5,17 +5,29 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Calendario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
+  <message name="InsertarCalendario">
+    <part name="parameters" element="tns:InsertarCalendario" />
+  </message>
+  <message name="InsertarCalendarioResponse">
+    <part name="parameters" element="tns:InsertarCalendarioResponse" />
+  </message>
   <message name="EliminarCalendario">
     <part name="parameters" element="tns:EliminarCalendario" />
   </message>
   <message name="EliminarCalendarioResponse">
     <part name="parameters" element="tns:EliminarCalendarioResponse" />
   </message>
-  <message name="InsertarCalendario">
-    <part name="parameters" element="tns:InsertarCalendario" />
+  <message name="CalcularBloquesDisponibles">
+    <part name="parameters" element="tns:CalcularBloquesDisponibles" />
   </message>
-  <message name="InsertarCalendarioResponse">
-    <part name="parameters" element="tns:InsertarCalendarioResponse" />
+  <message name="CalcularBloquesDisponiblesResponse">
+    <part name="parameters" element="tns:CalcularBloquesDisponiblesResponse" />
+  </message>
+  <message name="ReservarBloqueYCita">
+    <part name="parameters" element="tns:ReservarBloqueYCita" />
+  </message>
+  <message name="ReservarBloqueYCitaResponse">
+    <part name="parameters" element="tns:ReservarBloqueYCitaResponse" />
   </message>
   <message name="ListarCalendarioDeEmpleado">
     <part name="parameters" element="tns:ListarCalendarioDeEmpleado" />
@@ -29,26 +41,22 @@
   <message name="ModificarCalendarioResponse">
     <part name="parameters" element="tns:ModificarCalendarioResponse" />
   </message>
-  <message name="ReservarBloqueYCita">
-    <part name="parameters" element="tns:ReservarBloqueYCita" />
-  </message>
-  <message name="ReservarBloqueYCitaResponse">
-    <part name="parameters" element="tns:ReservarBloqueYCitaResponse" />
-  </message>
-  <message name="CalcularBloquesDisponibles">
-    <part name="parameters" element="tns:CalcularBloquesDisponibles" />
-  </message>
-  <message name="CalcularBloquesDisponiblesResponse">
-    <part name="parameters" element="tns:CalcularBloquesDisponiblesResponse" />
-  </message>
   <portType name="Calendario">
+    <operation name="InsertarCalendario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRequest" message="tns:InsertarCalendario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioResponse" message="tns:InsertarCalendarioResponse" />
+    </operation>
     <operation name="EliminarCalendario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRequest" message="tns:EliminarCalendario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioResponse" message="tns:EliminarCalendarioResponse" />
     </operation>
-    <operation name="InsertarCalendario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRequest" message="tns:InsertarCalendario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioResponse" message="tns:InsertarCalendarioResponse" />
+    <operation name="CalcularBloquesDisponibles">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponiblesRequest" message="tns:CalcularBloquesDisponibles" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponiblesResponse" message="tns:CalcularBloquesDisponiblesResponse" />
+    </operation>
+    <operation name="ReservarBloqueYCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRequest" message="tns:ReservarBloqueYCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaResponse" message="tns:ReservarBloqueYCitaResponse" />
     </operation>
     <operation name="ListarCalendarioDeEmpleado">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoRequest" message="tns:ListarCalendarioDeEmpleado" />
@@ -58,17 +66,18 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioRequest" message="tns:ModificarCalendario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioResponse" message="tns:ModificarCalendarioResponse" />
     </operation>
-    <operation name="ReservarBloqueYCita">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRequest" message="tns:ReservarBloqueYCita" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaResponse" message="tns:ReservarBloqueYCitaResponse" />
-    </operation>
-    <operation name="CalcularBloquesDisponibles">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponiblesRequest" message="tns:CalcularBloquesDisponibles" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponiblesResponse" message="tns:CalcularBloquesDisponiblesResponse" />
-    </operation>
   </portType>
   <binding name="CalendarioPortBinding" type="tns:Calendario">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="InsertarCalendario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
     <operation name="EliminarCalendario">
       <soap:operation soapAction="" />
       <input>
@@ -78,7 +87,16 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="InsertarCalendario">
+    <operation name="CalcularBloquesDisponibles">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ReservarBloqueYCita">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -97,24 +115,6 @@
       </output>
     </operation>
     <operation name="ModificarCalendario">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="ReservarBloqueYCita">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="CalcularBloquesDisponibles">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

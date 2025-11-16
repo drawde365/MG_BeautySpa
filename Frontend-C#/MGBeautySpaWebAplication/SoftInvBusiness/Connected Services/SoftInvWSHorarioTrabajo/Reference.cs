@@ -16,6 +16,20 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     public interface HorarioTrabajo {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
+            "pleadoYFechaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
+            "pleadoYFechaResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse ObtenerHorariosPorEmpleadoYFecha(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
+            "pleadoYFechaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
+            "pleadoYFechaResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse> ObtenerHorariosPorEmpleadoYFechaAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoReq" +
             "uest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoRes" +
             "ponse")]
@@ -28,6 +42,20 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
             "uest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoRes" +
             "ponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoResponse> ListarPorEmpleadoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ModificarHorarioTrab" +
@@ -58,20 +86,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorarioTrabajoPorIdResponse> ObtenerHorarioTrabajoPorIdAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorarioTrabajoPorIdRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTraba" +
             "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTraba" +
             "joResponse")]
@@ -84,20 +98,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
             "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTraba" +
             "joResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoResponse> InsertarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
-            "pleadoYFechaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
-            "pleadoYFechaResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse ObtenerHorariosPorEmpleadoYFecha(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
-            "pleadoYFechaRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEm" +
-            "pleadoYFechaResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse> ObtenerHorariosPorEmpleadoYFechaAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request);
     }
     
     /// <remarks/>
@@ -1513,6 +1513,47 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerHorariosPorEmpleadoYFecha", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerHorariosPorEmpleadoYFechaRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int empleadoId;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int diaSemana;
+        
+        public ObtenerHorariosPorEmpleadoYFechaRequest() {
+        }
+        
+        public ObtenerHorariosPorEmpleadoYFechaRequest(int empleadoId, int diaSemana) {
+            this.empleadoId = empleadoId;
+            this.diaSemana = diaSemana;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerHorariosPorEmpleadoYFechaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerHorariosPorEmpleadoYFechaResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] @return;
+        
+        public ObtenerHorariosPorEmpleadoYFechaResponse() {
+        }
+        
+        public ObtenerHorariosPorEmpleadoYFechaResponse(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="ListarPorEmpleado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class ListarPorEmpleadoRequest {
         
@@ -1542,6 +1583,42 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         }
         
         public ListarPorEmpleadoResponse(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarHorarioTrabajoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo;
+        
+        public EliminarHorarioTrabajoRequest() {
+        }
+        
+        public EliminarHorarioTrabajoRequest(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
+            this.horarioTrabajo = horarioTrabajo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarHorarioTrabajoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public EliminarHorarioTrabajoResponse() {
+        }
+        
+        public EliminarHorarioTrabajoResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1621,42 +1698,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarHorarioTrabajoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo;
-        
-        public EliminarHorarioTrabajoRequest() {
-        }
-        
-        public EliminarHorarioTrabajoRequest(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
-            this.horarioTrabajo = horarioTrabajo;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarHorarioTrabajoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public EliminarHorarioTrabajoResponse() {
-        }
-        
-        public EliminarHorarioTrabajoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarHorarioTrabajo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class InsertarHorarioTrabajoRequest {
         
@@ -1690,47 +1731,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerHorariosPorEmpleadoYFecha", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerHorariosPorEmpleadoYFechaRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int empleadoId;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int diaSemana;
-        
-        public ObtenerHorariosPorEmpleadoYFechaRequest() {
-        }
-        
-        public ObtenerHorariosPorEmpleadoYFechaRequest(int empleadoId, int diaSemana) {
-            this.empleadoId = empleadoId;
-            this.diaSemana = diaSemana;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerHorariosPorEmpleadoYFechaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerHorariosPorEmpleadoYFechaResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] @return;
-        
-        public ObtenerHorariosPorEmpleadoYFechaResponse() {
-        }
-        
-        public ObtenerHorariosPorEmpleadoYFechaResponse(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] @return) {
-            this.@return = @return;
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface HorarioTrabajoChannel : SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo, System.ServiceModel.IClientChannel {
     }
@@ -1759,6 +1759,31 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.ObtenerHorariosPorEmpleadoYFecha(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request) {
+            return base.Channel.ObtenerHorariosPorEmpleadoYFecha(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] ObtenerHorariosPorEmpleadoYFecha(int empleadoId, int diaSemana) {
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest();
+            inValue.empleadoId = empleadoId;
+            inValue.diaSemana = diaSemana;
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse retVal = ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).ObtenerHorariosPorEmpleadoYFecha(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse> SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request) {
+            return base.Channel.ObtenerHorariosPorEmpleadoYFechaAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse> ObtenerHorariosPorEmpleadoYFechaAsync(int empleadoId, int diaSemana) {
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest();
+            inValue.empleadoId = empleadoId;
+            inValue.diaSemana = diaSemana;
+            return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).ObtenerHorariosPorEmpleadoYFechaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.ListarPorEmpleado(SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoRequest request) {
             return base.Channel.ListarPorEmpleado(request);
         }
@@ -1779,6 +1804,29 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
             SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.ListarPorEmpleadoRequest();
             inValue.empleadoId = empleadoId;
             return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).ListarPorEmpleadoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
+            return base.Channel.EliminarHorarioTrabajo(request);
+        }
+        
+        public int EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
+            inValue.horarioTrabajo = horarioTrabajo;
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse retVal = ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajo(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
+            return base.Channel.EliminarHorarioTrabajoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
+            inValue.horarioTrabajo = horarioTrabajo;
+            return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1828,29 +1876,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
-            return base.Channel.EliminarHorarioTrabajo(request);
-        }
-        
-        public int EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
-            inValue.horarioTrabajo = horarioTrabajo;
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse retVal = ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajo(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
-            return base.Channel.EliminarHorarioTrabajoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
-            inValue.horarioTrabajo = horarioTrabajo;
-            return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.InsertarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest request) {
             return base.Channel.InsertarHorarioTrabajo(request);
         }
@@ -1871,31 +1896,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
             SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest();
             inValue.horarioTrabajo = horarioTrabajo;
             return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).InsertarHorarioTrabajoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.ObtenerHorariosPorEmpleadoYFecha(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request) {
-            return base.Channel.ObtenerHorariosPorEmpleadoYFecha(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO[] ObtenerHorariosPorEmpleadoYFecha(int empleadoId, int diaSemana) {
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest();
-            inValue.empleadoId = empleadoId;
-            inValue.diaSemana = diaSemana;
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse retVal = ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).ObtenerHorariosPorEmpleadoYFecha(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse> SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest request) {
-            return base.Channel.ObtenerHorariosPorEmpleadoYFechaAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaResponse> ObtenerHorariosPorEmpleadoYFechaAsync(int empleadoId, int diaSemana) {
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.ObtenerHorariosPorEmpleadoYFechaRequest();
-            inValue.empleadoId = empleadoId;
-            inValue.diaSemana = diaSemana;
-            return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).ObtenerHorariosPorEmpleadoYFechaAsync(inValue);
         }
     }
 }

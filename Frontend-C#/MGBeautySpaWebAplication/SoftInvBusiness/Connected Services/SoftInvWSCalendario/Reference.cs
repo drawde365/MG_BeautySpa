@@ -16,6 +16,20 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     public interface Calendario {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
+            "se")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
+            "se")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioReques" +
             "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRespon" +
             "se")]
@@ -30,18 +44,32 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
-            "se")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
-            "se")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> CalcularBloquesDisponiblesAsync(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
+            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
+            "nse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
+            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
@@ -70,34 +98,6 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
             "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioRespo" +
             "nse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse> ModificarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
-            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
-            "nse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
-            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
-            "nse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> CalcularBloquesDisponiblesAsync(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
     }
     
     /// <remarks/>
@@ -1499,6 +1499,42 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarCalendarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
+        
+        public InsertarCalendarioRequest() {
+        }
+        
+        public InsertarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            this.calendario = calendario;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarCalendarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public InsertarCalendarioResponse() {
+        }
+        
+        public InsertarCalendarioResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class EliminarCalendarioRequest {
         
@@ -1535,35 +1571,81 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarCalendarioRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponibles", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class CalcularBloquesDisponiblesRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
+        public int empleadoId;
         
-        public InsertarCalendarioRequest() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public System.DateTime fecha;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int duracionServicioMinutos;
+        
+        public CalcularBloquesDisponiblesRequest() {
         }
         
-        public InsertarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            this.calendario = calendario;
+        public CalcularBloquesDisponiblesRequest(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
+            this.empleadoId = empleadoId;
+            this.fecha = fecha;
+            this.duracionServicioMinutos = duracionServicioMinutos;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarCalendarioResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponiblesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class CalcularBloquesDisponiblesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string[] @return;
+        
+        public CalcularBloquesDisponiblesResponse() {
+        }
+        
+        public CalcularBloquesDisponiblesResponse(string[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCita", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ReservarBloqueYCitaRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSCalendario.citaDTO cita;
+        
+        public ReservarBloqueYCitaRequest() {
+        }
+        
+        public ReservarBloqueYCitaRequest(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
+            this.cita = cita;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCitaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ReservarBloqueYCitaResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public InsertarCalendarioResponse() {
+        public ReservarBloqueYCitaResponse() {
         }
         
-        public InsertarCalendarioResponse(int @return) {
+        public ReservarBloqueYCitaResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1640,88 +1722,6 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCita", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ReservarBloqueYCitaRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCalendario.citaDTO cita;
-        
-        public ReservarBloqueYCitaRequest() {
-        }
-        
-        public ReservarBloqueYCitaRequest(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
-            this.cita = cita;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCitaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ReservarBloqueYCitaResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public ReservarBloqueYCitaResponse() {
-        }
-        
-        public ReservarBloqueYCitaResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponibles", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class CalcularBloquesDisponiblesRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int empleadoId;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime fecha;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int duracionServicioMinutos;
-        
-        public CalcularBloquesDisponiblesRequest() {
-        }
-        
-        public CalcularBloquesDisponiblesRequest(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
-            this.empleadoId = empleadoId;
-            this.fecha = fecha;
-            this.duracionServicioMinutos = duracionServicioMinutos;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponiblesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class CalcularBloquesDisponiblesResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] @return;
-        
-        public CalcularBloquesDisponiblesResponse() {
-        }
-        
-        public CalcularBloquesDisponiblesResponse(string[] @return) {
-            this.@return = @return;
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface CalendarioChannel : SoftInvBusiness.SoftInvWSCalendario.Calendario, System.ServiceModel.IClientChannel {
     }
@@ -1750,6 +1750,29 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
+            return base.Channel.InsertarCalendario(request);
+        }
+        
+        public int InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
+            inValue.calendario = calendario;
+            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
+            return base.Channel.InsertarCalendarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
+            inValue.calendario = calendario;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request) {
             return base.Channel.EliminarCalendario(request);
         }
@@ -1773,26 +1796,53 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
-            return base.Channel.InsertarCalendario(request);
+        SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request) {
+            return base.Channel.CalcularBloquesDisponibles(request);
         }
         
-        public int InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
-            inValue.calendario = calendario;
-            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendario(inValue);
+        public string[] CalcularBloquesDisponibles(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
+            SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest();
+            inValue.empleadoId = empleadoId;
+            inValue.fecha = fecha;
+            inValue.duracionServicioMinutos = duracionServicioMinutos;
+            SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).CalcularBloquesDisponibles(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
-            return base.Channel.InsertarCalendarioAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.CalcularBloquesDisponiblesAsync(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request) {
+            return base.Channel.CalcularBloquesDisponiblesAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
-            inValue.calendario = calendario;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendarioAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> CalcularBloquesDisponiblesAsync(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
+            SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest();
+            inValue.empleadoId = empleadoId;
+            inValue.fecha = fecha;
+            inValue.duracionServicioMinutos = duracionServicioMinutos;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).CalcularBloquesDisponiblesAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request) {
+            return base.Channel.ReservarBloqueYCita(request);
+        }
+        
+        public int ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
+            SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest();
+            inValue.cita = cita;
+            SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ReservarBloqueYCita(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request) {
+            return base.Channel.ReservarBloqueYCitaAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
+            SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest();
+            inValue.cita = cita;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ReservarBloqueYCitaAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1839,56 +1889,6 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
             SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest();
             inValue.calendario = calendario;
             return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ModificarCalendarioAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request) {
-            return base.Channel.ReservarBloqueYCita(request);
-        }
-        
-        public int ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
-            SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest();
-            inValue.cita = cita;
-            SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ReservarBloqueYCita(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request) {
-            return base.Channel.ReservarBloqueYCitaAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
-            SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest();
-            inValue.cita = cita;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ReservarBloqueYCitaAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request) {
-            return base.Channel.CalcularBloquesDisponibles(request);
-        }
-        
-        public string[] CalcularBloquesDisponibles(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
-            SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest();
-            inValue.empleadoId = empleadoId;
-            inValue.fecha = fecha;
-            inValue.duracionServicioMinutos = duracionServicioMinutos;
-            SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).CalcularBloquesDisponibles(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.CalcularBloquesDisponiblesAsync(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request) {
-            return base.Channel.CalcularBloquesDisponiblesAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> CalcularBloquesDisponiblesAsync(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
-            SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest();
-            inValue.empleadoId = empleadoId;
-            inValue.fecha = fecha;
-            inValue.duracionServicioMinutos = duracionServicioMinutos;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).CalcularBloquesDisponiblesAsync(inValue);
         }
     }
 }

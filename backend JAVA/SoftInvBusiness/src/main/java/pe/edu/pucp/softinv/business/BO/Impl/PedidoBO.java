@@ -84,6 +84,7 @@ public class PedidoBO {
         PedidoDTO pedido = pedidoDAO.obtenerPorId(idPedido);
         pedido.setTotal(pedido.getTotal()-  detallePedido.getSubtotal());
         pedidoDAO.modificar(pedido);
+        detallePedido.setPedido(pedido);
         return detallePedidoDAO.eliminar(detallePedido);
     }
     public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {

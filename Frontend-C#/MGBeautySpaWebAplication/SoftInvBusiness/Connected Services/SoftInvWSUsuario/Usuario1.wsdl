@@ -23,17 +23,17 @@
   <message name="MarcarTokenComoUsadoResponse">
     <part name="parameters" element="tns:MarcarTokenComoUsadoResponse" />
   </message>
-  <message name="RegistrarToken">
-    <part name="parameters" element="tns:RegistrarToken" />
-  </message>
-  <message name="RegistrarTokenResponse">
-    <part name="parameters" element="tns:RegistrarTokenResponse" />
-  </message>
   <message name="ObtenerUsuario">
     <part name="parameters" element="tns:ObtenerUsuario" />
   </message>
   <message name="ObtenerUsuarioResponse">
     <part name="parameters" element="tns:ObtenerUsuarioResponse" />
+  </message>
+  <message name="RegistrarToken">
+    <part name="parameters" element="tns:RegistrarToken" />
+  </message>
+  <message name="RegistrarTokenResponse">
+    <part name="parameters" element="tns:RegistrarTokenResponse" />
   </message>
   <message name="ModificarContrasenha">
     <part name="parameters" element="tns:ModificarContrasenha" />
@@ -54,13 +54,13 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" message="tns:MarcarTokenComoUsado" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoResponse" message="tns:MarcarTokenComoUsadoResponse" />
     </operation>
-    <operation name="RegistrarToken">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest" message="tns:RegistrarToken" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse" message="tns:RegistrarTokenResponse" />
-    </operation>
     <operation name="ObtenerUsuario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest" message="tns:ObtenerUsuario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse" message="tns:ObtenerUsuarioResponse" />
+    </operation>
+    <operation name="RegistrarToken">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest" message="tns:RegistrarToken" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse" message="tns:RegistrarTokenResponse" />
     </operation>
     <operation name="ModificarContrasenha">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRequest" message="tns:ModificarContrasenha" />
@@ -96,7 +96,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="RegistrarToken">
+    <operation name="ObtenerUsuario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -105,7 +105,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ObtenerUsuario">
+    <operation name="RegistrarToken">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

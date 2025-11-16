@@ -11,6 +11,12 @@
   <message name="ListarPedidosDeClienteResponse">
     <part name="parameters" element="tns:ListarPedidosDeClienteResponse" />
   </message>
+  <message name="ObtenerDetallesPorPedidoId">
+    <part name="parameters" element="tns:ObtenerDetallesPorPedidoId" />
+  </message>
+  <message name="ObtenerDetallesPorPedidoIdResponse">
+    <part name="parameters" element="tns:ObtenerDetallesPorPedidoIdResponse" />
+  </message>
   <message name="ObtenerDetallePedido">
     <part name="parameters" element="tns:ObtenerDetallePedido" />
   </message>
@@ -29,35 +35,17 @@
   <message name="InsertarDetallePedidoResponse">
     <part name="parameters" element="tns:InsertarDetallePedidoResponse" />
   </message>
-  <message name="EliminarDetallePedido">
-    <part name="parameters" element="tns:EliminarDetallePedido" />
-  </message>
-  <message name="EliminarDetallePedidoResponse">
-    <part name="parameters" element="tns:EliminarDetallePedidoResponse" />
-  </message>
   <message name="ModificarDetallePedido">
     <part name="parameters" element="tns:ModificarDetallePedido" />
   </message>
   <message name="ModificarDetallePedidoResponse">
     <part name="parameters" element="tns:ModificarDetallePedidoResponse" />
   </message>
-  <message name="ObtenerDetallesPorPedidoId">
-    <part name="parameters" element="tns:ObtenerDetallesPorPedidoId" />
+  <message name="EliminarDetallePedido">
+    <part name="parameters" element="tns:EliminarDetallePedido" />
   </message>
-  <message name="ObtenerDetallesPorPedidoIdResponse">
-    <part name="parameters" element="tns:ObtenerDetallesPorPedidoIdResponse" />
-  </message>
-  <message name="EliminarPedido">
-    <part name="parameters" element="tns:EliminarPedido" />
-  </message>
-  <message name="EliminarPedidoResponse">
-    <part name="parameters" element="tns:EliminarPedidoResponse" />
-  </message>
-  <message name="ModificarPedido">
-    <part name="parameters" element="tns:ModificarPedido" />
-  </message>
-  <message name="ModificarPedidoResponse">
-    <part name="parameters" element="tns:ModificarPedidoResponse" />
+  <message name="EliminarDetallePedidoResponse">
+    <part name="parameters" element="tns:EliminarDetallePedidoResponse" />
   </message>
   <message name="InsertarPedido">
     <part name="parameters" element="tns:InsertarPedido" />
@@ -71,10 +59,26 @@
   <message name="ObtenerPedidoPorIdResponse">
     <part name="parameters" element="tns:ObtenerPedidoPorIdResponse" />
   </message>
+  <message name="ModificarPedido">
+    <part name="parameters" element="tns:ModificarPedido" />
+  </message>
+  <message name="ModificarPedidoResponse">
+    <part name="parameters" element="tns:ModificarPedidoResponse" />
+  </message>
+  <message name="EliminarPedido">
+    <part name="parameters" element="tns:EliminarPedido" />
+  </message>
+  <message name="EliminarPedidoResponse">
+    <part name="parameters" element="tns:EliminarPedidoResponse" />
+  </message>
   <portType name="Pedido">
     <operation name="ListarPedidosDeCliente">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosDeClienteRequest" message="tns:ListarPedidosDeCliente" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosDeClienteResponse" message="tns:ListarPedidosDeClienteResponse" />
+    </operation>
+    <operation name="ObtenerDetallesPorPedidoId">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallesPorPedidoIdRequest" message="tns:ObtenerDetallesPorPedidoId" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallesPorPedidoIdResponse" message="tns:ObtenerDetallesPorPedidoIdResponse" />
     </operation>
     <operation name="ObtenerDetallePedido">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoRequest" message="tns:ObtenerDetallePedido" />
@@ -88,25 +92,13 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarDetallePedidoRequest" message="tns:InsertarDetallePedido" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarDetallePedidoResponse" message="tns:InsertarDetallePedidoResponse" />
     </operation>
-    <operation name="EliminarDetallePedido">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRequest" message="tns:EliminarDetallePedido" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoResponse" message="tns:EliminarDetallePedidoResponse" />
-    </operation>
     <operation name="ModificarDetallePedido">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarDetallePedidoRequest" message="tns:ModificarDetallePedido" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarDetallePedidoResponse" message="tns:ModificarDetallePedidoResponse" />
     </operation>
-    <operation name="ObtenerDetallesPorPedidoId">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallesPorPedidoIdRequest" message="tns:ObtenerDetallesPorPedidoId" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallesPorPedidoIdResponse" message="tns:ObtenerDetallesPorPedidoIdResponse" />
-    </operation>
-    <operation name="EliminarPedido">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoRequest" message="tns:EliminarPedido" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoResponse" message="tns:EliminarPedidoResponse" />
-    </operation>
-    <operation name="ModificarPedido">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoRequest" message="tns:ModificarPedido" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoResponse" message="tns:ModificarPedidoResponse" />
+    <operation name="EliminarDetallePedido">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRequest" message="tns:EliminarDetallePedido" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoResponse" message="tns:EliminarDetallePedidoResponse" />
     </operation>
     <operation name="InsertarPedido">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoRequest" message="tns:InsertarPedido" />
@@ -116,10 +108,27 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdRequest" message="tns:ObtenerPedidoPorId" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdResponse" message="tns:ObtenerPedidoPorIdResponse" />
     </operation>
+    <operation name="ModificarPedido">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoRequest" message="tns:ModificarPedido" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoResponse" message="tns:ModificarPedidoResponse" />
+    </operation>
+    <operation name="EliminarPedido">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoRequest" message="tns:EliminarPedido" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoResponse" message="tns:EliminarPedidoResponse" />
+    </operation>
   </portType>
   <binding name="PedidoPortBinding" type="tns:Pedido">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <operation name="ListarPedidosDeCliente">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ObtenerDetallesPorPedidoId">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -155,15 +164,6 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="EliminarDetallePedido">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
     <operation name="ModificarDetallePedido">
       <soap:operation soapAction="" />
       <input>
@@ -173,25 +173,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ObtenerDetallesPorPedidoId">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="EliminarPedido">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="ModificarPedido">
+    <operation name="EliminarDetallePedido">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -210,6 +192,24 @@
       </output>
     </operation>
     <operation name="ObtenerPedidoPorId">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ModificarPedido">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="EliminarPedido">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
