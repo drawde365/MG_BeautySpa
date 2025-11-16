@@ -3,10 +3,15 @@ package pe.edu.pucp.softinv.services.softinvws;
 import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
-import java.sql.Date;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import pe.edu.pucp.softinv.business.BO.Impl.CalendarioBO;
+import pe.edu.pucp.softinv.model.Cita.CitaDTO;
 import pe.edu.pucp.softinv.model.Disponibilidad.CalendarioDTO;
+import pe.edu.pucp.softinv.model.util.LocalTimeAdapter;
 
 /**
  *
@@ -20,29 +25,24 @@ public class Calendario {
     public Calendario() {
         calendarioBO = new CalendarioBO();
     }
-    
-    @WebMethod(operationName = "InsertarCalendarioPorPartes")
-    public Integer insertarCalendarioPorPartes(
-            @WebParam(name = "idEmpleado") Integer idEmpleado,
+    @WebMethod(operationName = "CalcularBloquesDisponibles")
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+    public List<LocalTime> calcularBloquesDisponibles(
+            @WebParam(name = "empleadoId") Integer empleadoId,
             @WebParam(name = "fecha") Date fecha,
-            @WebParam(name = "cantLibre") Integer cantLibre,
-            @WebParam(name = "motivo") String motivo) {
-        return calendarioBO.insertar(idEmpleado, fecha, cantLibre, motivo);
+            @WebParam(name = "duracionServicioMinutos") int duracionServicioMinutos) {
+        return calendarioBO.calcularBloquesDisponibles(empleadoId, fecha, duracionServicioMinutos);
     }
     
+    @WebMethod(operationName = "ReservarBloqueYCita")
+    public Integer reservarBloqueYCita(
+            @WebParam(name = "cita") CitaDTO cita) {
+        return calendarioBO.reservarBloqueYCita(cita);
+    }
     @WebMethod(operationName = "InsertarCalendario")
     public Integer insertarCalendario(
             @WebParam(name = "calendario") CalendarioDTO calendario) {
         return calendarioBO.insertar(calendario);
-    }
-    
-    @WebMethod(operationName = "ModificarCalendarioPorPartes")
-    public Integer modificarCalendarioPorPartes(
-            @WebParam(name = "idEmpleado") Integer idEmpleado,
-            @WebParam(name = "fecha") Date fecha,
-            @WebParam(name = "cantLibre") Integer cantLibre,
-            @WebParam(name = "motivo") String motivo) {
-        return calendarioBO.modificar(idEmpleado, fecha, cantLibre, motivo);
     }
     
     @WebMethod(operationName = "ModificarCalendario")

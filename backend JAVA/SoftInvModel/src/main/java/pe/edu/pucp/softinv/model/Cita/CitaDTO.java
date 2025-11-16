@@ -3,14 +3,25 @@ package pe.edu.pucp.softinv.model.Cita;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
+import pe.edu.pucp.softinv.model.util.TimeAdapter; // Asumo que este es el camino del TimeAdapter
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+import java.sql.Time; // El tipo de campo debe ser java.sql.Time
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import pe.edu.pucp.softinv.model.util.DateAdapter;
 
+@XmlAccessorType(XmlAccessType.FIELD) // <-- Añade esto a la clase
 public class CitaDTO {
     private Integer id;
+    
+    @XmlJavaTypeAdapter(TimeAdapter.class) // <-- Añade esto
     private Time horaIni;
+    
+    @XmlJavaTypeAdapter(TimeAdapter.class) // <-- Añade esto
     private Time horaFin;
+    
     private ClienteDTO cliente;
     private ServicioDTO servicio;
     private EmpleadoDTO empleado;
@@ -51,6 +62,7 @@ public class CitaDTO {
         this.id = id;
     }
 
+    // Getters y Setters se mantienen en java.sql.Time
     public Time getHoraIni() {
         return horaIni;
     }

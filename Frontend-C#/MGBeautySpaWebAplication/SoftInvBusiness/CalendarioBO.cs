@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace SoftInvBusiness
 {
     public class CalendarioBO
@@ -17,29 +16,29 @@ namespace SoftInvBusiness
             calendarioSOAP = new CalendarioClient();
         }
 
-        // ----- Calendario -----
+        // ----- Scheduling Logic (New Methods) -----
 
-        public int InsertarCalendarioPorPartes(
-            int idEmpleado,
-            date fecha,
-            int cantLibre,
-            string motivo)
+        public string[] CalcularBloquesDisponibles(
+            int empleadoId,
+            DateTime fecha, // <-- Aceptas un DateTime estándar
+            int duracionServicioMinutos)
         {
-            return calendarioSOAP.InsertarCalendarioPorPartes(idEmpleado, fecha, cantLibre, motivo);
+            return calendarioSOAP.CalcularBloquesDisponibles(
+                empleadoId,
+                fecha, 
+                duracionServicioMinutos);
         }
+
+        public int ReservarBloqueYCita(citaDTO cita)
+        {
+            return calendarioSOAP.ReservarBloqueYCita(cita);
+        }
+
+        // ----- Calendario (CRUD Básico) -----
 
         public int InsertarCalendario(calendarioDTO calendario)
         {
             return calendarioSOAP.InsertarCalendario(calendario);
-        }
-
-        public int ModificarCalendarioPorPartes(
-            int idEmpleado,
-            date fecha,
-            int cantLibre,
-            string motivo)
-        {
-            return calendarioSOAP.ModificarCalendarioPorPartes(idEmpleado, fecha, cantLibre, motivo);
         }
 
         public int ModificarCalendario(calendarioDTO calendario)
@@ -58,4 +57,3 @@ namespace SoftInvBusiness
         }
     }
 }
-

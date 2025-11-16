@@ -73,16 +73,16 @@
   </xs:complexType>
   <xs:complexType name="citaDTO">
     <xs:sequence>
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element minOccurs="0" name="cliente" type="tns:clienteDTO" />
-      <xs:element minOccurs="0" name="codigoTransaccion" type="xs:string" />
-      <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
-      <xs:element minOccurs="0" name="fecha" type="tns:date" />
-      <xs:element minOccurs="0" name="horaFin" type="tns:time" />
-      <xs:element minOccurs="0" name="horaIni" type="tns:time" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="igv" type="xs:double" />
+      <xs:element minOccurs="0" name="horaIni" type="xs:string" />
+      <xs:element minOccurs="0" name="horaFin" type="xs:string" />
+      <xs:element minOccurs="0" name="cliente" type="tns:clienteDTO" />
       <xs:element minOccurs="0" name="servicio" type="tns:servicioDTO" />
+      <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element minOccurs="0" name="IGV" type="xs:double" />
+      <xs:element minOccurs="0" name="codigoTransaccion" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="clienteDTO">
@@ -91,12 +91,6 @@
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="date">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:complexType name="time">
-    <xs:sequence />
   </xs:complexType>
   <xs:complexType name="comentarioDTO">
     <xs:sequence>

@@ -4,9 +4,9 @@ import pe.edu.pucp.softinv.dao.CalendarioDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Disponibilidad.CalendarioDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
-import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +31,7 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(2, (java.sql.Date) calendario.getFecha());
+        this.statement.setTimestamp(2, new Timestamp(calendario.getFecha().getTime()));
         this.statement.setInt(3, calendario.getCantLibre());
         this.statement.setString(4,calendario.getMotivo());
     }
@@ -41,19 +41,19 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         this.statement.setInt(1, calendario.getCantLibre());
         this.statement.setString(2,calendario.getMotivo());
         this.statement.setInt(3, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(4, (java.sql.Date) calendario.getFecha());
+        this.statement.setTimestamp(4, new Timestamp(calendario.getFecha().getTime()));
     }
 
     @Override
     protected void incluirValorDeParametrosParaEliminacion() throws SQLException {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(2, (java.sql.Date) calendario.getFecha());
+        this.statement.setTimestamp(2, new Timestamp(calendario.getFecha().getTime()));
     }
 
     @Override
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
-        this.statement.setDate(2, (java.sql.Date) calendario.getFecha());
+        this.statement.setTimestamp(2, new Timestamp(calendario.getFecha().getTime()));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
 
         this.calendario.setEmpleado(empleado);
         this.calendario.setCantLibre(this.resultSet.getInt("CANT_LIBRE"));
-        this.calendario.setFecha(this.resultSet.getDate("FECHA"));
+        this.calendario.setFecha(new Timestamp (this.resultSet.getTimestamp("FECHA").getTime()));
         this.calendario.setMotivo(this.resultSet.getString("MOTIVO"));
     }
 
@@ -91,7 +91,7 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         EmpleadoDTO empleado = new EmpleadoDTO();
         empleado.setIdUsuario(empleadoId);
         this.calendario.setEmpleado(empleado);
-        this.calendario.setFecha((java.sql.Date) fecha);
+        this.calendario.setFecha(new java.sql.Date(fecha.getTime()));
         super.obtenerPorId();
         return this.calendario;
     }
@@ -107,14 +107,32 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         this.calendario = calendario;
         return super.eliminar();
     }
-
+    @Override
+    public ArrayList<CalendarioDTO> listarCalendarioEnRango(Integer empleadoId, Date fechaInicio, Date fechaFin) {
+        String sql = "SELECT EMPLEADO_ID, FECHA, CANT_LIBRE, MOTIVO FROM CALENDARIOS_EMPLEADOS WHERE EMPLEADO_ID = ? AND FECHA BETWEEN ? AND ?";
+        
+        return (ArrayList<CalendarioDTO>)listarTodos(sql, this::incluirTresParametros, new Object[]{empleadoId, fechaInicio, fechaFin});
+    }
+    
     @Override
     public ArrayList<CalendarioDTO> listarCalendarioDeEmpleado(Integer empleadoId) {
-        String sql = "SELECT EMPLEADO_ID, FECHA, CANT_LIBRE, MOTIVO FROM CALENDARIOS_EMPLEADOS WHERE EMPLEADO_ID = ?" +
-                "  AND FECHA BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
-        return (ArrayList<CalendarioDTO>)listarTodos(sql, this::incluirId, empleadoId);
+        java.sql.Date hoy = new java.sql.Date(System.currentTimeMillis());
+        java.sql.Date fechaFin = new java.sql.Date(System.currentTimeMillis() + (30L * 24L * 60L * 60L * 1000L * 30L)); // Aproximadamente 30 días
+        
+        return listarCalendarioEnRango(empleadoId, hoy, fechaFin);
     }
 
+    private void incluirTresParametros(Object objetoParametros) {
+        Object[] params = (Object[]) objetoParametros;
+        try {
+            this.statement.setInt(1, (Integer) params[0]);
+            this.statement.setTimestamp(2, new Timestamp(((Date) params[1]).getTime()));
+            this.statement.setTimestamp(3, new Timestamp(((Date) params[2]).getTime()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     private void incluirId(Object objetoParametros){
         Integer id = (Integer) objetoParametros;
         try {

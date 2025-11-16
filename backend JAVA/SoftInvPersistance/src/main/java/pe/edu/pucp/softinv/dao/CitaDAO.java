@@ -13,4 +13,5 @@ public interface CitaDAO {
     Integer eliminar(CitaDTO cita);
     ArrayList<CitaDTO> listarCitasPorUsuario(UsuarioDTO usuario);
     ArrayList<CitaDTO> listarTodos();
+    ArrayList<CitaDTO> listarCitasPorEmpleadoYFecha(Integer empleadoId, Date fecha);
 }

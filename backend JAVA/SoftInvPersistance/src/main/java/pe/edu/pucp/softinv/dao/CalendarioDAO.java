@@ -7,13 +7,9 @@ import java.util.Date;
 
 public interface CalendarioDAO {
     Integer insertar(CalendarioDTO calendario);
-
     Integer modificar(CalendarioDTO calendario);
-
     Integer eliminar(CalendarioDTO calendario);
-
     CalendarioDTO obtenerPorId(Integer empleadoId, Date fecha);
-
     ArrayList<CalendarioDTO> listarCalendarioDeEmpleado(Integer empleadoId);
-
+    ArrayList<CalendarioDTO> listarCalendarioEnRango(Integer empleadoId, Date fechaInicio, Date fechaFin);
 }
