@@ -1,4 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="MGBeautySpaWebAplication.Admin.AdminMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" 
+    Inherits="MGBeautySpaWebAplication.Admin.AdminMaster" %>
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/html">
 <head runat="server">
@@ -11,7 +12,6 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     
-    <%-- Asegúrate de que este 'style.css' contenga el CSS que pondré más abajo --%>
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" /> 
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
     <link href="../Content/AdminStyle.css" rel="stylesheet" />
@@ -20,14 +20,12 @@
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
     
-    <%-- Placeholder para CSS específico de una página (como el CSS de la tabla de reservas) --%>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         
-        <%-- 1. TU HEADER (Sin cambios) --%>
         <header class="header-sticky text-white ">
             <div class="container-fluid py-2">
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
@@ -40,9 +38,9 @@
                             <a class="header-link dropdown-toggle d-inline-flex align-items-center text-white text-decoration-none"
                                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img id="imgProfile" runat="server"
-                                     src="~/Content/default_profile.png"
-                                     alt="Foto de perfil"
-                                     class="rounded-circle me-1" style="width:32px;height:32px;object-fit:cover;">
+                                    src="~/Content/default_profile.png"
+                                    alt="Foto de perfil"
+                                    class="rounded-circle me-1" style="width:32px;height:32px;object-fit:cover;">
                                 </img>
                                 <span class="user-name-display">
                                     <asp:Literal ID="litUserName" runat="server" />
@@ -51,7 +49,7 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
-                                                    OnClick="btnLogout_Click">Cerrar sesión</asp:LinkButton>
+                                        OnClick="btnLogout_Click">Cerrar sesión</asp:LinkButton>
                                 </li>
                             </ul>
                         </div>
@@ -60,60 +58,66 @@
             </div>
         </header>
 
-        <%-- 2. TU CUERPO DE CONTENIDO (Aquí está el cambio) --%>
         
         <div class="admin-panel-container d-flex">
 
             <aside class="sidebar d-flex flex-column" style="width: 320px; flex-shrink: 0;">
-                
+    
                 <ul class="nav nav-pills flex-column gap-2 p-3">
-                    
+        
                     <li class="nav-item">
-                        <a class="nav-link active" href="<%: ResolveUrl("~/Admin/PanelDeControl.aspx") %>">
+                        <asp:HyperLink ID="navPanelDeControl" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/PanelDeControl.aspx">
                             <i class="icon-calendar" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Ver Reservas</span>
-                        </a>
+                        </asp:HyperLink>
                     </li>
-                    
+        
                     <li class="nav-item">
-                        <a class="nav-link" href="<%: ResolveUrl("~/Admin/AdmProductos.aspx") %>">
+                        <asp:HyperLink ID="navAdmProductos" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/AdmProductos.aspx">
                             <i class="icon-box" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Administrar productos</span>
-                        </a>
+                        </asp:HyperLink>
                     </li>
-                    
+        
                     <li class="nav-item">
-                        <a class="nav-link" href="<%: ResolveUrl("~/Admin/AdmServicios.aspx") %>">
+                        <asp:HyperLink ID="navAdmServicios" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/AdmServicios.aspx">
                             <i class="icon-scissors" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Administrar servicios</span>
-                        </a>
+                        </asp:HyperLink>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<%: ResolveUrl("~/Admin/Reportes.aspx") %>">
+                        <asp:HyperLink ID="navReportes" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/Reportes.aspx">
                             <i class="icon-file-text" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Generar reporte</span>
-                        </a>
+                        </asp:HyperLink>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<%: ResolveUrl("~/Admin/BuscarUsuarios.aspx") %>">
+                        <asp:HyperLink ID="navBuscarUsuarios" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/BuscarUsuarios.aspx">
                             <i class="icon-search" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Buscar usuarios</span>
-                        </a>
+                        </asp:HyperLink>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<%: ResolveUrl("~/Admin/AgregarEmpleado.aspx") %>">
+                        <asp:HyperLink ID="navAgregarEmpleado" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/AgregarEmpleado.aspx">
                             <i class="icon-user-plus" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Añadir empleado</span>
-                        </a>
+                        </asp:HyperLink>
                     </li>
                 </ul>
             </aside>
             
-            <main class="main-content flex-grow-1 p-4" style="background-color: #FFFFFF; overflow-y: auto; height: calc(100vh - 170px);">
+            <main class="main-content flex-grow-1 p-4" style="background-color: #FFFFFF; overflow-y: auto; height: calc(100vh - 70px);"> 
                 
+                <%-- El placeholder va DENTRO del <main> --%>
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
                 
             </main>
@@ -121,7 +125,6 @@
         </div>
 
 
-        <%-- 3. TU FOOTER (Sin cambios) --%>
         <footer class="footer-container">
             <div class="footer-content">
                 <div class="footer-top-row">
@@ -142,7 +145,8 @@
         </footer>
         
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
-            <div>
+        
+        <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
         </div>
 
