@@ -71,7 +71,10 @@ namespace MGBeautySpaWebAplication.Cliente
             if (e.CommandName == "Select")
             {
                 // El CommandArgument debe tener el ID del empleado.
-                string empleadoId = e.CommandArgument.ToString();
+                string commandArgument = e.CommandArgument.ToString();
+                string[] args = commandArgument.Split('|');
+
+                string empleadoId = args[0];
 
                 // Obtenemos el ID del servicio de la URL (lo necesitamos para la cita)
                 string servicioId = Request.QueryString["servicioId"];

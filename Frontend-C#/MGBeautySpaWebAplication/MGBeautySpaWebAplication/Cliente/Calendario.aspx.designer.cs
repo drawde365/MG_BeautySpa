@@ -33,6 +33,33 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.UpdatePanel upCalendario;
 
         /// <summary>
+        /// Control hdnEmpleadoId.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnEmpleadoId;
+
+        /// <summary>
+        /// Control hdnServicioId.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnServicioId;
+
+        /// <summary>
+        /// Control hdnDuracionServicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnDuracionServicio;
+
+        /// <summary>
         /// Control hdnSelectedDay.
         /// </summary>
         /// <remarks>
@@ -40,6 +67,15 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSelectedDay;
+
+        /// <summary>
+        /// Control hdnSelectedHour.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnSelectedHour;
 
         /// <summary>
         /// Control btnPrevMonth.
