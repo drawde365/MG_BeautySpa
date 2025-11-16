@@ -33,6 +33,24 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.UpdatePanel upCartContent;
 
         /// <summary>
+        /// Control pnlCarritoVacio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCarritoVacio;
+
+        /// <summary>
+        /// Control pnlCarritoLleno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCarritoLleno;
+
+        /// <summary>
         /// Control rpCartItems.
         /// </summary>
         /// <remarks>
