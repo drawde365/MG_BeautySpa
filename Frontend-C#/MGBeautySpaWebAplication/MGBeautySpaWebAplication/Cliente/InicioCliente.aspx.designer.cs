@@ -13,5 +13,23 @@ namespace MGBeautySpaWebAplication.Cliente
 
     public partial class InicioCliente
     {
+
+        /// <summary>
+        /// Control rptProductosDestacados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptProductosDestacados;
+
+        /// <summary>
+        /// Control rptServiciosDestacados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptServiciosDestacados;
     }
 }
