@@ -7,7 +7,13 @@
 
 <asp:Content ID="ctBody" ContentPlaceHolderID="ProfileBodyContent" runat="server">
 
-    <div class="password-change-container" style="max-width:600px; margin:2rem auto; padding:1rem 2rem;">
+    <div style="position: absolute; top: -9999px; left: -9999px;">
+        <asp:TextBox ID="dummyUser" runat="server" autocomplete="username" />
+        <asp:TextBox ID="dummyPass" runat="server" TextMode="Password" autocomplete="current-password" />
+    </div>
+
+    <div class="password-change-container" style="max-width:600px; margin:2rem auto; padding:1rem 2rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+        
         <h2 style="margin-bottom:1rem;">Cambio de contraseña</h2>
 
         <div style="margin-bottom:1rem;">
@@ -15,6 +21,7 @@
             <asp:TextBox ID="txtAntigua" runat="server"
                          TextMode="Password"
                          CssClass="form-control"
+                         autocomplete="current-password"
                          style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;" />
         </div>
 
@@ -23,6 +30,7 @@
             <asp:TextBox ID="txtNueva" runat="server"
                          TextMode="Password"
                          CssClass="form-control"
+                         autocomplete="new-password"
                          style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;" />
         </div>
 
@@ -31,6 +39,7 @@
             <asp:TextBox ID="txtVerificar" runat="server"
                          TextMode="Password"
                          CssClass="form-control"
+                         autocomplete="new-password"
                          style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;" />
         </div>
 
