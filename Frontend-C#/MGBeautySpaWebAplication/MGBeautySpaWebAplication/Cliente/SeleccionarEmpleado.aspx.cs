@@ -4,13 +4,12 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SoftInvBusiness;
-using SoftInvBusiness.SoftInvWSEmpleado; // Para EmpleadoBO y empleadoDTO
-using SoftInvBusiness.SoftInvWSServicio;  // Para obtener el nombre del servicio
+using SoftInvBusiness.SoftInvWSEmpleado;
+using SoftInvBusiness.SoftInvWSServicio;
 using System.Web;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
-    // --- 1. MODELO DE DATOS ---
     public class EmpleadoDisplay
     {
         public int Id { get; set; }
@@ -39,44 +38,44 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
                 else
                 {
-                    // Manejo de error si no hay ID de servicio
                     Response.Redirect("~/Cliente/Servicios.aspx");
                 }
             }
         }
 
-        // --- 2. LÓGICA DINÁMICA ---
         private void CargarEmpleados(int servicioId)
         {
-            // 1. Obtiene la lista de empleados que ofrecen este servicio desde el BO
-            // (Asumo que tu BO tiene el método ListarEmpleadosDeServicio, que creamos antes)
             var listaWSDTO = servicioBO.empleadosPorServicio(servicioId).ToList();
 
-            // 2. Mapeo a la clase local de display (EmpleadoDisplay)
+            if (listaWSDTO == null || !listaWSDTO.Any())
+            {
+                // Manejo si no hay empleados (opcional)
+                // lblMensaje.Text = "No hay empleados disponibles para este servicio."
+                // return;
+            }
+
             var listaEmpleadosDisplay = listaWSDTO.Select(e => new EmpleadoDisplay
             {
                 Id = e.idUsuario,
-                Nombre = $"{e.nombre} {e.primerapellido}", // Combina Nombre y Apellido
-                AvatarUrl = e.urlFotoPerfil ?? "/Content/Images/user_placeholder.png"
+                Nombre = $"{e.nombre} {e.primerapellido}",
+                AvatarUrl = ResolveUrl(e.urlFotoPerfil ?? "~/Content/Images/user_placeholder.png")
             }).ToList();
 
-            // 3. Enlaza la lista al control Repeater
             rpEmpleados.DataSource = listaEmpleadosDisplay;
             rpEmpleados.DataBind();
         }
 
-        // --- 3. LÓGICA DE EVENTOS ---
         protected void rpEmpleados_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Select")
             {
-                // El CommandArgument debe tener el ID del empleado.
-                string empleadoId = e.CommandArgument.ToString();
+                string commandArgument = e.CommandArgument.ToString();
+                string[] args = commandArgument.Split('|');
 
-                // Obtenemos el ID del servicio de la URL (lo necesitamos para la cita)
+                string empleadoId = args[0]; // <-- CORRECCIÓN: Usar solo el ID
+
                 string servicioId = Request.QueryString["servicioId"];
 
-                // Redirige al calendario
                 Response.Redirect($"Calendario.aspx?empleadoId={empleadoId}&servicioId={servicioId}");
             }
         }

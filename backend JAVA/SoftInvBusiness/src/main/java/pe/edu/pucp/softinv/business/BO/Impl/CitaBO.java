@@ -8,7 +8,7 @@ import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 import pe.edu.pucp.softinv.model.Servicio.ServicioDTO;
 
 import java.sql.Time;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 

@@ -21,7 +21,7 @@ namespace SoftInvBusiness
             int empleadoId,
             int clienteId,
             int servicioId,
-            date fecha,
+            DateTime fecha,
             time horaIni,
             time horaFin,
             double igv,

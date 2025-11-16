@@ -121,13 +121,13 @@
     <None Include="Connected Services\SoftInvWSCalendario\Calendario1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.calendarioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioPorPartesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse.datasource">
@@ -136,10 +136,10 @@
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioPorPartesResponse.datasource">
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse.datasource">
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSCita\Cita.wsdl" />

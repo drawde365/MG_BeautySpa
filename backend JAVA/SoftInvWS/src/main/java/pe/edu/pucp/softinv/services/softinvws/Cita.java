@@ -4,7 +4,7 @@ import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.sql.Time;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import pe.edu.pucp.softinv.business.BO.Impl.CitaBO;
 import pe.edu.pucp.softinv.model.Cita.CitaDTO;
