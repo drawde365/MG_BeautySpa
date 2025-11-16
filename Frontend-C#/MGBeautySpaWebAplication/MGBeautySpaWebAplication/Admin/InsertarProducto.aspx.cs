@@ -122,7 +122,7 @@ namespace MGBeautySpaWebAplication.Admin
 
                 string rutaImagenServidor = string.Empty;
 
-                string carpetaGuardado = Server.MapPath("~/Content/Uploads/Productos/");
+                string carpetaGuardado = Server.MapPath("~/Content/images/Productos/");
                 if (!Directory.Exists(carpetaGuardado))
                 {
                     Directory.CreateDirectory(carpetaGuardado);
@@ -140,7 +140,7 @@ namespace MGBeautySpaWebAplication.Admin
                     string nombreUnico = Guid.NewGuid().ToString() + extension;
                     string rutaCompleta = Path.Combine(carpetaGuardado, nombreUnico);
                     fileUpload.SaveAs(rutaCompleta);
-                    rutaImagenServidor = "~/Content/Uploads/Productos/" + nombreUnico;
+                    rutaImagenServidor = "~/Content/images/Productos/" + nombreUnico;
                 }
                 else if (Request.QueryString["id"] != null)
                 {

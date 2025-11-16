@@ -281,7 +281,6 @@
             Display="Dynamic"
             ValidationGroup="GuardarProducto" />
         
-        <%-- ▼▼▼ VALIDACIÓN AÑADIDA ▼▼▼ --%>
         <asp:RangeValidator ID="rvPrecio" runat="server"
             ControlToValidate="txtPrecio"
             MinimumValue="0"
@@ -314,7 +313,6 @@
             Display="Dynamic"
             ValidationGroup="GuardarProducto" />
         
-        <%-- ▼▼▼ VALIDACIÓN AÑADIDA ▼▼▼ --%>
         <asp:RangeValidator ID="rvTamaño" runat="server"
             ControlToValidate="txtTamaño"
             MinimumValue="0"

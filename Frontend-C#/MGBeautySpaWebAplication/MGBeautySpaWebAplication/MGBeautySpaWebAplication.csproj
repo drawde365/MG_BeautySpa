@@ -174,9 +174,9 @@
     <Content Include="Content\images\Cliente\Bienvenida.jpg" />
     <Content Include="Content\images\CremaHidratante.jpg" />
     <Content Include="Content\images\CremaReafirmante.jpeg" />
-    <Content Include="Content\images\CremaReafirmante.jpg" />
-    <Content Include="Content\images\CremaReductora.jpg" />
-    <Content Include="Content\images\CremaTermogenica.jpg" />
+    <Content Include="Content\images\Productos\CremaReafirmante.jpg" />
+    <Content Include="Content\images\Productos\CremaReductora.jpg" />
+    <Content Include="Content\images\Productos\CremaTermogenica.jpg" />
     <Content Include="Content\images\Empleado\blank-photo.jpg" />
     <Content Include="Content\images\Empleado\InicioEmpleado.png" />
     <Content Include="Content\images\MGFavicon.svg" />
@@ -612,6 +612,7 @@
       <Name>SoftInvBusiness</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

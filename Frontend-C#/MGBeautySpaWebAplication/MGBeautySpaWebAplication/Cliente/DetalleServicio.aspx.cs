@@ -74,23 +74,16 @@ namespace MGBeautySpaWebAplication.Cliente
 
         private void CargarDatos(int servicioId)
         {
-            try
-            {
-                servicioActual = servicioBO.obtenerPorId(servicioId);
+            servicioActual = servicioBO.obtenerPorId(servicioId);
 
-                if (servicioActual != null)
-                {
-                    Session["servicio_actual"] = servicioActual;
-                    PoblarDatos(servicioActual);
-                }
-                else
-                {
-                    Response.Redirect("~/Cliente/Servicios.aspx");
-                }
-            }
-            catch (Exception ex)
+            if (servicioActual != null)
             {
-                // Manejo de errores
+                Session["servicio_actual"] = servicioActual;
+                PoblarDatos(servicioActual);
+            }
+            else
+            {
+                Response.Redirect("~/Cliente/Servicios.aspx");
             }
         }
 
