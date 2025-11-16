@@ -80,8 +80,8 @@ public class PedidoBO {
 
         return detallePedidoDAO.modificar(detallePedido);
     }
-    public Integer eliminarDetalle(DetallePedidoDTO detallePedido) {
-        PedidoDTO pedido = pedidoDAO.obtenerPorId(detallePedido.getPedido().getIdPedido());
+    public Integer eliminarDetalle(DetallePedidoDTO detallePedido, Integer idPedido ) {
+        PedidoDTO pedido = pedidoDAO.obtenerPorId(idPedido);
         pedido.setTotal(pedido.getTotal()-  detallePedido.getSubtotal());
         pedidoDAO.modificar(pedido);
         return detallePedidoDAO.eliminar(detallePedido);

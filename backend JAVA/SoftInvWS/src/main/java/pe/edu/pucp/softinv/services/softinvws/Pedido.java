@@ -77,8 +77,8 @@ public class Pedido {
 
     @WebMethod(operationName = "EliminarDetallePedido")
     public Integer eliminarDetallePedido(
-            @WebParam(name = "detallePedido") DetallePedidoDTO detallePedido) {
-        return pedidoBO.eliminarDetalle(detallePedido);
+            @WebParam(name = "detallePedido") DetallePedidoDTO detallePedido, @WebParam(name = "idPedido") Integer idPedido) {
+        return pedidoBO.eliminarDetalle(detallePedido, idPedido);
     }
 
     @WebMethod(operationName = "ObtenerDetallesPorPedidoId")

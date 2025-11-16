@@ -156,7 +156,7 @@ namespace MGBeautySpaWebAplication.Cliente
                     if (nuevaCantidad == 0)
                     {
                         listaDetalles.Remove(itemToUpdate);
-                        pedidoBO.EliminarDetalle(itemToUpdate);
+                        pedidoBO.EliminarDetalle(itemToUpdate, carrito.idPedido);
                     }
                     else
                     {
@@ -205,7 +205,7 @@ namespace MGBeautySpaWebAplication.Cliente
             if (itemToRemove != null)
             {
                 listaDetalles.Remove(itemToRemove);
-                pedidoBO.EliminarDetalle(itemToRemove); // Elimina de BD
+                pedidoBO.EliminarDetalle(itemToRemove, carrito.idPedido); // Elimina de BD
 
                 UpdateCartCount(-itemToRemove.cantidad); // Actualiza contador de cabecera
 
