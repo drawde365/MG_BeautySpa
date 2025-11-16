@@ -204,7 +204,17 @@ namespace MGBeautySpaWebAplication.Cliente
                             {
                                 producto = new SoftInvBusiness.SoftInvWSPedido.productoTipoDTO
                                 {
-                                    producto = new SoftInvBusiness.SoftInvWSPedido.productoDTO { idProducto = this.producto.idProducto, idProductoSpecified = true },
+                                    producto = new SoftInvBusiness.SoftInvWSPedido.productoDTO
+                                    {
+                                        idProducto = this.producto.idProducto,
+                                        idProductoSpecified = true,
+                                        urlImagen = this.producto.urlImagen,
+                                        tamanho = this.producto.tamanho,
+                                        tamanhoSpecified = true,
+                                        nombre = this.producto.nombre,
+                                        precio = this.producto.precio,
+                                        precioSpecified = true
+                                    },
                                     tipo = new SoftInvBusiness.SoftInvWSPedido.tipoProdDTO { id = presentacion.tipo.id, nombre = presentacion.tipo.nombre },
                                     ingredientes = presentacion.ingredientes,
                                     stock_fisico = presentacion.stock_fisico,
