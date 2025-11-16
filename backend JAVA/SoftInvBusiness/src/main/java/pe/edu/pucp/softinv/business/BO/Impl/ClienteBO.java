@@ -54,7 +54,7 @@ public class ClienteBO {
     }
 
     public Integer modificar(ClienteDTO cliente) {
-        return clienteDAO.insertar(cliente);
+        return clienteDAO.modificar(cliente);
     }
 
     public Integer eliminar(Integer idUsuario){
