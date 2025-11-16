@@ -32,17 +32,29 @@ namespace MGBeautySpaWebAplication.Cliente
         {
             var usuario = Session["UsuarioActual"] as usuarioDTO;
 
-            if (usuario != null)
-            {
-                divPerfil.Visible = true;
-                divLogin.Visible = false;
-
-                litUserName.Text = usuario.nombre;
-            }
-            else
+            if (usuario == null)
             {
                 divPerfil.Visible = false;
                 divLogin.Visible = true;
+            }
+            else
+            {
+                if(usuario.rol!=1)
+                {
+                    Session.Clear();
+                    Session.Abandon();
+                    FormsAuthentication.SignOut();
+
+                    Response.Redirect(ResolveUrl("~/Login.aspx"));
+                    Session["UsuarioActual"] = null;
+                } else
+                {
+                    divPerfil.Visible = true;
+                    divLogin.Visible = false;
+
+                    litUserName.Text = usuario.nombre;
+                }
+                    
             }
         }
 
@@ -53,6 +65,7 @@ namespace MGBeautySpaWebAplication.Cliente
             FormsAuthentication.SignOut();
 
             Response.Redirect(ResolveUrl("~/Login.aspx"));
+            Session["UsuarioActual"] = null;
         }
 
         protected void txtSearchProduct_TextChanged(object sender, EventArgs e)

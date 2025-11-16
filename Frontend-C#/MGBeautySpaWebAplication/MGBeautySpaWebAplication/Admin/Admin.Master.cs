@@ -4,6 +4,7 @@ using System.Web.UI;
 using System.Web.Security;
 using System.Web.UI.WebControls; // <-- Asegúrate que esté
 using System.IO;
+using SoftInvBusiness.SoftInvWSUsuario;
 
 namespace MGBeautySpaWebAplication.Admin
 {
@@ -17,7 +18,7 @@ namespace MGBeautySpaWebAplication.Admin
         protected HyperLink navReportes;
         protected HyperLink navBuscarUsuarios;
         protected HyperLink navAgregarEmpleado;
-
+        private usuarioDTO usuario;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -25,12 +26,45 @@ namespace MGBeautySpaWebAplication.Admin
                 LoadUserData();
                 SetActiveNavigation(); // <-- Ahora esto funcionará
             }
+            VerificarSesion();
+        }
+
+        private void VerificarSesion()
+        {
+            var usuario = Session["UsuarioActual"] as usuarioDTO;
+
+            if (usuario == null)
+            {
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
+            }
+            else
+            {
+                if (usuario.rol != 3)
+                {
+                    Session.Clear();
+                    Session.Abandon();
+                    FormsAuthentication.SignOut();
+
+                    Response.Redirect(ResolveUrl("~/Login.aspx"));
+                    Session["UsuarioActual"] = null;
+                }
+                else
+                {
+                    return;
+                }
+
+            }
         }
 
         private void LoadUserData()
         {
-            string nombre = (Session["UserName"] as string) ?? "Invitado";
-            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/default_profile.png";
+            usuario = Session["UsuarioActual"] as usuarioDTO;
+            if (usuario == null)
+            {
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
+            }
+            string nombre = usuario.nombre;
+            //string fotoUrl = usuario.urlFotoPerfil;
 
             litUserName.Text = nombre;
             // imgProfile.ImageUrl = ResolveUrl(fotoUrl);
@@ -80,6 +114,7 @@ namespace MGBeautySpaWebAplication.Admin
             Session.Abandon();
             FormsAuthentication.SignOut();
             Response.Redirect("~/Login.aspx");
+            Session["UsuarioActual"] = null;
         }
     }
 }

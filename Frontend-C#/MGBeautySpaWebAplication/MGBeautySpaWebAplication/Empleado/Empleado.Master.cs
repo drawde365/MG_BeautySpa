@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSUsuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,20 +12,55 @@ namespace MGBeautySpaWebAplication
 {
     public partial class EmpleadoMaster : System.Web.UI.MasterPage
     {
+        private usuarioDTO usuario;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadUserData();
             }
+            VerificarSesion();
+        }
+
+        private void VerificarSesion()
+        {
+            var usuario = Session["UsuarioActual"] as usuarioDTO;
+
+            if (usuario == null)
+            {
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
+            }
+            else
+            {
+                if (usuario.rol != 2)
+                {
+                    Session.Clear();
+                    Session.Abandon();
+                    FormsAuthentication.SignOut();
+
+                    Response.Redirect(ResolveUrl("~/Login.aspx"));
+                    Session["UsuarioActual"] = null;
+                }
+                else
+                {
+                    return;
+                }
+
+            }
         }
 
         private void LoadUserData()
         {
-            string nombre = (Session["UserName"] as string) ?? "Invitado";
-            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/default_profile.png";
+            usuario = Session["UsuarioActual"] as usuarioDTO;
+            if (usuario == null)
+            {
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
+            }
+            string nombre = usuario.nombre;
+            //string fotoUrl = usuario.urlFotoPerfil;
 
             litUserName.Text = nombre;
+            // imgProfile.ImageUrl = ResolveUrl(fotoUrl);
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
@@ -33,6 +70,7 @@ namespace MGBeautySpaWebAplication
             FormsAuthentication.SignOut();
 
             Response.Redirect(ResolveUrl("~/Login.aspx"));
+            Session["UsuarioActual"] = null;
         }
     }
 }
