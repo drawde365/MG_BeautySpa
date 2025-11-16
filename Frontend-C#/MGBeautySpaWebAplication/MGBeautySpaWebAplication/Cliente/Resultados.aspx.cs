@@ -31,7 +31,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 .Select(p => new {
                     // Esta 'urlDestino' la usaremos en el href del ASPX
                     urlDestino = ResolveUrl("~/Cliente/DetalleProducto.aspx?id=" + p.idProducto),
-                    urlImagen = p.urlImagen,
+                    urlImagen = ResolveUrl(p.urlImagen),
                     nombre = p.nombre,
                     precio = p.precio,
                     tipo = "Producto" // Etiqueta para JS y CSS
@@ -43,7 +43,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 .Select(s => new {
                     // Asumimos una página de detalle diferente para servicios
                     urlDestino = ResolveUrl("~/Cliente/DetalleServicio.aspx?id=" + s.idServicio),
-                    urlImagen = s.urlImagen, // Asumo que servicios también tienen urlImagen
+                    urlImagen = ResolveUrl(s.urlImagen), // Asumo que servicios también tienen urlImagen
                     nombre = s.nombre,
                     precio = s.precio,
                     tipo = "Servicio" // Etiqueta para JS y CSS
