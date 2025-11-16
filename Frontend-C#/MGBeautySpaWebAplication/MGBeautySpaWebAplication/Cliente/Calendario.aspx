@@ -1,6 +1,6 @@
-﻿<%@ Page Title="Calendario" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Calendario.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Calendario" %>
+﻿<%@ Page Title="Calendario" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Calendario.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Calendario" EnableEventValidation="false"%>
 
-<%-- 1. Contenido del Head (CSS y Fuentes) --%>
+<%-- 1. Contenido del Head (SOLO CSS y Fuentes) --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -9,19 +9,21 @@
 </asp:Content>
 
 
-<%-- 2. Contenido de Scripts (JAVASCRIPT CORREGIDO) --%>
+<%-- 2. Contenido de Scripts (SOLO LAS FUNCIONES) --%>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptsContent" runat="server">
+    <%-- El JS de Bootstrap se queda aquí --%>
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    
     <script type="text/javascript">
-        // IDs de C# que JavaScript necesita controlar
-        var ddlHorariosClientID = '<%= ddlHorarios.ClientID %>';
-        var hdnSelectedDayClientID = '<%= hdnSelectedDay.ClientID %>';
-        
-        // --- CORRECCIÓN: IDs de los nuevos HiddenFields ---
-        var hdnEmpleadoIdClientID = '<%= hdnEmpleadoId.ClientID %>';
-        var hdnDuracionServicioClientID = '<%= hdnDuracionServicio.ClientID %>';
-
+        // Las variables se moverán al MainContent
+        // Solo dejamos las funciones aquí
 
         function handleDayClick(buttonElement, dateString) {
+            // IDs de C# que JavaScript necesita leer
+            var ddlHorariosClientID = document.getElementById('ddlHorariosClientID_Value').value;
+            var hdnSelectedDayClientID = document.getElementById('hdnSelectedDayClientID_Value').value;
+            var hdnEmpleadoIdClientID = document.getElementById('hdnEmpleadoIdClientID_Value').value;
+            var hdnDuracionServicioClientID = document.getElementById('hdnDuracionServicioClientID_Value').value;
 
             // 1. Actualizar el HiddenField
             document.getElementById(hdnSelectedDayClientID).value = dateString;
@@ -40,7 +42,7 @@
             ddlHorarios.options.add(new Option("Cargando...", ""));
             ddlHorarios.disabled = true;
 
-            // 4. --- CORRECCIÓN: Leer los valores desde los HiddenFields ---
+            // 4. Leer los valores desde los HiddenFields
             var empleadoId = document.getElementById(hdnEmpleadoIdClientID).value;
             var duracionServicio = document.getElementById(hdnDuracionServicioClientID).value;
 
@@ -49,6 +51,7 @@
         }
 
         function OnHoursSuccess(result) {
+            var ddlHorariosClientID = document.getElementById('ddlHorariosClientID_Value').value;
             var ddlHorarios = document.getElementById(ddlHorariosClientID);
             ddlHorarios.innerHTML = "";
 
@@ -65,6 +68,7 @@
         }
 
         function OnHoursError(error) {
+            var ddlHorariosClientID = document.getElementById('ddlHorariosClientID_Value').value;
             var ddlHorarios = document.getElementById(ddlHorariosClientID);
             ddlHorarios.innerHTML = "";
             ddlHorarios.options.add(new Option("Error al cargar horas", ""));
@@ -72,14 +76,34 @@
             console.error(error.get_message());
         }
 
-    </script>
+        // Esta función SÍ puede estar aquí
+        function updateSelectedHour() {
+            var ddlHorariosClientID = document.getElementById('ddlHorariosClientID_Value').value;
+            var hdnSelectedHourClientID = document.getElementById('hdnSelectedHourClientID_Value').value;
+
+            var ddlHorarios = document.getElementById(ddlHorariosClientID);
+            var hdnHour = document.getElementById(hdnSelectedHourClientID);
+            if (hdnHour) {
+                hdnHour.value = ddlHorarios.value;
+            }
+        }
+
+</script>
 </asp:Content>
 
 
-<%-- 3. Contenido Principal (HTML CORREGIDO) --%>
+<%-- 3. Contenido Principal (HTML + Variables JS) --%>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
+    
+    <%-- ▼▼▼ CORRECCIÓN: Ponemos las variables de JS aquí ▼▼▼ --%>
+    <%-- Usamos HiddenFields para pasar los ClientID a JS de forma segura --%>
+    <input type="hidden" id="ddlHorariosClientID_Value" value="<%= ddlHorarios.ClientID %>" />
+    <input type="hidden" id="hdnSelectedDayClientID_Value" value="<%= hdnSelectedDay.ClientID %>" />
+    <input type="hidden" id="hdnEmpleadoIdClientID_Value" value="<%= hdnEmpleadoId.ClientID %>" />
+    <input type="hidden" id="hdnDuracionServicioClientID_Value" value="<%= hdnDuracionServicio.ClientID %>" />
+    <input type="hidden" id="hdnSelectedHourClientID_Value" value="<%= hdnSelectedHour.ClientID %>" />
     
     <asp:UpdatePanel ID="upCalendario" runat="server">
         <ContentTemplate>
@@ -89,6 +113,7 @@
             <asp:HiddenField ID="hdnServicioId" runat="server" Value="0" />
             <asp:HiddenField ID="hdnDuracionServicio" runat="server" Value="0" />
             <asp:HiddenField ID="hdnSelectedDay" runat="server" Value="" />
+            <asp:HiddenField ID="hdnSelectedHour" runat="server" Value="" />
             
             <div class="page-container">
                 <nav class="breadcrumbs">
@@ -144,7 +169,8 @@
                         <div class="time-select-wrapper">
                             <asp:DropDownList ID="ddlHorarios" runat="server" 
                                 CssClass="time-select-dropdown" 
-                                Enabled="false" />
+                                Enabled="false" 
+                                onchange="updateSelectedHour();"/>
                         </div>
                         
                         <div class="action-buttons">

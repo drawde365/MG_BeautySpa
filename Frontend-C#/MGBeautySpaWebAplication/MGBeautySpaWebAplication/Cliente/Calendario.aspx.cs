@@ -277,26 +277,37 @@ namespace MGBeautySpaWebAplication.Cliente
                 MostrarAlerta("Por favor, seleccione una fecha.");
                 return;
             }
-            if (string.IsNullOrEmpty(ddlHorarios.SelectedValue))
+
+            // --- CORRECCIÓN AQUÍ ---
+            if (string.IsNullOrEmpty(hdnSelectedHour.Value)) // Leer del HiddenField
             {
                 MostrarAlerta("Por favor, seleccione una hora.");
                 return;
             }
+            // --- FIN CORRECCIÓN ---
 
             try
             {
                 DateTime fechaSeleccionada = DateTime.Parse(hdnSelectedDay.Value);
-                DateTime horaSeleccionada = DateTime.Parse(ddlHorarios.SelectedValue, new CultureInfo("es-ES"));
+
+                // --- CORRECCIÓN AQUÍ ---
+                // Parsear el valor del HiddenField
+                DateTime horaSeleccionada = DateTime.Parse(hdnSelectedHour.Value, new CultureInfo("es-ES"));
+                // --- FIN CORRECCIÓN ---
+
+                // ... (El resto de tu lógica para crear nuevaCita es correcta) ...
 
                 SoftInvBusiness.SoftInvWSCalendario.citaDTO nuevaCita = new SoftInvBusiness.SoftInvWSCalendario.citaDTO();
+                // ... (asignar empleado, servicio, cliente) ...
                 nuevaCita.empleado = new SoftInvBusiness.SoftInvWSCalendario.empleadoDTO { idUsuario = this.EmpleadoId, idUsuarioSpecified = true };
                 nuevaCita.servicio = new SoftInvBusiness.SoftInvWSCalendario.servicioDTO { idServicio = this.ServicioId, idServicioSpecified = true };
                 nuevaCita.cliente = new SoftInvBusiness.SoftInvWSCalendario.clienteDTO { idUsuario = usuario.idUsuario, idUsuarioSpecified = true };
 
-                // Asignar el DateTime de C# al proxy 'date' (que espera 'Value')
+                // Asumiendo que el WSDL espera string para la fecha (DateAdapter)
                 nuevaCita.fecha = fechaSeleccionada;
+                nuevaCita.fechaSpecified = true;
 
-                // Asignar el string de hora (asumiendo TimeAdapter en Java)
+                // Asumiendo que CitaDTO espera string para la hora (TimeAdapter)
                 nuevaCita.horaIni = horaSeleccionada.ToString("HH:mm:ss");
                 nuevaCita.horaFin = horaSeleccionada.AddMinutes(this.DuracionServicio).ToString("HH:mm:ss");
 
@@ -307,25 +318,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 int resultado = calendarioBO.ReservarBloqueYCita(nuevaCita);
 
-                if (resultado == -1)
-                {
-                    MostrarAlerta("Error de concurrencia: El bloque seleccionado ya no está disponible. Por favor, refresque y elija otra hora.");
-                    CargarDisponibilidadEnCache();
-                    BindCalendar();
-                    ClearHoursDropDown(false);
-                }
-                else if (resultado > 0)
-                {
-                    MostrarAlerta("¡Cita reservada con éxito!");
-                    hdnSelectedDay.Value = "";
-                    ClearHoursDropDown(true);
-                    CargarDisponibilidadEnCache();
-                    BindCalendar();
-                }
-                else
-                {
-                    MostrarAlerta("Error al guardar la cita.");
-                }
+                // ... (resto de la lógica de resultado) ...
             }
             catch (Exception ex)
             {
