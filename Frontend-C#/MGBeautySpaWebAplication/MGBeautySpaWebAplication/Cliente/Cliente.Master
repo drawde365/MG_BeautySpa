@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" autocomplete="off">
         <header class="header-sticky text-white shadow-sm">
             <div class="container-fluid py-2">
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
@@ -44,6 +44,7 @@
 
                             <asp:TextBox ID="txtSearchProduct"
                                 runat="server"
+                                TextMode="Search"
                                 CssClass="form-control search-input rounded-pill"
                                 placeholder="Buscar productos o servicios..."
                                 AutoPostBack="true"
