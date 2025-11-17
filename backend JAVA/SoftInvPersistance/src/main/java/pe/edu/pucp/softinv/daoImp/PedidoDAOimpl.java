@@ -13,6 +13,7 @@ import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -74,7 +75,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     private void setFechaEnST(int indice,Date fecha) throws SQLException {
         if(fecha!=null)
-            this.statement.setDate(indice,(Date) fecha);
+            this.statement.setTimestamp(indice, new Timestamp(fecha.getTime()));
         else
             this.statement.setNull(indice,java.sql.Types.DATE);
     }
