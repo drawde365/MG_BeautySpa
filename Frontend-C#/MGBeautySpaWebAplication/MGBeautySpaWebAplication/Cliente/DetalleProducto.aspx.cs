@@ -151,23 +151,35 @@ namespace MGBeautySpaWebAplication.Cliente
 
             if (carrito == null)
             {
-                carrito = new SoftInvBusiness.SoftInvWSPedido.pedidoDTO();
-                carrito.detallesPedido = new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0];
-                carrito.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO
-                {
-                    idUsuario = usuario.idUsuario,
-                    idUsuarioSpecified = true
-                };
-                carrito.estadoPedido = SoftInvBusiness.SoftInvWSPedido.estadoPedido.EnCarrito;
-                carrito.estadoPedidoSpecified = true;
+                pedidoDTO carro = new pedidoDTO();
+                carro.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO();
+                carro.cliente.idUsuario = usuario.idUsuario;
+                carro.cliente.idUsuarioSpecified = true;
+                carro.total = 0;
+                carro.totalSpecified = true;
+                carro.estadoPedido = estadoPedido.EnCarrito;
+                carro.estadoPedidoSpecified = true;
+                carro.detallesPedido = new detallePedidoDTO[0];
+                carro.idPedido = pedidoBO.Insertar(carro);
 
-                // ----- 3. INSERTA EL NUEVO CARRITO PARA OBTENER ID -----
-                int nuevoPedidoID = pedidoBO.Insertar(carrito);
-                carrito.idPedido = nuevoPedidoID;
-                carrito.idPedidoSpecified = true;
+                carrito = carro;
+            } else if(carrito.idPedido==0)
+            {
+                pedidoDTO carro = new pedidoDTO();
+                carro.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO();
+                carro.cliente.idUsuario = usuario.idUsuario;
+                carro.cliente.idUsuarioSpecified = true;
+                carro.total = 0;
+                carro.totalSpecified = true;
+                carro.estadoPedido = estadoPedido.EnCarrito;
+                carro.estadoPedidoSpecified = true;
+                carro.detallesPedido = new detallePedidoDTO[0];
+                carro.idPedido = pedidoBO.Insertar(carro);
+
+                carrito = carro;
             }
 
-            var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
+                var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
             int totalItemsAdded = 0;
 
             foreach (RepeaterItem item in rpPresentaciones.Items)
