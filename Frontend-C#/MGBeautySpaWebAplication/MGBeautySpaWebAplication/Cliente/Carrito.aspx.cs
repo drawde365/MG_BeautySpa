@@ -254,7 +254,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 carrito.detallesPedido = listaDetalles.ToArray();
                 carrito.total = listaDetalles.Sum(d => d.subtotal);
                 carrito.totalSpecified = true;
-                pedidoBO.Modificar(carrito);
+                //pedidoBO.Modificar(carrito);
 
                 Session["Carrito"] = carrito;
                 RebindCartAndSummary(carrito);
