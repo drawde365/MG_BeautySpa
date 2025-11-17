@@ -21,7 +21,7 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litQuery;
+        protected global::System.Web.UI.WebControls.Label litQuery;
 
         /// <summary>
         /// Control litCount.
@@ -30,7 +30,7 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litCount;
+        protected global::System.Web.UI.WebControls.Label litCount;
 
         /// <summary>
         /// Control pnlNoResults.
