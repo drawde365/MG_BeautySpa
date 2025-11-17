@@ -14,7 +14,6 @@ _ReSharper*/
 *.[Rr]esharper
 
 /Frontend-C#/MGBeautySpaWebAplication/packages/
-/Frontend-C#/MGBeautySpaWebAplication/SoftInvBusiness/app.config
 
 **/packages/
 **/bin/
