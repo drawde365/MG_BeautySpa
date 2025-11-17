@@ -17,7 +17,7 @@
         <h2 style="margin-bottom:1rem;">Cambio de contraseña</h2>
 
         <div style="margin-bottom:1rem;">
-            <label for="<%= txtAntigua.ClientID %>">Contraseña anterior</label><br />
+            <label for="<%= txtAntigua.ClientID %>">Contraseña anterior</label><br /> 
             <asp:TextBox ID="txtAntigua" runat="server"
                          TextMode="Password"
                          CssClass="form-control"
