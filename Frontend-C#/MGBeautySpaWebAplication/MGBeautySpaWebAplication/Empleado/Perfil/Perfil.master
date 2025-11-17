@@ -1,11 +1,10 @@
 ﻿<%@ Master Language="C#" 
     MasterPageFile="~/Empleado/Empleado.Master" 
-    AutoEventWireup="true"
-    CodeBehind="Perfil.master.cs"
+    AutoEventWireup="true" 
+    CodeBehind="Perfil.master.cs" 
     Inherits="MGBeautySpaWebAplication.Empleado.PerfilMaster" %>
 
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
-    <!-- Carga de estilos específicos de la master de perfil -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Empleado/Perfil/PerfilMaster.css") %>" />
 </asp:Content>
 
@@ -27,15 +26,23 @@
                 </div>
 
                 <nav class="profile-nav">
-                    <a href="PerfilUsuario.aspx" class="nav-item-link active">
+                    <%-- 
+                      - ADAPTACIÓN: 
+                      - 1. Añadido runat="server" e ID a cada enlace (como en el master de Cliente).
+                      - 2. Eliminada la clase 'active' quemada.
+                      - 3. Se mantienen los enlaces propios del Empleado.
+                    --%>
+
+                    <a id="navPerfil" runat="server" href="PerfilUsuario.aspx" class="nav-item-link">
                         <i class="icon-user"></i>
                         <span class="nav-item-text">Mi perfil</span>
                     </a>
 
-                    <a href="CambiarPassword.aspx" class="nav-item-link">
+                    <a id="navPassword" runat="server" href="CambiarPassword.aspx" class="nav-item-link">
                         <i class="icon-key"></i>
                         <span class="nav-item-text">Cambiar contraseña</span>
                     </a>
+
                     <asp:LinkButton ID="btnLogoutSidebar" runat="server" 
                         CssClass="logout-button"
                         OnClick="btnLogout_Click">
@@ -51,12 +58,10 @@
         </div>
 
         <div class="profile-main-content">
-            <!-- Placeholder donde las páginas hijas del perfil inyectan su contenido -->
             <asp:ContentPlaceHolder ID="ProfileBodyContent" runat="server" />
         </div>
     </div>
 </asp:Content>
 
 <asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
-    <!-- Scripts específicos (si necesitas alguno) -->
-</asp:Content>
+    </asp:Content>

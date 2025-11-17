@@ -1,12 +1,13 @@
-﻿using System;
+﻿using SoftInvBusiness; // Para UsuarioBO
+using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
+using System;
 using System.Web.UI;
 
+// ADAPTADO: Namespace de Empleado
 namespace MGBeautySpaWebAplication.Empleado.Perfil
 {
     public partial class CambiarPassword : Page
     {
-        // Simulamos que la contraseña actual es "123"
-        private const string ContraseñaActual = "123";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,15 +20,23 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
             string nueva = txtNueva.Text.Trim();
             string verificar = txtVerificar.Text.Trim();
 
-            // 1️⃣ Validar contraseña actual
-            if (antigua != ContraseñaActual)
+            usuarioDTO usuario = Session["UsuarioActual"] as usuarioDTO;
+            if (usuario == null)
+            {
+                // ADAPTADO: Redirigir al login (general o de empleado)
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
+                return;
+            }
+
+            // 1. Validar contraseña actual (usando la de la sesión)
+            if (antigua != usuario.contrasenha)
             {
                 lblInfo.Text = "⚠️ La contraseña actual no es correcta.";
                 lblInfo.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
-            // 2️⃣ Validar que las nuevas contraseñas coincidan
+            // 2. Validar que las nuevas contraseñas coincidan
             if (nueva != verificar)
             {
                 lblInfo.Text = "⚠️ Las nuevas contraseñas no coinciden.";
@@ -35,19 +44,41 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
                 return;
             }
 
-            // 3️⃣ Simular guardado de la nueva contraseña
-            // (En tu proyecto real aquí iría la lógica para actualizar la contraseña en base de datos)
-            // GuardarContraseñaUsuario(usuarioId, nueva);
+            // 3. Validar que la contraseña no esté vacía
+            if (string.IsNullOrEmpty(nueva))
+            {
+                lblInfo.Text = "⚠️ La nueva contraseña no puede estar vacía.";
+                lblInfo.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
 
-            // 4️⃣ Mostrar mensaje y redirigir
-            Session["NuevaContraseña"] = nueva; // Opcional: ejemplo
-            Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
+            try
+            {
+                // 4. Actualizar el DTO y llamar al BO
+                usuario.contrasenha = nueva; // Actualiza la contraseña en el objeto
+
+                // ADAPTADO: Usar UsuarioBO
+                UsuarioBO usuarioBO = new UsuarioBO();
+                // Asumimos que ModificarDatos actualiza todos los campos, incluida la contraseña
+                usuarioBO.actualizarContraseña(usuario.idUsuario, usuario.contrasenha);
+
+                // 5. Actualizar la sesión
+                Session["UsuarioActual"] = usuario;
+
+                // 6. Redirigir al perfil de Empleado
+                Response.Redirect("~/Empleado/Perfil/PerfilUsuario.aspx");
+            }
+            catch (Exception ex)
+            {
+                lblInfo.Text = "Error al actualizar la contraseña: " + ex.Message;
+                lblInfo.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            // Redirige de vuelta al perfil del usuario
-            Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
+            // ADAPTADO: Redirige de vuelta al perfil del empleado
+            Response.Redirect("~/Empleado/Perfil/PerfilUsuario.aspx");
         }
     }
 }

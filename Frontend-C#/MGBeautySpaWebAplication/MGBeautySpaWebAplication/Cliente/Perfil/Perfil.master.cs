@@ -11,7 +11,7 @@ namespace MGBeautySpaWebAplication.Cliente
 {
     public partial class PerfilMaster : System.Web.UI.MasterPage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        public void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
