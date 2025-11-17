@@ -40,24 +40,38 @@
 </asp:Content>
 
 <asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
-    <!--
-    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
-    -->
-    
+    <%-- ▼▼▼ NUEVO SCRIPT PARA MODALES ▼▼▼ --%>
     <script type="text/javascript">
-        function changeQty(button, amount) {
-            var parent = button.parentNode;
-            var txtQty = parent.querySelector('.qty-display');
+        var paymentModalInstance = null;
+        var successModalInstance = null;
 
-            if (txtQty) {
-                var currentQty = parseInt(txtQty.value) || 0;
-                var newQty = currentQty + amount;
+        document.addEventListener("DOMContentLoaded", function () {
+            var paymentModalEl = document.getElementById('paymentModal');
+            if (paymentModalEl) {
+                paymentModalInstance = new bootstrap.Modal(paymentModalEl);
+            }
 
-                if (newQty < 0) {
-                    newQty = 0;
-                }
+            var successModalEl = document.getElementById('paymentSuccessModal');
+            if (successModalEl) {
+                successModalInstance = new bootstrap.Modal(successModalEl);
+            }
+        });
 
-                txtQty.value = newQty;
+        // Función para mostrar el modal de éxito y ocultar el de pago
+        function showSuccessModal() {
+            if (paymentModalInstance) {
+                paymentModalInstance.hide();
+            }
+            if (successModalInstance) {
+                successModalInstance.show();
+            }
+        }
+
+        // (Opcional) Función para mostrar el modal de pago
+        // Tu botón "Proceder al Pago" (btnCheckout) debería llamar a esto desde C#
+        function showPaymentModal() {
+            if (paymentModalInstance) {
+                paymentModalInstance.show();
             }
         }
     </script>
@@ -199,56 +213,83 @@
     <%-- El Modal de Pago --%>
     <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content payment-interface">
-                
-                <div class="modal-header-custom">
-                    <h5 class="modal-title-custom">Realiza fácil tus pagos con EzPay</h5>
+
+            <div class="modal-content payment-modal-content">
+
+                <div class="payment-modal-header">
+                    <h5 class="payment-modal-title">Realiza fácil tus pagos con EzPay</h5>
                 </div>
 
-                <div class="payment-body">
-                    
-                    <div class="input-group-field">
+                <div class="payment-modal-body">
+
+                    <div class="input-block">
                         <label for="txtCardNumber" class="input-label">Ingrese el número de la tarjeta</label>
-                        <asp:TextBox ID="txtCardNumber" runat="server" 
-                            CssClass="input-text-style" 
-                            placeholder="XXXX XXXX XXXX XXXX" 
+                        <asp:TextBox ID="txtCardNumber" runat="server"
+                            CssClass="input-field"
+                            placeholder="XXXX XXXX XXXX XXXX"
                             TextMode="Number" />
                     </div>
 
-                    <div class="input-group-field">
+                    <div class="input-block">
                         <label for="txtNameOnCard" class="input-label">Nombre y Apellido</label>
-                        <asp:TextBox ID="txtNameOnCard" runat="server" 
-                            CssClass="input-text-style" 
+                        <asp:TextBox ID="txtNameOnCard" runat="server"
+                            CssClass="input-field"
                             placeholder="Nombre en la tarjeta" />
                     </div>
 
-                    <div class="input-group-row">
-                        <div class="input-group-field half-width">
+                    <div class="row-2">
+                        <div class="input-block block-half">
                             <label for="txtExpiryDate" class="input-label">Fecha de vencimiento</label>
-                            <asp:TextBox ID="txtExpiryDate" runat="server" 
-                                CssClass="input-text-style" 
+                            <asp:TextBox ID="txtExpiryDate" runat="server"
+                                CssClass="input-field"
                                 placeholder="MM/AA" />
                         </div>
 
-                        <div class="input-group-field half-width">
+                        <div class="input-block block-half">
                             <label for="txtCVV" class="input-label">CVV</label>
-                            <asp:TextBox ID="txtCVV" runat="server" 
-                                CssClass="input-text-style" 
-                                TextMode="Password" 
-                                MaxLength="4" 
+                            <asp:TextBox ID="txtCVV" runat="server"
+                                CssClass="input-field"
+                                TextMode="Password"
+                                MaxLength="4"
                                 placeholder="123" />
                         </div>
                     </div>
-                    
+
                 </div>
-                
-                <div class="modal-footer-custom">
-                    <asp:Button ID="btnProcessPayment" runat="server" 
-                        Text="Aceptar" 
+
+                <div class="payment-modal-footer">
+                    <asp:Button ID="btnProcessPayment" runat="server"
+                        Text="Aceptar"
                         CssClass="payment-button"
                         OnClick="btnProcessPayment_Click" />
                 </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 12px; text-align: center; padding: 24px;">
+                <div class="modal-body">
                 
+                    <%-- Icono de Check (opcional, pero recomendado) --%>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#1EC3B6" class="bi bi-check-circle-fill" viewBox="0 0 16 16" style="margin-bottom: 16px;">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+
+                    <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #171214; margin-bottom: 12px;">
+                        ¡Pago Realizado!
+                    </h4>
+                    <p style="font-family: 'Plus Jakarta Sans', sans-serif; color: #757575; margin-bottom: 24px;">
+                        Tu pedido ha sido procesado exitosamente. Recibirás una confirmación por correo.
+                    </p>
+                
+                    <asp:Button ID="btnVolverInicio" runat="server" 
+                        Text="Volver al Inicio" 
+                        CssClass="checkout-button" 
+                        OnClick="btnVolverInicio_Click" />
+                </div>
             </div>
         </div>
     </div>
