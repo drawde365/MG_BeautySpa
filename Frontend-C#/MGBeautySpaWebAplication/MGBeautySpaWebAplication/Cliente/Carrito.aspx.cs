@@ -311,31 +311,18 @@ namespace MGBeautySpaWebAplication.Cliente
                 carrito.fechaPago = DateTime.Now;
                 carrito.fechaPagoSpecified = true;
                 carrito.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
-                carrito.idPedidoSpecified = true;
 
                 pedidoBO.Modificar(carrito);
 
                 Session["Carrito"] = null;
                 Session["CartCount"] = 0;
 
-                ScriptManager.RegisterStartupScript(
-                    this, // El control (la página)
-                    this.GetType(), // El tipo
-                    "ShowSuccessModalScript", // Una clave única para el script
-                    "showSuccessModal();", // La función JS que definimos
-                    true // Añadir etiquetas <script>
-                );
+                Response.Redirect(ResolveUrl("~/Cliente/ConfirmacionPedido.aspx"));
             }
             else
             {
                 ShowPaymentModal();
             }
-        }
-
-        protected void btnVolverInicio_Click(object sender, EventArgs e)
-        {
-            // Redirige al usuario al inicio después de que vea el modal de éxito
-            Response.Redirect("~/Cliente/InicioCliente.aspx");
         }
 
         private bool SimulatePaymentIntegration(string cardNumber)

@@ -87,6 +87,22 @@ body {
     align-items: start;
 }
 
+@media (max-width: 1200px) {
+    .cart-layout-wrapper {
+        /* Mantiene la relación 3/1 en pantallas medianas */
+        grid-template-columns: 3fr 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .cart-layout-wrapper {
+        /* Colapsa a una sola columna en móvil */
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
 /* =====================================================
    COLUMNA IZQUIERDA: TARJETA DE PRODUCTOS
    ===================================================== */
@@ -564,19 +580,4 @@ MODAL DE PAGO PROFESIONAL
             background: #0bb49e;
         }
 
-    @media (max-width: 1200px) {
-        .cart-layout-wrapper {
-            /* Mantiene la relación 3/1 en pantallas medianas */
-            grid-template-columns: 3fr 1fr;
-            gap: 20px;
-        }
-    }
-
-    @media (max-width: 991px) {
-        .cart-layout-wrapper {
-            /* Colapsa a una sola columna en móvil */
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-    }
 }
