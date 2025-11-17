@@ -42,7 +42,7 @@ namespace MGBeautySpaWebAplication.Cuenta
             string token = Guid.NewGuid().ToString();
 
             // Guardarlo en BD asociado al usuario (con fecha de expiración)
-            //FALTA (URGENTE): UsuarioDAO.GuardarTokenRecuperacion(usuario.Id, token);
+            usuarioBO.GuardarTokenRecuperacion(usuario.idUsuario, token);
 
             // Construir URL para resetear contraseña
             string url = Request.Url.GetLeftPart(UriPartial.Authority) +

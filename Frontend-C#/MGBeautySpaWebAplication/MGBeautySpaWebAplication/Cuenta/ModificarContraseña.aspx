@@ -232,6 +232,42 @@
             cursor: pointer;
             border: none;
         }
+
+        .error-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0px;
+            width: 960px;
+            max-width: 960px;
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-title {
+            width: 100%;
+            padding: 20px 16px 12px;
+            margin: 0;
+            font-weight: 700;
+            font-size: 28px;
+            text-align: center;
+            color: #B71C1C;
+        }
+
+        .error-message {
+            width: 100%;
+            padding: 4px 16px 12px;
+            margin: 0;
+            font-size: 16px;
+            text-align: center;
+            color: #1A0F12;
+        }
+
+        /* Botón rojo para errores */
+        .login-button.error-btn {
+            background: #E53935 !important;
+        }
     </style>
 </head>
 <body>
@@ -250,22 +286,43 @@
                         </p>
                     </div>
 
-                    <form action="#" method="POST" style="display: contents;">
-                        <div class="input-wrapper">
-                            <input type="password" class="form-input" placeholder="Ingresa tu nueva contraseña">
+                    <div class="input-wrapper">
+                        <div class="password-wrapper">
+                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input"
+                                         TextMode="Password" placeholder="Ingrese tu nueva contraseña" />
+                            <i class="bi bi-eye-slash toggle-password"
+                               onclick="togglePassword('txtPassword', this)"></i>
                         </div>
+                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
+                            ErrorMessage="La contraseña es obligatoria." ForeColor="Red" Display="Dynamic" />
+                        <asp:RegularExpressionValidator 
+                            ID="revPasswordLength" runat="server"
+                            ControlToValidate="txtPassword"
+                            ValidationExpression="^.{1,30}$"
+                            ErrorMessage="La contraseña no puede exceder los 30 caracteres."
+                            ForeColor="Red" Display="Dynamic" />
+                    </div>
                 
-                        <div class="input-wrapper" style="padding-top: 0;">
-                            <input type="password" class="form-input" placeholder="Confirma tu nueva contraseña">
+                    <div class="input-wrapper" style="padding-top: 0;">
+                        <div class="password-wrapper">
+                            <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-input"
+                                         TextMode="Password" placeholder="Confirme su contraseña" />
+                            <i class="bi bi-eye-slash toggle-password"
+                               onclick="togglePassword('txtConfirmar', this)"></i>
                         </div>
-                        <div class="button-container">
-                            <asp:Button ID="btnModificaContraseña" 
-                                        runat="server" 
-                                        Text="Establecer nueva contraseña" 
-                                        CssClass="submit-button"
-                                        OnClick="btnModificaContraseña_Click" />
-                        </div>
-                    </form>
+
+                        <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
+                            ErrorMessage="Debe confirmar su contraseña." ForeColor="Red" Display="Dynamic" />
+                        <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
+                            ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
+                    </div>
+                    <div class="button-container">
+                        <asp:Button ID="btnModificaContraseña" 
+                                    runat="server" 
+                                    Text="Establecer nueva contraseña" 
+                                    CssClass="submit-button"
+                                    OnClick="btnModificaContraseña_Click" />
+                    </div>
 
                 </main>
             </div>
@@ -280,6 +337,20 @@
                 <div class="button-wrapper">
                     <a href="../Login.aspx" class="login-button">
                         Iniciar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalError" class="modal-superpuesto" style="display: none;">
+            <div class="error-box">
+                <h1 class="error-title">Enlace no válido</h1>
+                <p class="error-message">
+                    Este enlace ya fue utilizado, expiró o no es válido. Por favor solicita uno nuevo.
+                </p>
+                <div class="button-wrapper">
+                    <a href="../RecuperarContraseña.aspx" class="login-button" style="background:#E53935;">
+                        Solicitar nuevo enlace
                     </a>
                 </div>
             </div>

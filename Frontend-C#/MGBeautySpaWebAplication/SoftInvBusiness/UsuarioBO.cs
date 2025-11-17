@@ -26,6 +26,26 @@ namespace SoftInvBusiness
         {
             return usuarioSOAP.ObtenerUsuario(correoElectronico);
         }
+
+        public int GuardarTokenRecuperacion(int idUsuario, string token)
+        {
+            return usuarioSOAP.RegistrarToken(idUsuario, token);
+        }
+
+        public contrasenhaTokenDTO recuperarToken(string token)
+        {
+            return usuarioSOAP.ObtenerTokenDelUsuario(token);
+        }
+
+        public int actualizarContraseña(int idUsuario, string nuevaContrasenha)
+        {
+            return usuarioSOAP.ModificarContrasenha(idUsuario, nuevaContrasenha);
+        }
+
+        public int tokenUsado(contrasenhaTokenDTO token)
+        {
+            return usuarioSOAP.MarcarTokenComoUsado(token);
+        }
     }
 }
 
