@@ -485,4 +485,99 @@ body {
     .item-price {
         display: none;
     }
+
+    /* =====================================
+MODAL DE PAGO PROFESIONAL
+===================================== */
+    .payment-modal-content {
+        border-radius: 18px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+
+    .payment-modal-header {
+        background: linear-gradient(135deg, #12c2e9, #0cd5c0);
+        padding: 26px;
+        text-align: center;
+    }
+
+    .payment-modal-title {
+        font-size: 22px;
+        color: white;
+        margin: 0;
+        font-weight: 700;
+    }
+
+
+    .payment-modal-body {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+
+    .input-block {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .input-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .input-field {
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        transition: border 0.2s;
+    }
+
+        .input-field:focus {
+            border-color: #0cd5c0;
+            box-shadow: 0 0 0 2px rgba(12,213,192,0.25);
+        }
+
+
+    .row-2 {
+        display: flex;
+        gap: 15px;
+    }
+
+        .row-2 .block-half {
+            flex: 1;
+        }
+
+
+    .payment-modal-footer {
+        background: #f4f4f4;
+        padding: 22px;
+        text-align: center;
+    }
+
+    .payment-button {
+        width: 100%;
+        max-width: 240px;
+        background: #0cd5c0;
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        font-size: 17px;
+        font-weight: 700;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+        .payment-button:hover {
+            background: #0bb49e;
+        }
+
 }

@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/html">
 <head runat="server">
-    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
     <meta charset="utf-8x" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
@@ -136,5 +135,6 @@
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
 
     </form>
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
 </body>
 </html>

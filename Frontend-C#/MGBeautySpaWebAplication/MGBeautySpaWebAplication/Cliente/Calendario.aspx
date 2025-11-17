@@ -11,9 +11,9 @@
 
 <%-- 2. Contenido de Scripts (SOLO LAS FUNCIONES) --%>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptsContent" runat="server">
-    <%-- El JS de Bootstrap se queda aquí --%>
+    <%-- El JS de Bootstrap se queda aquí 
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
-    
+    --%>
     <script type="text/javascript">
         // Las variables se moverán al MainContent
         // Solo dejamos las funciones aquí

@@ -1,68 +1,95 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using SoftInvBusiness; // Para PedidoBO
+using SoftInvBusiness.SoftInvWSPedido; // Para pedidoDTO
+using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
     public partial class DetallePedido : Page
     {
+        private PedidoBO pedidoBO;
+
+        public DetallePedido()
+        {
+            pedidoBO = new PedidoBO();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 CargarDetalle();
+            }
         }
 
         private void CargarDetalle()
         {
-            string numeroPedido = Request.QueryString["pedido"];
-            if (string.IsNullOrEmpty(numeroPedido))
-                numeroPedido = "1001"; // valor por defecto si entra directo
-
-            // Asignar valores fijos según el pedido
-            litNumeroPedido.Text = numeroPedido;
-
-            string fecha = "21/05/2025";
-            string total = "129.90";
-
-            if (numeroPedido == "1002")
+            // 1. Validar Usuario y Pedido ID
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            if (usuario == null)
             {
-                fecha = "10/06/2025";
-                total = "89.50";
-            }
-            else if (numeroPedido == "1003")
-            {
-                fecha = "02/08/2025";
-                total = "45.00";
+                Response.Redirect("~/Login.aspx?ReturnUrl=" + Request.RawUrl);
+                return;
             }
 
-            litFecha.Text = fecha;
-            litTotal.Text = total;
-
-            // Productos en duro
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Imagen", typeof(string));
-            dt.Columns.Add("Nombre", typeof(string));
-            dt.Columns.Add("Descripcion", typeof(string));
-            dt.Columns.Add("Cantidad", typeof(int));
-            dt.Columns.Add("Subtotal", typeof(string));
-
-            if (numeroPedido == "1001")
+            if (!int.TryParse(Request.QueryString["pedido"], out int pedidoId))
             {
-                dt.Rows.Add("~/img/producto1.jpg", "Crema facial hidratante", "Hidrata y suaviza la piel.", 1, "59.90");
-                dt.Rows.Add("~/img/producto2.jpg", "Tónico de rosas", "Refresca y equilibra el rostro.", 2, "70.00");
-            }
-            else if (numeroPedido == "1002")
-            {
-                dt.Rows.Add("~/img/producto3.jpg", "Mascarilla nutritiva", "Repara el cabello dañado.", 1, "49.90");
-                dt.Rows.Add("~/img/producto4.jpg", "Aceite de argán", "Nutre el cabello y da brillo.", 1, "39.60");
-            }
-            else
-            {
-                dt.Rows.Add("~/img/producto5.jpg", "Exfoliante corporal", "Elimina impurezas suavemente.", 1, "45.00");
+                // Si no hay ID, redirigir de vuelta a la lista de pedidos
+                Response.Redirect("~/Cliente/Perfil/Pedidos.aspx");
+                return;
             }
 
-            rptProductos.DataSource = dt;
-            rptProductos.DataBind();
+            try
+            {
+                // 2. Obtener el Pedido Completo desde el BO
+                pedidoDTO pedido = pedidoBO.ObtenerPorId(pedidoId);
+
+                // (Opcional: Validar que el pedido pertenezca al cliente)
+                if (pedido == null || pedido.cliente.idUsuario != usuario.idUsuario)
+                {
+                    Response.Redirect("~/Cliente/Perfil/Pedidos.aspx");
+                    return;
+                }
+
+                // 3. Poblar los datos del resumen del pedido
+                litNumeroPedido.Text = pedido.idPedido.ToString("D4"); // Formato "0001"
+                litFecha.Text = pedido.fechaPagoSpecified ? pedido.fechaPago.ToString("dd/MM/yyyy") : "Pendiente de Pago";
+                litTotal.Text = pedido.totalSpecified ? pedido.total.ToString("N2", new CultureInfo("es-PE")) : "0.00";
+
+                // 4. Mapear los detalles del pedido para el Repeater
+                if (pedido.detallesPedido != null)
+                {
+                    var productos = pedido.detallesPedido.Select(d => new
+                    {
+                        // Asumiendo que el DTO del producto está anidado
+                        Imagen = ResolveUrl(d.producto.producto.urlImagen ?? "~/Content/images/placeholder.png"),
+                        Nombre = d.producto.producto.nombre ?? "Producto no disponible",
+                        Descripcion = d.producto.tipo.nombre, // Usamos el tipo de piel como descripción
+                        Cantidad = d.cantidadSpecified ? d.cantidad : 0,
+                        Subtotal = d.subtotalSpecified ? d.subtotal.ToString("N2", new CultureInfo("es-PE")) : "0.00"
+                    }).ToList();
+
+                    rptProductos.DataSource = productos;
+                    rptProductos.DataBind();
+                }
+                else
+                {
+                    // Manejar caso de pedido sin detalles (aunque no debería ocurrir si está bien gestionado)
+                    rptProductos.DataSource = null;
+                    rptProductos.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar error si el Web Service falla
+                // (Podrías mostrar un mensaje de error en la página)
+                Response.Redirect("~/Cliente/Perfil/Pedidos.aspx");
+            }
         }
 
         protected void btnRegresar_Click(object sender, EventArgs e)

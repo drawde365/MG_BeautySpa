@@ -1,7 +1,9 @@
 ﻿<%@ Page Title="Tu Carrito" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
 
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
+    <!--
     <link href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" rel="stylesheet" /> 
+    -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Cliente/CarritoCliente.css?v=3") %>" />
     
     <%-- Estilo simple para el mensaje de carrito vacío --%>
@@ -38,7 +40,9 @@
 </asp:Content>
 
 <asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
+    <!--
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    -->
     
     <script type="text/javascript">
         function changeQty(button, amount) {
