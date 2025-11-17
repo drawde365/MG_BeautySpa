@@ -349,7 +349,7 @@
                     Este enlace ya fue utilizado, expiró o no es válido. Por favor solicita uno nuevo.
                 </p>
                 <div class="button-wrapper">
-                    <a href="RecuperarContraseña.aspx" class="login-button" style="background:#E53935;">
+                    <a href="../RecuperarContraseña.aspx" class="login-button" style="background:#E53935;">
                         Solicitar nuevo enlace
                     </a>
                 </div>

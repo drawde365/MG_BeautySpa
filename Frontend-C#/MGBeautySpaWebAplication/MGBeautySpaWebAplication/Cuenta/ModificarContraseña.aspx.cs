@@ -36,7 +36,8 @@ namespace MGBeautySpaWebAplication.Cuenta
                 }
 
                 var infoT = usuarioBO.recuperarToken(token);
-                if (infoT == null || infoT.usado == 1 || infoT.fecha_expiracion < DateTime.Now)
+                bool used = infoT.usado == 1 ? true : false;
+                if (infoT == null || used || infoT.fecha_expiracion < DateTime.Now)
                 {
                     string script = @"document.getElementById('modalError').style.display = 'flex';";
 
@@ -48,11 +49,8 @@ namespace MGBeautySpaWebAplication.Cuenta
                         true
                     );
                 }
-                else
-                {
-                    Session["ResetUserId"] = infoT.usuarioId;
-                    Session["ResetToken"] = infoT;
-                }
+                Session["ResetUserId"] = infoT.usuarioId;
+                Session["ResetToken"] = infoT;
             }
         }
 
