@@ -1,4 +1,4 @@
-﻿using SoftInvBusiness.SoftInvWSEmpleado;
+﻿using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Web.UI;
 
