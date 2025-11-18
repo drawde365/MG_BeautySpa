@@ -133,7 +133,7 @@
                 <tr class="producto-fila">
                     <td>
                         <asp:Image ID="imgProducto" runat="server" 
-                                   ImageUrl='<%# Eval("urlImagen", "~{0}") %>' 
+                                   ImageUrl='<%# Eval("urlImagen") %>' 
                                    CssClass="product-image-thumb" />
                     </td>
                     <td>

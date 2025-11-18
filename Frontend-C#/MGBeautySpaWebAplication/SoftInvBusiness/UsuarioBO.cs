@@ -48,9 +48,9 @@ namespace SoftInvBusiness
             return usuarioSOAP.MarcarTokenComoUsado(token);
         }
 
-        public List<usuarioDTO> ObtenerTodosUsuarios()
+        public IList<usuarioDTO> ObtenerTodosUsuarios()
         {
-            return usuarioSOAP.ListarUsuarios().ToList();
+            return usuarioSOAP.ListarUsuarios();
         }
 
         public int actividadUsuario(int idUsuario, int estado)

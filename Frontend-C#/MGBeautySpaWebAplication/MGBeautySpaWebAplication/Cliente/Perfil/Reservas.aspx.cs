@@ -60,9 +60,20 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
 
                 var reservas = citaBO.ListarPorUsuario(user);
                 ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
+            } else if (ListaCompletaReservas.Count==0)
+            {
+                SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
+                user.idUsuario = usuario.idUsuario;
+                user.idUsuarioSpecified = true;
+                user.rol = 1;
+                user.rolSpecified = true;
+
+                var reservas = citaBO.ListarPorUsuario(user);
+                ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
+
             }
 
-            var listaCompleta = ListaCompletaReservas;
+                var listaCompleta = ListaCompletaReservas;
 
             if (listaCompleta == null || !listaCompleta.Any())
             {

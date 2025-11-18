@@ -27,7 +27,15 @@ namespace MGBeautySpaWebAplication.Admin
 
         private void CargarUsuarios()
         {
-            rpUsuarios.DataSource = usuarioBO.ObtenerTodosUsuarios();
+            var lista = usuarioBO.ObtenerTodosUsuarios();
+            if (lista == null)
+            {
+                rpUsuarios.DataSource = null;
+            }
+            else
+            {
+                rpUsuarios.DataSource = lista;
+            }
             rpUsuarios.DataBind();
         }
 
