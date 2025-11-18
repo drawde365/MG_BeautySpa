@@ -585,8 +585,6 @@
     <Compile Include="Shared\TerminosControl.ascx.designer.cs">
       <DependentUpon>TerminosControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Util\UsuarioDAO.cs" />
-    <Compile Include="Util\UsuarioDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
