@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import com.lowagie.text.Document;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
 import pe.edu.pucp.sotfinv.model.Reportes.Interfaces.Reportable;
@@ -32,29 +33,18 @@ public class GeneradorReporte {
      * Recibe una lista de cualquier cosa que implemente Reportable.
      */
     
-    public String obtenerRutaDescargas(String prefijoArchivo){
-        String userHome = System.getProperty("user.home");
-        
-        // Obtiene el separador del sistema (\ para Windows, / para Linux/Mac)
-        String separator = File.separator;
-        
-        // Construye la ruta
-        String rutaCompleta = userHome + separator + "Downloads" + separator 
-                              + prefijoArchivo + "_" + System.currentTimeMillis() + ".pdf";
-                              
-        return rutaCompleta;
-    }
     
-    public void generarReporte(List<? extends Reportable> datos, FiltroReporte filtro, String rutaSalida) {
+    public byte[] generarReporte(List<? extends Reportable> datos, FiltroReporte filtro) {
         
         if (datos == null || datos.isEmpty()) {
             System.out.println("La lista está vacía, no se genera PDF.");
-            return;
+            return new byte[0];
         }
-
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Document document = new Document(PageSize.A4.rotate()); // Hoja Horizontal
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(rutaSalida));
+            PdfWriter.getInstance(document,baos);
             document.open();
 
             // 1. Títulos y Encabezado (Igual que antes)
@@ -109,11 +99,13 @@ public class GeneradorReporte {
             pTotal.setAlignment(Element.ALIGN_RIGHT);
             pTotal.setSpacingBefore(10);
             document.add(pTotal);
+            
+            document.close();
+            return baos.toByteArray();
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            document.close();
+            return new byte[0];
         }
     }
 

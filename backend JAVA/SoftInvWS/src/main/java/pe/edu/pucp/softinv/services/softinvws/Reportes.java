@@ -9,6 +9,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import pe.edu.pucp.softinv.business.BO.Impl.ReportesBO;
 import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
+import pe.edu.pucp.sotfinv.model.Reportes.FiltroBuilder;
 
 /**
  *
@@ -24,13 +25,13 @@ public class Reportes {
     }
     
     @WebMethod(operationName = "generarReporteCitas")
-    public void generarReporteCitas(@WebParam(name = "Filtros") FiltroReporte filtro) {
-        reporteBO.exportarCitas(filtro);
+    public byte[] generarReporteCitas(@WebParam(name = "Filtros") FiltroReporte filtro) {
+        return reporteBO.exportarCitas(filtro);
     }
     
     @WebMethod(operationName = "generarReporteVentas")
-    public void generarReporteVentas(@WebParam(name = "Filtros") FiltroReporte filtro) {
-        reporteBO.exportarVentas(filtro);
+    public byte[] generarReporteVentas(@WebParam(name = "Filtros") FiltroReporte filtro) {
+        return reporteBO.exportarVentas(filtro);
     }
     
 }
