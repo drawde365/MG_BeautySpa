@@ -132,14 +132,13 @@
             </div>
         </footer>
 
+        <script src="<%: ResolveUrl("~/Scripts/jquery-3.7.1.min.js") %>"></script>
+        <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+        <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/ProductDetail.js") %>"></script>
+        <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/SearchModal.js") %>"></script>
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
 
     </form>
     
-    <script src="<%: ResolveUrl("~/Scripts/jquery-3.7.1.min.js") %>"></script>
-    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
-    <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/ProductDetail.js") %>"></script>
-    <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/SearchModal.js") %>"></script>
-    
-</body>
+    </body>
 </html>

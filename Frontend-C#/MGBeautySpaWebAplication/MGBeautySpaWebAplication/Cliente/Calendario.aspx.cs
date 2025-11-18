@@ -26,14 +26,12 @@ namespace MGBeautySpaWebAplication.Cliente
         private ServicioBO servicioBO;
         private CitaBO citaBO;
 
-        // Caché de Sesión para los clics de mes (UpdatePanel)
         private Dictionary<DateTime, int> DisponibilidadCache
         {
             get { return (Dictionary<DateTime, int>)Session["EmpleadoAvailabilityData"]; }
             set { Session["EmpleadoAvailabilityData"] = value; }
         }
 
-        // Propiedades para JS
         public int EmpleadoId
         {
             get { return (int)(ViewState["EmpleadoId"] ?? 0); }
@@ -62,10 +60,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
                 return (DateTime)ViewState["CurrentDisplayMonth"];
             }
-            set
-            {
-                ViewState["CurrentDisplayMonth"] = value;
-            }
+            set { ViewState["CurrentDisplayMonth"] = value; }
         }
 
         public Calendario()
@@ -97,7 +92,6 @@ namespace MGBeautySpaWebAplication.Cliente
                     DuracionServicio = servicioDto.duracionHora * 60;
                 }
 
-                // Asignar valores a los HiddenFields para JS
                 hdnEmpleadoId.Value = empId.ToString();
                 hdnServicioId.Value = servId.ToString();
                 hdnDuracionServicio.Value = DuracionServicio.ToString();
@@ -108,18 +102,14 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
+        // ... (Los métodos auxiliares del calendario CargarDisponibilidadEnCache, CargarDatosRealesCalendario, BindCalendar, rpCalendarDays_ItemDataBound, GetAvailableHours, btnPrevMonth_Click, btnNextMonth_Click, ClearHoursDropDown SE MANTIENEN IGUAL) ...
         private void CargarDisponibilidadEnCache()
         {
             var calendarioEmpleado = calendarioBO.ListarCalendarioDeEmpleado(this.EmpleadoId);
-
             if (calendarioEmpleado != null)
-            {
                 DisponibilidadCache = calendarioEmpleado.ToDictionary(c => c.fecha, c => c.cantLibre);
-            }
             else
-            {
                 DisponibilidadCache = new Dictionary<DateTime, int>();
-            }
         }
 
         private List<DiaCalendario> CargarDatosRealesCalendario()
@@ -129,32 +119,19 @@ namespace MGBeautySpaWebAplication.Cliente
             int diasEnMes = DateTime.DaysInMonth(primerDiaDelMes.Year, primerDiaDelMes.Month);
             int primerDiaSemana = (int)primerDiaDelMes.DayOfWeek;
             DateTime hoy = DateTime.Today;
-
             var calendarioEmpleado = this.DisponibilidadCache;
 
             for (int i = 0; i < primerDiaSemana; i++)
-            {
                 dias.Add(new DiaCalendario { Day = 0, Status = -1 });
-            }
 
             for (int i = 1; i <= diasEnMes; i++)
             {
                 var dia = new DiaCalendario { Day = i };
                 DateTime fechaActual = new DateTime(primerDiaDelMes.Year, primerDiaDelMes.Month, i);
                 dia.FechaCompleta = fechaActual;
-
-                if (fechaActual < hoy)
-                {
-                    dia.Status = 0;
-                }
-                else if (calendarioEmpleado.ContainsKey(fechaActual.Date) && calendarioEmpleado[fechaActual.Date] > 0)
-                {
-                    dia.Status = 1;
-                }
-                else
-                {
-                    dia.Status = 0;
-                }
+                if (fechaActual < hoy) dia.Status = 0;
+                else if (calendarioEmpleado.ContainsKey(fechaActual.Date) && calendarioEmpleado[fechaActual.Date] > 0) dia.Status = 1;
+                else dia.Status = 0;
                 dias.Add(dia);
             }
             return dias;
@@ -163,20 +140,9 @@ namespace MGBeautySpaWebAplication.Cliente
         private void BindCalendar()
         {
             litMonthYear.Text = CurrentDisplayMonth.ToString("MMMM yyyy").Replace("de", "").Replace(".", "");
-
             DateTime primerDiaMesActual = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-
-            if (CurrentDisplayMonth <= primerDiaMesActual)
-            {
-                btnPrevMonth.Enabled = false;
-                btnPrevMonth.CssClass = "nav-arrow nav-arrow--disabled";
-            }
-            else
-            {
-                btnPrevMonth.Enabled = true;
-                btnPrevMonth.CssClass = "nav-arrow";
-            }
-
+            if (CurrentDisplayMonth <= primerDiaMesActual) { btnPrevMonth.Enabled = false; btnPrevMonth.CssClass = "nav-arrow nav-arrow--disabled"; }
+            else { btnPrevMonth.Enabled = true; btnPrevMonth.CssClass = "nav-arrow"; }
             var dias = CargarDatosRealesCalendario();
             rpCalendarDays.DataSource = dias;
             rpCalendarDays.DataBind();
@@ -188,166 +154,124 @@ namespace MGBeautySpaWebAplication.Cliente
             {
                 var dia = (DiaCalendario)e.Item.DataItem;
                 var btnDay = (LinkButton)e.Item.FindControl("btnDay");
-
-                if (dia.Status == -1)
-                {
-                    btnDay.CssClass = "calendar-day--blank";
-                    btnDay.Enabled = false;
-                }
+                if (dia.Status == -1) { btnDay.CssClass = "calendar-day--blank"; btnDay.Enabled = false; }
                 else
                 {
                     btnDay.Text = dia.Day.ToString();
                     btnDay.CssClass = "calendar-day";
+                    if (dia.Status == 0) { btnDay.CssClass += " calendar-day--unavailable"; btnDay.Enabled = false; }
+                    else btnDay.OnClientClick = $"handleDayClick(this, '{dia.FechaCompleta.ToString("yyyy-MM-dd")}'); return false;";
 
-                    if (dia.Status == 0)
-                    {
-                        btnDay.CssClass += " calendar-day--unavailable";
-                        btnDay.Enabled = false;
-                    }
-                    else
-                    {
-                        btnDay.OnClientClick = $"handleDayClick(this, '{dia.FechaCompleta.ToString("yyyy-MM-dd")}'); return false;";
-                    }
-
-                    if (dia.FechaCompleta.ToString("yyyy-MM-dd") == hdnSelectedDay.Value)
-                    {
-                        btnDay.CssClass += " calendar-day--selected";
-                    }
+                    if (dia.FechaCompleta.ToString("yyyy-MM-dd") == hdnSelectedDay.Value) btnDay.CssClass += " calendar-day--selected";
                 }
             }
         }
 
-        // --- WebMethod ESTÁTICO (Llamado por JS) ---
-        // Este método NO usa la Sesión. Debe crear sus propias instancias de BO.
         [WebMethod]
         public static List<string> GetAvailableHours(string dateString, int empleadoId, int duracionServicio)
         {
-            List<string> horasFormateadas = new List<string>();
             try
             {
                 CalendarioBO bo = new CalendarioBO();
                 DateTime fechaSeleccionada = DateTime.Parse(dateString);
-
-                var bloquesDisponibles = bo.CalcularBloquesDisponibles(
-                    empleadoId,
-                    fechaSeleccionada,
-                    duracionServicio
-                );
-
-                if (bloquesDisponibles != null && bloquesDisponibles.Any())
-                {
-                    // Asumiendo que el proxy devuelve localTime[]
-                    horasFormateadas = bloquesDisponibles.ToList();
-                }
-                return horasFormateadas;
+                var bloques = bo.CalcularBloquesDisponibles(empleadoId, fechaSeleccionada, duracionServicio);
+                return (bloques != null) ? bloques.ToList() : new List<string>();
             }
-            catch (Exception ex)
-            {
-                return new List<string>();
-            }
+            catch { return new List<string>(); }
         }
 
-        protected void btnPrevMonth_Click(object sender, EventArgs e)
-        {
-            CurrentDisplayMonth = CurrentDisplayMonth.AddMonths(-1);
-            hdnSelectedDay.Value = "";
-            ClearHoursDropDown(true);
-            BindCalendar();
-        }
+        protected void btnPrevMonth_Click(object sender, EventArgs e) { CurrentDisplayMonth = CurrentDisplayMonth.AddMonths(-1); hdnSelectedDay.Value = ""; ClearHoursDropDown(true); BindCalendar(); }
+        protected void btnNextMonth_Click(object sender, EventArgs e) { CurrentDisplayMonth = CurrentDisplayMonth.AddMonths(1); hdnSelectedDay.Value = ""; ClearHoursDropDown(true); BindCalendar(); }
 
-        protected void btnNextMonth_Click(object sender, EventArgs e)
-        {
-            CurrentDisplayMonth = CurrentDisplayMonth.AddMonths(1);
-            hdnSelectedDay.Value = "";
-            ClearHoursDropDown(true);
-            BindCalendar();
-        }
+        protected void btnCancelar_Click(object sender, EventArgs e) { Response.Redirect($"SeleccionarEmpleado.aspx?servicioId={this.ServicioId}"); }
 
+        private void ClearHoursDropDown(bool estadoInicial) { ddlHorarios.Items.Clear(); ddlHorarios.Items.Add(new ListItem(estadoInicial ? "Seleccione una fecha primero" : "No hay horas disponibles", "")); ddlHorarios.Enabled = false; }
+
+        private void MostrarAlerta(string mensaje) { ScriptManager.RegisterStartupScript(this, GetType(), "ReservaAlerta", $"alert('{mensaje.Replace("'", "\\'")}');", true); }
+
+        // ===========================================================
+        // 🔥 NUEVA LÓGICA DE PAGO Y RESERVA 🔥
+        // ===========================================================
+
+        // 1. Al hacer clic en "Reservar Cita", solo validamos y abrimos el Modal
         protected void btnReservar_Click(object sender, EventArgs e)
         {
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-
             if (usuario == null)
             {
                 Response.Redirect("~/Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.RawUrl));
                 return;
             }
-            if (string.IsNullOrEmpty(hdnSelectedDay.Value))
+
+            if (string.IsNullOrEmpty(hdnSelectedDay.Value)) { MostrarAlerta("Por favor, seleccione una fecha."); return; }
+            if (string.IsNullOrEmpty(hdnSelectedHour.Value)) { MostrarAlerta("Por favor, seleccione una hora."); return; }
+
+            // Si pasa las validaciones, mostramos el modal de pago
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenPayment", "var myModal = new bootstrap.Modal(document.getElementById('paymentModal')); myModal.show();", true);
+        }
+
+        // 2. Este evento se dispara cuando el usuario confirma el pago en el Modal
+        protected void btnProcessPayment_Click(object sender, EventArgs e)
+        {
+            // Recoger valores del formulario (Pago)
+            string cardNumber = Request.Form[txtCardNumber.UniqueID]?.Trim().Replace(" ", "") ?? "";
+
+            // Simulación de pago (igual que en Carrito)
+            if (cardNumber.EndsWith("0"))
             {
-                MostrarAlerta("Por favor, seleccione una fecha.");
+                // Fallo simulado
+                string failScript = @"alert('El pago no pudo ser procesado. Verifica los datos de tu tarjeta.');
+                                      setTimeout(function() { var modal = new bootstrap.Modal(document.getElementById('paymentModal')); modal.show(); }, 100);";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "PaymentFail", failScript, true);
                 return;
             }
 
-            // --- CORRECCIÓN AQUÍ ---
-            if (string.IsNullOrEmpty(hdnSelectedHour.Value)) // Leer del HiddenField
-            {
-                MostrarAlerta("Por favor, seleccione una hora.");
-                return;
-            }
-            // --- FIN CORRECCIÓN ---
-
+            // === PAGO EXITOSO: PROCEDEMOS A RESERVAR ===
             try
             {
+                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
                 DateTime fechaSeleccionada = DateTime.Parse(hdnSelectedDay.Value);
-
-                // --- CORRECCIÓN AQUÍ ---
-                // Parsear el valor del HiddenField
                 DateTime horaSeleccionada = DateTime.Parse(hdnSelectedHour.Value, new CultureInfo("es-ES"));
-                // --- FIN CORRECCIÓN ---
-
-                // ... (El resto de tu lógica para crear nuevaCita es correcta) ...
 
                 SoftInvBusiness.SoftInvWSCalendario.citaDTO nuevaCita = new SoftInvBusiness.SoftInvWSCalendario.citaDTO();
-                // ... (asignar empleado, servicio, cliente) ...
                 nuevaCita.empleado = new SoftInvBusiness.SoftInvWSCalendario.empleadoDTO { idUsuario = this.EmpleadoId, idUsuarioSpecified = true };
                 nuevaCita.servicio = new SoftInvBusiness.SoftInvWSCalendario.servicioDTO { idServicio = this.ServicioId, idServicioSpecified = true };
                 nuevaCita.cliente = new SoftInvBusiness.SoftInvWSCalendario.clienteDTO { idUsuario = usuario.idUsuario, idUsuarioSpecified = true };
 
-                // Asumiendo que el WSDL espera string para la fecha (DateAdapter)
                 nuevaCita.fecha = fechaSeleccionada;
                 nuevaCita.fechaSpecified = true;
-
-                // Asumiendo que CitaDTO espera string para la hora (TimeAdapter)
                 nuevaCita.horaIni = horaSeleccionada.ToString("HH:mm:ss");
                 nuevaCita.horaFin = horaSeleccionada.AddMinutes(this.DuracionServicio).ToString("HH:mm:ss");
-
                 nuevaCita.activo = 1;
                 nuevaCita.activoSpecified = true;
-                nuevaCita.IGV = 0;
+                nuevaCita.IGV = nuevaCita.servicio.precio * (0.18);
                 nuevaCita.IGVSpecified = true;
+
+                // Marca de pago (opcional, si tu citaDTO soporta código de transacción)
+                // nuevaCita.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
 
                 int resultado = calendarioBO.ReservarBloqueYCita(nuevaCita);
 
-                // ... (resto de la lógica de resultado) ...
+                // Mostrar modal de éxito y cerrar el de pago
+                string successScript = @"
+                    var paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                    if (paymentModal) { paymentModal.hide(); }
+                    setTimeout(function() {
+                        var successModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+                        successModal.show();
+                    }, 300);";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowSuccess", successScript, true);
             }
             catch (Exception ex)
             {
-                MostrarAlerta("Error: " + ex.Message);
+                MostrarAlerta("Error al reservar: " + ex.Message);
             }
         }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
+        protected void btnVolverInicio_Click(object sender, EventArgs e)
         {
-            Response.Redirect($"SeleccionarEmpleado.aspx?servicioId={this.ServicioId}");
-        }
-
-        private void ClearHoursDropDown(bool estadoInicial)
-        {
-            ddlHorarios.Items.Clear();
-            if (estadoInicial)
-            {
-                ddlHorarios.Items.Add(new ListItem("Seleccione una fecha primero", ""));
-            }
-            else
-            {
-                ddlHorarios.Items.Add(new ListItem("No hay horas disponibles", ""));
-            }
-            ddlHorarios.Enabled = false;
-        }
-
-        private void MostrarAlerta(string mensaje)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "ReservaAlerta", $"alert('{mensaje.Replace("'", "\\'")}');", true);
+            // Redirigir al perfil/reservas para ver la nueva cita
+            Response.Redirect("~/Cliente/Perfil/Reservas.aspx");
         }
     }
 }
