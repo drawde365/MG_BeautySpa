@@ -9,9 +9,6 @@
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | MG Beauty Spa
     </title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
-
     <!-- Iconos -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
 
@@ -20,6 +17,8 @@
 
     <!-- Estilos de Master (ya adapta header y footer) -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
+    <!-- Bootstrap css -->
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.css") %>"></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,10 +127,11 @@
         </footer>
 
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
-
+        <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
+        <!-- Bootstrap JS -->
+        <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
     </form>
 
-    <!-- Bootstrap JS -->
-    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    
 </body>
 </html>
