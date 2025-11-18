@@ -61,7 +61,7 @@ public class EmpleadoBO
     }
 
     public void agregarServicio(Integer empleadoId, Integer servicioId) {
-        SXEDAO.insertar(servicioId, empleadoId);
+        SXEDAO.insertar(empleadoId,servicioId);
     }
 
     public ArrayList<ServicioDTO> listarServicios(Integer empleadoId) {
