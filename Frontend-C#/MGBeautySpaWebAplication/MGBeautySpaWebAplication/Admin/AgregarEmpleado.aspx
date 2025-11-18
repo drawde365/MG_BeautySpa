@@ -12,11 +12,10 @@
 
 
 <asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    <!-- Título de la pestaña (va en <title> dentro de la master) -->
-    Añadir empleado -
+    Añadir empleado
 </asp:Content>
 
-<asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
+<%--<asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
 <!-- Extra en <head> si quieres estilos específicos -->
     <style>
         .time-input::placeholder { color: #999; }
@@ -27,7 +26,84 @@
             margin-bottom: 20px;
         }
     </style>
+</asp:Content>--%>
+
+<asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
+    <style>
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* --- Servicios cosmetológicos --- */
+
+        .servicios-card-header {
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .servicios-helper-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .servicios-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        /* Ocultamos el checkbox nativo */
+        .servicios-list input[type="checkbox"] {
+            display: none;
+        }
+
+        /* “Chips” de servicio */
+        .servicios-list label {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.55rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid #d0d5dd;
+            background-color: #ffffff;
+            font-size: 0.92rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #344054;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+            transition: all 0.15s ease-in-out;
+            max-width: 100%;
+        }
+
+        .servicios-list label:hover {
+            border-color: #12a594;
+            box-shadow: 0 4px 10px rgba(18, 165, 148, 0.15);
+        }
+
+        /* Estado seleccionado */
+        .servicios-list input[type="checkbox"]:checked + label {
+            background-color: #0b8a7a;
+            border-color: #0b8a7a;
+            color: #ffffff;
+            box-shadow: 0 6px 16px rgba(11, 138, 122, 0.35);
+        }
+
+        /* Para que en pantallas grandes se vea “grid” fluido */
+        @media (min-width: 768px) {
+            .servicios-list label {
+                min-width: 280px;
+            }
+        }
+    </style>
 </asp:Content>
+
+
 
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
 <!-- CONTENIDO PRINCIPAL, aparece dentro de <main class="main-content ..."> -->
@@ -333,7 +409,7 @@
     </div>
 
 
-    <!-- SERVICIOS COSMETOLÓGICOS -->
+    <%--<!-- SERVICIOS COSMETOLÓGICOS -->
     <div class="card mb-4 shadow-sm border-0">
         <div class="card-header bg-white border-0">
             <strong>Servicios cosmetológicos que realiza</strong>
@@ -349,7 +425,27 @@
                 RepeatLayout="Flow">
             </asp:CheckBoxList>
         </div>
+    </div>--%>
+
+    <!-- SERVICIOS COSMETOLÓGICOS -->
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
+            <span class="servicios-card-header">Servicios cosmetológicos que realiza</span>
+        </div>
+        <div class="card-body">
+            <p class="servicios-helper-text">
+                Selecciona uno o varios servicios que este empleado puede realizar. 
+                Estas opciones se usarán luego para mostrar qué tratamientos ofrece cada profesional.
+            </p>
+
+            <asp:CheckBoxList ID="cblServicios" runat="server"
+                CssClass="servicios-list"
+                RepeatLayout="Flow"
+                RepeatDirection="Vertical">
+            </asp:CheckBoxList>
+        </div>
     </div>
+
 
     <!-- BOTONES -->
     <div class="d-flex justify-content-end mb-5">
