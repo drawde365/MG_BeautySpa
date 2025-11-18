@@ -8,6 +8,8 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Pedidos" %>
 <asp:Content ID="ctBody" ContentPlaceHolderID="ProfileBodyContent" runat="server">
 
     <link rel="stylesheet" href="Pedidos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 
     <div class="orders-container">
         <h2 class="orders-title">Historial de Pedidos</h2>

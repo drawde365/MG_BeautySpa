@@ -14,21 +14,23 @@
     <style>
         .btn-custom-teal {
             /* Estilo de los botones 'Depth 5, Frame 1' */
-            background-color: #1EC3B6;
-            color: #FCF7FA;
+
+           
+            background-color:#107369; 
+            color:white; 
+            border:none; 
+            border-radius:6px; 
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 14px;            
+            align-items: center;
+            justify-content: center;
             line-height: 21px;
             /* Dimensiones y alineación del botón */
             width: 143px;
             height: 40px;
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
             text-decoration: none;
-            border-radius: 20px; /* rounded-pill */
-            border: none;
         }
         .btn-custom-teal:hover {
             background-color: #107369; /* Un tono más oscuro para el hover */
@@ -36,7 +38,7 @@
         }
         
         .btn-regresar {
-             background-color: #aaa; 
+             background-color: #7b7b7b; 
              color: white; 
              border: none; 
              padding: 8px 16px; 

@@ -145,16 +145,6 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ListarPorEmpleado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ListarPorEmpleadoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:horarioTrabajoDTO" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="EliminarHorarioTrabajo">
     <xs:sequence>
       <xs:element minOccurs="0" name="horarioTrabajo" type="tns:horarioTrabajoDTO" />
@@ -163,6 +153,16 @@
   <xs:complexType name="EliminarHorarioTrabajoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarPorEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarPorEmpleadoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:horarioTrabajoDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ModificarHorarioTrabajo">
