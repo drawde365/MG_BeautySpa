@@ -201,7 +201,6 @@ public class CitaDAOImpl extends DAOImplBase implements CitaDAO {
         String sql = ObtenerQueryBaseCita() + """
              WHERE c.%s = ? 
                AND c.FECHA >= ?
-               AND c.ACTIVO = 1
              ORDER BY c.FECHA DESC;
          """.formatted(filtroColumna);
         

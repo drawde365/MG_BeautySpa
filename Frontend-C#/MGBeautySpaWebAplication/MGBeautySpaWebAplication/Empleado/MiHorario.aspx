@@ -1,146 +1,211 @@
-﻿<%@ Page Title="Mis Citas" Language="C#" MasterPageFile="Empleado.Master" AutoEventWireup="true" CodeBehind="MisCitas.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.MisCitas" %>
-
-<%-- 1. Título de la Página --%>
-<asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Mis Citas
+﻿<%@ Page Title="Mi Horario" Language="C#" MasterPageFile="~/Empleado/Empleado.Master" AutoEventWireup="true" CodeBehind="MiHorario.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.MiHorario" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    Mi Horario
 </asp:Content>
-
-<%-- 2. ENLACE AL CSS --%>
-<asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/CitasStyles.css") %>" />
+<asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
-        /* Estilo simple para el mensaje de 'no hay citas' */
-        .citas-vacias-mensaje {
-            text-align: center; padding: 40px 20px; color: #757575;
-            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1em;
-            background-color: #f9f9f9; border-radius: 8px; margin-top: 1.5rem;
+        /* Fuente personalizada para el título */
+        .empleado-title-font {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 40px;
+            color: #148C76;
         }
-        /* Estilos para el modal */
-        .modal-body .form-label { font-weight: 600; margin-top: 10px; }
-        .modal-body .form-control { border-radius: 6px; }
+
+        /* Botón "Agregar excepción" */
+        .badge-status {
+            background-color: #148C76;
+            color: #FFFFFF;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .badge-status:hover {
+            background-color: #0e6b5a;
+            color: #fff;
+        }
+        
+        /* Contenedor de tablas */
+        .schedule-container {
+            border: 1px solid #78D5CD;
+            border-radius: 12px;
+            background: #FAFAFA;
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin-bottom: 2rem;
+        }
+
+        /* Estilos tabla Horario */
+        .schedule-table { border: none; margin-bottom: 0; width: 100%; }
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #78D5CD;
+            text-align: center; vertical-align: middle;
+            font-size: 14px; padding: 4px; height: 27px;
+        }
+        .schedule-table thead th {
+            background-color: #148C76; color: #FFFFFF; padding: 12px; height: 46px;
+        }
+        .schedule-table tbody th {
+            background-color: #148C76; color: #FFFFFF; width: 64px;
+        }
+        .cell-occupied { background-color: #78D5CD !important; }
+        .cell-free { background-color: #FFFFFF; }
+
+        /* --- NUEVOS ESTILOS PARA EXCEPCIONES --- */
+        .exceptions-section {
+            margin-top: 30px;
+            border-top: 2px dashed #E3D4D9;
+            padding-top: 20px;
+        }
+        
+        .exceptions-table th {
+            background-color: #f8f9fa;
+            color: #1C0D12;
+            font-weight: 700;
+            border-bottom: 2px solid #148C76;
+            padding: 12px;
+        }
+        .exceptions-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .btn-rehabilitar {
+            color: #d9534f;
+            background: none;
+            border: 1px solid #d9534f;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-rehabilitar:hover {
+            background-color: #d9534f;
+            color: #fff;
+        }
+        .text-muted-small { font-size: 0.85rem; color: #757575; }
     </style>
 </asp:Content>
+<asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
 
-<%-- 3. Contenido Principal de la Página --%>
-<asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <div class="container-lg py-4">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
-        <h1 class="h2 mb-1 font-zcool" style="color: #148C76;">Citas</h1>
-        <p class="fs-5" style="color: #555;">Revise las citas reservadas pendientes y completadas.</p>
+    <asp:Panel ID="pnlAlert" runat="server" Visible="false" role="alert">
+        <asp:Literal ID="litAlertMessage" runat="server" />
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </asp:Panel>
 
-        <%-- Pestañas de navegación --%>
-        <ul class="nav citas-nav-tabs mt-4" id="citasTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="proximas-tab" data-bs-toggle="tab" data-bs-target="#proximas-pane" type="button" role="tab" aria-controls="proximas-pane" aria-selected="true">Próximas</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pasadas-tab" data-bs-toggle="tab" data-bs-target="#pasadas-pane" type="button" role="tab" aria-controls="pasadas-pane" aria-selected="false">Pasadas</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="canceladas-tab" data-bs-toggle="tab" data-bs-target="#canceladas-pane" type="button" role="tab" aria-controls="canceladas-pane" aria-selected="false">Canceladas</button>
-            </li>
-        </ul>
+    <div class="main-content-wrapper bg-white p-4 rounded-3 shadow-sm">
 
-        <div class="tab-content" id="citasTabContent">
-            
-            <%-- ================== PESTAÑA PRÓXIMAS (MODIFICADA) ================== --%>
-            <div class="tab-pane fade show active" id="proximas-pane" role="tabpanel" aria-labelledby="proximas-tab" tabindex="0">
-                <div class="citas-tabla-container mt-4">
+        <%-- Cabecera --%>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+            <h1 class="empleado-title-font m-0">Horario de trabajo</h1>
+            <asp:HyperLink ID="hlAgregarExcepcion" runat="server" 
+                NavigateUrl="~/Empleado/AgregarExcepcion.aspx" 
+                CssClass="badge-status">
+                <i class="bi bi-plus-circle me-1"></i> Agregar excepción
+            </asp:HyperLink>
+        </div>
 
-                    <div class="citas-fila citas-fila-header d-none d-md-flex">
-                        <div class="citas-col">Cliente (Celular)</div>
-                        <div class="citas-col">Servicio</div>
-                        <div class="citas-col">Fecha</div>
-                        <div class="citas-col">Hora</div>
-                        <div class="citas-col-estado">Estado</div>
-                        <div class="citas-col-accion">Acción</div>
-                    </div>
-
-                    <%-- ▼▼▼ MODIFICACIÓN: Añadido OnItemCommand ▼▼▼ --%>
-                    <asp:Repeater ID="rptProximas" runat="server" 
-                        OnItemDataBound="rptCitas_ItemDataBound" 
-                        OnItemCommand="rptProximas_ItemCommand">
+        <%-- 1. Tabla de Horario Semanal --%>
+        <div class="schedule-container">
+            <table class="table schedule-table m-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sábado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater ID="rptHorario" runat="server">
                         <ItemTemplate>
-                            <div class="citas-fila">
-                                <div class="citas-col">
-                                    <div class="fw-bold d-md-none">Cliente</div>
-                                    <div><%# Eval("ClienteNombre") %></div>
-                                    <div class="text-muted" style="font-size: 12px;">(<%# Eval("ClienteCelular") %>)</div>
-                                </div>
-                                <div class="citas-col">
-                                    <div class="fw-bold d-md-none mt-2">Servicio</div>
-                                    <div><%# Eval("ServicioNombre") %></div>
-                                </div>
-                                <div class="citas-col">
-                                    <div class="fw-bold d-md-none mt-2">Fecha</div>
-                                    <div><%# Eval("Fecha") %></div>
-                                </div>
-                                <div class="citas-col">
-                                    <div class="fw-bold d-md-none mt-2">Hora</div>
-                                    <div><%# Eval("HoraInicio") %></div>
-                                </div>
-                                <div class="citas-col-estado">
-                                    <div class="fw-bold d-md-none mt-2">Estado</div>
-                                    <asp:Literal ID="litEstado" runat="server"></asp:Literal>
-                                </div>
-                                
-                                <%-- ▼▼▼ NUEVO BOTÓN DE MODIFICAR ▼▼▼ --%>
-                                <div class="citas-col-accion">
-                                    <asp:LinkButton ID="btnModificar" runat="server"
-                                        CssClass="btn btn-sm btn-outline-primary"
-                                        Text="Modificar"
-                                        CommandName="Modificar"
-                                        CommandArgument='<%# Eval("CitaId") %>' />
-                                </div>
-                            </div>
+                            <tr>
+                                <th scope="row"><%# Eval("Hora") %></th>
+                                <td class='<%# GetCellClass((bool)Eval("Lunes")) %>'></td>
+                                <td class='<%# GetCellClass((bool)Eval("Martes")) %>'></td>
+                                <td class='<%# GetCellClass((bool)Eval("Miercoles")) %>'></td>
+                                <td class='<%# GetCellClass((bool)Eval("Jueves")) %>'></td>
+                                <td class='<%# GetCellClass((bool)Eval("Viernes")) %>'></td>
+                                <td class='<%# GetCellClass((bool)Eval("Sabado")) %>'></td>
+                            </tr>
                         </ItemTemplate>
                     </asp:Repeater>
-                    
-                    <asp:Panel ID="pnlNoProximas" runat="server" CssClass="citas-vacias-mensaje" Visible="false">
-                        No tienes próximas citas programadas.
-                    </asp:Panel>
-                </div>
-            </div>
-            
-            <%-- ... (Pestañas 'pasadas' y 'canceladas' sin cambios) ... --%>
-            
+                </tbody>
+            </table>
         </div>
-    </div> 
 
-    <%-- ================== MODAL PARA MODIFICAR CITA ================== --%>
-    <div class="modal fade" id="modificarCitaModal" tabindex="-1" aria-labelledby="modificarCitaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <%-- El UpdatePanel permite que el modal se actualice sin recargar la página --%>
-            <asp:UpdatePanel ID="upModal" runat="server">
+        <%-- 2. Sección de Excepciones Registradas --%>
+        <div class="exceptions-section">
+            <h3 class="h5 mb-3" style="color: #1C0D12; font-weight: 700;">
+                Mis Excepciones
+            </h3>
+
+            <asp:UpdatePanel ID="upExcepciones" runat="server">
                 <ContentTemplate>
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modificarCitaModalLabel">Modificar Cita</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <%-- Campo oculto para guardar el ID de la cita que estamos editando --%>
-                            <asp:HiddenField ID="hdnCitaIdModal" runat="server" />
-                            
-                            <div class="mb-3">
-                                <label for="<%= txtNuevaFecha.ClientID %>" class="form-label">Nueva Fecha</label>
-                                <asp:TextBox ID="txtNuevaFecha" runat="server" CssClass="form-control" TextMode="Date" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="<%= txtNuevaHora.ClientID %>" class="form-label">Nueva Hora (HH:mm)</label>
-                                <asp:TextBox ID="txtNuevaHora" runat="server" CssClass="form-control" TextMode="Time" />
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="btnGuardarCambiosCita" runat="server" Text="Guardar Cambios" 
-                                CssClass="btn btn-primary" OnClick="btnGuardarCambiosCita_Click" />
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table exceptions-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">Fecha</th>
+                                    <th style="width: 60%;">Motivo</th>
+                                    <th style="width: 20%; text-align: center;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="rptExcepciones" runat="server" OnItemCommand="rptExcepciones_ItemCommand">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td>
+                                                <%# Eval("Fecha", "{0:dd/MM/yyyy}") %> <br />
+                                                <span class="text-muted-small"><%# Eval("Fecha", "{0:dddd}") %></span>
+                                            </td>
+                                            <td>
+                                                <%# Eval("Motivo") %>
+                                            </td>
+                                            <td class="text-center">
+                                                <%-- Botón Rehabilitar: Solo visible si es fecha futura --%>
+                                                <asp:LinkButton ID="btnRehabilitar" runat="server" 
+                                                    CssClass="btn-rehabilitar"
+                                                    CommandName="Rehabilitar"
+                                                    CommandArgument='<%# Eval("Fecha", "{0:yyyy-MM-dd}") %>'
+                                                    Visible='<%# (DateTime)Eval("Fecha") > DateTime.Now %>'
+                                                    OnClientClick="return confirm('¿Estás seguro de eliminar esta excepción y rehabilitar tu horario para este día?');">
+                                                    <i class="bi bi-trash"></i> Rehabilitar
+                                                </asp:LinkButton>
+
+                                                <asp:Label ID="lblPasado" runat="server" 
+                                                    Text="Finalizado" 
+                                                    CssClass="text-muted small" 
+                                                    Visible='<%# (DateTime)Eval("Fecha") <= DateTime.Now %>' />
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                
+                                <%-- Mensaje si no hay excepciones --%>
+                                <asp:Panel ID="pnlNoExcepciones" runat="server" Visible="false">
+                                    <tr>
+                                        <td colspan="3" class="text-center py-4 text-muted">
+                                            No tienes excepciones registradas.
+                                        </td>
+                                    </tr>
+                                </asp:Panel>
+                            </tbody>
+                        </table>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-    </div>
 
+    </div>
 </asp:Content>

@@ -35,6 +35,11 @@ public class CitaBO {
         return citaDAO.insertar(cita);
     }
     
+    public Integer aceptarCita(CitaDTO cita) {
+        cita.setActivo(2);
+        return citaDAO.modificar(cita);
+    }
+    
     public Integer insertar(CitaDTO cita) {
         return citaDAO.insertar(cita);
     }

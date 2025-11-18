@@ -44,20 +44,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.ModificarHorarioTrabajoResponse> ModificarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.ModificarHorarioTrabajoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
-            "joResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTraba" +
             "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTraba" +
             "joResponse")]
@@ -70,6 +56,20 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
             "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTraba" +
             "joResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoResponse> InsertarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTraba" +
+            "joResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorarioTrabaj" +
@@ -101,7 +101,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -245,7 +245,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -296,7 +296,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -552,7 +552,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -766,7 +766,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -777,7 +777,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(clienteDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(empleadoDTO))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -991,7 +991,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1037,7 +1037,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1181,7 +1181,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1423,7 +1423,7 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1632,42 +1632,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarHorarioTrabajoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo;
-        
-        public EliminarHorarioTrabajoRequest() {
-        }
-        
-        public EliminarHorarioTrabajoRequest(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
-            this.horarioTrabajo = horarioTrabajo;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarHorarioTrabajoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public EliminarHorarioTrabajoResponse() {
-        }
-        
-        public EliminarHorarioTrabajoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarHorarioTrabajo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class InsertarHorarioTrabajoRequest {
         
@@ -1697,6 +1661,42 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         }
         
         public InsertarHorarioTrabajoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarHorarioTrabajoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo;
+        
+        public EliminarHorarioTrabajoRequest() {
+        }
+        
+        public EliminarHorarioTrabajoRequest(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
+            this.horarioTrabajo = horarioTrabajo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarHorarioTrabajoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarHorarioTrabajoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public EliminarHorarioTrabajoResponse() {
+        }
+        
+        public EliminarHorarioTrabajoResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1849,29 +1849,6 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
-            return base.Channel.EliminarHorarioTrabajo(request);
-        }
-        
-        public int EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
-            inValue.horarioTrabajo = horarioTrabajo;
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse retVal = ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajo(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
-            return base.Channel.EliminarHorarioTrabajoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
-            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
-            inValue.horarioTrabajo = horarioTrabajo;
-            return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.InsertarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest request) {
             return base.Channel.InsertarHorarioTrabajo(request);
         }
@@ -1892,6 +1869,29 @@ namespace SoftInvBusiness.SoftInvWSHorarioTrabajo {
             SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.InsertarHorarioTrabajoRequest();
             inValue.horarioTrabajo = horarioTrabajo;
             return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).InsertarHorarioTrabajoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
+            return base.Channel.EliminarHorarioTrabajo(request);
+        }
+        
+        public int EliminarHorarioTrabajo(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
+            inValue.horarioTrabajo = horarioTrabajo;
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse retVal = ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajo(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo.EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest request) {
+            return base.Channel.EliminarHorarioTrabajoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoResponse> EliminarHorarioTrabajoAsync(SoftInvBusiness.SoftInvWSHorarioTrabajo.horarioTrabajoDTO horarioTrabajo) {
+            SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest inValue = new SoftInvBusiness.SoftInvWSHorarioTrabajo.EliminarHorarioTrabajoRequest();
+            inValue.horarioTrabajo = horarioTrabajo;
+            return ((SoftInvBusiness.SoftInvWSHorarioTrabajo.HorarioTrabajo)(this)).EliminarHorarioTrabajoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

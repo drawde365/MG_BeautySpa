@@ -50,5 +50,10 @@ namespace SoftInvBusiness
         {
             return citaSOAP.ListarCitasPorUsuario(usuario);
         }
+
+        public int AceptarCita(citaDTO cita)
+        {
+            return citaSOAP.AceptarCita(cita);
+        }
     }
 }

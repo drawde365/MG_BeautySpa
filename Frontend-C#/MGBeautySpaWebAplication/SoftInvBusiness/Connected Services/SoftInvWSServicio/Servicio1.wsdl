@@ -11,17 +11,17 @@
   <message name="ListarTodosActivosResponse">
     <part name="parameters" element="tns:ListarTodosActivosResponse" />
   </message>
+  <message name="ObtenerServicioPorId">
+    <part name="parameters" element="tns:ObtenerServicioPorId" />
+  </message>
+  <message name="ObtenerServicioPorIdResponse">
+    <part name="parameters" element="tns:ObtenerServicioPorIdResponse" />
+  </message>
   <message name="InsertarServicioPorPartes">
     <part name="parameters" element="tns:InsertarServicioPorPartes" />
   </message>
   <message name="InsertarServicioPorPartesResponse">
     <part name="parameters" element="tns:InsertarServicioPorPartesResponse" />
-  </message>
-  <message name="ListarTodos">
-    <part name="parameters" element="tns:ListarTodos" />
-  </message>
-  <message name="ListarTodosResponse">
-    <part name="parameters" element="tns:ListarTodosResponse" />
   </message>
   <message name="ListarEmpleadosDeServicio">
     <part name="parameters" element="tns:ListarEmpleadosDeServicio" />
@@ -29,11 +29,11 @@
   <message name="ListarEmpleadosDeServicioResponse">
     <part name="parameters" element="tns:ListarEmpleadosDeServicioResponse" />
   </message>
-  <message name="ObtenerServicioPorId">
-    <part name="parameters" element="tns:ObtenerServicioPorId" />
+  <message name="ListarTodos">
+    <part name="parameters" element="tns:ListarTodos" />
   </message>
-  <message name="ObtenerServicioPorIdResponse">
-    <part name="parameters" element="tns:ObtenerServicioPorIdResponse" />
+  <message name="ListarTodosResponse">
+    <part name="parameters" element="tns:ListarTodosResponse" />
   </message>
   <message name="InsertarServicioDTO">
     <part name="parameters" element="tns:InsertarServicioDTO" />
@@ -64,21 +64,21 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarTodosActivosRequest" message="tns:ListarTodosActivos" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarTodosActivosResponse" message="tns:ListarTodosActivosResponse" />
     </operation>
+    <operation name="ObtenerServicioPorId">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ObtenerServicioPorIdRequest" message="tns:ObtenerServicioPorId" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ObtenerServicioPorIdResponse" message="tns:ObtenerServicioPorIdResponse" />
+    </operation>
     <operation name="InsertarServicioPorPartes">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioPorPartesRequest" message="tns:InsertarServicioPorPartes" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioPorPartesResponse" message="tns:InsertarServicioPorPartesResponse" />
-    </operation>
-    <operation name="ListarTodos">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarTodosRequest" message="tns:ListarTodos" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarTodosResponse" message="tns:ListarTodosResponse" />
     </operation>
     <operation name="ListarEmpleadosDeServicio">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarEmpleadosDeServicioRequest" message="tns:ListarEmpleadosDeServicio" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarEmpleadosDeServicioResponse" message="tns:ListarEmpleadosDeServicioResponse" />
     </operation>
-    <operation name="ObtenerServicioPorId">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ObtenerServicioPorIdRequest" message="tns:ObtenerServicioPorId" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ObtenerServicioPorIdResponse" message="tns:ObtenerServicioPorIdResponse" />
+    <operation name="ListarTodos">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarTodosRequest" message="tns:ListarTodos" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/ListarTodosResponse" message="tns:ListarTodosResponse" />
     </operation>
     <operation name="InsertarServicioDTO">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Servicio/InsertarServicioDTORequest" message="tns:InsertarServicioDTO" />
@@ -108,7 +108,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="InsertarServicioPorPartes">
+    <operation name="ObtenerServicioPorId">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -117,7 +117,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarTodos">
+    <operation name="InsertarServicioPorPartes">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -135,7 +135,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ObtenerServicioPorId">
+    <operation name="ListarTodos">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

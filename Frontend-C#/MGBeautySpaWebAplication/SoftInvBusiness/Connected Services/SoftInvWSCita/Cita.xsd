@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AceptarCita" type="tns:AceptarCita" />
+  <xs:element name="AceptarCitaResponse" type="tns:AceptarCitaResponse" />
   <xs:element name="EliminarCita" type="tns:EliminarCita" />
   <xs:element name="EliminarCitaResponse" type="tns:EliminarCitaResponse" />
   <xs:element name="InsertarCita" type="tns:InsertarCita" />
@@ -35,29 +37,9 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ListarCitasPorUsuario">
+  <xs:complexType name="AceptarCita">
     <xs:sequence>
-      <xs:element minOccurs="0" name="usuarioDTO" type="tns:usuarioDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="usuarioDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="activo" type="xs:int" />
-      <xs:element name="cantidadServicios" type="xs:int" />
-      <xs:element minOccurs="0" name="celular" type="xs:string" />
-      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
-      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
-      <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
-      <xs:element minOccurs="0" name="nombre" type="xs:string" />
-      <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
-      <xs:element minOccurs="0" name="rol" type="xs:int" />
-      <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
-      <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ListarCitasPorUsuarioResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:citaDTO" />
+      <xs:element minOccurs="0" name="cita" type="tns:citaDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="citaDTO">
@@ -80,6 +62,21 @@
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="usuarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element name="cantidadServicios" type="xs:int" />
+      <xs:element minOccurs="0" name="celular" type="xs:string" />
+      <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
+      <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
+      <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="primerapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" type="xs:int" />
+      <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
+      <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="servicioDTO">
     <xs:sequence>
@@ -147,6 +144,21 @@
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AceptarCitaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarCitasPorUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuarioDTO" type="tns:usuarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarCitasPorUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:citaDTO" />
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarCita">
     <xs:sequence>

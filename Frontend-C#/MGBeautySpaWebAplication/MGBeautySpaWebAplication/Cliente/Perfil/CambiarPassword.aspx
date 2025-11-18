@@ -48,13 +48,13 @@
                         Text="Guardar cambios"
                         CssClass="btn btn-primary"
                         OnClick="btnGuardar_Click"
-                        style="background-color:#107369; color:white; border:none; padding:8px 16px; border-radius:6px; margin-right:10px;" />
+                        style="background-color:#107369; color:white; border:none; padding:8px 16px; border-radius:6px; " />
 
             <asp:Button ID="btnCancelar" runat="server"
                         Text="Cancelar"
                         CssClass="btn btn-secondary"
                         OnClick="btnCancelar_Click"
-                        style="background-color:#aaa; color:white; border:none; padding:8px 16px; border-radius:6px;" />
+                        style="background-color:#7b7b7b; color:white; border:none; padding:8px 16px; border-radius:6px;" />
         </div>
 
         <div style="margin-top:1rem;">

@@ -158,6 +158,9 @@
     <None Include="Connected Services\SoftInvWSCita\Cita.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.AceptarCitaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSCita\SoftInvBusiness.SoftInvWSCita.citaDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

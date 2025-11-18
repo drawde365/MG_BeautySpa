@@ -11,6 +11,18 @@
   <message name="ObtenerProductosTiposIdResponse">
     <part name="parameters" element="tns:ObtenerProductosTiposIdResponse" />
   </message>
+  <message name="ObtenerPorIdProductoYTipo">
+    <part name="parameters" element="tns:ObtenerPorIdProductoYTipo" />
+  </message>
+  <message name="ObtenerPorIdProductoYTipoResponse">
+    <part name="parameters" element="tns:ObtenerPorIdProductoYTipoResponse" />
+  </message>
+  <message name="Modificar">
+    <part name="parameters" element="tns:Modificar" />
+  </message>
+  <message name="ModificarResponse">
+    <part name="parameters" element="tns:ModificarResponse" />
+  </message>
   <message name="Insertar">
     <part name="parameters" element="tns:Insertar" />
   </message>
@@ -23,18 +35,6 @@
   <message name="EliminarResponse">
     <part name="parameters" element="tns:EliminarResponse" />
   </message>
-  <message name="Modificar">
-    <part name="parameters" element="tns:Modificar" />
-  </message>
-  <message name="ModificarResponse">
-    <part name="parameters" element="tns:ModificarResponse" />
-  </message>
-  <message name="ObtenerPorIdProductoYTipo">
-    <part name="parameters" element="tns:ObtenerPorIdProductoYTipo" />
-  </message>
-  <message name="ObtenerPorIdProductoYTipoResponse">
-    <part name="parameters" element="tns:ObtenerPorIdProductoYTipoResponse" />
-  </message>
   <message name="ObtenerProductosTiposIdActivo">
     <part name="parameters" element="tns:ObtenerProductosTiposIdActivo" />
   </message>
@@ -46,6 +46,14 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdRequest" message="tns:ObtenerProductosTiposId" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdResponse" message="tns:ObtenerProductosTiposIdResponse" />
     </operation>
+    <operation name="ObtenerPorIdProductoYTipo">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerPorIdProductoYTipoRequest" message="tns:ObtenerPorIdProductoYTipo" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerPorIdProductoYTipoResponse" message="tns:ObtenerPorIdProductoYTipoResponse" />
+    </operation>
+    <operation name="Modificar">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarRequest" message="tns:Modificar" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarResponse" message="tns:ModificarResponse" />
+    </operation>
     <operation name="Insertar">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/InsertarRequest" message="tns:Insertar" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/InsertarResponse" message="tns:InsertarResponse" />
@@ -53,14 +61,6 @@
     <operation name="Eliminar">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarRequest" message="tns:Eliminar" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/EliminarResponse" message="tns:EliminarResponse" />
-    </operation>
-    <operation name="Modificar">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarRequest" message="tns:Modificar" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ModificarResponse" message="tns:ModificarResponse" />
-    </operation>
-    <operation name="ObtenerPorIdProductoYTipo">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerPorIdProductoYTipoRequest" message="tns:ObtenerPorIdProductoYTipo" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerPorIdProductoYTipoResponse" message="tns:ObtenerPorIdProductoYTipoResponse" />
     </operation>
     <operation name="ObtenerProductosTiposIdActivo">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/ProductosTipo/ObtenerProductosTiposIdActivoRequest" message="tns:ObtenerProductosTiposIdActivo" />
@@ -78,16 +78,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="Insertar">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="Eliminar">
+    <operation name="ObtenerPorIdProductoYTipo">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -105,7 +96,16 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ObtenerPorIdProductoYTipo">
+    <operation name="Insertar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Eliminar">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
