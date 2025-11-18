@@ -120,18 +120,33 @@ namespace MGBeautySpaWebAplication.Cliente
             int primerDiaSemana = (int)primerDiaDelMes.DayOfWeek;
             DateTime hoy = DateTime.Today;
             var calendarioEmpleado = this.DisponibilidadCache;
-
             for (int i = 0; i < primerDiaSemana; i++)
                 dias.Add(new DiaCalendario { Day = 0, Status = -1 });
 
+            // Días del mes
             for (int i = 1; i <= diasEnMes; i++)
             {
                 var dia = new DiaCalendario { Day = i };
                 DateTime fechaActual = new DateTime(primerDiaDelMes.Year, primerDiaDelMes.Month, i);
                 dia.FechaCompleta = fechaActual;
-                if (fechaActual < hoy) dia.Status = 0;
-                else if (calendarioEmpleado.ContainsKey(fechaActual.Date) && calendarioEmpleado[fechaActual.Date] > 0) dia.Status = 1;
-                else dia.Status = 0;
+
+                if (fechaActual < hoy)
+                {
+                    dia.Status = 0;
+                }
+                else if (calendarioEmpleado.ContainsKey(fechaActual.Date))
+                {
+                    int cantidadLibre = calendarioEmpleado[fechaActual.Date];
+                    if (cantidadLibre > 0)
+                        dia.Status = 1; // Disponible
+                    else
+                        dia.Status = 0; // Ocupado / No disponible 
+                }
+                else
+                {
+                    dia.Status = 0;
+                }
+
                 dias.Add(dia);
             }
             return dias;
