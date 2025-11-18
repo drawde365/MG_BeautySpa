@@ -35,15 +35,6 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="AgregarServicioAEmpleado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
-      <xs:element minOccurs="0" name="servicioId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="AgregarServicioAEmpleadoResponse">
-    <xs:sequence />
-  </xs:complexType>
   <xs:complexType name="InsertarEmpleado">
     <xs:sequence>
       <xs:element minOccurs="0" name="empleado" type="tns:empleadoDTO" />
@@ -155,6 +146,15 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AgregarServicioAEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+      <xs:element minOccurs="0" name="servicioId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AgregarServicioAEmpleadoResponse">
+    <xs:sequence />
   </xs:complexType>
   <xs:complexType name="ListarTodosEmpleados">
     <xs:sequence />

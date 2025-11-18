@@ -135,6 +135,47 @@ namespace MGBeautySpaWebAplication.Admin
         /// <summary>
         /// valor: formato "08:00-11:00;15:00-18:00"
         /// </summary>
+        //private void ParseHorariosDeDia(string valor, int diaSemana, string nombreDia, List<HorarioDia> lista)
+        //{
+        //    valor = (valor ?? "").Trim();
+        //    if (string.IsNullOrEmpty(valor)) return;
+
+        //    string[] segmentos = valor.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+        //    foreach (var seg in segmentos)
+        //    {
+        //        string s = seg.Trim();
+        //        if (s.Length == 0) continue;
+
+        //        string[] partes = s.Split('-');
+        //        if (partes.Length != 2)
+        //        {
+        //            throw new Exception($"Formato de horario inválido en {nombreDia}: '{s}'.");
+        //        }
+
+        //        string iniStr = partes[0].Trim();
+        //        string finStr = partes[1].Trim();
+
+        //        // El <input type="time"> envía formato HH:mm, TimeSpan lo entiende bien
+        //        if (!TimeSpan.TryParse(iniStr, out var ini))
+        //            throw new Exception($"Hora de inicio inválida en {nombreDia}: '{iniStr}'. Usa HH:mm.");
+
+        //        if (!TimeSpan.TryParse(finStr, out var fin))
+        //            throw new Exception($"Hora de fin inválida en {nombreDia}: '{finStr}'. Usa HH:mm.");
+
+        //        if (fin <= ini)
+        //            throw new Exception($"En {nombreDia}, la hora de fin debe ser mayor que la de inicio ({s}).");
+
+        //        lista.Add(new HorarioDia
+        //        {
+        //            DiaSemana = diaSemana,
+        //            HoraInicio = ini,
+        //            HoraFin = fin
+        //        });
+        //    }
+        //}
+
+
         private void ParseHorariosDeDia(string valor, int diaSemana, string nombreDia, List<HorarioDia> lista)
         {
             valor = (valor ?? "").Trim();
@@ -156,12 +197,15 @@ namespace MGBeautySpaWebAplication.Admin
                 string iniStr = partes[0].Trim();
                 string finStr = partes[1].Trim();
 
-                // El <input type="time"> envía formato HH:mm, TimeSpan lo entiende bien
                 if (!TimeSpan.TryParse(iniStr, out var ini))
                     throw new Exception($"Hora de inicio inválida en {nombreDia}: '{iniStr}'. Usa HH:mm.");
 
                 if (!TimeSpan.TryParse(finStr, out var fin))
                     throw new Exception($"Hora de fin inválida en {nombreDia}: '{finStr}'. Usa HH:mm.");
+
+                // ✅ Solo horas en punto
+                if (ini.Minutes != 0 || fin.Minutes != 0)
+                    throw new Exception($"En {nombreDia} solo se permiten horas exactas (ejemplo: 08:00, 15:00).");
 
                 if (fin <= ini)
                     throw new Exception($"En {nombreDia}, la hora de fin debe ser mayor que la de inicio ({s}).");
@@ -174,6 +218,7 @@ namespace MGBeautySpaWebAplication.Admin
                 });
             }
         }
+
 
         // ================== INTEGRACIÓN CON WS Empleado ==================
 
@@ -243,24 +288,52 @@ namespace MGBeautySpaWebAplication.Admin
         /// <summary>
         /// Inserta todos los horarios de un empleado usando HorarioTrabajo.InsertarHorarioTrabajo.
         /// </summary>
+        //private void RegistrarHorariosEmpleadoSOAP(int empleadoId, List<HorarioDia> horarios)
+        //{
+        //    if (horarios == null || horarios.Count == 0) return;
+
+        //    // ServiceName en Java: "HorarioTrabajo"
+        //    // @WebMethod(operationName = "InsertarHorarioTrabajo")
+        //    // public Integer insertarHorarioTrabajo(@WebParam(name = "horarioTrabajo") HorarioTrabajoDTO horarioTrabajo)
+
+        //    horarioTrabajoBO=new HorarioTrabajoBO();
+
+        //    foreach (var h in horarios)
+        //    {
+        //        var horarioDto = new horarioTrabajoDTO();
+
+        //        // EmpleadoDTO dentro del namespace de HorarioTrabajoWS
+        //        var empDto = new empleadoDTO();
+        //        // Ajusta el nombre de la propiedad según lo que genere la referencia:
+        //        // normalmente será idUsuario o IdUsuario
+        //        empDto.idUsuario = empleadoId;
+        //        empDto.idUsuarioSpecified = true;
+
+        //        horarioDto.empleado = empDto;
+        //        horarioDto.diaSemana = h.DiaSemana;
+        //        horarioDto.diaSemanaSpecified = true;
+
+
+        //        horarioDto.horaInicio = h.HoraInicio.ToString();
+        //        horarioDto.horaFin = h.HoraFin.ToString();
+
+
+        //        horarioTrabajoBO.insertarHorarioDeEmpleado(horarioDto);
+        //    }
+        //}
+
+
         private void RegistrarHorariosEmpleadoSOAP(int empleadoId, List<HorarioDia> horarios)
         {
             if (horarios == null || horarios.Count == 0) return;
 
-            // ServiceName en Java: "HorarioTrabajo"
-            // @WebMethod(operationName = "InsertarHorarioTrabajo")
-            // public Integer insertarHorarioTrabajo(@WebParam(name = "horarioTrabajo") HorarioTrabajoDTO horarioTrabajo)
-
-            horarioTrabajoBO=new HorarioTrabajoBO();
+            horarioTrabajoBO = new HorarioTrabajoBO();
 
             foreach (var h in horarios)
             {
                 var horarioDto = new horarioTrabajoDTO();
 
-                // EmpleadoDTO dentro del namespace de HorarioTrabajoWS
                 var empDto = new empleadoDTO();
-                // Ajusta el nombre de la propiedad según lo que genere la referencia:
-                // normalmente será idUsuario o IdUsuario
                 empDto.idUsuario = empleadoId;
                 empDto.idUsuarioSpecified = true;
 
@@ -268,25 +341,30 @@ namespace MGBeautySpaWebAplication.Admin
                 horarioDto.diaSemana = h.DiaSemana;
                 horarioDto.diaSemanaSpecified = true;
 
-                // java.sql.Time se mapea a DateTime en C# en el proxy;
-                // usamos una fecha dummy y solo importa la hora.
-                var fechaDummy = new DateTime(2000, 1, 1);
+                // ⏱️ Enviamos también la hora como string (HH:mm:ss)
+                horarioDto.horaInicio = h.HoraInicio.ToString(@"hh\:mm\:ss");
+                horarioDto.horaFin = h.HoraFin.ToString(@"hh\:mm\:ss");
 
-                //horarioDto.horaInicio = fechaDummy
-                //    .AddHours(h.HoraInicio.Hours)
-                //    .AddMinutes(h.HoraInicio.Minutes).ToString();
+                // ✅ Calcular número de intervalos de 1 hora
+                // Ejemplo: 08:00 - 11:00 => 3 intervalos
+                var diferencia = h.HoraFin - h.HoraInicio;
+                int numIntervalos = (int)diferencia.TotalHours;
 
-                //horarioDto.horaFin = fechaDummy
-                //    .AddHours(h.HoraFin.Hours)
-                //    .AddMinutes(h.HoraFin.Minutes).ToString();
+                if (numIntervalos <= 0)
+                {
+                    throw new Exception($"El rango {h.HoraInicio:hh\\:mm}-{h.HoraFin:hh\\:mm} debe cubrir al menos 1 hora completa.");
+                }
 
-                horarioDto.horaInicio = h.HoraInicio.ToString();
-                horarioDto.horaFin = h.HoraFin.ToString();
+                horarioDto.numIntervalo = numIntervalos;
 
+                // Si el proxy generó la propiedad "*Specified" para numIntervalo, la marcamos:
+                // (si no existe, borra esta línea)
+                horarioDto.numIntervaloSpecified = true;
 
                 horarioTrabajoBO.insertarHorarioDeEmpleado(horarioDto);
             }
         }
+
 
         // ================== INTEGRACIÓN CON WS Empleado (servicios) ==================
 

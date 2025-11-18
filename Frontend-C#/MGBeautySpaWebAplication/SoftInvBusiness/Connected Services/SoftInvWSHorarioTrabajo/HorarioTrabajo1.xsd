@@ -29,6 +29,7 @@
       <xs:element minOccurs="0" name="diaSemana" type="xs:int" />
       <xs:element minOccurs="0" name="horaInicio" type="xs:string" />
       <xs:element minOccurs="0" name="horaFin" type="xs:string" />
+      <xs:element minOccurs="0" name="numIntervalo" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="empleadoDTO">

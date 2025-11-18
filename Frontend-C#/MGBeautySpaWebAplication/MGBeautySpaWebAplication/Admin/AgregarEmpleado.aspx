@@ -240,12 +240,67 @@
                     <div class="mb-3">
                         <label class="form-label">Agregar nuevo rango</label>
                         <div class="row g-2">
+
                             <div class="col-5">
-                                <input type="time" id="txtModalInicio" class="form-control" />
+                                <select id="selModalInicioHora" class="form-select">
+                                    <option value="">--</option>
+                                    <option value="00">00:00</option>
+                                    <option value="01">01:00</option>
+                                    <option value="02">02:00</option>
+                                    <option value="03">03:00</option>
+                                    <option value="04">04:00</option>
+                                    <option value="05">05:00</option>
+                                    <option value="06">06:00</option>
+                                    <option value="07">07:00</option>
+                                    <option value="08">08:00</option>
+                                    <option value="09">09:00</option>
+                                    <option value="10">10:00</option>
+                                    <option value="11">11:00</option>
+                                    <option value="12">12:00</option>
+                                    <option value="13">13:00</option>
+                                    <option value="14">14:00</option>
+                                    <option value="15">15:00</option>
+                                    <option value="16">16:00</option>
+                                    <option value="17">17:00</option>
+                                    <option value="18">18:00</option>
+                                    <option value="19">19:00</option>
+                                    <option value="20">20:00</option>
+                                    <option value="21">21:00</option>
+                                    <option value="22">22:00</option>
+                                    <option value="23">23:00</option>
+                                </select>
                             </div>
+
                             <div class="col-5">
-                                <input type="time" id="txtModalFin" class="form-control" />
+                                <select id="selModalFinHora" class="form-select">
+                                    <option value="">--</option>
+                                    <option value="00">00:00</option>
+                                    <option value="01">01:00</option>
+                                    <option value="02">02:00</option>
+                                    <option value="03">03:00</option>
+                                    <option value="04">04:00</option>
+                                    <option value="05">05:00</option>
+                                    <option value="06">06:00</option>
+                                    <option value="07">07:00</option>
+                                    <option value="08">08:00</option>
+                                    <option value="09">09:00</option>
+                                    <option value="10">10:00</option>
+                                    <option value="11">11:00</option>
+                                    <option value="12">12:00</option>
+                                    <option value="13">13:00</option>
+                                    <option value="14">14:00</option>
+                                    <option value="15">15:00</option>
+                                    <option value="16">16:00</option>
+                                    <option value="17">17:00</option>
+                                    <option value="18">18:00</option>
+                                    <option value="19">19:00</option>
+                                    <option value="20">20:00</option>
+                                    <option value="21">21:00</option>
+                                    <option value="22">22:00</option>
+                                    <option value="23">23:00</option>
+                                </select>
                             </div>
+
                             <div class="col-2 d-grid">
                                 <button type="button" class="btn btn-primary"
                                         onclick="agregarHorarioModal()">
@@ -319,8 +374,8 @@
         function abrirModalDia(diaKey) {
             diaActual = diaKey;
             document.getElementById('modalDiaNombre').innerText = diaKey;
-            document.getElementById('txtModalInicio').value = '';
-            document.getElementById('txtModalFin').value = '';
+            document.getElementById('selModalInicioHora').value = '';
+            document.getElementById('selModalFinHora').value = '';
             renderHorariosDia();
 
             var modalElement = document.getElementById('modalHorarioDia');
@@ -362,13 +417,17 @@
         }
 
         function agregarHorarioModal() {
-            const ini = document.getElementById('txtModalInicio').value;
-            const fin = document.getElementById('txtModalFin').value;
+            const iniHora = document.getElementById('selModalInicioHora').value;
+            const finHora = document.getElementById('selModalFinHora').value;
 
-            if (!ini || !fin) {
-                alert('Ingresa hora de inicio y fin.');
+            if (!iniHora || !finHora) {
+                alert('Selecciona la hora de inicio y la hora de fin.');
                 return;
             }
+
+            const ini = iniHora + ':00';
+            const fin = finHora + ':00';
+
             if (fin <= ini) {
                 alert('La hora fin debe ser mayor que la hora inicio.');
                 return;
@@ -382,12 +441,14 @@
 
             hf.value = partes.join(';');
 
-            document.getElementById('txtModalInicio').value = '';
-            document.getElementById('txtModalFin').value = '';
+            // reset selects
+            document.getElementById('selModalInicioHora').value = '';
+            document.getElementById('selModalFinHora').value = '';
 
             renderHorariosDia();
             actualizarResumenDia();
         }
+
 
         function eliminarHorario(seg) {
             const hf = document.getElementById(getHiddenFieldId());
@@ -409,6 +470,25 @@
                 span.textContent = value.replace(/;/g, ', ');
             }
         }
+
+        function ajustarHoraEnPunto(input) {
+            if (!input.value) return;
+
+            const partes = input.value.split(':');
+            if (partes.length < 2) return;
+
+            let horas = partes[0];
+
+            // Aseguramos 2 dígitos en hora
+            if (horas.length === 1) {
+                horas = '0' + horas;
+            }
+
+            // Minutos siempre 00
+            input.value = horas + ':00';
+        }
+
+
     </script>
 
 
