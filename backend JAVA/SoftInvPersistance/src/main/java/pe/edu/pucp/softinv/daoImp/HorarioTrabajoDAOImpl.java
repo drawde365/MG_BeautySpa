@@ -33,6 +33,7 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
         this.listaColumnas.add(new Columna("DIA_SEMANA", false, false));
         this.listaColumnas.add(new Columna("HORA_INICIO", false, false));
         this.listaColumnas.add(new Columna("HORA_FIN", false, false));
+        this.listaColumnas.add(new Columna("NUM_INTERVALOS", false, false));
     }
 
     @Override
@@ -41,6 +42,7 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
         this.statement.setInt(2, horarioTrabajo.getDiaSemana());
         this.statement.setTimestamp(3, new Timestamp (horarioTrabajo.getHoraInicio().getTime()));
         this.statement.setTimestamp(4, new Timestamp (horarioTrabajo.getHoraFin().getTime()));
+        this.statement.setInt(5, horarioTrabajo.getNumIntervalo());
     }
 
     @Override
@@ -49,7 +51,8 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
         this.statement.setInt(2, horarioTrabajo.getDiaSemana());
         this.statement.setTimestamp(3, new Timestamp (horarioTrabajo.getHoraInicio().getTime()));
         this.statement.setTimestamp(4, new Timestamp (horarioTrabajo.getHoraFin().getTime()));
-        this.statement.setInt(5, horarioTrabajo.getId());
+        this.statement.setInt(6, horarioTrabajo.getNumIntervalo());
+        this.statement.setInt(7, horarioTrabajo.getId());
     }
 
     @Override
@@ -72,6 +75,7 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
         this.horarioTrabajo.setHoraInicio(this.resultSet.getTime("HORA_INICIO"));
         this.horarioTrabajo.setHoraFin(this.resultSet.getTime("HORA_FIN"));
         this.horarioTrabajo.setId(this.resultSet.getInt("HORARIO_ID"));
+        this.horarioTrabajo.setNumIntervalo(this.resultSet.getInt("NUM_INTERVALOS"));
     }
     
     @Override

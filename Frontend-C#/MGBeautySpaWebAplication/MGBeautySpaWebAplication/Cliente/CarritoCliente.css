@@ -91,9 +91,16 @@ body {
    COLUMNA IZQUIERDA: TARJETA DE PRODUCTOS
    ===================================================== */
 
+.cart-products-section .d-flex.justify-content-center.mb-3 {
+    padding-top: 17px;
+    padding-bottom: 0px;
+}
+
 .cart-products-section {
     display: flex;
     flex-direction: column;
+    padding-top: 0px;
+    padding-bottom: 0px;
     width: 100%;
     background: var(--bg-white);
     border-radius: var(--radius-lg);
@@ -579,4 +586,5 @@ MODAL DE PAGO PROFESIONAL
             gap: 24px;
         }
     }
+
 }
