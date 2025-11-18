@@ -13,17 +13,16 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class HorarioTrabajoDTO {
     
-    private Integer id;
-    private EmpleadoDTO empleado;
-    private Integer diaSemana;
-    
     @XmlJavaTypeAdapter(TimeAdapter.class) // Esta anotación ahora es segura
     private Time horaInicio;
     
     @XmlJavaTypeAdapter(TimeAdapter.class) // Esta anotación ahora es segura
     private Time horaFin;
+    private Integer id;
+    private EmpleadoDTO empleado;
+    private Integer diaSemana;
     private Integer numIntervalo;
-    
+  
     public Integer getNumIntervalo() {
         return numIntervalo;
     }

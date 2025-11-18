@@ -59,6 +59,7 @@ public class HorarioTrabajoDAOImplTest {
         horario1.setDiaSemana(2); 
         horario1.setHoraInicio(Time.valueOf("08:00:00"));
         horario1.setHoraFin(Time.valueOf("12:00:00"));
+        horario1.setNumIntervalo(3);
         int id1 = horarioTrabajoDAO.insertar(horario1);
         horario1.setId(id1);
         horariosInsertados.add(horario1);
@@ -68,6 +69,7 @@ public class HorarioTrabajoDAOImplTest {
         horario2.setDiaSemana(2); 
         horario2.setHoraInicio(Time.valueOf("14:00:00"));
         horario2.setHoraFin(Time.valueOf("18:00:00"));
+        horario2.setNumIntervalo(4);
         int id2 = horarioTrabajoDAO.insertar(horario2);
         horario2.setId(id2);
         horariosInsertados.add(horario2);

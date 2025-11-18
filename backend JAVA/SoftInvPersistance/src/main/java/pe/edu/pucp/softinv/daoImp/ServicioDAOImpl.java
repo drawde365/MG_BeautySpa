@@ -114,13 +114,14 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     
     @Override
     public ArrayList<ServicioDTO> obtenerPorPagina(Integer pag){
-        String sql = "SELECT * FROM PRODUCTOS LIMIT ?, ?";
+        String sql = "SELECT SERVICIO_ID, NOMBRE, TIPO, PRECIO,"
+                + " DESCRIPCION, PROM_VALORACIONES, URL_IMAGEN, DURACION_HORAS, ACTIVO FROM SERVICIOS LIMIT ?, ?";
         return (ArrayList<ServicioDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPagina,pag);
     }
     
     @Override
     public ArrayList<ServicioDTO> obtenerPorNombre(String nombre){
-        String sql = "SELECT * FROM SERVICIOS WHERE NOMBRE LIKE ?";
+        String sql = "SELECT SERVICIO_ID, NOMBRE, TIPO, PRECIO, DESCRIPCION, PROM_VALORACIONES, URL_IMAGEN, DURACION_HORAS, ACTIVO FROM SERVICIOS WHERE NOMBRE LIKE ?";
         return (ArrayList<ServicioDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPorNombre,nombre);
     }
     
@@ -131,7 +132,8 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     
     @Override
     public ArrayList<ServicioDTO> listarTodosActivos(){
-        String sql="SELECT * FROM SERVICIOS WHERE ACTIVO = 1";
+        String sql="SELECT SERVICIO_ID, NOMBRE, TIPO, PRECIO, DESCRIPCION, "
+                + "PROM_VALORACIONES, URL_IMAGEN, DURACION_HORAS, ACTIVO FROM SERVICIOS WHERE ACTIVO = 1";
         return (ArrayList<ServicioDTO>)super.listarTodos(sql, null,null );
     }
     
@@ -163,7 +165,8 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     @Override
     public Integer obtenerCantPaginas() {
         int cant;
-        String sql = "SELECT COUNT(*) AS COUNT FROM SERVICIOS";
+        // Se usa COUNT(SERVICIO_ID) en lugar de COUNT(*)
+        String sql = "SELECT COUNT(SERVICIO_ID) AS COUNT FROM SERVICIOS";
         try {
             this.iniciarTransaccion();
             this.colocarSQLEnStatement(sql);
@@ -179,8 +182,9 @@ public class ServicioDAOImpl extends DAOImplBase implements ServicioDAO {
     
     @Override
     public ArrayList<ServicioDTO> listarFiltro (String filtro){
-        String sql = "SELECT * FROM SPA.SERVICIOS\n" +
-                        "WHERE TIPO = ?";
+        // Se reemplaza * por columnas explícitas
+        String sql = "SELECT SERVICIO_ID, NOMBRE, TIPO, PRECIO, DESCRIPCION, "
+                + "PROM_VALORACIONES, URL_IMAGEN, DURACION_HORAS, ACTIVO FROM SERVICIOS WHERE TIPO = ?";
         return (ArrayList<ServicioDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarFiltro, filtro);
     }
     

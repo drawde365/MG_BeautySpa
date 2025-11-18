@@ -51,8 +51,8 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
         this.statement.setInt(2, horarioTrabajo.getDiaSemana());
         this.statement.setTimestamp(3, new Timestamp (horarioTrabajo.getHoraInicio().getTime()));
         this.statement.setTimestamp(4, new Timestamp (horarioTrabajo.getHoraFin().getTime()));
-        this.statement.setInt(6, horarioTrabajo.getNumIntervalo());
-        this.statement.setInt(7, horarioTrabajo.getId());
+        this.statement.setInt(5, horarioTrabajo.getNumIntervalo());
+        this.statement.setInt(6, horarioTrabajo.getId());
     }
 
     @Override
@@ -103,7 +103,8 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
         this.horarioTrabajo.setEmpleado(empleado);
         this.horarioTrabajo.setDiaSemana(diaSemana);
         
-        String sql = "SELECT * FROM HORARIO_TRABAJO WHERE EMPLEADO_ID = ? AND DIA_SEMANA = ?";
+        String sql = "SELECT HORARIO_ID, EMPLEADO_ID, DIA_SEMANA, HORA_INICIO,"
+                + "HORA_FIN, NUM_INTERVALOS FROM HORARIO_TRABAJO WHERE EMPLEADO_ID = ? AND DIA_SEMANA = ?";
         
         return (ArrayList<HorarioTrabajoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaObtenerEmpleadoYFecha,null);
     }
@@ -139,7 +140,8 @@ public class HorarioTrabajoDAOImpl extends DAOImplBase implements HorarioTrabajo
     }
     
     public ArrayList<HorarioTrabajoDTO> listarPorEmpleado(Integer idEmpleado){
-        String sql = "SELECT * FROM HORARIO_TRABAJO WHERE EMPLEADO_ID = ?";
+        String sql = "SELECT HORARIO_ID, EMPLEADO_ID, DIA_SEMANA, HORA_INICIO,"
+                + "HORA_FIN, NUM_INTERVALOS FROM HORARIO_TRABAJO WHERE EMPLEADO_ID = ?";
         return (ArrayList<HorarioTrabajoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListar,idEmpleado);
     }
     

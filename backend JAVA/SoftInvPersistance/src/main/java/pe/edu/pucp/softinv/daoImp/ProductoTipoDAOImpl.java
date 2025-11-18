@@ -169,7 +169,9 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
 
     @Override
     public ArrayList<ProductoTipoDTO> obtenerProductoId(Integer idProducto) {
-        String sql = "SELECT pt.*, tp.NOMBRE FROM PRODUCTOS_TIPOS pt " +
+        // Se reemplaza pt.* por las columnas explícitas
+        String sql = "SELECT pt.PRODUCTO_ID, pt.TIPO_ID, pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO, tp.NOMBRE " +
+                     "FROM PRODUCTOS_TIPOS pt " +
                      "JOIN TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID " +
                      "WHERE pt.PRODUCTO_ID = ?";
         ProductoDTO producto = new ProductoDTO();
@@ -179,7 +181,9 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
 
     @Override
     public ArrayList<ProductoTipoDTO> obtenerProductoIdActivos(Integer idProducto) {
-        String sql = "SELECT pt.*, tp.NOMBRE FROM PRODUCTOS_TIPOS pt " +
+        // Se reemplaza pt.* por las columnas explícitas
+        String sql = "SELECT pt.PRODUCTO_ID, pt.TIPO_ID, pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO, tp.NOMBRE " +
+                     "FROM PRODUCTOS_TIPOS pt " +
                      "JOIN TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID " +
                      "WHERE pt.PRODUCTO_ID = ? AND pt.ACTIVO = 1";
         ProductoDTO producto = new ProductoDTO();
