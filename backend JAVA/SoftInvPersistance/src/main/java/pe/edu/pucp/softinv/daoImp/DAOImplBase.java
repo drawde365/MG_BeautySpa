@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.daoImp.util.Tipo_Operacion;
 import pe.edu.pucp.softinv.db.DBManager;
+import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
 
 public abstract class DAOImplBase {
 
@@ -446,4 +449,40 @@ public abstract class DAOImplBase {
     protected void agregarObjetoALaListaSP(List lista) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public List obtenerReporte(FiltroReporte filtro) {
+        List lista = new ArrayList();
+        List<Object> params = new ArrayList<>();
+        
+        try {
+            abrirConexion();
+            StringBuilder sql = new StringBuilder(obtenerSQLBase());
+            aplicarFiltros(sql,params,filtro);
+            String ConcreteSql = sql.toString();
+            this.colocarSQLEnStatement(ConcreteSql);
+            incluirValorDeParametrosParaReporte(params);
+            this.ejecutarSelectEnDB();
+            while (this.resultSet.next()) {
+                agregarObjetoALaLista(lista);
+            }
+            cerrarConexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOImplBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    //Las clases hijas de productos y servicios se encargarán de hacer esta parte
+    protected String obtenerSQLBase(){
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    protected void aplicarFiltros(StringBuilder sql, List<Object> params, FiltroReporte filtro){
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    protected void incluirValorDeParametrosParaReporte(List<Object> params) throws SQLException{
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

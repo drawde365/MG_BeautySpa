@@ -9,6 +9,7 @@ import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
 
 public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
 
