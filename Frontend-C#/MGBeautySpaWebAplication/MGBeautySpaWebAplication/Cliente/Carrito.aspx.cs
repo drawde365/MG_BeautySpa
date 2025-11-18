@@ -286,16 +286,25 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnProcessPayment_Click(object sender, EventArgs e)
         {
-            string cardNumber = txtCardNumber.Text.Trim().Replace(" ", "");
-            string cvv = txtCVV.Text.Trim();
-            string expiry = txtExpiryDate.Text.Trim();
-            string name = txtNameOnCard.Text.Trim();
+            // Usa Request.Form para obtener los valores directamente del POST
+            string cardNumber = Request.Form[txtCardNumber.UniqueID]?.Trim().Replace(" ", "") ?? "";
+            string cvv = Request.Form[txtCVV.UniqueID]?.Trim() ?? "";
+            string expiry = Request.Form[txtExpiryDate.UniqueID]?.Trim() ?? "";
+            string name = Request.Form[txtNameOnCard.UniqueID]?.Trim() ?? "";
 
             if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length < 15 ||
                 string.IsNullOrEmpty(cvv) || cvv.Length < 3 ||
                 string.IsNullOrEmpty(expiry) || string.IsNullOrEmpty(name))
             {
-                ShowPaymentModal();
+                // Vuelve a mostrar el modal con un mensaje de error
+                string errorScript = @"
+            alert('Por favor completa todos los campos correctamente.');
+            setTimeout(function() {
+                var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                modal.show();
+            }, 100);
+        ";
+                ClientScript.RegisterStartupScript(this.GetType(), "PaymentError", errorScript, true);
                 return;
             }
 
@@ -318,17 +327,34 @@ namespace MGBeautySpaWebAplication.Cliente
                 Session["Carrito"] = null;
                 Session["CartCount"] = 0;
 
-                ScriptManager.RegisterStartupScript(
-                    this, // El control (la página)
-                    this.GetType(), // El tipo
-                    "ShowSuccessModalScript", // Una clave única para el script
-                    "showSuccessModal();", // La función JS que definimos
-                    true // Añadir etiquetas <script>
-                );
+                // Actualiza el carrito visualmente
+                RebindCartAndSummary(new pedidoDTO { detallesPedido = new detallePedidoDTO[0] });
+
+                // Muestra el modal de éxito
+                string successScript = @"
+            setTimeout(function() {
+                var paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                if (paymentModal) {
+                    paymentModal.hide();
+                }
+                setTimeout(function() {
+                    var successModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+                    successModal.show();
+                }, 300);
+            }, 100);
+        ";
+                ClientScript.RegisterStartupScript(this.GetType(), "ShowSuccess", successScript, true);
             }
             else
             {
-                ShowPaymentModal();
+                string failScript = @"
+            alert('El pago no pudo ser procesado. Verifica los datos de tu tarjeta.');
+            setTimeout(function() {
+                var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                modal.show();
+            }, 100);
+        ";
+                ClientScript.RegisterStartupScript(this.GetType(), "PaymentFail", failScript, true);
             }
         }
 

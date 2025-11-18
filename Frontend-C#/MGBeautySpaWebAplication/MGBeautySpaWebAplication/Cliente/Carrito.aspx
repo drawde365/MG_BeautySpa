@@ -210,87 +210,260 @@
         
     </div> 
 
-    <%-- El Modal de Pago --%>
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+<%-- =====================================================
+     MODAL DE PAGO CON VALIDACIONES - MG BEAUTY SPA
+     ===================================================== --%>
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content payment-modal-content">
 
-            <div class="modal-content payment-modal-content">
+            <%-- Header del Modal --%>
+            <div class="payment-modal-header">
+                <h5 class="payment-modal-title">Finalizar Compra</h5>
+                <p class="payment-modal-subtitle">Ingresa los datos de tu tarjeta de forma segura</p>
+            </div>
 
-                <div class="payment-modal-header">
-                    <h5 class="payment-modal-title">Realiza fácil tus pagos con EzPay</h5>
+            <%-- Body del Modal --%>
+            <div class="payment-modal-body">
+
+                <%-- Mensaje de Error --%>
+                <div id="paymentErrorMessage" class="alert alert-danger" style="display: none; margin-bottom: 20px; padding: 12px; border-radius: 8px; font-size: 14px;">
+                    <strong>Error:</strong> <span id="errorText"></span>
                 </div>
 
-                <div class="payment-modal-body">
-
-                    <div class="input-block">
-                        <label for="txtCardNumber" class="input-label">Ingrese el número de la tarjeta</label>
-                        <asp:TextBox ID="txtCardNumber" runat="server"
-                            CssClass="input-field"
-                            placeholder="XXXX XXXX XXXX XXXX"
-                            TextMode="Number" />
-                    </div>
-
-                    <div class="input-block">
-                        <label for="txtNameOnCard" class="input-label">Nombre y Apellido</label>
-                        <asp:TextBox ID="txtNameOnCard" runat="server"
-                            CssClass="input-field"
-                            placeholder="Nombre en la tarjeta" />
-                    </div>
-
-                    <div class="row-2">
-                        <div class="input-block block-half">
-                            <label for="txtExpiryDate" class="input-label">Fecha de vencimiento</label>
-                            <asp:TextBox ID="txtExpiryDate" runat="server"
-                                CssClass="input-field"
-                                placeholder="MM/AA" />
-                        </div>
-
-                        <div class="input-block block-half">
-                            <label for="txtCVV" class="input-label">CVV</label>
-                            <asp:TextBox ID="txtCVV" runat="server"
-                                CssClass="input-field"
-                                TextMode="Password"
-                                MaxLength="4"
-                                placeholder="123" />
-                        </div>
-                    </div>
-
+                <%-- Número de Tarjeta --%>
+                <div class="input-block">
+                    <label for="txtCardNumber" class="input-label">
+                        Número de tarjeta <span style="color: #C31E1E;">*</span>
+                    </label>
+                    <asp:TextBox ID="txtCardNumber" runat="server"
+                        CssClass="input-field"
+                        placeholder="1234 5678 9012 3456"
+                        TextMode="SingleLine"
+                        MaxLength="19"
+                        onkeyup="formatCardNumber(this)"
+                        onkeypress="return isNumberKey(event)" />
                 </div>
 
-                <div class="payment-modal-footer">
-                    <asp:Button ID="btnProcessPayment" runat="server"
-                        Text="Aceptar"
-                        CssClass="payment-button"
-                        OnClick="btnProcessPayment_Click" />
+                <%-- Nombre en la Tarjeta --%>
+                <div class="input-block">
+                    <label for="txtNameOnCard" class="input-label">
+                        Titular de la tarjeta <span style="color: #C31E1E;">*</span>
+                    </label>
+                    <asp:TextBox ID="txtNameOnCard" runat="server"
+                        CssClass="input-field"
+                        placeholder="Ingrese su nombre completo"
+                        onkeypress="return isLetterKey(event)" />
+                </div>
+
+                <%-- Fecha y CVV (lado a lado) --%>
+                <div class="row-2-inputs">
+                    <div class="input-block input-half">
+                        <label for="txtExpiryDate" class="input-label">
+                            Vencimiento <span style="color: #C31E1E;">*</span>
+                        </label>
+                        <asp:TextBox ID="txtExpiryDate" runat="server"
+                            CssClass="input-field"
+                            placeholder="MM/AA"
+                            MaxLength="5"
+                            onkeyup="formatExpiryDate(this)"
+                            onkeypress="return isNumberKey(event)" />
+                    </div>
+
+                    <div class="input-block input-half">
+                        <label for="txtCVV" class="input-label">
+                            CVV <span style="color: #C31E1E;">*</span>
+                        </label>
+                        <asp:TextBox ID="txtCVV" runat="server"
+                            CssClass="input-field"
+                            TextMode="Password"
+                            MaxLength="3"
+                            placeholder="123"
+                            onkeypress="return isNumberKey(event)" />
+                    </div>
                 </div>
 
             </div>
+
+            <%-- Footer del Modal --%>
+            <div class="payment-modal-footer">
+                <button type="button" class="btn-cancel-payment" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <asp:Button ID="btnProcessPayment" runat="server"
+                    Text="Confirmar Pago"
+                    CssClass="btn-confirm-payment"
+                    OnClientClick="return validatePaymentForm();"
+                    OnClick="btnProcessPayment_Click" />
+            </div>
+
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius: 12px; text-align: center; padding: 24px;">
-                <div class="modal-body">
-                
-                    <%-- Icono de Check (opcional, pero recomendado) --%>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#1EC3B6" class="bi bi-check-circle-fill" viewBox="0 0 16 16" style="margin-bottom: 16px;">
+<%-- Script de Validaciones --%>
+<script type="text/javascript">
+    // Función para validar todo el formulario antes de enviar
+    function validatePaymentForm() {
+        // Obtener valores
+        var cardNumber = document.getElementById('<%= txtCardNumber.ClientID %>').value.replace(/\s/g, '');
+        var cardName = document.getElementById('<%= txtNameOnCard.ClientID %>').value.trim();
+        var expiryDate = document.getElementById('<%= txtExpiryDate.ClientID %>').value.trim();
+        var cvv = document.getElementById('<%= txtCVV.ClientID %>').value.trim();
+
+        // Validar que todos los campos estén llenos
+        if (!cardNumber || !cardName || !expiryDate || !cvv) {
+            showError('Todos los campos son obligatorios');
+            return false;
+        }
+
+        // Validar número de tarjeta (16 dígitos)
+        if (cardNumber.length !== 16 || !/^\d+$/.test(cardNumber)) {
+            showError('El número de tarjeta debe tener exactamente 16 dígitos');
+            return false;
+        }
+
+        // Validar nombre (solo letras y espacios)
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(cardName)) {
+            showError('El nombre del titular solo puede contener letras');
+            return false;
+        }
+
+        // Validar CVV (3 dígitos)
+        if (cvv.length !== 3 || !/^\d+$/.test(cvv)) {
+            showError('El CVV debe tener exactamente 3 dígitos');
+            return false;
+        }
+
+        // Validar formato de fecha (MM/AA)
+        if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+            showError('La fecha debe tener el formato MM/AA');
+            return false;
+        }
+
+        // Validar que la fecha sea válida y no esté vencida
+        var parts = expiryDate.split('/');
+        var month = parseInt(parts[0], 10);
+        var year = parseInt('20' + parts[1], 10);
+
+        if (month < 1 || month > 12) {
+            showError('El mes debe estar entre 01 y 12');
+            return false;
+        }
+
+        var today = new Date();
+        var currentYear = today.getFullYear();
+        var currentMonth = today.getMonth() + 1;
+
+        if (year < currentYear || (year === currentYear && month < currentMonth)) {
+            showError('La tarjeta está vencida');
+            return false;
+        }
+
+        // Si todo está bien, ocultar mensaje de error
+        hideError();
+        return true;
+    }
+
+    // Mostrar mensaje de error
+    function showError(message) {
+        var errorDiv = document.getElementById('paymentErrorMessage');
+        var errorText = document.getElementById('errorText');
+        errorText.textContent = message;
+        errorDiv.style.display = 'block';
+
+        // Scroll al mensaje de error
+        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Ocultar mensaje de error
+    function hideError() {
+        var errorDiv = document.getElementById('paymentErrorMessage');
+        errorDiv.style.display = 'none';
+    }
+
+    // Formatear número de tarjeta (añade espacios cada 4 dígitos)
+    function formatCardNumber(input) {
+        var value = input.value.replace(/\s/g, '');
+        var formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+        input.value = formattedValue;
+    }
+
+    // Formatear fecha de vencimiento (añade / automáticamente)
+    function formatExpiryDate(input) {
+        var value = input.value.replace(/\D/g, '');
+        if (value.length >= 2) {
+            input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        } else {
+            input.value = value;
+        }
+    }
+
+    // Solo permitir números
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    // Solo permitir letras y espacios
+    function isLetterKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        // Permitir espacios, letras mayúsculas, minúsculas y caracteres con tilde
+        if ((charCode >= 65 && charCode <= 90) || // A-Z
+            (charCode >= 97 && charCode <= 122) || // a-z
+            charCode === 32 || // espacio
+            charCode === 209 || charCode === 241 || // Ñ, ñ
+            (charCode >= 192 && charCode <= 255)) { // caracteres con tilde
+            return true;
+        }
+        return false;
+    }
+
+    // Limpiar errores cuando el usuario empieza a escribir
+    document.addEventListener('DOMContentLoaded', function () {
+        var inputs = document.querySelectorAll('.input-field');
+        inputs.forEach(function (input) {
+            input.addEventListener('input', function () {
+                hideError();
+            });
+        });
+    });
+</script>
+
+<%-- =====================================================
+     MODAL DE ÉXITO - ESTILO MG BEAUTY SPA
+     ===================================================== --%>
+<div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-hidden="true" 
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content success-modal-content">
+            <div class="modal-body success-modal-body">
+            
+                <%-- Icono de Éxito --%>
+                <div class="success-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" 
+                         class="success-icon" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                     </svg>
-
-                    <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #171214; margin-bottom: 12px;">
-                        ¡Pago Realizado!
-                    </h4>
-                    <p style="font-family: 'Plus Jakarta Sans', sans-serif; color: #757575; margin-bottom: 24px;">
-                        Tu pedido ha sido procesado exitosamente. Recibirás una confirmación por correo.
-                    </p>
-                
-                    <asp:Button ID="btnVolverInicio" runat="server" 
-                        Text="Volver al Inicio" 
-                        CssClass="checkout-button" 
-                        OnClick="btnVolverInicio_Click" />
                 </div>
+
+                <%-- Mensaje de Éxito --%>
+                <h3 class="success-title">¡Pago Exitoso!</h3>
+                <p class="success-message">
+                    Tu pedido ha sido procesado correctamente.<br />
+                    Recibirás un correo de confirmación en breve.
+                </p>
+            
+                <%-- Botón de Acción --%>
+                <asp:Button ID="btnVolverInicio" runat="server" 
+                    Text="Volver al Inicio" 
+                    CssClass="btn-success-action" 
+                    OnClick="btnVolverInicio_Click" />
             </div>
         </div>
     </div>
+</div>
 </asp:Content>
