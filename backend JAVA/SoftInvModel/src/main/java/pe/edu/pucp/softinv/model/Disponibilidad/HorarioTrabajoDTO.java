@@ -22,7 +22,15 @@ public class HorarioTrabajoDTO {
     
     @XmlJavaTypeAdapter(TimeAdapter.class) // Esta anotación ahora es segura
     private Time horaFin;
+    private Integer numIntervalo;
     
+    public Integer getNumIntervalo() {
+        return numIntervalo;
+    }
+
+    public void setNumIntervalo(Integer numIntervalo) {
+        this.numIntervalo = numIntervalo;
+    }
     
     public Integer getDiaSemana() {
         return diaSemana;
