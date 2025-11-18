@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,16 @@ namespace SoftInvBusiness
         public int tokenUsado(contrasenhaTokenDTO token)
         {
             return usuarioSOAP.MarcarTokenComoUsado(token);
+        }
+
+        public List<usuarioDTO> ObtenerTodosUsuarios()
+        {
+            return usuarioSOAP.ListarUsuarios().ToList();
+        }
+
+        public int actividadUsuario(int idUsuario, int estado)
+        {
+            return usuarioSOAP.ActivoUsuario(idUsuario, estado);
         }
     }
 }

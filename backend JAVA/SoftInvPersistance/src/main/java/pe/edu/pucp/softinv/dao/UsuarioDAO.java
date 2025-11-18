@@ -4,6 +4,7 @@
  */
 package pe.edu.pucp.softinv.dao;
 
+import java.util.ArrayList;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 /**
@@ -14,4 +15,6 @@ public interface UsuarioDAO {
     
     public UsuarioDTO busquedaPorCorreo(String correo);
     public Integer actualizarContrasenha(Integer usuarioId,String nuevaContrasenha);
+    public ArrayList<UsuarioDTO> obtenerUsuarios(); 
+    public Integer modificarActivoCliente(Integer usuarioId,Integer activo);
 }

@@ -385,10 +385,16 @@
     <None Include="Connected Services\SoftInvWSServicio\SoftInvBusiness.SoftInvWSServicio.servicioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSUsuario\SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse.datasource">

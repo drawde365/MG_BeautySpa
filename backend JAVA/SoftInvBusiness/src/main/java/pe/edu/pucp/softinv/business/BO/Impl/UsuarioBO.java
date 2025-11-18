@@ -1,5 +1,6 @@
 package pe.edu.pucp.softinv.business.BO.Impl;
 
+import java.util.ArrayList;
 import pe.edu.pucp.softinv.dao.TokensDAO;
 import pe.edu.pucp.softinv.dao.UsuarioDAO;
 import pe.edu.pucp.softinv.daoImp.TokensDAOImpl;
@@ -48,5 +49,13 @@ public class UsuarioBO {
     
     public Integer marcarTokenUsado(ContrasenhaTokenDTO token){
         return this.token.marcarTokenUsado(token);
+    }
+    
+    public ArrayList<UsuarioDTO> obtenerUsuarios(){
+        return this.usuario.obtenerUsuarios();
+    }
+    
+    public Integer activoUsuario(Integer idUsuario,Integer activo){
+        return this.usuario.modificarActivoCliente(idUsuario, activo);
     }
 }

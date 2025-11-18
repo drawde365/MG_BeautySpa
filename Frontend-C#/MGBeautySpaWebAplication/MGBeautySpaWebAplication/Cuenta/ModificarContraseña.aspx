@@ -28,6 +28,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <script>
+    function togglePassword(textBoxId, icon) {
+        var input = document.getElementById(textBoxId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+        } else {
+            input.type = "password";
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+        }
+    }
+    </script>
+
     <style>
         body, html {
             margin: 0;

@@ -3,6 +3,7 @@ package pe.edu.pucp.softinv.services.softinvws;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
+import java.util.ArrayList;
 import pe.edu.pucp.softinv.business.BO.Impl.UsuarioBO;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 import pe.edu.pucp.softinv.model.Token.ContrasenhaTokenDTO;
@@ -47,8 +48,18 @@ public class Usuario {
     }
     
     @WebMethod(operationName = "MarcarTokenComoUsado")
-    public Integer marcarTokenUsado(ContrasenhaTokenDTO token){
+    public Integer marcarTokenUsado(@WebParam(name = "token") ContrasenhaTokenDTO token){
         return usuario.marcarTokenUsado(token);
+    }
+    
+    @WebMethod(operationName = "ListarUsuarios")
+    public ArrayList<UsuarioDTO> obtenerUsuarios(){
+        return usuario.obtenerUsuarios();
+    }
+    
+    @WebMethod(operationName = "ActivoUsuario")
+    public Integer activoUsuario(@WebParam(name = "userId") Integer idUsuario,@WebParam(name = "activoSN") Integer activo){
+        return usuario.activoUsuario(idUsuario, activo);
     }
 }
     

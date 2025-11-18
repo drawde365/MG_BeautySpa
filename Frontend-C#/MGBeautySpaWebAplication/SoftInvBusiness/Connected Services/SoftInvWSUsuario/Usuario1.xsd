@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ActivoUsuario" type="tns:ActivoUsuario" />
+  <xs:element name="ActivoUsuarioResponse" type="tns:ActivoUsuarioResponse" />
   <xs:element name="IniciarSesion" type="tns:IniciarSesion" />
   <xs:element name="IniciarSesionResponse" type="tns:IniciarSesionResponse" />
+  <xs:element name="ListarUsuarios" type="tns:ListarUsuarios" />
+  <xs:element name="ListarUsuariosResponse" type="tns:ListarUsuariosResponse" />
   <xs:element name="MarcarTokenComoUsado" type="tns:MarcarTokenComoUsado" />
   <xs:element name="MarcarTokenComoUsadoResponse" type="tns:MarcarTokenComoUsadoResponse" />
   <xs:element name="ModificarContrasenha" type="tns:ModificarContrasenha" />
@@ -42,9 +46,20 @@
       <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="ActivoUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="userId" type="xs:int" />
+      <xs:element minOccurs="0" name="activoSN" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivoUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="MarcarTokenComoUsado">
     <xs:sequence>
-      <xs:element minOccurs="0" name="arg0" type="tns:contrasenhaTokenDTO" />
+      <xs:element minOccurs="0" name="token" type="tns:contrasenhaTokenDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="MarcarTokenComoUsadoResponse">
@@ -65,6 +80,7 @@
   <xs:complexType name="usuarioDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element name="cantidadServicios" type="xs:int" />
       <xs:element minOccurs="0" name="celular" type="xs:string" />
       <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
       <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
@@ -74,6 +90,14 @@
       <xs:element minOccurs="0" name="rol" type="xs:int" />
       <xs:element minOccurs="0" name="segundoapellido" type="xs:string" />
       <xs:element minOccurs="0" name="urlFotoPerfil" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarUsuarios">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="ListarUsuariosResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:usuarioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="IniciarSesion">
