@@ -36,7 +36,8 @@ public class UsuarioDTO {
     private ArrayList<CitaDTO> citas;
     private Integer idUsuario;
     private Integer activo;
-
+    private int cantidadServicios;
+    
     public Integer getActivo() {
         return activo;
     }
@@ -79,6 +80,7 @@ public class UsuarioDTO {
         citas=null;
         idUsuario=null;
         activo=null;
+        cantidadServicios=0;
     }
 
     public UsuarioDTO(String nombre,String PrimerApellido, String SegundoApellido, String correoElectronico, String contrasenha, String celular, String urlFotoPerfil,Integer idUsuario,
@@ -141,6 +143,20 @@ public class UsuarioDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the cantidadServicios
+     */
+    public int getCantidadServicios() {
+        return cantidadServicios;
+    }
+
+    /**
+     * @param cantidadServicios the cantidadServicios to set
+     */
+    public void setCantidadServicios(int cantidadServicios) {
+        this.cantidadServicios = cantidadServicios;
     }
 
 }

@@ -10,7 +10,6 @@
     
     <link href="DetalleProducto.css" rel="stylesheet" />
     
-    <script src="<%: ResolveUrl("~/Scripts/MGBeautySpaScripts/ProductDetail.js?v=1") %>"></script>
 </asp:Content>
 
 

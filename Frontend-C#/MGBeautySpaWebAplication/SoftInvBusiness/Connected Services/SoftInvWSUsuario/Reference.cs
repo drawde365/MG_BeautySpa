@@ -47,17 +47,22 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> ObtenerUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioReque" +
-            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioRespo" +
-            "nse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse ObtenerTokenDelUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request);
+        SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse ListarUsuarios(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioReque" +
-            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioRespo" +
-            "nse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> ListarUsuariosAsync(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse ActivoUsuario(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> ActivoUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" +
@@ -80,6 +85,19 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> IniciarSesionAsync(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioReque" +
+            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioRespo" +
+            "nse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse ObtenerTokenDelUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioReque" +
+            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -176,6 +194,8 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         
         private bool activoFieldSpecified;
         
+        private int cantidadServiciosField;
+        
         private string celularField;
         
         private string contrasenhaField;
@@ -224,6 +244,18 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public int cantidadServicios {
+            get {
+                return this.cantidadServiciosField;
+            }
+            set {
+                this.cantidadServiciosField = value;
+                this.RaisePropertyChanged("cantidadServicios");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
         public string celular {
             get {
                 return this.celularField;
@@ -235,7 +267,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
         public string contrasenha {
             get {
                 return this.contrasenhaField;
@@ -247,7 +279,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
         public string correoElectronico {
             get {
                 return this.correoElectronicoField;
@@ -259,7 +291,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
         public int idUsuario {
             get {
                 return this.idUsuarioField;
@@ -283,7 +315,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
         public string nombre {
             get {
                 return this.nombreField;
@@ -295,7 +327,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
         public string primerapellido {
             get {
                 return this.primerapellidoField;
@@ -307,7 +339,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
         public int rol {
             get {
                 return this.rolField;
@@ -331,7 +363,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
         public string segundoapellido {
             get {
                 return this.segundoapellidoField;
@@ -343,7 +375,7 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
         public string urlFotoPerfil {
             get {
                 return this.urlFotoPerfilField;
@@ -547,35 +579,68 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerTokenDelUsuarioRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarUsuarios", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarUsuariosRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string token;
-        
-        public ObtenerTokenDelUsuarioRequest() {
-        }
-        
-        public ObtenerTokenDelUsuarioRequest(string token) {
-            this.token = token;
+        public ListarUsuariosRequest() {
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerTokenDelUsuarioResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarUsuariosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarUsuariosResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] @return;
+        
+        public ListarUsuariosResponse() {
+        }
+        
+        public ListarUsuariosResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ActivoUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ActivoUsuarioRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return;
+        public int userId;
         
-        public ObtenerTokenDelUsuarioResponse() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int activoSN;
+        
+        public ActivoUsuarioRequest() {
         }
         
-        public ObtenerTokenDelUsuarioResponse(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return) {
+        public ActivoUsuarioRequest(int userId, int activoSN) {
+            this.userId = userId;
+            this.activoSN = activoSN;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ActivoUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ActivoUsuarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public ActivoUsuarioResponse() {
+        }
+        
+        public ActivoUsuarioResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -588,13 +653,13 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO arg0;
+        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token;
         
         public MarcarTokenComoUsadoRequest() {
         }
         
-        public MarcarTokenComoUsadoRequest(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO arg0) {
-            this.arg0 = arg0;
+        public MarcarTokenComoUsadoRequest(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
+            this.token = token;
         }
     }
     
@@ -653,6 +718,42 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         public IniciarSesionResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerTokenDelUsuarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string token;
+        
+        public ObtenerTokenDelUsuarioRequest() {
+        }
+        
+        public ObtenerTokenDelUsuarioRequest(string token) {
+            this.token = token;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerTokenDelUsuarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return;
+        
+        public ObtenerTokenDelUsuarioResponse() {
+        }
+        
+        public ObtenerTokenDelUsuarioResponse(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return) {
             this.@return = @return;
         }
     }
@@ -758,26 +859,49 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
-            return base.Channel.ObtenerTokenDelUsuario(request);
+        SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ListarUsuarios(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request) {
+            return base.Channel.ListarUsuarios(request);
         }
         
-        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO ObtenerTokenDelUsuario(string token) {
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
-            inValue.token = token;
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuario(inValue);
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] ListarUsuarios() {
+            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest();
+            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ListarUsuarios(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
-            return base.Channel.ObtenerTokenDelUsuarioAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ListarUsuariosAsync(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request) {
+            return base.Channel.ListarUsuariosAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(string token) {
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
-            inValue.token = token;
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuarioAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> ListarUsuariosAsync() {
+            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest();
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ListarUsuariosAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ActivoUsuario(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request) {
+            return base.Channel.ActivoUsuario(request);
+        }
+        
+        public int ActivoUsuario(int userId, int activoSN) {
+            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest();
+            inValue.userId = userId;
+            inValue.activoSN = activoSN;
+            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ActivoUsuario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ActivoUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request) {
+            return base.Channel.ActivoUsuarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> ActivoUsuarioAsync(int userId, int activoSN) {
+            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest();
+            inValue.userId = userId;
+            inValue.activoSN = activoSN;
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ActivoUsuarioAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -785,9 +909,9 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
             return base.Channel.MarcarTokenComoUsado(request);
         }
         
-        public int MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO arg0) {
+        public int MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
             SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest();
-            inValue.arg0 = arg0;
+            inValue.token = token;
             SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).MarcarTokenComoUsado(inValue);
             return retVal.@return;
         }
@@ -797,9 +921,9 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
             return base.Channel.MarcarTokenComoUsadoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO arg0) {
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
             SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest();
-            inValue.arg0 = arg0;
+            inValue.token = token;
             return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).MarcarTokenComoUsadoAsync(inValue);
         }
         
@@ -826,6 +950,29 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
             inValue.correoElectronico = correoElectronico;
             inValue.contrasenha = contrasenha;
             return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).IniciarSesionAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
+            return base.Channel.ObtenerTokenDelUsuario(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO ObtenerTokenDelUsuario(string token) {
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
+            inValue.token = token;
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
+            return base.Channel.ObtenerTokenDelUsuarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(string token) {
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
+            inValue.token = token;
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuarioAsync(inValue);
         }
     }
 }

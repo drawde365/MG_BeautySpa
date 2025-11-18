@@ -5,9 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SoftInvBusiness; // Para los BOs
-using SoftInvBusiness.SoftInvWSCita; // Para citaDTO
-using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
+using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSCita;
+using SoftInvBusiness.SoftInvWSUsuario;
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
@@ -50,7 +50,6 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 return;
             }
 
-            // 1. Obtener datos (de la BD o de la Sesión)
             if (ListaCompletaReservas == null)
             {
                 SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
@@ -58,14 +57,13 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 user.idUsuarioSpecified = true;
                 user.rol = 1;
                 user.rolSpecified = true;
-                // El BO de C# debe exponer el método del WS
+
                 var reservas = citaBO.ListarPorUsuario(user);
                 ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
             }
 
             var listaCompleta = ListaCompletaReservas;
 
-            // 2. Validar si hay reservas
             if (listaCompleta == null || !listaCompleta.Any())
             {
                 rptReservas.Visible = false;
@@ -77,18 +75,23 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 rptReservas.Visible = true;
                 pnlNoReservas.Visible = false;
 
-                // 3. Mapear y Limitar la lista para el Repeater
                 var listaMapeada = listaCompleta.Select(c => new {
-                    NumeroReserva = c.id.ToString("D3"), // Formato "001"
+                    CitaId = c.id,
+                    NumeroReserva = c.id.ToString("D3"),
                     Servicio = c.servicio.nombre,
                     Fecha = c.fechaSpecified ? c.fecha.ToString("dd/MM/yyyy") : "N/A",
                     Empleado = $"{c.empleado.nombre} {c.empleado.primerapellido}",
-                    Total = c.servicio.precioSpecified ? c.servicio.precio.ToString("C", new CultureInfo("es-PE")) : "S/ 0.00"
+                    Total = c.servicio.precioSpecified ?
+                            c.servicio.precio.ToString("C", new CultureInfo("es-PE"))
+                            : "S/ 0.00",
+                    HoraInicio = c.horaIni,
+                    EmpleadoCorreo = c.empleado.correoElectronico,
+                    EmpleadoCelular = c.empleado.celular,
+                    FechaReal = c.fecha
+                    
                 });
 
                 var listaLimitada = listaMapeada.Take(LimiteReservas).ToList();
-
-                // 4. Enlazar Datos y mostrar/ocultar botón
                 rptReservas.DataSource = listaLimitada;
                 rptReservas.DataBind();
 
@@ -105,6 +108,59 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
+        }
+
+        // ✅ 2. CORREGIDO ItemDataBound
+        protected void rptReservas_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item ||
+                e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var data = (dynamic)e.Item.DataItem;
+                LinkButton btnCancelar = (LinkButton)e.Item.FindControl("btnCancelarCita");
+
+                // Obtenemos los datos para construir la fecha y hora completas
+                DateTime fechaReserva = data.FechaReal;
+                string horaString = data.HoraInicio; // E.g., "14:30"
+                int citaId = data.CitaId; // Obtenemos el ID real
+
+                DateTime fullDateTime = fechaReserva.Date; // Empezamos con la fecha
+                if (!string.IsNullOrEmpty(horaString) && TimeSpan.TryParse(horaString, out TimeSpan hora))
+                {
+                    fullDateTime = fullDateTime.Add(hora); // Le añadimos la hora
+                }
+
+                // Comparamos la fecha y hora completas
+                if (fullDateTime > DateTime.Now)
+                {
+                    btnCancelar.Visible = true;
+                    // ✅ 3. ASIGNAMOS EL ID AL CommandArgument
+                    btnCancelar.CommandArgument = citaId.ToString();
+                    btnCancelar.OnClientClick = "return confirm('¿Estás seguro de que deseas cancelar esta cita?');";
+                }
+            }
+        }
+
+        // ✅ 4. CORREGIDO ItemCommand
+        protected void rptReservas_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Cancelar")
+            {
+                // ✅ 5. LEEMOS EL ID DESDE CommandArgument
+                int citaIdParaEliminar = Convert.ToInt32(e.CommandArgument);
+
+                // Buscamos la cita en la lista completa usando el ID correcto
+                var citaAEliminar = ListaCompletaReservas
+                    .FirstOrDefault(r => r.id == citaIdParaEliminar);
+
+                if (citaAEliminar != null)
+                {
+                    citaBO.EliminarCita(citaAEliminar); // Asumimos que EliminarCita toma el objeto
+
+                    ListaCompletaReservas = null; // Forzamos la recarga desde la BD
+                    CargarReservas();
+                }
+            }
         }
     }
 }
