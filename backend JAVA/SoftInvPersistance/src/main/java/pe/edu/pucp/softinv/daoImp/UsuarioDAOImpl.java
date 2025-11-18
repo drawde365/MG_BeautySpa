@@ -1,6 +1,8 @@
 package pe.edu.pucp.softinv.daoImp;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import pe.edu.pucp.softinv.dao.UsuarioDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
@@ -73,7 +75,8 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException{
-        statement.setString(1,usuario.getContrasenha());
+        if(usuario.getContrasenha()!=null) statement.setString(1,usuario.getContrasenha());
+        else statement.setInt(1,usuario.getActivo());
         statement.setInt(2,usuario.getIdUsuario());
     }
     
@@ -83,6 +86,63 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
         usuario = new UsuarioDTO();
         usuario.setIdUsuario(usuarioId);
         usuario.setContrasenha(nuevaContrasenha);
+        return super.modificar(sql);
+    }
+    
+    @Override
+    public ArrayList<UsuarioDTO> obtenerUsuarios(){
+        String sql = "SELECT \n" +"    U.USUARIO_ID,\n"
+                + "    U.NOMBRE,\n"
+                + "    U.PRIMER_APELLIDO,\n"
+                + "    U.SEGUNDO_APELLIDO,\n"
+                + "    U.CORREO_ELECTRONICO,\n"
+                + "    U.CELULAR,\n"
+                + "    U.ROL_ID,\n"
+                + "    U.ACTIVO,\n"
+                + "    COUNT(ES.SERVICIO_ID) AS CANT_SERVICIOS\n"
+                + "FROM \n"
+                + "    USUARIOS U\n"
+                + "LEFT JOIN \n"
+                + "    EMPLEADOS_SERVICIOS ES \n"
+                + "        ON ES.EMPLEADO_ID = U.USUARIO_ID\n"
+                + "WHERE\n"
+                + "    U.ROL_ID!=3\n"
+                + "GROUP BY \n"
+                + "    U.USUARIO_ID,\n"
+                + "    U.NOMBRE,\n"
+                + "    U.PRIMER_APELLIDO,\n"
+                + "    U.SEGUNDO_APELLIDO,\n"
+                + "    U.CORREO_ELECTRONICO,\n"
+                + "    U.CELULAR,\n"
+                + "    U.ROL_ID;";
+        return (ArrayList<UsuarioDTO>)super.listarTodos(sql, null, null);
+    }
+    
+    @Override
+    protected void agregarObjetoALaLista(List lista) throws SQLException {
+        this.instanciarObjetoListaUsuarios();
+        lista.add(this.usuario);
+    }
+
+    private void instanciarObjetoListaUsuarios() throws SQLException {
+        this.usuario = new UsuarioDTO();
+        usuario.setIdUsuario(resultSet.getInt("USUARIO_ID"));
+        usuario.setPrimerapellido(resultSet.getString("PRIMER_APELLIDO"));
+        usuario.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
+        usuario.setNombre(resultSet.getString("NOMBRE"));
+        usuario.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
+        usuario.setCelular(resultSet.getString("CELULAR"));
+        usuario.setRol(resultSet.getInt("ROL_ID"));
+        usuario.setActivo(resultSet.getInt("ACTIVO"));
+        usuario.setCantidadServicios(resultSet.getInt("CANT_SERVICIOS"));
+    }
+    
+    @Override
+    public Integer modificarActivoCliente(Integer usuarioId,Integer activo){
+        String sql = "UPDATE USUARIOS SET ACTIVO=? WHERE USUARIO_ID=?";
+        usuario = new UsuarioDTO();
+        usuario.setIdUsuario(usuarioId);
+        usuario.setActivo(activo);
         return super.modificar(sql);
     }
 }
