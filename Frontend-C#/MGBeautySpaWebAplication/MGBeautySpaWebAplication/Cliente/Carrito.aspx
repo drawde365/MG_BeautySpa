@@ -133,16 +133,16 @@
                                             </div>
                                         </div>
 
-                                        <div class="quantity-control">
-                                            <button type="button" class="qty-button" onclick="changeQty(this, -1)">-</button>
-                                            
+                                        <div class="quantity-control quantity-picker">
+                                            <button type="button" class="qty-button qty-btn-minus">-</button>
+    
                                             <asp:TextBox ID="txtCantidad" runat="server" 
                                                 CssClass="qty-display" 
                                                 Text='<%# Eval("Cantidad") %>' 
                                                 TextMode="Number" 
                                                 min="0" />
-                                            
-                                            <button type="button" class="qty-button" onclick="changeQty(this, 1)">+</button>
+    
+                                            <button type="button" class="qty-button qty-btn-plus">+</button>
                                         </div>
 
                                         <asp:LinkButton ID="btnEliminarItem" runat="server"
@@ -158,10 +158,10 @@
 
                             <div class="products-separator"></div>
                             
-                            <div class="d-flex justify-content-end mb-3">
+                            <div class="d-flex justify-content-center mb-3">
                                 <asp:Button ID="btnActualizarCarrito" runat="server" 
                                     Text="Actualizar Carrito" 
-                                    CssClass="checkout-button" 
+                                    CssClass="checkout-button btn-compact" 
                                     OnClick="btnActualizarCarrito_Click" />
                             </div>
                             
