@@ -71,4 +71,8 @@ public class Cita {
     public ArrayList<CitaDTO> listarTodosCita(){
         return citaBO.listarTodos();
     }
+    @WebMethod(operationName = "AceptarCita")
+    public Integer aceptarCita(@WebParam(name = "cita")CitaDTO cita) {
+        return citaBO.aceptarCita(cita);
+    }
 }

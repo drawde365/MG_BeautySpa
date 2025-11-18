@@ -5,17 +5,23 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Calendario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="eliminar30DiasCalendario">
-    <part name="parameters" element="tns:eliminar30DiasCalendario" />
+  <message name="InsertarCalendario">
+    <part name="parameters" element="tns:InsertarCalendario" />
   </message>
-  <message name="eliminar30DiasCalendarioResponse">
-    <part name="parameters" element="tns:eliminar30DiasCalendarioResponse" />
+  <message name="InsertarCalendarioResponse">
+    <part name="parameters" element="tns:InsertarCalendarioResponse" />
   </message>
-  <message name="insertar30DiasCalendario">
-    <part name="parameters" element="tns:insertar30DiasCalendario" />
+  <message name="EliminarCalendario">
+    <part name="parameters" element="tns:EliminarCalendario" />
   </message>
-  <message name="insertar30DiasCalendarioResponse">
-    <part name="parameters" element="tns:insertar30DiasCalendarioResponse" />
+  <message name="EliminarCalendarioResponse">
+    <part name="parameters" element="tns:EliminarCalendarioResponse" />
+  </message>
+  <message name="ListarCalendarioDeEmpleado">
+    <part name="parameters" element="tns:ListarCalendarioDeEmpleado" />
+  </message>
+  <message name="ListarCalendarioDeEmpleadoResponse">
+    <part name="parameters" element="tns:ListarCalendarioDeEmpleadoResponse" />
   </message>
   <message name="ModificarCalendario">
     <part name="parameters" element="tns:ModificarCalendario" />
@@ -23,11 +29,11 @@
   <message name="ModificarCalendarioResponse">
     <part name="parameters" element="tns:ModificarCalendarioResponse" />
   </message>
-  <message name="ListarCalendarioDeEmpleado">
-    <part name="parameters" element="tns:ListarCalendarioDeEmpleado" />
+  <message name="eliminar30DiasCalendario">
+    <part name="parameters" element="tns:eliminar30DiasCalendario" />
   </message>
-  <message name="ListarCalendarioDeEmpleadoResponse">
-    <part name="parameters" element="tns:ListarCalendarioDeEmpleadoResponse" />
+  <message name="eliminar30DiasCalendarioResponse">
+    <part name="parameters" element="tns:eliminar30DiasCalendarioResponse" />
   </message>
   <message name="CalcularBloquesDisponibles">
     <part name="parameters" element="tns:CalcularBloquesDisponibles" />
@@ -41,34 +47,32 @@
   <message name="ReservarBloqueYCitaResponse">
     <part name="parameters" element="tns:ReservarBloqueYCitaResponse" />
   </message>
-  <message name="InsertarCalendario">
-    <part name="parameters" element="tns:InsertarCalendario" />
+  <message name="insertar30DiasCalendario">
+    <part name="parameters" element="tns:insertar30DiasCalendario" />
   </message>
-  <message name="InsertarCalendarioResponse">
-    <part name="parameters" element="tns:InsertarCalendarioResponse" />
-  </message>
-  <message name="EliminarCalendario">
-    <part name="parameters" element="tns:EliminarCalendario" />
-  </message>
-  <message name="EliminarCalendarioResponse">
-    <part name="parameters" element="tns:EliminarCalendarioResponse" />
+  <message name="insertar30DiasCalendarioResponse">
+    <part name="parameters" element="tns:insertar30DiasCalendarioResponse" />
   </message>
   <portType name="Calendario">
-    <operation name="eliminar30DiasCalendario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendarioRequest" message="tns:eliminar30DiasCalendario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendarioResponse" message="tns:eliminar30DiasCalendarioResponse" />
+    <operation name="InsertarCalendario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRequest" message="tns:InsertarCalendario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioResponse" message="tns:InsertarCalendarioResponse" />
     </operation>
-    <operation name="insertar30DiasCalendario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendarioRequest" message="tns:insertar30DiasCalendario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendarioResponse" message="tns:insertar30DiasCalendarioResponse" />
+    <operation name="EliminarCalendario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRequest" message="tns:EliminarCalendario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioResponse" message="tns:EliminarCalendarioResponse" />
+    </operation>
+    <operation name="ListarCalendarioDeEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoRequest" message="tns:ListarCalendarioDeEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoResponse" message="tns:ListarCalendarioDeEmpleadoResponse" />
     </operation>
     <operation name="ModificarCalendario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioRequest" message="tns:ModificarCalendario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioResponse" message="tns:ModificarCalendarioResponse" />
     </operation>
-    <operation name="ListarCalendarioDeEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoRequest" message="tns:ListarCalendarioDeEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmpleadoResponse" message="tns:ListarCalendarioDeEmpleadoResponse" />
+    <operation name="eliminar30DiasCalendario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendarioRequest" message="tns:eliminar30DiasCalendario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendarioResponse" message="tns:eliminar30DiasCalendarioResponse" />
     </operation>
     <operation name="CalcularBloquesDisponibles">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponiblesRequest" message="tns:CalcularBloquesDisponibles" />
@@ -78,18 +82,14 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRequest" message="tns:ReservarBloqueYCita" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaResponse" message="tns:ReservarBloqueYCitaResponse" />
     </operation>
-    <operation name="InsertarCalendario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRequest" message="tns:InsertarCalendario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioResponse" message="tns:InsertarCalendarioResponse" />
-    </operation>
-    <operation name="EliminarCalendario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRequest" message="tns:EliminarCalendario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioResponse" message="tns:EliminarCalendarioResponse" />
+    <operation name="insertar30DiasCalendario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendarioRequest" message="tns:insertar30DiasCalendario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendarioResponse" message="tns:insertar30DiasCalendarioResponse" />
     </operation>
   </portType>
   <binding name="CalendarioPortBinding" type="tns:Calendario">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="eliminar30DiasCalendario">
+    <operation name="InsertarCalendario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -98,7 +98,16 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="insertar30DiasCalendario">
+    <operation name="EliminarCalendario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListarCalendarioDeEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -116,7 +125,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarCalendarioDeEmpleado">
+    <operation name="eliminar30DiasCalendario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -143,16 +152,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="InsertarCalendario">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="EliminarCalendario">
+    <operation name="insertar30DiasCalendario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

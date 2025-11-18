@@ -177,22 +177,22 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="insertar30DiasCalendario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="insertar30DiasCalendarioResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="EliminarCalendario">
     <xs:sequence>
       <xs:element minOccurs="0" name="calendario" type="tns:calendarioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarCalendarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertar30DiasCalendario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertar30DiasCalendarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

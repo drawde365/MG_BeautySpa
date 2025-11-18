@@ -16,30 +16,46 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     public interface Calendario {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
-            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
-            "Response")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
+            "se")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse eliminar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
-            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
-            "Response")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> eliminar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
+            "se")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
-            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
-            "Response")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRespon" +
+            "se")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse insertar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
-            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
-            "Response")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> insertar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRespon" +
+            "se")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
+            "doRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
+            "doResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse ListarCalendarioDeEmpleado(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
+            "doRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
+            "doResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioReque" +
@@ -56,18 +72,18 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse> ModificarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
-            "doRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
-            "doResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Response")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse ListarCalendarioDeEmpleado(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse eliminar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
-            "doRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
-            "doResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Response")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> eliminar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
@@ -98,104 +114,18 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
-            "se")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Response")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse insertar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioRespon" +
-            "se")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRespon" +
-            "se")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioReques" +
-            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/EliminarCalendarioRespon" +
-            "se")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminar30DiasCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class eliminar30DiasCalendarioRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int empleadoId;
-        
-        public eliminar30DiasCalendarioRequest() {
-        }
-        
-        public eliminar30DiasCalendarioRequest(int empleadoId) {
-            this.empleadoId = empleadoId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminar30DiasCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class eliminar30DiasCalendarioResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public eliminar30DiasCalendarioResponse() {
-        }
-        
-        public eliminar30DiasCalendarioResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="insertar30DiasCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class insertar30DiasCalendarioRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int empleadoId;
-        
-        public insertar30DiasCalendarioRequest() {
-        }
-        
-        public insertar30DiasCalendarioRequest(int empleadoId) {
-            this.empleadoId = empleadoId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="insertar30DiasCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class insertar30DiasCalendarioResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public insertar30DiasCalendarioResponse() {
-        }
-        
-        public insertar30DiasCalendarioResponse(int @return) {
-            this.@return = @return;
-        }
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Response")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> insertar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request);
     }
     
     /// <remarks/>
@@ -1611,17 +1541,17 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ModificarCalendarioRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarCalendarioRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
         
-        public ModificarCalendarioRequest() {
+        public InsertarCalendarioRequest() {
         }
         
-        public ModificarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+        public InsertarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
             this.calendario = calendario;
         }
     }
@@ -1629,17 +1559,53 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ModificarCalendarioResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarCalendarioResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public ModificarCalendarioResponse() {
+        public InsertarCalendarioResponse() {
         }
         
-        public ModificarCalendarioResponse(int @return) {
+        public InsertarCalendarioResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarCalendarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
+        
+        public EliminarCalendarioRequest() {
+        }
+        
+        public EliminarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            this.calendario = calendario;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarCalendarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public EliminarCalendarioResponse() {
+        }
+        
+        public EliminarCalendarioResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1676,6 +1642,78 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         public ListarCalendarioDeEmpleadoResponse(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ModificarCalendarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
+        
+        public ModificarCalendarioRequest() {
+        }
+        
+        public ModificarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            this.calendario = calendario;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ModificarCalendarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public ModificarCalendarioResponse() {
+        }
+        
+        public ModificarCalendarioResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminar30DiasCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class eliminar30DiasCalendarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int empleadoId;
+        
+        public eliminar30DiasCalendarioRequest() {
+        }
+        
+        public eliminar30DiasCalendarioRequest(int empleadoId) {
+            this.empleadoId = empleadoId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminar30DiasCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class eliminar30DiasCalendarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public eliminar30DiasCalendarioResponse() {
+        }
+        
+        public eliminar30DiasCalendarioResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1765,71 +1803,35 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarCalendarioRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="insertar30DiasCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class insertar30DiasCalendarioRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
+        public int empleadoId;
         
-        public InsertarCalendarioRequest() {
+        public insertar30DiasCalendarioRequest() {
         }
         
-        public InsertarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            this.calendario = calendario;
+        public insertar30DiasCalendarioRequest(int empleadoId) {
+            this.empleadoId = empleadoId;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarCalendarioResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="insertar30DiasCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class insertar30DiasCalendarioResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public InsertarCalendarioResponse() {
+        public insertar30DiasCalendarioResponse() {
         }
         
-        public InsertarCalendarioResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarCalendarioRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario;
-        
-        public EliminarCalendarioRequest() {
-        }
-        
-        public EliminarCalendarioRequest(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            this.calendario = calendario;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarCalendarioResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public EliminarCalendarioResponse() {
-        }
-        
-        public EliminarCalendarioResponse(int @return) {
+        public insertar30DiasCalendarioResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1862,49 +1864,72 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.eliminar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request) {
-            return base.Channel.eliminar30DiasCalendario(request);
+        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
+            return base.Channel.InsertarCalendario(request);
         }
         
-        public int eliminar30DiasCalendario(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest();
-            inValue.empleadoId = empleadoId;
-            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).eliminar30DiasCalendario(inValue);
+        public int InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
+            inValue.calendario = calendario;
+            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendario(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.eliminar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request) {
-            return base.Channel.eliminar30DiasCalendarioAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
+            return base.Channel.InsertarCalendarioAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> eliminar30DiasCalendarioAsync(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest();
-            inValue.empleadoId = empleadoId;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).eliminar30DiasCalendarioAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
+            inValue.calendario = calendario;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendarioAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.insertar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request) {
-            return base.Channel.insertar30DiasCalendario(request);
+        SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request) {
+            return base.Channel.EliminarCalendario(request);
         }
         
-        public int insertar30DiasCalendario(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest();
-            inValue.empleadoId = empleadoId;
-            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).insertar30DiasCalendario(inValue);
+        public int EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest();
+            inValue.calendario = calendario;
+            SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).EliminarCalendario(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.insertar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request) {
-            return base.Channel.insertar30DiasCalendarioAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request) {
+            return base.Channel.EliminarCalendarioAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> insertar30DiasCalendarioAsync(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest();
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest();
+            inValue.calendario = calendario;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).EliminarCalendarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleado(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
+            return base.Channel.ListarCalendarioDeEmpleado(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO[] ListarCalendarioDeEmpleado(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
             inValue.empleadoId = empleadoId;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).insertar30DiasCalendarioAsync(inValue);
+            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleado(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
+            return base.Channel.ListarCalendarioDeEmpleadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleadoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1931,26 +1956,26 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleado(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
-            return base.Channel.ListarCalendarioDeEmpleado(request);
+        SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.eliminar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request) {
+            return base.Channel.eliminar30DiasCalendario(request);
         }
         
-        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO[] ListarCalendarioDeEmpleado(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
+        public int eliminar30DiasCalendario(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest();
             inValue.empleadoId = empleadoId;
-            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleado(inValue);
+            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).eliminar30DiasCalendario(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
-            return base.Channel.ListarCalendarioDeEmpleadoAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.eliminar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request) {
+            return base.Channel.eliminar30DiasCalendarioAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> eliminar30DiasCalendarioAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest();
             inValue.empleadoId = empleadoId;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleadoAsync(inValue);
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).eliminar30DiasCalendarioAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2004,49 +2029,26 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
-            return base.Channel.InsertarCalendario(request);
+        SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.insertar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request) {
+            return base.Channel.insertar30DiasCalendario(request);
         }
         
-        public int InsertarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
-            inValue.calendario = calendario;
-            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendario(inValue);
+        public int insertar30DiasCalendario(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest();
+            inValue.empleadoId = empleadoId;
+            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).insertar30DiasCalendario(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest request) {
-            return base.Channel.InsertarCalendarioAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.insertar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request) {
+            return base.Channel.insertar30DiasCalendarioAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse> InsertarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioRequest();
-            inValue.calendario = calendario;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).InsertarCalendarioAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request) {
-            return base.Channel.EliminarCalendario(request);
-        }
-        
-        public int EliminarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest();
-            inValue.calendario = calendario;
-            SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).EliminarCalendario(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest request) {
-            return base.Channel.EliminarCalendarioAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse> EliminarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioRequest();
-            inValue.calendario = calendario;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).EliminarCalendarioAsync(inValue);
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> insertar30DiasCalendarioAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).insertar30DiasCalendarioAsync(inValue);
         }
     }
 }

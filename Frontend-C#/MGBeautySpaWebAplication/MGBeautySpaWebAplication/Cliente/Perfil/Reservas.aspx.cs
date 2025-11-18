@@ -55,12 +55,14 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
                 user.idUsuario = usuario.idUsuario;
                 user.idUsuarioSpecified = true;
-                user.rol = 1;
+                user.rol = 1; // Rol Cliente
                 user.rolSpecified = true;
 
                 var reservas = citaBO.ListarPorUsuario(user);
                 ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
-            } else if (ListaCompletaReservas.Count==0)
+            }
+            // Forzar recarga si la lista está vacía para evitar falsos positivos de caché
+            else if (ListaCompletaReservas.Count == 0)
             {
                 SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
                 user.idUsuario = usuario.idUsuario;
@@ -70,10 +72,9 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
 
                 var reservas = citaBO.ListarPorUsuario(user);
                 ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
-
             }
 
-                var listaCompleta = ListaCompletaReservas;
+            var listaCompleta = ListaCompletaReservas;
 
             if (listaCompleta == null || !listaCompleta.Any())
             {
@@ -86,7 +87,12 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 rptReservas.Visible = true;
                 pnlNoReservas.Visible = false;
 
-                var listaMapeada = listaCompleta.Select(c => new {
+                // Ordenamos: Próximas primero, luego por fecha descendente
+                var listaOrdenada = listaCompleta
+                    .OrderByDescending(c => c.fecha)
+                    .ThenByDescending(c => c.horaIni);
+
+                var listaMapeada = listaOrdenada.Select(c => new {
                     CitaId = c.id,
                     NumeroReserva = c.id.ToString("D3"),
                     Servicio = c.servicio.nombre,
@@ -95,11 +101,16 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                     Total = c.servicio.precioSpecified ?
                             c.servicio.precio.ToString("C", new CultureInfo("es-PE"))
                             : "S/ 0.00",
-                    HoraInicio = c.horaIni,
+                    HoraInicio = !string.IsNullOrEmpty(c.horaIni)
+                                 ? DateTime.Parse(c.horaIni, new CultureInfo("es-ES")).ToString("hh:mm tt")
+                                 : "N/A",
+                    // Datos para lógica interna
+                    Activo = c.activo,
+                    FechaReal = c.fecha,
+                    HoraRealStr = c.horaIni,
                     EmpleadoCorreo = c.empleado.correoElectronico,
                     EmpleadoCelular = c.empleado.celular,
-                    FechaReal = c.fecha
-                    
+                    Estado = c.activo==1? "Pendiente" : (c.activo==2 ? "Atendido" : "Cancelado")
                 });
 
                 var listaLimitada = listaMapeada.Take(LimiteReservas).ToList();
@@ -121,55 +132,61 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
 
-        // ✅ 2. CORREGIDO ItemDataBound
+        // ✅ LÓGICA CORREGIDA DE ESTADOS Y BOTÓN CANCELAR
         protected void rptReservas_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item ||
                 e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 var data = (dynamic)e.Item.DataItem;
+
+                // Controles
                 LinkButton btnCancelar = (LinkButton)e.Item.FindControl("btnCancelarCita");
 
-                // Obtenemos los datos para construir la fecha y hora completas
+                // Datos
+                int activo = data.Activo;
                 DateTime fechaReserva = data.FechaReal;
-                string horaString = data.HoraInicio; // E.g., "14:30"
-                int citaId = data.CitaId; // Obtenemos el ID real
+                string horaString = data.HoraRealStr;
+                int citaId = data.CitaId;
 
-                DateTime fullDateTime = fechaReserva.Date; // Empezamos con la fecha
+                DateTime fullDateTime = fechaReserva.Date;
                 if (!string.IsNullOrEmpty(horaString) && TimeSpan.TryParse(horaString, out TimeSpan hora))
                 {
-                    fullDateTime = fullDateTime.Add(hora); // Le añadimos la hora
+                    fullDateTime = fullDateTime.Add(hora);
                 }
 
-                // Comparamos la fecha y hora completas
-                if (fullDateTime > DateTime.Now)
+  
+                bool esCancelable = (activo != 0) && (fullDateTime > DateTime.Now);
+
+                if (esCancelable)
                 {
                     btnCancelar.Visible = true;
-                    // ✅ 3. ASIGNAMOS EL ID AL CommandArgument
                     btnCancelar.CommandArgument = citaId.ToString();
                     btnCancelar.OnClientClick = "return confirm('¿Estás seguro de que deseas cancelar esta cita?');";
+                }
+                else
+                {
+                    btnCancelar.Visible = false;
                 }
             }
         }
 
-        // ✅ 4. CORREGIDO ItemCommand
         protected void rptReservas_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Cancelar")
             {
-                // ✅ 5. LEEMOS EL ID DESDE CommandArgument
-                int citaIdParaEliminar = Convert.ToInt32(e.CommandArgument);
-
-                // Buscamos la cita en la lista completa usando el ID correcto
-                var citaAEliminar = ListaCompletaReservas
-                    .FirstOrDefault(r => r.id == citaIdParaEliminar);
-
-                if (citaAEliminar != null)
+                if (int.TryParse(e.CommandArgument.ToString(), out int citaIdParaEliminar))
                 {
-                    citaBO.EliminarCita(citaAEliminar); // Asumimos que EliminarCita toma el objeto
+                    var citaAEliminar = ListaCompletaReservas.FirstOrDefault(r => r.id == citaIdParaEliminar);
 
-                    ListaCompletaReservas = null; // Forzamos la recarga desde la BD
-                    CargarReservas();
+                    if (citaAEliminar != null)
+                    {
+                        // EliminarCita cambia el estado a 0 (inactivo) en la BD
+                        citaBO.EliminarCita(citaAEliminar);
+
+                        ListaCompletaReservas = null; // Forzamos la recarga desde la BD
+                        CargarReservas();
+                    }
                 }
             }
         }
