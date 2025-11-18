@@ -11,30 +11,30 @@
   <message name="crearClienteResponse">
     <part name="parameters" element="tns:crearClienteResponse" />
   </message>
-  <message name="eliminarCuenta">
-    <part name="parameters" element="tns:eliminarCuenta" />
-  </message>
-  <message name="eliminarCuentaResponse">
-    <part name="parameters" element="tns:eliminarCuentaResponse" />
-  </message>
   <message name="modificarDatosCliente">
     <part name="parameters" element="tns:modificarDatosCliente" />
   </message>
   <message name="modificarDatosClienteResponse">
     <part name="parameters" element="tns:modificarDatosClienteResponse" />
   </message>
+  <message name="eliminarCuenta">
+    <part name="parameters" element="tns:eliminarCuenta" />
+  </message>
+  <message name="eliminarCuentaResponse">
+    <part name="parameters" element="tns:eliminarCuentaResponse" />
+  </message>
   <portType name="Cliente">
     <operation name="crearCliente">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteRequest" message="tns:crearCliente" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/crearClienteResponse" message="tns:crearClienteResponse" />
     </operation>
-    <operation name="eliminarCuenta">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest" message="tns:eliminarCuenta" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse" message="tns:eliminarCuentaResponse" />
-    </operation>
     <operation name="modificarDatosCliente">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteRequest" message="tns:modificarDatosCliente" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/modificarDatosClienteResponse" message="tns:modificarDatosClienteResponse" />
+    </operation>
+    <operation name="eliminarCuenta">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaRequest" message="tns:eliminarCuenta" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cliente/eliminarCuentaResponse" message="tns:eliminarCuentaResponse" />
     </operation>
   </portType>
   <binding name="ClientePortBinding" type="tns:Cliente">
@@ -48,7 +48,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="eliminarCuenta">
+    <operation name="modificarDatosCliente">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -57,7 +57,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="modificarDatosCliente">
+    <operation name="eliminarCuenta">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

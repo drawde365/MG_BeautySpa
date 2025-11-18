@@ -37,6 +37,7 @@
   <xs:complexType name="usuarioDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="activo" type="xs:int" />
+      <xs:element name="cantidadServicios" type="xs:int" />
       <xs:element minOccurs="0" name="celular" type="xs:string" />
       <xs:element minOccurs="0" name="contrasenha" type="xs:string" />
       <xs:element minOccurs="0" name="correoElectronico" type="xs:string" />
