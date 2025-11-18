@@ -5,20 +5,20 @@ using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
 namespace MGBeautySpaWebAplication.Admin
 {
     public partial class AgregarEmpleado : System.Web.UI.Page
     {
-
         private ServicioBO servicioBO;
         private HorarioTrabajoBO horarioTrabajoBO;
         private EmpleadoBO empleadoBO;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             servicioBO = new ServicioBO();
             horarioTrabajoBO = new HorarioTrabajoBO();
             empleadoBO = new EmpleadoBO();
+
             if (!IsPostBack)
             {
                 CargarServiciosCosmetologicos();
@@ -31,23 +31,16 @@ namespace MGBeautySpaWebAplication.Admin
         {
             try
             {
-                // Ajusta "ServicioWS" al namespace de la Service Reference que crees en VS
-                // (Add Service Reference -> Namespace = ServicioWS)
-                //var clienteServicio = new ServicioWS.ServicioClient();
-                servicioBO=new ServicioBO();
-                // En Java:
-                // @WebMethod(operationName = "ListarTodosActivos")
-                // public ArrayList<ServicioDTO> listarTodosActivosServicios ()
+                servicioBO = new ServicioBO();
                 var listaServicios = servicioBO.ListarTodoActivo();
 
                 cblServicios.DataSource = listaServicios;
-                cblServicios.DataTextField = "nombre";       // ServicioDTO.nombre
-                cblServicios.DataValueField = "idServicio";  // ServicioDTO.idServicio
+                cblServicios.DataTextField = "nombre";
+                cblServicios.DataValueField = "idServicio";
                 cblServicios.DataBind();
             }
             catch (Exception ex)
             {
-                // No romper la página si falla la carga
                 System.Diagnostics.Debug.WriteLine("Error al cargar servicios cosmetológicos: " + ex.Message);
             }
         }
@@ -58,6 +51,23 @@ namespace MGBeautySpaWebAplication.Admin
         {
             Page.Validate();
             if (!Page.IsValid) return;
+
+            // Refuerzo de longitudes por seguridad
+            if (txtNombre.Text.Length > 30 ||
+                txtPrimerApellido.Text.Length > 30 ||
+                txtSegundoApellido.Text.Length > 30 ||
+                txtCorreo.Text.Length > 100 ||
+                txtContrasenha.Text.Length > 100 ||
+                txtTelefono.Text.Length > 12)
+            {
+                var cvLen = new CustomValidator
+                {
+                    IsValid = false,
+                    ErrorMessage = "Algunos campos superan la longitud máxima permitida."
+                };
+                Page.Validators.Add(cvLen);
+                return;
+            }
 
             var errores = new List<string>();
 
@@ -101,7 +111,7 @@ namespace MGBeautySpaWebAplication.Admin
                 // 4) Asignar servicios cosmetológicos (Empleado.AgregarServicioAEmpleado)
                 AsignarServiciosEmpleadoSOAP(empleadoId);
 
-                // 5) Redirigir a la pantalla principal (puedes cambiarlo luego a lista de empleados)
+                // 5) Redirigir
                 Response.Redirect("~/Admin/PanelDeControl.aspx");
             }
             catch (Exception ex)
@@ -121,7 +131,6 @@ namespace MGBeautySpaWebAplication.Admin
         {
             var lista = new List<HorarioDia>();
 
-            // Los HiddenField deben existir en el .aspx con estos IDs y ClientIDMode="Static"
             ParseHorariosDeDia(hfHorariosLunes.Value, 1, "Lunes", lista);
             ParseHorariosDeDia(hfHorariosMartes.Value, 2, "Martes", lista);
             ParseHorariosDeDia(hfHorariosMiercoles.Value, 3, "Miércoles", lista);
@@ -135,47 +144,6 @@ namespace MGBeautySpaWebAplication.Admin
         /// <summary>
         /// valor: formato "08:00-11:00;15:00-18:00"
         /// </summary>
-        //private void ParseHorariosDeDia(string valor, int diaSemana, string nombreDia, List<HorarioDia> lista)
-        //{
-        //    valor = (valor ?? "").Trim();
-        //    if (string.IsNullOrEmpty(valor)) return;
-
-        //    string[] segmentos = valor.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-        //    foreach (var seg in segmentos)
-        //    {
-        //        string s = seg.Trim();
-        //        if (s.Length == 0) continue;
-
-        //        string[] partes = s.Split('-');
-        //        if (partes.Length != 2)
-        //        {
-        //            throw new Exception($"Formato de horario inválido en {nombreDia}: '{s}'.");
-        //        }
-
-        //        string iniStr = partes[0].Trim();
-        //        string finStr = partes[1].Trim();
-
-        //        // El <input type="time"> envía formato HH:mm, TimeSpan lo entiende bien
-        //        if (!TimeSpan.TryParse(iniStr, out var ini))
-        //            throw new Exception($"Hora de inicio inválida en {nombreDia}: '{iniStr}'. Usa HH:mm.");
-
-        //        if (!TimeSpan.TryParse(finStr, out var fin))
-        //            throw new Exception($"Hora de fin inválida en {nombreDia}: '{finStr}'. Usa HH:mm.");
-
-        //        if (fin <= ini)
-        //            throw new Exception($"En {nombreDia}, la hora de fin debe ser mayor que la de inicio ({s}).");
-
-        //        lista.Add(new HorarioDia
-        //        {
-        //            DiaSemana = diaSemana,
-        //            HoraInicio = ini,
-        //            HoraFin = fin
-        //        });
-        //    }
-        //}
-
-
         private void ParseHorariosDeDia(string valor, int diaSemana, string nombreDia, List<HorarioDia> lista)
         {
             valor = (valor ?? "").Trim();
@@ -203,7 +171,7 @@ namespace MGBeautySpaWebAplication.Admin
                 if (!TimeSpan.TryParse(finStr, out var fin))
                     throw new Exception($"Hora de fin inválida en {nombreDia}: '{finStr}'. Usa HH:mm.");
 
-                // ✅ Solo horas en punto
+                // Solo horas en punto
                 if (ini.Minutes != 0 || fin.Minutes != 0)
                     throw new Exception($"En {nombreDia} solo se permiten horas exactas (ejemplo: 08:00, 15:00).");
 
@@ -219,54 +187,20 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-
         // ================== INTEGRACIÓN CON WS Empleado ==================
 
-        /// <summary>
-        /// Llama a Empleado.InsertarEmpleadoPorPartes y devuelve el ID del empleado creado.
-        /// </summary>
         private int CrearEmpleadoSOAP()
         {
-            // ServiceName en Java: "Empleado"
-            // @WebMethod(operationName = "InsertarEmpleadoPorPartes")
-            // public Integer insertarEmpleadoPorPartes(String nombre, String Primerapellido,
-            //     String Segundoapellido, String correoElectronico, String contrasenha,
-            //     String celular, String urlFotoPerfil, Boolean admin)
+            empleadoBO = new EmpleadoBO();
 
-            empleadoBO=new EmpleadoBO();
-
-            string nombreCompleto = txtNombreCompleto.Text.Trim();
-            string nombre = nombreCompleto;
-            string primerApellido = "";
-            string segundoApellido = "";
-
-            if (!string.IsNullOrEmpty(nombreCompleto))
-            {
-                var partes = nombreCompleto.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (partes.Length == 1)
-                {
-                    nombre = partes[0];
-                }
-                else if (partes.Length == 2)
-                {
-                    nombre = partes[0];
-                    primerApellido = partes[1];
-                }
-                else
-                {
-                    nombre = partes[0];
-                    primerApellido = partes[1];
-                    segundoApellido = string.Join(" ", partes, 2, partes.Length - 2);
-                }
-            }
-
+            string nombre = txtNombre.Text.Trim();
+            string primerApellido = txtPrimerApellido.Text.Trim();
+            string segundoApellido = txtSegundoApellido.Text.Trim();
             string correo = txtCorreo.Text.Trim();
             string contrasenha = txtContrasenha.Text;
             string celular = txtTelefono.Text.Trim();
 
-            // Puedes usar la misma URL que la master usa por defecto
             string urlFotoPerfil = "~/Content/default_profile.png";
-
             bool admin = false; // desde esta pantalla solo se crean empleados normales
 
             int idEmpleado = empleadoBO.InsertarEmpleadoPorPartes(
@@ -285,44 +219,6 @@ namespace MGBeautySpaWebAplication.Admin
 
         // ================== INTEGRACIÓN CON WS HorarioTrabajo ==================
 
-        /// <summary>
-        /// Inserta todos los horarios de un empleado usando HorarioTrabajo.InsertarHorarioTrabajo.
-        /// </summary>
-        //private void RegistrarHorariosEmpleadoSOAP(int empleadoId, List<HorarioDia> horarios)
-        //{
-        //    if (horarios == null || horarios.Count == 0) return;
-
-        //    // ServiceName en Java: "HorarioTrabajo"
-        //    // @WebMethod(operationName = "InsertarHorarioTrabajo")
-        //    // public Integer insertarHorarioTrabajo(@WebParam(name = "horarioTrabajo") HorarioTrabajoDTO horarioTrabajo)
-
-        //    horarioTrabajoBO=new HorarioTrabajoBO();
-
-        //    foreach (var h in horarios)
-        //    {
-        //        var horarioDto = new horarioTrabajoDTO();
-
-        //        // EmpleadoDTO dentro del namespace de HorarioTrabajoWS
-        //        var empDto = new empleadoDTO();
-        //        // Ajusta el nombre de la propiedad según lo que genere la referencia:
-        //        // normalmente será idUsuario o IdUsuario
-        //        empDto.idUsuario = empleadoId;
-        //        empDto.idUsuarioSpecified = true;
-
-        //        horarioDto.empleado = empDto;
-        //        horarioDto.diaSemana = h.DiaSemana;
-        //        horarioDto.diaSemanaSpecified = true;
-
-
-        //        horarioDto.horaInicio = h.HoraInicio.ToString();
-        //        horarioDto.horaFin = h.HoraFin.ToString();
-
-
-        //        horarioTrabajoBO.insertarHorarioDeEmpleado(horarioDto);
-        //    }
-        //}
-
-
         private void RegistrarHorariosEmpleadoSOAP(int empleadoId, List<HorarioDia> horarios)
         {
             if (horarios == null || horarios.Count == 0) return;
@@ -333,44 +229,39 @@ namespace MGBeautySpaWebAplication.Admin
             {
                 var horarioDto = new horarioTrabajoDTO();
 
-                var empDto = new empleadoDTO();
-                empDto.idUsuario = empleadoId;
-                empDto.idUsuarioSpecified = true;
+                var empDto = new empleadoDTO
+                {
+                    idUsuario = empleadoId,
+                    idUsuarioSpecified = true
+                };
 
                 horarioDto.empleado = empDto;
                 horarioDto.diaSemana = h.DiaSemana;
                 horarioDto.diaSemanaSpecified = true;
 
-                // ⏱️ Enviamos también la hora como string (HH:mm:ss)
                 horarioDto.horaInicio = h.HoraInicio.ToString(@"hh\:mm\:ss");
                 horarioDto.horaFin = h.HoraFin.ToString(@"hh\:mm\:ss");
 
-                // ✅ Calcular número de intervalos de 1 hora
-                // Ejemplo: 08:00 - 11:00 => 3 intervalos
                 var diferencia = h.HoraFin - h.HoraInicio;
                 int numIntervalos = (int)diferencia.TotalHours;
 
                 if (numIntervalos <= 0)
                 {
-                    throw new Exception($"El rango {h.HoraInicio:hh\\:mm}-{h.HoraFin:hh\\:mm} debe cubrir al menos 1 hora completa.");
+                    throw new Exception(
+                        $"El rango {h.HoraInicio:hh\\:mm}-{h.HoraFin:hh\\:mm} debe cubrir al menos 1 hora completa."
+                    );
                 }
 
                 horarioDto.numIntervalo = numIntervalos;
-
-                // Si el proxy generó la propiedad "*Specified" para numIntervalo, la marcamos:
-                // (si no existe, borra esta línea)
+                // Si el proxy generó numIntervaloSpecified:
                 horarioDto.numIntervaloSpecified = true;
 
                 horarioTrabajoBO.insertarHorarioDeEmpleado(horarioDto);
             }
         }
 
-
         // ================== INTEGRACIÓN CON WS Empleado (servicios) ==================
 
-        /// <summary>
-        /// Usa Empleado.AgregarServicioAEmpleado para asignar todos los servicios seleccionados.
-        /// </summary>
         private void AsignarServiciosEmpleadoSOAP(int empleadoId)
         {
             var idsServicios = new List<int>();
@@ -383,16 +274,10 @@ namespace MGBeautySpaWebAplication.Admin
                 }
             }
 
-            if (idsServicios.Count == 0)
-            {
-                // no es obligatorio que tenga servicios al inicio
-                return;
-            }
+            if (idsServicios.Count == 0) return;
 
             var clienteEmpleado = new EmpleadoBO();
 
-            // @WebMethod(operationName = "AgregarServicioAEmpleado")
-            // public void agregarServicioAEmpleado(Integer empleadoId, Integer servicioId)
             foreach (int idServicio in idsServicios)
             {
                 clienteEmpleado.AgregarServicioAEmpleado(empleadoId, idServicio);

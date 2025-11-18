@@ -1,32 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="AgregarEmpleado.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.AgregarEmpleado" %>
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-</asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
-</asp:Content>
-<asp:Content ID="Content5" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-</asp:Content>--%>
-
 
 <asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Añadir empleado
 </asp:Content>
-
-<%--<asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
-<!-- Extra en <head> si quieres estilos específicos -->
-    <style>
-        .time-input::placeholder { color: #999; }
-        .section-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 500;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-    </style>
-</asp:Content>--%>
 
 <asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
@@ -103,10 +79,7 @@
     </style>
 </asp:Content>
 
-
-
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
-<!-- CONTENIDO PRINCIPAL, aparece dentro de <main class="main-content ..."> -->
 
     <!-- Título de la pantalla -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -128,40 +101,82 @@
         <div class="card-body">
 
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="txtNombreCompleto" class="form-label">Nombre completo</label>
-                    <asp:TextBox ID="txtNombreCompleto" runat="server"
-                        CssClass="form-control" />
+                <div class="col-md-4">
+                    <label for="txtNombre" class="form-label">Nombre</label>
+                    <asp:TextBox ID="txtNombre" runat="server"
+                        CssClass="form-control"
+                        MaxLength="30" />
                     <asp:RequiredFieldValidator ID="rfvNombre" runat="server"
-                        ControlToValidate="txtNombreCompleto"
-                        ErrorMessage="El nombre completo es obligatorio."
+                        ControlToValidate="txtNombre"
+                        ErrorMessage="El nombre es obligatorio."
                         CssClass="text-danger"
                         Display="Dynamic" />
                 </div>
 
+                <div class="col-md-4">
+                    <label for="txtPrimerApellido" class="form-label">Primer apellido</label>
+                    <asp:TextBox ID="txtPrimerApellido" runat="server"
+                        CssClass="form-control"
+                        MaxLength="30" />
+                    <asp:RequiredFieldValidator ID="rfvPrimerApellido" runat="server"
+                        ControlToValidate="txtPrimerApellido"
+                        ErrorMessage="El primer apellido es obligatorio."
+                        CssClass="text-danger"
+                        Display="Dynamic" />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="txtSegundoApellido" class="form-label">Segundo apellido</label>
+                    <asp:TextBox ID="txtSegundoApellido" runat="server"
+                        CssClass="form-control"
+                        MaxLength="30" />
+                    <!-- Segundo apellido opcional, sin RequiredFieldValidator -->
+                </div>
+            </div>
+
+            <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="txtCorreo" class="form-label">Correo electrónico</label>
                     <asp:TextBox ID="txtCorreo" runat="server"
-                        CssClass="form-control" TextMode="Email" />
+                        CssClass="form-control"
+                        TextMode="Email"
+                        MaxLength="100" />
                     <asp:RequiredFieldValidator ID="rfvCorreo" runat="server"
                         ControlToValidate="txtCorreo"
                         ErrorMessage="El correo electrónico es obligatorio."
                         CssClass="text-danger"
                         Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revCorreo" runat="server"
+                        ControlToValidate="txtCorreo"
+                        ValidationExpression="^.+@.+$"
+                        ErrorMessage="El correo electrónico no es válido."
+                        CssClass="text-danger"
+                        Display="Dynamic" />
+                </div>
+
+                <div class="col-md-3">
+                    <label for="txtTelefono" class="form-label">Número de teléfono</label>
+                    <asp:TextBox ID="txtTelefono" runat="server"
+                        CssClass="form-control"
+                        MaxLength="12" />
+                    <asp:RegularExpressionValidator ID="revTelefono" runat="server"
+                    ControlToValidate="txtTelefono"
+                    ValidationExpression="^\d{9}$"
+                    ErrorMessage="El teléfono debe tener 9 dígitos."
+                    CssClass="text-danger"
+                    Display="Dynamic" />
+
+
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label for="txtTelefono" class="form-label">Número de teléfono</label>
-                    <asp:TextBox ID="txtTelefono" runat="server"
-                        CssClass="form-control" />
-                </div>
-
-                <div class="col-md-4">
                     <label for="txtContrasenha" class="form-label">Contraseña inicial</label>
                     <asp:TextBox ID="txtContrasenha" runat="server"
-                        CssClass="form-control" TextMode="Password" />
+                        CssClass="form-control"
+                        TextMode="Password"
+                        MaxLength="100" />
                     <asp:RequiredFieldValidator ID="rfvContrasenha" runat="server"
                         ControlToValidate="txtContrasenha"
                         ErrorMessage="La contraseña inicial es obligatoria."
@@ -172,7 +187,9 @@
                 <div class="col-md-4">
                     <label for="txtConfirmarContrasenha" class="form-label">Confirmar contraseña</label>
                     <asp:TextBox ID="txtConfirmarContrasenha" runat="server"
-                        CssClass="form-control" TextMode="Password" />
+                        CssClass="form-control"
+                        TextMode="Password"
+                        MaxLength="100" />
                     <asp:CompareValidator ID="cvContrasenha" runat="server"
                         ControlToCompare="txtContrasenha"
                         ControlToValidate="txtConfirmarContrasenha"
@@ -185,7 +202,7 @@
         </div>
     </div>
 
-        <!-- HORARIO DE TRABAJO -->
+    <!-- HORARIO DE TRABAJO -->
     <div class="card mb-4 shadow-sm border-0">
         <div class="card-header bg-white border-0">
             <strong>Horario de trabajo (lunes a sábado)</strong>
@@ -205,7 +222,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Lunes -->
                         <tr>
                             <td>Lunes</td>
                             <td>
@@ -219,8 +235,6 @@
                                 </button>
                             </td>
                         </tr>
-
-                        <!-- Martes -->
                         <tr>
                             <td>Martes</td>
                             <td>
@@ -234,8 +248,6 @@
                                 </button>
                             </td>
                         </tr>
-
-                        <!-- Miércoles -->
                         <tr>
                             <td>Miércoles</td>
                             <td>
@@ -249,8 +261,6 @@
                                 </button>
                             </td>
                         </tr>
-
-                        <!-- Jueves -->
                         <tr>
                             <td>Jueves</td>
                             <td>
@@ -264,8 +274,6 @@
                                 </button>
                             </td>
                         </tr>
-
-                        <!-- Viernes -->
                         <tr>
                             <td>Viernes</td>
                             <td>
@@ -279,8 +287,6 @@
                                 </button>
                             </td>
                         </tr>
-
-                        <!-- Sábado -->
                         <tr>
                             <td>Sábado</td>
                             <td>
@@ -312,11 +318,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="mb-3">
                         <label class="form-label">Agregar nuevo rango</label>
                         <div class="row g-2">
-
                             <div class="col-5">
                                 <select id="selModalInicioHora" class="form-select">
                                     <option value="">--</option>
@@ -346,7 +350,6 @@
                                     <option value="23">23:00</option>
                                 </select>
                             </div>
-
                             <div class="col-5">
                                 <select id="selModalFinHora" class="form-select">
                                     <option value="">--</option>
@@ -376,7 +379,6 @@
                                     <option value="23">23:00</option>
                                 </select>
                             </div>
-
                             <div class="col-2 d-grid">
                                 <button type="button" class="btn btn-primary"
                                         onclick="agregarHorarioModal()">
@@ -392,10 +394,8 @@
                     <div>
                         <label class="form-label">Horarios actuales</label>
                         <ul id="listaHorariosDia" class="list-group small">
-                            <!-- Se rellena por JS -->
                         </ul>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button"
@@ -407,25 +407,6 @@
             </div>
         </div>
     </div>
-
-
-    <%--<!-- SERVICIOS COSMETOLÓGICOS -->
-    <div class="card mb-4 shadow-sm border-0">
-        <div class="card-header bg-white border-0">
-            <strong>Servicios cosmetológicos que realiza</strong>
-        </div>
-        <div class="card-body">
-            <p class="text-muted mb-3">
-                Selecciona los servicios que este empleado puede realizar.
-            </p>
-
-            <asp:CheckBoxList ID="cblServicios" runat="server"
-                CssClass="form-check"
-                RepeatDirection="Vertical"
-                RepeatLayout="Flow">
-            </asp:CheckBoxList>
-        </div>
-    </div>--%>
 
     <!-- SERVICIOS COSMETOLÓGICOS -->
     <div class="card mb-4 shadow-sm border-0">
@@ -446,7 +427,6 @@
         </div>
     </div>
 
-
     <!-- BOTONES -->
     <div class="d-flex justify-content-end mb-5">
         <asp:Button ID="btnCancelar" runat="server"
@@ -463,7 +443,6 @@
 </asp:Content>
 
 <asp:Content ID="ContentScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
-
     <script type="text/javascript">
         let diaActual = null;
 
@@ -537,14 +516,12 @@
 
             hf.value = partes.join(';');
 
-            // reset selects
             document.getElementById('selModalInicioHora').value = '';
             document.getElementById('selModalFinHora').value = '';
 
             renderHorariosDia();
             actualizarResumenDia();
         }
-
 
         function eliminarHorario(seg) {
             const hf = document.getElementById(getHiddenFieldId());
@@ -566,33 +543,8 @@
                 span.textContent = value.replace(/;/g, ', ');
             }
         }
-
-        function ajustarHoraEnPunto(input) {
-            if (!input.value) return;
-
-            const partes = input.value.split(':');
-            if (partes.length < 2) return;
-
-            let horas = partes[0];
-
-            // Aseguramos 2 dígitos en hora
-            if (horas.length === 1) {
-                horas = '0' + horas;
-            }
-
-            // Minutos siempre 00
-            input.value = horas + ':00';
-        }
-
-
     </script>
-
-
-
 </asp:Content>
 
 <asp:Content ID="ContentExtra" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<!-- ContentPlaceHolder1 (no lo uso, lo dejo vacío a menos que tú lo necesites) -->
-
 </asp:Content>
-
