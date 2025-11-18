@@ -107,8 +107,19 @@ namespace MGBeautySpaWebAplication.Cliente
             else
             {
                 pnlNoComments.Visible = false;
-                litReviewScore.Text = producto.promedioValoracion.ToString("0.0");
-                litReviewCount.Text = $"{listaComentarios.Count} reseñas";
+
+                double sumaValoraciones = 0;
+                int totalComentarios = listaComentarios.Count;
+
+                foreach (var comentario in listaComentarios)
+                {
+                    sumaValoraciones += comentario.valoracion;
+                }
+
+                double promedioReal = totalComentarios > 0 ? sumaValoraciones / totalComentarios : 0;
+
+                litReviewScore.Text = promedioReal.ToString("0.0");
+                litReviewCount.Text = $"{totalComentarios} reseñas";
             }
         }
 

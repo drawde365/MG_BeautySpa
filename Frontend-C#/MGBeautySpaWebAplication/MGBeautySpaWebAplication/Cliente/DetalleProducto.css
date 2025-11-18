@@ -149,6 +149,7 @@ body {
     width: 100%;
     border-bottom: 1px solid #E3DEDE;
 }
+
 .tipo-name-btn {
     box-sizing: border-box;
     display: flex;
@@ -607,4 +608,37 @@ body {
     line-height: 21px;
     color: #FFFFFF;
     cursor: pointer;
+}
+
+/* Estrellas de valoración en el score */
+.score-stars {
+    display: inline-flex;
+    gap: 2px;
+    margin-left: 8px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+    .score-stars .star {
+        color: #ddd; /* Estrella vacía (gris claro) */
+        transition: color 0.2s ease;
+    }
+
+        .score-stars .star.filled {
+            color: #2D5A4A; /* Estrella llena (dorado) */
+        }
+
+        .score-stars .star.half-filled {
+            background: linear-gradient(90deg, #FFD700 50%, #ddd 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+
+/* Container para número y estrellas en línea */
+.score-number-container {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio entre número y estrellas */
 }
