@@ -62,4 +62,14 @@ public class Calendario {
             @WebParam(name = "empleadoId") Integer empleadoId) {
         return calendarioBO.listarCalendarioDeEmpleado(empleadoId);
     }
+    @WebMethod(operationName = "insertar30DiasCalendario")
+    public Integer insertar30DiasCalendario(
+            @WebParam(name = "empleadoId")Integer idEmpleado) {
+        return calendarioBO.insertar30DiasCalendario(idEmpleado);
+    }
+    @WebMethod(operationName = "eliminar30DiasCalendario")
+    public Integer eliminar30DiasCalendario(
+            @WebParam(name = "empleadoId")Integer idEmpleado){
+        return calendarioBO.eliminar30DiasCalendario(idEmpleado);
+    }
 }

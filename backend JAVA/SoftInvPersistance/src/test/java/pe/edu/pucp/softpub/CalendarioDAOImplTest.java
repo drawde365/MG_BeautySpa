@@ -5,10 +5,14 @@ import pe.edu.pucp.softinv.dao.EmpleadoDAO;
 import pe.edu.pucp.softinv.dao.HorarioTrabajoDAO;
 import pe.edu.pucp.softinv.daoImp.CalendarioDAOImpl;
 import pe.edu.pucp.softinv.daoImp.EmpleadoDAOImpl;
+import pe.edu.pucp.softinv.daoImp.HorarioTrabajoDAOImpl;
 import pe.edu.pucp.softinv.model.Disponibilidad.CalendarioDTO;
+import pe.edu.pucp.softinv.model.Disponibilidad.HorarioTrabajoDTO;
 import pe.edu.pucp.softinv.model.Personas.EmpleadoDTO;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -20,29 +24,55 @@ public class CalendarioDAOImplTest {
     
     private CalendarioDAOImpl calendarioDAO;
     private EmpleadoDAO empleadoDAO;
+    private HorarioTrabajoDAOImpl horarioDAO; // Necesario para configurar el escenario
 
     public CalendarioDAOImplTest (){
         calendarioDAO = new CalendarioDAOImpl();
         empleadoDAO = new EmpleadoDAOImpl();
+        horarioDAO = new HorarioTrabajoDAOImpl();
     }
 
     // Helper para crear el Empleado necesario para la prueba
     private EmpleadoDTO creaEmpleado() {
         EmpleadoDTO emp = new EmpleadoDTO();
-        emp.setPrimerapellido("PREZ");
+        emp.setPrimerapellido("PEREZ");
         emp.setSegundoapellido("LOPEZ");
         emp.setNombre("JUAN");
         // Asegura que el correo sea único
-        emp.setCorreoElectronico("jUAN" + System.currentTimeMillis() + "@test.com"); 
+        emp.setCorreoElectronico("JUAN" + System.currentTimeMillis() + "@test.com"); 
         emp.setContrasenha("12345");
         emp.setCelular("9998777");
-        emp.setUrlFotoPerfil("peril.jpg");
+        emp.setUrlFotoPerfil("perfil.jpg");
         emp.setActivo(1);
         emp.setAdmin(true);
         emp.setRol(2);
         int id = empleadoDAO.insertar(emp);
         emp.setIdUsuario(id);
         return emp;
+    }
+
+    // Helper para crear un horario de trabajo ficticio (Lunes a Domingo)
+    private void crearHorarioTrabajo(EmpleadoDTO empleado) {
+        // Creamos horario para los 7 días de la semana para asegurar que se inserten los 30 días
+        for (int i = 1; i <= 7; i++) {
+            HorarioTrabajoDTO horario = new HorarioTrabajoDTO();
+            horario.setEmpleado(empleado); // Asumiendo que el DTO tiene este método
+            // horario.setEmpleadoId(empleado.getIdUsuario()); // Alternativa si usa ID directo
+            horario.setDiaSemana(i);
+            horario.setHoraInicio(Time.valueOf("09:00:00"));
+            horario.setHoraFin(Time.valueOf("18:00:00"));
+            horario.setNumIntervalo(9); // 8 horas libres
+            
+            horarioDAO.insertar(horario);
+        }
+    }
+
+    // Helper para eliminar horarios del empleado (limpieza)
+    private void eliminarHorarioTrabajo(Integer empleadoId) {
+        ArrayList<HorarioTrabajoDTO> horarios = horarioDAO.listarPorEmpleado(empleadoId);
+        for (HorarioTrabajoDTO h : horarios) {
+            horarioDAO.eliminar(h);
+        }
     }
 
     // Helper para crear e insertar el registro de calendario
@@ -70,8 +100,6 @@ public class CalendarioDAOImplTest {
         // 2. Elimina el empleado asociado
         empleadoDAO.eliminar(calendario.getEmpleado().getIdUsuario());
         
-        // La aserción de la eliminación es opcional, ya que el test debe verificar que no exista.
-        // Aquí solo nos aseguramos que el DML retorne algo positivo.
         assertTrue(resultado >= 0, "La eliminación del calendario debe indicar éxito");
     }
 
@@ -164,7 +192,43 @@ public class CalendarioDAOImplTest {
         );
         assertNull(eliminado, "El registro debe ser nulo después de la eliminación.");
         
-        // Limpiar el empleado (para que el resto de tests no falle con Duplicate Entry)
+        // Limpiar el empleado
         empleadoDAO.eliminar(calendario.getEmpleado().getIdUsuario());
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("Insertar y Eliminar disponibilidad de 30 días futuros")
+    void testInsertarYEliminar30DiasFuturos() {
+        // 1. Crear un empleado nuevo para la prueba
+        EmpleadoDTO emp = creaEmpleado();
+        
+        // 2. Asignar Horario de Trabajo (Necesario porque insertar30DiasFuturos lee de aquí)
+        // Si no tiene horario, insertaría 0 registros.
+        crearHorarioTrabajo(emp);
+
+        // 3. Ejecutar inserción masiva
+        Integer insertados = calendarioDAO.insertar30DiasFuturos(emp.getIdUsuario());
+        
+        // Verificación: Como asignamos horario para los 7 días, debe haber insertado 30 registros
+        assertEquals(30, insertados, "Se deberían haber insertado 30 días de disponibilidad.");
+        
+        // Verificar que realmente existan en BD
+        ArrayList<CalendarioDTO> lista = calendarioDAO.listarCalendarioDeEmpleado(emp.getIdUsuario());
+        assertEquals(30, lista.size(), "La lista de calendario debe contener 30 registros.");
+
+        // 4. Ejecutar eliminación masiva
+        Integer eliminados = calendarioDAO.eliminar30DiasFuturos(emp.getIdUsuario());
+        
+        // Verificación de eliminación
+        assertEquals(30, eliminados, "Se deberían haber eliminado los 30 días insertados.");
+        
+        // Verificar que ya no existan
+        lista = calendarioDAO.listarCalendarioDeEmpleado(emp.getIdUsuario());
+        assertEquals(0, lista.size(), "La lista de calendario debería estar vacía tras la eliminación.");
+
+        // 5. Limpieza final (Horarios y Empleado)
+        eliminarHorarioTrabajo(emp.getIdUsuario());
+        empleadoDAO.eliminar(emp.getIdUsuario());
     }
 }

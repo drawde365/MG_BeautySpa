@@ -12,4 +12,6 @@ public interface CalendarioDAO {
     CalendarioDTO obtenerPorId(Integer empleadoId, Date fecha);
     ArrayList<CalendarioDTO> listarCalendarioDeEmpleado(Integer empleadoId);
     ArrayList<CalendarioDTO> listarCalendarioEnRango(Integer empleadoId, Date fechaInicio, Date fechaFin);
+    Integer insertar30DiasFuturos(Integer empleadoId);
+    Integer eliminar30DiasFuturos(Integer empleadoId);
 }

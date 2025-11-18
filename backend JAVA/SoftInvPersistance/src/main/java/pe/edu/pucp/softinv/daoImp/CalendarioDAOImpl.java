@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Calendar; // Import necesario para la lógica agnóstica
+import java.util.HashMap;
+import java.util.Map;
+import pe.edu.pucp.softinv.model.Disponibilidad.HorarioTrabajoDTO;
 
 public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
     CalendarioDTO calendario;
@@ -33,13 +37,13 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         this.statement.setInt(1, calendario.getEmpleado().getIdUsuario());
         this.statement.setTimestamp(2, new Timestamp(calendario.getFecha().getTime()));
         this.statement.setInt(3, calendario.getCantLibre());
-        this.statement.setString(4,calendario.getMotivo());
+        this.setStringEnST(4,calendario.getMotivo());
     }
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
         this.statement.setInt(1, calendario.getCantLibre());
-        this.statement.setString(2,calendario.getMotivo());
+        this.setStringEnST(2,calendario.getMotivo());
         this.statement.setInt(3, calendario.getEmpleado().getIdUsuario());
         this.statement.setTimestamp(4, new Timestamp(calendario.getFecha().getTime()));
     }
@@ -121,7 +125,129 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         
         return listarCalendarioEnRango(empleadoId, hoy, fechaFin);
     }
+    private void setStringEnST(int indice, String valor) throws SQLException {
+        if (valor != null) {
+            this.statement.setString(indice, valor);
+        } else {
+            this.statement.setNull(indice, java.sql.Types.VARCHAR);
+        }
+    }
+    
+    /**
+     * Inserta 30 días de disponibilidad para un empleado a partir de mañana.
+     * La lógica de fechas se maneja en Java para ser agnóstica a la base de datos.
+     */
+     public Integer insertar30DiasFuturos(Integer empleadoId) {
+        int registrosInsertados = 0;
+        Calendar calendar = Calendar.getInstance();
+        
+        // 1. Obtener Horarios desde la BD usando el DAO existente
+        HorarioTrabajoDAOImpl horarioDAO = new HorarioTrabajoDAOImpl();
+        ArrayList<HorarioTrabajoDTO> listaHorarios = horarioDAO.listarPorEmpleado(empleadoId);
+        
+        // 2. Mapear Horarios (DíaSemana -> TotalIntervalos)
+        Map<Integer, Integer> horarioSemanal = new HashMap<>();
+        
+        // Inicializar todos los días (1=Lunes...7=Domingo) con 0
+        for (int i = 1; i <= 7; i++) {
+            horarioSemanal.put(i, 0);
+        }
+        
+        // Llenar con los datos reales del empleado (sumando intervalos si hay turnos partidos)
+        for (HorarioTrabajoDTO h : listaHorarios) {
+            int dia = h.getDiaSemana();
+            int intervalos = h.getNumIntervalo();
+            horarioSemanal.put(dia, horarioSemanal.getOrDefault(dia, 0) + intervalos);
+        }
 
+        // 3. Configurar fecha de inicio (mañana)
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        
+        // 4. Bucle de inserción
+        for (int i = 0; i < 30; i++) {
+            this.calendario = new CalendarioDTO();
+
+            EmpleadoDTO emp = new EmpleadoDTO();
+            emp.setIdUsuario(empleadoId);
+            this.calendario.setEmpleado(emp);
+
+            this.calendario.setFecha(new Timestamp(calendar.getTimeInMillis()));
+
+            // Calcular día de la semana (Lunes=1 ... Domingo=7)
+            int diaSemanaJava = calendar.get(Calendar.DAY_OF_WEEK);
+            int diaSemanaLogico = (diaSemanaJava == Calendar.SUNDAY) ? 7 : diaSemanaJava - 1;
+
+            // Obtener cantidad de intervalos (será 0 si no trabaja)
+            int cantidadIntervalos = horarioSemanal.get(diaSemanaLogico);
+
+            this.calendario.setCantLibre(cantidadIntervalos); 
+            this.calendario.setMotivo(null);
+
+            // Gestión de conexión manual
+            if(i == 0) {
+                super.insertar(true, false);
+            } else if(i == 29) {
+                super.insertar(false, true);
+            } else {
+                super.insertar(true, true);
+            }
+
+            registrosInsertados++;
+
+            // Avanzamos al siguiente día
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        
+        return registrosInsertados;
+    }
+     
+     public Integer eliminar30DiasFuturos(Integer empleadoId) {
+        int registrosEliminados = 0;
+        Calendar calendar = Calendar.getInstance();
+
+        // 1. Configurar fecha de inicio (mañana)
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // 2. Bucle de eliminación
+        for (int i = 0; i < 30; i++) {
+            this.calendario = new CalendarioDTO();
+
+            EmpleadoDTO emp = new EmpleadoDTO();
+            emp.setIdUsuario(empleadoId);
+            this.calendario.setEmpleado(emp);
+
+            // Establecemos la fecha que coincide con la PK para eliminar
+            this.calendario.setFecha(new Timestamp(calendar.getTimeInMillis()));
+
+            // Gestión de conexión manual (Misma lógica que insertar)
+            if(i == 0) {
+                // Primera iteración: Deja conexión abierta, NO asume transacción iniciada
+                super.eliminar(true, false);
+            } else if(i == 29) {
+                // Última iteración: Cierra conexión, ASUME transacción iniciada (para hacer commit)
+                super.eliminar(false, true);
+            } else {
+                // Iteraciones intermedias
+                super.eliminar(true, true);
+            }
+
+            registrosEliminados++;
+
+            // Avanzamos al siguiente día
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        return registrosEliminados;
+    }
+    
     private void incluirTresParametros(Object objetoParametros) {
         Object[] params = (Object[]) objetoParametros;
         try {

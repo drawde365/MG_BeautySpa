@@ -113,6 +113,14 @@ public class CalendarioBO {
         calendario.setCantLibre(-2);
         return calendarioDAO.modificar(calendario);
     }
+    
+    public Integer insertar30DiasCalendario(Integer idEmpleado) {
+        return calendarioDAO.insertar30DiasFuturos(idEmpleado);
+    }
+    
+    public Integer eliminar30DiasCalendario(Integer idEmpleado){
+        return calendarioDAO.eliminar30DiasFuturos(idEmpleado);
+    }
 
     public ArrayList<CalendarioDTO> listarCalendarioDeEmpleado(Integer empleadoId) {
         return calendarioDAO.listarCalendarioDeEmpleado(empleadoId);
