@@ -76,6 +76,7 @@
     <Content Include="Admin\BuscarUsuarios.aspx" />
     <Content Include="Admin\InsertarProducto.aspx" />
     <Content Include="Admin\InsertarServicio.aspx" />
+    <Content Include="Admin\Reportes.aspx" />
     <Content Include="Cliente\Calendario.aspx" />
     <Content Include="Cliente\Calendario.css">
       <DependentUpon>Calendario.aspx</DependentUpon>
@@ -319,6 +320,13 @@
     </Compile>
     <Compile Include="Admin\InsertarServicio.aspx.designer.cs">
       <DependentUpon>InsertarServicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reportes.aspx.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reportes.aspx.designer.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente\Calendario.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
