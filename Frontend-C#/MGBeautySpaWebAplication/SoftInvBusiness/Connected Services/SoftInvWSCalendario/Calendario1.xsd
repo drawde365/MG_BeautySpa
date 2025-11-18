@@ -12,6 +12,10 @@
   <xs:element name="ModificarCalendarioResponse" type="tns:ModificarCalendarioResponse" />
   <xs:element name="ReservarBloqueYCita" type="tns:ReservarBloqueYCita" />
   <xs:element name="ReservarBloqueYCitaResponse" type="tns:ReservarBloqueYCitaResponse" />
+  <xs:element name="eliminar30DiasCalendario" type="tns:eliminar30DiasCalendario" />
+  <xs:element name="eliminar30DiasCalendarioResponse" type="tns:eliminar30DiasCalendarioResponse" />
+  <xs:element name="insertar30DiasCalendario" type="tns:insertar30DiasCalendario" />
+  <xs:element name="insertar30DiasCalendarioResponse" type="tns:insertar30DiasCalendarioResponse" />
   <xs:complexType name="ListarCalendarioDeEmpleado">
     <xs:sequence>
       <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
@@ -159,6 +163,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ReservarBloqueYCitaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminar30DiasCalendario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminar30DiasCalendarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertar30DiasCalendario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertar30DiasCalendarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

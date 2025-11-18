@@ -55,5 +55,10 @@ namespace SoftInvBusiness
         {
             return calendarioSOAP.ListarCalendarioDeEmpleado(empleadoId);
         }
+
+        public int insertar30DiasCalendarioEmpleado(int idEmpleado)
+        {
+            return calendarioSOAP.insertar30DiasCalendario(idEmpleado);
+        }
     }
 }

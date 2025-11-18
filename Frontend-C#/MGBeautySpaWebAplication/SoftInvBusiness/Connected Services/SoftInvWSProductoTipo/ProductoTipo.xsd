@@ -156,22 +156,22 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ObtenerProductosTiposIdActivo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idProducto" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ObtenerProductosTiposIdActivoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoTipoDTO" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="ObtenerProductosTiposId">
     <xs:sequence>
       <xs:element minOccurs="0" name="idProducto" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ObtenerProductosTiposIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoTipoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerProductosTiposIdActivo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idProducto" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerProductosTiposIdActivoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:productoTipoDTO" />
     </xs:sequence>

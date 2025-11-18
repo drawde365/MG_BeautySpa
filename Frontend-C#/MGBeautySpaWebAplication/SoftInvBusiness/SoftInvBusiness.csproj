@@ -127,7 +127,13 @@
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.calendarioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.EliminarCalendarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSCalendario\SoftInvBusiness.SoftInvWSCalendario.InsertarCalendarioResponse.datasource">

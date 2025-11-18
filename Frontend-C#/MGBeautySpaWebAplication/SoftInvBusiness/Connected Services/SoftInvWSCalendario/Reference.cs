@@ -16,31 +16,30 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     public interface Calendario {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Response")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse eliminar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
-            "esResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> CalcularBloquesDisponiblesAsync(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/eliminar30DiasCalendario" +
+            "Response")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> eliminar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
-            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
-            "nse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Response")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
+        SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse insertar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
-            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
-            "nse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Request", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/insertar30DiasCalendario" +
+            "Response")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> insertar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ModificarCalendarioReque" +
@@ -69,6 +68,34 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
             "doRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ListarCalendarioDeEmplea" +
             "doResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/CalcularBloquesDisponibl" +
+            "esResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse> CalcularBloquesDisponiblesAsync(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
+            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
+            "nse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse ReservarBloqueYCita(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaReque" +
+            "st", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Calendario/ReservarBloqueYCitaRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaResponse> ReservarBloqueYCitaAsync(SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Calendario/InsertarCalendarioReques" +
@@ -102,46 +129,481 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponibles", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class CalcularBloquesDisponiblesRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminar30DiasCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class eliminar30DiasCalendarioRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int empleadoId;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime fecha;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int duracionServicioMinutos;
-        
-        public CalcularBloquesDisponiblesRequest() {
+        public eliminar30DiasCalendarioRequest() {
         }
         
-        public CalcularBloquesDisponiblesRequest(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
+        public eliminar30DiasCalendarioRequest(int empleadoId) {
             this.empleadoId = empleadoId;
-            this.fecha = fecha;
-            this.duracionServicioMinutos = duracionServicioMinutos;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponiblesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class CalcularBloquesDisponiblesResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="eliminar30DiasCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class eliminar30DiasCalendarioResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] @return;
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
         
-        public CalcularBloquesDisponiblesResponse() {
+        public eliminar30DiasCalendarioResponse() {
         }
         
-        public CalcularBloquesDisponiblesResponse(string[] @return) {
+        public eliminar30DiasCalendarioResponse(int @return) {
             this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="insertar30DiasCalendario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class insertar30DiasCalendarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int empleadoId;
+        
+        public insertar30DiasCalendarioRequest() {
+        }
+        
+        public insertar30DiasCalendarioRequest(int empleadoId) {
+            this.empleadoId = empleadoId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="insertar30DiasCalendarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class insertar30DiasCalendarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public insertar30DiasCalendarioResponse() {
+        }
+        
+        public insertar30DiasCalendarioResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class calendarioDTO : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private empleadoDTO empleadoField;
+        
+        private System.DateTime fechaField;
+        
+        private bool fechaFieldSpecified;
+        
+        private int cantLibreField;
+        
+        private bool cantLibreFieldSpecified;
+        
+        private string motivoField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public empleadoDTO empleado {
+            get {
+                return this.empleadoField;
+            }
+            set {
+                this.empleadoField = value;
+                this.RaisePropertyChanged("empleado");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public System.DateTime fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                this.fechaField = value;
+                this.RaisePropertyChanged("fecha");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fechaSpecified {
+            get {
+                return this.fechaFieldSpecified;
+            }
+            set {
+                this.fechaFieldSpecified = value;
+                this.RaisePropertyChanged("fechaSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public int cantLibre {
+            get {
+                return this.cantLibreField;
+            }
+            set {
+                this.cantLibreField = value;
+                this.RaisePropertyChanged("cantLibre");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cantLibreSpecified {
+            get {
+                return this.cantLibreFieldSpecified;
+            }
+            set {
+                this.cantLibreFieldSpecified = value;
+                this.RaisePropertyChanged("cantLibreSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string motivo {
+            get {
+                return this.motivoField;
+            }
+            set {
+                this.motivoField = value;
+                this.RaisePropertyChanged("motivo");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class empleadoDTO : usuarioDTO {
+        
+        private bool adminField;
+        
+        private bool adminFieldSpecified;
+        
+        private servicioDTO[] serviciosField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public bool admin {
+            get {
+                return this.adminField;
+            }
+            set {
+                this.adminField = value;
+                this.RaisePropertyChanged("admin");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool adminSpecified {
+            get {
+                return this.adminFieldSpecified;
+            }
+            set {
+                this.adminFieldSpecified = value;
+                this.RaisePropertyChanged("adminSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("servicios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public servicioDTO[] servicios {
+            get {
+                return this.serviciosField;
+            }
+            set {
+                this.serviciosField = value;
+                this.RaisePropertyChanged("servicios");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class servicioDTO : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int activoField;
+        
+        private bool activoFieldSpecified;
+        
+        private citaDTO[] citasField;
+        
+        private comentarioDTO[] comentariosField;
+        
+        private string descripcionField;
+        
+        private int duracionHoraField;
+        
+        private bool duracionHoraFieldSpecified;
+        
+        private empleadoDTO[] empleadosField;
+        
+        private int idServicioField;
+        
+        private bool idServicioFieldSpecified;
+        
+        private string nombreField;
+        
+        private double precioField;
+        
+        private bool precioFieldSpecified;
+        
+        private double promedioValoracionField;
+        
+        private bool promedioValoracionFieldSpecified;
+        
+        private string tipoField;
+        
+        private string urlImagenField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public int activo {
+            get {
+                return this.activoField;
+            }
+            set {
+                this.activoField = value;
+                this.RaisePropertyChanged("activo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool activoSpecified {
+            get {
+                return this.activoFieldSpecified;
+            }
+            set {
+                this.activoFieldSpecified = value;
+                this.RaisePropertyChanged("activoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("citas", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public citaDTO[] citas {
+            get {
+                return this.citasField;
+            }
+            set {
+                this.citasField = value;
+                this.RaisePropertyChanged("citas");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("comentarios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=2)]
+        public comentarioDTO[] comentarios {
+            get {
+                return this.comentariosField;
+            }
+            set {
+                this.comentariosField = value;
+                this.RaisePropertyChanged("comentarios");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string descripcion {
+            get {
+                return this.descripcionField;
+            }
+            set {
+                this.descripcionField = value;
+                this.RaisePropertyChanged("descripcion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public int duracionHora {
+            get {
+                return this.duracionHoraField;
+            }
+            set {
+                this.duracionHoraField = value;
+                this.RaisePropertyChanged("duracionHora");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool duracionHoraSpecified {
+            get {
+                return this.duracionHoraFieldSpecified;
+            }
+            set {
+                this.duracionHoraFieldSpecified = value;
+                this.RaisePropertyChanged("duracionHoraSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("empleados", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=5)]
+        public empleadoDTO[] empleados {
+            get {
+                return this.empleadosField;
+            }
+            set {
+                this.empleadosField = value;
+                this.RaisePropertyChanged("empleados");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        public int idServicio {
+            get {
+                return this.idServicioField;
+            }
+            set {
+                this.idServicioField = value;
+                this.RaisePropertyChanged("idServicio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idServicioSpecified {
+            get {
+                return this.idServicioFieldSpecified;
+            }
+            set {
+                this.idServicioFieldSpecified = value;
+                this.RaisePropertyChanged("idServicioSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public string nombre {
+            get {
+                return this.nombreField;
+            }
+            set {
+                this.nombreField = value;
+                this.RaisePropertyChanged("nombre");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        public double precio {
+            get {
+                return this.precioField;
+            }
+            set {
+                this.precioField = value;
+                this.RaisePropertyChanged("precio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool precioSpecified {
+            get {
+                return this.precioFieldSpecified;
+            }
+            set {
+                this.precioFieldSpecified = value;
+                this.RaisePropertyChanged("precioSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
+        public double promedioValoracion {
+            get {
+                return this.promedioValoracionField;
+            }
+            set {
+                this.promedioValoracionField = value;
+                this.RaisePropertyChanged("promedioValoracion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool promedioValoracionSpecified {
+            get {
+                return this.promedioValoracionFieldSpecified;
+            }
+            set {
+                this.promedioValoracionFieldSpecified = value;
+                this.RaisePropertyChanged("promedioValoracionSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
+        public string tipo {
+            get {
+                return this.tipoField;
+            }
+            set {
+                this.tipoField = value;
+                this.RaisePropertyChanged("tipo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
+        public string urlImagen {
+            get {
+                return this.urlImagenField;
+            }
+            set {
+                this.urlImagenField = value;
+                this.RaisePropertyChanged("urlImagen");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
         }
     }
     
@@ -590,89 +1052,33 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class calendarioDTO : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class tipoProdDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private empleadoDTO empleadoField;
+        private int idField;
         
-        private System.DateTime fechaField;
-        
-        private bool fechaFieldSpecified;
-        
-        private int cantLibreField;
-        
-        private bool cantLibreFieldSpecified;
-        
-        private string motivoField;
+        private string nombreField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public empleadoDTO empleado {
+        public int id {
             get {
-                return this.empleadoField;
+                return this.idField;
             }
             set {
-                this.empleadoField = value;
-                this.RaisePropertyChanged("empleado");
+                this.idField = value;
+                this.RaisePropertyChanged("id");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public System.DateTime fecha {
+        public string nombre {
             get {
-                return this.fechaField;
+                return this.nombreField;
             }
             set {
-                this.fechaField = value;
-                this.RaisePropertyChanged("fecha");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool fechaSpecified {
-            get {
-                return this.fechaFieldSpecified;
-            }
-            set {
-                this.fechaFieldSpecified = value;
-                this.RaisePropertyChanged("fechaSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public int cantLibre {
-            get {
-                return this.cantLibreField;
-            }
-            set {
-                this.cantLibreField = value;
-                this.RaisePropertyChanged("cantLibre");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool cantLibreSpecified {
-            get {
-                return this.cantLibreFieldSpecified;
-            }
-            set {
-                this.cantLibreFieldSpecified = value;
-                this.RaisePropertyChanged("cantLibreSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string motivo {
-            get {
-                return this.motivoField;
-            }
-            set {
-                this.motivoField = value;
-                this.RaisePropertyChanged("motivo");
+                this.nombreField = value;
+                this.RaisePropertyChanged("nombre");
             }
         }
         
@@ -692,92 +1098,25 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class empleadoDTO : usuarioDTO {
-        
-        private bool adminField;
-        
-        private bool adminFieldSpecified;
-        
-        private servicioDTO[] serviciosField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public bool admin {
-            get {
-                return this.adminField;
-            }
-            set {
-                this.adminField = value;
-                this.RaisePropertyChanged("admin");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool adminSpecified {
-            get {
-                return this.adminFieldSpecified;
-            }
-            set {
-                this.adminFieldSpecified = value;
-                this.RaisePropertyChanged("adminSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("servicios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
-        public servicioDTO[] servicios {
-            get {
-                return this.serviciosField;
-            }
-            set {
-                this.serviciosField = value;
-                this.RaisePropertyChanged("servicios");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class servicioDTO : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class productoTipoDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
         private int activoField;
         
         private bool activoFieldSpecified;
         
-        private citaDTO[] citasField;
+        private string ingredientesField;
         
-        private comentarioDTO[] comentariosField;
+        private productoDTO productoField;
         
-        private string descripcionField;
+        private int stock_despachoField;
         
-        private int duracionHoraField;
+        private bool stock_despachoFieldSpecified;
         
-        private bool duracionHoraFieldSpecified;
+        private int stock_fisicoField;
         
-        private empleadoDTO[] empleadosField;
+        private bool stock_fisicoFieldSpecified;
         
-        private int idServicioField;
-        
-        private bool idServicioFieldSpecified;
-        
-        private string nombreField;
-        
-        private double precioField;
-        
-        private bool precioFieldSpecified;
-        
-        private double promedioValoracionField;
-        
-        private bool promedioValoracionFieldSpecified;
-        
-        private string tipoField;
-        
-        private string urlImagenField;
+        private tipoProdDTO tipoField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -804,269 +1143,19 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("citas", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
-        public citaDTO[] citas {
-            get {
-                return this.citasField;
-            }
-            set {
-                this.citasField = value;
-                this.RaisePropertyChanged("citas");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("comentarios", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=2)]
-        public comentarioDTO[] comentarios {
-            get {
-                return this.comentariosField;
-            }
-            set {
-                this.comentariosField = value;
-                this.RaisePropertyChanged("comentarios");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string descripcion {
-            get {
-                return this.descripcionField;
-            }
-            set {
-                this.descripcionField = value;
-                this.RaisePropertyChanged("descripcion");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public int duracionHora {
-            get {
-                return this.duracionHoraField;
-            }
-            set {
-                this.duracionHoraField = value;
-                this.RaisePropertyChanged("duracionHora");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool duracionHoraSpecified {
-            get {
-                return this.duracionHoraFieldSpecified;
-            }
-            set {
-                this.duracionHoraFieldSpecified = value;
-                this.RaisePropertyChanged("duracionHoraSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("empleados", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=5)]
-        public empleadoDTO[] empleados {
-            get {
-                return this.empleadosField;
-            }
-            set {
-                this.empleadosField = value;
-                this.RaisePropertyChanged("empleados");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
-        public int idServicio {
-            get {
-                return this.idServicioField;
-            }
-            set {
-                this.idServicioField = value;
-                this.RaisePropertyChanged("idServicio");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool idServicioSpecified {
-            get {
-                return this.idServicioFieldSpecified;
-            }
-            set {
-                this.idServicioFieldSpecified = value;
-                this.RaisePropertyChanged("idServicioSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
-        public string nombre {
-            get {
-                return this.nombreField;
-            }
-            set {
-                this.nombreField = value;
-                this.RaisePropertyChanged("nombre");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
-        public double precio {
-            get {
-                return this.precioField;
-            }
-            set {
-                this.precioField = value;
-                this.RaisePropertyChanged("precio");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool precioSpecified {
-            get {
-                return this.precioFieldSpecified;
-            }
-            set {
-                this.precioFieldSpecified = value;
-                this.RaisePropertyChanged("precioSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
-        public double promedioValoracion {
-            get {
-                return this.promedioValoracionField;
-            }
-            set {
-                this.promedioValoracionField = value;
-                this.RaisePropertyChanged("promedioValoracion");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool promedioValoracionSpecified {
-            get {
-                return this.promedioValoracionFieldSpecified;
-            }
-            set {
-                this.promedioValoracionFieldSpecified = value;
-                this.RaisePropertyChanged("promedioValoracionSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
-        public string tipo {
-            get {
-                return this.tipoField;
-            }
-            set {
-                this.tipoField = value;
-                this.RaisePropertyChanged("tipo");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
-        public string urlImagen {
-            get {
-                return this.urlImagenField;
-            }
-            set {
-                this.urlImagenField = value;
-                this.RaisePropertyChanged("urlImagen");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class comentarioDTO : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private clienteDTO clienteField;
-        
-        private string comentarioField;
-        
-        private int idComentarioField;
-        
-        private bool idComentarioFieldSpecified;
-        
-        private productoDTO productoField;
-        
-        private servicioDTO servicioField;
-        
-        private int valoracionField;
-        
-        private bool valoracionFieldSpecified;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public clienteDTO cliente {
-            get {
-                return this.clienteField;
-            }
-            set {
-                this.clienteField = value;
-                this.RaisePropertyChanged("cliente");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string comentario {
+        public string ingredientes {
             get {
-                return this.comentarioField;
+                return this.ingredientesField;
             }
             set {
-                this.comentarioField = value;
-                this.RaisePropertyChanged("comentario");
+                this.ingredientesField = value;
+                this.RaisePropertyChanged("ingredientes");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public int idComentario {
-            get {
-                return this.idComentarioField;
-            }
-            set {
-                this.idComentarioField = value;
-                this.RaisePropertyChanged("idComentario");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool idComentarioSpecified {
-            get {
-                return this.idComentarioFieldSpecified;
-            }
-            set {
-                this.idComentarioFieldSpecified = value;
-                this.RaisePropertyChanged("idComentarioSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
         public productoDTO producto {
             get {
                 return this.productoField;
@@ -1078,38 +1167,62 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public servicioDTO servicio {
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public int stock_despacho {
             get {
-                return this.servicioField;
+                return this.stock_despachoField;
             }
             set {
-                this.servicioField = value;
-                this.RaisePropertyChanged("servicio");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
-        public int valoracion {
-            get {
-                return this.valoracionField;
-            }
-            set {
-                this.valoracionField = value;
-                this.RaisePropertyChanged("valoracion");
+                this.stock_despachoField = value;
+                this.RaisePropertyChanged("stock_despacho");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool valoracionSpecified {
+        public bool stock_despachoSpecified {
             get {
-                return this.valoracionFieldSpecified;
+                return this.stock_despachoFieldSpecified;
             }
             set {
-                this.valoracionFieldSpecified = value;
-                this.RaisePropertyChanged("valoracionSpecified");
+                this.stock_despachoFieldSpecified = value;
+                this.RaisePropertyChanged("stock_despachoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public int stock_fisico {
+            get {
+                return this.stock_fisicoField;
+            }
+            set {
+                this.stock_fisicoField = value;
+                this.RaisePropertyChanged("stock_fisico");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool stock_fisicoSpecified {
+            get {
+                return this.stock_fisicoFieldSpecified;
+            }
+            set {
+                this.stock_fisicoFieldSpecified = value;
+                this.RaisePropertyChanged("stock_fisicoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public tipoProdDTO tipo {
+            get {
+                return this.tipoField;
+            }
+            set {
+                this.tipoField = value;
+                this.RaisePropertyChanged("tipo");
             }
         }
         
@@ -1371,64 +1484,74 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class productoTipoDTO : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class comentarioDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private int activoField;
+        private clienteDTO clienteField;
         
-        private bool activoFieldSpecified;
+        private string comentarioField;
         
-        private string ingredientesField;
+        private int idComentarioField;
+        
+        private bool idComentarioFieldSpecified;
         
         private productoDTO productoField;
         
-        private int stock_despachoField;
+        private servicioDTO servicioField;
         
-        private bool stock_despachoFieldSpecified;
+        private int valoracionField;
         
-        private int stock_fisicoField;
-        
-        private bool stock_fisicoFieldSpecified;
-        
-        private tipoProdDTO tipoField;
+        private bool valoracionFieldSpecified;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public int activo {
+        public clienteDTO cliente {
             get {
-                return this.activoField;
+                return this.clienteField;
             }
             set {
-                this.activoField = value;
-                this.RaisePropertyChanged("activo");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool activoSpecified {
-            get {
-                return this.activoFieldSpecified;
-            }
-            set {
-                this.activoFieldSpecified = value;
-                this.RaisePropertyChanged("activoSpecified");
+                this.clienteField = value;
+                this.RaisePropertyChanged("cliente");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string ingredientes {
+        public string comentario {
             get {
-                return this.ingredientesField;
+                return this.comentarioField;
             }
             set {
-                this.ingredientesField = value;
-                this.RaisePropertyChanged("ingredientes");
+                this.comentarioField = value;
+                this.RaisePropertyChanged("comentario");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public int idComentario {
+            get {
+                return this.idComentarioField;
+            }
+            set {
+                this.idComentarioField = value;
+                this.RaisePropertyChanged("idComentario");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idComentarioSpecified {
+            get {
+                return this.idComentarioFieldSpecified;
+            }
+            set {
+                this.idComentarioFieldSpecified = value;
+                this.RaisePropertyChanged("idComentarioSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
         public productoDTO producto {
             get {
                 return this.productoField;
@@ -1440,62 +1563,38 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public int stock_despacho {
-            get {
-                return this.stock_despachoField;
-            }
-            set {
-                this.stock_despachoField = value;
-                this.RaisePropertyChanged("stock_despacho");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool stock_despachoSpecified {
-            get {
-                return this.stock_despachoFieldSpecified;
-            }
-            set {
-                this.stock_despachoFieldSpecified = value;
-                this.RaisePropertyChanged("stock_despachoSpecified");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public int stock_fisico {
+        public servicioDTO servicio {
             get {
-                return this.stock_fisicoField;
+                return this.servicioField;
             }
             set {
-                this.stock_fisicoField = value;
-                this.RaisePropertyChanged("stock_fisico");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool stock_fisicoSpecified {
-            get {
-                return this.stock_fisicoFieldSpecified;
-            }
-            set {
-                this.stock_fisicoFieldSpecified = value;
-                this.RaisePropertyChanged("stock_fisicoSpecified");
+                this.servicioField = value;
+                this.RaisePropertyChanged("servicio");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
-        public tipoProdDTO tipo {
+        public int valoracion {
             get {
-                return this.tipoField;
+                return this.valoracionField;
             }
             set {
-                this.tipoField = value;
-                this.RaisePropertyChanged("tipo");
+                this.valoracionField = value;
+                this.RaisePropertyChanged("valoracion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool valoracionSpecified {
+            get {
+                return this.valoracionFieldSpecified;
+            }
+            set {
+                this.valoracionFieldSpecified = value;
+                this.RaisePropertyChanged("valoracionSpecified");
             }
         }
         
@@ -1506,88 +1605,6 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class tipoProdDTO : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private int idField;
-        
-        private string nombreField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-                this.RaisePropertyChanged("id");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string nombre {
-            get {
-                return this.nombreField;
-            }
-            set {
-                this.nombreField = value;
-                this.RaisePropertyChanged("nombre");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCita", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ReservarBloqueYCitaRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSCalendario.citaDTO cita;
-        
-        public ReservarBloqueYCitaRequest() {
-        }
-        
-        public ReservarBloqueYCitaRequest(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
-            this.cita = cita;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCitaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ReservarBloqueYCitaResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public ReservarBloqueYCitaResponse() {
-        }
-        
-        public ReservarBloqueYCitaResponse(int @return) {
-            this.@return = @return;
         }
     }
     
@@ -1659,6 +1676,88 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         public ListarCalendarioDeEmpleadoResponse(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponibles", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class CalcularBloquesDisponiblesRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int empleadoId;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public System.DateTime fecha;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int duracionServicioMinutos;
+        
+        public CalcularBloquesDisponiblesRequest() {
+        }
+        
+        public CalcularBloquesDisponiblesRequest(int empleadoId, System.DateTime fecha, int duracionServicioMinutos) {
+            this.empleadoId = empleadoId;
+            this.fecha = fecha;
+            this.duracionServicioMinutos = duracionServicioMinutos;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="CalcularBloquesDisponiblesResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class CalcularBloquesDisponiblesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string[] @return;
+        
+        public CalcularBloquesDisponiblesResponse() {
+        }
+        
+        public CalcularBloquesDisponiblesResponse(string[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCita", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ReservarBloqueYCitaRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSCalendario.citaDTO cita;
+        
+        public ReservarBloqueYCitaRequest() {
+        }
+        
+        public ReservarBloqueYCitaRequest(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita) {
+            this.cita = cita;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ReservarBloqueYCitaResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ReservarBloqueYCitaResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public ReservarBloqueYCitaResponse() {
+        }
+        
+        public ReservarBloqueYCitaResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -1763,6 +1862,98 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.eliminar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request) {
+            return base.Channel.eliminar30DiasCalendario(request);
+        }
+        
+        public int eliminar30DiasCalendario(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest();
+            inValue.empleadoId = empleadoId;
+            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).eliminar30DiasCalendario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.eliminar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest request) {
+            return base.Channel.eliminar30DiasCalendarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioResponse> eliminar30DiasCalendarioAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.eliminar30DiasCalendarioRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).eliminar30DiasCalendarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.insertar30DiasCalendario(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request) {
+            return base.Channel.insertar30DiasCalendario(request);
+        }
+        
+        public int insertar30DiasCalendario(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest();
+            inValue.empleadoId = empleadoId;
+            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).insertar30DiasCalendario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.insertar30DiasCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest request) {
+            return base.Channel.insertar30DiasCalendarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioResponse> insertar30DiasCalendarioAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.insertar30DiasCalendarioRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).insertar30DiasCalendarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ModificarCalendario(SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest request) {
+            return base.Channel.ModificarCalendario(request);
+        }
+        
+        public int ModificarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest();
+            inValue.calendario = calendario;
+            SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ModificarCalendario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ModificarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest request) {
+            return base.Channel.ModificarCalendarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse> ModificarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
+            SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest();
+            inValue.calendario = calendario;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ModificarCalendarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleado(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
+            return base.Channel.ListarCalendarioDeEmpleado(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO[] ListarCalendarioDeEmpleado(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
+            inValue.empleadoId = empleadoId;
+            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleado(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
+            return base.Channel.ListarCalendarioDeEmpleadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(int empleadoId) {
+            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
+            inValue.empleadoId = empleadoId;
+            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleadoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.CalcularBloquesDisponibles(SoftInvBusiness.SoftInvWSCalendario.CalcularBloquesDisponiblesRequest request) {
             return base.Channel.CalcularBloquesDisponibles(request);
         }
@@ -1810,52 +2001,6 @@ namespace SoftInvBusiness.SoftInvWSCalendario {
             SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ReservarBloqueYCitaRequest();
             inValue.cita = cita;
             return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ReservarBloqueYCitaAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ModificarCalendario(SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest request) {
-            return base.Channel.ModificarCalendario(request);
-        }
-        
-        public int ModificarCalendario(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest();
-            inValue.calendario = calendario;
-            SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ModificarCalendario(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ModificarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest request) {
-            return base.Channel.ModificarCalendarioAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioResponse> ModificarCalendarioAsync(SoftInvBusiness.SoftInvWSCalendario.calendarioDTO calendario) {
-            SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ModificarCalendarioRequest();
-            inValue.calendario = calendario;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ModificarCalendarioAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleado(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
-            return base.Channel.ListarCalendarioDeEmpleado(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSCalendario.calendarioDTO[] ListarCalendarioDeEmpleado(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
-            inValue.empleadoId = empleadoId;
-            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse retVal = ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleado(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> SoftInvBusiness.SoftInvWSCalendario.Calendario.ListarCalendarioDeEmpleadoAsync(SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest request) {
-            return base.Channel.ListarCalendarioDeEmpleadoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoResponse> ListarCalendarioDeEmpleadoAsync(int empleadoId) {
-            SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest inValue = new SoftInvBusiness.SoftInvWSCalendario.ListarCalendarioDeEmpleadoRequest();
-            inValue.empleadoId = empleadoId;
-            return ((SoftInvBusiness.SoftInvWSCalendario.Calendario)(this)).ListarCalendarioDeEmpleadoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

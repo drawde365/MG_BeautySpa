@@ -12,12 +12,13 @@ namespace MGBeautySpaWebAplication.Admin
         private ServicioBO servicioBO;
         private HorarioTrabajoBO horarioTrabajoBO;
         private EmpleadoBO empleadoBO;
-
+        CalendarioBO calendarioBO;
         protected void Page_Load(object sender, EventArgs e)
         {
             servicioBO = new ServicioBO();
             horarioTrabajoBO = new HorarioTrabajoBO();
             empleadoBO = new EmpleadoBO();
+            calendarioBO = new CalendarioBO();
 
             if (!IsPostBack)
             {
@@ -107,6 +108,8 @@ namespace MGBeautySpaWebAplication.Admin
 
                 // 3) Registrar todos los horarios (HorarioTrabajo.InsertarHorarioTrabajo)
                 RegistrarHorariosEmpleadoSOAP(empleadoId, horarios);
+                
+                calendarioBO.insertar30DiasCalendarioEmpleado(empleadoId);
 
                 // 4) Asignar servicios cosmetológicos (Empleado.AgregarServicioAEmpleado)
                 AsignarServiciosEmpleadoSOAP(empleadoId);

@@ -204,8 +204,9 @@ public class CalendarioDAOImpl extends DAOImplBase implements CalendarioDAO {
         
         return registrosInsertados;
     }
-     
-     public Integer eliminar30DiasFuturos(Integer empleadoId) {
+    
+    @Override
+    public Integer eliminar30DiasFuturos(Integer empleadoId) {
         int registrosEliminados = 0;
         Calendar calendar = Calendar.getInstance();
 

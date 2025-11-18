@@ -46,16 +46,6 @@
       <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="MarcarTokenComoUsado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="token" type="tns:contrasenhaTokenDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="MarcarTokenComoUsadoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="ActivoUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="userId" type="xs:int" />
@@ -63,6 +53,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ActivoUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MarcarTokenComoUsado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="token" type="tns:contrasenhaTokenDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MarcarTokenComoUsadoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

@@ -5,23 +5,11 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Comentario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="ModificarComentario">
-    <part name="parameters" element="tns:ModificarComentario" />
+  <message name="ObtenerComentariosPorServicio">
+    <part name="parameters" element="tns:ObtenerComentariosPorServicio" />
   </message>
-  <message name="ModificarComentarioResponse">
-    <part name="parameters" element="tns:ModificarComentarioResponse" />
-  </message>
-  <message name="InsertarComentarioDeProducto">
-    <part name="parameters" element="tns:InsertarComentarioDeProducto" />
-  </message>
-  <message name="InsertarComentarioDeProductoResponse">
-    <part name="parameters" element="tns:InsertarComentarioDeProductoResponse" />
-  </message>
-  <message name="ObtenerComentariosPorProducto">
-    <part name="parameters" element="tns:ObtenerComentariosPorProducto" />
-  </message>
-  <message name="ObtenerComentariosPorProductoResponse">
-    <part name="parameters" element="tns:ObtenerComentariosPorProductoResponse" />
+  <message name="ObtenerComentariosPorServicioResponse">
+    <part name="parameters" element="tns:ObtenerComentariosPorServicioResponse" />
   </message>
   <message name="InsertarComentarioDeServicio">
     <part name="parameters" element="tns:InsertarComentarioDeServicio" />
@@ -29,11 +17,23 @@
   <message name="InsertarComentarioDeServicioResponse">
     <part name="parameters" element="tns:InsertarComentarioDeServicioResponse" />
   </message>
-  <message name="ObtenerComentariosPorServicio">
-    <part name="parameters" element="tns:ObtenerComentariosPorServicio" />
+  <message name="ObtenerComentariosPorProducto">
+    <part name="parameters" element="tns:ObtenerComentariosPorProducto" />
   </message>
-  <message name="ObtenerComentariosPorServicioResponse">
-    <part name="parameters" element="tns:ObtenerComentariosPorServicioResponse" />
+  <message name="ObtenerComentariosPorProductoResponse">
+    <part name="parameters" element="tns:ObtenerComentariosPorProductoResponse" />
+  </message>
+  <message name="InsertarComentarioDeProducto">
+    <part name="parameters" element="tns:InsertarComentarioDeProducto" />
+  </message>
+  <message name="InsertarComentarioDeProductoResponse">
+    <part name="parameters" element="tns:InsertarComentarioDeProductoResponse" />
+  </message>
+  <message name="ModificarComentario">
+    <part name="parameters" element="tns:ModificarComentario" />
+  </message>
+  <message name="ModificarComentarioResponse">
+    <part name="parameters" element="tns:ModificarComentarioResponse" />
   </message>
   <message name="EliminarComentario">
     <part name="parameters" element="tns:EliminarComentario" />
@@ -42,25 +42,25 @@
     <part name="parameters" element="tns:EliminarComentarioResponse" />
   </message>
   <portType name="Comentario">
-    <operation name="ModificarComentario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ModificarComentarioRequest" message="tns:ModificarComentario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ModificarComentarioResponse" message="tns:ModificarComentarioResponse" />
-    </operation>
-    <operation name="InsertarComentarioDeProducto">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/InsertarComentarioDeProductoRequest" message="tns:InsertarComentarioDeProducto" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/InsertarComentarioDeProductoResponse" message="tns:InsertarComentarioDeProductoResponse" />
-    </operation>
-    <operation name="ObtenerComentariosPorProducto">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorProductoRequest" message="tns:ObtenerComentariosPorProducto" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorProductoResponse" message="tns:ObtenerComentariosPorProductoResponse" />
+    <operation name="ObtenerComentariosPorServicio">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorServicioRequest" message="tns:ObtenerComentariosPorServicio" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorServicioResponse" message="tns:ObtenerComentariosPorServicioResponse" />
     </operation>
     <operation name="InsertarComentarioDeServicio">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/InsertarComentarioDeServicioRequest" message="tns:InsertarComentarioDeServicio" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/InsertarComentarioDeServicioResponse" message="tns:InsertarComentarioDeServicioResponse" />
     </operation>
-    <operation name="ObtenerComentariosPorServicio">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorServicioRequest" message="tns:ObtenerComentariosPorServicio" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorServicioResponse" message="tns:ObtenerComentariosPorServicioResponse" />
+    <operation name="ObtenerComentariosPorProducto">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorProductoRequest" message="tns:ObtenerComentariosPorProducto" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorProductoResponse" message="tns:ObtenerComentariosPorProductoResponse" />
+    </operation>
+    <operation name="InsertarComentarioDeProducto">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/InsertarComentarioDeProductoRequest" message="tns:InsertarComentarioDeProducto" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/InsertarComentarioDeProductoResponse" message="tns:InsertarComentarioDeProductoResponse" />
+    </operation>
+    <operation name="ModificarComentario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ModificarComentarioRequest" message="tns:ModificarComentario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ModificarComentarioResponse" message="tns:ModificarComentarioResponse" />
     </operation>
     <operation name="EliminarComentario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/EliminarComentarioRequest" message="tns:EliminarComentario" />
@@ -69,25 +69,7 @@
   </portType>
   <binding name="ComentarioPortBinding" type="tns:Comentario">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="ModificarComentario">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="InsertarComentarioDeProducto">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="ObtenerComentariosPorProducto">
+    <operation name="ObtenerComentariosPorServicio">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -105,7 +87,25 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ObtenerComentariosPorServicio">
+    <operation name="ObtenerComentariosPorProducto">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertarComentarioDeProducto">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ModificarComentario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

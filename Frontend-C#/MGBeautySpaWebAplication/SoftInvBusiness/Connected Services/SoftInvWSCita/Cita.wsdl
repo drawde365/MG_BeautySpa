@@ -11,6 +11,18 @@
   <message name="ListarCitasPorUsuarioResponse">
     <part name="parameters" element="tns:ListarCitasPorUsuarioResponse" />
   </message>
+  <message name="InsertarCitaPorPartes">
+    <part name="parameters" element="tns:InsertarCitaPorPartes" />
+  </message>
+  <message name="InsertarCitaPorPartesResponse">
+    <part name="parameters" element="tns:InsertarCitaPorPartesResponse" />
+  </message>
+  <message name="ModificarCita">
+    <part name="parameters" element="tns:ModificarCita" />
+  </message>
+  <message name="ModificarCitaResponse">
+    <part name="parameters" element="tns:ModificarCitaResponse" />
+  </message>
   <message name="ObtenerCitaPorId">
     <part name="parameters" element="tns:ObtenerCitaPorId" />
   </message>
@@ -22,12 +34,6 @@
   </message>
   <message name="InsertarCitaResponse">
     <part name="parameters" element="tns:InsertarCitaResponse" />
-  </message>
-  <message name="ModificarCita">
-    <part name="parameters" element="tns:ModificarCita" />
-  </message>
-  <message name="ModificarCitaResponse">
-    <part name="parameters" element="tns:ModificarCitaResponse" />
   </message>
   <message name="ListarTodosCita">
     <part name="parameters" element="tns:ListarTodosCita" />
@@ -41,16 +47,18 @@
   <message name="EliminarCitaResponse">
     <part name="parameters" element="tns:EliminarCitaResponse" />
   </message>
-  <message name="InsertarCitaPorPartes">
-    <part name="parameters" element="tns:InsertarCitaPorPartes" />
-  </message>
-  <message name="InsertarCitaPorPartesResponse">
-    <part name="parameters" element="tns:InsertarCitaPorPartesResponse" />
-  </message>
   <portType name="Cita">
     <operation name="ListarCitasPorUsuario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarCitasPorUsuarioRequest" message="tns:ListarCitasPorUsuario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarCitasPorUsuarioResponse" message="tns:ListarCitasPorUsuarioResponse" />
+    </operation>
+    <operation name="InsertarCitaPorPartes">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesRequest" message="tns:InsertarCitaPorPartes" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesResponse" message="tns:InsertarCitaPorPartesResponse" />
+    </operation>
+    <operation name="ModificarCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaRequest" message="tns:ModificarCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaResponse" message="tns:ModificarCitaResponse" />
     </operation>
     <operation name="ObtenerCitaPorId">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdRequest" message="tns:ObtenerCitaPorId" />
@@ -60,10 +68,6 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaRequest" message="tns:InsertarCita" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaResponse" message="tns:InsertarCitaResponse" />
     </operation>
-    <operation name="ModificarCita">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaRequest" message="tns:ModificarCita" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaResponse" message="tns:ModificarCitaResponse" />
-    </operation>
     <operation name="ListarTodosCita">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarTodosCitaRequest" message="tns:ListarTodosCita" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarTodosCitaResponse" message="tns:ListarTodosCitaResponse" />
@@ -71,10 +75,6 @@
     <operation name="EliminarCita">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaRequest" message="tns:EliminarCita" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaResponse" message="tns:EliminarCitaResponse" />
-    </operation>
-    <operation name="InsertarCitaPorPartes">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesRequest" message="tns:InsertarCitaPorPartes" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesResponse" message="tns:InsertarCitaPorPartesResponse" />
     </operation>
   </portType>
   <binding name="CitaPortBinding" type="tns:Cita">
@@ -88,6 +88,24 @@
         <soap:body use="literal" />
       </output>
     </operation>
+    <operation name="InsertarCitaPorPartes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ModificarCita">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
     <operation name="ObtenerCitaPorId">
       <soap:operation soapAction="" />
       <input>
@@ -106,15 +124,6 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ModificarCita">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
     <operation name="ListarTodosCita">
       <soap:operation soapAction="" />
       <input>
@@ -125,15 +134,6 @@
       </output>
     </operation>
     <operation name="EliminarCita">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="InsertarCitaPorPartes">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
