@@ -100,7 +100,9 @@ namespace MGBeautySpaWebAplication
 
         protected void btnInvitado_Click(object sender, EventArgs e)
         {
+            // ✅ Limpiar AMBAS sesiones de comentarios pendientes
             Session.Remove("ComentarioPendiente");
+            Session.Remove("ComentarioPendienteS");
 
             string returnUrl = Session["ReturnUrl"] as string;
             Session.Remove("ReturnUrl");
