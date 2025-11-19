@@ -263,6 +263,12 @@
     <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ObtenerEmpleadoPorIdResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.ObtenerServiciosNoBrindadosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.QuitarServicioAEmpleadoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSEmpleado\SoftInvBusiness.SoftInvWSEmpleado.servicioDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

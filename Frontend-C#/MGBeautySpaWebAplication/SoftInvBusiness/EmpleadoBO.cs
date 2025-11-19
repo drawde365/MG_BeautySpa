@@ -81,6 +81,11 @@ namespace SoftInvBusiness
         {
             return empleadoSOAP.ListarCitasDeEmpleado(empleadoId);
         }
+
+        public IList<servicioDTO> ObtenerServiciosNoBrindadosDeEmpleado(int empleadoId)
+        {
+            return empleadoSOAP.ObtenerServiciosNoBrindados(empleadoId);
+        }
     }
 }
 

@@ -109,7 +109,8 @@ namespace MGBeautySpaWebAplication.Admin
             rpServiciosEmpleado.DataBind();
 
             // Servicios disponibles para asignar (ajusta al método que tengas en tu BO)
-            var disponibles = servicioBO.ListarTodoActivo(); // si tienes uno más específico, úsalo aquí
+            var disponibles = empleadoBO.ObtenerServiciosNoBrindadosDeEmpleado(idEmpleado); // si tienes uno más específico, úsalo aquí
+
             ddlServiciosDisponibles.DataSource = disponibles;
             ddlServiciosDisponibles.DataTextField = "nombre";
             ddlServiciosDisponibles.DataValueField = "idServicio";

@@ -18,6 +18,8 @@
   <xs:element name="ModificarEmpleadoResponse" type="tns:ModificarEmpleadoResponse" />
   <xs:element name="ObtenerEmpleadoPorId" type="tns:ObtenerEmpleadoPorId" />
   <xs:element name="ObtenerEmpleadoPorIdResponse" type="tns:ObtenerEmpleadoPorIdResponse" />
+  <xs:element name="ObtenerServiciosNoBrindados" type="tns:ObtenerServiciosNoBrindados" />
+  <xs:element name="ObtenerServiciosNoBrindadosResponse" type="tns:ObtenerServiciosNoBrindadosResponse" />
   <xs:element name="QuitarServicioAEmpleado" type="tns:QuitarServicioAEmpleado" />
   <xs:element name="QuitarServicioAEmpleadoResponse" type="tns:QuitarServicioAEmpleadoResponse" />
   <xs:complexType name="InsertarEmpleadoPorPartes">
@@ -175,6 +177,16 @@
   <xs:complexType name="ListarTodosEmpleadosResponse">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:empleadoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerServiciosNoBrindados">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empleadoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerServiciosNoBrindadosResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:servicioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarEmpleado">
