@@ -20,7 +20,7 @@ namespace MGBeautySpaWebAplication.Cliente
         private ProductoBO productoBO;
         private ComentarioBO comentarioBO;
         private ProductoTipoBO productoTipoBO;
-        private PedidoBO pedidoBO; // <-- 1. AÑADIDO
+        private PedidoBO pedidoBO;
         private SoftInvBusiness.SoftInvWSProductos.productoDTO producto;
         private IList<SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO> tipos;
 
@@ -216,7 +216,8 @@ namespace MGBeautySpaWebAplication.Cliente
                 carro.idPedido = pedidoBO.Insertar(carro);
 
                 carrito = carro;
-            } else if(carrito.idPedido==0)
+            }
+            else if (carrito.idPedido == 0)
             {
                 pedidoDTO carro = new pedidoDTO();
                 carro.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO();
@@ -232,7 +233,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 carrito = carro;
             }
 
-                var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
+            var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
             int totalItemsAdded = 0;
 
             foreach (RepeaterItem item in rpPresentaciones.Items)
@@ -388,11 +389,10 @@ namespace MGBeautySpaWebAplication.Cliente
             try
             {
                 // ✅ VERIFICAR SI ESTAMOS EDITANDO O INSERTANDO
-                int idComentarioEditando = (int)Session["ComentarioEditando"];
-
-                if (idComentarioEditando!=0)
+                int? idComentarioEditando = (int?)Session["ComentarioEditando"];
+                if (idComentarioEditando != null && idComentarioEditando != 0)
                 {
-                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente = comentarioBO.ObtenerComentarioPorId(idComentarioEditando);
+                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente = comentarioBO.ObtenerComentarioPorId((int)idComentarioEditando);
                     // ✅ MODO EDICIÓN: Actualizar comentario existente
                     comentarioExistente.comentario = texto;
 

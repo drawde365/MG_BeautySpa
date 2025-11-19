@@ -101,6 +101,7 @@ namespace MGBeautySpaWebAplication
         protected void btnInvitado_Click(object sender, EventArgs e)
         {
             Session.Remove("ComentarioPendiente");
+            Session.Remove("ComentarioPendienteS");
 
             string returnUrl = Session["ReturnUrl"] as string;
             Session.Remove("ReturnUrl");
