@@ -1,5 +1,6 @@
 ﻿using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSComentario;
+using SoftInvBusiness.SoftInvWSProductos;
 using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Collections.Generic;
@@ -33,28 +34,8 @@ namespace MGBeautySpaWebAplication.Cliente
                 PintarServicio();
                 MostrarNombreUsuario();
 
-                // Verificar si viene de login con comentario pendiente
-                if (Session["ComentarioPendienteS"] != null)
-                {
-                    var ComentarioPendienteS = Session["ComentarioPendienteS"] as Dictionary<string, object>;
-                    if (ComentarioPendienteS != null)
-                    {
-                        int idServicioPendiente = (int)ComentarioPendienteS["idServicio"];
-
-                        // Verificar que estamos en la página del mismo servicio
-                        if (servicio != null && servicio.idServicio == idServicioPendiente)
-                        {
-                            txtComentario.Text = ComentarioPendienteS["comentario"].ToString();
-                            hdnValoracion.Value = ComentarioPendienteS["valoracion"].ToString();
-
-                            // Enviar el comentario automáticamente
-                            EnviarComentario();
-
-                            // Limpiar la sesión
-                            Session.Remove("ComentarioPendienteS");
-                        }
-                    }
-                }
+                // ✅ VERIFICAR SI VIENE DE LOGIN CON COMENTARIO PENDIENTE
+                VerificarYEnviarComentarioPendiente();
             }
             else
             {
@@ -81,6 +62,86 @@ namespace MGBeautySpaWebAplication.Cliente
             else
             {
                 servicio = Session["detalle_servicio"] as SoftInvBusiness.SoftInvWSServicio.servicioDTO;
+            }
+        }
+
+        private void VerificarYEnviarComentarioPendiente()
+        {
+            // Verificar que el usuario esté logueado
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+            if (usuario == null)
+            {
+                return;
+            }
+
+            // ✅ VERIFICAR LA SESIÓN CORRECTA: ComentarioPendienteS (con S de Servicio)
+            var comentarioPendiente = Session["ComentarioPendienteS"] as Dictionary<string, object>;
+
+            if (comentarioPendiente == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // ✅ VALIDAR QUE SEA EL SERVICIO CORRECTO **ANTES** DE LIMPIAR
+                if (!comentarioPendiente.ContainsKey("idServicio"))
+                {
+                    Session.Remove("ComentarioPendienteS");
+                    return;
+                }
+
+                int idServicioPendiente = (int)comentarioPendiente["idServicio"];
+
+                // ✅ SI NO ES EL SERVICIO CORRECTO, NO HACER NADA (mantener sesión)
+                if (servicio == null || servicio.idServicio != idServicioPendiente)
+                {
+                    return;
+                }
+
+                // ✅ AHORA SÍ - Es el servicio correcto, limpiar sesión
+                Session.Remove("ComentarioPendienteS");
+
+                // Validar datos antes de procesar
+                string comentarioTexto = comentarioPendiente["comentario"]?.ToString() ?? "";
+                string valoracionTexto = comentarioPendiente["valoracion"]?.ToString() ?? "0";
+
+                if (string.IsNullOrWhiteSpace(comentarioTexto))
+                {
+                    System.Diagnostics.Debug.WriteLine("Comentario pendiente vacío, se descarta.");
+                    return;
+                }
+
+                if (!int.TryParse(valoracionTexto, out int val) || val < 1 || val > 5)
+                {
+                    System.Diagnostics.Debug.WriteLine("Valoración pendiente inválida, se descarta.");
+                    return;
+                }
+
+                // Restaurar en el formulario
+                txtComentario.Text = comentarioTexto;
+                hdnValoracion.Value = valoracionTexto;
+
+                // Enviar automáticamente
+                EnviarComentario();
+
+                // Limpiar estrellas visuales
+                string scriptEstrellas = @"
+            setTimeout(function() {
+                var stars = document.querySelectorAll('.rating-star');
+                stars.forEach(function(s) {
+                    s.classList.remove('active');
+                    s.textContent = '☆';
+                });
+            }, 100);
+        ";
+                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellasAuto", scriptEstrellas, true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al verificar comentario pendiente: {ex.Message}");
+                Session.Remove("ComentarioPendienteS");
             }
         }
 
@@ -167,7 +228,7 @@ namespace MGBeautySpaWebAplication.Cliente
         {
             { "comentario", txtComentario.Text?.Trim() ?? "" },
             { "valoracion", hdnValoracion.Value },
-            { "idservicio", servicio.idServicio }
+            { "idServicio", servicio.idServicio }
         };
 
                 Session["ComentarioPendienteS"] = ComentarioPendienteS;
@@ -215,12 +276,17 @@ namespace MGBeautySpaWebAplication.Cliente
             try
             {
                 // ✅ VERIFICAR SI ESTAMOS EDITANDO O INSERTANDO
-                int? idComentarioEditando = (int?)Session["ComentarioEditando"];
-                if (idComentarioEditando != null && idComentarioEditando != 0)
+                int? idComentarioEditando = Session["ComentarioEditando"] as int?;
+
+                if (idComentarioEditando.HasValue && idComentarioEditando.Value > 0)
                 {
-                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente = comentarioBO.ObtenerComentarioPorId((int)idComentarioEditando);
-                    // ✅ MODO EDICIÓN: Actualizar comentario existente
+                    // ✅ MODO EDICIÓN
+                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente =
+                        comentarioBO.ObtenerComentarioPorId(idComentarioEditando.Value);
+
                     comentarioExistente.comentario = texto;
+                    comentarioExistente.valoracion = valoracion;
+                    comentarioExistente.valoracionSpecified = true;
 
                     comentarioBO.ModificarComentario(comentarioExistente);
 
@@ -235,8 +301,8 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
                 else
                 {
-                    // ✅ MODO INSERCIÓN: Crear nuevo comentario
-                    comentarioBO.InsertarComentarioDeServicio(
+                    // ✅ MODO INSERCIÓN
+                    comentarioBO.InsertarComentarioDeProducto(
                         usuario.idUsuario,
                         texto,
                         valoracion,

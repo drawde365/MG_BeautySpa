@@ -35,33 +35,14 @@ namespace MGBeautySpaWebAplication.Cliente
         protected void Page_Load(object sender, EventArgs e)
         {
             CargarDatos();
+
             if (!IsPostBack)
             {
                 PintarProducto();
                 MostrarNombreUsuario();
 
-                // Verificar si viene de login con comentario pendiente
-                if (Session["ComentarioPendiente"] != null)
-                {
-                    var comentarioPendiente = Session["ComentarioPendiente"] as Dictionary<string, object>;
-                    if (comentarioPendiente != null)
-                    {
-                        int idProductoPendiente = (int)comentarioPendiente["idProducto"];
-
-                        // Verificar que estamos en la página del mismo producto
-                        if (producto != null && producto.idProducto == idProductoPendiente)
-                        {
-                            txtComentario.Text = comentarioPendiente["comentario"].ToString();
-                            hdnValoracion.Value = comentarioPendiente["valoracion"].ToString();
-
-                            // Enviar el comentario automáticamente
-                            EnviarComentario();
-
-                            // Limpiar la sesión
-                            Session.Remove("ComentarioPendiente");
-                        }
-                    }
-                }
+                // ✅ VERIFICAR SI VIENE DE LOGIN CON COMENTARIO PENDIENTE
+                VerificarYEnviarComentarioPendiente();
             }
             else
             {
@@ -91,6 +72,86 @@ namespace MGBeautySpaWebAplication.Cliente
             {
                 producto = Session["detalle_producto"] as SoftInvBusiness.SoftInvWSProductos.productoDTO;
                 tipos = Session["detalle_tipos"] as IList<SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO>;
+            }
+        }
+
+        private void VerificarYEnviarComentarioPendiente()
+        {
+            // Verificar que el usuario esté logueado
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+            if (usuario == null)
+            {
+                return;
+            }
+
+            // Verificar si hay un comentario pendiente
+            var comentarioPendiente = Session["ComentarioPendiente"] as Dictionary<string, object>;
+
+            if (comentarioPendiente == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // ✅ VALIDAR QUE SEA EL PRODUCTO CORRECTO **ANTES** DE LIMPIAR
+                if (!comentarioPendiente.ContainsKey("idProducto"))
+                {
+                    Session.Remove("ComentarioPendiente");
+                    return;
+                }
+
+                int idProductoPendiente = (int)comentarioPendiente["idProducto"];
+
+                // ✅ SI NO ES EL PRODUCTO CORRECTO, NO HACER NADA (mantener sesión)
+                if (producto == null || producto.idProducto != idProductoPendiente)
+                {
+                    return;
+                }
+
+                // ✅ AHORA SÍ - Es el producto correcto, limpiar sesión
+                Session.Remove("ComentarioPendiente");
+
+                // Validar datos antes de procesar
+                string comentarioTexto = comentarioPendiente["comentario"]?.ToString() ?? "";
+                string valoracionTexto = comentarioPendiente["valoracion"]?.ToString() ?? "0";
+
+                if (string.IsNullOrWhiteSpace(comentarioTexto))
+                {
+                    System.Diagnostics.Debug.WriteLine("Comentario pendiente vacío, se descarta.");
+                    return;
+                }
+
+                if (!int.TryParse(valoracionTexto, out int val) || val < 1 || val > 5)
+                {
+                    System.Diagnostics.Debug.WriteLine("Valoración pendiente inválida, se descarta.");
+                    return;
+                }
+
+                // Restaurar en el formulario
+                txtComentario.Text = comentarioTexto;
+                hdnValoracion.Value = valoracionTexto;
+
+                // Enviar automáticamente
+                EnviarComentario();
+
+                // Limpiar estrellas visuales
+                string scriptEstrellas = @"
+            setTimeout(function() {
+                var stars = document.querySelectorAll('.rating-star');
+                stars.forEach(function(s) {
+                    s.classList.remove('active');
+                    s.textContent = '☆';
+                });
+            }, 100);
+        ";
+                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellasAuto", scriptEstrellas, true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al verificar comentario pendiente: {ex.Message}");
+                Session.Remove("ComentarioPendiente");
             }
         }
 
@@ -389,12 +450,27 @@ namespace MGBeautySpaWebAplication.Cliente
             try
             {
                 // ✅ VERIFICAR SI ESTAMOS EDITANDO O INSERTANDO
-                int? idComentarioEditando = (int?)Session["ComentarioEditando"];
-                if (idComentarioEditando != null && idComentarioEditando != 0)
+                int? idComentarioEditando = Session["ComentarioEditando"] as int?;
+
+                if (idComentarioEditando.HasValue && idComentarioEditando.Value > 0)
                 {
-                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente = comentarioBO.ObtenerComentarioPorId((int)idComentarioEditando);
-                    // ✅ MODO EDICIÓN: Actualizar comentario existente
+                    // ✅ MODO EDICIÓN
+                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente =
+                        comentarioBO.ObtenerComentarioPorId(idComentarioEditando.Value);
+
+                    if (comentarioExistente == null)
+                    {
+                        lblComentarioMessage.Text = "El comentario que intentas editar no existe.";
+                        lblComentarioMessage.CssClass = "comment-message error";
+                        lblComentarioMessage.Visible = true;
+                        Session.Remove("ComentarioEditando");
+                        btnEnviarComent.Text = "Enviar";
+                        return;
+                    }
+
                     comentarioExistente.comentario = texto;
+                    comentarioExistente.valoracion = valoracion;
+                    comentarioExistente.valoracionSpecified = true;
 
                     comentarioBO.ModificarComentario(comentarioExistente);
 
@@ -409,7 +485,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
                 else
                 {
-                    // ✅ MODO INSERCIÓN: Crear nuevo comentario
+                    // ✅ MODO INSERCIÓN - Crear nuevo comentario
                     comentarioBO.InsertarComentarioDeProducto(
                         usuario.idUsuario,
                         texto,
@@ -443,7 +519,6 @@ namespace MGBeautySpaWebAplication.Cliente
                 System.Diagnostics.Debug.WriteLine($"Error al procesar comentario: {ex.Message}");
             }
         }
-
         protected void rpComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
