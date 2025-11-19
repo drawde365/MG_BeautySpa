@@ -40,7 +40,7 @@ public abstract class DBManager {
         if (DBManager.dbManager == null) {
             if (DBManager.obtenerMotorDeBaseDeDato() == MotorDeBaseDeDatos.MYSQL) {
                 DBManager.dbManager = new DBManagerMySQL();
-            } else{
+            } else {
                 DBManager.dbManager = new DBManagerMSSQL();
             }
             DBManager.dbManager.leer_archivo_configuracion();
@@ -89,7 +89,7 @@ public abstract class DBManager {
 
     private void createDataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(this.getURL());
+        config.setJdbcUrl(dbManager.getURL());
         config.setUsername(usuario);
         config.setPassword(Cifrado.descifrarMD5(contraseña));
         config.setDriverClassName(driver);
