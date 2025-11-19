@@ -381,8 +381,8 @@
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente\DetalleServicio.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>DetalleServicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cliente\DetalleServicio.aspx.designer.cs">
       <DependentUpon>DetalleServicio.aspx</DependentUpon>
