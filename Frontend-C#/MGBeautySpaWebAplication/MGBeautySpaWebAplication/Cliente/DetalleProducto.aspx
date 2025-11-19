@@ -162,20 +162,38 @@
                 </asp:Panel>
                     
             </div>
-
+            
             <div class="add-review-form">
                 <img class="review-avatar" src="/avatar-placeholder-user.png" alt="Tu avatar" />
                 <div class="add-review-content">
-                    <%-- IDs 'txtNombreComent' y 'txtComentario' del C# --%>
-                    <asp:TextBox ID="txtNombreComent" runat="server" CssClass="review-textarea" placeholder="Tu nombre (opcional)" Rows="1" style="height: 40px; margin-bottom: 5px;"/>
-                    <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="review-textarea" placeholder="Escribe tu reseña..." />
+                    <%-- Nombre del usuario o "Invitado" --%>
+                    <div class="review-user-name">
+                        <asp:Literal ID="litNombreUsuario" runat="server" />
+                    </div>
+        
+                    <%-- Campo oculto para guardar la valoración seleccionada --%>
+                    <asp:HiddenField ID="hdnValoracion" runat="server" Value="0" />
+        
+                    <%-- Campo de texto para el comentario --%>
+                    <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" 
+                        CssClass="review-textarea" placeholder="Escribe tu reseña..." />
+        
                     <div class="review-form-footer">
-                        <div class="review-rating-input">
-                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                        <div class="review-rating-input" id="reviewRatingInput">
+                            <span class="rating-star" data-value="1">☆</span>
+                            <span class="rating-star" data-value="2">☆</span>
+                            <span class="rating-star" data-value="3">☆</span>
+                            <span class="rating-star" data-value="4">☆</span>
+                            <span class="rating-star" data-value="5">☆</span>
                         </div>
                         <%-- ID 'btnEnviarComent' del C# --%>
-                        <asp:Button ID="btnEnviarComent" runat="server" Text="Enviar" CssClass="btn-submit-review" OnClick="btnEnviarComent_Click" />
+                        <asp:Button ID="btnEnviarComent" runat="server" Text="Enviar" 
+                            CssClass="btn-submit-review" OnClick="btnEnviarComent_Click" />
                     </div>
+        
+                    <%-- Mensaje de validación --%>
+                    <asp:Label ID="lblComentarioMessage" runat="server" Visible="false" 
+                        CssClass="comment-message"></asp:Label>
                 </div>
             </div>
         </section>
@@ -202,6 +220,56 @@
         </asp:UpdatePanel>
       </div>
     </div>
+
+<%-- SCRIPT PARA ESTRELLAS INTERACTIVAS DEL FORMULARIO --%>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var ratingStars = document.querySelectorAll('.rating-star');
+            var hdnValoracion = document.getElementById('<%= hdnValoracion.ClientID %>');
+
+            if (!ratingStars || ratingStars.length === 0) return;
+
+            // Hover effect
+            ratingStars.forEach(function (star, index) {
+                star.addEventListener('mouseenter', function () {
+                    // Limpiar todas las estrellas
+                    ratingStars.forEach(s => s.classList.remove('hover-preview'));
+
+                    // Iluminar hasta la estrella actual
+                    for (var i = 0; i <= index; i++) {
+                        ratingStars[i].classList.add('hover-preview');
+                    }
+                });
+
+                // Click para seleccionar
+                star.addEventListener('click', function () {
+                    var valor = parseInt(this.getAttribute('data-value'));
+                    hdnValoracion.value = valor;
+
+                    // Limpiar todas
+                    ratingStars.forEach(s => {
+                        s.classList.remove('active');
+                        s.textContent = '☆';
+                    });
+
+                    // Activar hasta la seleccionada
+                    for (var i = 0; i < valor; i++) {
+                        ratingStars[i].classList.add('active');
+                        ratingStars[i].textContent = '★';
+                    }
+                });
+            });
+
+            // Limpiar hover al salir del contenedor
+            var ratingContainer = document.getElementById('reviewRatingInput');
+            if (ratingContainer) {
+                ratingContainer.addEventListener('mouseleave', function () {
+                    ratingStars.forEach(s => s.classList.remove('hover-preview'));
+                });
+            }
+        });
+
+    </script>
 
 <%-- SCRIPT PARA CALCULAR PROMEDIO DE VALORACIONES --%>
     <script type="text/javascript">
@@ -349,4 +417,5 @@
 
         });
     </script>
+
 </asp:Content>

@@ -168,13 +168,22 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.Panel pnlNoComments;
 
         /// <summary>
-        /// Control txtNombreComent.
+        /// Control litNombreUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombreComent;
+        protected global::System.Web.UI.WebControls.Literal litNombreUsuario;
+
+        /// <summary>
+        /// Control hdnValoracion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnValoracion;
 
         /// <summary>
         /// Control txtComentario.
@@ -193,6 +202,15 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEnviarComent;
+
+        /// <summary>
+        /// Control lblComentarioMessage.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblComentarioMessage;
 
         /// <summary>
         /// Control upModalIng.

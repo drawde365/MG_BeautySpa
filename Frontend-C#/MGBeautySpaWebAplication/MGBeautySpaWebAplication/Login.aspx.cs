@@ -16,7 +16,13 @@ namespace MGBeautySpaWebAplication
         {
             if (!IsPostBack)
             {
-                Session.Clear();
+                // ⚠️ NO usar Session.Clear() porque borra el comentario pendiente
+                // Solo limpiar usuario si existe
+                Session.Remove("UsuarioActual");
+                Session.Remove("Carrito");
+                Session.Remove("CartCount");
+
+                // Mantener intactos: ComentarioPendiente y ReturnUrl
             }
         }
 
@@ -44,7 +50,6 @@ namespace MGBeautySpaWebAplication
                     case 1:
                         PedidoBO pedidoBO = new PedidoBO();
                         pedidoDTO carrito = pedidoBO.ObtenerCarritoPorCliente(usuario.idUsuario);
-
                         if (carrito == null)
                         {
                             pedidoDTO carro = new pedidoDTO();
@@ -57,12 +62,9 @@ namespace MGBeautySpaWebAplication
                             carro.estadoPedidoSpecified = true;
                             carro.detallesPedido = new detallePedidoDTO[0];
                             carro.idPedido = pedidoBO.Insertar(carro);
-
                             carrito = carro;
                         }
-
                         Session["Carrito"] = carrito;
-
                         int cartCount = 0;
                         if (carrito.detallesPedido != null)
                         {
@@ -70,11 +72,23 @@ namespace MGBeautySpaWebAplication
                         }
                         Session["CartCount"] = cartCount;
 
-                        if (Request.QueryString["ReturnUrl"] != null)
+                        // ✅ PRIORIZAR ReturnUrl de Session sobre QueryString
+                        string returnUrl = Session["ReturnUrl"] as string;
+
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            // Limpiar ReturnUrl de sesión (pero mantener ComentarioPendiente)
+                            Session.Remove("ReturnUrl");
+                            Response.Redirect(returnUrl);
+                        }
+                        else if (Request.QueryString["ReturnUrl"] != null)
                         {
                             Response.Redirect(Request.QueryString["ReturnUrl"]);
                         }
-                        else Response.Redirect("~/Cliente/InicioCliente.aspx");
+                        else
+                        {
+                            Response.Redirect("~/Cliente/InicioCliente.aspx");
+                        }
                         break;
                 }
             }
@@ -86,7 +100,19 @@ namespace MGBeautySpaWebAplication
 
         protected void btnInvitado_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Cliente/InicioCliente.aspx");
+            Session.Remove("ComentarioPendiente");
+
+            string returnUrl = Session["ReturnUrl"] as string;
+            Session.Remove("ReturnUrl");
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                Response.Redirect(returnUrl);
+            }
+            else
+            {
+                Response.Redirect("~/Cliente/InicioCliente.aspx");
+            }
         }
     }
 }
