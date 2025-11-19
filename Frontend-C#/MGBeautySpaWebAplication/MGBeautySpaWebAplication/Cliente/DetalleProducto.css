@@ -1,7 +1,7 @@
 ﻿/* --- 0. Configuración Global --- */
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: #ECFFFD; /* Fondo general de la página */
+    background: #ECFFFD;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,10 +16,10 @@ body {
     display: flex;
     flex-direction: column;
     width: 912px;
-    max-width: 960px; /* Coincide con tu spec */
-    margin: 40px auto 20px auto; /* Centrado y con espacio */
-    background: #FFFFFF; /* Fondo blanco para el contenido */
-    border-radius: 12px; /* Añadido para un look limpio */
+    max-width: 960px;
+    margin: 40px auto 20px auto;
+    background: #FFFFFF;
+    border-radius: 12px;
 }
 
 /* --- 1. Breadcrumbs --- */
@@ -73,38 +73,38 @@ body {
 .product-main-layout {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap; /* Para responsiveness */
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: 7px;
-    padding: 0 16px; /* Ajustado para alinear con el contenido */
+    padding: 0 16px;
 }
 
 /* Columna Izquierda: Imagen */
 .product-image-column {
-    flex: 1; /* Ocupa espacio disponible */
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     min-width: 389px;
-    padding: 4px 0 12px 0; /* Ajustado de la spec */
+    padding: 4px 0 12px 0;
 }
 
 .product-image-css {
     width: 100%;
-    max-width: 357px; /* Ancho de la spec */
-    height: 597px; /* Alto de la spec */
+    max-width: 357px;
+    height: 597px;
     border-radius: 12px;
-    background-color: #f0f0f0; /* Color de placeholder */
+    background-color: #f0f0f0;
     object-fit: cover;
 }
 
 /* Columna Derecha: Detalles de Compra */
 .product-details-column {
-    flex: 1.5; /* Más espacio para los detalles */
+    flex: 1.5;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 16px 0; /* Ajustado de la spec */
+    padding: 16px 0;
     gap: 10px;
     min-width: 427px;
 }
@@ -114,9 +114,9 @@ body {
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
-    line-height: 23px; /* Ojo: Line-height es menor que font-size */
+    line-height: 23px;
     color: #171214;
-    padding-bottom: 20px; /* Espacio extra */
+    padding-bottom: 20px;
 }
 
 .purchase-options {
@@ -124,7 +124,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    width: 100%; /* Ocupa todo el ancho de la columna */
+    width: 100%;
 }
 
 .options-title {
@@ -143,7 +143,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start; /* <-- CÁMBIALO a 'flex-start' */
+    justify-content: flex-start;
     padding: 12px 0;
     gap: 20px;
     width: 100%;
@@ -167,12 +167,11 @@ body {
 }
 
 .quantity-picker {
-    display: flex; /* Mantiene los 3 elementos en línea */
+    display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-    /* Estilo para los botones HTML <button> */
     .quantity-picker button {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 500;
@@ -180,16 +179,14 @@ body {
         line-height: 21px;
         color: #171214;
         background: #fff;
-        /* Dibuja solo el borde superior, inferior y lateral */
         border: 1px solid #E3DEDE;
         cursor: pointer;
         height: 44px;
-        width: 35px; /* Ancho para que se vea bien */
+        width: 35px;
         padding: 0;
         box-sizing: border-box;
     }
 
-    /* Estilo para el TextBox <input type="text"> */
     .quantity-picker .qty-display {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 500;
@@ -198,20 +195,16 @@ body {
         text-align: center;
         width: 52px;
         height: 44px;
-        /* LA CORRECCIÓN CLAVE: */
-        border: 1px solid #E3DEDE; /* Borde completo */
-        border-left: none; /* Quitamos el borde izquierdo */
-        border-right: none; /* Quitamos el borde derecho */
-
-        padding: 0 5px; /* Padding interno */
+        border: 1px solid #E3DEDE;
+        border-left: none;
+        border-right: none;
+        padding: 0 5px;
         box-sizing: border-box;
-        /* Reseteo de estilos de input */
         appearance: none;
         -webkit-appearance: none;
-        -moz-appearance: textfield; /* Para Firefox */
+        -moz-appearance: textfield;
     }
 
-    /* Bordes redondeados para los botones (como en Figma) */
     .quantity-picker .qty-btn-minus {
         border-radius: 10px 0 0 10px;
     }
@@ -258,7 +251,7 @@ body {
     background: #1EC3B6;
     border-radius: 20px;
     border: none;
-    margin-top: 20px; /* Espacio extra */
+    margin-top: 20px;
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 700;
@@ -268,7 +261,6 @@ body {
     color: #FFFFFF;
     cursor: pointer;
 }
-
 
 /* --- 4. Detalles del Producto --- */
 .product-info-section {
@@ -291,10 +283,10 @@ body {
 
 .details-grid {
     display: flex;
-    flex-direction: row; /* Cambiado a row para layout de spec */
-    flex-wrap: wrap; /* Permitir que caiga en pantallas chicas */
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
-    padding: 16px 0; /* Ajustado */
+    padding: 16px 0;
     gap: 24px;
     width: 100%;
 }
@@ -305,8 +297,8 @@ body {
     flex-direction: column;
     padding: 20px 0px;
     border-top: 1px solid #E6E8EB;
-    flex: 1; /* Distribuye el espacio */
-    min-width: 180px; /* Ancho mínimo para cada item */
+    flex: 1;
+    min-width: 180px;
 }
 
 .detail-item-label {
@@ -316,7 +308,7 @@ body {
     font-size: 14px;
     line-height: 21px;
     color: #826670;
-    margin-bottom: 8px; /* Espacio entre label y value */
+    margin-bottom: 8px;
 }
 
 .detail-item-value {
@@ -327,7 +319,6 @@ body {
     line-height: 21px;
     color: #171214;
 }
-
 
 /* --- 5. Sección de Reseñas --- */
 .product-reviews-section {
@@ -368,15 +359,35 @@ body {
     color: #148C76;
 }
 
-.score-stars {
+.score-number-container {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 2px;
-    font-size: 18px;
-    color: #148C76;
+    align-items: center;
+    gap: 12px;
 }
+
+.score-stars {
+    display: inline-flex;
+    gap: 2px;
+    margin-left: 8px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+    .score-stars .star {
+        color: #ddd;
+        transition: color 0.2s ease;
+    }
+
+        .score-stars .star.filled {
+            color: #2D5A4A;
+        }
+
+        .score-stars .star.half-filled {
+            background: linear-gradient(90deg, #FFD700 50%, #ddd 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
 .score-count {
     font-family: 'Plus Jakarta Sans';
@@ -396,7 +407,7 @@ body {
     flex: 1;
     min-width: 200px;
     max-width: 400px;
-    margin-top: 10px; /* Alineación visual */
+    margin-top: 10px;
 }
 
 .bar-row {
@@ -404,7 +415,7 @@ body {
     flex-direction: row;
     align-items: center;
     padding: 0px;
-    gap: 8px; /* Gap entre número, barra y contador */
+    gap: 8px;
     width: 100%;
 }
 
@@ -436,52 +447,58 @@ body {
     text-align: right;
 }
 
-/* Lista de Reseñas */
+/* --- 6. Comentarios Individuales --- */
 .review-list {
     display: flex;
     flex-direction: column;
-    gap: 24px; /* Espacio entre reseñas */
+    gap: 16px;
     padding-top: 16px;
     width: 100%;
+    margin-top: 24px;
 }
 
 .review-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 12px;
-    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 0;
+    transition: box-shadow 0.3s ease;
 }
+
+    .review-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
 .review-header {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    padding: 0px;
     gap: 12px;
+    margin-bottom: 10px;
 }
 
 .review-avatar {
     width: 40px;
     height: 40px;
-    border-radius: 20px; /* Círculo perfecto */
-    background-color: #f0f0f0; /* Placeholder */
+    border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #e8e8e8;
+    flex-shrink: 0;
 }
 
 .review-author-info {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
+    align-items: center;
 }
 
 .review-author-name {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #171214;
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    color: #2D5A4A;
+    margin: 0;
+    line-height: 1.2;
 }
 
 .review-date {
@@ -491,51 +508,80 @@ body {
     color: #826670;
 }
 
-.review-stars {
-    display: flex;
-    flex-direction: row;
-    gap: 2px;
-    font-size: 20px;
-    color: #171214;
-}
-
 .review-body {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #171214;
-    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0 0 12px 0;
+    padding-left: 52px;
 }
 
 .review-actions {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 36px;
+    gap: 10px;
+    padding-left: 52px;
+    margin-top: 0;
 }
 
-.review-action-btn {
-    display: flex;
-    flex-direction: row;
+.btn-review-action {
+    display: inline-flex;
     align-items: center;
-    padding: 0px;
     gap: 8px;
-    background: none;
-    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: white;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 400;
-    color: #826670;
+    transition: all 0.2s ease;
     text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    white-space: nowrap;
 }
 
-    .review-action-btn:hover {
-        color: #171214;
+    .btn-review-action i {
+        font-size: 14px;
+        flex-shrink: 0;
     }
 
+    .btn-review-action:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
 
-/* Formulario de Añadir Reseña */
+    .btn-review-action.btn-edit {
+        color: #2D5A4A;
+        border-color: #2D5A4A;
+    }
+
+        .btn-review-action.btn-edit:hover {
+            background: #2D5A4A;
+            color: white;
+        }
+
+    .btn-review-action.btn-delete {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-review-action.btn-delete:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+.text-muted {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-style: italic;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px dashed #ddd;
+}
+
+/* --- 7. Formulario de Añadir Reseña --- */
 .add-review-form {
     display: flex;
     flex-direction: row;
@@ -552,6 +598,14 @@ body {
     align-items: stretch;
     flex-grow: 1;
     gap: 12px;
+}
+
+.review-user-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #2D5A4A;
+    margin-bottom: 8px;
+    padding: 4px 0;
 }
 
 .review-textarea {
@@ -583,78 +637,6 @@ body {
 
 .review-rating-input {
     display: flex;
-    flex-direction: row;
-    gap: 4px;
-    font-size: 20px;
-    color: #CCBDC2; /* Estrellas vacías */
-    cursor: pointer;
-}
-
-.btn-submit-review {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 16px;
-    width: 84px;
-    height: 32px;
-    background: #1EC3B6;
-    border-radius: 16px;
-    border: none;
-    font-family: 'Plus Jakarta Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 21px;
-    color: #FFFFFF;
-    cursor: pointer;
-}
-
-/* Estrellas de valoración en el score */
-.score-stars {
-    display: inline-flex;
-    gap: 2px;
-    margin-left: 8px;
-    font-size: 20px;
-    vertical-align: middle;
-}
-
-    .score-stars .star {
-        color: #ddd; /* Estrella vacía (gris claro) */
-        transition: color 0.2s ease;
-    }
-
-        .score-stars .star.filled {
-            color: #2D5A4A; /* Estrella llena (dorado) */
-        }
-
-        .score-stars .star.half-filled {
-            background: linear-gradient(90deg, #FFD700 50%, #ddd 50%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-
-/* Container para número y estrellas en línea */
-.score-number-container {
-    display: flex;
-    align-items: center;
-    gap: 12px; /* Espacio entre número y estrellas */
-}
-
-/* Nombre de usuario sobre el campo de comentario */
-.review-user-name {
-    font-weight: 600;
-    font-size: 14px;
-    color: #2D5A4A;
-    margin-bottom: 8px;
-    padding: 4px 0;
-}
-
-/* Estrellas de valoración interactivas */
-.review-rating-input {
-    display: flex;
     gap: 4px;
     cursor: pointer;
 }
@@ -676,6 +658,26 @@ body {
             color: #2D5A4A;
         }
 
+.btn-submit-review {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    width: 84px;
+    height: 32px;
+    background: #1EC3B6;
+    border-radius: 16px;
+    border: none;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
 /* Mensaje de comentario */
 .comment-message {
     display: block;
@@ -695,56 +697,4 @@ body {
         background-color: #f8d7da;
         color: #721c24;
         border: 1px solid #f5c6cb;
-    }
-
-/* Header del comentario - alineación con botones */
-.review-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.review-author-info {
-    flex: 1;
-}
-
-/* Contenedor de botones de acción */
-.review-actions {
-    display: flex;
-    gap: 6px;
-    margin-left: auto;
-}
-
-/* Botones de editar/eliminar */
-.btn-review-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    background: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 0;
-}
-
-    .btn-review-action:hover {
-        background: #f5f5f5;
-        border-color: #2D5A4A;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .btn-review-action.btn-edit:hover {
-        background: #e8f5e9;
-    }
-
-    .btn-review-action.btn-delete:hover {
-        background: #ffebee;
-        border-color: #dc3545;
     }

@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <link href="DetalleProducto.css" rel="stylesheet" />
     
 </asp:Content>
@@ -140,37 +141,38 @@
                     <ItemTemplate>
                         <article class="review-item">
                             <div class="review-header">
-                                <asp:Image ID="imgAvatar" runat="server" ImageUrl='<%# Eval("cliente.urlFotoPerfil", "~{0}") %>' CssClass="review-avatar" />
+                                <asp:Image ID="imgAvatar" runat="server" 
+                                    ImageUrl='<%# Eval("cliente.urlFotoPerfil", "~{0}") %>' 
+                                    CssClass="review-avatar" />
                                 <div class="review-author-info">
                                     <span class="review-author-name"><%# Eval("cliente.nombre") %></span>
-                                </div>
-                
-                                <%-- Botones de Editar/Eliminar (solo visibles para el autor) --%>
-                                <div class="review-actions">
-                                    <asp:LinkButton ID="btnEditarComentario" runat="server" 
-                                        CssClass="btn-review-action btn-edit" 
-                                        ToolTip="Editar comentario"
-                                        OnClick="btnEditarComentario_Click"
-                                        Visible="false">
-                                        ✏️
-                                    </asp:LinkButton>
-                    
-                                    <asp:LinkButton ID="btnEliminarComentario" runat="server" 
-                                        CssClass="btn-review-action btn-delete" 
-                                        ToolTip="Eliminar comentario"
-                                        OnClick="btnEliminarComentario_Click"
-                                        OnClientClick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');"
-                                        Visible="false">
-                                        🗑️
-                                    </asp:LinkButton>
                                 </div>
                             </div>
             
                             <p class="review-body"><%# Eval("comentario") %></p>
+            
+                            <%-- Botones de Editar/Eliminar (solo visibles para el autor) --%>
+                            <div class="review-actions">
+                                <asp:LinkButton ID="btnEditarComentario" runat="server" 
+                                    CssClass="btn-review-action btn-edit" 
+                                    ToolTip="Editar comentario"
+                                    OnClick="btnEditarComentario_Click"
+                                    Visible="false">
+                                    <i class="fas fa-edit"></i> Editar
+                                </asp:LinkButton>
+                
+                                <asp:LinkButton ID="btnEliminarComentario" runat="server" 
+                                    CssClass="btn-review-action btn-delete" 
+                                    ToolTip="Eliminar comentario"
+                                    OnClick="btnEliminarComentario_Click"
+                                    OnClientClick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');"
+                                    Visible="false">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </asp:LinkButton>
+                            </div>
                         </article>
                     </ItemTemplate>
-                </asp:Repeater>
-                
+                </asp:Repeater>                
                 <%--Panel 'pnlNoComments' del C# --%>
                 <asp:Panel ID="pnlNoComments" runat="server" CssClass="text-muted" Visible="false">
                     Aún no hay reseñas para este producto.
