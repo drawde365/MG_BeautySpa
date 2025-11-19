@@ -38,6 +38,34 @@ namespace MGBeautySpaWebAplication.Cliente
             if (!IsPostBack)
             {
                 PintarProducto();
+                MostrarNombreUsuario();
+
+                // Verificar si viene de login con comentario pendiente
+                if (Session["ComentarioPendiente"] != null)
+                {
+                    var comentarioPendiente = Session["ComentarioPendiente"] as Dictionary<string, object>;
+                    if (comentarioPendiente != null)
+                    {
+                        int idProductoPendiente = (int)comentarioPendiente["idProducto"];
+
+                        // Verificar que estamos en la página del mismo producto
+                        if (producto != null && producto.idProducto == idProductoPendiente)
+                        {
+                            txtComentario.Text = comentarioPendiente["comentario"].ToString();
+                            hdnValoracion.Value = comentarioPendiente["valoracion"].ToString();
+
+                            // Enviar el comentario automáticamente
+                            EnviarComentario();
+
+                            // Limpiar la sesión
+                            Session.Remove("ComentarioPendiente");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MostrarNombreUsuario();
             }
         }
 
@@ -89,6 +117,20 @@ namespace MGBeautySpaWebAplication.Cliente
             rpPresentaciones.DataBind();
 
             PintarResenas();
+        }
+
+        private void MostrarNombreUsuario()
+        {
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+            if (usuario != null)
+            {
+                litNombreUsuario.Text = usuario.nombre ?? "Usuario";
+            }
+            else
+            {
+                litNombreUsuario.Text = "Invitado";
+            }
         }
 
         private void PintarResenas()
@@ -288,41 +330,88 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnEnviarComent_Click(object sender, EventArgs e)
         {
-            /*
-            string texto = txtComentario.Text?.Trim();
-            if (string.IsNullOrEmpty(texto)) return;
+            // Validar que el usuario haya iniciado sesión
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
-            var usuario = Session["UsuarioActual"] as usuarioDTO;
+            if (usuario == null)
+            {
+                // Guardar comentario y valoración en sesión
+                var comentarioPendiente = new Dictionary<string, object>
+        {
+            { "comentario", txtComentario.Text?.Trim() ?? "" },
+            { "valoracion", hdnValoracion.Value },
+            { "idProducto", producto.idProducto }
+        };
+
+                Session["ComentarioPendiente"] = comentarioPendiente;
+                Session["ReturnUrl"] = Request.RawUrl;
+
+                // Redirigir a login
+                Response.Redirect("~/Login.aspx");
+                return;
+            }
+
+            // Si está logueado, enviar el comentario
+            EnviarComentario();
+        }
+
+        private void EnviarComentario()
+        {
+            string texto = txtComentario.Text?.Trim();
+
+            // Validar que haya texto
+            if (string.IsNullOrEmpty(texto))
+            {
+                lblComentarioMessage.Text = "Por favor, escribe un comentario.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+                return;
+            }
+
+            // Validar valoración
+            if (!int.TryParse(hdnValoracion.Value, out int valoracion) || valoracion < 1 || valoracion > 5)
+            {
+                lblComentarioMessage.Text = "Por favor, selecciona una valoración de 1 a 5 estrellas.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+                return;
+            }
+
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
             if (usuario == null)
             {
                 Response.Redirect("~/Login.aspx");
                 return;
             }
+            
+            // Insertar en la base de datos
+            int e = comentarioBO.InsertarComentarioDeProducto(usuario.idUsuario, texto, valoracion, producto.idProducto);
 
-            var nuevoComentario = new SoftInvBusiness.SoftInvWSComentario.comentarioDTO();
-            nuevoComentario.descripcion = texto;
-
-            nuevoComentario.valoracion = 5;
-            nuevoComentario.valoracionSpecified = true;
-
-            nuevoComentario.cliente = new SoftInvBusiness.SoftInvWSComentario.clienteDTO
+            if(e != 0)
             {
-                idUsuario = usuario.idUsuario,
-                idUsuarioSpecified = true
-            };
+                // Limpiar formulario
+                txtComentario.Text = "";
+                hdnValoracion.Value = "0";
 
-            nuevoComentario.producto = new SoftInvBusiness.SoftInvWSComentario.productoDTO
+                // Mostrar mensaje de éxito
+                lblComentarioMessage.Text = "¡Tu reseña se ha publicado exitosamente!";
+                lblComentarioMessage.CssClass = "comment-message success";
+                lblComentarioMessage.Visible = true;
+
+                // Actualizar la lista de reseñas
+                PintarResenas();
+
+                // Registrar script para limpiar las estrellas
+                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellas",
+                    "document.querySelectorAll('.rating-star').forEach(s => s.classList.remove('active'));", true);
+            }
+            else
             {
-                idProducto = producto.idProducto,
-                idProductoSpecified = true
-            };
-
-            comentarioBO.Insertar(nuevoComentario);
-
-            txtNombreComent.Text = "";
-            txtComentario.Text = "";
-            PintarResenas();
-            */
+                lblComentarioMessage.Text = "Error al publicar tu reseña. Inténtalo nuevamente.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+            }
         }
     }
 }
