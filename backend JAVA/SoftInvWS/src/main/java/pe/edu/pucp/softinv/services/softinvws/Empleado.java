@@ -72,6 +72,12 @@ public class Empleado {
         empleadoBO.agregarServicio(empleadoId, servicioId);
     }
     
+    @WebMethod(operationName = "QuitarServicioAEmpleado")
+    public void eliminarServicioEmpleado(@WebParam(name = "empleadoId") Integer empleadoId,
+            @WebParam(name = "servicioId") Integer servicioId){
+        empleadoBO.eliminarServicio(empleadoId, servicioId);
+    }
+    
     @WebMethod(operationName = "ListarServiciosDeEmpleado")
     public ArrayList<ServicioDTO> listarServiciosDeEmpleado(
             @WebParam(name = "empleadoId") Integer empleadoId) {
