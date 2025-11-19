@@ -6,9 +6,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    <asp:ScriptManager ID="smDetalle" runat="server" EnablePartialRendering="true" />
 
     <div class="page-container">
 
@@ -167,6 +171,7 @@
 
     </div> <%-- Fin de .page-container --%>
 
+
 <%-- SCRIPT PARA ESTRELLAS INTERACTIVAS DEL FORMULARIO --%>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
@@ -268,16 +273,16 @@
         }
 
         // Función para calcular y mostrar el promedio de valoraciones
-        function actualizarPromedioValoraciones(idProducto) {
-            if (!idProducto || idProducto === 0) {
-                console.log('ID de producto no válido');
+        function actualizarPromedioValoraciones(idServicio) {
+            if (!idServicio || idServicio === 0) {
+                console.log('ID de servicio no válido');
                 return;
             }
 
-            console.log('Obteniendo comentarios para producto:', idProducto);
+            console.log('Obteniendo comentarios para servicio:', idServicio);
 
             // Construir URL del servicio web
-            var serviceUrl = '<%= ResolveUrl("~/Services/WSComentario.asmx/ObtenerComentariosPorProducto") %>';
+            var serviceUrl = '<%= ResolveUrl("~/Services/WSComentario.asmx/ObtenerComentariosPorServicio") %>';
 
             // Realizar petición AJAX
             fetch(serviceUrl, {
@@ -285,7 +290,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ idProducto: idProducto })
+                body: JSON.stringify({ idServicio: idServicio })
             })
                 .then(function (response) {
                     if (!response.ok) throw new Error('Error en la respuesta del servidor');
@@ -337,8 +342,8 @@
 
         // Ejecutar cuando el DOM esté listo
         window.addEventListener('DOMContentLoaded', function () {
-            var idProducto = <%= Request.QueryString["id"] ?? "0" %>;
-            console.log('Página cargada, ID producto:', idProducto);
+            var idServicio = <%= Request.QueryString["id"] ?? "0" %>;
+            console.log('Página cargada, ID servicio:', idServicio);
 
             // Leer el promedio que viene del servidor
             var scoreElement = document.querySelector('.score-number');

@@ -79,6 +79,16 @@ namespace MGBeautySpaWebAplication.Admin
                 {
                     string nombreArchivo = Path.GetFileName(fileUpload.FileName);
                     string extension = Path.GetExtension(nombreArchivo).ToLower();
+
+                    string[] extensionesValidas = { ".jpg", ".jpeg", ".png" };
+
+                    if (Array.IndexOf(extensionesValidas, extension) < 0)
+                    {
+                        // Si la extensión no es válida, lanza una excepción o muestra un mensaje de error.
+                        litError.Text = "Formato de archivo no válido. Solo se permiten imágenes (JPG, JPEG, PNG).";
+                        return; // Detiene la ejecución
+                    }
+
                     string nombreUnico = Guid.NewGuid().ToString() + extension;
                     string rutaCompleta = Path.Combine(carpetaGuardado, nombreUnico);
                     fileUpload.SaveAs(rutaCompleta);
