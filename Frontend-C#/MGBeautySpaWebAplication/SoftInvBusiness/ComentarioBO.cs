@@ -52,5 +52,10 @@ namespace SoftInvBusiness
         {
             return comentarioSOAP.ObtenerComentariosPorServicio(idServicio);
         }
+
+        public comentarioDTO ObtenerComentarioPorId(int idComentario)
+        {
+            return comentarioSOAP.obtenerComentarioPorId(idComentario);
+        }
     }
 }

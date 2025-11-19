@@ -136,22 +136,37 @@
 
             <div class="review-list">
                 <%-- ID 'rpComentarios' adaptado a 'rpResenas' para que C# funcione --%>
-                <asp:Repeater ID="rpComentarios" runat="server">
+                <asp:Repeater ID="rpComentarios" runat="server" OnItemDataBound="rpComentarios_ItemDataBound">
                     <ItemTemplate>
                         <article class="review-item">
                             <div class="review-header">
                                 <asp:Image ID="imgAvatar" runat="server" ImageUrl='<%# Eval("cliente.urlFotoPerfil", "~{0}") %>' CssClass="review-avatar" />
                                 <div class="review-author-info">
                                     <span class="review-author-name"><%# Eval("cliente.nombre") %></span>
-                                    <!--<span class="review-date">
-                                        <# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") >
-                                        </span>-->
+                                </div>
+                
+                                <%-- Botones de Editar/Eliminar (solo visibles para el autor) --%>
+                                <div class="review-actions">
+                                    <asp:LinkButton ID="btnEditarComentario" runat="server" 
+                                        CssClass="btn-review-action btn-edit" 
+                                        ToolTip="Editar comentario"
+                                        OnClick="btnEditarComentario_Click"
+                                        Visible="false">
+                                        ✏️
+                                    </asp:LinkButton>
+                    
+                                    <asp:LinkButton ID="btnEliminarComentario" runat="server" 
+                                        CssClass="btn-review-action btn-delete" 
+                                        ToolTip="Eliminar comentario"
+                                        OnClick="btnEliminarComentario_Click"
+                                        OnClientClick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');"
+                                        Visible="false">
+                                        🗑️
+                                    </asp:LinkButton>
                                 </div>
                             </div>
-                            <%--<div class="review-stars">★ ★ ★ ★ ★</div>--%>
+            
                             <p class="review-body"><%# Eval("comentario") %></p>
-                            <%-- Los botones de Like/Dislike de tu diseño (necesitarían C# adicional) --%>
-
                         </article>
                     </ItemTemplate>
                 </asp:Repeater>

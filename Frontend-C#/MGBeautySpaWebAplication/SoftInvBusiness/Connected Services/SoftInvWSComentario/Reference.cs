@@ -98,6 +98,20 @@ namespace SoftInvBusiness.SoftInvWSComentario {
             "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Comentario/EliminarComentarioRespon" +
             "se")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSComentario.EliminarComentarioResponse> EliminarComentarioAsync(SoftInvBusiness.SoftInvWSComentario.EliminarComentarioRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/obtenerComentarioPorIdRe" +
+            "quest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Comentario/obtenerComentarioPorIdRe" +
+            "sponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse obtenerComentarioPorId(SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/obtenerComentarioPorIdRe" +
+            "quest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Comentario/obtenerComentarioPorIdRe" +
+            "sponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse> obtenerComentarioPorIdAsync(SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest request);
     }
     
     /// <remarks/>
@@ -1654,6 +1668,42 @@ namespace SoftInvBusiness.SoftInvWSComentario {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="obtenerComentarioPorId", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class obtenerComentarioPorIdRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int idComentario;
+        
+        public obtenerComentarioPorIdRequest() {
+        }
+        
+        public obtenerComentarioPorIdRequest(int idComentario) {
+            this.idComentario = idComentario;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="obtenerComentarioPorIdResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class obtenerComentarioPorIdResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSComentario.comentarioDTO @return;
+        
+        public obtenerComentarioPorIdResponse() {
+        }
+        
+        public obtenerComentarioPorIdResponse(SoftInvBusiness.SoftInvWSComentario.comentarioDTO @return) {
+            this.@return = @return;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ComentarioChannel : SoftInvBusiness.SoftInvWSComentario.Comentario, System.ServiceModel.IClientChannel {
     }
@@ -1829,6 +1879,29 @@ namespace SoftInvBusiness.SoftInvWSComentario {
             SoftInvBusiness.SoftInvWSComentario.EliminarComentarioRequest inValue = new SoftInvBusiness.SoftInvWSComentario.EliminarComentarioRequest();
             inValue.comentario = comentario;
             return ((SoftInvBusiness.SoftInvWSComentario.Comentario)(this)).EliminarComentarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse SoftInvBusiness.SoftInvWSComentario.Comentario.obtenerComentarioPorId(SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest request) {
+            return base.Channel.obtenerComentarioPorId(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSComentario.comentarioDTO obtenerComentarioPorId(int idComentario) {
+            SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest inValue = new SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest();
+            inValue.idComentario = idComentario;
+            SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse retVal = ((SoftInvBusiness.SoftInvWSComentario.Comentario)(this)).obtenerComentarioPorId(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse> SoftInvBusiness.SoftInvWSComentario.Comentario.obtenerComentarioPorIdAsync(SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest request) {
+            return base.Channel.obtenerComentarioPorIdAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse> obtenerComentarioPorIdAsync(int idComentario) {
+            SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest inValue = new SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdRequest();
+            inValue.idComentario = idComentario;
+            return ((SoftInvBusiness.SoftInvWSComentario.Comentario)(this)).obtenerComentarioPorIdAsync(inValue);
         }
     }
 }

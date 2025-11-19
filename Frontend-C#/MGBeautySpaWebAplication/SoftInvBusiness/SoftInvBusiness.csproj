@@ -217,6 +217,9 @@
     <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.ModificarComentarioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.obtenerComentarioPorIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSComentario\SoftInvBusiness.SoftInvWSComentario.ObtenerComentariosPorProductoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

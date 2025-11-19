@@ -41,6 +41,12 @@
   <message name="EliminarComentarioResponse">
     <part name="parameters" element="tns:EliminarComentarioResponse" />
   </message>
+  <message name="obtenerComentarioPorId">
+    <part name="parameters" element="tns:obtenerComentarioPorId" />
+  </message>
+  <message name="obtenerComentarioPorIdResponse">
+    <part name="parameters" element="tns:obtenerComentarioPorIdResponse" />
+  </message>
   <portType name="Comentario">
     <operation name="ObtenerComentariosPorProducto">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/ObtenerComentariosPorProductoRequest" message="tns:ObtenerComentariosPorProducto" />
@@ -65,6 +71,10 @@
     <operation name="EliminarComentario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/EliminarComentarioRequest" message="tns:EliminarComentario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/EliminarComentarioResponse" message="tns:EliminarComentarioResponse" />
+    </operation>
+    <operation name="obtenerComentarioPorId">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/obtenerComentarioPorIdRequest" message="tns:obtenerComentarioPorId" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Comentario/obtenerComentarioPorIdResponse" message="tns:obtenerComentarioPorIdResponse" />
     </operation>
   </portType>
   <binding name="ComentarioPortBinding" type="tns:Comentario">
@@ -115,6 +125,15 @@
       </output>
     </operation>
     <operation name="EliminarComentario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="obtenerComentarioPorId">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
