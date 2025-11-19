@@ -18,6 +18,8 @@ namespace MGBeautySpaWebAplication.Cliente
             }
             UpdateCartDisplay();
             VerificarSesion();
+
+
         }
 
         private void LoadUserData()
@@ -30,6 +32,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
         private void VerificarSesion()
         {
+            string fotoUrl = "~/Content/default_profile.png";
             var usuario = Session["UsuarioActual"] as usuarioDTO;
 
             if (usuario == null)
@@ -53,9 +56,15 @@ namespace MGBeautySpaWebAplication.Cliente
                     divLogin.Visible = false;
 
                     litUserName.Text = usuario.nombre;
+
+                    if (!string.IsNullOrEmpty(usuario.urlFotoPerfil))
+                    {
+                        fotoUrl = usuario.urlFotoPerfil;
+                    }
+
                 }
-                    
             }
+            imgProfile.Src = ResolveUrl(fotoUrl);
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

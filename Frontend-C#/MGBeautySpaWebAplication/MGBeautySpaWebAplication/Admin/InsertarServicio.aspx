@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Añadir Servicio" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeBehind="InsertarServicio.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.InsertarServicio" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <style>
         .h1-add-service {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -61,16 +62,16 @@
 
         .file-upload-wrapper {
             position: relative;
-            width: 100%; 
-            height: 168px; 
-            border: 2px dashed #148C76; 
-            border-radius: 12px; 
+            width: 100%;
+            height: 300px;
+            border: 2px dashed #148C76;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             cursor: pointer;
-            overflow: hidden; 
+            overflow: hidden;
             background-color: #fafcff;
         }
         .file-upload-wrapper:hover {
@@ -139,6 +140,15 @@
             display: none;
         }
 
+        .validation-error {
+            display: block;
+            color: #C31E1E;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
     </style>
 </asp:Content>
 
@@ -181,6 +191,9 @@
 
     <div class="mb-4">
         <label class="form-label">Subir imagen</label>
+
+        <div class="mb-4" style="width: 300px; max-width: 100%; margin: 0 auto;" >
+
         <div class="file-upload-wrapper" ID="fileUploadWrapper" runat="server">
             <asp:FileUpload ID="fileUpload" runat="server" CssClass="file-upload-input" />
             <div class="file-upload-label">
@@ -188,6 +201,15 @@
                 <span class="file-upload-text">Arrastra y suelta o haz click para subir</span>
             </div>
             <asp:HiddenField ID="hdnImagenActual" runat="server" Value="" />
+        </div>
+        <span class="validation-error validation-error-js" style="display: none;"></span>
+        <asp:CustomValidator ID="cvImagen" runat="server" 
+            ErrorMessage="Debe seleccionar una imagen para el servicio nuevo."
+            CssClass="validation-error" 
+            Display="Dynamic"
+            ValidationGroup="GuardarProducto"
+            ClientValidationFunction="validateImageUpload" />
+
         </div>
     </div>
 
@@ -203,40 +225,75 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptsContent" runat="server">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $(".file-upload-input").on("change", function () {
-                const file = this.files[0];
-                const $wrapper = $(this).closest(".file-upload-wrapper");
-                const $label = $wrapper.find(".file-upload-label");
+        function validateImageUpload(source, args) {
+            const fileInput = document.getElementById('<%= fileUpload.ClientID %>');
+            const hiddenImage = document.getElementById('<%= hdnImagenActual.ClientID %>');
 
-                if (file) {
-                    if (file.type.startsWith("image/")) {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            $wrapper.css("background-image", "url(" + e.target.result + ")");
-                            $wrapper.addClass("has-preview");
-                            $label.hide();
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        const $labelStrong = $wrapper.find("strong");
-                        const $labelText = $wrapper.find(".file-upload-text");
-                        $labelStrong.text("Archivo seleccionado:");
-                        $labelText.text(file.name);
-                        $wrapper.css("background-image", "none");
-                        $wrapper.removeClass("has-preview");
-                        $label.show();
+            if (fileInput.files.length > 0) {
+                args.IsValid = true;
+                return;
+            }
+
+            if (hiddenImage.value !== '') {
+                args.IsValid = true;
+                return;
+            }
+
+            args.IsValid = false;
+        }
+
+        $(".file-upload-input").on("change", function () {
+            const file = this.files[0];
+            const $wrapper = $(this).closest(".file-upload-wrapper");
+            const $label = $wrapper.find(".file-upload-label");
+            const $labelText = $wrapper.find(".file-upload-text");
+            const $labelStrong = $wrapper.find("strong");
+            const $errorDisplay = $wrapper.parent().find(".validation-error-js");
+
+            // Limpiar error previo
+            if ($errorDisplay.length) {
+                $errorDisplay.text("").hide();
+            }
+
+            if (file) {
+                // Validación de tipo de archivo solo en el cliente para UX
+                if (!file.type.startsWith("image/")) {
+                    // Mostrar error de archivo NO imagen (UX)
+                    if ($errorDisplay.length) {
+                        $errorDisplay.text("Solo se permiten archivos de imagen (JPG, PNG, JPEG)").show();
                     }
-                } else {
-                    const $labelStrong = $wrapper.find("strong");
-                    const $labelText = $wrapper.find(".file-upload-text");
+                    // Resetear el control para prevenir el envío de un archivo no permitido
+                    this.value = "";
+                    $wrapper.css("background-image", "none").removeClass("has-preview");
                     $labelStrong.text("Subir imagen");
                     $labelText.text("Arrastra y suelta o haz click para subir");
+                    $label.show();
+                    return;
+                }
+
+                if (file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $wrapper.css("background-image", "url(" + e.target.result + ")");
+                        $wrapper.addClass("has-preview");
+                        $label.hide();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // Este caso ya no debería ocurrir si la validación superior es exitosa
+                    $labelStrong.text("Archivo seleccionado:");
+                    $labelText.text(file.name);
                     $wrapper.css("background-image", "none");
                     $wrapper.removeClass("has-preview");
                     $label.show();
                 }
-            });
+            } else {
+                $labelStrong.text("Subir imagen");
+                $labelText.text("Arrastra y suelta o haz click para subir");
+                $wrapper.css("background-image", "none");
+                $wrapper.removeClass("has-preview");
+                $label.show();
+            }
         });
     </script>
 </asp:Content>
