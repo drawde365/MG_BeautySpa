@@ -89,4 +89,9 @@ public class Empleado {
             @WebParam(name = "empleadoId") Integer empleadoId) {
         return empleadoBO.listarCitas(empleadoId);
     }
+    
+    @WebMethod(operationName = "ObtenerServiciosNoBrindados")
+    public ArrayList<ServicioDTO> listarServiciosNoBrindados(@WebParam(name = "empleadoId") Integer empleadoId){
+        return empleadoBO.listarServiciosNoBrindados(empleadoId);
+    }
 }

@@ -1,0 +1,72 @@
+﻿<%@ Master Language="C#" 
+    MasterPageFile="~/Cliente/Cliente.Master" 
+    AutoEventWireup="true"
+    CodeBehind="Perfil.master.cs"
+    Inherits="MGBeautySpaWebAplication.Cliente.PerfilMaster" %>
+
+<asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Cliente/Perfil/PerfilMaster.css") %>" />
+</asp:Content>
+
+<asp:Content ID="ctMainContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="profile-layout-container">
+        <div class="profile-sidebar">
+            <div class="profile-sidebar-content">
+                <div class="profile-header">
+                    <div class="profile-picture-container">
+                        <img id="imgProfileSidebar" runat="server"
+                             src="~/Content/default_profile.png"
+                             alt="Foto de perfil"
+                             class="profile-picture" />
+                    </div>
+                    <h2 class="user-name-title">
+                        <asp:Literal ID="litSidebarUserName" runat="server" /> 
+                    </h2>
+                </div>
+
+                <nav class="profile-nav">
+                    <%-- 
+                      - CORRECCIÓN: 
+                      - 1. Añadido runat="server" e ID a cada enlace.
+                      - 2. Eliminada la clase 'active' quemada.
+                      - 3. Añadidos los iconos que faltaban.
+                    --%>
+                    
+                    <a id="navPerfil" runat="server" href="PerfilUsuario.aspx" class="nav-item-link">
+                        <i class="icon-user"></i>
+                        <span class="nav-item-text">Mi perfil</span>
+                    </a>
+
+                    <a id="navPassword" runat="server" href="CambiarPassword.aspx" class="nav-item-link">
+                        <i class="icon-key"></i>
+                        <span class="nav-item-text">Cambiar contraseña</span>
+                    </a>
+
+                    <a id="navPedidos" runat="server" href="Pedidos.aspx" class="nav-item-link">
+                        <i class="icon-box"></i>
+                        <span class="nav-item-text">Pedidos</span>
+                    </a>
+
+                    <a id="navReservas" runat="server" href="Reservas.aspx" class="nav-item-link">
+                        <i class="icon-calendar-12"></i>
+                        <span class="nav-item-text">Reservas</span>
+                    </a>
+                    
+                    <asp:LinkButton ID="btnLogoutSidebar" runat="server" 
+                        CssClass="logout-button"
+                        OnClick="btnLogout_Click">
+                        <i class="icon-log-out"></i>
+                        <span class="nav-item-text">Cerrar sesión</span>
+                    </asp:LinkButton>
+                </nav>
+            </div>
+        </div>
+
+        <div class="profile-main-content">
+            <asp:ContentPlaceHolder ID="ProfileBodyContent" runat="server" />
+        </div>
+    </div>
+</asp:Content>
+
+<asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
+    </asp:Content>

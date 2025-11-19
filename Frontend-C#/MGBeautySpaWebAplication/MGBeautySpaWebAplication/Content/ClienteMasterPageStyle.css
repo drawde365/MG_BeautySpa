@@ -234,7 +234,7 @@ body, #form1 {
 }*/
 
 /* Reglas que habilitan el "Sticky Footer" */
-html, body, #form1 {
+/*html, body, #form1 {
     height: 100%;
     min-height: 100vh;
     margin: 0;
@@ -244,18 +244,19 @@ html, body, #form1 {
 body, #form1 {
     display: flex;
     flex-direction: column;
-}
+}*/
 
 /* Regla para el contenido principal (el ContentPlaceHolder) */
-.content-body-wrapper {
-    flex-grow: 1; /* ¡CLAVE! Hace que el contenido principal ocupe todo el espacio restante */
-    max-width: 960px;
+/*.content-body-wrapper {
+    flex-grow: 1;*/ /* ¡CLAVE! Hace que el contenido principal ocupe todo el espacio restante */
+    /*max-width: 960px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     padding: 0 15px;
 }
+
 
 .header-container {
     display: flex;
@@ -464,21 +465,21 @@ body, #form1 {
     margin: 0;
     font-size: 14px;
     color: #FFFFFF;
-}
+}*/
 
 /* El header fijo y sin espacio superior */
-.header-sticky {
+/*.header-sticky {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1030;
-    background-color: #148C76; /* igual que bg-dark */
-}
+    background-color: #148C76;*/ /* igual que bg-dark */
+/*}*/
 
 
 /* Pequeñas mejoras visuales */
-.header-sticky .badge {
+/*.header-sticky .badge {
     font-size: 0.7rem;
 }
 
@@ -491,11 +492,11 @@ body, #form1 {
 }
 
 body {
-    padding-top: 80px; /* evita que el contenido quede oculto debajo del header */
-}
+    padding-top: 80px;*/ /* evita que el contenido quede oculto debajo del header */
+/*}*/
 
 /* Mejoras responsivas */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     .header-sticky .flex-wrap {
         justify-content: center;
         text-align: center;
@@ -511,15 +512,15 @@ body {
     }
 
     .user-name-display {
-        display: none; /* opcional: ocultar nombre para ahorrar espacio */
-    }
-}
+        display: none;*/ /* opcional: ocultar nombre para ahorrar espacio */
+    /*}
+}*/
 
 /* ===== Estilo del buscador elíptico ===== */
-.search-container .input-group {
+/*.search-container .input-group {
     background-color: #fff;
-    border-radius: 50rem; /* forma elíptica */
-    transition: all 0.3s ease-in-out;
+    border-radius: 50rem;*/ /* forma elíptica */
+    /*transition: all 0.3s ease-in-out;
 }
 
 .search-container .input-group:focus-within {
@@ -545,12 +546,46 @@ body {
 .search-container .form-control:focus {
     outline: none;
     box-shadow: none;
-}
+}*/
 
 /* ===== Ajuste en pantallas pequeñas ===== */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     .search-container {
         width: 100%;
         margin-top: 0.5rem;
     }
+}*/
+
+/* ============================
+   BREADCRUMB — ESTILOS UNIFICADOS
+   ============================ */
+
+/*.breadcrumb {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0.2rem !important;
+    background: transparent !important;
+}*/
+
+/* Enlaces previos (menos llamativos) */
+/*.breadcrumb-item a {
+    color: rgba(23, 18, 20, 0.45) !important;
+    text-decoration: none !important;
+    font-weight: 400 !important;
 }
+
+    .breadcrumb-item a:hover {
+        color: #148C76 !important;*/ /* verde de marca */
+        /*text-decoration: underline !important;
+    }*/
+
+/* Separador "/" */
+/*.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(23, 18, 20, 0.35) !important;
+}*/
+
+/* Página actual (más grueso y verde) */
+/*.breadcrumb-item.active {
+    color: #148C76 !important;
+    font-weight: 600 !important;
+}*/

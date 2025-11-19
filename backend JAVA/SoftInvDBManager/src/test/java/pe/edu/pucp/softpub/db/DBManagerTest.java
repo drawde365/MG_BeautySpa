@@ -5,11 +5,14 @@ import pe.edu.pucp.softinv.db.DBManager;
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
+import pe.edu.pucp.softinv.db.util.Cifrado;
 
 public class DBManagerTest {
 
     @org.junit.jupiter.api.Test
     public void getInstance() {
+        System.out.println(Cifrado.cifrarMD5("Holaa1597"));
+    
         System.out.println("getInstance");
         DBManager dBManager = DBManager.getInstance();
         assertNotNull(dBManager);

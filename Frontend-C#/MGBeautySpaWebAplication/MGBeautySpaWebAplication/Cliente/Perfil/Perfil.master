@@ -5,7 +5,11 @@
     Inherits="MGBeautySpaWebAplication.Cliente.PerfilMaster" %>
 
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Cliente/Perfil/PerfilMaster.css") %>" />
+    <%-- CSS general del layout de perfil --%>
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteCss/PerfilMasterCss.css") %>" />
+
+    <%-- Aquí las páginas hijas (Mi Perfil, CambiarPassword, etc.) pueden inyectar su CSS propio --%>
+    <asp:ContentPlaceHolder ID="PerfilHeadContent" runat="server" />
 </asp:Content>
 
 <asp:Content ID="ctMainContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -25,13 +29,6 @@
                 </div>
 
                 <nav class="profile-nav">
-                    <%-- 
-                      - CORRECCIÓN: 
-                      - 1. Añadido runat="server" e ID a cada enlace.
-                      - 2. Eliminada la clase 'active' quemada.
-                      - 3. Añadidos los iconos que faltaban.
-                    --%>
-                    
                     <a id="navPerfil" runat="server" href="PerfilUsuario.aspx" class="nav-item-link">
                         <i class="icon-user"></i>
                         <span class="nav-item-text">Mi perfil</span>
@@ -69,4 +66,4 @@
 </asp:Content>
 
 <asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
-    </asp:Content>
+</asp:Content>

@@ -46,7 +46,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version> <configuration>
                     <properties>
-                        <groups>!integration</groups>
+                        <groups>!integration1</groups>
                     </properties>
                 </configuration>
             </plugin>

@@ -1,0 +1,81 @@
+﻿/*
+ * Estilos específicos para la página de Citas (MisCitas.aspx)
+ */
+
+/* Estilos para replicar las pestañas de Figma */
+.citas-nav-tabs {
+    border-bottom: 1px solid #CFE8E0 !important;
+}
+
+    .citas-nav-tabs .nav-link {
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: #757575; /* Color inactivo */
+        font-weight: 700;
+        font-size: 14px;
+        padding-left: 0;
+        padding-right: 0;
+        margin-right: 32px; /* Separación de Figma */
+        padding-bottom: 13px;
+    }
+
+        /* Estado activo/seleccionado de la pestaña */
+        .citas-nav-tabs .nav-link.active,
+        .citas-nav-tabs .nav-item.show .nav-link {
+            color: #148C76; /* Color activo */
+            border-bottom-color: #148C76;
+            background-color: transparent;
+        }
+
+/* Contenedor principal de la tabla de citas */
+.citas-tabla-container {
+    background-color: #FAFAFA;
+    border: 1px solid #E3D4D9;
+    border-radius: 12px;
+    overflow: hidden; /* Para que el border-radius afecte a las filas */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Estilo para cada fila de cita */
+.citas-fila {
+    display: flex;
+    flex-wrap: wrap; /* Para responsividad */
+    align-items: center;
+    padding: 16px;
+    border-top: 1px solid #E6E8EB;
+    font-size: 14px;
+    color: #1A0F12;
+}
+
+/* Fila especial de encabezado (Cliente, Servicio, etc.) */
+.citas-fila-header {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Columna individual dentro de una fila */
+.citas-col {
+    flex-grow: 1; /* Crece para ocupar espacio */
+    flex-basis: 150px; /* Base para responsivo */
+    min-width: 150px;
+    padding: 0 8px;
+}
+
+/* Columna especial para el estado (más pequeña) */
+.citas-col-estado {
+    flex-grow: 0;
+    flex-basis: 140px;
+    text-align: center;
+}
+
+/* "Píldora" de estado (Completado, Pendiente, etc.) */
+.estado-badge {
+    padding: 8px 16px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Fuente especial del logo para el título h1 */
+.font-zcool {
+    font-family: 'ZCOOL XiaoWei', serif;
+}

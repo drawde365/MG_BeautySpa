@@ -1,0 +1,93 @@
+﻿.orders-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.orders-title {
+    font-size: 1.6rem; /* ↓ antes 1.8rem */
+    color: #107369;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.order-info p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.order-number {
+    margin-bottom: 0.5rem;
+    color: #107369;
+    font-size: 1.3rem; /* ↓ antes más grande */
+    font-weight: 600;
+}
+
+.order-actions {
+    text-align: right;
+}
+
+.btn-detalles {
+    background-color: #107369;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-detalles:hover {
+    background-color: #0c5b53;
+}
+
+.orders-footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-vermas,
+.btn-regresar {
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-vermas {
+    background-color: #107369;
+    color: #fff;
+}
+
+.btn-vermas:hover {
+    background-color: #0c5b53;
+}
+
+.btn-regresar {
+    background-color: #aaa;
+    color: white;
+}
+
+.btn-regresar:hover {
+    background-color: #888;
+}

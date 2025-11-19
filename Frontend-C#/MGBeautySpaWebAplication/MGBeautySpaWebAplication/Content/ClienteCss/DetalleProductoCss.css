@@ -1,0 +1,287 @@
+﻿/* ===========================================
+   LAYOUT GENERAL
+   =========================================== */
+
+.detail-page-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.detail-page-content {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem 2.5rem;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+/* Ajuste para que el hueco bajo el breadcrumb no sea exagerado */
+.detail-header {
+    margin-bottom: 1.25rem;
+}
+
+/* ===========================================
+   CABECERA DEL PRODUCTO
+   =========================================== */
+
+.detail-tag {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    background-color: #E3F4F0;
+    color: #148C76;
+    font-size: 0.8rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.detail-title {
+    margin: 0 0 0.4rem 0;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-weight: 400;
+    font-size: clamp(2.1rem, 3vw, 3rem);
+    color: #148C76;
+    line-height: 1.1;
+}
+
+.detail-subtitle {
+    margin: 0;
+    max-width: 700px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* ===========================================
+   LAYOUT PRINCIPAL (IMAGEN + INFO)
+   =========================================== */
+
+.detail-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Izquierda: imagen */
+.detail-media {
+    width: 100%;
+}
+
+.detail-main-image {
+    width: 100%;
+    background-color: #F9FAFB;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Derecha: info */
+.detail-info {
+    width: 100%;
+}
+
+/* Precio */
+.detail-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.detail-price-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    color: #757575;
+}
+
+.detail-price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: #148C76;
+}
+
+/* Metadatos (tipo de piel, presentación, etc.) */
+.detail-meta {
+    margin-bottom: 1.25rem;
+}
+
+    .detail-meta p {
+        margin: 0.1rem 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.9rem;
+        color: #444;
+    }
+
+.meta-label {
+    font-weight: 600;
+    color: #171214;
+}
+
+/* ===========================================
+   ACCIONES (CANTIDAD + CARRITO)
+   =========================================== */
+
+.detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Cantidad */
+.quantity-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background-color: #fff;
+    border: 1px solid #E0E5E9;
+    overflow: hidden;
+}
+
+.qty-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #148C76;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .qty-btn:hover {
+        background-color: #E3F4F0;
+    }
+
+.qty-input {
+    width: 48px;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    padding: 0;
+}
+
+/* Botón de carrito */
+.btn-add-cart {
+    border-radius: 999px;
+    padding: 0.55rem 1.8rem;
+    border: 2px solid #148C76;
+    background-color: #148C76;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn-add-cart:hover {
+        background-color: #0f6a5d;
+        border-color: #0f6a5d;
+    }
+
+/* ===========================================
+   BLOQUES DE TEXTO (DESCRIPCIÓN / MODO DE USO)
+   =========================================== */
+
+.detail-highlights h2,
+.detail-extra-block h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem 0;
+    color: #171214;
+}
+
+.detail-highlights p,
+.detail-extra-block p {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+    margin: 0;
+}
+
+.detail-highlights {
+    margin-bottom: 1.75rem;
+}
+
+.detail-extra {
+    margin-top: 1.75rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 1.75rem;
+}
+
+.detail-extra-block {
+    padding-top: 0.5rem;
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+
+/* 2 columnas → 1 columna en pantallas medianas */
+@media (max-width: 991.98px) {
+    .detail-page-content {
+        padding: 0.9rem 1rem 2.25rem;
+    }
+
+    .detail-main {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+        gap: 1.25rem;
+    }
+
+    .detail-extra {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+}
+
+/* Layout totalmente apilado en móvil */
+@media (max-width: 575.98px) {
+    .detail-page-content {
+        padding: 0.75rem 0.75rem 2rem;
+    }
+
+    .detail-main {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-main-image {
+        aspect-ratio: 4 / 4;
+    }
+
+    .detail-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-add-cart {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}

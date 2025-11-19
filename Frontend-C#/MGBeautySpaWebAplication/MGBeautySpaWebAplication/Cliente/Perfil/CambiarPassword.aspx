@@ -5,61 +5,55 @@
     CodeBehind="CambiarPassword.aspx.cs"
     Inherits="MGBeautySpaWebAplication.Cliente.Perfil.CambiarPassword" %>
 
+<asp:Content ID="ctHead" ContentPlaceHolderID="PerfilHeadContent" runat="server">
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteCss/CambiarPasswordCss.css") %>" />
+</asp:Content>
+
 <asp:Content ID="ctBody" ContentPlaceHolderID="ProfileBodyContent" runat="server">
 
-    <div style="position: absolute; top: -9999px; left: -9999px;">
+    <!-- AUTOCOMPLETE FIX -->
+    <div style="position:absolute; top:-9999px;">
         <asp:TextBox ID="dummyUser" runat="server" autocomplete="username" />
         <asp:TextBox ID="dummyPass" runat="server" TextMode="Password" autocomplete="current-password" />
     </div>
 
-    <div class="password-change-container" style="max-width:600px; margin:2rem auto; padding:1rem 2rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
-        
-        <h2 style="margin-bottom:1rem;">Cambio de contraseña</h2>
+    <div class="password-container">
 
-        <div style="margin-bottom:1rem;">
-            <label for="<%= txtAntigua.ClientID %>">Contraseña anterior</label><br /> 
-            <asp:TextBox ID="txtAntigua" runat="server"
-                         TextMode="Password"
-                         CssClass="form-control"
-                         autocomplete="current-password"
-                         style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;" />
-        </div>
+        <h2>Cambio de contraseña</h2>
 
-        <div style="margin-bottom:1rem;">
-            <label for="<%= txtNueva.ClientID %>">Nueva contraseña</label><br />
-            <asp:TextBox ID="txtNueva" runat="server"
-                         TextMode="Password"
-                         CssClass="form-control"
-                         autocomplete="new-password"
-                         style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;" />
-        </div>
+        <label class="password-label" for="<%= txtAntigua.ClientID %>">Contraseña actual</label>
+        <asp:TextBox ID="txtAntigua" runat="server"
+                     CssClass="password-input"
+                     TextMode="Password"
+                     autocomplete="current-password" />
 
-        <div style="margin-bottom:1.5rem;">
-            <label for="<%= txtVerificar.ClientID %>">Repite nueva contraseña</label><br />
-            <asp:TextBox ID="txtVerificar" runat="server"
-                         TextMode="Password"
-                         CssClass="form-control"
-                         autocomplete="new-password"
-                         style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;" />
-        </div>
+        <label class="password-label" for="<%= txtNueva.ClientID %>">Nueva contraseña</label>
+        <asp:TextBox ID="txtNueva" runat="server"
+                     CssClass="password-input"
+                     TextMode="Password"
+                     autocomplete="new-password" />
 
-        <div style="margin-top:1rem;">
-            <asp:Button ID="btnGuardar" runat="server"
+        <label class="password-label" for="<%= txtVerificar.ClientID %>">Repite nueva contraseña</label>
+        <asp:TextBox ID="txtVerificar" runat="server"
+                     CssClass="password-input"
+                     TextMode="Password"
+                     autocomplete="new-password" />
+
+        <div style="margin-top:1.5rem;">
+            <asp:Button ID="btnGuardar"
+                        runat="server"
+                        CssClass="btn-save"
                         Text="Guardar cambios"
-                        CssClass="btn btn-primary"
-                        OnClick="btnGuardar_Click"
-                        style="background-color:#107369; color:white; border:none; padding:8px 16px; border-radius:6px; " />
+                        OnClick="btnGuardar_Click" />
 
-            <asp:Button ID="btnCancelar" runat="server"
+            <asp:Button ID="btnCancelar"
+                        runat="server"
+                        CssClass="btn-cancel"
                         Text="Cancelar"
-                        CssClass="btn btn-secondary"
-                        OnClick="btnCancelar_Click"
-                        style="background-color:#7b7b7b; color:white; border:none; padding:8px 16px; border-radius:6px;" />
+                        OnClick="btnCancelar_Click" />
         </div>
 
-        <div style="margin-top:1rem;">
-            <asp:Label ID="lblInfo" runat="server" CssClass="text-muted" ForeColor="Red" />
-        </div>
+        <asp:Label ID="lblInfo" runat="server" CssClass="password-message" />
     </div>
 
 </asp:Content>

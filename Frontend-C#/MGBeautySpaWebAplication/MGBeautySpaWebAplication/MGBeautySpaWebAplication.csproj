@@ -144,6 +144,14 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\CitasStyles.css" />
+    <Content Include="Content\ClienteCss\CambiarPasswordCss.css" />
+    <Content Include="Content\ClienteCss\ClienteMasterCss.css" />
+    <Content Include="Content\ClienteCss\DetalleProductoCss.css" />
+    <Content Include="Content\ClienteCss\InicioClienteCss.css" />
+    <Content Include="Content\ClienteCss\PerfilMasterCss.css" />
+    <Content Include="Content\ClienteCss\PerfilUsuarioCss.css" />
+    <Content Include="Content\ClienteCss\ProductosClienteCss.css" />
+    <Content Include="Content\ClienteCss\ServiciosClienteCss.css" />
     <Content Include="Content\Fonts\css\all.css" />
     <Content Include="Content\Fonts\css\all.min.css" />
     <Content Include="Content\Fonts\css\brands.css" />
@@ -175,11 +183,6 @@
     <Content Include="Content\icomoon\icomoon.css" />
     <Content Include="Content\icomoon\Read Me.txt" />
     <Content Include="Content\images\Cliente\Bienvenida.jpg" />
-    <Content Include="Content\images\CremaHidratante.jpg" />
-    <Content Include="Content\images\CremaReafirmante.jpeg" />
-    <Content Include="Content\images\Productos\CremaReafirmante.jpg" />
-    <Content Include="Content\images\Productos\CremaReductora.jpg" />
-    <Content Include="Content\images\Productos\CremaTermogenica.jpg" />
     <Content Include="Content\images\Empleado\blank-photo.jpg" />
     <Content Include="Content\images\Empleado\InicioEmpleado.png" />
     <Content Include="Content\images\MGFavicon.svg" />
@@ -633,7 +636,9 @@
       <Name>SoftInvBusiness</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\images\Productos\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
