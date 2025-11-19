@@ -16,17 +16,44 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
     public interface Usuario {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRespons" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse ObtenerUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> ObtenerUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenResponse RegistrarToken(SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenResponse> RegistrarTokenAsync(SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRespons" +
             "e")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request);
+        SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaResponse ModificarContrasenha(SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRespons" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRespons" +
             "e")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaResponse> ModificarContrasenhaAsync(SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse IniciarSesion(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> IniciarSesionAsync(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosResponse")]
@@ -36,6 +63,15 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosResponse")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> ListarUsuariosAsync(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse ActivoUsuario(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> ActivoUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioReque" +
@@ -51,201 +87,21 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse IniciarSesion(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> IniciarSesionAsync(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse ActivoUsuario(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> ActivoUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenResponse RegistrarToken(SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenResponse> RegistrarTokenAsync(SoftInvBusiness.SoftInvWSUsuario.RegistrarTokenRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse ObtenerUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> ObtenerUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRespons" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRespons" +
             "e")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaResponse ModificarContrasenha(SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaRequest request);
+        SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRespons" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRespons" +
             "e")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaResponse> ModificarContrasenhaAsync(SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaRequest request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class contrasenhaTokenDTO : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private System.DateTime fecha_expiracionField;
-        
-        private bool fecha_expiracionFieldSpecified;
-        
-        private string tokenField;
-        
-        private int tokenIdField;
-        
-        private bool tokenIdFieldSpecified;
-        
-        private int usadoField;
-        
-        private bool usadoFieldSpecified;
-        
-        private int usuarioIdField;
-        
-        private bool usuarioIdFieldSpecified;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public System.DateTime fecha_expiracion {
-            get {
-                return this.fecha_expiracionField;
-            }
-            set {
-                this.fecha_expiracionField = value;
-                this.RaisePropertyChanged("fecha_expiracion");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool fecha_expiracionSpecified {
-            get {
-                return this.fecha_expiracionFieldSpecified;
-            }
-            set {
-                this.fecha_expiracionFieldSpecified = value;
-                this.RaisePropertyChanged("fecha_expiracionSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string token {
-            get {
-                return this.tokenField;
-            }
-            set {
-                this.tokenField = value;
-                this.RaisePropertyChanged("token");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public int tokenId {
-            get {
-                return this.tokenIdField;
-            }
-            set {
-                this.tokenIdField = value;
-                this.RaisePropertyChanged("tokenId");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool tokenIdSpecified {
-            get {
-                return this.tokenIdFieldSpecified;
-            }
-            set {
-                this.tokenIdFieldSpecified = value;
-                this.RaisePropertyChanged("tokenIdSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public int usado {
-            get {
-                return this.usadoField;
-            }
-            set {
-                this.usadoField = value;
-                this.RaisePropertyChanged("usado");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool usadoSpecified {
-            get {
-                return this.usadoFieldSpecified;
-            }
-            set {
-                this.usadoFieldSpecified = value;
-                this.RaisePropertyChanged("usadoSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public int usuarioId {
-            get {
-                return this.usuarioIdField;
-            }
-            set {
-                this.usuarioIdField = value;
-                this.RaisePropertyChanged("usuarioId");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool usuarioIdSpecified {
-            get {
-                return this.usuarioIdFieldSpecified;
-            }
-            set {
-                this.usuarioIdFieldSpecified = value;
-                this.RaisePropertyChanged("usuarioIdSpecified");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -458,184 +314,182 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="MarcarTokenComoUsado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class MarcarTokenComoUsadoRequest {
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class contrasenhaTokenDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token;
+        private System.DateTime fecha_expiracionField;
         
-        public MarcarTokenComoUsadoRequest() {
+        private bool fecha_expiracionFieldSpecified;
+        
+        private string tokenField;
+        
+        private int tokenIdField;
+        
+        private bool tokenIdFieldSpecified;
+        
+        private int usadoField;
+        
+        private bool usadoFieldSpecified;
+        
+        private int usuarioIdField;
+        
+        private bool usuarioIdFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public System.DateTime fecha_expiracion {
+            get {
+                return this.fecha_expiracionField;
+            }
+            set {
+                this.fecha_expiracionField = value;
+                this.RaisePropertyChanged("fecha_expiracion");
+            }
         }
         
-        public MarcarTokenComoUsadoRequest(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
-            this.token = token;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fecha_expiracionSpecified {
+            get {
+                return this.fecha_expiracionFieldSpecified;
+            }
+            set {
+                this.fecha_expiracionFieldSpecified = value;
+                this.RaisePropertyChanged("fecha_expiracionSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                this.tokenField = value;
+                this.RaisePropertyChanged("token");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public int tokenId {
+            get {
+                return this.tokenIdField;
+            }
+            set {
+                this.tokenIdField = value;
+                this.RaisePropertyChanged("tokenId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool tokenIdSpecified {
+            get {
+                return this.tokenIdFieldSpecified;
+            }
+            set {
+                this.tokenIdFieldSpecified = value;
+                this.RaisePropertyChanged("tokenIdSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public int usado {
+            get {
+                return this.usadoField;
+            }
+            set {
+                this.usadoField = value;
+                this.RaisePropertyChanged("usado");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool usadoSpecified {
+            get {
+                return this.usadoFieldSpecified;
+            }
+            set {
+                this.usadoFieldSpecified = value;
+                this.RaisePropertyChanged("usadoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public int usuarioId {
+            get {
+                return this.usuarioIdField;
+            }
+            set {
+                this.usuarioIdField = value;
+                this.RaisePropertyChanged("usuarioId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool usuarioIdSpecified {
+            get {
+                return this.usuarioIdFieldSpecified;
+            }
+            set {
+                this.usuarioIdFieldSpecified = value;
+                this.RaisePropertyChanged("usuarioIdSpecified");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="MarcarTokenComoUsadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class MarcarTokenComoUsadoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public MarcarTokenComoUsadoResponse() {
-        }
-        
-        public MarcarTokenComoUsadoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarUsuarios", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ListarUsuariosRequest {
-        
-        public ListarUsuariosRequest() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarUsuariosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ListarUsuariosResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] @return;
-        
-        public ListarUsuariosResponse() {
-        }
-        
-        public ListarUsuariosResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerTokenDelUsuarioRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string token;
-        
-        public ObtenerTokenDelUsuarioRequest() {
-        }
-        
-        public ObtenerTokenDelUsuarioRequest(string token) {
-            this.token = token;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerTokenDelUsuarioResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return;
-        
-        public ObtenerTokenDelUsuarioResponse() {
-        }
-        
-        public ObtenerTokenDelUsuarioResponse(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="IniciarSesion", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class IniciarSesionRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerUsuarioRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string correoElectronico;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string contrasenha;
-        
-        public IniciarSesionRequest() {
+        public ObtenerUsuarioRequest() {
         }
         
-        public IniciarSesionRequest(string correoElectronico, string contrasenha) {
+        public ObtenerUsuarioRequest(string correoElectronico) {
             this.correoElectronico = correoElectronico;
-            this.contrasenha = contrasenha;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="IniciarSesionResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class IniciarSesionResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerUsuarioResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return;
         
-        public IniciarSesionResponse() {
+        public ObtenerUsuarioResponse() {
         }
         
-        public IniciarSesionResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ActivoUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ActivoUsuarioRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int userId;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int activoSN;
-        
-        public ActivoUsuarioRequest() {
-        }
-        
-        public ActivoUsuarioRequest(int userId, int activoSN) {
-            this.userId = userId;
-            this.activoSN = activoSN;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ActivoUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ActivoUsuarioResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public ActivoUsuarioResponse() {
-        }
-        
-        public ActivoUsuarioResponse(int @return) {
+        public ObtenerUsuarioResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return) {
             this.@return = @return;
         }
     }
@@ -684,42 +538,6 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerUsuarioRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string correoElectronico;
-        
-        public ObtenerUsuarioRequest() {
-        }
-        
-        public ObtenerUsuarioRequest(string correoElectronico) {
-            this.correoElectronico = correoElectronico;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerUsuarioResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return;
-        
-        public ObtenerUsuarioResponse() {
-        }
-        
-        public ObtenerUsuarioResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarContrasenha", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class ModificarContrasenhaRequest {
         
@@ -758,6 +576,188 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="IniciarSesion", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class IniciarSesionRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string correoElectronico;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string contrasenha;
+        
+        public IniciarSesionRequest() {
+        }
+        
+        public IniciarSesionRequest(string correoElectronico, string contrasenha) {
+            this.correoElectronico = correoElectronico;
+            this.contrasenha = contrasenha;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="IniciarSesionResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class IniciarSesionResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return;
+        
+        public IniciarSesionResponse() {
+        }
+        
+        public IniciarSesionResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarUsuarios", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarUsuariosRequest {
+        
+        public ListarUsuariosRequest() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarUsuariosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarUsuariosResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] @return;
+        
+        public ListarUsuariosResponse() {
+        }
+        
+        public ListarUsuariosResponse(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ActivoUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ActivoUsuarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int userId;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int activoSN;
+        
+        public ActivoUsuarioRequest() {
+        }
+        
+        public ActivoUsuarioRequest(int userId, int activoSN) {
+            this.userId = userId;
+            this.activoSN = activoSN;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ActivoUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ActivoUsuarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public ActivoUsuarioResponse() {
+        }
+        
+        public ActivoUsuarioResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuario", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerTokenDelUsuarioRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string token;
+        
+        public ObtenerTokenDelUsuarioRequest() {
+        }
+        
+        public ObtenerTokenDelUsuarioRequest(string token) {
+            this.token = token;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerTokenDelUsuarioResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerTokenDelUsuarioResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return;
+        
+        public ObtenerTokenDelUsuarioResponse() {
+        }
+        
+        public ObtenerTokenDelUsuarioResponse(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="MarcarTokenComoUsado", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class MarcarTokenComoUsadoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token;
+        
+        public MarcarTokenComoUsadoRequest() {
+        }
+        
+        public MarcarTokenComoUsadoRequest(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
+            this.token = token;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="MarcarTokenComoUsadoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class MarcarTokenComoUsadoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public MarcarTokenComoUsadoResponse() {
+        }
+        
+        public MarcarTokenComoUsadoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface UsuarioChannel : SoftInvBusiness.SoftInvWSUsuario.Usuario, System.ServiceModel.IClientChannel {
     }
@@ -786,120 +786,26 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request) {
-            return base.Channel.MarcarTokenComoUsado(request);
+        SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request) {
+            return base.Channel.ObtenerUsuario(request);
         }
         
-        public int MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
-            SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest();
-            inValue.token = token;
-            SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).MarcarTokenComoUsado(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request) {
-            return base.Channel.MarcarTokenComoUsadoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
-            SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest();
-            inValue.token = token;
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).MarcarTokenComoUsadoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ListarUsuarios(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request) {
-            return base.Channel.ListarUsuarios(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] ListarUsuarios() {
-            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest();
-            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ListarUsuarios(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ListarUsuariosAsync(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request) {
-            return base.Channel.ListarUsuariosAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> ListarUsuariosAsync() {
-            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest();
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ListarUsuariosAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
-            return base.Channel.ObtenerTokenDelUsuario(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO ObtenerTokenDelUsuario(string token) {
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
-            inValue.token = token;
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuario(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
-            return base.Channel.ObtenerTokenDelUsuarioAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(string token) {
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
-            inValue.token = token;
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuarioAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.IniciarSesion(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request) {
-            return base.Channel.IniciarSesion(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO IniciarSesion(string correoElectronico, string contrasenha) {
-            SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest();
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO ObtenerUsuario(string correoElectronico) {
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest();
             inValue.correoElectronico = correoElectronico;
-            inValue.contrasenha = contrasenha;
-            SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).IniciarSesion(inValue);
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerUsuario(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.IniciarSesionAsync(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request) {
-            return base.Channel.IniciarSesionAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request) {
+            return base.Channel.ObtenerUsuarioAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> IniciarSesionAsync(string correoElectronico, string contrasenha) {
-            SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest();
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> ObtenerUsuarioAsync(string correoElectronico) {
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest();
             inValue.correoElectronico = correoElectronico;
-            inValue.contrasenha = contrasenha;
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).IniciarSesionAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ActivoUsuario(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request) {
-            return base.Channel.ActivoUsuario(request);
-        }
-        
-        public int ActivoUsuario(int userId, int activoSN) {
-            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest();
-            inValue.userId = userId;
-            inValue.activoSN = activoSN;
-            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ActivoUsuario(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ActivoUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request) {
-            return base.Channel.ActivoUsuarioAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> ActivoUsuarioAsync(int userId, int activoSN) {
-            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest();
-            inValue.userId = userId;
-            inValue.activoSN = activoSN;
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ActivoUsuarioAsync(inValue);
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerUsuarioAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -928,29 +834,6 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request) {
-            return base.Channel.ObtenerUsuario(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO ObtenerUsuario(string correoElectronico) {
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest();
-            inValue.correoElectronico = correoElectronico;
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerUsuario(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest request) {
-            return base.Channel.ObtenerUsuarioAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioResponse> ObtenerUsuarioAsync(string correoElectronico) {
-            SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerUsuarioRequest();
-            inValue.correoElectronico = correoElectronico;
-            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerUsuarioAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ModificarContrasenha(SoftInvBusiness.SoftInvWSUsuario.ModificarContrasenhaRequest request) {
             return base.Channel.ModificarContrasenha(request);
         }
@@ -973,6 +856,123 @@ namespace SoftInvBusiness.SoftInvWSUsuario {
             inValue.usuarioId = usuarioId;
             inValue.nuevaContrasenha = nuevaContrasenha;
             return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ModificarContrasenhaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.IniciarSesion(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request) {
+            return base.Channel.IniciarSesion(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO IniciarSesion(string correoElectronico, string contrasenha) {
+            SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest();
+            inValue.correoElectronico = correoElectronico;
+            inValue.contrasenha = contrasenha;
+            SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).IniciarSesion(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.IniciarSesionAsync(SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest request) {
+            return base.Channel.IniciarSesionAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.IniciarSesionResponse> IniciarSesionAsync(string correoElectronico, string contrasenha) {
+            SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.IniciarSesionRequest();
+            inValue.correoElectronico = correoElectronico;
+            inValue.contrasenha = contrasenha;
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).IniciarSesionAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ListarUsuarios(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request) {
+            return base.Channel.ListarUsuarios(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSUsuario.usuarioDTO[] ListarUsuarios() {
+            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest();
+            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ListarUsuarios(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ListarUsuariosAsync(SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest request) {
+            return base.Channel.ListarUsuariosAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosResponse> ListarUsuariosAsync() {
+            SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ListarUsuariosRequest();
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ListarUsuariosAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ActivoUsuario(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request) {
+            return base.Channel.ActivoUsuario(request);
+        }
+        
+        public int ActivoUsuario(int userId, int activoSN) {
+            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest();
+            inValue.userId = userId;
+            inValue.activoSN = activoSN;
+            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ActivoUsuario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ActivoUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest request) {
+            return base.Channel.ActivoUsuarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioResponse> ActivoUsuarioAsync(int userId, int activoSN) {
+            SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ActivoUsuarioRequest();
+            inValue.userId = userId;
+            inValue.activoSN = activoSN;
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ActivoUsuarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuario(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
+            return base.Channel.ObtenerTokenDelUsuario(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO ObtenerTokenDelUsuario(string token) {
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
+            inValue.token = token;
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuario(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.ObtenerTokenDelUsuarioAsync(SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest request) {
+            return base.Channel.ObtenerTokenDelUsuarioAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioResponse> ObtenerTokenDelUsuarioAsync(string token) {
+            SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.ObtenerTokenDelUsuarioRequest();
+            inValue.token = token;
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).ObtenerTokenDelUsuarioAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse SoftInvBusiness.SoftInvWSUsuario.Usuario.MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request) {
+            return base.Channel.MarcarTokenComoUsado(request);
+        }
+        
+        public int MarcarTokenComoUsado(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
+            SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest();
+            inValue.token = token;
+            SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse retVal = ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).MarcarTokenComoUsado(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> SoftInvBusiness.SoftInvWSUsuario.Usuario.MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest request) {
+            return base.Channel.MarcarTokenComoUsadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoResponse> MarcarTokenComoUsadoAsync(SoftInvBusiness.SoftInvWSUsuario.contrasenhaTokenDTO token) {
+            SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest inValue = new SoftInvBusiness.SoftInvWSUsuario.MarcarTokenComoUsadoRequest();
+            inValue.token = token;
+            return ((SoftInvBusiness.SoftInvWSUsuario.Usuario)(this)).MarcarTokenComoUsadoAsync(inValue);
         }
     }
 }

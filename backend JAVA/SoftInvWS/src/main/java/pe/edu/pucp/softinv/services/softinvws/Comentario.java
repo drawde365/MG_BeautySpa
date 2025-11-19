@@ -63,4 +63,8 @@ public class Comentario {
             @WebParam(name = "idServicio") Integer idServicio) {
         return comentarioBO.obtenerComentariosPorServicio(idServicio);
     }
+    @WebMethod(operationName = "obtenerComentarioPorId")
+    public ComentarioDTO obtenerComentarioPorId(@WebParam(name = "idComentario")Integer idComentario) {
+        return comentarioBO.obtenerComentarioPorId(idComentario);
+    }
 }

@@ -119,9 +119,17 @@
                                 </td>
 
                                 <td>
-                                    <%# Convert.ToInt32(Eval("cantidadServicios")) > 0 
-                                        ? $"<a href='#' class='view-link'>Ver ({Eval("cantidadServicios")})</a>"
-                                        : "N/A" %>
+                                    <asp:LinkButton ID="lnkServicios"
+                                            runat="server"
+                                            CssClass="view-link"
+                                            Visible='<%# Convert.ToInt32(Eval("rol"))==2 %>'
+                                            CommandArgument='<%# Eval("idUsuario") %>'
+                                            OnClick="btnServicios_Click">
+                                        Ver (<%# Eval("cantidadServicios") %>)
+                                    </asp:LinkButton>
+    
+                                    <asp:Label ID="lblNA" runat="server" Text="N/A" 
+                                               Visible='<%# Convert.ToInt32(Eval("rol")) == 1 %>' />
                                 </td>
 
                                 <td class="text-center">
@@ -157,6 +165,50 @@
         </div>
 
     </div>
+
+    <div class="modal fade" id="modalServicios" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+            <h5 class="modal-title">Servicios del empleado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+            <div id="empleadoDatos" class="mb-3 border p-3 rounded bg-light">
+                <h6 class="mb-1"><strong>Empleado:</strong> <span id="empNombre"></span></h6>
+                <p class="mb-0"><strong>Correo:</strong> <span id="empCorreo"></span></p>
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Precio</th>
+                    <th class="text-center">Acción</th>
+                </tr>
+                </thead>
+                <tbody id="tablaServicios">
+                </tbody>
+            </table>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-primary" onclick="abrirAgregarServicio()">
+                    <i class="fa fa-plus"></i> Agregar servicio
+                </button>
+            </div>
+
+            </div>
+
+        </div>
+        </div>
+    </div>
+    <asp:HiddenField ID="hfEmpleadoId" runat="server" />
+    <asp:LinkButton ID="btnEliminarServicio" runat="server"
+    OnClick="btnEliminarServicio_Click" Style="display:none"></asp:LinkButton>
+
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
     <script>
@@ -187,6 +239,54 @@
         searchInput.addEventListener("input", filterTable);
         filterRole.addEventListener("change", filterTable);
         filterActive.addEventListener("change", filterTable);
+    </script>
+    <script>
+        function showModalFormEmpleado() {
+            var modalFormGroup = new bootstrap.Modal(document.getElementById('modalServicios'));
+            modalFormGroup.toggle();
+        }
+        function llenarModalEmpleado(nombre, correo, servicios, eliminarTarget) {
+            document.getElementById("empNombre").textContent = nombre;
+            document.getElementById("empCorreo").textContent = correo;
+
+            actualizarTablaServicios(servicios, eliminarTarget);
+        }
+
+        function actualizarTablaServicios(servicios, eliminarTarget) {
+            const tbody = document.getElementById("tablaServicios");
+            tbody.innerHTML = "";
+
+            servicios.forEach(function (s) {
+                const tr = document.createElement("tr");
+                tr.id = "row_" + s.idServicio;
+
+                const tdNombre = document.createElement("td");
+                tdNombre.textContent = s.nombre;
+                tr.appendChild(tdNombre);
+
+                const tdPrecio = document.createElement("td");
+                tdPrecio.textContent = s.precio;
+                tr.appendChild(tdPrecio);
+
+                const tdAccion = document.createElement("td");
+                tdAccion.className = "text-center";
+
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn btn-danger btn-sm";
+                btn.innerHTML = '<i class="fa fa-trash"></i>';
+
+                // Al hacer click hacemos postback apuntando al UniqueID del LinkButton servidor
+                btn.onclick = function () {
+                    __doPostBack(eliminarTarget, s.idServicio);
+                };
+
+                tdAccion.appendChild(btn);
+                tr.appendChild(tdAccion);
+
+                tbody.appendChild(tr);
+            });
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content5" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

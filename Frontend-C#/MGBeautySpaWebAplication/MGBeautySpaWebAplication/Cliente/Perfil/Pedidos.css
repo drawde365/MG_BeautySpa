@@ -9,7 +9,6 @@
 }
 
 .orders-title {
-    font-size: 1.6rem; /* ↓ antes 1.8rem */
     color: #107369;
     margin-bottom: 1rem;
     text-align: center;
@@ -65,8 +64,10 @@
     margin-top: 2rem;
 }
 
-.btn-vermas,
-.btn-regresar {
+.btn-vermas
+{
+    background-color: #107369;
+    color: #fff;
     padding: 8px 20px;
     border-radius: 6px;
     border: none;
@@ -74,18 +75,19 @@
     font-size: 0.95rem;
 }
 
-.btn-vermas {
-    background-color: #107369;
-    color: #fff;
-}
-
 .btn-vermas:hover {
     background-color: #0c5b53;
 }
 
-.btn-regresar {
-    background-color: #aaa;
+.btn-regresar 
+{
+    background-color: #7b7b7b;
     color: white;
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
 }
 
 .btn-regresar:hover {

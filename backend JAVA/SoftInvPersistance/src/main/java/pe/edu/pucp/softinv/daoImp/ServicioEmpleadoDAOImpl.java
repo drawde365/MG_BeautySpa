@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpleadoDAO {
-    ServicioDTO servicio;
-    EmpleadoDTO empleado;
-    int EXS; 
+    private ServicioDTO servicio;
+    private EmpleadoDTO empleado;
+    private int EXS;
+    private int activo;
 
     public ServicioEmpleadoDAOImpl() {
         super("EMPLEADOS_SERVICIOS");
@@ -25,12 +26,14 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
     protected void configurarListaDeColumnas() {
         this.listaColumnas.add(new Columna("SERVICIO_ID", true, false));
         this.listaColumnas.add(new Columna("EMPLEADO_ID", true, false));
+        this.listaColumnas.add(new Columna("ACTIVO", false, false));
     }
 
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
         this.statement.setInt(1, servicio.getIdServicio());
         this.statement.setInt(2, empleado.getIdUsuario());
+        this.statement.setInt(3, activo);
     }
 
     @Override
@@ -40,22 +43,42 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
     }
 
     @Override
+    protected void incluirValorDeParametrosParaModificacion() throws SQLException{
+        this.statement.setInt(1,activo);
+        this.statement.setInt(2, servicio.getIdServicio());
+        this.statement.setInt(3, empleado.getIdUsuario());
+    }
+    
+    @Override
     public Integer insertar(Integer empleadoId, Integer servicioId) {
         this.empleado = new EmpleadoDTO();
+        this.activo=1;
         empleado.setIdUsuario(empleadoId);
         this.servicio = new ServicioDTO();
         servicio.setIdServicio(servicioId);
         return super.insertar();
     }
+    
     @Override
     public Integer eliminar(Integer empleadoId, Integer servicioId) {
         this.empleado = new EmpleadoDTO();
+        this.activo=0;
         empleado.setIdUsuario(empleadoId);
         this.servicio = new ServicioDTO();
         servicio.setIdServicio(servicioId);
         return super.eliminar();
     }
 
+    @Override
+    public Integer eliminarLogico(Integer empleadoId, Integer servicioId){
+        this.empleado = new EmpleadoDTO();
+        this.activo=0;
+        empleado.setIdUsuario(empleadoId);
+        this.servicio = new ServicioDTO();
+        servicio.setIdServicio(servicioId);
+        return super.modificar();
+    }
+    
     private void agregarServicio(List lista) throws SQLException {
         ServicioDTO servicio =new ServicioDTO();
         servicio.setIdServicio(resultSet.getInt("SERVICIO_ID"));
@@ -96,7 +119,7 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
         String sql = "SELECT s.SERVICIO_ID, s.NOMBRE, s.TIPO, s.PRECIO, s.DESCRIPCION," +
                 " s.PROM_VALORACIONES, s.URL_IMAGEN, s.DURACION_HORAS, s.ACTIVO" +
                 " FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID" +
-                " JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE u.USUARIO_ID = ?";
+                " JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE u.USUARIO_ID = ? AND es.ACTIVO=1";
         EXS=0;
         return (ArrayList<ServicioDTO>)listarTodos(sql, this::incluirId, empleadoId);
     }
@@ -109,10 +132,11 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
             throw new RuntimeException(e);
         }
     }
+    
     @Override
     public ArrayList<EmpleadoDTO> listarEmpleadosDeServicio(Integer servicioId){
         String sql="SELECT u.USUARIO_ID, u.PRIMER_APELLIDO, u.SEGUNDO_APELLIDO, u.NOMBRE, u.CORREO_ELECTRONICO, u.CONTRASENHA, u.CELULAR, u.ROL_ID, u.URL_IMAGEN, u.ACTIVO \n" +
-"                    	FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE s.SERVICIO_ID = ?";
+"                    	FROM USUARIOS AS u JOIN EMPLEADOS_SERVICIOS AS es ON es.EMPLEADO_ID = u.USUARIO_ID JOIN SERVICIOS AS s ON s.SERVICIO_ID = es.SERVICIO_ID WHERE s.SERVICIO_ID = ? AND es.ACTIVO=1";
         EXS=1;
         return (ArrayList<EmpleadoDTO>)listarTodos(sql, this::incluirId, servicioId);
     }

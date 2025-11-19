@@ -38,6 +38,34 @@ namespace MGBeautySpaWebAplication.Cliente
             if (!IsPostBack)
             {
                 PintarProducto();
+                MostrarNombreUsuario();
+
+                // Verificar si viene de login con comentario pendiente
+                if (Session["ComentarioPendiente"] != null)
+                {
+                    var comentarioPendiente = Session["ComentarioPendiente"] as Dictionary<string, object>;
+                    if (comentarioPendiente != null)
+                    {
+                        int idProductoPendiente = (int)comentarioPendiente["idProducto"];
+
+                        // Verificar que estamos en la página del mismo producto
+                        if (producto != null && producto.idProducto == idProductoPendiente)
+                        {
+                            txtComentario.Text = comentarioPendiente["comentario"].ToString();
+                            hdnValoracion.Value = comentarioPendiente["valoracion"].ToString();
+
+                            // Enviar el comentario automáticamente
+                            EnviarComentario();
+
+                            // Limpiar la sesión
+                            Session.Remove("ComentarioPendiente");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MostrarNombreUsuario();
             }
         }
 
@@ -91,6 +119,20 @@ namespace MGBeautySpaWebAplication.Cliente
             PintarResenas();
         }
 
+        private void MostrarNombreUsuario()
+        {
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+            if (usuario != null)
+            {
+                litNombreUsuario.Text = usuario.nombre ?? "Usuario";
+            }
+            else
+            {
+                litNombreUsuario.Text = "Invitado";
+            }
+        }
+
         private void PintarResenas()
         {
             var listaComentarios = comentarioBO.ObtenerComentariosPorProducto(producto.idProducto);
@@ -107,8 +149,19 @@ namespace MGBeautySpaWebAplication.Cliente
             else
             {
                 pnlNoComments.Visible = false;
-                litReviewScore.Text = producto.promedioValoracion.ToString("0.0");
-                litReviewCount.Text = $"{listaComentarios.Count} reseñas";
+
+                double sumaValoraciones = 0;
+                int totalComentarios = listaComentarios.Count;
+
+                foreach (var comentario in listaComentarios)
+                {
+                    sumaValoraciones += comentario.valoracion;
+                }
+
+                double promedioReal = totalComentarios > 0 ? sumaValoraciones / totalComentarios : 0;
+
+                litReviewScore.Text = promedioReal.ToString("0.0");
+                litReviewCount.Text = $"{totalComentarios} reseñas";
             }
         }
 
@@ -278,41 +331,291 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnEnviarComent_Click(object sender, EventArgs e)
         {
-            /*
-            string texto = txtComentario.Text?.Trim();
-            if (string.IsNullOrEmpty(texto)) return;
+            // Validar que el usuario haya iniciado sesión
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
-            var usuario = Session["UsuarioActual"] as usuarioDTO;
+            if (usuario == null)
+            {
+                // Guardar comentario y valoración en sesión
+                var comentarioPendiente = new Dictionary<string, object>
+        {
+            { "comentario", txtComentario.Text?.Trim() ?? "" },
+            { "valoracion", hdnValoracion.Value },
+            { "idProducto", producto.idProducto }
+        };
+
+                Session["ComentarioPendiente"] = comentarioPendiente;
+                Session["ReturnUrl"] = Request.RawUrl;
+
+                // Redirigir a login
+                Response.Redirect("~/Login.aspx");
+                return;
+            }
+
+            // Si está logueado, enviar el comentario
+            EnviarComentario();
+        }
+
+        private void EnviarComentario()
+        {
+            string texto = txtComentario.Text?.Trim();
+
+            // Validar que haya texto
+            if (string.IsNullOrEmpty(texto))
+            {
+                lblComentarioMessage.Text = "Por favor, escribe un comentario.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+                return;
+            }
+
+            // Validar valoración
+            if (!int.TryParse(hdnValoracion.Value, out int valoracion) || valoracion < 1 || valoracion > 5)
+            {
+                lblComentarioMessage.Text = "Por favor, selecciona una valoración de 1 a 5 estrellas.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+                return;
+            }
+
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
             if (usuario == null)
             {
                 Response.Redirect("~/Login.aspx");
                 return;
             }
 
-            var nuevoComentario = new SoftInvBusiness.SoftInvWSComentario.comentarioDTO();
-            nuevoComentario.descripcion = texto;
-
-            nuevoComentario.valoracion = 5;
-            nuevoComentario.valoracionSpecified = true;
-
-            nuevoComentario.cliente = new SoftInvBusiness.SoftInvWSComentario.clienteDTO
+            try
             {
-                idUsuario = usuario.idUsuario,
-                idUsuarioSpecified = true
-            };
+                // ✅ VERIFICAR SI ESTAMOS EDITANDO O INSERTANDO
+                int idComentarioEditando = (int)Session["ComentarioEditando"];
 
-            nuevoComentario.producto = new SoftInvBusiness.SoftInvWSComentario.productoDTO
+                if (idComentarioEditando!=0)
+                {
+                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente = comentarioBO.ObtenerComentarioPorId(idComentarioEditando);
+                    // ✅ MODO EDICIÓN: Actualizar comentario existente
+                    comentarioExistente.comentario = texto;
+
+                    comentarioBO.ModificarComentario(comentarioExistente);
+
+                    lblComentarioMessage.Text = "¡Tu reseña se ha actualizado exitosamente!";
+                    lblComentarioMessage.CssClass = "comment-message success";
+
+                    // Limpiar sesión de edición
+                    Session.Remove("ComentarioEditando");
+
+                    // Restaurar texto del botón
+                    btnEnviarComent.Text = "Enviar";
+                }
+                else
+                {
+                    // ✅ MODO INSERCIÓN: Crear nuevo comentario
+                    comentarioBO.InsertarComentarioDeProducto(
+                        usuario.idUsuario,
+                        texto,
+                        valoracion,
+                        producto.idProducto
+                    );
+
+                    lblComentarioMessage.Text = "¡Tu reseña se ha publicado exitosamente!";
+                    lblComentarioMessage.CssClass = "comment-message success";
+                }
+
+                lblComentarioMessage.Visible = true;
+
+                // Limpiar formulario
+                txtComentario.Text = "";
+                hdnValoracion.Value = "0";
+
+                // Actualizar la lista de reseñas
+                PintarResenas();
+
+                // Registrar script para limpiar las estrellas
+                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellas",
+                    "document.querySelectorAll('.rating-star').forEach(s => { s.classList.remove('active'); s.textContent = '☆'; });", true);
+            }
+            catch (Exception ex)
             {
-                idProducto = producto.idProducto,
-                idProductoSpecified = true
-            };
+                lblComentarioMessage.Text = "Error al procesar tu reseña. Inténtalo nuevamente.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
 
-            comentarioBO.Insertar(nuevoComentario);
+                System.Diagnostics.Debug.WriteLine($"Error al procesar comentario: {ex.Message}");
+            }
+        }
 
-            txtNombreComent.Text = "";
-            txtComentario.Text = "";
-            PintarResenas();
-            */
+        protected void rpComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // Obtener el comentario actual
+                var comentario = e.Item.DataItem as SoftInvBusiness.SoftInvWSComentario.comentarioDTO;
+
+                if (comentario == null) return;
+
+                // Obtener el usuario de la sesión
+                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+                // Verificar si el usuario es el autor del comentario
+                bool esAutor = false;
+
+                if (usuario != null && comentario.cliente != null)
+                {
+                    esAutor = (usuario.idUsuario == comentario.cliente.idUsuario);
+                }
+
+                // Mostrar u ocultar los botones según sea el autor
+                var btnEditar = (LinkButton)e.Item.FindControl("btnEditarComentario");
+                var btnEliminar = (LinkButton)e.Item.FindControl("btnEliminarComentario");
+
+                if (btnEditar != null)
+                {
+                    btnEditar.Visible = esAutor;
+                    btnEditar.CommandArgument = comentario.idComentario.ToString();
+                }
+
+                if (btnEliminar != null)
+                {
+                    btnEliminar.Visible = esAutor;
+                    btnEliminar.CommandArgument = comentario.idComentario.ToString();
+                }
+            }
+        }
+
+        protected void btnEditarComentario_Click(object sender, EventArgs e)
+        {
+            var btn = (LinkButton)sender;
+
+            if (!int.TryParse(btn.CommandArgument, out int idComentario))
+            {
+                return;
+            }
+
+            try
+            {
+                // Obtener el comentario completo
+                var comentario = comentarioBO.ObtenerComentarioPorId(idComentario);
+
+                if (comentario == null) return;
+
+                // Verificar que el usuario sea el autor
+                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+                if (usuario == null || comentario.cliente.idUsuario != usuario.idUsuario)
+                {
+                    lblComentarioMessage.Text = "No tienes permisos para editar este comentario.";
+                    lblComentarioMessage.CssClass = "comment-message error";
+                    lblComentarioMessage.Visible = true;
+                    return;
+                }
+
+                // Cargar el comentario en el formulario para editarlo
+                txtComentario.Text = comentario.comentario;
+                hdnValoracion.Value = comentario.valoracion.ToString();
+
+                // Guardar el ID del comentario que se está editando
+                Session["ComentarioEditando"] = idComentario;
+
+                // Cambiar el texto del botón
+                btnEnviarComent.Text = "Actualizar";
+
+                // Mostrar mensaje informativo
+                lblComentarioMessage.Text = "Editando tu comentario. Modifica el texto o las estrellas y presiona 'Actualizar'.";
+                lblComentarioMessage.CssClass = "comment-message";
+                lblComentarioMessage.Style["background-color"] = "#fff3cd";
+                lblComentarioMessage.Style["color"] = "#856404";
+                lblComentarioMessage.Style["border"] = "1px solid #ffeaa7";
+                lblComentarioMessage.Visible = true;
+
+                // Scroll al formulario
+                ScriptManager.RegisterStartupScript(this, GetType(), "scrollToForm",
+                    "document.querySelector('.add-review-form').scrollIntoView({ behavior: 'smooth', block: 'center' });", true);
+
+                // Restaurar las estrellas visuales
+                string scriptEstrellas = $@"
+            setTimeout(function() {{
+                var stars = document.querySelectorAll('.rating-star');
+                var valor = {comentario.valoracion};
+                
+                stars.forEach(function(s) {{
+                    s.classList.remove('active');
+                    s.textContent = '☆';
+                }});
+                
+                for(var i = 0; i < valor; i++) {{
+                    stars[i].classList.add('active');
+                    stars[i].textContent = '★';
+                }}
+            }}, 100);
+        ";
+                ScriptManager.RegisterStartupScript(this, GetType(), "restaurarEstrellasEdicion", scriptEstrellas, true);
+            }
+            catch (Exception ex)
+            {
+                lblComentarioMessage.Text = "Error al cargar el comentario para editar.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+                System.Diagnostics.Debug.WriteLine($"Error al editar comentario: {ex.Message}");
+            }
+        }
+
+        protected void btnEliminarComentario_Click(object sender, EventArgs e)
+        {
+            var btn = (LinkButton)sender;
+
+            if (!int.TryParse(btn.CommandArgument, out int idComentario))
+            {
+                return;
+            }
+
+            try
+            {
+                // Verificar que el usuario sea el autor
+                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+                if (usuario == null)
+                {
+                    Response.Redirect("~/Login.aspx");
+                    return;
+                }
+
+                // Obtener el comentario para verificar autoría
+                var comentarios = comentarioBO.ObtenerComentariosPorProducto(producto.idProducto);
+                var comentario = comentarios.FirstOrDefault(c => c.idComentario == idComentario);
+
+                if (comentario != null && comentario.cliente.idUsuario == usuario.idUsuario)
+                {
+                    // Eliminar el comentario
+                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioEliminar = new SoftInvBusiness.SoftInvWSComentario.comentarioDTO
+                    {
+                        idComentario = idComentario,
+                        idComentarioSpecified = true
+                    };
+                    comentarioBO.EliminarComentario(comentarioEliminar);
+
+                    // Mostrar mensaje de éxito
+                    lblComentarioMessage.Text = "Tu comentario ha sido eliminado exitosamente.";
+                    lblComentarioMessage.CssClass = "comment-message success";
+                    lblComentarioMessage.Visible = true;
+
+                    // Actualizar la lista
+                    PintarResenas();
+                }
+                else
+                {
+                    lblComentarioMessage.Text = "No tienes permisos para eliminar este comentario.";
+                    lblComentarioMessage.CssClass = "comment-message error";
+                    lblComentarioMessage.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblComentarioMessage.Text = "Error al eliminar el comentario.";
+                lblComentarioMessage.CssClass = "comment-message error";
+                lblComentarioMessage.Visible = true;
+                System.Diagnostics.Debug.WriteLine($"Error al eliminar comentario: {ex.Message}");
+            }
         }
     }
 }

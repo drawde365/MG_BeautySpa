@@ -64,6 +64,10 @@ public class EmpleadoBO
         SXEDAO.insertar(empleadoId,servicioId);
     }
 
+    public void eliminarServicio(Integer empleadoId, Integer servicioId){
+        SXEDAO.eliminarLogico(empleadoId, servicioId);
+    }
+    
     public ArrayList<ServicioDTO> listarServicios(Integer empleadoId) {
         return SXEDAO.listarServiciosDeEmpleado(empleadoId);
     }

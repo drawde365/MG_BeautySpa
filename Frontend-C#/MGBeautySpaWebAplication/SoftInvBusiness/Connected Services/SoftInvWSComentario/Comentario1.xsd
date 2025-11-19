@@ -12,9 +12,16 @@
   <xs:element name="ObtenerComentariosPorProductoResponse" type="tns:ObtenerComentariosPorProductoResponse" />
   <xs:element name="ObtenerComentariosPorServicio" type="tns:ObtenerComentariosPorServicio" />
   <xs:element name="ObtenerComentariosPorServicioResponse" type="tns:ObtenerComentariosPorServicioResponse" />
-  <xs:complexType name="ModificarComentario">
+  <xs:element name="obtenerComentarioPorId" type="tns:obtenerComentarioPorId" />
+  <xs:element name="obtenerComentarioPorIdResponse" type="tns:obtenerComentarioPorIdResponse" />
+  <xs:complexType name="obtenerComentarioPorId">
     <xs:sequence>
-      <xs:element minOccurs="0" name="comentario" type="tns:comentarioDTO" />
+      <xs:element minOccurs="0" name="idComentario" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obtenerComentarioPorIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:comentarioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="comentarioDTO">
@@ -120,6 +127,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ModificarComentario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="comentario" type="tns:comentarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="ModificarComentarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
@@ -135,6 +147,16 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:comentarioDTO" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="ObtenerComentariosPorServicio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idServicio" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerComentariosPorServicioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:comentarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="InsertarComentarioDeProducto">
     <xs:sequence>
       <xs:element minOccurs="0" name="clienteId" type="xs:int" />
@@ -146,16 +168,6 @@
   <xs:complexType name="InsertarComentarioDeProductoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ObtenerComentariosPorServicio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idServicio" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ObtenerComentariosPorServicioResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:comentarioDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="InsertarComentarioDeServicio">

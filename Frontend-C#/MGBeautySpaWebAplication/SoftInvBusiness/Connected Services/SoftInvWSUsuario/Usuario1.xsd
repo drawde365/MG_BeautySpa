@@ -16,6 +16,17 @@
   <xs:element name="ObtenerUsuarioResponse" type="tns:ObtenerUsuarioResponse" />
   <xs:element name="RegistrarToken" type="tns:RegistrarToken" />
   <xs:element name="RegistrarTokenResponse" type="tns:RegistrarTokenResponse" />
+  <xs:complexType name="RegistrarToken">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
+      <xs:element minOccurs="0" name="token" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistrarTokenResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="ObtenerTokenDelUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="token" type="xs:string" />
@@ -35,13 +46,13 @@
       <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="RegistrarToken">
+  <xs:complexType name="ActivoUsuario">
     <xs:sequence>
-      <xs:element minOccurs="0" name="usuarioId" type="xs:int" />
-      <xs:element minOccurs="0" name="token" type="xs:string" />
+      <xs:element minOccurs="0" name="userId" type="xs:int" />
+      <xs:element minOccurs="0" name="activoSN" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="RegistrarTokenResponse">
+  <xs:complexType name="ActivoUsuarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
@@ -52,17 +63,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="MarcarTokenComoUsadoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ActivoUsuario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="userId" type="xs:int" />
-      <xs:element minOccurs="0" name="activoSN" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ActivoUsuarioResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

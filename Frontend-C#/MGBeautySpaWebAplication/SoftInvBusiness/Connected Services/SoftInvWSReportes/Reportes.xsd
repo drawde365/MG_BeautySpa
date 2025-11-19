@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="generarReporteCitas" type="tns:generarReporteCitas" />
+  <xs:element name="generarReporteCitasResponse" type="tns:generarReporteCitasResponse" />
+  <xs:element name="generarReporteVentas" type="tns:generarReporteVentas" />
+  <xs:element name="generarReporteVentasResponse" type="tns:generarReporteVentasResponse" />
+  <xs:complexType name="generarReporteCitas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Filtros" type="tns:filtroReporte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="filtroReporte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="estadoPedido" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaFin" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaInicio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="nombreEmpleado" type="xs:string" />
+      <xs:element minOccurs="0" name="nombreProducto" type="xs:string" />
+      <xs:element minOccurs="0" name="nombreServicio" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoProducto" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoServicio" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="generarReporteCitasResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="generarReporteVentas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Filtros" type="tns:filtroReporte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="generarReporteVentasResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
