@@ -216,7 +216,8 @@ namespace MGBeautySpaWebAplication.Cliente
                 carro.idPedido = pedidoBO.Insertar(carro);
 
                 carrito = carro;
-            } else if(carrito.idPedido==0)
+            }
+            else if (carrito.idPedido == 0)
             {
                 pedidoDTO carro = new pedidoDTO();
                 carro.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO();
@@ -232,7 +233,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 carrito = carro;
             }
 
-                var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
+            var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
             int totalItemsAdded = 0;
 
             foreach (RepeaterItem item in rpPresentaciones.Items)

@@ -1,0 +1,610 @@
+﻿/* --- 0. Configuración Global --- */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #ECFFFD; /* Fondo general de la página */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* Contenedor principal centrado */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 912px;
+    max-width: 960px; /* Coincide con tu spec */
+    margin: 40px auto 20px auto; /* Centrado y con espacio */
+    background: #FFFFFF; /* Fondo blanco para el contenido */
+    border-radius: 12px; /* Añadido para un look limpio */
+}
+
+/* --- 1. Breadcrumbs --- */
+.breadcrumb-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+    .breadcrumb-nav a,
+    .breadcrumb-nav span {
+        color: #BAD0D9;
+        text-decoration: none;
+    }
+
+    .breadcrumb-nav strong {
+        color: #148C76;
+        font-weight: 500;
+    }
+
+/* --- 2. Encabezado del Producto --- */
+.product-header {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px 12px;
+    gap: 12px;
+}
+
+    .product-header h1 {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 28px;
+        color: #171214;
+        margin: 0;
+    }
+
+    .product-header p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: #000000;
+        margin: 0;
+    }
+
+/* --- 3. Layout Principal (Imagen + Compra) --- */
+.product-main-layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Para responsiveness */
+    align-items: flex-start;
+    gap: 7px;
+    padding: 0 16px; /* Ajustado para alinear con el contenido */
+}
+
+/* Columna Izquierda: Imagen */
+.product-image-column {
+    flex: 1; /* Ocupa espacio disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 389px;
+    padding: 4px 0 12px 0; /* Ajustado de la spec */
+}
+
+.product-image-css {
+    width: 100%;
+    max-width: 357px; /* Ancho de la spec */
+    height: 597px; /* Alto de la spec */
+    border-radius: 12px;
+    background-color: #f0f0f0; /* Color de placeholder */
+    object-fit: cover;
+}
+
+/* Columna Derecha: Detalles de Compra */
+.product-details-column {
+    flex: 1.5; /* Más espacio para los detalles */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 0; /* Ajustado de la spec */
+    gap: 10px;
+    min-width: 427px;
+}
+
+.price {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 23px; /* Ojo: Line-height es menor que font-size */
+    color: #171214;
+    padding-bottom: 20px; /* Espacio extra */
+}
+
+.purchase-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%; /* Ocupa todo el ancho de la columna */
+}
+
+.options-title {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    color: #171214;
+    padding: 16px 0 8px 0;
+    margin: 0;
+}
+
+/* Estilos para el Repeater de Tipos */
+.tipo-item-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start; /* <-- CÁMBIALO a 'flex-start' */
+    padding: 12px 0;
+    gap: 20px;
+    width: 100%;
+    border-bottom: 1px solid #E3DEDE;
+}
+.tipo-name-btn {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px;
+    width: 88px;
+    height: 44px;
+    border: 1px solid #E3DEDE;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #171214;
+    gap: 0px;
+}
+
+.quantity-picker {
+    display: flex; /* Mantiene los 3 elementos en línea */
+    flex-direction: row;
+    align-items: center;
+}
+
+    /* Estilo para los botones HTML <button> */
+    .quantity-picker button {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 21px;
+        color: #171214;
+        background: #fff;
+        /* Dibuja solo el borde superior, inferior y lateral */
+        border: 1px solid #E3DEDE;
+        cursor: pointer;
+        height: 44px;
+        width: 35px; /* Ancho para que se vea bien */
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilo para el TextBox <input type="text"> */
+    .quantity-picker .qty-display {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        color: #171214;
+        text-align: center;
+        width: 52px;
+        height: 44px;
+        /* LA CORRECCIÓN CLAVE: */
+        border: 1px solid #E3DEDE; /* Borde completo */
+        border-left: none; /* Quitamos el borde izquierdo */
+        border-right: none; /* Quitamos el borde derecho */
+
+        padding: 0 5px; /* Padding interno */
+        box-sizing: border-box;
+        /* Reseteo de estilos de input */
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: textfield; /* Para Firefox */
+    }
+
+    /* Bordes redondeados para los botones (como en Figma) */
+    .quantity-picker .qty-btn-minus {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .quantity-picker .qty-btn-plus {
+        border-radius: 0 10px 10px 0;
+    }
+
+.add-button-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    width: 119px;
+    height: 40px;
+    background: #1EC3B6;
+    border-radius: 20px;
+    border: none;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.cart-message {
+    color: green;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.add-button-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    width: 141px;
+    height: 40px;
+    background: #1EC3B6;
+    border-radius: 20px;
+    border: none;
+    margin-top: 20px; /* Espacio extra */
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+/* --- 4. Detalles del Producto --- */
+.product-info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 16px 8px;
+    width: 100%;
+}
+
+.section-title {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    color: #171214;
+    margin: 0;
+}
+
+.details-grid {
+    display: flex;
+    flex-direction: row; /* Cambiado a row para layout de spec */
+    flex-wrap: wrap; /* Permitir que caiga en pantallas chicas */
+    align-items: flex-start;
+    padding: 16px 0; /* Ajustado */
+    gap: 24px;
+    width: 100%;
+}
+
+.detail-item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    border-top: 1px solid #E6E8EB;
+    flex: 1; /* Distribuye el espacio */
+    min-width: 180px; /* Ancho mínimo para cada item */
+}
+
+.detail-item-label {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #826670;
+    margin-bottom: 8px; /* Espacio entre label y value */
+}
+
+.detail-item-value {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #171214;
+}
+
+
+/* --- 5. Sección de Reseñas --- */
+.product-reviews-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    width: 100%;
+}
+
+/* Resumen de Calificaciones */
+.review-summary-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px 32px;
+    padding: 16px 0;
+    width: 100%;
+}
+
+.review-score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 98px;
+}
+
+.score-number {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 45px;
+    letter-spacing: -1px;
+    color: #148C76;
+}
+
+.score-stars {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 2px;
+    font-size: 18px;
+    color: #148C76;
+}
+
+.score-count {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #148C76;
+}
+
+.review-bars {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+    margin-top: 10px; /* Alineación visual */
+}
+
+.bar-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px; /* Gap entre número, barra y contador */
+    width: 100%;
+}
+
+    .bar-row span:first-child {
+        width: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #171214;
+    }
+
+.bar-container {
+    height: 8px;
+    background: #E3DEDE;
+    border-radius: 4px;
+    flex-grow: 1;
+}
+
+.bar-fill {
+    height: 8px;
+    background: #148C76;
+    border-radius: 4px;
+}
+
+.bar-row span:last-child {
+    width: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #826670;
+    text-align: right;
+}
+
+/* Lista de Reseñas */
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Espacio entre reseñas */
+    padding-top: 16px;
+    width: 100%;
+}
+
+.review-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+}
+
+.review-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 12px;
+}
+
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px; /* Círculo perfecto */
+    background-color: #f0f0f0; /* Placeholder */
+    object-fit: cover;
+}
+
+.review-author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+}
+
+.review-author-name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171214;
+}
+
+.review-date {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #826670;
+}
+
+.review-stars {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    font-size: 20px;
+    color: #171214;
+}
+
+.review-body {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171214;
+    margin: 0;
+}
+
+.review-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 36px;
+}
+
+.review-action-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    color: #826670;
+    text-decoration: none;
+}
+
+    .review-action-btn:hover {
+        color: #171214;
+    }
+
+
+/* Formulario de Añadir Reseña */
+.add-review-form {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px 0 0 0;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.add-review-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    gap: 12px;
+}
+
+.review-textarea {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 15px;
+    width: 100%;
+    height: 157px;
+    background: #FFFFFF;
+    border: 2px solid #F1E9EC;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+    .review-textarea::placeholder {
+        color: #757575;
+    }
+
+.review-form-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-rating-input {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    font-size: 20px;
+    color: #CCBDC2; /* Estrellas vacías */
+    cursor: pointer;
+}
+
+.btn-submit-review {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    width: 84px;
+    height: 32px;
+    background: #1EC3B6;
+    border-radius: 16px;
+    border: none;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF;
+    cursor: pointer;
+}

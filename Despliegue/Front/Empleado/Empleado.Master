@@ -1,0 +1,137 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Empleado.master.cs" Inherits="MGBeautySpaWebAplication.EmpleadoMaster" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | MG Beauty Spa
+    </title>
+
+    <!-- Iconos -->
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
+
+    <!-- Estilos generales -->
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
+
+    <!-- Estilos de Master (ya adapta header y footer) -->
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
+    <!-- Bootstrap css -->
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.css") %>"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+
+<body>
+    <form id="form1" runat="server" autocomplete="off" style="display:flex; flex-direction:column; min-height:100vh;">
+
+        <!-- HEADER -->
+        <header class="header-sticky text-white shadow-sm">
+            <div class="container-fluid py-2">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+                    <!-- LOGO -->
+                    <a href="<%: ResolveUrl("~/Empleado/InicioEmpleado.aspx") %>" 
+                       class="d-flex align-items-center text-white text-decoration-none">
+                        <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>"
+                             alt="Logo"
+                             style="height: 50px;"
+                             class="me-2" />
+                        <span class="fw-bold fs-5">MG Beauty Spa</span>
+                    </a>
+
+                    <!-- Links + Perfil -->
+                    <div class="d-flex align-items-center flex-wrap gap-4">
+
+                        <!-- LINKS -->
+                        <a href="<%: ResolveUrl("~/Empleado/MiHorario.aspx") %>" 
+                           class="nav-link text-white p-0">Mi Horario</a>
+
+                        <a href="<%: ResolveUrl("~/Empleado/MisCitas.aspx") %>"
+                           class="nav-link text-white p-0">Mis Citas</a>
+
+                        <!-- PERFIL -->
+                        <div class="dropdown">
+                            <a class="header-link dropdown-toggle d-inline-flex align-items-center text-white text-decoration-none"
+                               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                <img id="imgProfile" runat="server"
+                                     src="~/Content/default_profile.png"
+                                     alt="Foto de perfil"
+                                     class="rounded-circle me-1"
+                                     style="width: 32px; height: 32px; object-fit: cover;" />
+
+                                <span class="user-name-display">
+                                    <asp:Literal ID="litUserName" runat="server" />
+                                </span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="<%: ResolveUrl("~/Empleado/Perfil/PerfilUsuario.aspx") %>">
+                                        Mi perfil
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider" /></li>
+
+                                <li>
+                                    <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
+                                        OnClick="btnLogout_Click">Cerrar sesión</asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="content-body-wrapper" style="flex:1 0 auto;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer-container" style="margin-top:auto;">
+            <div class="footer-content">
+
+                <div class="footer-top-row">
+                    <a href="<%: ResolveUrl("~/Empleado/EmpleadoPolitica.aspx") %>" class="footer-link">Política de Privacidad</a>
+                    <a href="<%: ResolveUrl("~/Empleado/EmpleadoTerminos.aspx") %>" class="footer-link">Términos y Condiciones</a>
+                    <a href="<%: ResolveUrl("~/Empleado/EmpleadoContacto.aspx") %>" class="footer-link">Contacto</a>
+                </div>
+
+                <div class="footer-social-row">
+                    <a href="#" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                </div>
+
+                <div class="footer-bottom-row">
+                    <p class="copyright-text">
+                        © <%: DateTime.Now.Year %> MG Beauty Spa. Todos los derechos reservados.
+                    </p>
+                </div>
+
+            </div>
+        </footer>
+
+        <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+        <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
+        <!-- Bootstrap JS -->
+        <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    </form>
+
+    
+</body>
+</html>

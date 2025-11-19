@@ -157,7 +157,7 @@
                             
                             <div class="d-flex justify-content-center mb-3">
                                 <asp:Button ID="btnActualizarCarrito" runat="server" 
-                                    Text="Actualizar Carrito" 
+                                    Text="Recalcular Resumen de Pedido" 
                                     CssClass="checkout-button btn-compact" 
                                     OnClick="btnActualizarCarrito_Click" />
                             </div>
