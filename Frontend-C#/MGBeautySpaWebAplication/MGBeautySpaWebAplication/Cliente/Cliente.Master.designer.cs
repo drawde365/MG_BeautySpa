@@ -15,15 +15,6 @@ namespace MGBeautySpaWebAplication.Cliente
     {
 
         /// <summary>
-        /// Control TitleContent.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder TitleContent;
-
-        /// <summary>
         /// Control HeadContent.
         /// </summary>
         /// <remarks>
@@ -112,6 +103,15 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLogin;
+
+        /// <summary>
+        /// Control BreadcrumbContent.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder BreadcrumbContent;
 
         /// <summary>
         /// Control MainContent.

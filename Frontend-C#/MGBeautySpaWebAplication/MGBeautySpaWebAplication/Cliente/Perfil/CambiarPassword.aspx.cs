@@ -48,7 +48,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 primerapellido = usuario.primerapellido,
                 segundoapellido = usuario.segundoapellido,
                 correoElectronico = usuario.correoElectronico,
-                contrasenha = usuario.contrasenha,
+                contrasenha = nueva,
                 celular = usuario.celular,
                 urlFotoPerfil = usuario.urlFotoPerfil,
                 rol = 1,
@@ -60,7 +60,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             };
 
             clienteBO.ModificarDatosCliente(user);
-            Session["UsuarioActual"] = usuario;
+            Session["UsuarioActual"] = user;
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
 

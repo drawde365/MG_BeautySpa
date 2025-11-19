@@ -1,0 +1,701 @@
+﻿/* =====================================================
+   CARRITO DE COMPRAS - MG Beauty Spa
+   DISEÑO OPTIMIZADO - SIN DUPLICADOS
+   ===================================================== */
+
+/* === VARIABLES === */
+:root {
+    --primary-color: #148C76;
+    --primary-hover: #1EC3B6;
+    --accent-color: #1EC3B6;
+    --text-primary: #171214;
+    --text-secondary: #826670;
+    --text-light: #757575;
+    --border-color: #E3D4D9;
+    --bg-white: #FFFFFF;
+    --bg-light: #F9FAFB;
+    --bg-page: #f4f4f4;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 24px;
+}
+
+/* === FONDO DE PÁGINA === */
+body {
+    background-color: var(--bg-page);
+}
+
+/* === CONTENEDOR PRINCIPAL === */
+.cart-page-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* === BREADCRUMBS Y TÍTULO === */
+.breadcrumbs {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    padding: 16px;
+    margin-bottom: 0;
+}
+
+    .breadcrumbs a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+        .breadcrumbs a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+    .breadcrumbs strong {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+.cart-header {
+    padding: 0 16px 16px 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cart-title {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--text-primary);
+}
+
+/* === LAYOUT DE DOS COLUMNAS === */
+.cart-layout-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 24px;
+    padding: 0 16px 24px;
+    align-items: start;
+}
+
+/* =====================================================
+   COLUMNA IZQUIERDA: TARJETA DE PRODUCTOS
+   ===================================================== */
+
+.cart-products-section {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+    .cart-products-section .d-flex.justify-content-center.mb-3 {
+        padding-top: 17px;
+        padding-bottom: 0;
+    }
+
+/* --- Cabecera de la tarjeta de productos --- */
+.cart-products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-vendor-info {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+    .cart-vendor-info strong {
+        color: var(--primary-color);
+        font-weight: 700;
+    }
+
+.cart-select-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.cart-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+/* --- FILA DE PRODUCTO --- */
+.product-item-card {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    width: 100%;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+
+    .product-item-card:last-child {
+        border-bottom: none;
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .product-item-card:hover {
+        background-color: var(--bg-light);
+    }
+
+/* Grupo de Imagen + Texto */
+.product-details-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.product-image-small {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.product-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.item-variant {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.item-price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* --- CONTROL DE CANTIDAD --- */
+.quantity-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.qty-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--bg-light);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--text-secondary);
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+    .qty-button:hover {
+        background-color: #e9e9e9;
+        color: var(--text-primary);
+    }
+
+.qty-display {
+    width: 40px;
+    height: 36px;
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    border: none;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    padding: 0 4px;
+    box-sizing: border-box;
+}
+
+    .qty-display::-webkit-outer-spin-button,
+    .qty-display::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .qty-display[type=number] {
+        -moz-appearance: textfield;
+    }
+
+.qty-button-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+    .qty-button-remove:hover {
+        background-color: #ffebee;
+        color: #C31E1E;
+    }
+
+/* =====================================================
+   COLUMNA DERECHA: RESUMEN DEL PEDIDO
+   ===================================================== */
+
+.cart-summary-section {
+    position: sticky;
+    top: 24px;
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    padding: 20px 24px;
+}
+
+.summary-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.summary-detail-container {
+    width: 100%;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    width: 100%;
+}
+
+.summary-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.summary-value {
+    display: flex;
+    align-items: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.summary-divider {
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid var(--border-color);
+}
+
+.total-value-row {
+    padding: 12px 0 0 0;
+    margin: 0;
+    background: none;
+    border-radius: 0;
+}
+
+.total-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+}
+
+.total-amount {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+}
+
+/* =====================================================
+   BOTONES DE ACCIÓN
+   ===================================================== */
+
+.checkout-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.btn-back {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--primary-color);
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 10px;
+}
+
+    .btn-back:hover {
+        text-decoration: underline;
+    }
+
+.checkout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    flex-grow: 1;
+    height: 48px;
+    background: var(--accent-color);
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--bg-white);
+    transition: all 0.3s ease;
+}
+
+    .checkout-button:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+/* =====================================================
+   MODAL DE PAGO
+   ===================================================== */
+
+.payment-modal-content {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+
+.payment-modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    padding: 32px 28px 28px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.payment-modal-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--bg-white);
+    margin: 0 0 8px 0;
+}
+
+.payment-modal-subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+}
+
+.payment-modal-body {
+    padding: 32px 28px;
+    background: var(--bg-white);
+}
+
+.input-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-field {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    background: var(--bg-white);
+}
+
+    .input-field:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(30, 195, 182, 0.1);
+    }
+
+    .input-field::placeholder {
+        color: var(--text-light);
+    }
+
+.row-2-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.input-half {
+    margin-bottom: 0;
+}
+
+.payment-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 28px;
+    background: var(--bg-light);
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-cancel-payment {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn-cancel-payment:hover {
+        background: var(--bg-white);
+        border-color: var(--text-secondary);
+        color: var(--text-primary);
+    }
+
+.btn-confirm-payment {
+    flex: 1;
+    padding: 12px 20px;
+    background: var(--accent-color);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--bg-white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn-confirm-payment:hover {
+        background: var(--primary-color);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(30, 195, 182, 0.3);
+    }
+
+/* =====================================================
+   MODAL DE ÉXITO
+   ===================================================== */
+
+.success-modal-content {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.success-modal-body {
+    padding: 48px 32px;
+    text-align: center;
+    background: var(--bg-white);
+}
+
+.success-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, #E8F8F5, #D1F2EB);
+    border-radius: 50%;
+}
+
+.success-icon {
+    color: var(--accent-color);
+}
+
+.success-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+}
+
+.success-message {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 32px 0;
+}
+
+.btn-success-action {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 32px;
+    background: var(--accent-color);
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--bg-white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 200px;
+}
+
+    .btn-success-action:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(30, 195, 182, 0.3);
+    }
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 1200px) {
+    .cart-layout-wrapper {
+        grid-template-columns: 3fr 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .cart-layout-wrapper {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .cart-summary-section {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-item-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .product-details-group {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .quantity-control {
+        grid-row: 2;
+        grid-column: 1;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .qty-button-remove {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+
+    .cart-checkbox {
+        display: none;
+    }
+
+    .item-price {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .row-2-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-modal-footer {
+        flex-direction: column;
+    }
+
+    .btn-cancel-payment,
+    .btn-confirm-payment {
+        width: 100%;
+    }
+}

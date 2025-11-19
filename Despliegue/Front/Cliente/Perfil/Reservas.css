@@ -1,0 +1,83 @@
+﻿.reservas-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.reservas-titulo {
+    font-size: 1.8rem;
+    color: #107369;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.reserva-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.reserva-info p {
+    margin: 0.2rem 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.reserva-numero {
+    margin-bottom: 0.5rem;
+    color: #107369;
+}
+
+.reserva-total {
+    text-align: right;
+    min-width: 120px;
+}
+
+.total-label {
+    color: #555;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.reservas-footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-vermas,
+.btn-regresar {
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-vermas {
+    background-color: #107369;
+    color: #fff;
+}
+
+.btn-vermas:hover {
+    background-color: #0c5b53;
+}
+
+.btn-regresar {
+    background-color: #aaa;
+    color: white;
+}
+
+.btn-regresar:hover {
+    background-color: #888;
+}

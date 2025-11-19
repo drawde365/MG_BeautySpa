@@ -1,0 +1,155 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" 
+    Inherits="MGBeautySpaWebAplication.Admin.AdminMaster" %>
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/html">
+<head runat="server">
+    <%-- Tus scripts y links de CSS existentes --%>
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" />MG Beauty Spa | Admin</title>
+
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
+    
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" /> 
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
+    <link href="../Content/AdminStyle.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
+    
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        
+        <header class="header-sticky text-white ">
+            <div class="container-fluid py-2">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <a href="<%: ResolveUrl("~/Admin/PanelDeControl.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
+                        <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="Logo" style="height: 50px;" class="me-2">
+                        <span class="fw-bold fs-5">MG Beauty Spa</span>
+                    </a>
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+                        <div class="dropdown">
+                            <a class="header-link dropdown-toggle d-inline-flex align-items-center text-white text-decoration-none"
+                               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img id="imgProfile" runat="server"
+                                    src="~/Content/default_profile.png"
+                                    alt="Foto de perfil"
+                                    class="rounded-circle me-1" style="width:32px;height:32px;object-fit:cover;">
+                                </img>
+                                <span class="user-name-display">
+                                    <asp:Literal ID="litUserName" runat="server" />
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger"
+                                        OnClick="btnLogout_Click">Cerrar sesión</asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+        <div class="admin-panel-container d-flex">
+
+            <aside class="sidebar d-flex flex-column" style="width: 320px; flex-shrink: 0;">
+    
+                <ul class="nav nav-pills flex-column gap-2 p-3">
+        
+                    <li class="nav-item">
+                        <asp:HyperLink ID="navPanelDeControl" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/PanelDeControl.aspx">
+                            <i class="icon-calendar" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Ver Reservas</span>
+                        </asp:HyperLink>
+                    </li>
+        
+                    <li class="nav-item">
+                        <asp:HyperLink ID="navAdmProductos" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/AdmProductos.aspx">
+                            <i class="icon-box" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Administrar productos</span>
+                        </asp:HyperLink>
+                    </li>
+        
+                    <li class="nav-item">
+                        <asp:HyperLink ID="navAdmServicios" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/AdmServicios.aspx">
+                            <i class="icon-scissors" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Administrar servicios</span>
+                        </asp:HyperLink>
+                    </li>
+
+                    <li class="nav-item">
+                        <asp:HyperLink ID="navReportes" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/Reportes.aspx">
+                            <i class="icon-file-text" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Generar reporte</span>
+                        </asp:HyperLink>
+                    </li>
+
+                    <li class="nav-item">
+                        <asp:HyperLink ID="navBuscarUsuarios" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/BuscarUsuarios.aspx">
+                            <i class="icon-search" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Buscar usuarios</span>
+                        </asp:HyperLink>
+                    </li>
+
+                    <li class="nav-item">
+                        <asp:HyperLink ID="navAgregarEmpleado" runat="server" CssClass="nav-link" 
+                            NavigateUrl="~/Admin/AgregarEmpleado.aspx">
+                            <i class="icon-user-plus" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Añadir empleado</span>
+                        </asp:HyperLink>
+                    </li>
+                </ul>
+            </aside>
+            
+            <main class="main-content flex-grow-1 p-4" style="background-color: #FFFFFF; overflow-y: auto; height: calc(100vh - 70px);"> 
+                
+                <%-- El placeholder va DENTRO del <main> --%>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                
+            </main>
+
+        </div>
+
+
+        <footer class="footer-container">
+            <div class="footer-content">
+                <div class="footer-top-row">
+                    <a href="<%: ResolveUrl("~/Admin/AdminPolitica.aspx") %>" class="footer-link">Política de Privacidad</a>
+                    <a href="<%: ResolveUrl("~/Admin/AdminTerminos.aspx") %>" class="footer-link">Términos y Condiciones</a>
+                    <a href="<%: ResolveUrl("~/Admin/AdminContacto.aspx") %>" class="footer-link">Contacto</a>
+                </div>
+                <div class="footer-social-row">
+                    <a href="#" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                </div>
+                <div class="footer-bottom-row">
+                    <p class="copyright-text">
+                        © <%: DateTime.Now.Year %> MG Beauty Spa. Todos los derechos reservados.
+                    </p>
+                </div>
+            </div>
+        </footer>
+        
+        <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+        
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </div>
+
+    </form>
+</body>
+</html>
