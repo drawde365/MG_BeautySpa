@@ -55,6 +55,11 @@ public class ComentarioBO {
         return comentarioDAO.insertar(comentarioDTO);
     }
 
+    
+    public ComentarioDTO obtenerComentarioPorId(Integer idComentario) {
+        return comentarioDAO.obtenerPorId(idComentario);
+    }
+    
     public Integer modificar(ComentarioDTO comentario) {
         return comentarioDAO.modificar(comentario);
     }
