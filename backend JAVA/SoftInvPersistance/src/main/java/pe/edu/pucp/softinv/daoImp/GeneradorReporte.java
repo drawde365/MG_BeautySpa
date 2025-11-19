@@ -95,7 +95,7 @@ public class GeneradorReporte {
             document.add(table);
 
             // 5. Mostrar Total
-            Paragraph pTotal = new Paragraph("Total Generado: S/." + String.format("%.2f", sumaTotal), F_TOTAL);
+            Paragraph pTotal = new Paragraph("Total: S/." + String.format("%.2f", sumaTotal), F_TOTAL);
             pTotal.setAlignment(Element.ALIGN_RIGHT);
             pTotal.setSpacingBefore(10);
             document.add(pTotal);

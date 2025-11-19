@@ -5,6 +5,7 @@
 <head runat="server">
     <%-- Tus scripts y links de CSS existentes --%>
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+        <script src="../Scripts/jquery-3.7.1.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" />MG Beauty Spa | Admin</title>

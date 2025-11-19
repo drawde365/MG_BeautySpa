@@ -2,6 +2,7 @@
 using SoftInvBusiness.SoftInvWSHorarioTrabajo;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -71,6 +72,28 @@ namespace MGBeautySpaWebAplication.Admin
             }
 
             var errores = new List<string>();
+            string urlFotoPerfil = "~/Content/default_profile.png"; // Valor predeterminado
+
+            // --- INICIO: LÓGICA DE VALIDACIÓN Y SUBIDA DE IMAGEN (Solo Nuevo Empleado) ---
+            try
+            {
+                // **Validación estricta para nuevo empleado: SIEMPRE debe haber un archivo**
+                if (!fileUpload.HasFile)
+                {
+                    // Este error se complementa con el CustomValidator del lado del cliente
+                    errores.Add("Debe seleccionar una imagen para el empleado nuevo.");
+                }
+                else
+                {
+                    // Intentamos subir la imagen y obtenemos la URL
+                    urlFotoPerfil = SubirImagenPerfil();
+                }
+            }
+            catch (Exception ex)
+            {
+                errores.Add(ex.Message);
+            }
+
 
             // 1) Construir horarios desde los HiddenField (uno o varios rangos por día)
             List<HorarioDia> horarios = null;
@@ -104,7 +127,7 @@ namespace MGBeautySpaWebAplication.Admin
             try
             {
                 // 2) Crear empleado en WS Java (Empleado.InsertarEmpleadoPorPartes)
-                int empleadoId = CrearEmpleadoSOAP();
+                int empleadoId = CrearEmpleadoSOAP(urlFotoPerfil);
 
                 // 3) Registrar todos los horarios (HorarioTrabajo.InsertarHorarioTrabajo)
                 RegistrarHorariosEmpleadoSOAP(empleadoId, horarios);
@@ -192,7 +215,7 @@ namespace MGBeautySpaWebAplication.Admin
 
         // ================== INTEGRACIÓN CON WS Empleado ==================
 
-        private int CrearEmpleadoSOAP()
+        private int CrearEmpleadoSOAP(string urlFotoPerfil)
         {
             empleadoBO = new EmpleadoBO();
 
@@ -203,7 +226,6 @@ namespace MGBeautySpaWebAplication.Admin
             string contrasenha = txtContrasenha.Text;
             string celular = txtTelefono.Text.Trim();
 
-            string urlFotoPerfil = "~/Content/default_profile.png";
             bool admin = false; // desde esta pantalla solo se crean empleados normales
 
             int idEmpleado = empleadoBO.InsertarEmpleadoPorPartes(
@@ -218,6 +240,44 @@ namespace MGBeautySpaWebAplication.Admin
             );
 
             return idEmpleado;
+        }
+
+        private string SubirImagenPerfil()
+        {
+            if (!fileUpload.HasFile)
+            {
+                // Aunque ya validamos antes, es un refuerzo de seguridad
+                throw new Exception("No se ha seleccionado ningún archivo.");
+            }
+
+            // Validación de tipo de archivo (refuerzo del lado del servidor)
+            string extension = Path.GetExtension(fileUpload.FileName).ToLower();
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+            if (Array.IndexOf(allowedExtensions, extension) == -1)
+            {
+                throw new Exception("Solo se permiten archivos de imagen en formato JPG, JPEG o PNG.");
+            }
+
+            // Generar nombre único para el archivo
+            string nombreArchivo = Path.GetFileNameWithoutExtension(fileUpload.FileName);
+            string nuevoNombre = $"{nombreArchivo}_{DateTime.Now.Ticks}{extension}";
+
+            // Ruta relativa de destino (donde se guardan las imágenes de perfil)
+            string carpetaDestinoRelativa = "~/Content/images/Empleados/";
+            string rutaDestinoAbsoluta = Server.MapPath(carpetaDestinoRelativa);
+
+            // Crear el directorio si no existe
+            if (!Directory.Exists(rutaDestinoAbsoluta))
+            {
+                Directory.CreateDirectory(rutaDestinoAbsoluta);
+            }
+
+            // Guardar el archivo en el servidor
+            string rutaCompleta = Path.Combine(rutaDestinoAbsoluta, nuevoNombre);
+            fileUpload.SaveAs(rutaCompleta);
+
+            // Devolver la ruta relativa para guardarla en la base de datos
+            return $"{carpetaDestinoRelativa}{nuevoNombre}";
         }
 
         // ================== INTEGRACIÓN CON WS HorarioTrabajo ==================

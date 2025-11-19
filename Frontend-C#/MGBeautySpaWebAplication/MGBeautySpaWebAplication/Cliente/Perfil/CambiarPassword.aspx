@@ -7,6 +7,17 @@
 
 <asp:Content ID="ctHead" ContentPlaceHolderID="PerfilHeadContent" runat="server">
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteCss/CambiarPasswordCss.css") %>" />
+
+    <style>
+        .validation-error {
+            display: block;
+            color: #C31E1E;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 4px;
+        }  
+    </style>
 </asp:Content>
 
 <asp:Content ID="ctBody" ContentPlaceHolderID="ProfileBodyContent" runat="server">
@@ -27,17 +38,49 @@
                      TextMode="Password"
                      autocomplete="current-password" />
 
+        <br />
         <label class="password-label" for="<%= txtNueva.ClientID %>">Nueva contraseña</label>
         <asp:TextBox ID="txtNueva" runat="server"
                      CssClass="password-input"
                      TextMode="Password"
                      autocomplete="new-password" />
+        <asp:RequiredFieldValidator ID="rfvNueva" runat="server"
+            ControlToValidate="txtNueva"
+            ErrorMessage="Debe ingresar la nueva contraseña."
+            CssClass="validation-error"
+            Display="Dynamic"
+            ValidationGroup="CambioPassword" />
 
+        <br />
         <label class="password-label" for="<%= txtVerificar.ClientID %>">Repite nueva contraseña</label>
         <asp:TextBox ID="txtVerificar" runat="server"
                      CssClass="password-input"
                      TextMode="Password"
                      autocomplete="new-password" />
+        <asp:RequiredFieldValidator ID="rfvVerificar" runat="server"
+            ControlToValidate="txtVerificar"
+            ErrorMessage="Debe repetir la nueva contraseña."
+            CssClass="validation-error"
+            Display="Dynamic"
+            ValidationGroup="CambioPassword" />
+
+        <asp:CompareValidator ID="cvVerificar" runat="server"
+            ControlToValidate="txtVerificar"
+            ControlToCompare="txtNueva"
+            Operator="Equal"
+            Type="String"
+            ErrorMessage="Las nuevas contraseñas no coinciden."
+            CssClass="validation-error"
+            Display="Dynamic"
+            ValidationGroup="CambioPassword" />
+
+        <div style="margin-top:1.5rem;">
+            <asp:Button ID="Button1"
+                        runat="server"
+                        CssClass="btn-save"
+                        Text="Guardar cambios"
+                        OnClick="btnGuardar_Click"
+                        ValidationGroup="CambioPassword" />
 
         <div style="margin-top:1.5rem;">
             <asp:Button ID="btnGuardar"

@@ -43,7 +43,7 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
                 "INNER JOIN DETALLES_PEDIDOS D ON T.PEDIDO_ID = D.PEDIDO_ID " +
                 "INNER JOIN PRODUCTOS P ON D.PRODUCTO_ID = P.PRODUCTO_ID " +
                 "INNER JOIN TIPOS_PRODS S ON D.TIPO_ID = S.TIPO_ID " +
-                "WHERE 1=1 ";
+                "WHERE T.ESTADO NOT IN ('EnCarrito', 'ELIMINADO') ";
     }
 
     @Override
