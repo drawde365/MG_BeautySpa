@@ -140,4 +140,24 @@ public class ServicioEmpleadoDAOImpl extends DAOImplBase implements ServicioEmpl
         EXS=1;
         return (ArrayList<EmpleadoDTO>)listarTodos(sql, this::incluirId, servicioId);
     }
+    
+    @Override
+    public ArrayList<ServicioDTO> listarServiciosNoBrindadosEmpleado(Integer empleadoId){
+        String sql="SELECT S.SERVICIO_ID,\n" +
+        "       S.NOMBRE,\n" +
+        "       S.TIPO,\n" +
+        "       S.PRECIO,\n" +
+        "       S.DESCRIPCION,\n" +
+        "       S.PROM_VALORACIONES,\n" +
+        "       S.URL_IMAGEN,\n" +
+        "       S.ACTIVO\n" +
+        "FROM SERVICIOS S\n" +
+        "LEFT JOIN EMPLEADOS_SERVICIOS ES\n" +
+        "    ON S.SERVICIO_ID = ES.SERVICIO_ID\n" +
+        "   AND ES.EMPLEADO_ID = ?\n" +
+        "   AND ES.ACTIVO = 1\n" +
+        "WHERE ES.SERVICIO_ID IS NULL;";
+        EXS=0;
+        return (ArrayList<ServicioDTO>)super.listarTodos(sql, this::incluirId, empleadoId);
+    }
 }

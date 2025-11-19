@@ -10,5 +10,6 @@ public interface ServicioEmpleadoDAO {
     public Integer eliminar(Integer empleadoId, Integer servicioId);
     public Integer eliminarLogico(Integer empleadoId, Integer servicioId);
     public ArrayList<ServicioDTO> listarServiciosDeEmpleado(Integer empleadoId);
+    public ArrayList<ServicioDTO> listarServiciosNoBrindadosEmpleado(Integer empleadoId);
     public ArrayList<EmpleadoDTO> listarEmpleadosDeServicio(Integer servicioId);
 }

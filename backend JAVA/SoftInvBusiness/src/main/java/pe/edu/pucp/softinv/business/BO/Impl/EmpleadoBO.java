@@ -79,4 +79,8 @@ public class EmpleadoBO
 
         return citaDAO.listarCitasPorUsuario(empleado);
     }
+    
+    public ArrayList<ServicioDTO> listarServiciosNoBrindados(Integer empleadoId){
+        return SXEDAO.listarServiciosNoBrindadosEmpleado(empleadoId);
+    }
 }
