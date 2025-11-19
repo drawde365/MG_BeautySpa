@@ -284,6 +284,16 @@ namespace MGBeautySpaWebAplication.Cliente
                     SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente =
                         comentarioBO.ObtenerComentarioPorId(idComentarioEditando.Value);
 
+                    if (comentarioExistente == null)
+                    {
+                        lblComentarioMessage.Text = "El comentario que intentas editar no existe.";
+                        lblComentarioMessage.CssClass = "comment-message error";
+                        lblComentarioMessage.Visible = true;
+                        Session.Remove("ComentarioEditando");
+                        btnEnviarComent.Text = "Enviar";
+                        return;
+                    }
+
                     comentarioExistente.comentario = texto;
                     comentarioExistente.valoracion = valoracion;
                     comentarioExistente.valoracionSpecified = true;
@@ -301,8 +311,8 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
                 else
                 {
-                    // ✅ MODO INSERCIÓN
-                    comentarioBO.InsertarComentarioDeProducto(
+                    // ✅ MODO INSERCIÓN - CORREGIDO: Usar método para SERVICIO
+                    comentarioBO.InsertarComentarioDeServicio(
                         usuario.idUsuario,
                         texto,
                         valoracion,
@@ -335,6 +345,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 System.Diagnostics.Debug.WriteLine($"Error al procesar comentario: {ex.Message}");
             }
         }
+
 
         protected void rpComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
