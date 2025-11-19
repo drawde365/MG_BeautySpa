@@ -20,6 +20,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 if (usuario != null)
                 {
                     litSidebarUserName.Text = usuario.nombre;
+                    imgProfileSidebar.Src = usuario.urlFotoPerfil;
                     // imgProfileSidebar.ImageUrl = ResolveUrl(usuario.urlFotoPerfil ?? "~/Content/default_profile.png");
                 }
 

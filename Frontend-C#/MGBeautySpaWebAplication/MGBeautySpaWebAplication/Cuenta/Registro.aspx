@@ -293,6 +293,69 @@
             font-size: 20px;
             color: #666;
         }
+
+        .file-upload-wrapper {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 2px dashed #148C76;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: #fafcff;
+        }
+            .file-upload-wrapper:hover {
+                background-color: #f7faff;
+            }
+        .file-upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-upload-label {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1C0D12;
+            pointer-events: none;
+        }
+        .file-upload-label strong {
+            font-size: 18px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .file-upload-label .file-upload-text {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .file-upload-wrapper.has-preview {
+            border-style: solid;
+            border-color: #148C76;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .file-upload-wrapper.has-preview .file-upload-label {
+            display: none;
+        }
+
+        .validation-error {
+            display: block;
+            color: #C31E1E;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -406,6 +469,24 @@
                                 ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
                     </div>
 
+                    <div class="form-group">
+                        <label class="form-label">Subir imagen de foto de perfil</label>
+                    
+                    <div class="mb-4" style="width: 300px; max-width: 100%; margin: 0 auto;" >
+
+                    <div class="file-upload-wrapper" ID="fileUploadWrapper" runat="server">
+                    <asp:FileUpload ID="fileUpload" runat="server" CssClass="file-upload-input" />
+                            <div class="file-upload-label">
+                            <strong>Subir imagen</strong>
+                                <span class="file-upload-text">Arrastra y suelta o haz click para subir</span>
+                            </div>
+                    <asp:HiddenField ID="hdnImagenActual" runat="server" Value="" />
+                    </div>
+                        <span class="validation-error validation-error-js" style="display: none;"></span>
+                    </div>
+
+                    </div>
+
                     <div class="terms-container">
                         <p class="terms-text">
                             Al asociar una cuenta a MG Beatuy Spa, usted está aceptando nuestros Términos de Servicios y Políticas de Privacidad.
@@ -459,6 +540,82 @@
             </div>
         </div>
     </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function validateImageUpload(source, args) {
+            const fileInput = document.getElementById('<%= fileUpload.ClientID %>');
+            const hiddenImage = document.getElementById('<%= hdnImagenActual.ClientID %>');
+
+            if (fileInput.files.length > 0) {
+                args.IsValid = true;
+                return;
+            }
+
+            if (hiddenImage.value !== '') {
+                args.IsValid = true;
+                return;
+            }
+
+            args.IsValid = false;
+        }
+
+        $(".file-upload-input").on("change", function () {
+            const file = this.files[0];
+            const $wrapper = $(this).closest(".file-upload-wrapper");
+            const $label = $wrapper.find(".file-upload-label");
+            const $labelText = $wrapper.find(".file-upload-text");
+            const $labelStrong = $wrapper.find("strong");
+            const $errorDisplay = $wrapper.closest(".form-group").find(".validation-error-js"); // Nuevo elemento de error
+
+            // Limpiar error previo
+            if ($errorDisplay.length) {
+                $errorDisplay.text("").hide();
+            }
+
+            if (file) {
+                // Validación de tipo de archivo solo en el cliente para UX
+                if (!file.type.startsWith("image/")) {
+                    // Mostrar error de archivo NO imagen (UX)
+                    if ($errorDisplay.length) {
+                        $errorDisplay.text("Solo se permiten archivos de imagen (JPG, PNG, JPEG)").show();
+                    }
+                    // Resetear el control para prevenir el envío de un archivo no permitido
+                    this.value = "";
+                    $wrapper.css("background-image", "none").removeClass("has-preview");
+                    $labelStrong.text("Subir imagen");
+                    $labelText.text("Arrastra y suelta o haz click para subir");
+                    $label.show();
+                    return;
+                }
+
+                if (file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $wrapper.css("background-image", "url(" + e.target.result + ")");
+                        $wrapper.addClass("has-preview");
+                        $label.hide();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // Este caso ya no debería ocurrir si la validación superior es exitosa
+                    $labelStrong.text("Archivo seleccionado:");
+                    $labelText.text(file.name);
+                    $wrapper.css("background-image", "none");
+                    $wrapper.removeClass("has-preview");
+                    $label.show();
+                }
+            } else {
+                $labelStrong.text("Subir imagen");
+                $labelText.text("Arrastra y suelta o haz click para subir");
+                $wrapper.css("background-image", "none");
+                $wrapper.removeClass("has-preview");
+                $label.show();
+            }
+        });
+
+    </script>
 
 </body>
 </html>
