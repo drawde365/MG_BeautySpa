@@ -65,6 +65,11 @@ namespace SoftInvBusiness
             empleadoSOAP.AgregarServicioAEmpleado(empleadoId, servicioId);
         }
 
+        public void EliminarServicioDeEmpleado(int empleadoId, int servicioId)
+        {
+            empleadoSOAP.QuitarServicioAEmpleado(empleadoId, servicioId);
+        }
+
         public IList<servicioDTO> ListarServiciosDeEmpleado(int empleadoId)
         {
             return empleadoSOAP.ListarServiciosDeEmpleado(empleadoId);

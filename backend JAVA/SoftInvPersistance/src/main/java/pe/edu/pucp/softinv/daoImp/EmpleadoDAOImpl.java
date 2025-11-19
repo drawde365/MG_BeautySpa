@@ -44,6 +44,8 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
 
     @Override
     public EmpleadoDTO obtenerPorId(int empleadoId) {
+        this.empleado = new EmpleadoDTO();
+        empleado.setIdUsuario(empleadoId);
         super.obtenerPorId(); // poblará this.empleado vía instanciarObjetoDelResultSet()
         return this.empleado;
     }
