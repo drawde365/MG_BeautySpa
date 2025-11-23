@@ -8,10 +8,10 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
 {
     public partial class CambiarPassword : Page
     {
-
+        UsuarioBO usuarioBO;
         protected void Page_Load(object sender, EventArgs e)
         {
-            // No necesitamos lógica en la carga inicial.
+            usuarioBO = new UsuarioBO(); 
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
             }
 
             // 1. Validar contraseña actual (usando la de la sesión)
-            if (antigua != usuario.contrasenha)
+            if (usuarioBO.IniciarSesion(usuario.correoElectronico, antigua).idUsuario == 0)
             {
                 lblInfo.Text = "⚠️ La contraseña actual no es correcta.";
                 lblInfo.ForeColor = System.Drawing.Color.Red;

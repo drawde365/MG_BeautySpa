@@ -33,6 +33,8 @@ public class UsuarioBOTest {
         System.out.println(cifrarMD5("empleado"));
         System.out.println(descifrarMD5("U5FJGCHV8tM="));
         System.out.println(cifrarMD5("admin"));
+        
+        UsuarioDTO usuario=usu.inicioSesion("flavios0226@gmail.com", "cliente");        
     }
     
 }
