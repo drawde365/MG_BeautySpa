@@ -138,7 +138,7 @@ namespace MGBeautySpaWebAplication.Admin
                 AsignarServiciosEmpleadoSOAP(empleadoId);
 
                 // 5) Redirigir
-                Response.Redirect("~/Admin/PanelDeControl.aspx");
+                Response.Redirect("~/Admin/AdmPedidos.aspx");
             }
             catch (Exception ex)
             {

@@ -15,7 +15,7 @@ import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 import java.sql.*;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Calendar; // Importante para manejo de fechas agnóstico
+import java.util.Calendar;
 import java.util.List;
 
 public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
@@ -73,7 +73,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.statement.setInt(1, pedido.getIdPedido());
     }
 
-    // Helpers para manejo seguro de nulos y tipos
     private void setFechaEnST(int indice, Date fecha) throws SQLException {
         if (fecha != null)
             this.statement.setTimestamp(indice, new Timestamp(fecha.getTime()));
@@ -104,11 +103,9 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     private EstadoPedido DefinirEstado(String estado) {
         if (estado == null) return null;
-        // Uso de try-catch o switch para robustez, o iteracion sobre enum
         try {
             return EstadoPedido.valueOf(estado);
         } catch (IllegalArgumentException e) {
-            // Manejo manual si el string no coincide exactamente con el Enum
             if (estado.equals("EnCarrito")) return EstadoPedido.EnCarrito;
             return null;
         }
@@ -123,11 +120,10 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         }
         DetallePedidoDTO detalle = this.instanciarDetallePedidoDelResultSet();
         
-        // Evitar agregar detalles nulos si el LEFT JOIN trajo nulos (caso pedido sin detalles)
         if(detalle.getProducto() != null && detalle.getProducto().getProducto() != null && detalle.getProducto().getProducto().getIdProducto() != 0){
              this.pedido.agregarDetallesPedido(detalle);
         }
-       
+        
         return result;
     }
 
@@ -173,9 +169,8 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         DetallePedidoDTO detalle = new DetallePedidoDTO();
         detalle.setPedido(this.pedido);
         
-        // Verificacion simple por si viene del Left Join nulo
         int prodId = this.resultSet.getInt("PRODUCTO_ID");
-        if(this.resultSet.wasNull()) return detalle; // Retorna detalle vacio
+        if(this.resultSet.wasNull()) return detalle;
 
         detalle.setCantidad(this.resultSet.getInt("CANTIDAD"));
         detalle.setSubtotal(this.resultSet.getDouble("SUBTOTAL"));
@@ -224,7 +219,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.pedido = new PedidoDTO();
         this.pedido.setIdPedido(-1);
         String sql = this.ObtenerQueryPorId();
-        // Reutilizamos el metodo simple para un solo parametro INT
         ArrayList<PedidoDTO> pedidoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql, this::incluirValoresDeParametrosSimpleId, idPedido);
         this.pedido = pedidoLista.isEmpty() ? null : pedidoLista.get(0);
         return this.pedido;
@@ -245,7 +239,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         }
     }
 
-    // Método auxiliar reutilizable para queries que solo piden un ID
     private void incluirValoresDeParametrosSimpleId(Object objetoParametros) {
         Integer id = (Integer) objetoParametros;
         try {
@@ -280,23 +273,19 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     @Override
     public ArrayList<PedidoDTO> listarPedidos(Integer idCliente) {
-        // 1. Calculamos la fecha en JAVA para ser agnósticos a la BD
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -6);
         java.sql.Date fechaLimite = new java.sql.Date(cal.getTimeInMillis());
 
-        // 2. Preparamos los parámetros (ID y Fecha)
         Object[] parametros = new Object[]{idCliente, fechaLimite};
 
         String sql = this.ObtenerQueryPorCliente();
         this.pedido = new PedidoDTO();
         this.pedido.setIdPedido(-1);
         
-        // 3. Pasamos el arreglo de objetos
         return (ArrayList<PedidoDTO>) super.listarTodos(sql, this::configurarParametrosHistorial, parametros);
     }
 
-    // Nuevo método para bindear multiples parámetros (ID Cliente y Fecha)
     private void configurarParametrosHistorial(Object objetoParametros) {
         Object[] params = (Object[]) objetoParametros;
         try {
@@ -320,7 +309,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     private String ObtenerBaseQueryPedidos() {
-        // SQL Standard (ANSI) compatible con MySQL y MSSQL
         String sql = """
         SELECT 
         p.PEDIDO_ID,
@@ -346,7 +334,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         pr.NOMBRE AS Producto_Nombre,
         pr.URL_IMAGEN AS Producto_Imagen,
         pr.PRECIO AS Producto_Precio, 
-        pr.TAMANHO AS Producto_Tamanho,   
+        pr.TAMANHO AS Producto_Tamanho,    
         dp.CANTIDAD,
         dp.SUBTOTAL
 
@@ -364,7 +352,6 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     private String ObtenerQueryPorCliente() {
-        // REFACTORIZADO: Reemplazado logica de fecha DB por parámetro '?'
         return this.ObtenerBaseQueryPedidos() + """
         WHERE p.CLIENTE_ID = ?
           AND p.FECHA_PAGO >= ?

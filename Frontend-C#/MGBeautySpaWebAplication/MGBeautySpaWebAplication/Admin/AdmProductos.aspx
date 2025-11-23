@@ -148,9 +148,11 @@
                         <asp:Label ID="lblPrecio" runat="server" Text='<%# Eval("precio", "S/. {0:F2}") %>' CssClass="product-price" />
                     </td>
                     <td>
-                        <div class="rating-stars">
-                            <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill star-empty"></i>
-                        </div>
+                            <div class="rating-stars">
+                                <%-- Llamamos al método C# pasándole el valor de la BD --%>
+                                <%# GenerarHtmlEstrellas(Eval("promedioValoracion")) %>
+                            </div>
+                        </td>
                     </td>
                     <td class="text-center">
                         <asp:LinkButton ID="btnEditar" runat="server" 
