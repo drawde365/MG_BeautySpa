@@ -398,11 +398,11 @@ namespace MGBeautySpaWebAplication.Cliente
             {
                 // Guardar comentario y valoración en sesión
                 var comentarioPendiente = new Dictionary<string, object>
-        {
-            { "comentario", txtComentario.Text?.Trim() ?? "" },
-            { "valoracion", hdnValoracion.Value },
-            { "idProducto", producto.idProducto }
-        };
+                {
+                    { "comentario", txtComentario.Text?.Trim() ?? "" },
+                    { "valoracion", hdnValoracion.Value },
+                    { "idProducto", producto.idProducto }
+                };
 
                 Session["ComentarioPendiente"] = comentarioPendiente;
                 Session["ReturnUrl"] = Request.RawUrl;
