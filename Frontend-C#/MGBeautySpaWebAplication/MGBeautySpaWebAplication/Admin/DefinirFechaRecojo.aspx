@@ -83,11 +83,12 @@
                     <thead>
                         <tr>
                             <th>Producto</th>
+                            <th>Tipo de piel</th>
                             <th>Cant.</th>
                             <th>Stock físico</th>
                             <th>Stock por despachar</th>
                             <th>Estado stock</th>
-                            <th style="width:190px;">Agregar stock físico</th>
+                            <th>Agregar stock físico</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +97,11 @@
             <ItemTemplate>
                 <tr>
                     <td><%# Eval("NombreProducto") %></td>
+
+
+                     <!-- NUEVA COLUMNA: Tipo de piel -->
+                    <td><%# Eval("TipoPiel") %></td>
+
                     <td><%# Eval("Cantidad") %></td>
                     <td><%# Eval("StockFisico") %></td>
                     <td><%# Eval("StockDespacho") %></td>

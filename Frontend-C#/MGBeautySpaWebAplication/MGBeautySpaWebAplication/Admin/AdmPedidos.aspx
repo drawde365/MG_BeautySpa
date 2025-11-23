@@ -161,24 +161,11 @@
         }
     </style>
 
-    <script type="text/javascript">
-        function filtrarPedidos() {
-            var input = document.getElementById('<%= txtBuscarPedidos.ClientID %>');
-            var filtro = input.value.toLowerCase();
-            var filas = document.querySelectorAll('.fila-pedido');
-
-            for (var i = 0; i < filas.length; i++) {
-                var texto = filas[i].textContent || filas[i].innerText;
-                texto = texto.toLowerCase();
-                filas[i].style.display = texto.indexOf(filtro) !== -1 ? '' : 'none';
-            }
-        }
-    </script>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
+    <!-- TÍTULO + BUSCADOR + FILTROS (TODO CLIENT-SIDE) -->
     <div class="top-bar-pedidos mb-3">
         <div>
             <h1 class="admin-title-main">Administrar pedidos</h1>
@@ -186,34 +173,40 @@
         </div>
 
         <div class="search-and-filters">
+
+            <!-- BUSCADOR -->
             <div class="search-box">
-                <asp:TextBox ID="txtBuscarPedidos" runat="server"
-                    CssClass="form-control"
-                    placeholder="Buscar por código, cliente, estado..."
-                    onkeyup="filtrarPedidos()" />
+                <input type="text"
+                       id="searchPedidos"
+                       class="form-control"
+                       placeholder="Buscar por código, cliente, estado..." />
             </div>
 
-            <!-- Filtro por fecha para recoger (usa fechaListaParaRecojo) -->
-            <asp:DropDownList ID="ddlFiltroFechaLista" runat="server"
-                CssClass="filter-select"
-                AutoPostBack="true"
-                OnSelectedIndexChanged="Filtros_SelectedIndexChanged">
-            </asp:DropDownList>
+            <!-- FILTRO: PEDIDOS CON / SIN FECHA LISTA PARA RECOGER -->
+            <select id="filterFecha" class="filter-select">
+                <option value="">Todos (con y sin fecha)</option>
+                <option value="sin">Sin fecha de recojo</option>
+                <option value="con">Con fecha de recojo</option>
+            </select>
 
-            <!-- Filtro por estado de pedido -->
-            <asp:DropDownList ID="ddlFiltroEstado" runat="server"
-                CssClass="filter-select"
-                AutoPostBack="true"
-                OnSelectedIndexChanged="Filtros_SelectedIndexChanged">
-            </asp:DropDownList>
+            <!-- FILTRO: ESTADO DEL PEDIDO -->
+            <select id="filterEstado" class="filter-select">
+                <option value="">Todos los estados</option>
+                <option value="CONFIRMADO">Confirmado</option>
+                <option value="LISTO_PARA_RECOGER">Listo para recoger</option>
+                <option value="RECOGIDO">Recogido</option>
+                <option value="NO_RECOGIDO">No recogido</option>
+            </select>
+
         </div>
     </div>
 
+    <!-- TABLA DE PEDIDOS -->
     <div class="tabla-pedidos-container">
 
         <asp:Repeater ID="rptPedidos" runat="server"
-            OnItemCommand="rptPedidos_ItemCommand"
-            OnItemDataBound="rptPedidos_ItemDataBound">
+                      OnItemCommand="rptPedidos_ItemCommand"
+                      OnItemDataBound="rptPedidos_ItemDataBound">
             <HeaderTemplate>
                 <table class="table tabla-pedidos align-middle">
                     <thead>
@@ -228,11 +221,14 @@
                             <th style="text-align:center;">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbodyPedidos">
             </HeaderTemplate>
 
             <ItemTemplate>
-                <tr class="fila-pedido">
+                <tr data-id='<%# Eval("IdPedido") %>'
+                    data-estado='<%# Eval("Estado") %>'
+                    data-tienefecha='<%# (Eval("FechaListaParaRecojo") == null ? "0" : "1") %>'>
+
                     <td>
                         <strong>#<%# Eval("IdPedido") %></strong><br />
                         <small>CODTR: <%# Eval("CodigoTransaccion") %></small>
@@ -252,7 +248,9 @@
 
                     <td>S/. <%# Eval("Total", "{0:F2}") %></td>
 
+                    <!-- ACCIONES -->
                     <td class="acciones-pedido">
+
                         <!-- Definir / Modificar fecha -->
                         <asp:LinkButton ID="btnDefinirFecha" runat="server"
                             CssClass="action-icon action-definir-fecha"
@@ -271,7 +269,7 @@
                             <i class="bi bi-bag-check"></i>
                         </asp:LinkButton>
 
-                        <!-- Marcar como no recogido -->
+                        <!-- Marcar como NO recogido -->
                         <asp:LinkButton ID="btnCancelar" runat="server"
                             CssClass="action-icon action-cancelar"
                             CommandName="CancelarPedido"
@@ -279,6 +277,7 @@
                             ToolTip="Marcar como no recogido">
                             <i class="bi bi-trash-fill"></i>
                         </asp:LinkButton>
+
                     </td>
                 </tr>
             </ItemTemplate>
@@ -295,4 +294,52 @@
 
     </div>
 
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
+    <script>
+        (function () {
+
+            const searchInput = document.getElementById("searchPedidos");
+            const filterFecha = document.getElementById("filterFecha");
+            const filterEstado = document.getElementById("filterEstado");
+            const rows = document.querySelectorAll("#tbodyPedidos tr[data-id]");
+
+            function filtrarPedidos() {
+                const text = (searchInput?.value || "").toLowerCase();
+                const fFecha = filterFecha ? filterFecha.value : "";
+                const fEstado = filterEstado ? filterEstado.value : "";
+
+                rows.forEach(row => {
+                    const estado = row.dataset.estado;      // CONFIRMADO / LISTO_PARA_RECOGER / ...
+                    const tieneFecha = row.dataset.tienefecha; // "1" / "0"
+                    const contenido = row.innerText.toLowerCase();
+
+                    const okTexto = contenido.includes(text);
+
+                    let okFecha = true;
+                    if (fFecha === "con") {
+                        okFecha = (tieneFecha === "1");
+                    } else if (fFecha === "sin") {
+                        okFecha = (tieneFecha === "0");
+                    }
+
+                    let okEstado = true;
+                    if (fEstado !== "") {
+                        okEstado = (estado === fEstado);
+                    }
+
+                    row.style.display = (okTexto && okFecha && okEstado) ? "" : "none";
+                });
+            }
+
+            if (searchInput) searchInput.addEventListener("input", filtrarPedidos);
+            if (filterFecha) filterFecha.addEventListener("change", filtrarPedidos);
+            if (filterEstado) filterEstado.addEventListener("change", filtrarPedidos);
+
+            // Aplicar filtro inicial
+            filtrarPedidos();
+
+        })();
+    </script>
 </asp:Content>

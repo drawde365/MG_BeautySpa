@@ -21,6 +21,10 @@ namespace MGBeautySpaWebAplication.Admin
         {
             public int Index { get; set; }
             public string NombreProducto { get; set; }
+
+            // NUEVO: tipo de piel / tipo de producto
+            public string TipoPiel { get; set; }
+
             public int Cantidad { get; set; }
             public int StockFisico { get; set; }
             public int StockDespacho { get; set; }
@@ -35,6 +39,7 @@ namespace MGBeautySpaWebAplication.Admin
                 }
             }
         }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -78,6 +83,7 @@ namespace MGBeautySpaWebAplication.Admin
         private void CargarDetalles(int idPedido)
         {
             var pedido = pedidoBO.ObtenerPorId(idPedido);
+            //IList<detallePedidoDTO> detalles = pedidoBO.ObtenerDetallesPorPedido(idPedido);
             IList<detallePedidoDTO> detalles = pedido.detallesPedido;
             IList<int> comprobacion = pedidoBO.ComprobarDetallesPedidos(idPedido);
 
@@ -90,6 +96,7 @@ namespace MGBeautySpaWebAplication.Admin
                     ? comprobacion[i]
                     : 0;
 
+                // Nombre producto
                 string nombreProducto = "(Nombre)";
                 try
                 {
@@ -100,34 +107,41 @@ namespace MGBeautySpaWebAplication.Admin
                         nombreProducto = det.producto.producto.nombre;
                     }
                 }
-                catch
+                catch { }
+
+                // NUEVO: tipo de piel (nombre del tipo de producto)
+                string tipoPiel = "";
+                try
                 {
-                    // por si el proxy usa otro nombre de campo; el dev lo puede ajustar
+                    if (det.producto != null &&
+                        det.producto.tipo != null &&
+                        !string.IsNullOrEmpty(det.producto.tipo.nombre))
+                    {
+                        tipoPiel = det.producto.tipo.nombre;
+                    }
                 }
+                catch { }
 
                 int stockFisico = 0;
                 int stockDespacho = 0;
                 if (det.producto != null)
                 {
-                    Console.WriteLine("hola");
                     stockFisico = det.producto.stock_fisico;
                     stockDespacho = det.producto.stock_despacho;
                 }
-                else
-                {
-                    Console.WriteLine("chau");
-                }
 
-                    vmList.Add(new DetalleViewModel
-                    {
-                        Index = i,
-                        NombreProducto = nombreProducto,
-                        Cantidad = det.cantidad,
-                        StockFisico = stockFisico,
-                        StockDespacho = stockDespacho,
-                        Faltante = faltante
-                    });
+                vmList.Add(new DetalleViewModel
+                {
+                    Index = i,
+                    NombreProducto = nombreProducto,
+                    TipoPiel = tipoPiel,          // ← asignamos aquí
+                    Cantidad = det.cantidad,
+                    StockFisico = stockFisico,
+                    StockDespacho = stockDespacho,
+                    Faltante = faltante
+                });
             }
+
 
             rptDetalles.DataSource = vmList;
             rptDetalles.DataBind();
