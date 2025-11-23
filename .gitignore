@@ -18,4 +18,12 @@ _ReSharper*/
 **/packages/
 **/bin/
 **/obj/
+**/.vs/
+**/.vs/*
+
+*.user
+*.suo
+*.cache
+*.dbmdl
+
 
