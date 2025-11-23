@@ -1,83 +1,144 @@
 package pe.edu.pucp.softinv.daoImp;
 
-import pe.edu.pucp.softinv.dao.ProductoTipoDAO;
+import pe.edu.pucp.softinv.dao.DetallePedidoDAO;
+import pe.edu.pucp.softinv.daoImp.util.Columna;
+import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
+import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoDTO;
 import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
-import pe.edu.pucp.softinv.daoImp.util.Columna;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO {
+public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDAO {
 
-    ProductoTipoDTO productoTipo;
+    DetallePedidoDTO detallePedido;
 
-    public ProductoTipoDAOImpl() {
-        super("PRODUCTOS_TIPOS");
-        this.retornarLlavePrimaria = true;
-        this.productoTipo = null;
+    public DetallePedidoDAOImpl() {
+        super("DETALLES_PEDIDOS");
+        this.detallePedido = null;
+        this.retornarLlavePrimaria = false;
     }
 
-    public ProductoTipoDAOImpl(Connection conexion) {
-        super("PRODUCTOS_TIPOS", conexion);
-        this.productoTipo = null;
+    public DetallePedidoDAOImpl(Connection c) {
+        super("DETALLES_PEDIDOS", c);
+        this.detallePedido = null;
         this.retornarLlavePrimaria = false;
     }
 
     @Override
     protected void configurarListaDeColumnas() {
+        this.listaColumnas.add(new Columna("PEDIDO_ID", true, false));
         this.listaColumnas.add(new Columna("PRODUCTO_ID", true, false));
         this.listaColumnas.add(new Columna("TIPO_ID", true, false));
-        this.listaColumnas.add(new Columna("STOCK_FISICO", false, false));
-        this.listaColumnas.add(new Columna("STOCK_DESPACHO", false, false));
-        this.listaColumnas.add(new Columna("INGREDIENTES", false, false));
-        this.listaColumnas.add(new Columna("ACTIVO", false, false));
+        this.listaColumnas.add(new Columna("CANTIDAD", false, false));
+        this.listaColumnas.add(new Columna("SUBTOTAL", false, false));
     }
 
     @Override
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
-        this.statement.setInt(1, productoTipo.getProducto().getIdProducto());
-        this.statement.setInt(2, productoTipo.getTipo().getId());
-        this.statement.setInt(3, productoTipo.getStock_fisico());
-        this.statement.setInt(4, productoTipo.getStock_despacho());
-        this.statement.setString(5, productoTipo.getIngredientes());
-        this.statement.setInt(6, productoTipo.getActivo());
+        this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
+        this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
+        this.statement.setInt(3, detallePedido.getProducto().getTipo().getId());
+        this.statement.setInt(4, detallePedido.getCantidad());
+        this.statement.setDouble(5, detallePedido.getSubtotal());
     }
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        this.statement.setInt(1, productoTipo.getStock_fisico());
-        this.statement.setInt(2, productoTipo.getStock_despacho());
-        this.statement.setString(3, productoTipo.getIngredientes());
-        this.statement.setInt(4, productoTipo.getActivo());
-        this.statement.setInt(5, productoTipo.getProducto().getIdProducto());
-        this.statement.setInt(6, productoTipo.getTipo().getId());
+        this.statement.setInt(1, detallePedido.getCantidad());
+        this.statement.setDouble(2, detallePedido.getSubtotal());
+        
+        this.statement.setInt(3, detallePedido.getPedido().getIdPedido());
+        this.statement.setInt(4, detallePedido.getProducto().getProducto().getIdProducto());
+        this.statement.setInt(5, detallePedido.getProducto().getTipo().getId());
     }
 
     @Override
     protected void incluirValorDeParametrosParaEliminacion() throws SQLException {
-        this.statement.setInt(1, productoTipo.getProducto().getIdProducto());
-        this.statement.setInt(2, productoTipo.getTipo().getId());
+        this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
+        this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
+        this.statement.setInt(3, detallePedido.getProducto().getTipo().getId());
     }
 
     @Override
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
-        this.statement.setInt(1, productoTipo.getProducto().getIdProducto());
-        this.statement.setInt(2, productoTipo.getTipo().getId());
+        this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
+        this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
+        this.statement.setInt(3, detallePedido.getProducto().getTipo().getId());
     }
 
-    private void incluirValoresDeParametrosParaListarPorProducto(Object objetoParametros) {
-        ProductoDTO producto = (ProductoDTO) objetoParametros;
+    private void incluirValoresDeParametrosParaListarPorPedido(Object objetoParametros) {
+        PedidoDTO pedido = (PedidoDTO) objetoParametros;
         try {
-            this.statement.setInt(1, producto.getIdProducto());
+            this.statement.setInt(1, pedido.getIdPedido());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
+    public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
+        // Se agrega el JOIN a PRODUCTOS_TIPOS para obtener el stock y datos extra
+        String sql = "SELECT dp.*, tp.NOMBRE AS NOMBRE_TIPO, " +
+                     "pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO AS ACTIVO_TIPO " +
+                     "FROM DETALLES_PEDIDOS dp " +
+                     "JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID " +
+                     "JOIN PRODUCTOS_TIPOS pt ON dp.PRODUCTO_ID = pt.PRODUCTO_ID AND dp.TIPO_ID = pt.TIPO_ID " +
+                     "WHERE dp.PEDIDO_ID = ?";
+                     
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setIdPedido(idPedido);
+        return (ArrayList<DetallePedidoDTO>) super.listarTodos(sql, this::incluirValoresDeParametrosParaListarPorPedido, pedido);
+    }
+
+    @Override
+    protected void instanciarObjetoDelResultSet() throws SQLException {
+        this.detallePedido = new DetallePedidoDTO();
+        ProductoTipoDTO productoTipo = new ProductoTipoDTO();
+        ProductoDTO producto = new ProductoDTO();
+        PedidoDTO pedido = new PedidoDTO();
+        
+        TipoProdDTO tipoProd = new TipoProdDTO(); 
+        
+        // Mapeo de IDs básicos
+        tipoProd.setId(this.resultSet.getInt("TIPO_ID"));
+        producto.setIdProducto(resultSet.getInt("PRODUCTO_ID"));
+        pedido.setIdPedido(resultSet.getInt("PEDIDO_ID"));
+
+        // Mapeo de datos obtenidos via JOIN (Nombre del Tipo)
+        if(columnaExiste(resultSet, "NOMBRE_TIPO")){
+            tipoProd.setNombre(this.resultSet.getString("NOMBRE_TIPO"));
+        }
+
+        // Mapeo de datos extendidos de ProductoTipo (Stock, Ingredientes, etc.)
+        // Se usa columnaExiste para evitar errores si se usa el metodo obtener() basico sin el JOIN
+        if(columnaExiste(resultSet, "STOCK_FISICO")) {
+            productoTipo.setStock_fisico(resultSet.getInt("STOCK_FISICO"));
+        }
+        if(columnaExiste(resultSet, "STOCK_DESPACHO")) {
+            productoTipo.setStock_despacho(resultSet.getInt("STOCK_DESPACHO"));
+        }
+        if(columnaExiste(resultSet, "INGREDIENTES")) {
+            productoTipo.setIngredientes(resultSet.getString("INGREDIENTES"));
+        }
+        if(columnaExiste(resultSet, "ACTIVO_TIPO")) {
+            productoTipo.setActivo(resultSet.getInt("ACTIVO_TIPO"));
+        }
+
+        // Armado de objetos
+        productoTipo.setProducto(producto);
+        productoTipo.setTipo(tipoProd);
+
+        this.detallePedido.setProducto(productoTipo);
+        this.detallePedido.setPedido(pedido);
+        this.detallePedido.setCantidad(resultSet.getInt("CANTIDAD"));
+        this.detallePedido.setSubtotal(resultSet.getDouble("SUBTOTAL"));
+    }
+    
     private boolean columnaExiste(java.sql.ResultSet rs, String nombreColumna) throws SQLException {
         java.sql.ResultSetMetaData metaData = rs.getMetaData();
         int count = metaData.getColumnCount();
@@ -90,104 +151,67 @@ public class ProductoTipoDAOImpl extends DAOImplBase implements ProductoTipoDAO 
     }
 
     @Override
-    protected void instanciarObjetoDelResultSet() throws SQLException {
-        this.productoTipo = new ProductoTipoDTO();
-        
-        ProductoDTO producto = new ProductoDTO();
-        producto.setIdProducto(resultSet.getInt("PRODUCTO_ID"));
-        this.productoTipo.setProducto(producto);
-
-        TipoProdDTO tipoProd = new TipoProdDTO();
-        tipoProd.setId(resultSet.getInt("TIPO_ID"));
-        
-        if (columnaExiste(resultSet, "NOMBRE")) {
-            tipoProd.setNombre(resultSet.getString("NOMBRE"));
-        }
-        this.productoTipo.setTipo(tipoProd);
-
-        this.productoTipo.setIngredientes(this.resultSet.getString("INGREDIENTES"));
-        this.productoTipo.setStock_fisico(this.resultSet.getInt("STOCK_FISICO"));
-        this.productoTipo.setStock_despacho(this.resultSet.getInt("STOCK_DESPACHO"));
-        this.productoTipo.setActivo(this.resultSet.getInt("ACTIVO"));
-    }
-
-    @Override
     protected void limpiarObjetoDelResultSet() {
-        this.productoTipo = null;
+        this.detallePedido = null;
     }
 
     @Override
     protected void agregarObjetoALaLista(List lista) throws SQLException {
         this.instanciarObjetoDelResultSet();
-        lista.add(productoTipo);
+        lista.add(detallePedido);
     }
 
     @Override
-    public Integer insertar(ProductoTipoDTO productoTipo) {
-        this.productoTipo = productoTipo;
+    public Integer insertar(DetallePedidoDTO detallePedido) {
+        this.detallePedido = detallePedido;
         return super.insertar();
     }
 
     @Override
-    public Integer insertar(ProductoTipoDTO productoTipo, boolean dejarConexionAbierta, boolean transaccionInciada) {
-        this.productoTipo = productoTipo;
+    public Integer insertar(DetallePedidoDTO detallePedido, boolean dejarConexionAbierta, boolean transaccionInciada) {
+        this.detallePedido = detallePedido;
         return super.insertar(dejarConexionAbierta, transaccionInciada);
     }
 
     @Override
-    public ProductoTipoDTO obtener(Integer id, Integer tipoId) {
-        this.productoTipo = new ProductoTipoDTO();
+    public DetallePedidoDTO obtener(Integer idPedido, Integer idProducto, Integer tipoId) {
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setIdPedido(idPedido);
+        
+        ProductoTipoDTO productoTipo = new ProductoTipoDTO();
         ProductoDTO producto = new ProductoDTO();
-        producto.setIdProducto(id);
-        this.productoTipo.setProducto(producto);
+        producto.setIdProducto(idProducto);
         
         TipoProdDTO tipoProd = new TipoProdDTO();
         tipoProd.setId(tipoId);
-        this.productoTipo.setTipo(tipoProd);
+
+        productoTipo.setProducto(producto);
+        productoTipo.setTipo(tipoProd);
+        
+        if(this.detallePedido == null) this.detallePedido = new DetallePedidoDTO(); 
+        
+        this.detallePedido.setPedido(pedido);
+        this.detallePedido.setProducto(productoTipo);
         
         super.obtenerPorId();
-        return this.productoTipo;
+        return detallePedido;
     }
 
     @Override
-    public Integer modificar(ProductoTipoDTO productoTipo) {
-        this.productoTipo = productoTipo;
+    public Integer modificar(DetallePedidoDTO detallePedido) {
+        this.detallePedido = detallePedido;
         return super.modificar();
     }
 
     @Override
-    public Integer eliminar(ProductoTipoDTO productoTipo) {
-        this.productoTipo = productoTipo;
+    public Integer eliminar(DetallePedidoDTO detallePedido) {
+        this.detallePedido = detallePedido;
         return super.eliminar();
     }
 
     @Override
-    public Integer eliminar(ProductoTipoDTO productoTipo, boolean dejarConexionAbierta, boolean transaccionInciada) {
-        this.productoTipo = productoTipo;
+    public Integer eliminar(DetallePedidoDTO detallePedido, boolean dejarConexionAbierta, boolean transaccionInciada) {
+        this.detallePedido = detallePedido;
         return super.eliminar(dejarConexionAbierta, transaccionInciada);
-    }
-
-    @Override
-    public ArrayList<ProductoTipoDTO> obtenerProductoId(Integer idProducto) {
-        // Se reemplaza pt.* por las columnas explícitas
-        String sql = "SELECT pt.PRODUCTO_ID, pt.TIPO_ID, pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO, tp.NOMBRE " +
-                     "FROM PRODUCTOS_TIPOS pt " +
-                     "JOIN TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID " +
-                     "WHERE pt.PRODUCTO_ID = ?";
-        ProductoDTO producto = new ProductoDTO();
-        producto.setIdProducto(idProducto);
-        return (ArrayList<ProductoTipoDTO>) super.listarTodos(sql, this::incluirValoresDeParametrosParaListarPorProducto, producto);
-    }
-
-    @Override
-    public ArrayList<ProductoTipoDTO> obtenerProductoIdActivos(Integer idProducto) {
-        // Se reemplaza pt.* por las columnas explícitas
-        String sql = "SELECT pt.PRODUCTO_ID, pt.TIPO_ID, pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO, tp.NOMBRE " +
-                     "FROM PRODUCTOS_TIPOS pt " +
-                     "JOIN TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID " +
-                     "WHERE pt.PRODUCTO_ID = ? AND pt.ACTIVO = 1";
-        ProductoDTO producto = new ProductoDTO();
-        producto.setIdProducto(idProducto);
-        return (ArrayList<ProductoTipoDTO>) super.listarTodos(sql, this::incluirValoresDeParametrosParaListarPorProducto, producto);
     }
 }

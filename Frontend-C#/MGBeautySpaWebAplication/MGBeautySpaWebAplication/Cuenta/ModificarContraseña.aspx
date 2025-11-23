@@ -4,375 +4,129 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Inicio de Sesión | MG Beauty Spa</title>
+    <title>Establecer Contraseña | MG Beauty Spa</title>
 
-    <!-- Fuentes (prioridad para ZCOOL XiaoWei y Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css?v=3") %>" />
-</head> 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Establecer Contraseña</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <script>
-    function togglePassword(textBoxId, icon) {
-        var input = document.getElementById(textBoxId);
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("bi-eye-slash");
-            icon.classList.add("bi-eye");
-        } else {
-            input.type = "password";
-            icon.classList.remove("bi-eye");
-            icon.classList.add("bi-eye-slash");
-        }
-    }
-    </script>
-
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .page-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0px;
-            width: 100%;
-            min-height: 800px;
-            background: #ECFFFD;
-            justify-content: center;
-        }
-
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0px;
-            width: 960px;
-            max-width: 960px;
-            background-color: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .title-container {
-            padding: 20px 16px 12px;
-            width: 960px;
-            box-sizing: border-box;
-        }
-
-        .title-text {
-            width: 100%;
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-            line-height: 35px;
-            text-align: center;
-            color: #1C0D12;
-        }
-
-        .subtitle-container {
-            padding: 4px 16px 12px;
-            width: 960px;
-            box-sizing: border-box;
-        }
-
-        .subtitle-text {
-            width: 100%;
-            margin: 0;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            text-align: center;
-            color: #1C0D12;
-        }
-
-        .input-wrapper {
-            padding: 12px 16px;
-            width: 480px;
-            max-width: 480px;
-            box-sizing: border-box;
-        }
-
-        .form-input {
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 15px;
-            width: 100%;
-            height: 56px;
-            background: #FFFFFF;
-            border: 1px solid #E3D4D9;
-            border-radius: 12px;
-            
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            color: #1C0D12;
-        }
-        
-        .form-input::placeholder {
-            color: #757575;
-        }
-
-        .button-wrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 12px 16px;
-            width: 960px;
-            box-sizing: border-box;
-        }
-
-        .submit-button {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            padding: 0px 16px;
-            width: 480px;
-            max-width: 480px;
-            height: 40px;
-            background: #1EC3B6;
-            border-radius: 20px;
-            
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 15px;
-            line-height: 21px;
-            text-align: center;
-            color: #FCF7FA;
-            
-            border: none;
-            cursor: pointer;
-        }
-        .modal-superpuesto {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            background-color: rgba(0, 0, 0, 0.6); 
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .success-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0px;
-            width: 960px;
-            max-width: 960px;
-            background-color: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .success-title {
-            width: 100%;
-            padding: 20px 16px 12px;
-            box-sizing: border-box;
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-            line-height: 35px;
-            text-align: center;
-            color: #1A0F12;
-        }
-
-        .success-message {
-            width: 100%;
-            padding: 4px 16px 12px;
-            box-sizing: border-box;
-            margin: 0;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            text-align: center;
-            color: #1A0F12;
-        }
-
-        .button-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px 16px;
-        }
-
-        .login-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0px 16px;
-            width: 122px;
-            height: 40px;
-            background: #1EC3B6;
-            border-radius: 20px;
-            font-family: 'Plus Jakarta Sans';
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 21px;
-            text-align: center;
-            color: #FFFFFF;
-            text-decoration: none; 
-            cursor: pointer;
-            border: none;
-        }
-
-        .error-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0px;
-            width: 960px;
-            max-width: 960px;
-            background-color: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .error-title {
-            width: 100%;
-            padding: 20px 16px 12px;
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-            text-align: center;
-            color: #B71C1C;
-        }
-
-        .error-message {
-            width: 100%;
-            padding: 4px 16px 12px;
-            margin: 0;
-            font-size: 16px;
-            text-align: center;
-            color: #1A0F12;
-        }
-
-        /* Botón rojo para errores */
-        .login-button.error-btn {
-            background: #E53935 !important;
-        }
+        .toggle-password { cursor: pointer; color: #6c757d; }
+        .toggle-password:hover { color: #1EC3B6; }
     </style>
 </head>
-<body>
-    <form id="form1" runat="server">
-        <div id="formRegistro">
-            <div class="page-container">
-                <main class="content-wrapper">
+
+<body class="page-auth" style="background-color: #f0f2f5;">
+
+    <form id="form1" runat="server" class="min-vh-100 d-flex align-items-center justify-content-center py-4" novalidate>
+        
+        <div class="card shadow-sm p-4 p-md-5 text-center" style="max-width: 450px; width: 100%; border-radius: 16px;">
             
-                    <div class="title-container">
-                        <h1 class="title-text">Establece tu nueva contraseña</h1>
-                    </div>
-
-                    <div class="subtitle-container">
-                        <p class="subtitle-text">
-                            Crea la nueva contraseña con la que inciarás sesión en tu cuenta.
-                        </p>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div class="password-wrapper">
-                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input"
-                                         TextMode="Password" placeholder="Ingrese tu nueva contraseña" />
-                            <i class="bi bi-eye-slash toggle-password"
-                               onclick="togglePassword('txtPassword', this)"></i>
-                        </div>
-                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
-                            ErrorMessage="La contraseña es obligatoria." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator 
-                            ID="revPasswordLength" runat="server"
-                            ControlToValidate="txtPassword"
-                            ValidationExpression="^.{1,30}$"
-                            ErrorMessage="La contraseña no puede exceder los 30 caracteres."
-                            ForeColor="Red" Display="Dynamic" />
-                    </div>
-                
-                    <div class="input-wrapper" style="padding-top: 0;">
-                        <div class="password-wrapper">
-                            <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-input"
-                                         TextMode="Password" placeholder="Confirme su contraseña" />
-                            <i class="bi bi-eye-slash toggle-password"
-                               onclick="togglePassword('txtConfirmar', this)"></i>
-                        </div>
-
-                        <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
-                            ErrorMessage="Debe confirmar su contraseña." ForeColor="Red" Display="Dynamic" />
-                        <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
-                            ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
-                    </div>
-                    <div class="button-container">
-                        <asp:Button ID="btnModificaContraseña" 
-                                    runat="server" 
-                                    Text="Establecer nueva contraseña" 
-                                    CssClass="submit-button"
-                                    OnClick="btnModificaContraseña_Click" />
-                    </div>
-
-                </main>
+            <div class="mb-4">
+                <div style="width: 80px; height: 80px; background-color: #e0f7fa; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-shield-lock-fill" style="font-size: 40px; color: #1EC3B6;"></i>
+                </div>
             </div>
+
+            <h3 class="fw-bold mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif; color: #1C0D12;">Nueva contraseña</h3>
+            <p class="text-muted mb-4 small">
+                Crea una nueva contraseña segura para acceder a tu cuenta.
+            </p>
+
+            <div class="text-start mb-3">
+                <label for="txtPassword" class="form-label fw-medium">Contraseña</label>
+                <div class="input-group">
+                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="Ingrese su contraseña" />
+                    <span class="input-group-text bg-white">
+                        <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtPassword.ClientID %>', this)"></i>
+                    </span>
+                </div>
+                <div class="mt-1">
+                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
+                        ErrorMessage="La contraseña es obligatoria." CssClass="text-danger small fw-bold" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revPasswordLength" runat="server" ControlToValidate="txtPassword"
+                        ValidationExpression="^.{1,30}$" ErrorMessage="Máximo 30 caracteres." 
+                        CssClass="text-danger small fw-bold" Display="Dynamic" />
+                </div>
+            </div>
+
+            <div class="text-start mb-4">
+                <label for="txtConfirmar" class="form-label fw-medium">Confirmar contraseña</label>
+                <div class="input-group">
+                    <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="Confirme su contraseña" />
+                    <span class="input-group-text bg-white">
+                        <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtConfirmar.ClientID %>', this)"></i>
+                    </span>
+                </div>
+                <div class="mt-1">
+                    <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
+                        ErrorMessage="Debe confirmar su contraseña." CssClass="text-danger small fw-bold" Display="Dynamic" />
+                    <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
+                        ErrorMessage="Las contraseñas no coinciden." CssClass="text-danger small fw-bold" Display="Dynamic" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <asp:Button ID="btnModificaContraseña" runat="server" Text="Establecer contraseña" 
+                    CssClass="btn btn-primary w-100 py-2 rounded-pill fw-bold" 
+                    Style="background: #1EC3B6; border: none;"
+                    OnClick="btnModificaContraseña_Click" />
+            </div>
+
         </div>
 
-        <div id="modalExito" class="modal-superpuesto" style="display: none;">
-            <div class="success-box">
-                <h1 class="success-title">Contraseña modificada</h1>
-                <p class="success-message">
-                    Su contraseña ha sido modificado correctamente. Ya puede iniciar sesión con su nueva contraseña.
-                </p>
-                <div class="button-wrapper">
-                    <a href="../Login.aspx" class="login-button">
-                        Iniciar Sesión
-                    </a>
+        <div class="modal fade" id="modalExito" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4" style="border-radius: 16px;">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">¡Contraseña actualizada!</h4>
+                        <p class="text-muted mb-4">Tu contraseña ha sido modificada correctamente. Ya puedes iniciar sesión.</p>
+                        <a href="../Login.aspx" class="btn btn-primary w-100 rounded-pill" style="background: #1EC3B6; border: none;">Iniciar Sesión</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="modalError" class="modal-superpuesto" style="display: none;">
-            <div class="error-box">
-                <h1 class="error-title">Enlace no válido</h1>
-                <p class="error-message">
-                    Este enlace ya fue utilizado, expiró o no es válido. Por favor solicita uno nuevo.
-                </p>
-                <div class="button-wrapper">
-                    <a href="RecuperarContraseña.aspx" class="login-button" style="background:#E53935;">
-                        Solicitar nuevo enlace
-                    </a>
+        <div class="modal fade" id="modalError" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4" style="border-radius: 16px;">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <i class="bi bi-exclamation-circle-fill text-danger" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3 text-danger">Enlace no válido</h4>
+                        <p class="text-muted mb-4">Este enlace ya fue utilizado, expiró o no es válido. Por favor solicita uno nuevo.</p>
+                        <a href="RecuperarContraseña.aspx" class="btn btn-danger w-100 rounded-pill">Solicitar nuevo enlace</a>
+                    </div>
                 </div>
             </div>
         </div>
+
     </form>
+
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    
+    <script>
+        function togglePassword(textBoxId, icon) {
+            var input = document.getElementById(textBoxId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            }
+        }
+    </script>
 </body>
 </html>

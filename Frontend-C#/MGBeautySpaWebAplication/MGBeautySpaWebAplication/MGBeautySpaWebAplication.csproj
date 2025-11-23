@@ -206,7 +206,6 @@
     <Content Include="Cliente\InicioCliente.aspx" />
     <Content Include="Content\style.css" />
     <Content Include="Content\ClienteMasterPageStyle.css" />
-    <Content Include="Cuenta\ModificarCuenta.aspx" />
     <Content Include="Cuenta\RecuperarContraseña.aspx" />
     <Content Include="Cuenta\Registro.aspx" />
     <Content Include="Cuenta\ModificarContraseña.aspx" />
@@ -476,13 +475,6 @@
     </Compile>
     <Compile Include="Cliente\Servicios.aspx.designer.cs">
       <DependentUpon>Servicios.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Cuenta\ModificarCuenta.aspx.cs">
-      <DependentUpon>ModificarCuenta.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Cuenta\ModificarCuenta.aspx.designer.cs">
-      <DependentUpon>ModificarCuenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cuenta\RecuperarContraseña.aspx.cs">
       <DependentUpon>RecuperarContraseña.aspx</DependentUpon>

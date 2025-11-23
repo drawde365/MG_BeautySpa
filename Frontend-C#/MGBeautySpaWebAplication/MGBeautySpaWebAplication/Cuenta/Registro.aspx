@@ -4,32 +4,203 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Inicio de Sesión | MG Beauty Spa</title>
+    <title>Crear Cuenta | MG Beauty Spa</title>
 
-    <!-- Fuentes (prioridad para ZCOOL XiaoWei y Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <!-- Estilos del sistema -->
+    
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/css/vendor.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css?v=3") %>" />
+
+    <style>
+        /* CSS Específico solo para el Upload de archivos (el resto usa Bootstrap) */
+        .file-upload-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Un poco más compacto */
+            border: 2px dashed #dee2e6; /* Color borde Bootstrap */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .file-upload-wrapper:hover {
+            background-color: #e9ecef;
+            border-color: #1EC3B6;
+        }
+        .file-upload-wrapper.has-preview {
+            border-style: solid;
+            border-color: #1EC3B6;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .file-upload-input {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer; z-index: 10;
+        }
+        .toggle-password {
+            cursor: pointer;
+            z-index: 10;
+            color: #6c757d;
+        }
+    </style>
 </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear una Cuenta</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <script>
+
+<body class="page-auth" style="background-color: #f0f2f5;">
+
+    <form id="form1" runat="server" class="min-vh-100 d-flex align-items-center justify-content-center py-5">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+        <div class="card shadow-sm p-4 p-md-5" style="max-width: 800px; width: 100%; border-radius: 16px;">
+            
+            <div class="text-center mb-4">
+                <img src="<%: ResolveUrl("~/Content/images/MGLogo2.svg") %>" alt="MG Beauty Spa" style="height:60px;">
+                <h3 class="mt-3 fw-bold" style="font-family: 'Plus Jakarta Sans', sans-serif;">Crear una cuenta</h3>
+                <small class="text-muted">Únete a nosotros para reservar tus citas</small>
+            </div>
+
+            <div class="row g-3">
+                
+                <div class="col-12">
+                    <label class="form-label fw-medium">Nombres</label>
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingrese su nombre" />
+                    <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-medium">Apellido Paterno</label>
+                    <asp:TextBox ID="txtApellidoP" runat="server" CssClass="form-control" placeholder="Apellido paterno" />
+                    <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellidoP" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-medium">Apellido Materno</label>
+                    <asp:TextBox ID="txtApellidoM" runat="server" CssClass="form-control" placeholder="Apellido materno" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtApellidoM" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-medium">Celular</label>
+                    <asp:TextBox ID="txtCelular" runat="server" CssClass="form-control" placeholder="999 999 999" />
+                    <asp:RequiredFieldValidator ID="rfvCelular" runat="server" ControlToValidate="txtCelular" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revCelular" runat="server" ControlToValidate="txtCelular" ValidationExpression="^\d{9}$" ErrorMessage="9 dígitos req." CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-medium">Correo electrónico</label>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" placeholder="correo@ejemplo.com" />
+                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Inválido" CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-medium">Contraseña</label>
+                    <div class="input-group">
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="******" />
+                        <span class="input-group-text bg-white border-start-0">
+                            <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtPassword.ClientID %>', this)"></i>
+                        </span>
+                    </div>
+                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-medium">Confirmar contraseña</label>
+                    <div class="input-group">
+                        <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="******" />
+                        <span class="input-group-text bg-white border-start-0">
+                            <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtConfirmar.ClientID %>', this)"></i>
+                        </span>
+                    </div>
+                    <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword" ErrorMessage="No coinciden" CssClass="text-danger small" Display="Dynamic" />
+                </div>
+
+                <div class="col-12 mt-4">
+                    <label class="form-label fw-medium mb-2">Foto de Perfil</label>
+                    <div class="file-upload-wrapper" id="fileUploadWrapper" runat="server">
+                        <asp:FileUpload ID="fileUpload" runat="server" CssClass="file-upload-input" />
+                        <div class="file-upload-label px-3">
+                            <i class="bi bi-cloud-arrow-up fs-1 text-muted mb-2"></i>
+                            <strong class="d-block text-dark">Subir imagen</strong>
+                            <span class="text-muted small">Arrastra y suelta o haz click para subir (JPG, PNG)</span>
+                        </div>
+                        <asp:HiddenField ID="hdnImagenActual" runat="server" Value="" />
+                    </div>
+                    <div class="validation-error-js text-danger small mt-1" style="display: none;"></div>
+                </div>
+
+                <div class="col-12 text-center mt-2">
+                    <p class="text-muted small mb-0">
+                        Al registrarte, aceptas nuestros <a href="#" class="text-decoration-none">Términos de Servicio</a> y <a href="#" class="text-decoration-none">Política de Privacidad</a>.
+                    </p>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <asp:Button ID="btnCrearCuenta" runat="server" Text="Crear Cuenta" 
+                        CssClass="btn btn-primary w-100 py-2 rounded-pill fw-bold" 
+                        style="background: #1EC3B6; border: none;"
+                        OnClick="btnCrearCuenta_Click" />
+                </div>
+
+                <div class="col-12 text-center mt-3">
+                    <span class="small text-muted">¿Ya tienes cuenta?</span>
+                    <a href="../Login.aspx" class="text-decoration-none fw-semibold" style="color: #1EC3B6;">Inicia Sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalExito" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4" style="border-radius: 16px;">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">¡Cuenta creada!</h4>
+                        <p class="text-muted mb-4">Tu registro ha sido exitoso. Ya puedes disfrutar de nuestros servicios.</p>
+                        <a href="../Login.aspx" class="btn btn-primary w-100 rounded-pill" style="background: #1EC3B6; border: none;">Iniciar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalError" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4" style="border-radius: 16px;">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <i class="bi bi-x-circle-fill text-danger" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3 text-danger">Error</h4>
+                        <p class="text-muted mb-4" id="modalErrorMessage">
+                            Ya existe una cuenta registrada con este correo electrónico.
+                        </p>
+                        <button type="button" class="btn btn-secondary w-100 rounded-pill" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <script src="<%: ResolveUrl("~/Scripts/jquery.min.js") %>"></script>
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+
+    <script type="text/javascript">
+        // Función para mostrar/ocultar contraseña
         function togglePassword(textBoxId, icon) {
             var input = document.getElementById(textBoxId);
-
             if (input.type === "password") {
                 input.type = "text";
                 icon.classList.remove("bi-eye-slash");
@@ -40,582 +211,53 @@
                 icon.classList.add("bi-eye-slash");
             }
         }
-    </script>
 
-    <style>
-        html, body {
-        height: 100%;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f0f0f0; 
-        }
-
-        .page-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0px;
-            width: 100%; 
-            height: 100%;
-            padding-top: 20px;
-        }
-
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0px;
-            width: 960px;
-            max-width: 960px;
-            background-color: #FFFFFF;
-            border-radius: 16px;
-        }
-
-        .title-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 16px 12px;
-            width: 960px;
-            box-sizing: border-box; 
-        }
-
-        .title-text {
-            width: 100%;
-            height: 35px;
-            margin: 0; 
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 28px;
-            line-height: 35px;
-            text-align: center;
-            color: #1C0D12;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 7px 16px;
-            gap: 10px;
-            width: 480px;
-            box-sizing: border-box;
-        }
-
-        .form-label {
-            width: 100%; 
-            height: 24px;
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 24px;
-            color: #1C0D12;
-        }
-
-        .form-input {
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 15px;
-            width: 100%; 
-            height: 56px;
-            background: #FFFFFF;
-            border: 1px solid #E3D4D9;
-            border-radius: 12px;
-            
-
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            color: #757575;
-        }
-
-        .terms-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4px 16px 12px;
-            width: 960px;
-            box-sizing: border-box;
-            margin-top: 10px;
-        }
-
-        .terms-text {
-            width: 100%;
-            height: 21px;
-            margin: 0;
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 21px;
-            text-align: center;
-            color: #107369;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 16px;
-            width: 960px;
-            box-sizing: border-box;
-        }
-
-        .submit-button {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            padding: 0px 16px;
-            width: 480px;
-            max-width: 480px;
-            height: 40px;
-            background: #1EC3B6;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer; 
-
-            font-family: 'Plus Jakarta Sans';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 15px;
-            line-height: 21px;
-            text-align: center;
-            color: #FCF7FA;
-        }
-
-        .modal-superpuesto {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        
-            background-color: rgba(0, 0, 0, 0.6); 
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .success-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0px;
-            width: 960px;
-            max-width: 960px;
-            background-color: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .success-title {
-            width: 100%;
-            padding: 20px 16px 12px;
-            box-sizing: border-box;
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-            line-height: 35px;
-            text-align: center;
-            color: #1A0F12;
-        }
-
-        .success-message {
-            width: 100%;
-            padding: 4px 16px 12px;
-            box-sizing: border-box;
-            margin: 0;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            text-align: center;
-            color: #1A0F12;
-        }
-
-        .button-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px 16px;
-        }
-
-        .login-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0px 16px;
-            width: 122px;
-            height: 40px;
-            background: #1EC3B6;
-            border-radius: 20px;
-            font-family: 'Plus Jakarta Sans';
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 21px;
-            text-align: center;
-            color: #FFFFFF;
-            text-decoration: none; 
-            cursor: pointer;
-            border: none;
-        }
-
-        .password-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .password-wrapper .form-input {
-            padding-right: 45px; /* espacio para el icono */
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 20px;
-            color: #666;
-        }
-
-        .file-upload-wrapper {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            border: 2px dashed #148C76;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            overflow: hidden;
-            background-color: #fafcff;
-        }
-            .file-upload-wrapper:hover {
-                background-color: #f7faff;
-            }
-        .file-upload-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .file-upload-label {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #1C0D12;
-            pointer-events: none;
-        }
-        .file-upload-label strong {
-            font-size: 18px;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .file-upload-label .file-upload-text {
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .file-upload-wrapper.has-preview {
-            border-style: solid;
-            border-color: #148C76;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .file-upload-wrapper.has-preview .file-upload-label {
-            display: none;
-        }
-
-        .validation-error {
-            display: block;
-            color: #C31E1E;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 4px;
-        }
-    </style>
-</head>
-<body>
-
-    <form id="form1" runat="server">
-
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
-        <div id="formRegistro">
-
-            <div class="page-container">
-                <main class="content-wrapper">
-
-                    <div class="title-container">
-                        <h1 class="title-text">Crear una cuenta</h1>
-                    </div>
-                
-                    <div class="form-group">
-                        <label class="form-label">Nombres</label>
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-input" placeholder="Ingrese su nombre" />
-                        <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator 
-                            ID="revNombre" runat="server"
-                            ControlToValidate="txtNombre"
-                            ValidationExpression="^.{1,30}$"
-                            ErrorMessage="El nombre no puede exceder los 30 caracteres."
-                            ForeColor="Red" Display="Dynamic" />
-                    </div>
-                
-                    <div class="form-group">
-                        <label class="form-label">Apellido Paterno</label>
-                        <asp:TextBox ID="txtApellidoP" runat="server" CssClass="form-input" placeholder="Ingrese su apellido paterno" />
-                        <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellidoP"
-                            ErrorMessage="El apellido paterno es obligatorio." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator 
-                            ID="revApellidoP" runat="server"
-                            ControlToValidate="txtApellidoP"
-                            ValidationExpression="^.{1,30}$"
-                            ErrorMessage="El apellido paterno no puede exceder los 30 caracteres."
-                            ForeColor="Red" Display="Dynamic" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Apellido Materno</label>
-                        <asp:TextBox ID="txtApellidoM" runat="server" CssClass="form-input" placeholder="Ingrese su apellido materno" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtApellidoM"
-                            ErrorMessage="El apellido materno es obligatorio." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator 
-                            ID="revApellidoM" runat="server"
-                            ControlToValidate="txtApellidoM"
-                            ValidationExpression="^.{1,30}$"
-                            ErrorMessage="El apellido materno no puede exceder los 30 caracteres."
-                            ForeColor="Red" Display="Dynamic" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Número de celular</label>
-                        <asp:TextBox ID="txtCelular" runat="server" CssClass="form-input" placeholder="Ingrese su número de celular" />
-                        <asp:RequiredFieldValidator ID="rfvCelular" runat="server" ControlToValidate="txtCelular"
-                            ErrorMessage="El número de celular es obligatorio." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revCelular" runat="server" ControlToValidate="txtCelular"
-                            ValidationExpression="^\d{9}$" ErrorMessage="Debe ingresar un número válido de 9 dígitos." ForeColor="Red" Display="Dynamic" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Correo electrónico</label>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input" placeholder="Ingrese su correo electrónico" />
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail"
-                            ErrorMessage="El correo electrónico es obligatorio." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
-                            ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Ingrese un correo electrónico válido." ForeColor="Red" Display="Dynamic" />
-                        <asp:RegularExpressionValidator 
-                            ID="revEmailLength" runat="server"
-                            ControlToValidate="txtEmail"
-                            ValidationExpression="^.{1,100}$"
-                            ErrorMessage="El correo no puede exceder los 100 caracteres."
-                            ForeColor="Red" Display="Dynamic" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Contraseña</label>
-                            <div class="password-wrapper">
-                                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input"
-                                             TextMode="Password" placeholder="Ingrese su contraseña" />
-                                <i class="bi bi-eye-slash toggle-password"
-                                   onclick="togglePassword('txtPassword', this)"></i>
-                            </div>
-                            <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
-                                ErrorMessage="La contraseña es obligatoria." ForeColor="Red" Display="Dynamic" />
-                            <asp:RegularExpressionValidator 
-                                ID="revPasswordLength" runat="server"
-                                ControlToValidate="txtPassword"
-                                ValidationExpression="^.{1,30}$"
-                                ErrorMessage="La contraseña no puede exceder los 30 caracteres."
-                                ForeColor="Red" Display="Dynamic" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Confirmar contraseña</label>
-
-                            <div class="password-wrapper">
-                                <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-input"
-                                             TextMode="Password" placeholder="Confirme su contraseña" />
-                                <i class="bi bi-eye-slash toggle-password"
-                                   onclick="togglePassword('txtConfirmar', this)"></i>
-                            </div>
-
-                            <asp:RequiredFieldValidator ID="rfvConfirmar" runat="server" ControlToValidate="txtConfirmar"
-                                ErrorMessage="Debe confirmar su contraseña." ForeColor="Red" Display="Dynamic" />
-                            <asp:CompareValidator ID="cvPassword" runat="server" ControlToValidate="txtConfirmar" ControlToCompare="txtPassword"
-                                ErrorMessage="Las contraseñas no coinciden." ForeColor="Red" Display="Dynamic" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Subir imagen de foto de perfil</label>
-                    
-                    <div class="mb-4" style="width: 300px; max-width: 100%; margin: 0 auto;" >
-
-                    <div class="file-upload-wrapper" ID="fileUploadWrapper" runat="server">
-                    <asp:FileUpload ID="fileUpload" runat="server" CssClass="file-upload-input" />
-                            <div class="file-upload-label">
-                            <strong>Subir imagen</strong>
-                                <span class="file-upload-text">Arrastra y suelta o haz click para subir</span>
-                            </div>
-                    <asp:HiddenField ID="hdnImagenActual" runat="server" Value="" />
-                    </div>
-                        <span class="validation-error validation-error-js" style="display: none;"></span>
-                    </div>
-
-                    </div>
-
-                    <div class="terms-container">
-                        <p class="terms-text">
-                            Al asociar una cuenta a MG Beatuy Spa, usted está aceptando nuestros Términos de Servicios y Políticas de Privacidad.
-                        </p>
-                    </div>
-
-                    <div class="button-container">
-                        <asp:Button ID="btnCrearCuenta" 
-                                    runat="server" 
-                                    Text="Crear Cuenta" 
-                                    CssClass="submit-button"
-                                    OnClick="btnCrearCuenta_Click" />
-                    </div>
-                    
-                    <div class="text-center mt-3">
-                         <small>
-                             <a href="/Login.aspx" class="text-decoration-none">
-                                 ¿Ya tienes una cuenta asociada? ¡Inicia Sesión!
-                             </a>
-                         </small>
-                     </div>
-                </main>
-            </div>
-        </div>
-
-        <div id="modalExito" class="modal-superpuesto" style="display: none;">
-            <div class="success-box">
-                <h1 class="success-title">Cuenta creada</h1>
-                <p class="success-message">
-                    Su cuenta se ha creado correctamente. Ya puede empezar a explorar nuestros productos y servicios.
-                </p>
-                <div class="button-wrapper">
-                    <a href="../Login.aspx" class="login-button">
-                        Iniciar Sesión
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div id="modalError" class="modal-superpuesto" style="display: none;">
-            <div class="success-box">
-                <h1 class="success-title" style="color: #b91c1c;">Error</h1>
-                <p class="success-message">
-                    Ya existe una cuenta registrada con este correo electrónico. Por favor, utilice otro correo o inicie sesión.
-                </p>
-                <div class="button-wrapper">
-                    <button class="login-button" onclick="document.getElementById('modalError').style.display='none';return false;">
-                        Cerrar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <script type="text/javascript">
-        function validateImageUpload(source, args) {
-            const fileInput = document.getElementById('<%= fileUpload.ClientID %>');
-            const hiddenImage = document.getElementById('<%= hdnImagenActual.ClientID %>');
-
-            if (fileInput.files.length > 0) {
-                args.IsValid = true;
-                return;
-            }
-
-            if (hiddenImage.value !== '') {
-                args.IsValid = true;
-                return;
-            }
-
-            args.IsValid = false;
-        }
-
+        // Script para previsualizar imagen (Drag & Drop)
         $(".file-upload-input").on("change", function () {
             const file = this.files[0];
             const $wrapper = $(this).closest(".file-upload-wrapper");
             const $label = $wrapper.find(".file-upload-label");
-            const $labelText = $wrapper.find(".file-upload-text");
-            const $labelStrong = $wrapper.find("strong");
-            const $errorDisplay = $wrapper.closest(".form-group").find(".validation-error-js"); // Nuevo elemento de error
+            const $errorDisplay = $(".validation-error-js");
 
             // Limpiar error previo
-            if ($errorDisplay.length) {
-                $errorDisplay.text("").hide();
-            }
+            if ($errorDisplay.length) $errorDisplay.text("").hide();
 
             if (file) {
-                // Validación de tipo de archivo solo en el cliente para UX
                 if (!file.type.startsWith("image/")) {
-                    // Mostrar error de archivo NO imagen (UX)
                     if ($errorDisplay.length) {
                         $errorDisplay.text("Solo se permiten archivos de imagen (JPG, PNG, JPEG)").show();
                     }
-                    // Resetear el control para prevenir el envío de un archivo no permitido
                     this.value = "";
                     $wrapper.css("background-image", "none").removeClass("has-preview");
-                    $labelStrong.text("Subir imagen");
-                    $labelText.text("Arrastra y suelta o haz click para subir");
                     $label.show();
                     return;
                 }
 
-                if (file.type.startsWith("image/")) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        $wrapper.css("background-image", "url(" + e.target.result + ")");
-                        $wrapper.addClass("has-preview");
-                        $label.hide();
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    // Este caso ya no debería ocurrir si la validación superior es exitosa
-                    $labelStrong.text("Archivo seleccionado:");
-                    $labelText.text(file.name);
-                    $wrapper.css("background-image", "none");
-                    $wrapper.removeClass("has-preview");
-                    $label.show();
-                }
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $wrapper.css("background-image", "url(" + e.target.result + ")");
+                    $wrapper.addClass("has-preview");
+                    $label.hide();
+                };
+                reader.readAsDataURL(file);
             } else {
-                $labelStrong.text("Subir imagen");
-                $labelText.text("Arrastra y suelta o haz click para subir");
                 $wrapper.css("background-image", "none");
                 $wrapper.removeClass("has-preview");
                 $label.show();
             }
         });
 
-    </script>
+        // Función auxiliar para llamar al Modal desde C#
+        function showSuccessModal() {
+            var myModal = new bootstrap.Modal(document.getElementById('modalExito'));
+            myModal.show();
+        }
 
+        function showErrorModal(message) {
+            if (message) { document.getElementById('modalErrorMessage').innerText = message; }
+            var myModal = new bootstrap.Modal(document.getElementById('modalError'));
+            myModal.show();
+        }
+    </script>
 </body>
 </html>

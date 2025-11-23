@@ -1,12 +1,8 @@
 ﻿using SoftInvBusiness;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Cuenta
 {
@@ -23,48 +19,68 @@ namespace MGBeautySpaWebAplication.Cuenta
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // ESTA LÍNEA ES CRUCIAL: Habilita la validación dinámica antigua (JavaScript puro)
+            // que hace que los mensajes desaparezcan al escribir.
+            this.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
         }
 
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
+            // 1. Validar que la página sea válida según los Validators del ASPX
+            if (!Page.IsValid) return;
+
+            // 2. Limpiar mensajes anteriores
+            lblMensaje.Text = "";
+            lblMensaje.CssClass = "";
+
             string correo = txtEmail.Text.Trim();
-            var usuario = usuarioBO.ObtenerUsuarioPorCorreo(correo);
-            if (usuario == null)
+
+            try
             {
-                lblMensaje.Text = "No existe una cuenta asociada a este correo.";
-                lblMensaje.CssClass = "text-danger";
-                return;
+                var usuario = usuarioBO.ObtenerUsuarioPorCorreo(correo);
+
+                if (usuario == null)
+                {
+                    lblMensaje.Text = "No existe una cuenta asociada a este correo.";
+                    lblMensaje.CssClass = "text-danger small fw-bold";
+                    return;
+                }
+
+                // Crear token y guardar
+                string token = Guid.NewGuid().ToString();
+                usuarioBO.GuardarTokenRecuperacion(usuario.idUsuario, token);
+
+                // Construir URL
+                string url = Request.Url.GetLeftPart(UriPartial.Authority) +
+                             "/Cuenta/ModificarContraseña.aspx?token=" + token;
+
+                // Configurar correo
+                MailMessage mensaje = new MailMessage();
+                mensaje.From = new MailAddress(correoEmpresa);
+                mensaje.To.Add(correo);
+                mensaje.Subject = "Recuperación de contraseña | MG Beauty SPA";
+                mensaje.Body = "¡Hola, " + usuario.nombre + "!\n\n" +
+                               "Haz clic en el siguiente enlace para restablecer tu contraseña:\n\n" + url;
+                mensaje.IsBodyHtml = false;
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
+                smtp.EnableSsl = true;
+
+                smtp.Send(mensaje);
+
+                // Éxito
+                lblMensaje.Text = "Se ha enviado un enlace a tu correo.";
+                lblMensaje.CssClass = "text-success small fw-bold";
+
+                // Opcional: Limpiar el campo para que no envíen dos veces
+                txtEmail.Text = "";
             }
-
-            // Crear un token único para el enlace (por ejemplo un GUID)
-            string token = Guid.NewGuid().ToString();
-
-            // Guardarlo en BD asociado al usuario (con fecha de expiración)
-            usuarioBO.GuardarTokenRecuperacion(usuario.idUsuario, token);
-
-            // Construir URL para resetear contraseña
-            string url = Request.Url.GetLeftPart(UriPartial.Authority) +
-                         "/Cuenta/ModificarContraseña.aspx?token=" + token;
-
-            // Crear correo
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(correo);
-            mensaje.Subject = "Recuperación de contraseña | MG Beauty SPA";
-            mensaje.Body = "¡Hola, "+usuario.nombre+"!\n\n"+"Haz clic en el siguiente enlace para restablecer tu contraseña:\n\n" + url;
-            mensaje.IsBodyHtml = false;
-
-            // 2. Configurar SMTP (Ejemplo para Gmail)
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com",587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-            // 3. Enviar
-            smtp.Send(mensaje);
-
-            //Mensaje de exito
-            lblMensaje.Text = "Se ha enviado un enlace a tu correo.";
-            lblMensaje.CssClass = "text-success";
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al enviar el correo: " + ex.Message;
+                lblMensaje.CssClass = "text-danger small fw-bold";
+            }
         }
     }
 }

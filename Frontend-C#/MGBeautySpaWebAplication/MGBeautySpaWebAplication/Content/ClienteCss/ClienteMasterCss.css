@@ -9,10 +9,23 @@
     --client-text: #171214;
 }
 
-/* Fondo general */
-body {
+/* =======================
+   FIX: STICKY FOOTER (ASP.NET WebForms)
+   ======================= */
+
+/* 1. Aseguramos altura completa */
+html, body {
+    height: 100%;
+    margin: 0;
     background-color: var(--client-bg);
     color: var(--client-text);
+}
+
+/* 2. Convertimos el formulario principal en contenedor flexible */
+#form1 {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa toda la pantalla */
 }
 
 /* =======================
@@ -30,13 +43,14 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     margin-bottom: 0.5rem;
 }
-/* Limitamos ancho máximo del contenido del header */
-.header-sticky .container-fluid {
-    max-width: 1320px;
-    margin: 0 auto;
-}
 
-/* buscador */
+    /* Limitamos ancho máximo del contenido del header */
+    .header-sticky .container-fluid {
+        max-width: 1320px;
+        margin: 0 auto;
+    }
+
+/* Buscador */
 .search-container {
     min-width: 180px;
 }
@@ -48,7 +62,7 @@ body {
     border: none;
 }
 
-/* badge carrito */
+/* Badge carrito */
 .cart-badge {
     font-size: 0.7rem;
 }
@@ -60,7 +74,6 @@ body {
 
 /* Responsive header: en móviles apilamos mejor los elementos */
 @media (max-width: 991.98px) {
-
     .header-sticky .d-flex {
         row-gap: 0.5rem;
     }
@@ -74,7 +87,6 @@ body {
     .search-container {
         flex: 0 0 100%;
         order: 2;
-        
     }
 
     /* Acciones al final */
@@ -84,14 +96,14 @@ body {
         order: 3;
     }
 }
+
 /* =======================
-   BREADCRUMB (CORREGIDO)
+   BREADCRUMB
    ======================= */
 
 .breadcrumb-wrapper {
     width: 100%;
     border-bottom: 1px solid #e5e7eb;
-    /* 🔹 Reducimos altura total */
     padding-top: 0.15rem;
     padding-bottom: 0.35rem;
 }
@@ -99,9 +111,7 @@ body {
     .breadcrumb-wrapper .container-xxl {
         max-width: 1320px;
         margin: 0 auto;
-        /* 🔹 Reducimos padding interno */
         padding: 0.5rem 1.25rem;
-        /* 🔹 Asegura alineación vertical */
         display: flex;
         align-items: center;
     }
@@ -109,9 +119,8 @@ body {
 .breadcrumb {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.9rem;
-    margin: 0; /* 🔹 Evita espacios extras */
+    margin: 0;
     background: transparent;
-    /* 🔹 Centrado vertical real */
     display: flex;
     align-items: center;
 }
@@ -140,7 +149,7 @@ body {
 }
 
 /* =======================
-   CONTENIDO
+   CONTENIDO PRINCIPAL
    ======================= */
 
 .content-body-wrapper {
@@ -148,9 +157,11 @@ body {
     max-width: 1320px;
     margin: 0 auto;
     box-sizing: border-box;
+    /* 3. ESTO EMPUJA EL FOOTER HACIA ABAJO */
+    flex: 1;
 }
 
-/* En móviles damos un poquito más de aire por el header alto */
+/* En móviles damos un poquito más de aire */
 @media (max-width: 767.98px) {
     .content-body-wrapper {
         padding-left: 0.75rem;
@@ -170,12 +181,15 @@ body {
 }
 
 /* =======================
-   FOOTER RESPONSIVE
+   FOOTER STICKY & RESPONSIVE
    ======================= */
 
 .footer-container {
     background-color: var(--client-brand);
     color: #ffffff;
+    /* 4. Evita que se aplaste y se pega al fondo si sobra espacio */
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 .footer-content {

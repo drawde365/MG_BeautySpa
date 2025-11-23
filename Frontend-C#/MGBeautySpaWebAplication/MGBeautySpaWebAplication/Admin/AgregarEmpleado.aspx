@@ -521,7 +521,7 @@
             CssClass="btn btn-outline-secondary me-2"
             Text="Cancelar"
             CausesValidation="false"
-            PostBackUrl="~/Admin/PanelDeControl.aspx" />
+            PostBackUrl="~/Admin/AdmPedidos.aspx" />
         <asp:Button ID="btnGuardar" runat="server"
             CssClass="btn btn-primary"
             Text="Guardar"
