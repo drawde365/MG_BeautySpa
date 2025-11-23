@@ -104,7 +104,7 @@
                 <tr class="servicio-fila">
                     <td>
                         <asp:Image ID="imgServicio" runat="server" 
-                                   ImageUrl='<%# Eval("RutaImagen", "~{0}") %>' 
+                                   ImageUrl='<%# Eval("RutaImagen") %>' 
                                    CssClass="service-image-thumb" />
                     </td>
                     <td>

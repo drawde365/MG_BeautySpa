@@ -75,6 +75,14 @@
             ValidationGroup="CambioPassword" />
 
         <div style="margin-top:1.5rem;">
+            <asp:Button ID="Button1"
+                        runat="server"
+                        CssClass="btn-save"
+                        Text="Guardar cambios"
+                        OnClick="btnGuardar_Click"
+                        ValidationGroup="CambioPassword" />
+
+        <div style="margin-top:1.5rem;">
             <asp:Button ID="btnGuardar"
                         runat="server"
                         CssClass="btn-save"

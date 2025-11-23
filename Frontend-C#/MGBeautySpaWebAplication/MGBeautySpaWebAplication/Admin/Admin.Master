@@ -99,6 +99,15 @@
                     </li>
 
                     <li class="nav-item">
+                        <asp:HyperLink ID="navAdmPedidos" runat="server" CssClass="nav-link"
+                            NavigateUrl="~/Admin/AdmPedidos.aspx">
+                            <i class="icon-cart" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Ver pedidos</span>
+                        </asp:HyperLink>
+                    </li>
+
+
+                    <li class="nav-item">
                         <asp:HyperLink ID="navBuscarUsuarios" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/BuscarUsuarios.aspx">
                             <i class="icon-search" style="font-size: 1.25rem; width: 26px;"></i>
