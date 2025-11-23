@@ -306,6 +306,18 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    @Override
+    public ArrayList<PedidoDTO> listarTodoPedidos() {
+        String sql = this.ObtenerBaseQueryPedidos();
+        sql += this.obtenerQuerySinCarrito();
+        return (ArrayList<PedidoDTO>) super.listarTodos(sql, null, null);
+    }
+    
+    private String obtenerQuerySinCarrito() {
+        String sql = "AND p.ESTADO != 'EnCarrito'";
+        return sql;
+    }
 
     private String ObtenerBaseQueryPedidos() {
         // SQL Standard (ANSI) compatible con MySQL y MSSQL

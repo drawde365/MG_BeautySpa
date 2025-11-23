@@ -40,6 +40,11 @@ public class Pedido {
             @WebParam(name = "pedido") PedidoDTO pedido) {
         return pedidoBO.eliminar(pedido);
     }
+    
+    @WebMethod(operationName = "ListarPedidosNOCARRITO")
+    public ArrayList<PedidoDTO> listarTodoPedidos() {
+        return pedidoBO.listarTodoPedidos();
+    }
 
     @WebMethod(operationName = "ListarPedidosDeCliente")
     public ArrayList<PedidoDTO> listarPedidosDeCliente(

@@ -10,4 +10,5 @@ public interface PedidoDAO {
     public Integer eliminar(PedidoDTO pedido);
     public ArrayList<PedidoDTO> listarPedidos(Integer idCliente);
     PedidoDTO obtenerCarritoPorCliente(Integer idCliente);
+    ArrayList<PedidoDTO> listarTodoPedidos();
 }

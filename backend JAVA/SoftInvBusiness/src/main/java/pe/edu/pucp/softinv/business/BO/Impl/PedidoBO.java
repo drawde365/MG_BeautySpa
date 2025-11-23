@@ -41,6 +41,11 @@ public class PedidoBO {
     public ArrayList<PedidoDTO> listarPedidosDeCliente(Integer idCliente) {
         return pedidoDAO.listarPedidos(idCliente);
     }
+    
+    public ArrayList<PedidoDTO> listarTodoPedidos() {
+        return pedidoDAO.listarTodoPedidos();
+    }
+    
     public PedidoDTO obtenerCarritoPorCliente(Integer idCliente) {
         return pedidoDAO.obtenerCarritoPorCliente(idCliente);
     }
@@ -139,4 +144,6 @@ public class PedidoBO {
         }
         return pedidoDAO.modificar(pedido);
     }
+    
+    
 }
