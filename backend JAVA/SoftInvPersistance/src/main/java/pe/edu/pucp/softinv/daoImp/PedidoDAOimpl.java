@@ -1,6 +1,5 @@
 package pe.edu.pucp.softinv.daoImp;
 
-import pe.edu.pucp.softinv.dao.ClienteDAO;
 import pe.edu.pucp.softinv.dao.DetallePedidoDAO;
 import pe.edu.pucp.softinv.dao.PedidoDAO;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
@@ -181,6 +180,11 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
         ProductoTipoDTO productoT = new ProductoTipoDTO();
         productoT.setTipo(tipoProd);
+        
+        productoT.setStock_fisico(this.resultSet.getInt("STOCK_FISICO"));
+        productoT.setStock_despacho(this.resultSet.getInt("STOCK_DESPACHO"));
+        productoT.setIngredientes(this.resultSet.getString("INGREDIENTES"));
+        productoT.setActivo(this.resultSet.getInt("PT_ACTIVO"));
 
         ProductoDTO producto = new ProductoDTO();
         producto.setIdProducto(prodId);
@@ -336,13 +340,19 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         pr.PRECIO AS Producto_Precio, 
         pr.TAMANHO AS Producto_Tamanho,    
         dp.CANTIDAD,
-        dp.SUBTOTAL
+        dp.SUBTOTAL,
+        
+        pt.STOCK_FISICO, 
+        pt.STOCK_DESPACHO, 
+        pt.INGREDIENTES, 
+        pt.ACTIVO AS PT_ACTIVO
 
         FROM PEDIDOS p
         INNER JOIN USUARIOS cli ON p.CLIENTE_ID = cli.USUARIO_ID
         LEFT JOIN DETALLES_PEDIDOS dp ON p.PEDIDO_ID = dp.PEDIDO_ID
         LEFT JOIN PRODUCTOS pr ON dp.PRODUCTO_ID = pr.PRODUCTO_ID
         LEFT JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID
+        LEFT JOIN PRODUCTOS_TIPOS pt ON dp.PRODUCTO_ID = pt.PRODUCTO_ID AND dp.TIPO_ID = pt.TIPO_ID
         """;
         return sql;
     }

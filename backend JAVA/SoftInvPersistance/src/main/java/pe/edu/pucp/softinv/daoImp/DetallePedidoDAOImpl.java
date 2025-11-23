@@ -84,7 +84,7 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
         // Se reemplaza 'dp.*' por las columnas explícitas para evitar el uso de asteriscos
         String sql = "SELECT dp.PEDIDO_ID, dp.PRODUCTO_ID, dp.TIPO_ID, dp.CANTIDAD, dp.SUBTOTAL, " +
-                     "tp.NOMBRE AS NOMBRE_TIPO, " +
+                     "tp.NOMBRE AS NOMBRE_TIPO,  " + 
                      "pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO AS ACTIVO_TIPO " +
                      "FROM DETALLES_PEDIDOS dp " +
                      "JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID " +
