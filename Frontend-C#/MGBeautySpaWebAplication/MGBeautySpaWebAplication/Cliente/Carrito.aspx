@@ -25,7 +25,7 @@
         }
         .btn-ver-productos {
             display: inline-block;
-            background-color: #1EC3B6; /* Color primario */
+            background-color: #148C76; /* Color primario */
             color: #fff;
             padding: 12px 24px;
             text-decoration: none;

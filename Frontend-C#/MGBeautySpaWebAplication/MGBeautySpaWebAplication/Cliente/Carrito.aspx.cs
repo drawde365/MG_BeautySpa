@@ -99,58 +99,48 @@ namespace MGBeautySpaWebAplication.Cliente
 
         private void RebindCartAndSummary(pedidoDTO carrito)
         {
-            if(carrito.detallesPedido.Count() == 0)
+            // 1) validar null
+            if (carrito == null || carrito.detallesPedido == null || carrito.detallesPedido.Length == 0)
             {
                 invalido();
                 return;
             }
-            if (carrito.detallesPedido[0].producto.producto.idProducto==0)
+
+            // 2) validar el primer elemento antes de acceder
+            var primero = carrito.detallesPedido[0];
+
+            if (primero == null ||
+                primero.producto == null ||
+                primero.producto.producto == null ||
+                primero.producto.producto.idProducto == 0)
             {
                 invalido();
                 return;
             }
-            else
+
+            // -- SI LLEGA AQUÍ, EL CARRITO ES VÁLIDO --
+            pnlCarritoVacio.Visible = false;
+            pnlCarritoLleno.Visible = true;
+
+            var itemsParaRepeater = carrito.detallesPedido.Select(d => new
             {
-                if (carrito.detallesPedido == null || carrito.detallesPedido.Length == 0)
-                {
-                    invalido();
-                    return;
-                } else
-                {
-                    pnlCarritoVacio.Visible = false;
-                    pnlCarritoLleno.Visible = true;
+                ProductId = d.producto.producto.idProducto,
+                Nombre = d.producto.producto.nombre,
+                PrecioUnitario = d.producto.producto.precio,
+                Cantidad = d.cantidad,
+                ImageUrl = ResolveUrl(d.producto.producto.urlImagen),
+                Tamano = d.producto.producto.tamanho + "ml",
+                TipoPiel = d.producto.tipo.nombre
+            }).ToList();
 
-                    // Tu bloque IF para el bug de idProducto == 0 (si aún lo necesitas)
-                    if (carrito.detallesPedido[0].producto.producto.idProducto == 0)
-                    {
-                        // (Manejar este caso si es un bug conocido)
-                    }
+            rpCartItems.DataSource = itemsParaRepeater;
+            rpCartItems.DataBind();
 
-                    var itemsParaRepeater = carrito.detallesPedido.Select(d => new
-                    {
-                        ProductId = d.producto.producto.idProducto,
-                        Nombre = d.producto.producto.nombre,
-                        PrecioUnitario = d.producto.producto.precio,
-                        Cantidad = d.cantidad,
-                        ImageUrl = ResolveUrl(d.producto.producto.urlImagen),
-                        Tamano = d.producto.producto.tamanho.ToString() + "ml",
-                        TipoPiel = d.producto.tipo.nombre
-                    }).ToList();
+            LoadOrderSummary(carrito);
 
-                    rpCartItems.DataSource = itemsParaRepeater;
-                    rpCartItems.DataBind();
-
-                    LoadOrderSummary(carrito);
-                }
-
-                // Actualizar el contador del MasterPage (esto debe ir fuera del 'else')
-                Cliente masterPage = this.Master as Cliente;
-                if (masterPage != null)
-                {
-                    masterPage.UpdateCartDisplay();
-                }
-            }
-                    
+            // Actualiza el master
+            Cliente master = this.Master as Cliente;
+            master?.UpdateCartDisplay();
         }
 
         // ▼▼▼ MÉTODO ELIMINADO ▼▼▼
