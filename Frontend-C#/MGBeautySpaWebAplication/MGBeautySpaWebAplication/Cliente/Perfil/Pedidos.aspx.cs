@@ -23,9 +23,9 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
         }
 
         // Propiedad para almacenar la lista completa en Sesión
-        private List<pedidoDTO> ListaCompletaPedidos
+        private IList<pedidoDTO> ListaCompletaPedidos
         {
-            get { return (List<pedidoDTO>)Session["ListaPedidosCliente"]; }
+            get { return (IList<pedidoDTO>)Session["ListaPedidosCliente"]; }
             set { Session["ListaPedidosCliente"] = value; }
         }
 
@@ -52,6 +52,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 Response.Redirect("~/Login.aspx?ReturnUrl=" + Request.RawUrl);
                 return;
             }
+            ListaCompletaPedidos = pedidoBO.ListarPorCliente(usuario.idUsuario);
 
             // --- 1. Obtener datos (de la BD o de la Sesión) ---
             if (ListaCompletaPedidos == null)
