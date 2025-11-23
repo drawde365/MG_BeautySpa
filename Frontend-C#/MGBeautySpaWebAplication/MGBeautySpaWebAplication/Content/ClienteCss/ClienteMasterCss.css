@@ -25,14 +25,16 @@ body {
     position: sticky;
     top: 0;
     z-index: 1030;
+    padding-top: 0.75rem;
+    padding-bottom: 0.9rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.5rem;
 }
-
-    /* Limitamos ancho máximo del contenido del header */
-    .header-sticky .container-fluid {
-        max-width: 1320px;
-        margin: 0 auto;
-    }
+/* Limitamos ancho máximo del contenido del header */
+.header-sticky .container-fluid {
+    max-width: 1320px;
+    margin: 0 auto;
+}
 
 /* buscador */
 .search-container {
@@ -41,6 +43,8 @@ body {
 
 .search-input {
     border-radius: 999px !important;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
     border: none;
 }
 
@@ -70,6 +74,7 @@ body {
     .search-container {
         flex: 0 0 100%;
         order: 2;
+        
     }
 
     /* Acciones al final */
@@ -79,30 +84,37 @@ body {
         order: 3;
     }
 }
-
 /* =======================
-   BREADCRUMB
+   BREADCRUMB (CORREGIDO)
    ======================= */
 
 .breadcrumb-wrapper {
     width: 100%;
     border-bottom: 1px solid #e5e7eb;
     background-color: #f9fafb;
+    /* 🔹 Reducimos altura total */
+    padding-top: 0.15rem;
+    padding-bottom: 0.35rem;
 }
 
     .breadcrumb-wrapper .container-xxl {
         max-width: 1320px;
         margin: 0 auto;
+        /* 🔹 Reducimos padding interno */
         padding: 0.5rem 1.25rem;
-        box-sizing: border-box;
+        /* 🔹 Asegura alineación vertical */
+        display: flex;
+        align-items: center;
     }
 
-/* Estilo del breadcrumb */
 .breadcrumb {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.9rem;
-    margin-bottom: 0;
+    margin: 0; /* 🔹 Evita espacios extras */
     background: transparent;
+    /* 🔹 Centrado vertical real */
+    display: flex;
+    align-items: center;
 }
 
 /* Rutas anteriores */
