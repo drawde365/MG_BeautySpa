@@ -436,14 +436,14 @@ namespace MGBeautySpaWebAplication.Cliente
                 //              TABLA DE PRODUCTOS
                 // ===============================================
 
-                PdfPTable tabla = new PdfPTable(4);
+                PdfPTable tabla = new PdfPTable(5);
                 tabla.WidthPercentage = 100;
-                tabla.SetWidths(new float[] { 20, 40, 20, 20 }); // Imagen - Nombre - Cantidad - Precio
+                tabla.SetWidths(new float[] { 35, 20, 15, 15, 15 }); //  Nombre - Tipo de piel - Cantidad - Precio - Subtotal
 
                 // Encabezados
                 Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
 
-                string[] headers = { "Imagen", "Servicio", "Cantidad", "Precio" };
+                string[] headers = { "Producto", "Tipo de piel", "Cantidad", "Precio", "Subtotal" };
                 foreach (var h in headers)
                 {
                     PdfPCell headerCell = new PdfPCell(new Phrase(h, headerFont))
@@ -458,54 +458,11 @@ namespace MGBeautySpaWebAplication.Cliente
                 // Filas
                 foreach (var d in carrito.detallesPedido)
                 {
-                    // --- IMAGEN ---
-                    string rutaImg = HttpContext.Current.Server.MapPath(d.producto.producto.urlImagen);
-
-
-                    PdfPCell imgCell = null;
-
-                    if (File.Exists(rutaImg))
-                    {
-                        try
-                        {
-                            // Leer bytes sin bloquear
-                            byte[] imgBytes = File.ReadAllBytes(rutaImg);
-
-                            // iTextSharp reconoce automáticamente el formato (JPG, PNG, etc.)
-                            iTextSharp.text.Image prodImg = iTextSharp.text.Image.GetInstance(imgBytes);
-
-                            // Ajuste del tamaño de la imagen
-                            prodImg.ScaleToFit(70, 70);
-
-                            imgCell = new PdfPCell(prodImg)
-                            {
-                                Padding = 5,
-                                HorizontalAlignment = Element.ALIGN_CENTER
-                            };
-                        }
-                        catch
-                        {
-                            // Si por alguna razón falla, muestra texto pero NO detiene el PDF
-                            imgCell = new PdfPCell(new Phrase("Imagen inválida", texto))
-                            {
-                                HorizontalAlignment = Element.ALIGN_CENTER,
-                                Padding = 5
-                            };
-                        }
-                    }
-                    else
-                    {
-                        imgCell = new PdfPCell(new Phrase("Sin imagen", texto))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            Padding = 5
-                        };
-                    }
-
-                    tabla.AddCell(imgCell);
 
                     // Nombre
                     tabla.AddCell(new PdfPCell(new Phrase(d.producto.producto.nombre, texto)) { Padding = 5 });
+
+                    tabla.AddCell(new PdfPCell(new Phrase(d.producto.tipo.nombre, texto)) { Padding = 5 });
 
                     // Cantidad
                     tabla.AddCell(new PdfPCell(new Phrase(d.cantidad.ToString(), texto))
@@ -517,9 +474,16 @@ namespace MGBeautySpaWebAplication.Cliente
                     // Precio
                     tabla.AddCell(new PdfPCell(new Phrase("S/ " + d.producto.producto.precio, texto))
                     {
-                        HorizontalAlignment = Element.ALIGN_RIGHT,
+                        HorizontalAlignment = Element.ALIGN_CENTER,
                         Padding = 5
                     });
+
+                    tabla.AddCell(new PdfPCell(new Phrase("S/ " + d.producto.producto.precio*d.cantidad, texto))
+                    {
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        Padding = 5
+                    });
+
                 }
 
                 doc.Add(tabla);
@@ -543,7 +507,19 @@ namespace MGBeautySpaWebAplication.Cliente
                 };
 
                 tablaTotal.AddCell(totalCell);
+
+                PdfPCell igvCell = new PdfPCell(new Phrase("IGV: S/ " + carrito.total*TASA_IGV,
+                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)))
+                {
+                    BackgroundColor = blancoFondo,
+                    Padding = 10,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
+
+                tablaTotal.AddCell(igvCell);
+
                 doc.Add(tablaTotal);
+
 
                 // ESPACIO FINAL
                 doc.Add(new Paragraph("\n\nGracias por tu compra en MG Beauty SPA", texto));
