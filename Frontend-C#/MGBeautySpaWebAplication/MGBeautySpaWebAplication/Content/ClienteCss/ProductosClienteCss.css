@@ -15,7 +15,7 @@
     width: 100%;
     max-width: 1320px; /* ancho grande tipo container-xxl */
     margin: 0 auto;
-    padding: 1.5rem 1.25rem 2.5rem;
+    padding: 1.5rem 1.75rem 2.5rem;
     box-sizing: border-box;
 }
 
@@ -30,11 +30,14 @@
 }
 
 .category-title {
-    margin: 0 0 .5rem 0;
+    margin: 0 0 0.5rem 0;
     font-family: 'ZCOOL XiaoWei', serif;
     font-weight: 400;
-    font-size: clamp(2rem, 3vw, 2.7rem);
+    font-size: clamp(2.1rem, 3vw, 3rem);
+    line-height: 1.1;
     color: #148C76;
+    border-bottom: 0.5px solid #148C76;
+    padding-bottom: 4px;
 }
 
 .category-description {
@@ -50,7 +53,7 @@
 
 .category-tabs {
     margin-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 0.5px solid transparent #555;
 }
 
     .category-tabs ul {
@@ -67,26 +70,30 @@
 
 /* LinkButtons como tabs */
 .tab-button {
-    border: none;
-    background: transparent;
-    padding: 0 0 .4rem 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: .95rem;
-    font-weight: 500;
-    color: #6b7280;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
+    background: transparent !important;
+    padding: 0 0 .4rem 0 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: .95rem !important;
+    font-weight: 500 !important;
+    color: #757575 !important;
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: 3px solid #d1d5db !important;
+    display: inline-block !important;
+    cursor: pointer;
+    line-height: 1.5;
+    transition: border-bottom 0.25s ease, color 0.25s ease;
 }
 
     .tab-button:hover {
-        text-decoration: none;
-        color: #148C76;
+        text-decoration: none !important;
+        color: #148C76 !important;
     }
 
     /* Tab activo */
     .tab-button.active {
-        color: #148C76;
-        border-bottom-color: #148C76;
+        color: #148C76 !important;
+        border-bottom-color: #148C76 !important;
     }
 
 /* ===========================================
@@ -96,7 +103,6 @@
 .products-grid-container {
     width: 100%;
     box-sizing: border-box;
-    padding: 1rem 0 2.5rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 18px 20px;
