@@ -33,28 +33,29 @@ public class CalendarioBO {
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     public List<LocalTime> calcularBloquesDisponibles(Integer empleadoId, Date fecha, int duracionServicioMinutos) {
         int diaSemana = obtenerDiaSemana(fecha);
-
+        
         ArrayList<HorarioTrabajoDTO> turnosBase = horarioTrabajoDAO.obtenerPorEmpleadoYFecha(empleadoId, diaSemana);
         ArrayList<CitaDTO> citasReservadas = citaDAO.listarCitasPorEmpleadoYFecha(empleadoId, fecha);
         List<LocalTime> bloquesDisponibles = new ArrayList<>();
-        
+
         CalendarioDTO calendario = calendarioDAO.obtenerPorId(empleadoId, fecha);
-        if (calendario == null || calendario.getCantLibre() <= 0) {
-            return bloquesDisponibles;
+        if (calendario == null || calendario.getCantLibre() < duracionServicioMinutos) {
+            return bloquesDisponibles; // Retorna vacío si no hay tiempo suficiente en el día
         }
+        duracionServicioMinutos*=60;
+        int intervaloMinutos = 60; 
 
         for (HorarioTrabajoDTO turno : turnosBase) {
-            
+
             LocalTime inicioTurno = turno.getHoraInicio().toLocalTime();
             LocalTime finTurno = turno.getHoraFin().toLocalTime();
             LocalTime horaActual = inicioTurno;
-            
-            while (horaActual.plusMinutes(duracionServicioMinutos).isBefore(finTurno) || 
-                   horaActual.plusMinutes(duracionServicioMinutos).equals(finTurno))
+
+            while (!horaActual.plusMinutes(duracionServicioMinutos).isAfter(finTurno))
             {
                 LocalTime bloqueFin = horaActual.plusMinutes(duracionServicioMinutos);
                 boolean estaOcupado = false;
-                
+
                 for (CitaDTO cita : citasReservadas) {
                     LocalTime citaInicio = cita.getHoraIni().toLocalTime(); 
                     LocalTime citaFin = cita.getHoraFin().toLocalTime();
@@ -64,15 +65,15 @@ public class CalendarioBO {
                         break;
                     }
                 }
-                
+
                 if (!estaOcupado) {
                     bloquesDisponibles.add(horaActual);
                 }
-                
-                horaActual = horaActual.plusMinutes(duracionServicioMinutos);
+
+                horaActual = horaActual.plusMinutes(intervaloMinutos);
             }
         }
-        
+
         return bloquesDisponibles;
     }
     

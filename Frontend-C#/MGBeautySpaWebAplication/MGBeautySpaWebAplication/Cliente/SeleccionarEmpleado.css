@@ -130,3 +130,26 @@
 .btn-select:hover {
     background: #148C76;
 }
+.no-results-box {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border: 1px dashed #ccc;
+    margin-top: 20px;
+    padding: 20px;
+    color: #666;
+}
+
+    .no-results-box .btn-select {
+        margin-top: 20px;
+        width: auto; 
+        padding: 10px 30px;
+        display: inline-block;
+    }

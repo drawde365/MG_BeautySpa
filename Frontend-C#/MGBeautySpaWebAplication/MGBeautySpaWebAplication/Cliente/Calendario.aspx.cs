@@ -89,7 +89,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 var servicioDto = servicioBO.obtenerPorId(servId);
                 if (servicioDto != null)
                 {
-                    DuracionServicio = servicioDto.duracionHora * 60;
+                    DuracionServicio = servicioDto.duracionHora;
                 }
 
                 hdnEmpleadoId.Value = empId.ToString();
@@ -119,11 +119,12 @@ namespace MGBeautySpaWebAplication.Cliente
             int diasEnMes = DateTime.DaysInMonth(primerDiaDelMes.Year, primerDiaDelMes.Month);
             int primerDiaSemana = (int)primerDiaDelMes.DayOfWeek;
             DateTime hoy = DateTime.Today;
+
             var calendarioEmpleado = this.DisponibilidadCache;
+
             for (int i = 0; i < primerDiaSemana; i++)
                 dias.Add(new DiaCalendario { Day = 0, Status = -1 });
 
-            // Días del mes
             for (int i = 1; i <= diasEnMes; i++)
             {
                 var dia = new DiaCalendario { Day = i };
@@ -136,11 +137,16 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
                 else if (calendarioEmpleado.ContainsKey(fechaActual.Date))
                 {
-                    int cantidadLibre = calendarioEmpleado[fechaActual.Date];
-                    if (cantidadLibre > 0)
-                        dia.Status = 1; // Disponible
+                    int cantidadLibreMinutos = calendarioEmpleado[fechaActual.Date];
+
+                    if ((cantidadLibreMinutos - this.DuracionServicio) >= 0)
+                    {
+                        dia.Status = 1;
+                    }
                     else
-                        dia.Status = 0; // Ocupado / No disponible 
+                    {
+                        dia.Status = 0;
+                    }
                 }
                 else
                 {

@@ -5,7 +5,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSEmpleado; // Para EmpleadoBO y empleadoDTO
-using SoftInvBusiness.SoftInvWSServicio;  // Para obtener el nombre del servicio
+using SoftInvBusiness.SoftInvWSServicio;  // Para ServicioBO
 using System.Web;
 
 namespace MGBeautySpaWebAplication.Cliente
@@ -35,11 +35,13 @@ namespace MGBeautySpaWebAplication.Cliente
             {
                 if (int.TryParse(Request.QueryString["servicioId"], out int servicioId))
                 {
+                    // Opcional: Cargar nombre del servicio para el título
+                    // CargarInfoServicio(servicioId); 
+
                     CargarEmpleados(servicioId);
                 }
                 else
                 {
-                    // Manejo de error si no hay ID de servicio
                     Response.Redirect("~/Cliente/Servicios.aspx");
                 }
             }
@@ -48,21 +50,35 @@ namespace MGBeautySpaWebAplication.Cliente
         // --- 2. LÓGICA DINÁMICA ---
         private void CargarEmpleados(int servicioId)
         {
-            // 1. Obtiene la lista de empleados que ofrecen este servicio desde el BO
-            // (Asumo que tu BO tiene el método ListarEmpleadosDeServicio, que creamos antes)
-            var listaWSDTO = servicioBO.empleadosPorServicio(servicioId).ToList();
+            // 1. Obtiene la lista cruda del WS
+            var resultadoWS = servicioBO.empleadosPorServicio(servicioId);
 
-            // 2. Mapeo a la clase local de display (EmpleadoDisplay)
-            var listaEmpleadosDisplay = listaWSDTO.Select(e => new EmpleadoDisplay
+            // 2. Verificamos si es NULL o si está VACÍA
+            if (resultadoWS == null)
             {
-                Id = e.idUsuario,
-                Nombre = $"{e.nombre} {e.primerapellido}", // Combina Nombre y Apellido
-                AvatarUrl = e.urlFotoPerfil ?? "/Content/Images/user_placeholder.png"
-            }).ToList();
+                rpEmpleados.Visible = false;
+                pnlNoEmpleados.Visible = true; 
+            }
+            else
+            {
+                // CASO CON DATOS:
+                rpEmpleados.Visible = true;
+                pnlNoEmpleados.Visible = false; 
 
-            // 3. Enlaza la lista al control Repeater
-            rpEmpleados.DataSource = listaEmpleadosDisplay;
-            rpEmpleados.DataBind();
+                // 3. Mapeo a la clase local
+                var listaEmpleadosDisplay = resultadoWS.Select(e => new EmpleadoDisplay
+                {
+                    Id = e.idUsuario,
+                    Nombre = $"{e.nombre} {e.primerapellido}",
+                    AvatarUrl = string.IsNullOrEmpty(e.urlFotoPerfil)
+                                ? "~/Content/images/blank-photo.jpg" // Ruta segura por defecto
+                                : e.urlFotoPerfil
+                }).ToList();
+
+                // 4. Enlazar datos
+                rpEmpleados.DataSource = listaEmpleadosDisplay;
+                rpEmpleados.DataBind();
+            }
         }
 
         // --- 3. LÓGICA DE EVENTOS ---
@@ -70,16 +86,12 @@ namespace MGBeautySpaWebAplication.Cliente
         {
             if (e.CommandName == "Select")
             {
-                // El CommandArgument debe tener el ID del empleado.
                 string commandArgument = e.CommandArgument.ToString();
                 string[] args = commandArgument.Split('|');
 
                 string empleadoId = args[0];
-
-                // Obtenemos el ID del servicio de la URL (lo necesitamos para la cita)
                 string servicioId = Request.QueryString["servicioId"];
 
-                // Redirige al calendario
                 Response.Redirect($"Calendario.aspx?empleadoId={empleadoId}&servicioId={servicioId}");
             }
         }

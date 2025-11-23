@@ -24,6 +24,24 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// litNombreServicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litNombreServicio;
+
+        /// <summary>
+        /// pnlNoEmpleados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoEmpleados;
+
+        /// <summary>
         /// rpEmpleados control.
         /// </summary>
         /// <remarks>
@@ -31,19 +49,5 @@ namespace MGBeautySpaWebAplication.Cliente
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rpEmpleados;
-
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new MGBeautySpaWebAplication.Cliente.Cliente Master
-        {
-            get
-            {
-                return ((MGBeautySpaWebAplication.Cliente.Cliente)(base.Master));
-            }
-        }
     }
 }

@@ -25,14 +25,14 @@ namespace MGBeautySpaWebAplication.Cliente
         private void LoadUserData()
         {
             string nombre = (Session["UserName"] as string) ?? "Invitado";
-            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/default_profile.png";
+            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/images/blank-photo.jpg";
 
             litUserName.Text = nombre;
         }
 
         private void VerificarSesion()
         {
-            string fotoUrl = "~/Content/default_profile.png";
+            string fotoUrl = "~/Content/images/blank-photo.jpg";
             var usuario = Session["UsuarioActual"] as usuarioDTO;
 
             if (usuario == null)
