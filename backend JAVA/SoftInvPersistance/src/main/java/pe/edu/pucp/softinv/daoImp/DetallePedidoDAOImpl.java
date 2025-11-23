@@ -93,6 +93,7 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
         String sql = "SELECT dp.*, tp.NOMBRE AS NOMBRE_TIPO " +
                      "FROM DETALLES_PEDIDOS dp " +
                      "JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID " +
+                    "JOIN PRODUCTOS_TIPOS tp ON dp.TIPO_ID = tp.TIPO_ID " +
                      "WHERE dp.PEDIDO_ID = ?";
                      
         PedidoDTO pedido = new PedidoDTO();

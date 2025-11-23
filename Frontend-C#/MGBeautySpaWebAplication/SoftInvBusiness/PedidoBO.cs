@@ -1,5 +1,5 @@
 ﻿using SoftInvBusiness.SoftInvWSPedido;
-using SoftInvBusiness.SoftInvWSProductos;
+//using SoftInvBusiness.SoftInvWSProductos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +74,37 @@ namespace SoftInvBusiness
         public IList<detallePedidoDTO> ObtenerDetallesPorPedido(int idPedido)
         {
             return pedidoSOAP.ObtenerDetallesPorPedidoId(idPedido);
+        }
+
+        public IList<pedidoDTO> ListarTodosPedidos()
+        {
+            return pedidoSOAP.ListarPedidosNOCARRITO();
+        }
+
+        public int AceptarRecojo(pedidoDTO pedido)
+        {
+            return pedidoSOAP.AceptarRecojo(pedido);
+        }
+
+        public int RechazarRecojo(pedidoDTO pedido)
+        {
+            return pedidoSOAP.RechazarRecojo(pedido);
+        }
+
+        public IList<int> ComprobarDetallesPedidos(int idPedido)
+        {
+            return pedidoSOAP.ComprobarDetallesPedidos(idPedido);
+        }
+
+        public void EnviarFechaDeRecojoACliente(pedidoDTO pedido)
+        {
+            //todavia no lo tengo en el backend pero asume que ya esta, no varia en el resultado            
+
+        }
+
+        public int ModificarProductoTipo(productoTipoDTO productoTipo)
+        {
+            return pedidoSOAP.modificarProductoTipo(productoTipo);
         }
     }
 }

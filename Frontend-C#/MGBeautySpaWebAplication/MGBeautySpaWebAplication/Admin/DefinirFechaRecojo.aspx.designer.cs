@@ -11,52 +11,70 @@ namespace MGBeautySpaWebAplication.Admin
 {
 
 
-    public partial class AdmPedidos
+    public partial class DefinirFechaRecojo
     {
 
         /// <summary>
-        /// Control txtBuscarPedidos.
+        /// Control hfIdPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBuscarPedidos;
+        protected global::System.Web.UI.WebControls.HiddenField hfIdPedido;
 
         /// <summary>
-        /// Control ddlFiltroFechaLista.
+        /// Control lblInfoPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroFechaLista;
+        protected global::System.Web.UI.WebControls.Label lblInfoPedido;
 
         /// <summary>
-        /// Control ddlFiltroEstado.
+        /// Control rptDetalles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroEstado;
+        protected global::System.Web.UI.WebControls.Repeater rptDetalles;
 
         /// <summary>
-        /// Control rptPedidos.
+        /// Control lblResumenStock.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptPedidos;
+        protected global::System.Web.UI.WebControls.Label lblResumenStock;
 
         /// <summary>
-        /// Control pnlSinPedidos.
+        /// Control txtFechaRecojo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSinPedidos;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaRecojo;
+
+        /// <summary>
+        /// Control btnGuardarFecha.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarFecha;
+
+        /// <summary>
+        /// Control lnkVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkVolver;
     }
 }

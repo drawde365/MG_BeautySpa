@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
     </Reference>
@@ -78,6 +81,7 @@
     <Content Include="Admin\AdmServicios.aspx" />
     <Content Include="Admin\AgregarEmpleado.aspx" />
     <Content Include="Admin\BuscarUsuarios.aspx" />
+    <Content Include="Admin\DefinirFechaRecojo.aspx" />
     <Content Include="Admin\InsertarProducto.aspx" />
     <Content Include="Admin\InsertarServicio.aspx" />
     <Content Include="Admin\Reportes.aspx" />
@@ -318,6 +322,13 @@
     </Compile>
     <Compile Include="Admin\BuscarUsuarios.aspx.designer.cs">
       <DependentUpon>BuscarUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\DefinirFechaRecojo.aspx.cs">
+      <DependentUpon>DefinirFechaRecojo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\DefinirFechaRecojo.aspx.designer.cs">
+      <DependentUpon>DefinirFechaRecojo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\InsertarProducto.aspx.cs">
       <DependentUpon>InsertarProducto.aspx</DependentUpon>

@@ -114,12 +114,11 @@ public class PedidoBO {
         PedidoDTO pedido = pedidoDAO.obtenerPorId(idPedido);
         for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
             ProductoTipoDTO productoTipo = productoDAO.obtener(
-                    detallePedido.getProducto().getTipo().getId(), 
-                    detallePedido.getProducto().getProducto().getIdProducto());
-            if(productoTipo.getStock_despacho()+detallePedido.getCantidad()>productoTipo.getStock_fisico())
-                listaValida.add(0);
-            else
-                listaValida.add(1);
+                    detallePedido.getProducto().getProducto().getIdProducto(),
+                    detallePedido.getProducto().getTipo().getId());
+            Integer resta=productoTipo.getStock_fisico()-(
+                    productoTipo.getStock_despacho()+detallePedido.getCantidad());
+            listaValida.add(resta);
         }
         return listaValida;
     }
@@ -130,8 +129,9 @@ public class PedidoBO {
     public Integer aceptarRecojo(PedidoDTO pedido) {
         for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
             ProductoTipoDTO productoTipo = productoDAO.obtener(
-                    detallePedido.getProducto().getTipo().getId(), 
-                    detallePedido.getProducto().getProducto().getIdProducto());
+                    detallePedido.getProducto().getProducto().getIdProducto(),
+                    detallePedido.getProducto().getTipo().getId()
+                    );
             productoTipo.setStock_fisico(productoTipo.getStock_fisico()-detallePedido.getCantidad());
             productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
         }
@@ -143,8 +143,8 @@ public class PedidoBO {
     public Integer rechazarRecojo(PedidoDTO pedido) {
         for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
             ProductoTipoDTO productoTipo = productoDAO.obtener(
-                    detallePedido.getProducto().getTipo().getId(), 
-                    detallePedido.getProducto().getProducto().getIdProducto());
+                    detallePedido.getProducto().getProducto().getIdProducto(),
+                    detallePedido.getProducto().getTipo().getId());
             productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
         }
         return pedidoDAO.modificar(pedido);

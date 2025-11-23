@@ -301,6 +301,12 @@
     <None Include="Connected Services\SoftInvWSPedido\Pedido1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -319,10 +325,16 @@
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ListarPedidosDeClienteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ModificarDetallePedidoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse.datasource">
@@ -338,6 +350,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.pedidoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSProductos\Productos.wsdl" />

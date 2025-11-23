@@ -16,18 +16,118 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     public interface Pedido {
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRespons" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/modificarProductoTipoRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/modificarProductoTipoRespons" +
             "e")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse EliminarDetallePedido(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request);
+        SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse modificarProductoTipo(SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRequest" +
-            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRespons" +
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/modificarProductoTipoRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/modificarProductoTipoRespons" +
             "e")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse> EliminarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse> modificarProductoTipoAsync(SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosNOCARRITOReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosNOCARRITORespon" +
+            "se")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse ListarPedidosNOCARRITO(SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosNOCARRITOReques" +
+            "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosNOCARRITORespon" +
+            "se")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse> ListarPedidosNOCARRITOAsync(SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/AceptarRecojoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/AceptarRecojoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse AceptarRecojo(SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/AceptarRecojoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/AceptarRecojoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse> AceptarRecojoAsync(SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse ObtenerPedidoPorId(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse> ObtenerPedidoPorIdAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/RechazarRecojoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/RechazarRecojoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse RechazarRecojo(SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/RechazarRecojoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/RechazarRecojoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse> RechazarRecojoAsync(SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse InsertarPedido(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse> InsertarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse EliminarPedido(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse> EliminarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse ModificarPedido(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoResponse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse> ModificarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ComprobarDetallesPedidosRequ" +
+            "est", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ComprobarDetallesPedidosResp" +
+            "onse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse ComprobarDetallesPedidos(SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ComprobarDetallesPedidosRequ" +
+            "est", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ComprobarDetallesPedidosResp" +
+            "onse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse> ComprobarDetallesPedidosAsync(SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoResponse" +
+            "")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse ObtenerDetallePedido(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoResponse" +
+            "")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse> ObtenerDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarDetallePedidoReques" +
@@ -58,6 +158,34 @@ namespace SoftInvBusiness.SoftInvWSPedido {
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallesPorPedidoIdResponse> ObtenerDetallesPorPedidoIdAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallesPorPedidoIdRequest request);
         
         // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteRequ" +
+            "est", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteResp" +
+            "onse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse ObtenerCarritoPorCliente(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteRequ" +
+            "est", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteResp" +
+            "onse")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse> ObtenerCarritoPorClienteAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRespons" +
+            "e")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse EliminarDetallePedido(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRequest" +
+            "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarDetallePedidoRespons" +
+            "e")]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse> EliminarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosDeClienteReques" +
             "t", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ListarPedidosDeClienteRespon" +
             "se")]
@@ -84,164 +212,10 @@ namespace SoftInvBusiness.SoftInvWSPedido {
             "", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarDetallePedidoRespons" +
             "e")]
         System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarDetallePedidoResponse> InsertarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.InsertarDetallePedidoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteRequ" +
-            "est", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteResp" +
-            "onse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse ObtenerCarritoPorCliente(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteRequ" +
-            "est", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerCarritoPorClienteResp" +
-            "onse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse> ObtenerCarritoPorClienteAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoResponse" +
-            "")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse ObtenerDetallePedido(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerDetallePedidoResponse" +
-            "")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse> ObtenerDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse ObtenerPedidoPorId(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ObtenerPedidoPorIdResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse> ObtenerPedidoPorIdAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse ModificarPedido(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/ModificarPedidoResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse> ModificarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse EliminarPedido(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/EliminarPedidoResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse> EliminarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request);
-        
-        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(usuarioDTO))]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse InsertarPedido(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoRequest", ReplyAction="http://softinvws.services.softinv.pucp.edu.pe/Pedido/InsertarPedidoResponse")]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse> InsertarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
-    public partial class detallePedidoDTO : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private int cantidadField;
-        
-        private bool cantidadFieldSpecified;
-        
-        private productoTipoDTO productoField;
-        
-        private double subtotalField;
-        
-        private bool subtotalFieldSpecified;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public int cantidad {
-            get {
-                return this.cantidadField;
-            }
-            set {
-                this.cantidadField = value;
-                this.RaisePropertyChanged("cantidad");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool cantidadSpecified {
-            get {
-                return this.cantidadFieldSpecified;
-            }
-            set {
-                this.cantidadFieldSpecified = value;
-                this.RaisePropertyChanged("cantidadSpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public productoTipoDTO producto {
-            get {
-                return this.productoField;
-            }
-            set {
-                this.productoField = value;
-                this.RaisePropertyChanged("producto");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public double subtotal {
-            get {
-                return this.subtotalField;
-            }
-            set {
-                this.subtotalField = value;
-                this.RaisePropertyChanged("subtotal");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool subtotalSpecified {
-            get {
-                return this.subtotalFieldSpecified;
-            }
-            set {
-                this.subtotalFieldSpecified = value;
-                this.RaisePropertyChanged("subtotalSpecified");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -385,7 +359,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -627,7 +601,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -757,7 +731,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -768,7 +742,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(empleadoDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(clienteDTO))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -982,7 +956,95 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
+    public partial class detallePedidoDTO : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int cantidadField;
+        
+        private bool cantidadFieldSpecified;
+        
+        private productoTipoDTO productoField;
+        
+        private double subtotalField;
+        
+        private bool subtotalFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public int cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                this.cantidadField = value;
+                this.RaisePropertyChanged("cantidad");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cantidadSpecified {
+            get {
+                return this.cantidadFieldSpecified;
+            }
+            set {
+                this.cantidadFieldSpecified = value;
+                this.RaisePropertyChanged("cantidadSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public productoTipoDTO producto {
+            get {
+                return this.productoField;
+            }
+            set {
+                this.productoField = value;
+                this.RaisePropertyChanged("producto");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public double subtotal {
+            get {
+                return this.subtotalField;
+            }
+            set {
+                this.subtotalField = value;
+                this.RaisePropertyChanged("subtotal");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool subtotalSpecified {
+            get {
+                return this.subtotalFieldSpecified;
+            }
+            set {
+                this.subtotalFieldSpecified = value;
+                this.RaisePropertyChanged("subtotalSpecified");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1238,7 +1300,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/")]
     public enum estadoPedido {
@@ -1263,7 +1325,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1309,7 +1371,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1523,7 +1585,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1779,7 +1841,7 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9221.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1832,22 +1894,117 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarDetallePedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarDetallePedidoRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="modificarProductoTipo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class modificarProductoTipoRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido;
+        public SoftInvBusiness.SoftInvWSPedido.productoTipoDTO arg0;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        public modificarProductoTipoRequest() {
+        }
+        
+        public modificarProductoTipoRequest(SoftInvBusiness.SoftInvWSPedido.productoTipoDTO arg0) {
+            this.arg0 = arg0;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="modificarProductoTipoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class modificarProductoTipoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public modificarProductoTipoResponse() {
+        }
+        
+        public modificarProductoTipoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarPedidosNOCARRITO", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarPedidosNOCARRITORequest {
+        
+        public ListarPedidosNOCARRITORequest() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListarPedidosNOCARRITOResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ListarPedidosNOCARRITOResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO[] @return;
+        
+        public ListarPedidosNOCARRITOResponse() {
+        }
+        
+        public ListarPedidosNOCARRITOResponse(SoftInvBusiness.SoftInvWSPedido.pedidoDTO[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AceptarRecojo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class AceptarRecojoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
+        
+        public AceptarRecojoRequest() {
+        }
+        
+        public AceptarRecojoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            this.pedido = pedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AceptarRecojoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class AceptarRecojoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public AceptarRecojoResponse() {
+        }
+        
+        public AceptarRecojoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerPedidoPorId", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerPedidoPorIdRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int idPedido;
         
-        public EliminarDetallePedidoRequest() {
+        public ObtenerPedidoPorIdRequest() {
         }
         
-        public EliminarDetallePedidoRequest(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido, int idPedido) {
-            this.detallePedido = detallePedido;
+        public ObtenerPedidoPorIdRequest(int idPedido) {
             this.idPedido = idPedido;
         }
     }
@@ -1855,17 +2012,243 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarDetallePedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarDetallePedidoResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerPedidoPorIdResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerPedidoPorIdResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return;
+        
+        public ObtenerPedidoPorIdResponse() {
+        }
+        
+        public ObtenerPedidoPorIdResponse(SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RechazarRecojo", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class RechazarRecojoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
+        
+        public RechazarRecojoRequest() {
+        }
+        
+        public RechazarRecojoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            this.pedido = pedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RechazarRecojoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class RechazarRecojoResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int @return;
         
-        public EliminarDetallePedidoResponse() {
+        public RechazarRecojoResponse() {
         }
         
-        public EliminarDetallePedidoResponse(int @return) {
+        public RechazarRecojoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarPedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarPedidoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
+        
+        public InsertarPedidoRequest() {
+        }
+        
+        public InsertarPedidoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            this.pedido = pedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarPedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class InsertarPedidoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public InsertarPedidoResponse() {
+        }
+        
+        public InsertarPedidoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarPedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarPedidoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
+        
+        public EliminarPedidoRequest() {
+        }
+        
+        public EliminarPedidoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            this.pedido = pedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarPedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarPedidoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public EliminarPedidoResponse() {
+        }
+        
+        public EliminarPedidoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarPedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ModificarPedidoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
+        
+        public ModificarPedidoRequest() {
+        }
+        
+        public ModificarPedidoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            this.pedido = pedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarPedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ModificarPedidoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public ModificarPedidoResponse() {
+        }
+        
+        public ModificarPedidoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ComprobarDetallesPedidos", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ComprobarDetallesPedidosRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int idPedido;
+        
+        public ComprobarDetallesPedidosRequest() {
+        }
+        
+        public ComprobarDetallesPedidosRequest(int idPedido) {
+            this.idPedido = idPedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ComprobarDetallesPedidosResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ComprobarDetallesPedidosResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int[] @return;
+        
+        public ComprobarDetallesPedidosResponse() {
+        }
+        
+        public ComprobarDetallesPedidosResponse(int[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerDetallePedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerDetallePedidoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int idPedido;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int idProducto;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int tipoId;
+        
+        public ObtenerDetallePedidoRequest() {
+        }
+        
+        public ObtenerDetallePedidoRequest(int idPedido, int idProducto, int tipoId) {
+            this.idPedido = idPedido;
+            this.idProducto = idProducto;
+            this.tipoId = tipoId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerDetallePedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerDetallePedidoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO @return;
+        
+        public ObtenerDetallePedidoResponse() {
+        }
+        
+        public ObtenerDetallePedidoResponse(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO @return) {
             this.@return = @return;
         }
     }
@@ -1950,6 +2333,83 @@ namespace SoftInvBusiness.SoftInvWSPedido {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerCarritoPorCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerCarritoPorClienteRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int idCliente;
+        
+        public ObtenerCarritoPorClienteRequest() {
+        }
+        
+        public ObtenerCarritoPorClienteRequest(int idCliente) {
+            this.idCliente = idCliente;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerCarritoPorClienteResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class ObtenerCarritoPorClienteResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return;
+        
+        public ObtenerCarritoPorClienteResponse() {
+        }
+        
+        public ObtenerCarritoPorClienteResponse(SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarDetallePedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarDetallePedidoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int idPedido;
+        
+        public EliminarDetallePedidoRequest() {
+        }
+        
+        public EliminarDetallePedidoRequest(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido, int idPedido) {
+            this.detallePedido = detallePedido;
+            this.idPedido = idPedido;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarDetallePedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
+    public partial class EliminarDetallePedidoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int @return;
+        
+        public EliminarDetallePedidoResponse() {
+        }
+        
+        public EliminarDetallePedidoResponse(int @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="ListarPedidosDeCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
     public partial class ListarPedidosDeClienteRequest {
         
@@ -2024,232 +2484,6 @@ namespace SoftInvBusiness.SoftInvWSPedido {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerCarritoPorCliente", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerCarritoPorClienteRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int idCliente;
-        
-        public ObtenerCarritoPorClienteRequest() {
-        }
-        
-        public ObtenerCarritoPorClienteRequest(int idCliente) {
-            this.idCliente = idCliente;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerCarritoPorClienteResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerCarritoPorClienteResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return;
-        
-        public ObtenerCarritoPorClienteResponse() {
-        }
-        
-        public ObtenerCarritoPorClienteResponse(SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerDetallePedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerDetallePedidoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int idPedido;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int idProducto;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=2)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int tipoId;
-        
-        public ObtenerDetallePedidoRequest() {
-        }
-        
-        public ObtenerDetallePedidoRequest(int idPedido, int idProducto, int tipoId) {
-            this.idPedido = idPedido;
-            this.idProducto = idProducto;
-            this.tipoId = tipoId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerDetallePedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerDetallePedidoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO @return;
-        
-        public ObtenerDetallePedidoResponse() {
-        }
-        
-        public ObtenerDetallePedidoResponse(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerPedidoPorId", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerPedidoPorIdRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int idPedido;
-        
-        public ObtenerPedidoPorIdRequest() {
-        }
-        
-        public ObtenerPedidoPorIdRequest(int idPedido) {
-            this.idPedido = idPedido;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ObtenerPedidoPorIdResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ObtenerPedidoPorIdResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return;
-        
-        public ObtenerPedidoPorIdResponse() {
-        }
-        
-        public ObtenerPedidoPorIdResponse(SoftInvBusiness.SoftInvWSPedido.pedidoDTO @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarPedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ModificarPedidoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
-        
-        public ModificarPedidoRequest() {
-        }
-        
-        public ModificarPedidoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            this.pedido = pedido;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ModificarPedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class ModificarPedidoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public ModificarPedidoResponse() {
-        }
-        
-        public ModificarPedidoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarPedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarPedidoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
-        
-        public EliminarPedidoRequest() {
-        }
-        
-        public EliminarPedidoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            this.pedido = pedido;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="EliminarPedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class EliminarPedidoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public EliminarPedidoResponse() {
-        }
-        
-        public EliminarPedidoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarPedido", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarPedidoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido;
-        
-        public InsertarPedidoRequest() {
-        }
-        
-        public InsertarPedidoRequest(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            this.pedido = pedido;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarPedidoResponse", WrapperNamespace="http://softinvws.services.softinv.pucp.edu.pe/", IsWrapped=true)]
-    public partial class InsertarPedidoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://softinvws.services.softinv.pucp.edu.pe/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int @return;
-        
-        public InsertarPedidoResponse() {
-        }
-        
-        public InsertarPedidoResponse(int @return) {
-            this.@return = @return;
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface PedidoChannel : SoftInvBusiness.SoftInvWSPedido.Pedido, System.ServiceModel.IClientChannel {
     }
@@ -2278,28 +2512,235 @@ namespace SoftInvBusiness.SoftInvWSPedido {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarDetallePedido(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request) {
-            return base.Channel.EliminarDetallePedido(request);
+        SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.modificarProductoTipo(SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest request) {
+            return base.Channel.modificarProductoTipo(request);
         }
         
-        public int EliminarDetallePedido(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido, int idPedido) {
-            SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest();
-            inValue.detallePedido = detallePedido;
-            inValue.idPedido = idPedido;
-            SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarDetallePedido(inValue);
+        public int modificarProductoTipo(SoftInvBusiness.SoftInvWSPedido.productoTipoDTO arg0) {
+            SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest();
+            inValue.arg0 = arg0;
+            SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).modificarProductoTipo(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request) {
-            return base.Channel.EliminarDetallePedidoAsync(request);
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.modificarProductoTipoAsync(SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest request) {
+            return base.Channel.modificarProductoTipoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse> EliminarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido, int idPedido) {
-            SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest();
-            inValue.detallePedido = detallePedido;
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoResponse> modificarProductoTipoAsync(SoftInvBusiness.SoftInvWSPedido.productoTipoDTO arg0) {
+            SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.modificarProductoTipoRequest();
+            inValue.arg0 = arg0;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).modificarProductoTipoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ListarPedidosNOCARRITO(SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest request) {
+            return base.Channel.ListarPedidosNOCARRITO(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO[] ListarPedidosNOCARRITO() {
+            SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest inValue = new SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest();
+            SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ListarPedidosNOCARRITO(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ListarPedidosNOCARRITOAsync(SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest request) {
+            return base.Channel.ListarPedidosNOCARRITOAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse> ListarPedidosNOCARRITOAsync() {
+            SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest inValue = new SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITORequest();
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ListarPedidosNOCARRITOAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.AceptarRecojo(SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest request) {
+            return base.Channel.AceptarRecojo(request);
+        }
+        
+        public int AceptarRecojo(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest();
+            inValue.pedido = pedido;
+            SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).AceptarRecojo(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.AceptarRecojoAsync(SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest request) {
+            return base.Channel.AceptarRecojoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.AceptarRecojoResponse> AceptarRecojoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.AceptarRecojoRequest();
+            inValue.pedido = pedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).AceptarRecojoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerPedidoPorId(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request) {
+            return base.Channel.ObtenerPedidoPorId(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO ObtenerPedidoPorId(int idPedido) {
+            SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest();
             inValue.idPedido = idPedido;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarDetallePedidoAsync(inValue);
+            SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerPedidoPorId(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerPedidoPorIdAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request) {
+            return base.Channel.ObtenerPedidoPorIdAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse> ObtenerPedidoPorIdAsync(int idPedido) {
+            SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest();
+            inValue.idPedido = idPedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerPedidoPorIdAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.RechazarRecojo(SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest request) {
+            return base.Channel.RechazarRecojo(request);
+        }
+        
+        public int RechazarRecojo(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest();
+            inValue.pedido = pedido;
+            SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).RechazarRecojo(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.RechazarRecojoAsync(SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest request) {
+            return base.Channel.RechazarRecojoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.RechazarRecojoResponse> RechazarRecojoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.RechazarRecojoRequest();
+            inValue.pedido = pedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).RechazarRecojoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.InsertarPedido(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request) {
+            return base.Channel.InsertarPedido(request);
+        }
+        
+        public int InsertarPedido(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest();
+            inValue.pedido = pedido;
+            SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).InsertarPedido(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.InsertarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request) {
+            return base.Channel.InsertarPedidoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse> InsertarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest();
+            inValue.pedido = pedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).InsertarPedidoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarPedido(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request) {
+            return base.Channel.EliminarPedido(request);
+        }
+        
+        public int EliminarPedido(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest();
+            inValue.pedido = pedido;
+            SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarPedido(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request) {
+            return base.Channel.EliminarPedidoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse> EliminarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest();
+            inValue.pedido = pedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarPedidoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ModificarPedido(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request) {
+            return base.Channel.ModificarPedido(request);
+        }
+        
+        public int ModificarPedido(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest();
+            inValue.pedido = pedido;
+            SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ModificarPedido(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ModificarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request) {
+            return base.Channel.ModificarPedidoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse> ModificarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
+            SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest();
+            inValue.pedido = pedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ModificarPedidoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ComprobarDetallesPedidos(SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest request) {
+            return base.Channel.ComprobarDetallesPedidos(request);
+        }
+        
+        public int[] ComprobarDetallesPedidos(int idPedido) {
+            SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest();
+            inValue.idPedido = idPedido;
+            SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ComprobarDetallesPedidos(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ComprobarDetallesPedidosAsync(SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest request) {
+            return base.Channel.ComprobarDetallesPedidosAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosResponse> ComprobarDetallesPedidosAsync(int idPedido) {
+            SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ComprobarDetallesPedidosRequest();
+            inValue.idPedido = idPedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ComprobarDetallesPedidosAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerDetallePedido(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request) {
+            return base.Channel.ObtenerDetallePedido(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO ObtenerDetallePedido(int idPedido, int idProducto, int tipoId) {
+            SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest();
+            inValue.idPedido = idPedido;
+            inValue.idProducto = idProducto;
+            inValue.tipoId = tipoId;
+            SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerDetallePedido(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request) {
+            return base.Channel.ObtenerDetallePedidoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse> ObtenerDetallePedidoAsync(int idPedido, int idProducto, int tipoId) {
+            SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest();
+            inValue.idPedido = idPedido;
+            inValue.idProducto = idProducto;
+            inValue.tipoId = tipoId;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerDetallePedidoAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2351,6 +2792,54 @@ namespace SoftInvBusiness.SoftInvWSPedido {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerCarritoPorCliente(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request) {
+            return base.Channel.ObtenerCarritoPorCliente(request);
+        }
+        
+        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO ObtenerCarritoPorCliente(int idCliente) {
+            SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest();
+            inValue.idCliente = idCliente;
+            SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerCarritoPorCliente(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerCarritoPorClienteAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request) {
+            return base.Channel.ObtenerCarritoPorClienteAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse> ObtenerCarritoPorClienteAsync(int idCliente) {
+            SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest();
+            inValue.idCliente = idCliente;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerCarritoPorClienteAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarDetallePedido(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request) {
+            return base.Channel.EliminarDetallePedido(request);
+        }
+        
+        public int EliminarDetallePedido(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido, int idPedido) {
+            SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest();
+            inValue.detallePedido = detallePedido;
+            inValue.idPedido = idPedido;
+            SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarDetallePedido(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest request) {
+            return base.Channel.EliminarDetallePedidoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoResponse> EliminarDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO detallePedido, int idPedido) {
+            SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarDetallePedidoRequest();
+            inValue.detallePedido = detallePedido;
+            inValue.idPedido = idPedido;
+            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarDetallePedidoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         SoftInvBusiness.SoftInvWSPedido.ListarPedidosDeClienteResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ListarPedidosDeCliente(SoftInvBusiness.SoftInvWSPedido.ListarPedidosDeClienteRequest request) {
             return base.Channel.ListarPedidosDeCliente(request);
         }
@@ -2396,148 +2885,6 @@ namespace SoftInvBusiness.SoftInvWSPedido {
             inValue.detallePedido = detallePedido;
             inValue.idPedido = idPedido;
             return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).InsertarDetallePedidoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerCarritoPorCliente(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request) {
-            return base.Channel.ObtenerCarritoPorCliente(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO ObtenerCarritoPorCliente(int idCliente) {
-            SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest();
-            inValue.idCliente = idCliente;
-            SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerCarritoPorCliente(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerCarritoPorClienteAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest request) {
-            return base.Channel.ObtenerCarritoPorClienteAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteResponse> ObtenerCarritoPorClienteAsync(int idCliente) {
-            SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerCarritoPorClienteRequest();
-            inValue.idCliente = idCliente;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerCarritoPorClienteAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerDetallePedido(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request) {
-            return base.Channel.ObtenerDetallePedido(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO ObtenerDetallePedido(int idPedido, int idProducto, int tipoId) {
-            SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest();
-            inValue.idPedido = idPedido;
-            inValue.idProducto = idProducto;
-            inValue.tipoId = tipoId;
-            SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerDetallePedido(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerDetallePedidoAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest request) {
-            return base.Channel.ObtenerDetallePedidoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoResponse> ObtenerDetallePedidoAsync(int idPedido, int idProducto, int tipoId) {
-            SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerDetallePedidoRequest();
-            inValue.idPedido = idPedido;
-            inValue.idProducto = idProducto;
-            inValue.tipoId = tipoId;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerDetallePedidoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerPedidoPorId(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request) {
-            return base.Channel.ObtenerPedidoPorId(request);
-        }
-        
-        public SoftInvBusiness.SoftInvWSPedido.pedidoDTO ObtenerPedidoPorId(int idPedido) {
-            SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest();
-            inValue.idPedido = idPedido;
-            SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerPedidoPorId(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ObtenerPedidoPorIdAsync(SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest request) {
-            return base.Channel.ObtenerPedidoPorIdAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse> ObtenerPedidoPorIdAsync(int idPedido) {
-            SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdRequest();
-            inValue.idPedido = idPedido;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ObtenerPedidoPorIdAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.ModificarPedido(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request) {
-            return base.Channel.ModificarPedido(request);
-        }
-        
-        public int ModificarPedido(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest();
-            inValue.pedido = pedido;
-            SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ModificarPedido(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.ModificarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest request) {
-            return base.Channel.ModificarPedidoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.ModificarPedidoResponse> ModificarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.ModificarPedidoRequest();
-            inValue.pedido = pedido;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).ModificarPedidoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarPedido(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request) {
-            return base.Channel.EliminarPedido(request);
-        }
-        
-        public int EliminarPedido(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest();
-            inValue.pedido = pedido;
-            SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarPedido(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.EliminarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest request) {
-            return base.Channel.EliminarPedidoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.EliminarPedidoResponse> EliminarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.EliminarPedidoRequest();
-            inValue.pedido = pedido;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).EliminarPedidoAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse SoftInvBusiness.SoftInvWSPedido.Pedido.InsertarPedido(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request) {
-            return base.Channel.InsertarPedido(request);
-        }
-        
-        public int InsertarPedido(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest();
-            inValue.pedido = pedido;
-            SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse retVal = ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).InsertarPedido(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse> SoftInvBusiness.SoftInvWSPedido.Pedido.InsertarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest request) {
-            return base.Channel.InsertarPedidoAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<SoftInvBusiness.SoftInvWSPedido.InsertarPedidoResponse> InsertarPedidoAsync(SoftInvBusiness.SoftInvWSPedido.pedidoDTO pedido) {
-            SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest inValue = new SoftInvBusiness.SoftInvWSPedido.InsertarPedidoRequest();
-            inValue.pedido = pedido;
-            return ((SoftInvBusiness.SoftInvWSPedido.Pedido)(this)).InsertarPedidoAsync(inValue);
         }
     }
 }
