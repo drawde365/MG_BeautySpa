@@ -9,15 +9,20 @@ import pe.edu.pucp.softinv.model.Pedido.EstadoPedido;
 import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 
 import java.util.ArrayList;
+import pe.edu.pucp.softinv.dao.ProductoTipoDAO;
+import pe.edu.pucp.softinv.daoImp.ProductoTipoDAOImpl;
+import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
 public class PedidoBO {
 
     private PedidoDAO pedidoDAO;
     private DetallePedidoDAO detallePedidoDAO;
+    private ProductoTipoDAO productoDAO; 
 
     public PedidoBO() {
         pedidoDAO = new PedidoDAOimpl();
         detallePedidoDAO = new DetallePedidoDAOImpl();
+        productoDAO = new ProductoTipoDAOImpl();
     }
 
     public Integer insertar(PedidoDTO pedido) {
@@ -89,5 +94,32 @@ public class PedidoBO {
     }
     public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
         return detallePedidoDAO.obtenerDetallesPedidosId(idPedido);
+    }
+    
+    public ArrayList<Integer> comprobarDetallePedido(Integer idPedido) {
+        ArrayList<Integer> listaValida = new ArrayList<Integer>();
+        PedidoDTO pedido = pedidoDAO.obtenerPorId(idPedido);
+        for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
+            ProductoTipoDTO productoTipo = productoDAO.obtener(
+                    detallePedido.getProducto().getTipo().getId(), 
+                    detallePedido.getProducto().getProducto().getIdProducto());
+            if(productoTipo.getStock_despacho()+detallePedido.getCantidad()>productoTipo.getStock_fisico())
+                listaValida.add(0);
+            else
+                listaValida.add(1);
+        }
+        return listaValida;
+    }
+    
+    public Integer aceptarRecojo(PedidoDTO pedido) {
+        for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
+            ProductoTipoDTO productoTipo = productoDAO.obtener(
+                    detallePedido.getProducto().getTipo().getId(), 
+                    detallePedido.getProducto().getProducto().getIdProducto());
+            productoTipo.setStock_fisico(productoTipo.getStock_fisico()-detallePedido.getCantidad());
+            productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
+        }
+        pedido.setEstadoPedido(EstadoPedido.RECOGIDO);
+        return pedidoDAO.modificar(pedido);
     }
 }
