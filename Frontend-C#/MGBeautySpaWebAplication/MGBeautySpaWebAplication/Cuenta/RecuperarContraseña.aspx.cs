@@ -13,8 +13,8 @@ namespace MGBeautySpaWebAplication.Cuenta
     public partial class RecuperarContraseña : System.Web.UI.Page
     {
         private UsuarioBO usuarioBO;
-        private const string correoEmpresa = "rodrigoalonsocahuana@gmail.com";
-        private const string contraseñaApp = "qzcmzuawrnnkmfhr";
+        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
+        private const string contraseñaApp = "beprxkazzucjiwom";
 
         public RecuperarContraseña()
         {

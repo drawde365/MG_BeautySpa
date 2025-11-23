@@ -451,7 +451,7 @@
                 <h3 class="success-title">¡Pago Exitoso!</h3>
                 <p class="success-message">
                     Tu pedido ha sido procesado correctamente.<br />
-                    Recibirás un correo de confirmación en breve.
+                    Recibirás un correo con los datos de tu compra.
                 </p>
             
                 <%-- Botón de Acción --%>
