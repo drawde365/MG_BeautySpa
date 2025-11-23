@@ -1,287 +1,613 @@
 ﻿/* ===========================================
-   LAYOUT GENERAL
+   DETALLE PRODUCTO - LAYOUT RESPONSIVE
    =========================================== */
 
-.detail-page-wrapper {
+/* Contenedor principal de la página */
+.detalle-page-wrapper {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
-.detail-page-content {
+.detalle-page-content {
     width: 100%;
     max-width: 1320px;
     margin: 0 auto;
-    padding: 1.25rem 1.25rem 2.5rem;
+    padding: 1.5rem 1.75rem 2.5rem;
     box-sizing: border-box;
-    background: transparent;
-}
-
-/* Ajuste para que el hueco bajo el breadcrumb no sea exagerado */
-.detail-header {
-    margin-bottom: 1.25rem;
 }
 
 /* ===========================================
-   CABECERA DEL PRODUCTO
+   LAYOUT PRINCIPAL (IMAGEN + DETALLES)
    =========================================== */
 
-.detail-tag {
-    display: inline-block;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-    background-color: #E3F4F0;
-    color: #148C76;
-    font-size: 0.8rem;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin-bottom: 0.5rem;
-}
-
-.detail-title {
-    margin: 0 0 0.4rem 0;
-    font-family: 'ZCOOL XiaoWei', serif;
-    font-weight: 400;
-    font-size: clamp(2.1rem, 3vw, 3rem);
-    color: #148C76;
-    line-height: 1.1;
-}
-
-.detail-subtitle {
-    margin: 0;
-    max-width: 700px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.95rem;
-    color: #555;
-    line-height: 1.5;
-}
-
-/* ===========================================
-   LAYOUT PRINCIPAL (IMAGEN + INFO)
-   =========================================== */
-
-.detail-main {
+.product-main-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-    gap: 2rem;
-    align-items: flex-start;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
-/* Izquierda: imagen */
-.detail-media {
+/* Columna de imagen */
+.product-image-column {
     width: 100%;
 }
 
-.detail-main-image {
+.product-image-css {
     width: 100%;
-    background-color: #F9FAFB;
-    border-radius: 16px;
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.detail-image {
-    width: 100%;
-    height: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    background-color: #F4FBF8;
     object-fit: contain;
-    display: block;
+    padding: 1rem;
 }
 
-/* Derecha: info */
-.detail-info {
-    width: 100%;
-}
-
-/* Precio */
-.detail-price-row {
+/* Columna de detalles */
+.product-details-column {
     display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.detail-price-label {
+.product-title {
+    margin: 0 0 0.5rem 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.9rem;
+    font-weight: 600;
+    font-size: 1.75rem;
+    line-height: 1.3;
+    color: #171214;
+}
+
+.product-description-text {
+    margin: 0 0 1rem 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.5;
     color: #757575;
 }
 
-.detail-price {
+.price {
+    margin: 0.5rem 0 1.5rem 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
-    font-size: 1.75rem;
+    font-size: 2rem;
     color: #148C76;
 }
 
-/* Metadatos (tipo de piel, presentación, etc.) */
-.detail-meta {
-    margin-bottom: 1.25rem;
-}
-
-    .detail-meta p {
-        margin: 0.1rem 0;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 0.9rem;
-        color: #444;
-    }
-
-.meta-label {
+.options-title {
+    margin: 0 0 1rem 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 600;
+    font-size: 1rem;
     color: #171214;
 }
 
 /* ===========================================
-   ACCIONES (CANTIDAD + CARRITO)
+   TIPOS Y CANTIDADES
    =========================================== */
 
-.detail-actions {
+.tipo-item-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.25rem;
     align-items: center;
-    margin-bottom: 1.5rem;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #E6E8EB;
 }
 
-/* Cantidad */
-.quantity-wrapper {
+.tipo-name-btn {
     display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    background-color: #fff;
-    border: 1px solid #E0E5E9;
-    overflow: hidden;
-}
-
-.qty-btn {
-    display: inline-flex;
-    align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: none;
-    background: transparent;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #148C76;
-    cursor: pointer;
-    text-decoration: none;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    min-width: 88px;
+    background: #F4FBF8;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #171214;
 }
 
-    .qty-btn:hover {
-        background-color: #E3F4F0;
+.quantity-picker {
+    display: flex;
+    align-items: center;
+}
+
+    .quantity-picker button {
+        width: 35px;
+        height: 35px;
+        background: #fff;
+        border: 1px solid #E6E8EB;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #171214;
+        cursor: pointer;
+        transition: all 0.2s ease;
     }
 
-.qty-input {
-    width: 48px;
-    text-align: center;
-    border: none;
-    outline: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.95rem;
-    padding: 0;
-}
+        .quantity-picker button:hover {
+            background: #F4FBF8;
+            border-color: #148C76;
+        }
 
-/* Botón de carrito */
-.btn-add-cart {
-    border-radius: 999px;
-    padding: 0.55rem 1.8rem;
-    border: 2px solid #148C76;
-    background-color: #148C76;
-    color: #fff;
+    .quantity-picker .qty-btn-minus {
+        border-radius: 8px 0 0 8px;
+    }
+
+    .quantity-picker .qty-btn-plus {
+        border-radius: 0 8px 8px 0;
+    }
+
+    .quantity-picker .qty-display {
+        width: 50px;
+        height: 35px;
+        text-align: center;
+        border: 1px solid #E6E8EB;
+        border-left: none;
+        border-right: none;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #171214;
+    }
+
+.add-button-small {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #148C76;
+    border-radius: 20px;
+    border: none;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
     font-weight: 600;
-    font-size: 0.95rem;
+    color: #FFFFFF;
+    text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-    .btn-add-cart:hover {
-        background-color: #0f6a5d;
-        border-color: #0f6a5d;
+    .add-button-small:hover {
+        background: #0f6b5b;
+        text-decoration: none;
+        color: #FFFFFF;
     }
 
+.add-button-main {
+    margin-top: 1rem;
+    padding: 0.75rem 2rem;
+    background: #148C76;
+    border-radius: 20px;
+    border: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .add-button-main:hover {
+        background: #0f6b5b;
+    }
+
+.cart-message {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: #d4edda;
+    color: #155724;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+}
+
 /* ===========================================
-   BLOQUES DE TEXTO (DESCRIPCIÓN / MODO DE USO)
+   DETALLES DEL PRODUCTO
    =========================================== */
 
-.detail-highlights h2,
-.detail-extra-block h2 {
+.product-info-section {
+    padding: 2rem 0;
+    border-top: 1px solid #E6E8EB;
+}
+
+.section-title {
+    margin: 0 0 1.5rem 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin: 0 0 0.25rem 0;
+    font-weight: 600;
+    font-size: 1.25rem;
     color: #171214;
 }
 
-.detail-highlights p,
-.detail-extra-block p {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #444;
-    margin: 0;
-}
-
-.detail-highlights {
-    margin-bottom: 1.75rem;
-}
-
-.detail-extra {
-    margin-top: 1.75rem;
+.details-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
 }
 
-.detail-extra-block {
-    padding-top: 0.5rem;
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: #F4FBF8;
+    border-radius: 12px;
 }
+
+.detail-item-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #757575;
+}
+
+.detail-item-value {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #171214;
+    line-height: 1.5;
+}
+
+/* ===========================================
+   SECCIÓN DE RESEÑAS
+   =========================================== */
+
+.product-reviews-section {
+    padding: 2rem 0;
+    border-top: 1px solid #E6E8EB;
+}
+
+.review-summary-grid {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 0;
+}
+
+.review-score {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.score-number-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.score-number {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #148C76;
+}
+
+.score-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 2rem;
+}
+
+    .score-stars .star {
+        color: #E6E8EB;
+    }
+
+        .score-stars .star.filled {
+            color: #148C76;
+        }
+
+        .score-stars .star.half-filled {
+            background: linear-gradient(90deg, #148C76 50%, #E6E8EB 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+.score-count {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #757575;
+}
+
+.review-bars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+    .bar-row span:first-child {
+        width: 20px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.875rem;
+        color: #171214;
+    }
+
+.bar-container {
+    flex: 1;
+    height: 8px;
+    background: #E6E8EB;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #148C76;
+    border-radius: 4px;
+}
+
+.bar-row span:last-child {
+    width: 40px;
+    text-align: right;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #757575;
+}
+
+/* ===========================================
+   LISTA DE RESEÑAS
+   =========================================== */
+
+.review-list {
+    margin: 2rem 0;
+}
+
+.review-item {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #E6E8EB;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #E6E8EB;
+}
+
+.review-author-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.review-author-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #171214;
+}
+
+.review-item-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 1.5rem;
+    color: #148C76;
+}
+
+.review-body {
+    margin: 0 0 1rem 0;
+    padding: 1rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.review-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.btn-review-action {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    border: 1px solid #E6E8EB;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #171214;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn-review-action:hover {
+        background: #F4FBF8;
+        text-decoration: none;
+    }
+
+    .btn-review-action.btn-edit {
+        color: #148C76;
+        border-color: #148C76;
+    }
+
+        .btn-review-action.btn-edit:hover {
+            background: #148C76;
+            color: #fff;
+        }
+
+    .btn-review-action.btn-delete {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-review-action.btn-delete:hover {
+            background: #dc3545;
+            color: #fff;
+        }
+
+.text-muted {
+    text-align: center;
+    padding: 2rem;
+    color: #757575;
+    font-style: italic;
+}
+
+/* ===========================================
+   FORMULARIO DE RESEÑAS
+   =========================================== */
+
+.add-review-form {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-top: 1px solid #E6E8EB;
+}
+
+.add-review-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.review-user-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #148C76;
+}
+
+.review-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    background: #fff;
+    border: 2px solid #E6E8EB;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+    .review-textarea:focus {
+        outline: none;
+        border-color: #148C76;
+    }
+
+.review-form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-rating-input {
+    display: flex;
+    gap: 0.25rem;
+}
+
+    .review-rating-input .rating-star {
+        font-size: 1.75rem;
+        color: #E6E8EB;
+        cursor: pointer;
+        transition: color 0.2s ease;
+    }
+
+        .review-rating-input .rating-star:hover,
+        .review-rating-input .rating-star.hover-preview,
+        .review-rating-input .rating-star.active {
+            color: #148C76;
+        }
+
+.btn-submit-review {
+    padding: 0.5rem 1.5rem;
+    background: #148C76;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn-submit-review:hover {
+        background: #0f6b5b;
+    }
+
+.comment-message {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+}
+
+    .comment-message.success {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .comment-message.error {
+        background: #f8d7da;
+        color: #721c24;
+    }
 
 /* ===========================================
    RESPONSIVE
    =========================================== */
 
-/* 2 columnas → 1 columna en pantallas medianas */
-@media (max-width: 991.98px) {
-    .detail-page-content {
-        padding: 0.9rem 1rem 2.25rem;
-    }
-
-    .detail-main {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-        gap: 1.25rem;
-    }
-
-    .detail-extra {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
+@media (min-width: 1400px) {
+    .detalle-page-content {
+        max-width: 1400px;
     }
 }
 
-/* Layout totalmente apilado en móvil */
-@media (max-width: 575.98px) {
-    .detail-page-content {
-        padding: 0.75rem 0.75rem 2rem;
-    }
-
-    .detail-main {
+@media (max-width: 991.98px) {
+    .product-main-layout {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .detalle-page-content {
+        padding: 0.75rem;
     }
 
-    .detail-main-image {
-        aspect-ratio: 4 / 4;
+    .product-title {
+        font-size: 1.5rem;
     }
 
-    .detail-actions {
+    .price {
+        font-size: 1.75rem;
+    }
+
+    .review-summary-grid {
         flex-direction: column;
-        align-items: stretch;
+        gap: 1.5rem;
     }
 
-    .btn-add-cart {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
+    .add-review-form {
+        flex-direction: column;
     }
 }

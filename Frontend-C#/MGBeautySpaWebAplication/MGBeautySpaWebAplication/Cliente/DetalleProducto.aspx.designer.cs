@@ -15,15 +15,6 @@ namespace MGBeautySpaWebAplication.Cliente
     {
 
         /// <summary>
-        /// Control smDetalle.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager smDetalle;
-
-        /// <summary>
         /// Control litNombreProd.
         /// </summary>
         /// <remarks>
@@ -31,6 +22,15 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litNombreProd;
+
+        /// <summary>
+        /// Control smDetalle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager smDetalle;
 
         /// <summary>
         /// Control imgProducto.
@@ -103,15 +103,6 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litTamano;
-
-        /// <summary>
-        /// Control litBeneficios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litBeneficios;
 
         /// <summary>
         /// Control litComoUsar.

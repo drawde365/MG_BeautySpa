@@ -346,7 +346,6 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
-
         protected void rpComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -355,6 +354,28 @@ namespace MGBeautySpaWebAplication.Cliente
                 var comentario = e.Item.DataItem as SoftInvBusiness.SoftInvWSComentario.comentarioDTO;
 
                 if (comentario == null) return;
+
+                // ✅ AGREGAR ESTRELLAS DEL COMENTARIO
+                var litEstrellas = (Literal)e.Item.FindControl("litEstrellas");
+                if (litEstrellas != null)
+                {
+                    string estrellas = "";
+                    int valoracion = comentario.valoracion;
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < valoracion)
+                        {
+                            estrellas += "★"; // Estrella llena
+                        }
+                        else
+                        {
+                            estrellas += "☆"; // Estrella vacía
+                        }
+                    }
+
+                    litEstrellas.Text = estrellas;
+                }
 
                 // Obtener el usuario de la sesión
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;

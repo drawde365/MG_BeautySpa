@@ -15,7 +15,7 @@ import pe.edu.pucp.softinv.model.Producto.TipoProdDTO;
 import java.sql.*;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Calendar; // Importante para manejo de fechas agnóstico
 import java.util.List;
 
 public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
@@ -49,7 +49,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.statement.setDouble(2, pedido.getTotal());
         this.statement.setString(3, pedido.getEstadoPedidoS());
         this.setFechaEnST(4, (Date) pedido.getFechaPago());
-        this.setFechaEnST(5, (Date) pedido.getFechaListaParaRecojo());  
+        this.setFechaEnST(5, (Date) pedido.getFechaListaParaRecojo());
         this.setFechaEnST(6, (Date) pedido.getFechaRecojo());
         this.setDoubleEnST(7, pedido.getIGV());
         this.setStringEnST(8, pedido.getCodigoTransaccion());
@@ -65,7 +65,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.setFechaEnST(6, (Date) pedido.getFechaRecojo());
         this.setDoubleEnST(7, pedido.getIGV());
         this.setStringEnST(8, pedido.getCodigoTransaccion());
-        this.statement.setInt(9,pedido.getIdPedido());
+        this.statement.setInt(9, pedido.getIdPedido());
     }
 
     @Override
@@ -73,11 +73,12 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.statement.setInt(1, pedido.getIdPedido());
     }
 
-    private void setFechaEnST(int indice,Date fecha) throws SQLException {
-        if(fecha!=null)
+    // Helpers para manejo seguro de nulos y tipos
+    private void setFechaEnST(int indice, Date fecha) throws SQLException {
+        if (fecha != null)
             this.statement.setTimestamp(indice, new Timestamp(fecha.getTime()));
         else
-            this.statement.setNull(indice,java.sql.Types.DATE);
+            this.statement.setNull(indice, java.sql.Types.DATE);
     }
 
     private void setDoubleEnST(int indice, Double valor) throws SQLException {
@@ -95,36 +96,38 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
             this.statement.setNull(indice, java.sql.Types.VARCHAR);
         }
     }
+
     @Override
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
         this.statement.setInt(1, this.pedido.getIdPedido());
     }
 
-    private EstadoPedido DefinirEstado(String estado){
-        if (estado.equals(EstadoPedido.ELIMINADO.name()))
-            return EstadoPedido.ELIMINADO;
-        else if (estado.equals(EstadoPedido.CONFIRMADO.name()))
-            return EstadoPedido.CONFIRMADO;
-        else if (estado.equals(EstadoPedido.LISTO_PARA_RECOGER.name()))
-            return EstadoPedido.LISTO_PARA_RECOGER;
-        else if (estado.equals(EstadoPedido.NO_RECOGIDO.name()))
-            return EstadoPedido.NO_RECOGIDO;
-        else if (estado.equals(EstadoPedido.RECOGIDO.name()))
-            return EstadoPedido.RECOGIDO;
-        else if (estado.equals(EstadoPedido.EnCarrito.name()))
-            return EstadoPedido.EnCarrito;
-        return null;
+    private EstadoPedido DefinirEstado(String estado) {
+        if (estado == null) return null;
+        // Uso de try-catch o switch para robustez, o iteracion sobre enum
+        try {
+            return EstadoPedido.valueOf(estado);
+        } catch (IllegalArgumentException e) {
+            // Manejo manual si el string no coincide exactamente con el Enum
+            if (estado.equals("EnCarrito")) return EstadoPedido.EnCarrito;
+            return null;
+        }
     }
 
     protected int instanciarObjetoDelResultSetEspecial() throws SQLException {
-        int result=0;
+        int result = 0;
         int idPed = resultSet.getInt("PEDIDO_ID");
-        if(this.pedido == null || !this.pedido.getIdPedido().equals(idPed) || this.pedido.getEstadoPedido()==null){
+        if (this.pedido == null || !this.pedido.getIdPedido().equals(idPed) || this.pedido.getEstadoPedido() == null) {
             this.pedido = this.instanciarPedidoDelResultSet(idPed);
-             result=1;
+            result = 1;
         }
         DetallePedidoDTO detalle = this.instanciarDetallePedidoDelResultSet();
-        this.pedido.agregarDetallesPedido(detalle);
+        
+        // Evitar agregar detalles nulos si el LEFT JOIN trajo nulos (caso pedido sin detalles)
+        if(detalle.getProducto() != null && detalle.getProducto().getProducto() != null && detalle.getProducto().getProducto().getIdProducto() != 0){
+             this.pedido.agregarDetallesPedido(detalle);
+        }
+       
         return result;
     }
 
@@ -136,12 +139,12 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     @Override
     protected void agregarObjetoALaLista(List lista) throws SQLException {
         int num = this.instanciarObjetoDelResultSetEspecial();
-        if(num==1)
+        if (num == 1)
             lista.add(this.pedido);
     }
 
     private PedidoDTO instanciarPedidoDelResultSet(Integer idPed) throws SQLException {
-        PedidoDTO pedido = new  PedidoDTO();
+        PedidoDTO pedido = new PedidoDTO();
         pedido.setIdPedido(idPed);
         pedido.setTotal(this.resultSet.getDouble("TOTAL"));
         String estado = this.resultSet.getString("ESTADO");
@@ -152,9 +155,9 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         pedido.setFechaRecojo(this.resultSet.getDate("FECHA_RECOJO"));
         pedido.setIGV(this.resultSet.getDouble("IGV"));
         pedido.setCodigoTransaccion(this.resultSet.getString("CODTR"));
-        ArrayList<DetallePedidoDTO> detales = new ArrayList<>();
-        pedido.setDetallesPedido(detales);
-        
+        ArrayList<DetallePedidoDTO> detalles = new ArrayList<>();
+        pedido.setDetallesPedido(detalles);
+
         ClienteDTO cliente = new ClienteDTO();
         cliente.setIdUsuario(this.resultSet.getInt("CLIENTE_ID"));
         cliente.setNombre(this.resultSet.getString("Cliente_Nombre"));
@@ -167,8 +170,13 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
 
     private DetallePedidoDTO instanciarDetallePedidoDelResultSet() throws SQLException {
-        DetallePedidoDTO detalle = new  DetallePedidoDTO();
+        DetallePedidoDTO detalle = new DetallePedidoDTO();
         detalle.setPedido(this.pedido);
+        
+        // Verificacion simple por si viene del Left Join nulo
+        int prodId = this.resultSet.getInt("PRODUCTO_ID");
+        if(this.resultSet.wasNull()) return detalle; // Retorna detalle vacio
+
         detalle.setCantidad(this.resultSet.getInt("CANTIDAD"));
         detalle.setSubtotal(this.resultSet.getDouble("SUBTOTAL"));
 
@@ -179,34 +187,33 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         ProductoTipoDTO productoT = new ProductoTipoDTO();
         productoT.setTipo(tipoProd);
 
-        ProductoDTO producto = new  ProductoDTO();
-        producto.setIdProducto(this.resultSet.getInt("PRODUCTO_ID"));
+        ProductoDTO producto = new ProductoDTO();
+        producto.setIdProducto(prodId);
         producto.setNombre(this.resultSet.getString("Producto_Nombre"));
         producto.setUrlImagen(this.resultSet.getString("Producto_Imagen"));
         producto.setPrecio(this.resultSet.getDouble("Producto_Precio"));
         producto.setTamanho(this.resultSet.getDouble("Producto_Tamanho"));
         productoT.setProducto(producto);
-        
+
         detalle.setProducto(productoT);
         return detalle;
     }
 
     @Override
     public Integer insertar(PedidoDTO pedido) {
-        Double total=0.0;
+        Double total = 0.0;
         this.pedido = pedido;
-        Integer resultado = super.insertar(true,false);
+        Integer resultado = super.insertar(true, false);
         this.pedido.setIdPedido(resultado);
-        if(pedido.getDetallesPedido() != null) {
+        if (pedido.getDetallesPedido() != null) {
             ArrayList<DetallePedidoDTO> detallesPedido = this.pedido.getDetallesPedido();
             DetallePedidoDAO detalleDAO = new DetallePedidoDAOImpl(this.conexion);
-            for(DetallePedidoDTO detallePedido : detallesPedido) {
+            for (DetallePedidoDTO detallePedido : detallesPedido) {
                 detallePedido.setPedido(this.pedido);
                 total += detallePedido.getSubtotal();
                 detalleDAO.insertar(detallePedido, true, true);
             }
         }
-        //this.pedido.setIdPedido(resultado);
         this.pedido.setTotal(total);
         super.modificar(false, true);
         return resultado;
@@ -215,9 +222,10 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     @Override
     public PedidoDTO obtenerPorId(Integer idPedido) {
         this.pedido = new PedidoDTO();
-        this.pedido.setIdPedido(-1); 
+        this.pedido.setIdPedido(-1);
         String sql = this.ObtenerQueryPorId();
-        ArrayList<PedidoDTO> pedidoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idPedido);
+        // Reutilizamos el metodo simple para un solo parametro INT
+        ArrayList<PedidoDTO> pedidoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql, this::incluirValoresDeParametrosSimpleId, idPedido);
         this.pedido = pedidoLista.isEmpty() ? null : pedidoLista.get(0);
         return this.pedido;
     }
@@ -227,13 +235,23 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         this.pedido = new PedidoDTO();
         this.pedido.setIdPedido(-1);
         String sql = this.ObtenerQueryCarrito();
-        ArrayList<PedidoDTO> carritoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idCliente);
-        
+        ArrayList<PedidoDTO> carritoLista = (ArrayList<PedidoDTO>) super.listarTodos(sql, this::incluirValoresDeParametrosSimpleId, idCliente);
+
         if (carritoLista.isEmpty()) {
             return null;
         } else {
             this.pedido = carritoLista.get(0);
             return this.pedido;
+        }
+    }
+
+    // Método auxiliar reutilizable para queries que solo piden un ID
+    private void incluirValoresDeParametrosSimpleId(Object objetoParametros) {
+        Integer id = (Integer) objetoParametros;
+        try {
+            this.statement.setInt(1, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -253,31 +271,44 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         }
         DetallePedidoDAO detallePedidoDAO = new DetallePedidoDAOImpl(this.conexion);
         ArrayList<DetallePedidoDTO> detallesPedido = this.pedido.getDetallesPedido();
-        for(DetallePedidoDTO detalle :  detallesPedido) {
-            detallePedidoDAO.eliminar(detalle,true,true);
+        for (DetallePedidoDTO detalle : detallesPedido) {
+            detallePedidoDAO.eliminar(detalle, true, true);
         }
 
-        return super.eliminar(false,true);
+        return super.eliminar(false, true);
     }
 
     @Override
     public ArrayList<PedidoDTO> listarPedidos(Integer idCliente) {
+        // 1. Calculamos la fecha en JAVA para ser agnósticos a la BD
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -6);
+        java.sql.Date fechaLimite = new java.sql.Date(cal.getTimeInMillis());
+
+        // 2. Preparamos los parámetros (ID y Fecha)
+        Object[] parametros = new Object[]{idCliente, fechaLimite};
+
         String sql = this.ObtenerQueryPorCliente();
         this.pedido = new PedidoDTO();
         this.pedido.setIdPedido(-1);
-        return (ArrayList<PedidoDTO>)super.listarTodos(sql,this::incluirValoresDeParametrosParaListarPedido,idCliente);
+        
+        // 3. Pasamos el arreglo de objetos
+        return (ArrayList<PedidoDTO>) super.listarTodos(sql, this::configurarParametrosHistorial, parametros);
     }
 
-    private void incluirValoresDeParametrosParaListarPedido(Object objetoParametros){
-        Integer idCliente = (Integer) objetoParametros;
+    // Nuevo método para bindear multiples parámetros (ID Cliente y Fecha)
+    private void configurarParametrosHistorial(Object objetoParametros) {
+        Object[] params = (Object[]) objetoParametros;
         try {
-            this.statement.setInt(1,idCliente);
+            this.statement.setInt(1, (Integer) params[0]);
+            this.statement.setDate(2, (java.sql.Date) params[1]);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private String ObtenerBaseQueryPedidos(){
+    private String ObtenerBaseQueryPedidos() {
+        // SQL Standard (ANSI) compatible con MySQL y MSSQL
         String sql = """
         SELECT 
         p.PEDIDO_ID,
@@ -303,7 +334,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         pr.NOMBRE AS Producto_Nombre,
         pr.URL_IMAGEN AS Producto_Imagen,
         pr.PRECIO AS Producto_Precio, 
-        pr.TAMANHO AS Producto_Tamanho,  
+        pr.TAMANHO AS Producto_Tamanho,   
         dp.CANTIDAD,
         dp.SUBTOTAL
 
@@ -316,19 +347,20 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         return sql;
     }
 
-    private String ObtenerQueryPorId(){
-        return this.ObtenerBaseQueryPedidos()+" WHERE p.PEDIDO_ID = ?";
+    private String ObtenerQueryPorId() {
+        return this.ObtenerBaseQueryPedidos() + " WHERE p.PEDIDO_ID = ?";
     }
 
-    private String ObtenerQueryPorCliente(){
-        return this.ObtenerBaseQueryPedidos()+ """
+    private String ObtenerQueryPorCliente() {
+        // REFACTORIZADO: Reemplazado logica de fecha DB por parámetro '?'
+        return this.ObtenerBaseQueryPedidos() + """
         WHERE p.CLIENTE_ID = ?
-          AND p.FECHA_PAGO >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+          AND p.FECHA_PAGO >= ?
         ORDER BY p.FECHA_PAGO DESC
     """;
     }
 
-    private String ObtenerQueryCarrito(){
+    private String ObtenerQueryCarrito() {
         return this.ObtenerBaseQueryPedidos() + """
         WHERE p.CLIENTE_ID = ?
         AND p.ESTADO = 'EnCarrito'

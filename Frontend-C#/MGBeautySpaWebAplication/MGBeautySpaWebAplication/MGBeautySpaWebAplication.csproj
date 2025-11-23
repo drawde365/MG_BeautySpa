@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
@@ -90,7 +93,6 @@
     <Content Include="Cliente\ClientePolitica.aspx" />
     <Content Include="Cliente\ClienteTerminos.aspx" />
     <Content Include="Cliente\DetalleProducto.aspx" />
-    <Content Include="Cliente\DetalleProducto.css" />
     <Content Include="Cliente\DetalleServicio.aspx" />
     <Content Include="Cliente\DetalleServicio.css">
       <DependentUpon>DetalleServicio.aspx</DependentUpon>
@@ -114,9 +116,6 @@
     <Content Include="Cliente\Perfil\Reservas.aspx" />
     <Content Include="Cliente\Perfil\Reservas.css">
       <DependentUpon>Reservas.aspx</DependentUpon>
-    </Content>
-    <Content Include="Cliente\ProductoClienteStyle.css">
-      <DependentUpon>Productos.aspx</DependentUpon>
     </Content>
     <Content Include="Cliente\Productos.aspx" />
     <Content Include="Cliente\Resultados.aspx" />
@@ -148,6 +147,7 @@
     <Content Include="Content\ClienteCss\CambiarPasswordCss.css" />
     <Content Include="Content\ClienteCss\ClienteMasterCss.css" />
     <Content Include="Content\ClienteCss\DetalleProductoCss.css" />
+    <Content Include="Content\ClienteCss\DetalleServicioCss.css" />
     <Content Include="Content\ClienteCss\InicioClienteCss.css" />
     <Content Include="Content\ClienteCss\PerfilMasterCss.css" />
     <Content Include="Content\ClienteCss\PerfilUsuarioCss.css" />
@@ -184,7 +184,7 @@
     <Content Include="Content\icomoon\icomoon.css" />
     <Content Include="Content\icomoon\Read Me.txt" />
     <Content Include="Content\images\Cliente\Bienvenida.jpg" />
-    <Content Include="Content\images\Empleado\blank-photo.jpg" />
+    <Content Include="Content\images\blank-photo.jpg" />
     <Content Include="Content\images\Empleado\InicioEmpleado.png" />
     <Content Include="Content\images\MGFavicon.svg" />
     <Content Include="Content\images\MGLogo.svg" />

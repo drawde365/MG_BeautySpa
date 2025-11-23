@@ -15,7 +15,7 @@
         }
         .carrito-vacio-mensaje h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
+            font-weight: 700; 
             color: #171214;
         }
         .carrito-vacio-mensaje p {
@@ -438,7 +438,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content success-modal-content">
             <div class="modal-body success-modal-body">
-            
+             
                 <%-- Icono de Éxito --%>
                 <div class="success-icon-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" 
@@ -451,7 +451,7 @@
                 <h3 class="success-title">¡Pago Exitoso!</h3>
                 <p class="success-message">
                     Tu pedido ha sido procesado correctamente.<br />
-                    Recibirás un correo de confirmación en breve.
+                    Recibirás un correo con los datos de tu compra.
                 </p>
             
                 <%-- Botón de Acción --%>

@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using MGBeautySpaWebAplication.Cliente.Perfil;
 using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSPedido;
 using SoftInvBusiness.SoftInvWSProductoTipo;
 using SoftInvBusiness.SoftInvWSUsuario;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
@@ -15,6 +21,8 @@ namespace MGBeautySpaWebAplication.Cliente
     {
         private const double TASA_IGV = 0.18;
         private PedidoBO pedidoBO;
+        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
+        private const string contraseñaApp = "beprxkazzucjiwom";
 
         public Carrito()
         {
@@ -320,9 +328,21 @@ namespace MGBeautySpaWebAplication.Cliente
                 carrito.fechaPago = DateTime.Now;
                 carrito.fechaPagoSpecified = true;
                 carrito.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
+                carrito.IGV = TASA_IGV * carrito.total;
+                carrito.IGVSpecified = true;
                 carrito.idPedidoSpecified = true;
 
                 pedidoBO.Modificar(carrito);
+
+                byte[] pdf = GenerarPdfPedido(carrito);
+                SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = (SoftInvBusiness.SoftInvWSUsuario.usuarioDTO)Session["UsuarioActual"];
+                EnviarCorreoConPdf(
+                    usuario.correoElectronico,
+                    "Comprobante de tu compra - MG Beauty SPA",
+                    "¡Hola, "+ usuario.nombre +"!\n¡Gracias por tu compra! Adjuntamos el comprobante en PDF.",
+                    pdf
+                );
+
 
                 Session["Carrito"] = null;
                 Session["CartCount"] = 0;
@@ -344,6 +364,8 @@ namespace MGBeautySpaWebAplication.Cliente
             }, 100);
         ";
                 ClientScript.RegisterStartupScript(this.GetType(), "ShowSuccess", successScript, true);
+
+
             }
             else
             {
@@ -356,6 +378,222 @@ namespace MGBeautySpaWebAplication.Cliente
         ";
                 ClientScript.RegisterStartupScript(this.GetType(), "PaymentFail", failScript, true);
             }
+        }
+
+        private byte[] GenerarPdfPedido(pedidoDTO carrito)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = (SoftInvBusiness.SoftInvWSUsuario.usuarioDTO)Session["UsuarioActual"];
+                // Crear documento
+                Document doc = new Document(PageSize.A4, 40, 40, 40, 40);
+                PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+                doc.Open();
+
+                // === COLORES ===
+                BaseColor verde = new BaseColor(0x14, 0x8C, 0x76);   // #148C76
+                BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8); // #F4FBF8
+
+                // === LOGO ===
+                string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
+                if (File.Exists(rutaLogo))
+                {
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaLogo);
+                    logo.ScaleToFit(120, 120);
+                    logo.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(logo);
+                }
+
+                // Título
+                Font tituloFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20,verde);
+                Paragraph titulo = new Paragraph("Comprobante de Compra - MG BEAUTY SPA", tituloFont);
+                titulo.Alignment = Element.ALIGN_CENTER;
+                titulo.SpacingBefore = 10;
+                titulo.SpacingAfter = 20;
+                doc.Add(titulo);
+
+                // LÍNEA SEPARADORA
+                PdfPTable linea = new PdfPTable(1);
+                linea.WidthPercentage = 100;
+                PdfPCell cellSep = new PdfPCell(new Phrase(""))
+                {
+                    BackgroundColor = verde,
+                    FixedHeight = 3,
+                    Border = Rectangle.NO_BORDER
+                };
+                linea.AddCell(cellSep);
+                doc.Add(linea);
+
+                doc.Add(new Paragraph("\n"));
+
+                // === INFORMACIÓN DEL CLIENTE ===
+                Font label = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, verde);
+                Font texto = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+
+                doc.Add(new Paragraph("Cliente:", label));
+                doc.Add(new Paragraph($"{usuario.nombre} {usuario.primerapellido} {usuario.segundoapellido}", texto));
+                doc.Add(new Paragraph("\n"));
+
+                doc.Add(new Paragraph("Fecha de Pago:", label));
+                doc.Add(new Paragraph(carrito.fechaPago.ToString(), texto));
+                doc.Add(new Paragraph("\n"));
+
+                doc.Add(new Paragraph("Código de Transacción:", label));
+                doc.Add(new Paragraph(carrito.codigoTransaccion, texto));
+                doc.Add(new Paragraph("\n\n"));
+
+                // ===============================================
+                //              TABLA DE PRODUCTOS
+                // ===============================================
+
+                PdfPTable tabla = new PdfPTable(4);
+                tabla.WidthPercentage = 100;
+                tabla.SetWidths(new float[] { 20, 40, 20, 20 }); // Imagen - Nombre - Cantidad - Precio
+
+                // Encabezados
+                Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
+
+                string[] headers = { "Imagen", "Servicio", "Cantidad", "Precio" };
+                foreach (var h in headers)
+                {
+                    PdfPCell headerCell = new PdfPCell(new Phrase(h, headerFont))
+                    {
+                        BackgroundColor = verde,
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        Padding = 8
+                    };
+                    tabla.AddCell(headerCell);
+                }
+
+                // Filas
+                foreach (var d in carrito.detallesPedido)
+                {
+                    // --- IMAGEN ---
+                    string rutaImg = HttpContext.Current.Server.MapPath(d.producto.producto.urlImagen);
+
+
+                    PdfPCell imgCell = null;
+
+                    if (File.Exists(rutaImg))
+                    {
+                        try
+                        {
+                            // Leer bytes sin bloquear
+                            byte[] imgBytes = File.ReadAllBytes(rutaImg);
+
+                            // iTextSharp reconoce automáticamente el formato (JPG, PNG, etc.)
+                            iTextSharp.text.Image prodImg = iTextSharp.text.Image.GetInstance(imgBytes);
+
+                            // Ajuste del tamaño de la imagen
+                            prodImg.ScaleToFit(70, 70);
+
+                            imgCell = new PdfPCell(prodImg)
+                            {
+                                Padding = 5,
+                                HorizontalAlignment = Element.ALIGN_CENTER
+                            };
+                        }
+                        catch
+                        {
+                            // Si por alguna razón falla, muestra texto pero NO detiene el PDF
+                            imgCell = new PdfPCell(new Phrase("Imagen inválida", texto))
+                            {
+                                HorizontalAlignment = Element.ALIGN_CENTER,
+                                Padding = 5
+                            };
+                        }
+                    }
+                    else
+                    {
+                        imgCell = new PdfPCell(new Phrase("Sin imagen", texto))
+                        {
+                            HorizontalAlignment = Element.ALIGN_CENTER,
+                            Padding = 5
+                        };
+                    }
+
+                    tabla.AddCell(imgCell);
+
+                    // Nombre
+                    tabla.AddCell(new PdfPCell(new Phrase(d.producto.producto.nombre, texto)) { Padding = 5 });
+
+                    // Cantidad
+                    tabla.AddCell(new PdfPCell(new Phrase(d.cantidad.ToString(), texto))
+                    {
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        Padding = 5
+                    });
+
+                    // Precio
+                    tabla.AddCell(new PdfPCell(new Phrase("S/ " + d.producto.producto.precio, texto))
+                    {
+                        HorizontalAlignment = Element.ALIGN_RIGHT,
+                        Padding = 5
+                    });
+                }
+
+                doc.Add(tabla);
+
+                // ===============================================
+                //                     TOTAL
+                // ===============================================
+
+                doc.Add(new Paragraph("\n"));
+
+                PdfPTable tablaTotal = new PdfPTable(1);
+                tablaTotal.WidthPercentage = 30;
+                tablaTotal.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+                PdfPCell totalCell = new PdfPCell(new Phrase("Total: S/ " + carrito.total,
+                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.WHITE)))
+                {
+                    BackgroundColor = verde,
+                    Padding = 10,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
+
+                tablaTotal.AddCell(totalCell);
+                doc.Add(tablaTotal);
+
+                // ESPACIO FINAL
+                doc.Add(new Paragraph("\n\nGracias por tu compra en MG Beauty SPA", texto));
+
+                doc.Close();
+                return ms.ToArray();
+            }
+        }
+
+        private System.Drawing.Image CargarImagenSinBloqueo(string ruta)
+        {
+            using (FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                MemoryStream ms = new MemoryStream();
+                fs.CopyTo(ms);
+                ms.Position = 0;
+                return System.Drawing.Image.FromStream(ms);
+            }
+        }
+
+        private void EnviarCorreoConPdf(string correoDestino, string asunto, string cuerpo, byte[] pdfBytes)
+        {
+            MailMessage mensaje = new MailMessage();
+            mensaje.From = new MailAddress(correoEmpresa);
+            mensaje.To.Add(correoDestino);
+            mensaje.Subject = asunto;
+            mensaje.Body = cuerpo;
+            mensaje.IsBodyHtml = false;
+
+            // Adjuntar PDF
+            mensaje.Attachments.Add(new Attachment(
+                new MemoryStream(pdfBytes),
+                "ComprobanteCompra.pdf",
+                "application/pdf"
+            ));
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
+            smtp.EnableSsl = true;
+            smtp.Send(mensaje);
         }
 
         protected void btnVolverInicio_Click(object sender, EventArgs e)

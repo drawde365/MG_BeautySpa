@@ -9,15 +9,20 @@ import pe.edu.pucp.softinv.model.Pedido.EstadoPedido;
 import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 
 import java.util.ArrayList;
+import pe.edu.pucp.softinv.dao.ProductoTipoDAO;
+import pe.edu.pucp.softinv.daoImp.ProductoTipoDAOImpl;
+import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
 public class PedidoBO {
 
     private PedidoDAO pedidoDAO;
     private DetallePedidoDAO detallePedidoDAO;
+    private ProductoTipoDAO productoDAO; 
 
     public PedidoBO() {
         pedidoDAO = new PedidoDAOimpl();
         detallePedidoDAO = new DetallePedidoDAOImpl();
+        productoDAO = new ProductoTipoDAOImpl();
     }
 
     public Integer insertar(PedidoDTO pedido) {
@@ -89,5 +94,49 @@ public class PedidoBO {
     }
     public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
         return detallePedidoDAO.obtenerDetallesPedidosId(idPedido);
+    }
+    //Otorga una lista que debería tener el mismo orden que cada detalle pedido.
+    //Por ejemplo, para saber si el primer detalle está disponible, entonces,
+    //miro el primer elemento de la lista, si es 0, entonces, no se puede aceptar
+    //si es 1, entonces está bien.
+    public ArrayList<Integer> comprobarDetallePedido(Integer idPedido) {
+        ArrayList<Integer> listaValida = new ArrayList<Integer>();
+        PedidoDTO pedido = pedidoDAO.obtenerPorId(idPedido);
+        for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
+            ProductoTipoDTO productoTipo = productoDAO.obtener(
+                    detallePedido.getProducto().getTipo().getId(), 
+                    detallePedido.getProducto().getProducto().getIdProducto());
+            if(productoTipo.getStock_despacho()+detallePedido.getCantidad()>productoTipo.getStock_fisico())
+                listaValida.add(0);
+            else
+                listaValida.add(1);
+        }
+        return listaValida;
+    }
+    
+    //NECESITA EL PEDIDODTO COMPLETO 
+    //INCLUYENDO EL ESTADO DE PEDIDO RECOGIDO
+    //(no necesita que los detalles esten llenos, pero necesito que los demas campos si lo este)
+    public Integer aceptarRecojo(PedidoDTO pedido) {
+        for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
+            ProductoTipoDTO productoTipo = productoDAO.obtener(
+                    detallePedido.getProducto().getTipo().getId(), 
+                    detallePedido.getProducto().getProducto().getIdProducto());
+            productoTipo.setStock_fisico(productoTipo.getStock_fisico()-detallePedido.getCantidad());
+            productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
+        }
+        return pedidoDAO.modificar(pedido);
+    }
+    //NECESITA EL PEDIDODTO COMPLETO 
+    //INCLUYENDO EL ESTADO DE PEDIDO NORECOGIDO
+    //(no necesita que los detalles esten llenos, pero necesito que los demas campos si lo este)
+    public Integer rechazarRecojo(PedidoDTO pedido) {
+        for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
+            ProductoTipoDTO productoTipo = productoDAO.obtener(
+                    detallePedido.getProducto().getTipo().getId(), 
+                    detallePedido.getProducto().getProducto().getIdProducto());
+            productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
+        }
+        return pedidoDAO.modificar(pedido);
     }
 }

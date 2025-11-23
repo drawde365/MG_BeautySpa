@@ -172,7 +172,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
             litTamano.Text = producto.tamanho.ToString() + "ml";
             litComoUsar.Text = producto.modoUso;
-            litBeneficios.Text = "No especificado.";
 
             rpPresentaciones.DataSource = tipos;
             rpPresentaciones.DataBind();
@@ -399,11 +398,11 @@ namespace MGBeautySpaWebAplication.Cliente
             {
                 // Guardar comentario y valoración en sesión
                 var comentarioPendiente = new Dictionary<string, object>
-        {
-            { "comentario", txtComentario.Text?.Trim() ?? "" },
-            { "valoracion", hdnValoracion.Value },
-            { "idProducto", producto.idProducto }
-        };
+                {
+                    { "comentario", txtComentario.Text?.Trim() ?? "" },
+                    { "valoracion", hdnValoracion.Value },
+                    { "idProducto", producto.idProducto }
+                };
 
                 Session["ComentarioPendiente"] = comentarioPendiente;
                 Session["ReturnUrl"] = Request.RawUrl;
@@ -528,6 +527,28 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 if (comentario == null) return;
 
+                // ✅ AGREGAR ESTRELLAS DEL COMENTARIO
+                var litEstrellas = (Literal)e.Item.FindControl("litEstrellas");
+                if (litEstrellas != null)
+                {
+                    string estrellas = "";
+                    int valoracion = comentario.valoracion;
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i < valoracion)
+                        {
+                            estrellas += "★"; // Estrella llena
+                        }
+                        else
+                        {
+                            estrellas += "☆"; // Estrella vacía
+                        }
+                    }
+
+                    litEstrellas.Text = estrellas;
+                }
+
                 // Obtener el usuario de la sesión
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
@@ -556,7 +577,6 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
             }
         }
-
         protected void btnEditarComentario_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;

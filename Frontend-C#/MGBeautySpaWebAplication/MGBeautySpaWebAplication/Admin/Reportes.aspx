@@ -89,7 +89,6 @@
                     </div>
                     <asp:DropDownList ID="ddlEstadoPedido" runat="server" CssClass="custom-input" Width="291px">
                         <asp:ListItem Text="-- Seleccione --" Value="" Selected="True" />
-                        <asp:ListItem Text="En Carrito" Value="EnCarrito" />
                         <asp:ListItem Text="Confirmado" Value="CONFIRMADO" />
                         <asp:ListItem Text="Listo para recoger" Value="LISTO_PARA_RECOGER" />
                         <asp:ListItem Text="Recogido" Value="RECOGIDO" />

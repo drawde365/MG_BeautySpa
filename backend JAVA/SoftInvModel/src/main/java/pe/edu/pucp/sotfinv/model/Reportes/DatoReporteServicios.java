@@ -6,13 +6,12 @@ package pe.edu.pucp.sotfinv.model.Reportes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import pe.edu.pucp.sotfinv.model.Reportes.Interfaces.Reportable;
 
 /**
  *
  * @author Usuario
  */
-public class DatoReporteServicios implements Reportable{
+public class DatoReporteServicios {
 
     private String nombreCliente;
     private String nombreServicio;
@@ -131,34 +130,6 @@ public class DatoReporteServicios implements Reportable{
      */
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
-    }
-
-    @Override
-    public String[] getTitulosColumnas() {
-        return new String[] {"Nombre del Cliente", "Servicio", "Tipo", "Empleado a cargo","Fecha", "Precio",};
-    }
-
-    @Override
-    public String[] getDatosFila() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return new String[] {
-            this.nombreCliente,
-            this.nombreServicio,
-            this.tipoServicio,
-            this.nombreEmpleado,
-            sdf.format(this.fecha),
-            String.format("S/.%.2f", this.precio)
-        };
-    }
-    
-    @Override
-    public float[] getAnchosColumnas() {
-        return new float[] {3f, 2.5f, 1.5f, 3f, 1.5f, 1.5f};
-    }
-
-    @Override
-    public double getMontoTotal() {
-        return this.getPrecio();
     }
     
     

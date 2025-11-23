@@ -86,4 +86,19 @@ public class Pedido {
             @WebParam(name = "idPedido") Integer idPedido) {
         return pedidoBO.obtenerDetallesPedidosId(idPedido);
     }
+    @WebMethod(operationName = "ComprobarDetallesPedidos")
+    public ArrayList<Integer> comprobarDetallePedido(
+            @WebParam(name = "idPedido")Integer idPedido) {
+        return pedidoBO.comprobarDetallePedido(idPedido);
+    }
+    @WebMethod(operationName = "AceptarRecojo")
+    public Integer aceptarRecojo(
+            @WebParam(name = "pedido")PedidoDTO pedido) {
+        return pedidoBO.aceptarRecojo(pedido);
+    }
+    @WebMethod(operationName = "RechazarRecojo")
+    public Integer rechazarRecojo(
+            @WebParam(name = "pedido")PedidoDTO pedido) {
+        return pedidoBO.rechazarRecojo(pedido);
+    }
 }
