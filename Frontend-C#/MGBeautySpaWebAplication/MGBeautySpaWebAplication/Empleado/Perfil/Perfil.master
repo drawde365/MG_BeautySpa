@@ -26,27 +26,20 @@
                 </div>
 
                 <nav class="profile-nav">
-                    <%-- 
-                      - ADAPTACIÓN: 
-                      - 1. Añadido runat="server" e ID a cada enlace (como en el master de Cliente).
-                      - 2. Eliminada la clase 'active' quemada.
-                      - 3. Se mantienen los enlaces propios del Empleado.
-                    --%>
-
                     <a id="navPerfil" runat="server" href="PerfilUsuario.aspx" class="nav-item-link">
                         <i class="icon-user"></i>
                         <span class="nav-item-text">Mi perfil</span>
                     </a>
 
                     <a id="navPassword" runat="server" href="CambiarPassword.aspx" class="nav-item-link">
-                        <i class="icon-key"></i>
+                        <i class="icon-star"></i>
                         <span class="nav-item-text">Cambiar contraseña</span>
                     </a>
 
                     <asp:LinkButton ID="btnLogoutSidebar" runat="server" 
                         CssClass="logout-button"
                         OnClick="btnLogout_Click">
-                        <i class="icon-log-out"></i>
+                        <i class="icon-arrow-left"></i>
                         <span class="nav-item-text">Cerrar sesión</span>
                     </asp:LinkButton>
                 </nav>
@@ -64,4 +57,4 @@
 </asp:Content>
 
 <asp:Content ID="ctScripts" ContentPlaceHolderID="ScriptsContent" runat="server">
-    </asp:Content>
+</asp:Content>

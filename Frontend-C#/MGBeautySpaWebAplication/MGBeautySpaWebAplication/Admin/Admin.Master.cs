@@ -12,7 +12,7 @@ namespace MGBeautySpaWebAplication.Admin
     {
         // El designer.cs ahora generará estas variables 
         // (Asegúrate de que tu designer.cs se actualice)
-        protected HyperLink navPanelDeControl;
+        protected HyperLink navAdmPedidos;
         protected HyperLink navAdmProductos;
         protected HyperLink navAdmServicios;
         protected HyperLink navReportes;
@@ -75,7 +75,7 @@ namespace MGBeautySpaWebAplication.Admin
             string currentPage = Path.GetFileName(Request.Url.AbsolutePath).ToLower();
 
             // Resetea todos (ahora usando .CssClass)
-            navPanelDeControl.CssClass = "nav-link";
+            navAdmPedidos.CssClass = "nav-link";
             navAdmProductos.CssClass = "nav-link";
             navAdmServicios.CssClass = "nav-link";
             navReportes.CssClass = "nav-link";
@@ -85,8 +85,8 @@ namespace MGBeautySpaWebAplication.Admin
             // Aplica 'active' al link actual
             switch (currentPage)
             {
-                case "paneldecontrol.aspx":
-                    navPanelDeControl.CssClass = "nav-link active";
+                case "admpedidos.aspx":
+                    navAdmPedidos.CssClass = "nav-link active";
                     break;
                 case "admproductos.aspx":
                 case "insertarproducto.aspx":

@@ -65,27 +65,27 @@
             <aside class="sidebar d-flex flex-column" style="width: 320px; flex-shrink: 0;">
     
                 <ul class="nav nav-pills flex-column gap-2 p-3">
-        
+    
                     <li class="nav-item">
-                        <asp:HyperLink ID="navPanelDeControl" runat="server" CssClass="nav-link" 
-                            NavigateUrl="~/Admin/PanelDeControl.aspx">
-                            <i class="icon-calendar" style="font-size: 1.25rem; width: 26px;"></i>
-                            <span>Ver Reservas</span>
+                        <asp:HyperLink ID="navAdmPedidos" runat="server" CssClass="nav-link"
+                            NavigateUrl="~/Admin/AdmPedidos.aspx">
+                            <i class="icon-shopping-cart" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Ver pedidos</span>
                         </asp:HyperLink>
                     </li>
-        
+    
                     <li class="nav-item">
                         <asp:HyperLink ID="navAdmProductos" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/AdmProductos.aspx">
-                            <i class="icon-box" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-package" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Administrar productos</span>
                         </asp:HyperLink>
                     </li>
-        
+    
                     <li class="nav-item">
                         <asp:HyperLink ID="navAdmServicios" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/AdmServicios.aspx">
-                            <i class="icon-scissors" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-star" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Administrar servicios</span>
                         </asp:HyperLink>
                     </li>
@@ -93,16 +93,8 @@
                     <li class="nav-item">
                         <asp:HyperLink ID="navReportes" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/Reportes.aspx">
-                            <i class="icon-file-text" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-calendar" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Generar reporte</span>
-                        </asp:HyperLink>
-                    </li>
-
-                    <li class="nav-item">
-                        <asp:HyperLink ID="navAdmPedidos" runat="server" CssClass="nav-link"
-                            NavigateUrl="~/Admin/AdmPedidos.aspx">
-                            <i class="icon-cart" style="font-size: 1.25rem; width: 26px;"></i>
-                            <span>Ver pedidos</span>
                         </asp:HyperLink>
                     </li>
 
@@ -118,7 +110,7 @@
                     <li class="nav-item">
                         <asp:HyperLink ID="navAgregarEmpleado" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/AgregarEmpleado.aspx">
-                            <i class="icon-user-plus" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-user" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Añadir empleado</span>
                         </asp:HyperLink>
                     </li>

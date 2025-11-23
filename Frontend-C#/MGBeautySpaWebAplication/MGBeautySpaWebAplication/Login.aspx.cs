@@ -42,7 +42,7 @@ namespace MGBeautySpaWebAplication
                 switch (usuario.rol)
                 {
                     case 3:
-                        Response.Redirect("~/Admin/PanelDeControl.aspx");
+                        Response.Redirect("~/Admin/AdmPedidos.aspx");
                         break;
                     case 2:
                         Response.Redirect("~/Empleado/InicioEmpleado.aspx");

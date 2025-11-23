@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" 
     MasterPageFile="~/Cliente/Cliente.Master" 
-    AutoEventWireup="true"
-    CodeBehind="Perfil.master.cs"
+    AutoEventWireup="true" 
+    CodeBehind="Perfil.master.cs" 
     Inherits="MGBeautySpaWebAplication.Cliente.PerfilMaster" %>
 
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
@@ -35,24 +35,24 @@
                     </a>
 
                     <a id="navPassword" runat="server" href="CambiarPassword.aspx" class="nav-item-link">
-                        <i class="icon-key"></i>
+                        <i class="icon-star"></i>
                         <span class="nav-item-text">Cambiar contraseña</span>
                     </a>
 
                     <a id="navPedidos" runat="server" href="Pedidos.aspx" class="nav-item-link">
-                        <i class="icon-box"></i>
+                        <i class="icon-package"></i>
                         <span class="nav-item-text">Pedidos</span>
                     </a>
 
                     <a id="navReservas" runat="server" href="Reservas.aspx" class="nav-item-link">
-                        <i class="icon-calendar-12"></i>
+                        <i class="icon-calendar"></i>
                         <span class="nav-item-text">Reservas</span>
                     </a>
                     
                     <asp:LinkButton ID="btnLogoutSidebar" runat="server" 
                         CssClass="logout-button"
                         OnClick="btnLogout_Click">
-                        <i class="icon-log-out"></i>
+                        <i class="icon-arrow-left"></i>
                         <span class="nav-item-text">Cerrar sesión</span>
                     </asp:LinkButton>
                 </nav>
