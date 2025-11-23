@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,7 +10,6 @@ using SoftInvBusiness.SoftInvWSProductos;
 using SoftInvBusiness.SoftInvWSProductoTipo;
 using SoftInvBusiness.SoftInvWSUsuario;
 using System.Globalization;
-using System.Web.Script.Serialization;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
@@ -29,7 +27,7 @@ namespace MGBeautySpaWebAplication.Cliente
             productoBO = new ProductoBO();
             productoTipoBO = new ProductoTipoBO();
             comentarioBO = new ComentarioBO();
-            pedidoBO = new PedidoBO(); // <-- 2. AÑADIDO
+            pedidoBO = new PedidoBO();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -39,14 +37,20 @@ namespace MGBeautySpaWebAplication.Cliente
             if (!IsPostBack)
             {
                 PintarProducto();
-                MostrarNombreUsuario();
-
-                // ✅ VERIFICAR SI VIENE DE LOGIN CON COMENTARIO PENDIENTE
-                VerificarYEnviarComentarioPendiente();
+                RestaurarComentarioPendiente();
+                MostrarMensajeExito();
             }
-            else
+
+            MostrarNombreUsuario();
+        }
+
+        private void MostrarMensajeExito()
+        {
+            if (Session["MensajeExito"] != null)
             {
-                MostrarNombreUsuario();
+                string mensaje = Session["MensajeExito"].ToString();
+                Session.Remove("MensajeExito");
+                MostrarMensaje(mensaje, "success");
             }
         }
 
@@ -75,59 +79,27 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
-        private void VerificarYEnviarComentarioPendiente()
+        private void RestaurarComentarioPendiente()
         {
-            // Verificar que el usuario esté logueado
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            if (usuario == null) return;
 
-            if (usuario == null)
-            {
-                return;
-            }
-
-            // Verificar si hay un comentario pendiente
             var comentarioPendiente = Session["ComentarioPendiente"] as Dictionary<string, object>;
-
-            if (comentarioPendiente == null)
-            {
-                return;
-            }
+            if (comentarioPendiente == null) return;
 
             try
             {
-                // ✅ VALIDAR QUE SEA EL PRODUCTO CORRECTO **ANTES** DE LIMPIAR
-                if (!comentarioPendiente.ContainsKey("idProducto"))
-                {
-                    Session.Remove("ComentarioPendiente");
-                    return;
-                }
+                // Verificar que sea el producto correcto
+                if (!comentarioPendiente.ContainsKey("idProducto")) return;
 
                 int idProductoPendiente = (int)comentarioPendiente["idProducto"];
+                if (producto == null || producto.idProducto != idProductoPendiente) return;
 
-                // ✅ SI NO ES EL PRODUCTO CORRECTO, NO HACER NADA (mantener sesión)
-                if (producto == null || producto.idProducto != idProductoPendiente)
-                {
-                    return;
-                }
-
-                // ✅ AHORA SÍ - Es el producto correcto, limpiar sesión
-                Session.Remove("ComentarioPendiente");
-
-                // Validar datos antes de procesar
                 string comentarioTexto = comentarioPendiente["comentario"]?.ToString() ?? "";
                 string valoracionTexto = comentarioPendiente["valoracion"]?.ToString() ?? "0";
 
-                if (string.IsNullOrWhiteSpace(comentarioTexto))
-                {
-                    System.Diagnostics.Debug.WriteLine("Comentario pendiente vacío, se descarta.");
-                    return;
-                }
-
-                if (!int.TryParse(valoracionTexto, out int val) || val < 1 || val > 5)
-                {
-                    System.Diagnostics.Debug.WriteLine("Valoración pendiente inválida, se descarta.");
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(comentarioTexto)) return;
+                if (!int.TryParse(valoracionTexto, out int val) || val < 1 || val > 5) return;
 
                 // Restaurar en el formulario
                 txtComentario.Text = comentarioTexto;
@@ -136,21 +108,16 @@ namespace MGBeautySpaWebAplication.Cliente
                 // Enviar automáticamente
                 EnviarComentario();
 
+                // Limpiar sesión después de enviar
+                Session.Remove("ComentarioPendiente");
+
                 // Limpiar estrellas visuales
-                string scriptEstrellas = @"
-            setTimeout(function() {
-                var stars = document.querySelectorAll('.rating-star');
-                stars.forEach(function(s) {
-                    s.classList.remove('active');
-                    s.textContent = '☆';
-                });
-            }, 100);
-        ";
-                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellasAuto", scriptEstrellas, true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellasAuto",
+                    "setTimeout(function() { document.querySelectorAll('.rating-star').forEach(s => { s.classList.remove('active'); s.textContent = '☆'; }); }, 100);", true);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error al verificar comentario pendiente: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error al restaurar comentario pendiente: {ex.Message}");
                 Session.Remove("ComentarioPendiente");
             }
         }
@@ -182,15 +149,7 @@ namespace MGBeautySpaWebAplication.Cliente
         private void MostrarNombreUsuario()
         {
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-
-            if (usuario != null)
-            {
-                litNombreUsuario.Text = usuario.nombre ?? "Usuario";
-            }
-            else
-            {
-                litNombreUsuario.Text = "Invitado";
-            }
+            litNombreUsuario.Text = usuario?.nombre ?? "Invitado";
         }
 
         private void PintarResenas()
@@ -209,19 +168,13 @@ namespace MGBeautySpaWebAplication.Cliente
             else
             {
                 pnlNoComments.Visible = false;
-
-                double sumaValoraciones = 0;
-                int totalComentarios = listaComentarios.Count;
-
-                foreach (var comentario in listaComentarios)
-                {
-                    sumaValoraciones += comentario.valoracion;
-                }
-
-                double promedioReal = totalComentarios > 0 ? sumaValoraciones / totalComentarios : 0;
-
+                double promedioReal = listaComentarios.Average(c => c.valoracion);
                 litReviewScore.Text = promedioReal.ToString("0.0");
-                litReviewCount.Text = $"{totalComentarios} reseñas";
+                litReviewCount.Text = $"{listaComentarios.Count} reseñas";
+
+                producto.promedioValoracion = promedioReal;
+                producto.promedioValoracionSpecified = true;
+                productoBO.modificarProducto(producto);
             }
         }
 
@@ -244,11 +197,10 @@ namespace MGBeautySpaWebAplication.Cliente
             if (pres == null) return;
 
             litIngredientes.Text = Server.HtmlEncode(pres.ingredientes).Replace("\n", "<br/>");
-
             upModalIng.Update();
 
-            ScriptManager.RegisterStartupScript(
-                this, GetType(), "openIng", "var modal = new bootstrap.Modal(document.getElementById('modalIng')); modal.show();", true);
+            ScriptManager.RegisterStartupScript(this, GetType(), "openIng",
+                "var modal = new bootstrap.Modal(document.getElementById('modalIng')); modal.show();", true);
         }
 
         protected void btnAddCart_Click(object sender, EventArgs e)
@@ -260,40 +212,9 @@ namespace MGBeautySpaWebAplication.Cliente
                 return;
             }
 
-            SoftInvBusiness.SoftInvWSPedido.pedidoDTO carrito = Session["Carrito"] as SoftInvBusiness.SoftInvWSPedido.pedidoDTO;
-
-            if (carrito == null)
-            {
-                pedidoDTO carro = new pedidoDTO();
-                carro.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO();
-                carro.cliente.idUsuario = usuario.idUsuario;
-                carro.cliente.idUsuarioSpecified = true;
-                carro.total = 0;
-                carro.totalSpecified = true;
-                carro.estadoPedido = estadoPedido.EnCarrito;
-                carro.estadoPedidoSpecified = true;
-                carro.detallesPedido = new detallePedidoDTO[0];
-                carro.idPedido = pedidoBO.Insertar(carro);
-
-                carrito = carro;
-            }
-            else if (carrito.idPedido == 0)
-            {
-                pedidoDTO carro = new pedidoDTO();
-                carro.cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO();
-                carro.cliente.idUsuario = usuario.idUsuario;
-                carro.cliente.idUsuarioSpecified = true;
-                carro.total = 0;
-                carro.totalSpecified = true;
-                carro.estadoPedido = estadoPedido.EnCarrito;
-                carro.estadoPedidoSpecified = true;
-                carro.detallesPedido = new detallePedidoDTO[0];
-                carro.idPedido = pedidoBO.Insertar(carro);
-
-                carrito = carro;
-            }
-
-            var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
+            var carrito = Session["Carrito"] as SoftInvBusiness.SoftInvWSPedido.pedidoDTO ?? CrearNuevoCarrito(usuario);
+            var listaDetalles = new List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO>(
+                carrito.detallesPedido ?? new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]);
             int totalItemsAdded = 0;
 
             foreach (RepeaterItem item in rpPresentaciones.Items)
@@ -301,59 +222,10 @@ namespace MGBeautySpaWebAplication.Cliente
                 if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
                 {
                     TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
-                    int itemIndex = item.ItemIndex;
-
-                    if (txtCantidad != null &&
-                        int.TryParse(txtCantidad.Text, out int cantidad) && cantidad > 0)
+                    if (txtCantidad != null && int.TryParse(txtCantidad.Text, out int cantidad) && cantidad > 0)
                     {
-                        SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO presentacion = tipos[itemIndex];
-
-                        var existingItem = listaDetalles.FirstOrDefault(d =>
-                            d.producto != null &&
-                            d.producto.producto != null &&
-                            d.producto.tipo != null &&
-                            d.producto.producto.idProducto == this.producto.idProducto &&
-                            d.producto.tipo.id == presentacion.tipo.id
-                        );
-
-                        if (existingItem != null)
-                        {
-                            existingItem.cantidad += cantidad;
-                            existingItem.subtotal = (double)this.producto.precio * existingItem.cantidad;
-
-                            // ----- 4. LLAMA AL BO PARA MODIFICAR EL DETALLE EN DB -----
-                            pedidoBO.ModificarDetalle(existingItem, carrito.idPedido);
-                        }
-                        else
-                        {
-                            var nuevoDetalle = new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO
-                            {
-                                producto = new SoftInvBusiness.SoftInvWSPedido.productoTipoDTO
-                                {
-                                    producto = new SoftInvBusiness.SoftInvWSPedido.productoDTO
-                                    {
-                                        idProducto = this.producto.idProducto,
-                                        idProductoSpecified = true,
-                                        urlImagen = this.producto.urlImagen,
-                                        tamanho = this.producto.tamanho,
-                                        tamanhoSpecified = true,
-                                        nombre = this.producto.nombre,
-                                        precio = this.producto.precio,
-                                        precioSpecified = true
-                                    },
-                                    tipo = new SoftInvBusiness.SoftInvWSPedido.tipoProdDTO { id = presentacion.tipo.id, nombre = presentacion.tipo.nombre },
-                                    ingredientes = presentacion.ingredientes,
-                                    stock_fisico = presentacion.stock_fisico,
-                                    stock_fisicoSpecified = presentacion.stock_fisicoSpecified
-                                },
-                                cantidad = cantidad,
-                                cantidadSpecified = true,
-                                subtotal = (double)this.producto.precio * cantidad,
-                                subtotalSpecified = true
-                            };
-                            pedidoBO.InsertarDetalle(nuevoDetalle, carrito.idPedido);
-                            listaDetalles.Add(nuevoDetalle);
-                        }
+                        var presentacion = tipos[item.ItemIndex];
+                        AgregarOActualizarDetalle(listaDetalles, presentacion, cantidad, carrito.idPedido);
                         totalItemsAdded += cantidad;
                         txtCantidad.Text = "0";
                     }
@@ -362,52 +234,109 @@ namespace MGBeautySpaWebAplication.Cliente
 
             if (totalItemsAdded > 0)
             {
-                if (listaDetalles[0].producto.producto.idProducto == 0)
-                    listaDetalles.Remove(listaDetalles[0]);
-                carrito.detallesPedido = listaDetalles.ToArray();
-                carrito.total = carrito.detallesPedido.Sum(d => d.subtotal);
-                carrito.totalSpecified = true;
-
-                Session["Carrito"] = carrito;
-
-                int currentCartCount = (Session["CartCount"] as int?) ?? 0;
-                Session["CartCount"] = currentCartCount + totalItemsAdded;
-
-                Cliente masterPage = this.Master as Cliente;
-                if (masterPage != null)
-                {
-                    masterPage.UpdateCartDisplay();
-                }
-
+                ActualizarCarrito(carrito, listaDetalles, totalItemsAdded);
                 lblCartMessage.Text = "¡Producto(s) añadido(s) al carrito!";
-                lblCartMessage.Visible = true;
             }
             else
             {
                 lblCartMessage.Text = "Por favor, selecciona una cantidad.";
-                lblCartMessage.Visible = true;
             }
+
+            lblCartMessage.Visible = true;
+        }
+
+        private pedidoDTO CrearNuevoCarrito(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario)
+        {
+            var carro = new SoftInvBusiness.SoftInvWSPedido.pedidoDTO
+            {
+                cliente = new SoftInvBusiness.SoftInvWSPedido.clienteDTO
+                {
+                    idUsuario = usuario.idUsuario,
+                    idUsuarioSpecified = true
+                },
+                total = 0,
+                totalSpecified = true,
+                estadoPedido = SoftInvBusiness.SoftInvWSPedido.estadoPedido.EnCarrito,
+                estadoPedidoSpecified = true,
+                detallesPedido = new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO[0]
+            };
+            carro.idPedido = pedidoBO.Insertar(carro);
+            return carro;
+        }
+
+        private void AgregarOActualizarDetalle(List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO> listaDetalles,
+            SoftInvBusiness.SoftInvWSProductoTipo.productoTipoDTO presentacion, int cantidad, int idPedido)
+        {
+            var existingItem = listaDetalles.FirstOrDefault(d =>
+                d.producto?.producto?.idProducto == this.producto.idProducto &&
+                d.producto?.tipo?.id == presentacion.tipo.id);
+
+            if (existingItem != null)
+            {
+                existingItem.cantidad += cantidad;
+                existingItem.subtotal = (double)this.producto.precio * existingItem.cantidad;
+                pedidoBO.ModificarDetalle(existingItem, idPedido);
+            }
+            else
+            {
+                var nuevoDetalle = new SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO
+                {
+                    producto = new SoftInvBusiness.SoftInvWSPedido.productoTipoDTO
+                    {
+                        producto = new SoftInvBusiness.SoftInvWSPedido.productoDTO
+                        {
+                            idProducto = this.producto.idProducto,
+                            idProductoSpecified = true,
+                            urlImagen = this.producto.urlImagen,
+                            tamanho = this.producto.tamanho,
+                            tamanhoSpecified = true,
+                            nombre = this.producto.nombre,
+                            precio = this.producto.precio,
+                            precioSpecified = true
+                        },
+                        tipo = new SoftInvBusiness.SoftInvWSPedido.tipoProdDTO
+                        {
+                            id = presentacion.tipo.id,
+                            nombre = presentacion.tipo.nombre
+                        },
+                        ingredientes = presentacion.ingredientes,
+                        stock_fisico = presentacion.stock_fisico,
+                        stock_fisicoSpecified = presentacion.stock_fisicoSpecified
+                    },
+                    cantidad = cantidad,
+                    cantidadSpecified = true,
+                    subtotal = (double)this.producto.precio * cantidad,
+                    subtotalSpecified = true
+                };
+                pedidoBO.InsertarDetalle(nuevoDetalle, idPedido);
+                listaDetalles.Add(nuevoDetalle);
+            }
+        }
+
+        private void ActualizarCarrito(SoftInvBusiness.SoftInvWSPedido.pedidoDTO carrito,
+            List<SoftInvBusiness.SoftInvWSPedido.detallePedidoDTO> listaDetalles, int totalItemsAdded)
+        {
+            carrito.detallesPedido = listaDetalles.ToArray();
+            carrito.total = carrito.detallesPedido.Sum(d => d.subtotal);
+            carrito.totalSpecified = true;
+
+            Session["Carrito"] = carrito;
+
+            int currentCartCount = (Session["CartCount"] as int?) ?? 0;
+            Session["CartCount"] = currentCartCount + totalItemsAdded;
+
+            (this.Master as Cliente)?.UpdateCartDisplay();
         }
 
         protected void btnEnviarComent_Click(object sender, EventArgs e)
         {
-            // Validar que el usuario haya iniciado sesión
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
             if (usuario == null)
             {
-                // Guardar comentario y valoración en sesión
-                var comentarioPendiente = new Dictionary<string, object>
-                {
-                    { "comentario", txtComentario.Text?.Trim() ?? "" },
-                    { "valoracion", hdnValoracion.Value },
-                    { "idProducto", producto.idProducto }
-                };
-
-                Session["ComentarioPendiente"] = comentarioPendiente;
+                // Guardar comentario en sesión y redirigir a login
+                GuardarComentarioPendiente();
                 Session["ReturnUrl"] = Request.RawUrl;
-
-                // Redirigir a login
                 Response.Redirect("~/Login.aspx");
                 return;
             }
@@ -416,30 +345,34 @@ namespace MGBeautySpaWebAplication.Cliente
             EnviarComentario();
         }
 
+        private void GuardarComentarioPendiente()
+        {
+            var comentarioPendiente = new Dictionary<string, object>
+            {
+                { "comentario", txtComentario.Text?.Trim() ?? "" },
+                { "valoracion", hdnValoracion.Value },
+                { "idProducto", producto.idProducto }
+            };
+            Session["ComentarioPendiente"] = comentarioPendiente;
+        }
+
         private void EnviarComentario()
         {
             string texto = txtComentario.Text?.Trim();
 
-            // Validar que haya texto
             if (string.IsNullOrEmpty(texto))
             {
-                lblComentarioMessage.Text = "Por favor, escribe un comentario.";
-                lblComentarioMessage.CssClass = "comment-message error";
-                lblComentarioMessage.Visible = true;
+                MostrarMensaje("Por favor, escribe un comentario.", "error");
                 return;
             }
 
-            // Validar valoración
             if (!int.TryParse(hdnValoracion.Value, out int valoracion) || valoracion < 1 || valoracion > 5)
             {
-                lblComentarioMessage.Text = "Por favor, selecciona una valoración de 1 a 5 estrellas.";
-                lblComentarioMessage.CssClass = "comment-message error";
-                lblComentarioMessage.Visible = true;
+                MostrarMensaje("Por favor, selecciona una valoración de 1 a 5 estrellas.", "error");
                 return;
             }
 
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-
             if (usuario == null)
             {
                 Response.Redirect("~/Login.aspx");
@@ -448,266 +381,214 @@ namespace MGBeautySpaWebAplication.Cliente
 
             try
             {
-                // ✅ VERIFICAR SI ESTAMOS EDITANDO O INSERTANDO
                 int? idComentarioEditando = Session["ComentarioEditando"] as int?;
 
                 if (idComentarioEditando.HasValue && idComentarioEditando.Value > 0)
                 {
-                    // ✅ MODO EDICIÓN
-                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioExistente =
-                        comentarioBO.ObtenerComentarioPorId(idComentarioEditando.Value);
-
-                    if (comentarioExistente == null)
-                    {
-                        lblComentarioMessage.Text = "El comentario que intentas editar no existe.";
-                        lblComentarioMessage.CssClass = "comment-message error";
-                        lblComentarioMessage.Visible = true;
-                        Session.Remove("ComentarioEditando");
-                        btnEnviarComent.Text = "Enviar";
-                        return;
-                    }
-
-                    comentarioExistente.comentario = texto;
-                    comentarioExistente.valoracion = valoracion;
-                    comentarioExistente.valoracionSpecified = true;
-
-                    comentarioBO.ModificarComentario(comentarioExistente);
-
-                    lblComentarioMessage.Text = "¡Tu reseña se ha actualizado exitosamente!";
-                    lblComentarioMessage.CssClass = "comment-message success";
-
-                    // Limpiar sesión de edición
-                    Session.Remove("ComentarioEditando");
-
-                    // Restaurar texto del botón
-                    btnEnviarComent.Text = "Enviar";
+                    // MODO EDICIÓN
+                    EditarComentarioExistente(idComentarioEditando.Value, texto, valoracion);
+                    Session["MensajeExito"] = "¡Tu reseña se ha actualizado exitosamente!";
                 }
                 else
                 {
-                    // ✅ MODO INSERCIÓN - Crear nuevo comentario
-                    comentarioBO.InsertarComentarioDeProducto(
-                        usuario.idUsuario,
-                        texto,
-                        valoracion,
-                        producto.idProducto
-                    );
-
-                    lblComentarioMessage.Text = "¡Tu reseña se ha publicado exitosamente!";
-                    lblComentarioMessage.CssClass = "comment-message success";
+                    // MODO INSERCIÓN
+                    comentarioBO.InsertarComentarioDeProducto(usuario.idUsuario, texto, valoracion, producto.idProducto);
+                    Session["MensajeExito"] = "¡Tu reseña se ha publicado exitosamente!";
                 }
 
-                lblComentarioMessage.Visible = true;
+                LimpiarFormularioComentario();
 
-                // Limpiar formulario
-                txtComentario.Text = "";
-                hdnValoracion.Value = "0";
-
-                // Actualizar la lista de reseñas
-                PintarResenas();
-
-                // Registrar script para limpiar las estrellas
-                ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellas",
-                    "document.querySelectorAll('.rating-star').forEach(s => { s.classList.remove('active'); s.textContent = '☆'; });", true);
+                // Redirigir a la misma página para evitar reenvío de formulario
+                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
-                lblComentarioMessage.Text = "Error al procesar tu reseña. Inténtalo nuevamente.";
-                lblComentarioMessage.CssClass = "comment-message error";
-                lblComentarioMessage.Visible = true;
-
+                MostrarMensaje("Error al procesar tu reseña. Inténtalo nuevamente.", "error");
                 System.Diagnostics.Debug.WriteLine($"Error al procesar comentario: {ex.Message}");
             }
+
+            PintarResenas();
         }
-        protected void rpComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
+
+        private void EditarComentarioExistente(int idComentario, string texto, int valoracion)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            var comentarioExistente = comentarioBO.ObtenerComentarioPorId(idComentario);
+
+            if (comentarioExistente == null)
             {
-                // Obtener el comentario actual
-                var comentario = e.Item.DataItem as SoftInvBusiness.SoftInvWSComentario.comentarioDTO;
-
-                if (comentario == null) return;
-
-                // ✅ AGREGAR ESTRELLAS DEL COMENTARIO
-                var litEstrellas = (Literal)e.Item.FindControl("litEstrellas");
-                if (litEstrellas != null)
-                {
-                    string estrellas = "";
-                    int valoracion = comentario.valoracion;
-
-                    for (int i = 0; i < 5; i++)
-                    {
-                        if (i < valoracion)
-                        {
-                            estrellas += "★"; // Estrella llena
-                        }
-                        else
-                        {
-                            estrellas += "☆"; // Estrella vacía
-                        }
-                    }
-
-                    litEstrellas.Text = estrellas;
-                }
-
-                // Obtener el usuario de la sesión
-                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-
-                // Verificar si el usuario es el autor del comentario
-                bool esAutor = false;
-
-                if (usuario != null && comentario.cliente != null)
-                {
-                    esAutor = (usuario.idUsuario == comentario.cliente.idUsuario);
-                }
-
-                // Mostrar u ocultar los botones según sea el autor
-                var btnEditar = (LinkButton)e.Item.FindControl("btnEditarComentario");
-                var btnEliminar = (LinkButton)e.Item.FindControl("btnEliminarComentario");
-
-                if (btnEditar != null)
-                {
-                    btnEditar.Visible = esAutor;
-                    btnEditar.CommandArgument = comentario.idComentario.ToString();
-                }
-
-                if (btnEliminar != null)
-                {
-                    btnEliminar.Visible = esAutor;
-                    btnEliminar.CommandArgument = comentario.idComentario.ToString();
-                }
-            }
-        }
-        protected void btnEditarComentario_Click(object sender, EventArgs e)
-        {
-            var btn = (LinkButton)sender;
-
-            if (!int.TryParse(btn.CommandArgument, out int idComentario))
-            {
+                MostrarMensaje("El comentario que intentas editar no existe.", "error");
+                Session.Remove("ComentarioEditando");
+                btnEnviarComent.Text = "Enviar";
                 return;
             }
 
+            comentarioExistente.comentario = texto;
+            comentarioExistente.valoracion = valoracion;
+            comentarioExistente.valoracionSpecified = true;
+
+            comentarioBO.ModificarComentario(comentarioExistente);
+
+            Session.Remove("ComentarioEditando");
+            btnEnviarComent.Text = "Enviar";
+        }
+
+        private void LimpiarFormularioComentario()
+        {
+            txtComentario.Text = "";
+            hdnValoracion.Value = "0";
+            Session.Remove("ComentarioPendiente");
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellas",
+                "document.querySelectorAll('.rating-star').forEach(s => { s.classList.remove('active'); s.textContent = '☆'; });", true);
+        }
+
+        private void MostrarMensaje(string mensaje, string tipo)
+        {
+            lblComentarioMessage.Text = mensaje;
+            lblComentarioMessage.CssClass = $"comment-message {tipo}";
+            lblComentarioMessage.Visible = true;
+        }
+
+        protected void rpComentarios_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
+
+            var comentario = e.Item.DataItem as SoftInvBusiness.SoftInvWSComentario.comentarioDTO;
+            if (comentario == null) return;
+
+            // Generar estrellas
+            var litEstrellas = (Literal)e.Item.FindControl("litEstrellas");
+            if (litEstrellas != null)
+            {
+                litEstrellas.Text = GenerarEstrellas(comentario.valoracion);
+            }
+
+            // Mostrar botones solo si es el autor
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+            bool esAutor = usuario != null && comentario.cliente != null &&
+                          usuario.idUsuario == comentario.cliente.idUsuario;
+
+            ConfigurarBotonComentario(e.Item, "btnEditarComentario", esAutor, comentario.idComentario);
+            ConfigurarBotonComentario(e.Item, "btnEliminarComentario", esAutor, comentario.idComentario);
+        }
+
+        private string GenerarEstrellas(int valoracion)
+        {
+            string estrellas = "";
+            for (int i = 0; i < 5; i++)
+            {
+                estrellas += i < valoracion ? "★" : "☆";
+            }
+            return estrellas;
+        }
+
+        private void ConfigurarBotonComentario(RepeaterItem item, string controlId, bool visible, int idComentario)
+        {
+            var btn = (LinkButton)item.FindControl(controlId);
+            if (btn != null)
+            {
+                btn.Visible = visible;
+                btn.CommandArgument = idComentario.ToString();
+            }
+        }
+
+        protected void btnEditarComentario_Click(object sender, EventArgs e)
+        {
+            var btn = (LinkButton)sender;
+            if (!int.TryParse(btn.CommandArgument, out int idComentario)) return;
+
             try
             {
-                // Obtener el comentario completo
                 var comentario = comentarioBO.ObtenerComentarioPorId(idComentario);
-
                 if (comentario == null) return;
 
-                // Verificar que el usuario sea el autor
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-
                 if (usuario == null || comentario.cliente.idUsuario != usuario.idUsuario)
                 {
-                    lblComentarioMessage.Text = "No tienes permisos para editar este comentario.";
-                    lblComentarioMessage.CssClass = "comment-message error";
-                    lblComentarioMessage.Visible = true;
+                    MostrarMensaje("No tienes permisos para editar este comentario.", "error");
                     return;
                 }
 
-                // Cargar el comentario en el formulario para editarlo
-                txtComentario.Text = comentario.comentario;
-                hdnValoracion.Value = comentario.valoracion.ToString();
-
-                // Guardar el ID del comentario que se está editando
-                Session["ComentarioEditando"] = idComentario;
-
-                // Cambiar el texto del botón
-                btnEnviarComent.Text = "Actualizar";
-
-                // Mostrar mensaje informativo
-                lblComentarioMessage.Text = "Editando tu comentario. Modifica el texto o las estrellas y presiona 'Actualizar'.";
-                lblComentarioMessage.CssClass = "comment-message";
-                lblComentarioMessage.Style["background-color"] = "#fff3cd";
-                lblComentarioMessage.Style["color"] = "#856404";
-                lblComentarioMessage.Style["border"] = "1px solid #ffeaa7";
-                lblComentarioMessage.Visible = true;
-
-                // Scroll al formulario
-                ScriptManager.RegisterStartupScript(this, GetType(), "scrollToForm",
-                    "document.querySelector('.add-review-form').scrollIntoView({ behavior: 'smooth', block: 'center' });", true);
-
-                // Restaurar las estrellas visuales
-                string scriptEstrellas = $@"
-            setTimeout(function() {{
-                var stars = document.querySelectorAll('.rating-star');
-                var valor = {comentario.valoracion};
-                
-                stars.forEach(function(s) {{
-                    s.classList.remove('active');
-                    s.textContent = '☆';
-                }});
-                
-                for(var i = 0; i < valor; i++) {{
-                    stars[i].classList.add('active');
-                    stars[i].textContent = '★';
-                }}
-            }}, 100);
-        ";
-                ScriptManager.RegisterStartupScript(this, GetType(), "restaurarEstrellasEdicion", scriptEstrellas, true);
+                CargarComentarioParaEditar(comentario, idComentario);
             }
             catch (Exception ex)
             {
-                lblComentarioMessage.Text = "Error al cargar el comentario para editar.";
-                lblComentarioMessage.CssClass = "comment-message error";
-                lblComentarioMessage.Visible = true;
+                MostrarMensaje("Error al cargar el comentario para editar.", "error");
                 System.Diagnostics.Debug.WriteLine($"Error al editar comentario: {ex.Message}");
             }
+        }
+
+        private void CargarComentarioParaEditar(SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentario, int idComentario)
+        {
+            txtComentario.Text = comentario.comentario;
+            hdnValoracion.Value = comentario.valoracion.ToString();
+            Session["ComentarioEditando"] = idComentario;
+            btnEnviarComent.Text = "Actualizar";
+
+            lblComentarioMessage.Text = "Editando tu comentario. Modifica el texto o las estrellas y presiona 'Actualizar'.";
+            lblComentarioMessage.CssClass = "comment-message";
+            lblComentarioMessage.Style["background-color"] = "#fff3cd";
+            lblComentarioMessage.Style["color"] = "#856404";
+            lblComentarioMessage.Style["border"] = "1px solid #ffeaa7";
+            lblComentarioMessage.Visible = true;
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "scrollToForm",
+                "document.querySelector('.add-review-form').scrollIntoView({ behavior: 'smooth', block: 'center' });", true);
+
+            RestaurarEstrellasVisuales(comentario.valoracion);
+        }
+
+        private void RestaurarEstrellasVisuales(int valoracion)
+        {
+            string script = $@"
+                setTimeout(function() {{
+                    var stars = document.querySelectorAll('.rating-star');
+                    stars.forEach(s => {{ s.classList.remove('active'); s.textContent = '☆'; }});
+                    for(var i = 0; i < {valoracion}; i++) {{
+                        stars[i].classList.add('active');
+                        stars[i].textContent = '★';
+                    }}
+                }}, 100);";
+            ScriptManager.RegisterStartupScript(this, GetType(), "restaurarEstrellas", script, true);
         }
 
         protected void btnEliminarComentario_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
-
-            if (!int.TryParse(btn.CommandArgument, out int idComentario))
-            {
-                return;
-            }
+            if (!int.TryParse(btn.CommandArgument, out int idComentario)) return;
 
             try
             {
-                // Verificar que el usuario sea el autor
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-
                 if (usuario == null)
                 {
                     Response.Redirect("~/Login.aspx");
                     return;
                 }
 
-                // Obtener el comentario para verificar autoría
                 var comentarios = comentarioBO.ObtenerComentariosPorProducto(producto.idProducto);
                 var comentario = comentarios.FirstOrDefault(c => c.idComentario == idComentario);
 
                 if (comentario != null && comentario.cliente.idUsuario == usuario.idUsuario)
                 {
-                    // Eliminar el comentario
-                    SoftInvBusiness.SoftInvWSComentario.comentarioDTO comentarioEliminar = new SoftInvBusiness.SoftInvWSComentario.comentarioDTO
+                    var comentarioEliminar = new SoftInvBusiness.SoftInvWSComentario.comentarioDTO
                     {
                         idComentario = idComentario,
                         idComentarioSpecified = true
                     };
                     comentarioBO.EliminarComentario(comentarioEliminar);
 
-                    // Mostrar mensaje de éxito
-                    lblComentarioMessage.Text = "Tu comentario ha sido eliminado exitosamente.";
-                    lblComentarioMessage.CssClass = "comment-message success";
-                    lblComentarioMessage.Visible = true;
-
-                    // Actualizar la lista
-                    PintarResenas();
+                    Session["MensajeExito"] = "Tu comentario ha sido eliminado exitosamente.";
+                    Response.Redirect(Request.RawUrl);
                 }
                 else
                 {
-                    lblComentarioMessage.Text = "No tienes permisos para eliminar este comentario.";
-                    lblComentarioMessage.CssClass = "comment-message error";
-                    lblComentarioMessage.Visible = true;
+                    MostrarMensaje("No tienes permisos para eliminar este comentario.", "error");
                 }
             }
             catch (Exception ex)
             {
-                lblComentarioMessage.Text = "Error al eliminar el comentario.";
-                lblComentarioMessage.CssClass = "comment-message error";
-                lblComentarioMessage.Visible = true;
+                MostrarMensaje("Error al eliminar el comentario.", "error");
                 System.Diagnostics.Debug.WriteLine($"Error al eliminar comentario: {ex.Message}");
             }
         }
