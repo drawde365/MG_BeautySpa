@@ -107,7 +107,7 @@
 
 /* Botón principal turquesa */
 .btn-custom-teal {
-    background-color: #1EC3B6;
+    background: #148C76;
     color: #FCF7FA;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
@@ -121,11 +121,10 @@
     border: none;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.05s ease;
 }
 
     .btn-custom-teal:hover {
-        background-color: #107369;
+        background-color: #148C76;
         color: #ffffff;
     }
 

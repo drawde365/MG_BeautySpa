@@ -81,23 +81,37 @@
 
 /* Sección de Botón */
 .button-section {
-    padding: 12px 16px;
-    width: 100%;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 10px 22px;
+    background: #148C76;
+    border-radius: 20px;
+    border: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-right: 8px
 }
 
 .edit-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px 20px;
-    width: 89px;
-    height: 40px;
-    background: #1EC3B6;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 14px;
-    color: white;
+    margin-top: 1rem;
+    padding: 10px 22px;
+    background: #148C76;
+    border-radius: 20px;
     border: none;
-    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-right: 8px;
+}
+
+.edit-button:hover {
+    background-color: #116c5b;
 }
