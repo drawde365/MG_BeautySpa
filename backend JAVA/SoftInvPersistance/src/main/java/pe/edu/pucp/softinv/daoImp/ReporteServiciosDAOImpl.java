@@ -5,8 +5,10 @@
 package pe.edu.pucp.softinv.daoImp;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import pe.edu.pucp.softinv.dao.Reportable;
 import pe.edu.pucp.softinv.dao.ReporteServiciosDAO;
 import pe.edu.pucp.sotfinv.model.Reportes.DatoReporteServicios;
 import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
@@ -15,7 +17,7 @@ import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
  *
  * @author Usuario
  */
-public class ReporteServiciosDAOImpl extends DAOImplBase implements ReporteServiciosDAO{
+public class ReporteServiciosDAOImpl extends DAOImplBase implements ReporteServiciosDAO, Reportable<DatoReporteServicios>{
     
     private DatoReporteServicios dato;
 
@@ -117,4 +119,53 @@ public class ReporteServiciosDAOImpl extends DAOImplBase implements ReporteServi
         lista.add(this.dato);
     }
     
+    @Override
+    public String[] getTitulosColumnas() {
+        return new String[] {"Nombre del Cliente", "Servicio", "Tipo", "Empleado a cargo","Fecha", "Precio",};
+    }
+
+    @Override
+    public String[] getDatosFila() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return new String[] {
+            this.dato.getNombreCliente(),
+            this.dato.getNombreServicio(),
+            this.dato.getTipoServicio(),
+            this.dato.getNombreEmpleado(),
+            sdf.format(this.dato.getFecha()),
+            String.format("S/.%.2f", this.dato.getPrecio())
+        };
+    }
+    
+    @Override
+    public float[] getAnchosColumnas() {
+        return new float[] {3f, 2.5f, 1.5f, 3f, 1.5f, 1.5f};
+    }
+
+    @Override
+    public double getMontoTotal() {
+        return this.dato.getPrecio();
+    }
+    
+    @Override
+    public void assign(DatoReporteServicios dato){
+        this.dato = new DatoReporteServicios(dato);
+    }
+    
+    @Override
+    public String getTitulo(){
+        return "Reporte de Citas\n";
+    }
+    
+    @Override
+    public String[] getSubtitulos(FiltroReporte filtro){
+        String serv = (filtro.getNombreServicio()!=null) ? filtro.getNombreServicio() : "Todos";
+        String servicio = "Servicio: "  + serv + "\n";
+        String tp = (filtro.getTipoServicio()!=null) ? filtro.getNombreServicio() : "Todos";
+        String tipo = "Tipo: " + tp + "\n";
+        String emp = (filtro.getNombreEmpleado()!=null) ? filtro.getNombreEmpleado() : "Todos";
+        String empleado = "Empleado: " + emp + "\n";
+        String[] subtitulos = {servicio,tipo,empleado};
+        return subtitulos;
+    }
 }

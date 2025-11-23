@@ -14,7 +14,10 @@ import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
  * @author Usuario
  */
 public interface ReporteProductosDAO {
+
     
     ArrayList<DatoReporteProductos>obtenerReporte(FiltroReporte filtro);
+    
+    
     
 }
