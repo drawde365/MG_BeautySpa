@@ -1,6 +1,7 @@
 package pe.edu.pucp.softinv.business.BO.Impl;
 
 import java.util.ArrayList;
+import static pe.edu.pucp.softinv.business.BO.Util.Cifrado.descifrarMD5;
 import pe.edu.pucp.softinv.dao.TokensDAO;
 import pe.edu.pucp.softinv.dao.UsuarioDAO;
 import pe.edu.pucp.softinv.daoImp.TokensDAOImpl;

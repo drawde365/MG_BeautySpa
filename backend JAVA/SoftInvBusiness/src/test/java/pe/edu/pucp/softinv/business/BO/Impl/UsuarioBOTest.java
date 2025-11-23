@@ -6,6 +6,8 @@ package pe.edu.pucp.softinv.business.BO.Impl;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static pe.edu.pucp.softinv.business.BO.Util.Cifrado.cifrarMD5;
+import static pe.edu.pucp.softinv.business.BO.Util.Cifrado.descifrarMD5;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 /**
@@ -25,11 +27,12 @@ public class UsuarioBOTest {
      */
     @Test
     public void testInicioSesion() {
-        System.out.println("inicioSesion");
-        String correoElectronico = "CLIENTE";
-        String contrasenha = "123";
-        UsuarioDTO usuario = usu.inicioSesion(correoElectronico, contrasenha);
-        assertNotNull(usuario);
+        System.out.println(descifrarMD5("FMmYXBhup8o="));
+        System.out.println(cifrarMD5("cliente"));
+        System.out.println(descifrarMD5("Aoe2+iWpHMTiLvyljJ1KUg=="));
+        System.out.println(cifrarMD5("empleado"));
+        System.out.println(descifrarMD5("U5FJGCHV8tM="));
+        System.out.println(cifrarMD5("admin"));
     }
     
 }

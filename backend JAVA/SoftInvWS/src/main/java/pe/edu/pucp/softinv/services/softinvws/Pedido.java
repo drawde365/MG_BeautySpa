@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.softinv.business.BO.Impl.PedidoBO;
 import pe.edu.pucp.softinv.model.Pedido.DetallePedidoDTO;
 import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
+import pe.edu.pucp.softinv.model.Producto.ProductoTipoDTO;
 
 @WebService(serviceName = "Pedido")
 public class Pedido {
@@ -105,5 +106,9 @@ public class Pedido {
     public Integer rechazarRecojo(
             @WebParam(name = "pedido")PedidoDTO pedido) {
         return pedidoBO.rechazarRecojo(pedido);
+    }
+    @WebMethod(operationName = "modificarProductoTipo")
+    public Integer modificarProductoTipoPedido(ProductoTipoDTO productoTipo) {
+        return pedidoBO.modificar(productoTipo);
     }
 }

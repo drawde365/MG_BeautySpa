@@ -5,6 +5,9 @@ import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
 import java.sql.SQLException;
+import pe.edu.pucp.softinv.daoImp.util.Cifrado;
+import static pe.edu.pucp.softinv.daoImp.util.Cifrado.cifrarMD5;
+import static pe.edu.pucp.softinv.daoImp.util.Cifrado.descifrarMD5;
 
 public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
     private ClienteDTO cliente;
@@ -52,7 +55,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         statement.setString(2,cliente.getSegundoapellido());
         statement.setString(3,cliente.getNombre());
         statement.setString(4,cliente.getCorreoElectronico());
-        statement.setString(5,cliente.getContrasenha());
+        statement.setString(5,cifrarMD5(cliente.getContrasenha()));
         statement.setString(6,cliente.getCelular());
         statement.setInt(7,cliente.getRol());
         statement.setString(8,cliente.getUrlFotoPerfil());
@@ -65,7 +68,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         statement.setString(2,cliente.getSegundoapellido());
         statement.setString(3,cliente.getNombre());
         statement.setString(4,cliente.getCorreoElectronico());
-        statement.setString(5,cliente.getContrasenha());
+        statement.setString(5,cifrarMD5(cliente.getContrasenha()));
         statement.setString(6,cliente.getCelular());
         statement.setInt(7,cliente.getRol());
         statement.setString(8,cliente.getUrlFotoPerfil());
@@ -99,7 +102,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         cliente.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
         cliente.setNombre(resultSet.getString("NOMBRE"));
         cliente.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
-        cliente.setContrasenha(resultSet.getString("CONTRASENHA"));
+        cliente.setContrasenha(descifrarMD5(resultSet.getString("CONTRASENHA")));
         cliente.setCelular(resultSet.getString("CELULAR"));
         cliente.setRol(resultSet.getInt("ROL_ID"));
         cliente.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));

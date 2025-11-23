@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import pe.edu.pucp.softinv.dao.UsuarioDAO;
+import static pe.edu.pucp.softinv.daoImp.util.Cifrado.cifrarMD5;
+import static pe.edu.pucp.softinv.daoImp.util.Cifrado.descifrarMD5;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
@@ -61,7 +63,8 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
         usuario.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
         usuario.setNombre(resultSet.getString("NOMBRE"));
         usuario.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
-        usuario.setContrasenha(resultSet.getString("CONTRASENHA"));
+        String contrasenhaCifrado=resultSet.getString("CONTRASENHA");
+        usuario.setContrasenha(descifrarMD5(contrasenhaCifrado));
         usuario.setCelular(resultSet.getString("CELULAR"));
         usuario.setRol(resultSet.getInt("ROL_ID"));
         usuario.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
@@ -85,7 +88,7 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
         String sql = "UPDATE USUARIOS SET CONTRASENHA=? WHERE USUARIO_ID=?";
         usuario = new UsuarioDTO();
         usuario.setIdUsuario(usuarioId);
-        usuario.setContrasenha(nuevaContrasenha);
+        usuario.setContrasenha(cifrarMD5(nuevaContrasenha));
         return super.modificar(sql);
     }
     

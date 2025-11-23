@@ -24,6 +24,11 @@ public class PedidoBO {
         detallePedidoDAO = new DetallePedidoDAOImpl();
         productoDAO = new ProductoTipoDAOImpl();
     }
+    
+    public Integer modificar(ProductoTipoDTO productoTipo){
+        return productoDAO.modificar(productoTipo);
+    }
+
 
     public Integer insertar(PedidoDTO pedido) {
         return pedidoDAO.insertar(pedido);
