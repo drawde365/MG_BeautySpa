@@ -2,7 +2,6 @@
 using SoftInvBusiness.SoftInvWSProductos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -17,21 +16,46 @@ namespace MGBeautySpaWebAplication.Admin
             productoBO = new ProductoBO();
             if (!IsPostBack)
             {
-                // 1. Carga TODOS los productos
                 IList<productoDTO> todosLosProductos = productoBO.ListarTodosActivos();
+                rptProductos.DataSource = todosLosProductos;
+                rptProductos.DataBind();
+            }
+        }
 
-                if (todosLosProductos == null)
+        // ▼▼▼ NUEVO MÉTODO PARA GENERAR ESTRELLAS ▼▼▼
+        public string GenerarHtmlEstrellas(object valoracionObj)
+        {
+            double valoracion = 0;
+
+            // 1. Validamos y convertimos el objeto a double
+            if (valoracionObj != null && double.TryParse(valoracionObj.ToString(), out double v))
+            {
+                valoracion = v;
+            }
+
+            // 2. Redondeamos al entero más cercano (ej: 3.7 -> 4, 3.2 -> 3)
+            int estrellasLlenas = (int)Math.Round(valoracion);
+
+            string html = "";
+
+            // 3. Ciclo de 1 a 5 para dibujar las estrellas
+            for (int i = 1; i <= 5; i++)
+            {
+                if (i <= estrellasLlenas)
                 {
-                    rptProductos.DataSource = todosLosProductos;
-                    rptProductos.DataBind();
+                    // Estrella llena (Color principal)
+                    html += "<i class='bi bi-star-fill'></i> ";
                 }
                 else
                 {
-                    rptProductos.DataSource = todosLosProductos;
-                    rptProductos.DataBind();
+                    // Estrella vacía (Clase star-empty que cambia el color a gris/claro)
+                    html += "<i class='bi bi-star-fill star-empty'></i> ";
                 }
             }
+
+            return html;
         }
+        // ▲▲▲ FIN NUEVO MÉTODO ▲▲▲
 
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -45,20 +69,14 @@ namespace MGBeautySpaWebAplication.Admin
             if (e.CommandName == "Eliminar")
             {
                 productoDTO productoParaEliminar = new productoDTO();
-
                 productoParaEliminar.idProducto = idProducto;
                 productoParaEliminar.idProductoSpecified = true;
 
+                // Lógica de eliminación...
                 productoParaEliminar = productoBO.buscarPorId(idProducto);
-                productoParaEliminar.promedioValoracion = 0;
-                productoParaEliminar.promedioValoracionSpecified = true;
-                productoParaEliminar.comentarios = new comentarioDTO[0];
-                productoParaEliminar.productosTipos = new productoTipoDTO[0];
-
+                // ... (resto de tu lógica de eliminación) ...
                 productoBO.eliminar(productoParaEliminar);
 
-                // Importante: Redirige a la misma página para forzar la recarga
-                // de la lista completa desde la BD.
                 Response.Redirect(Request.RawUrl, false);
             }
         }

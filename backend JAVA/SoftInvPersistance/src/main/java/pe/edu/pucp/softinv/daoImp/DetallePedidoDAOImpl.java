@@ -33,7 +33,6 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     protected void configurarListaDeColumnas() {
         this.listaColumnas.add(new Columna("PEDIDO_ID", true, false));
         this.listaColumnas.add(new Columna("PRODUCTO_ID", true, false));
-        // ----- CAMBIO 1: De TIPO_PRODUCTO (String) a TIPO_ID (Int) -----
         this.listaColumnas.add(new Columna("TIPO_ID", true, false));
         this.listaColumnas.add(new Columna("CANTIDAD", false, false));
         this.listaColumnas.add(new Columna("SUBTOTAL", false, false));
@@ -43,7 +42,6 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     protected void incluirValorDeParametrosParaInsercion() throws SQLException {
         this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
         this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
-        // ----- CAMBIO 2: setString por setInt y getNombre() por getId() -----
         this.statement.setInt(3, detallePedido.getProducto().getTipo().getId());
         this.statement.setInt(4, detallePedido.getCantidad());
         this.statement.setDouble(5, detallePedido.getSubtotal());
@@ -51,13 +49,11 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
 
     @Override
     protected void incluirValorDeParametrosParaModificacion() throws SQLException {
-        // Los índices cambian porque TIPO_ID es parte de la PK
         this.statement.setInt(1, detallePedido.getCantidad());
         this.statement.setDouble(2, detallePedido.getSubtotal());
         
         this.statement.setInt(3, detallePedido.getPedido().getIdPedido());
         this.statement.setInt(4, detallePedido.getProducto().getProducto().getIdProducto());
-        // ----- CAMBIO 3: setString por setInt y getNombre() por getId() -----
         this.statement.setInt(5, detallePedido.getProducto().getTipo().getId());
     }
 
@@ -65,7 +61,6 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     protected void incluirValorDeParametrosParaEliminacion() throws SQLException {
         this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
         this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
-        // ----- CAMBIO 4: setString por setInt y getNombre() por getId() -----
         this.statement.setInt(3, detallePedido.getProducto().getTipo().getId());
     }
 
@@ -73,7 +68,6 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
     protected void incluirValorDeParametrosParaObtenerPorId() throws SQLException {
         this.statement.setInt(1, detallePedido.getPedido().getIdPedido());
         this.statement.setInt(2, detallePedido.getProducto().getProducto().getIdProducto());
-        // ----- CAMBIO 5: setString por setInt y getNombre() por getId() -----
         this.statement.setInt(3, detallePedido.getProducto().getTipo().getId());
     }
 
@@ -88,11 +82,13 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
 
     @Override
     public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
-        // ----- CAMBIO 6: El SQL debe hacer JOIN para obtener el nombre del tipo -----
-        // (Asumiendo que quieres el DTO completo, no solo el ID)
-        String sql = "SELECT dp.*, tp.NOMBRE AS NOMBRE_TIPO " +
+        // Se reemplaza 'dp.*' por las columnas explícitas para evitar el uso de asteriscos
+        String sql = "SELECT dp.PEDIDO_ID, dp.PRODUCTO_ID, dp.TIPO_ID, dp.CANTIDAD, dp.SUBTOTAL, " +
+                     "tp.NOMBRE AS NOMBRE_TIPO, " +
+                     "pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO AS ACTIVO_TIPO " +
                      "FROM DETALLES_PEDIDOS dp " +
                      "JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID " +
+                     "JOIN PRODUCTOS_TIPOS pt ON dp.PRODUCTO_ID = pt.PRODUCTO_ID AND dp.TIPO_ID = pt.TIPO_ID " +
                      "WHERE dp.PEDIDO_ID = ?";
                      
         PedidoDTO pedido = new PedidoDTO();
@@ -107,28 +103,42 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
         ProductoDTO producto = new ProductoDTO();
         PedidoDTO pedido = new PedidoDTO();
         
-        // ----- CAMBIO 7: Instanciar el TipoProdDTO y poblarlo -----
         TipoProdDTO tipoProd = new TipoProdDTO(); 
         
-        // Asumiendo que el JOIN está presente (como en CAMBIO 6)
-        // Si no, solo puedes setear el ID.
+        // Mapeo de IDs básicos
         tipoProd.setId(this.resultSet.getInt("TIPO_ID"));
+        producto.setIdProducto(resultSet.getInt("PRODUCTO_ID"));
+        pedido.setIdPedido(resultSet.getInt("PEDIDO_ID"));
+
+        // Mapeo de datos obtenidos via JOIN (Nombre del Tipo)
         if(columnaExiste(resultSet, "NOMBRE_TIPO")){
             tipoProd.setNombre(this.resultSet.getString("NOMBRE_TIPO"));
         }
 
-        producto.setIdProducto(resultSet.getInt("PRODUCTO_ID"));
+        // Mapeo de datos extendidos de ProductoTipo (Stock, Ingredientes, etc.)
+        if(columnaExiste(resultSet, "STOCK_FISICO")) {
+            productoTipo.setStock_fisico(resultSet.getInt("STOCK_FISICO"));
+        }
+        if(columnaExiste(resultSet, "STOCK_DESPACHO")) {
+            productoTipo.setStock_despacho(resultSet.getInt("STOCK_DESPACHO"));
+        }
+        if(columnaExiste(resultSet, "INGREDIENTES")) {
+            productoTipo.setIngredientes(resultSet.getString("INGREDIENTES"));
+        }
+        if(columnaExiste(resultSet, "ACTIVO_TIPO")) {
+            productoTipo.setActivo(resultSet.getInt("ACTIVO_TIPO"));
+        }
+
+        // Armado de objetos
         productoTipo.setProducto(producto);
-        productoTipo.setTipo(tipoProd); // Setea el objeto TipoProdDTO
+        productoTipo.setTipo(tipoProd);
 
         this.detallePedido.setProducto(productoTipo);
-        pedido.setIdPedido(resultSet.getInt("PEDIDO_ID"));
         this.detallePedido.setPedido(pedido);
         this.detallePedido.setCantidad(resultSet.getInt("CANTIDAD"));
         this.detallePedido.setSubtotal(resultSet.getDouble("SUBTOTAL"));
     }
     
-    // Método helper (opcional) para verificar si la columna del JOIN existe
     private boolean columnaExiste(java.sql.ResultSet rs, String nombreColumna) throws SQLException {
         java.sql.ResultSetMetaData metaData = rs.getMetaData();
         int count = metaData.getColumnCount();
@@ -163,7 +173,6 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
         return super.insertar(dejarConexionAbierta, transaccionInciada);
     }
 
-    // ----- CAMBIO 8: La firma del método debe cambiar de String a Integer -----
     @Override
     public DetallePedidoDTO obtener(Integer idPedido, Integer idProducto, Integer tipoId) {
         PedidoDTO pedido = new PedidoDTO();
@@ -174,13 +183,11 @@ public class DetallePedidoDAOImpl extends DAOImplBase implements DetallePedidoDA
         producto.setIdProducto(idProducto);
         
         TipoProdDTO tipoProd = new TipoProdDTO();
-        tipoProd.setId(tipoId); // Setea el ID
+        tipoProd.setId(tipoId);
 
         productoTipo.setProducto(producto);
-        productoTipo.setTipo(tipoProd); // Setea el objeto
+        productoTipo.setTipo(tipoProd);
         
-        // this.detallePedido es un atributo de clase, ten cuidado con la concurrencia.
-        // Asumiendo que DAOImplBase maneja esto:
         if(this.detallePedido == null) this.detallePedido = new DetallePedidoDTO(); 
         
         this.detallePedido.setPedido(pedido);
