@@ -73,6 +73,7 @@
     <Content Include="Admin\AdminContacto.aspx" />
     <Content Include="Admin\AdminPolitica.aspx" />
     <Content Include="Admin\AdminTerminos.aspx" />
+    <Content Include="Admin\AdmPedidos.aspx" />
     <Content Include="Admin\AdmProductos.aspx" />
     <Content Include="Admin\AdmServicios.aspx" />
     <Content Include="Admin\AgregarEmpleado.aspx" />
@@ -241,6 +242,7 @@
     <Content Include="Empleado\Empleado.Master" />
     <Content Include="Cliente\Perfil\Perfil.master" />
     <Content Include="Empleado\Perfil\Perfil.master" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -281,6 +283,13 @@
     </Compile>
     <Compile Include="Admin\AdminTerminos.aspx.designer.cs">
       <DependentUpon>AdminTerminos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdmPedidos.aspx.cs">
+      <DependentUpon>AdmPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdmPedidos.aspx.designer.cs">
+      <DependentUpon>AdmPedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdmProductos.aspx.cs">
       <DependentUpon>AdmProductos.aspx</DependentUpon>
