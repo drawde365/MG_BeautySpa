@@ -114,7 +114,8 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
                 + "    U.SEGUNDO_APELLIDO,\n"
                 + "    U.CORREO_ELECTRONICO,\n"
                 + "    U.CELULAR,\n"
-                + "    U.ROL_ID;";
+                + "    U.ROL_ID, \n"
+                + "    U.ACTIVO;";
         return (ArrayList<UsuarioDTO>)super.listarTodos(sql, null, null);
     }
     

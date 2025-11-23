@@ -141,19 +141,19 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         String sql = "";
         if(filtro.equals("Corporal")) {
             sql = "SELECT DISTINCT p.*\n" +
-                  "FROM SPA.PRODUCTOS p\n" +
-                  "INNER JOIN SPA.PRODUCTOS_TIPOS pt ON p.PRODUCTO_ID = pt.PRODUCTO_ID\n" +
-                  "INNER JOIN SPA.TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID\n" + // <-- JOIN agregado
-                  "WHERE tp.NOMBRE = 'Corporal'" + // <-- CAMBIO DE COLUMNA
+                  "FROM PRODUCTOS p\n" +
+                  "INNER JOIN PRODUCTOS_TIPOS pt ON p.PRODUCTO_ID = pt.PRODUCTO_ID\n" +
+                  "INNER JOIN TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID\n" + 
+                  "WHERE tp.NOMBRE = 'Corporal'" +
                   "AND p.ACTIVO = 1";
         } else {
             sql = "SELECT p.*\n" +
-                  "FROM SPA.PRODUCTOS p\n" +
+                  "FROM PRODUCTOS p\n" +
                   "WHERE p.PRODUCTO_ID NOT IN (\n"+
                   "    SELECT pt.PRODUCTO_ID\n" +
-                  "    FROM SPA.PRODUCTOS_TIPOS pt\n" +
-                  "    INNER JOIN SPA.TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID\n" + // <-- JOIN agregado
-                  "    WHERE tp.NOMBRE = 'Corporal'\n" + // <-- CAMBIO DE COLUMNA
+                  "    FROM PRODUCTOS_TIPOS pt\n" +
+                  "    INNER JOIN TIPOS_PRODS tp ON pt.TIPO_ID = tp.TIPO_ID\n" +
+                  "    WHERE tp.NOMBRE = 'Corporal'\n" +
                   ") AND p.ACTIVO = 1";
         }
         
