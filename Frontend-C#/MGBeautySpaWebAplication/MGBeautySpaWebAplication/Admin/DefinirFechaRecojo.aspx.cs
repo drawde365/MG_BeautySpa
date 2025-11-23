@@ -151,7 +151,7 @@ namespace MGBeautySpaWebAplication.Admin
         {
             IList<int> comprobacion = pedidoBO.ComprobarDetallesPedidos(idPedido);
 
-            if (comprobacion != null && comprobacion.All(v => v == 0))
+            if (comprobacion != null && comprobacion.All(v => v >= 0))
             {
                 lblResumenStock.Text = "Stock suficiente para todos los productos. Puede definir la fecha de recojo.";
                 lblResumenStock.ForeColor = System.Drawing.ColorTranslator.FromHtml("#047857");
