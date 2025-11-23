@@ -15,15 +15,6 @@ namespace MGBeautySpaWebAplication.Cliente
     {
 
         /// <summary>
-        /// Control smDetalle.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager smDetalle;
-
-        /// <summary>
         /// Control litNombreBreadcrumb.
         /// </summary>
         /// <remarks>
@@ -33,13 +24,13 @@ namespace MGBeautySpaWebAplication.Cliente
         protected global::System.Web.UI.WebControls.Literal litNombreBreadcrumb;
 
         /// <summary>
-        /// Control litNombreServicio.
+        /// Control smDetalle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litNombreServicio;
+        protected global::System.Web.UI.ScriptManager smDetalle;
 
         /// <summary>
         /// Control imgServicio.
@@ -49,6 +40,15 @@ namespace MGBeautySpaWebAplication.Cliente
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgServicio;
+
+        /// <summary>
+        /// Control litNombreServicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litNombreServicio;
 
         /// <summary>
         /// Control litDescripcionLarga.

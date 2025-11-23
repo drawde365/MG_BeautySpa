@@ -13,7 +13,7 @@ namespace MGBeautySpaWebAplication.Cuenta
     public partial class WebForm1 : System.Web.UI.Page
     {
         private ClienteBO clienteBO;
-        private const string DEFAULT_IMAGE_PATH = "~/Content/images/Cliente/blank-photo.jpg";
+        private const string DEFAULT_IMAGE_PATH = "~/Content/images/blank-photo.jpg";
 
         public WebForm1()
         {
@@ -44,7 +44,7 @@ namespace MGBeautySpaWebAplication.Cuenta
                         string fileName = Guid.NewGuid().ToString() + fileExtension;
 
                         // Define la ruta física donde se guardará
-                        string folderPath = Server.MapPath("~/Content/images/Cliente/Perfiles/");
+                        string folderPath = Server.MapPath("~/Content/images/Cliente/");
 
                         // Crea el directorio si no existe
                         if (!Directory.Exists(folderPath))
@@ -58,7 +58,7 @@ namespace MGBeautySpaWebAplication.Cuenta
                         fileUpload.SaveAs(filePath);
 
                         // Guarda la ruta virtual relativa a la aplicación
-                        urlFoto = "~/Content/images/Cliente/Perfiles/" + fileName;
+                        urlFoto = "~/Content/images/Cliente/" + fileName;
                     }
                     catch (Exception ex)
                     {

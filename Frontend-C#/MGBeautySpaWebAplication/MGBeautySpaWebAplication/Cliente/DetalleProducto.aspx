@@ -33,7 +33,7 @@
                     <p class="product-description-text"><asp:Literal ID="litDescripcion" runat="server" /></p>
                     
                     <div class="price">
-                        S/ <asp:Literal ID="litPrecio" runat="server" />
+                        <asp:Literal ID="litPrecio" runat="server" />
                     </div>
                     
                     <h5 class="options-title">Seleccionar Tipo de Piel y Cantidad</h5>
@@ -76,10 +76,6 @@
                     <div class="detail-item">
                         <span class="detail-item-label">Tamaño</span>
                         <span class="detail-item-value"><asp:Literal ID="litTamano" runat="server" /></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-item-label">Beneficios</span>
-                        <span class="detail-item-value"><asp:Literal ID="litBeneficios" runat="server" /></span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-item-label">Cómo Usar</span>
@@ -133,6 +129,9 @@
                                         CssClass="review-avatar" />
                                     <div class="review-author-info">
                                         <span class="review-author-name"><%# Eval("cliente.nombre") %></span>
+                                        <div class="review-item-stars">
+                                            <asp:Literal ID="litEstrellas" runat="server" />
+                                        </div>
                                     </div>
                                 </div>
                 
