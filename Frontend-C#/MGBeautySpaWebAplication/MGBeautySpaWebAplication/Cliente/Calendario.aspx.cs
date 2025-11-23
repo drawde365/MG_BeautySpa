@@ -267,9 +267,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 nuevaCita.activoSpecified = true;
                 nuevaCita.IGV = nuevaCita.servicio.precio * (0.18);
                 nuevaCita.IGVSpecified = true;
-
-                // Marca de pago (opcional, si tu citaDTO soporta código de transacción)
-                // nuevaCita.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
+                nuevaCita.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
 
                 int resultado = calendarioBO.ReservarBloqueYCita(nuevaCita);
 
