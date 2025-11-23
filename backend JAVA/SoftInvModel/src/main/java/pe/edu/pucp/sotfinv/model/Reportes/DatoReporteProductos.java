@@ -6,13 +6,12 @@ package pe.edu.pucp.sotfinv.model.Reportes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import pe.edu.pucp.sotfinv.model.Reportes.Interfaces.Reportable;
 
 /**
  *
  * @author Usuario
  */
-public class DatoReporteProductos implements Reportable{
+public class DatoReporteProductos {
 
     private Integer pedido_id;
     private String estado;
@@ -205,37 +204,6 @@ public class DatoReporteProductos implements Reportable{
         this.fecha_recojo = fecha_recojo;
     }
 
-    @Override
-    public String[] getTitulosColumnas() {
-        return new String[] {"Id. Pedido", "Estado del Pedido","Fecha de pago", "Fecha de recojo", 
-            "Nombre del Producto", "Tipo", "Tamaño (ml)","Precio Unitario", "Cantidad", "Subtotal",};
-    }
     
-    @Override
-    public String[] getDatosFila() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return new String[] {
-            this.pedido_id.toString(),
-            this.estado,
-            (this.fecha_pago!=null) ? sdf.format(this.fecha_pago) : "-",
-            (this.fecha_recojo!=null) ? sdf.format(this.fecha_recojo) : "-",
-            this.nombreProducto,
-            this.tipo,
-            this.tamanho.toString(),
-            String.format("S/.%.2f", this.precioUnitario),
-            this.cantidad.toString(),
-            String.format("S/.%.2f", this.subtotal),
-        };
-    }
-
-    @Override
-    public float[] getAnchosColumnas() {
-        return new float[] {1f, 1.5f, 1.5f, 1.5f, 3f, 1f, 1.5f, 1.5f, 1.5f, 1.5f};
-    }
-
-    @Override
-    public double getMontoTotal() {
-        return this.getSubtotal();
-    }
     
 }

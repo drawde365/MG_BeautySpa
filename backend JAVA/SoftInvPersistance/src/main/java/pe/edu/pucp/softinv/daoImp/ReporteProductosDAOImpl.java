@@ -5,8 +5,10 @@
 package pe.edu.pucp.softinv.daoImp;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import pe.edu.pucp.softinv.dao.Reportable;
 import pe.edu.pucp.softinv.dao.ReporteProductosDAO;
 import pe.edu.pucp.sotfinv.model.Reportes.DatoReporteProductos;
 import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
@@ -15,7 +17,7 @@ import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
  *
  * @author Usuario
  */
-public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProductosDAO{
+public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProductosDAO, Reportable<DatoReporteProductos>{
     
     private DatoReporteProductos dato;
 
@@ -106,4 +108,58 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
         lista.add(this.dato);
     }
     
+    @Override
+    public String[] getTitulosColumnas() {
+        return new String[] {"Id. Pedido", "Estado del Pedido","Fecha de pago", "Fecha de recojo", 
+            "Nombre del Producto", "Tipo", "Tamaño (ml)","Precio Unitario", "Cantidad", "Subtotal",};
+    }
+    
+    @Override
+    public String[] getDatosFila() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return new String[] {
+            this.dato.getPedido_id().toString(),
+            this.dato.getEstado(),
+            (this.dato.getFecha_pago()!=null) ? sdf.format(this.dato.getFecha_pago()) : "-",
+            (this.dato.getFecha_recojo()!=null) ? sdf.format(this.dato.getFecha_recojo()) : "-",
+            this.dato.getNombreProducto(),
+            this.dato.getTipo(),
+            this.dato.getTamanho().toString(),
+            String.format("S/.%.2f", this.dato.getPrecioUnitario()),
+            this.dato.getCantidad().toString(),
+            String.format("S/.%.2f", this.dato.getSubtotal()),
+        };
+    }
+
+    @Override
+    public float[] getAnchosColumnas() {
+        return new float[] {1f, 1.5f, 1.5f, 1.5f, 3f, 1f, 1.5f, 1.5f, 1.5f, 1.5f};
+    }
+
+    @Override
+    public double getMontoTotal() {
+        return this.dato.getSubtotal();
+    }
+    
+    @Override
+    public void assign(DatoReporteProductos dato){
+        this.dato = new DatoReporteProductos(dato);
+    }
+    
+    @Override
+    public String getTitulo(){
+        return "Reporte de Ventas\n";
+    }
+    
+    @Override
+    public String[] getSubtitulos(FiltroReporte filtro){
+        String prod = (filtro.getNombreProducto()!=null) ? filtro.getNombreProducto() : "Todos";
+        String producto = "Producto: " + prod + "\n";
+        String tp =(filtro.getNombreProducto()!=null) ? filtro.getTipoProducto(): "Todos";
+        String tipo = "Tipo: " + tp + "\n";
+        String est = (filtro.getEstadoPedido()!=null) ? filtro.getEstadoPedido(): "Cualquiera";
+        String estado = "Estado: " + est + "\n";
+        String [] subtitulos = {producto,tipo,estado};
+        return subtitulos;
+    }
 }

@@ -5,6 +5,7 @@
 package pe.edu.pucp.softinv.business.BO.Impl;
 
 import java.util.List;
+import pe.edu.pucp.softinv.dao.Reportable;
 import pe.edu.pucp.softinv.dao.ReporteProductosDAO;
 import pe.edu.pucp.softinv.dao.ReporteServiciosDAO;
 import pe.edu.pucp.softinv.daoImp.GeneradorReporte;
@@ -52,7 +53,8 @@ public class ReportesBO {
             return new byte[0];
         }
         
-        return generadorReporte.generarReporte(lista, filtroReporte);
+        Reportable<DatoReporteProductos> adaptador = new ReporteProductosDAOImpl();
+        return generadorReporte.generarReporte(lista, filtroReporte,adaptador);
     }
 
     //Generar Reporte de Servicios
@@ -75,7 +77,8 @@ public class ReportesBO {
             return new byte[0];
         }
 
-        return generadorReporte.generarReporte(lista, filtroReporte);
+        Reportable<DatoReporteServicios> adaptador = new ReporteServiciosDAOImpl();
+        return generadorReporte.generarReporte(lista, filtroReporte,adaptador);
     }
     
 }
