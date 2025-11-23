@@ -1,17 +1,14 @@
 ﻿using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSUsuario;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace MGBeautySpaWebAplication.Cuenta
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
         private UsuarioBO usuarioBO;
+
         public WebForm2()
         {
             usuarioBO = new UsuarioBO();
@@ -19,37 +16,29 @@ namespace MGBeautySpaWebAplication.Cuenta
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // IMPORTANTE: Esto habilita la validación en tiempo real (mensajes rojos dinámicos)
+            this.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
+
             if (!IsPostBack)
             {
                 string token = Request.QueryString["token"];
+
+                // Si no hay token o es inválido en la BD
                 if (string.IsNullOrEmpty(token))
                 {
-                    string script = @"document.getElementById('modalError').style.display = 'flex';";
-
-                    ScriptManager.RegisterStartupScript(
-                        this,
-                        this.GetType(),
-                        "MostrarModalError",
-                        script,
-                        true
-                    );
+                    MostrarModalBootstrap("modalError");
+                    return;
                 }
 
                 var infoT = usuarioBO.recuperarToken(token);
+
                 if (infoT == null || infoT.usado == 1 || infoT.fecha_expiracion < DateTime.Now)
                 {
-                    string script = @"document.getElementById('modalError').style.display = 'flex';";
-
-                    ScriptManager.RegisterStartupScript(
-                        this,
-                        this.GetType(),
-                        "MostrarModalError",
-                        script,
-                        true
-                    );
+                    MostrarModalBootstrap("modalError");
                 }
                 else
                 {
+                    // Token válido
                     Session["ResetUserId"] = infoT.usuarioId;
                     Session["ResetToken"] = infoT;
                 }
@@ -58,37 +47,69 @@ namespace MGBeautySpaWebAplication.Cuenta
 
         protected void btnModificaContraseña_Click(object sender, EventArgs e)
         {
-            // 1. Aquí va tu lógica para guardar en la base de datos...
-            int userId = (int)Session["ResetUserId"];
-            contrasenhaTokenDTO token = (contrasenhaTokenDTO)Session["ResetToken"];
+            if (!Page.IsValid) return;
 
-            string nuevaPass = txtPassword.Text.Trim();
-
-            token.fecha_expiracionSpecified = true;
-            token.usadoSpecified = true;
-            token.usado = 1;
-            token.usuarioIdSpecified = true;
-            token.tokenIdSpecified = true;
-            usuarioBO.tokenUsado(token);
-
-            if (usuarioBO.actualizarContraseña(userId, nuevaPass)==1)
+            // Verificamos que la sesión siga viva
+            if (Session["ResetUserId"] == null || Session["ResetToken"] == null)
             {
-                // Preparamos el script de JavaScript
-                string script = @"document.getElementById('modalExito').style.display = 'flex';";
+                MostrarModalBootstrap("modalError");
+                return;
+            }
 
-                // Usamos ScriptManager para ejecutar el script en el navegador
-                ScriptManager.RegisterStartupScript(
-                    this,
-                    this.GetType(),
-                    "MostrarModalExito",
-                    script,
-                    true
-                    );
-            }
-            else
+            try
             {
-                // Lógica si el registro falla (mostrar un mensaje de error, etc.)
+                int userId = (int)Session["ResetUserId"];
+                contrasenhaTokenDTO token = (contrasenhaTokenDTO)Session["ResetToken"];
+                string nuevaPass = txtPassword.Text.Trim();
+
+                // Marcar token como usado
+                token.fecha_expiracionSpecified = true;
+                token.usadoSpecified = true;
+                token.usado = 1;
+                token.usuarioIdSpecified = true;
+                token.tokenIdSpecified = true;
+
+                usuarioBO.tokenUsado(token);
+
+                // Actualizar contraseña
+                if (usuarioBO.actualizarContraseña(userId, nuevaPass) == 1)
+                {
+                    // Limpiar sesión por seguridad
+                    Session.Remove("ResetUserId");
+                    Session.Remove("ResetToken");
+
+                    // Mostrar éxito
+                    MostrarModalBootstrap("modalExito");
+                }
+                else
+                {
+                    // Si falla la BD
+                    // Podrías crear un 'modalFalloBD' o reutilizar error
+                    MostrarModalBootstrap("modalError");
+                }
             }
+            catch
+            {
+                MostrarModalBootstrap("modalError");
+            }
+        }
+
+        // Método auxiliar para abrir los modales de Bootstrap 5 correctamente
+        // Método auxiliar corregido
+        private void MostrarModalBootstrap(string modalId)
+        {
+            // Envolvemos el código en un evento 'load' para asegurarnos 
+            // de que la librería de Bootstrap ya se cargó antes de ejecutarlo.
+            string script = $@"
+            window.addEventListener('load', function() {{
+                var modalElement = document.getElementById('{modalId}');
+                if (modalElement) {{
+                    var myModal = new bootstrap.Modal(modalElement);
+                    myModal.show();
+                }}
+            }});";
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenModal", script, true);
         }
     }
 }
