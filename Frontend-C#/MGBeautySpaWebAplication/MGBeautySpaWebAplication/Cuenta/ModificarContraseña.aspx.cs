@@ -101,15 +101,22 @@ namespace MGBeautySpaWebAplication.Cuenta
             // Envolvemos el código en un evento 'load' para asegurarnos 
             // de que la librería de Bootstrap ya se cargó antes de ejecutarlo.
             string script = $@"
-            window.addEventListener('load', function() {{
-                var modalElement = document.getElementById('{modalId}');
-                if (modalElement) {{
-                    var myModal = new bootstrap.Modal(modalElement);
-                    myModal.show();
+                function openModal() {{
+                    var modalElement = document.getElementById('{modalId}');
+                    if (modalElement && typeof bootstrap !== 'undefined') {{
+                        var myModal = new bootstrap.Modal(modalElement);
+                        myModal.show();
+                    }}
                 }}
-            }});";
+        
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {{
+                    openModal();
+                }} else {{
+                    window.addEventListener('DOMContentLoaded', openModal);
+                }}
+            ";
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenModal", script, true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenModalScript", script, true);
         }
     }
 }
