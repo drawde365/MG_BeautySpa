@@ -27,7 +27,7 @@ namespace MGBeautySpaWebAplication.Admin
             public double Total { get; set; }
         }
 
-        // ViewModel para detalles de pedido (modal)
+        // ViewModel para detalles de pedido (modal de ver detalle)
         private class DetallePedidoViewModel
         {
             public string NombreProducto { get; set; }
@@ -177,7 +177,6 @@ namespace MGBeautySpaWebAplication.Admin
             var btnMarcarRecogido = (LinkButton)e.Item.FindControl("btnMarcarRecogido");
             var btnCancelar = (LinkButton)e.Item.FindControl("btnCancelar");
 
-            // Ver pedido -> siempre visible
             btnVerPedido.Visible = true;
 
             bool tieneFechaLista = vm.FechaListaParaRecojo.HasValue;
@@ -185,7 +184,6 @@ namespace MGBeautySpaWebAplication.Admin
             if (!tieneFechaLista)
             {
                 // Sin fecha lista para recoger:
-                // solo se puede definir fecha cuando está CONFIRMADO
                 btnDefinirFecha.Visible = (vm.Estado == estadoPedido.CONFIRMADO);
                 btnMarcarRecogido.Visible = false;
                 btnCancelar.Visible = false;
@@ -197,13 +195,11 @@ namespace MGBeautySpaWebAplication.Admin
 
                 if (vm.Estado == estadoPedido.LISTO_PARA_RECOGER)
                 {
-                    // Puede marcar recogido o no recogido
                     btnMarcarRecogido.Visible = true;
                     btnCancelar.Visible = true;
                 }
                 else
                 {
-                    // RECOGIDO o NO_RECOGIDO -> no hay acciones sobre estado
                     btnMarcarRecogido.Visible = false;
                     btnCancelar.Visible = false;
                 }
@@ -232,47 +228,190 @@ namespace MGBeautySpaWebAplication.Admin
                     break;
 
                 case "MarcarRecogido":
-                    {
-                        var pedido = pedidoBO.ObtenerPorId(idPedido);
-                        if (pedido == null) return;
-
-                        if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
-                        {
-                            ScriptManager.RegisterStartupScript(this, GetType(),
-                                "msg",
-                                "alert('Solo se pueden marcar como recogidos los pedidos que están LISTO_PARA_RECOGER.');",
-                                true);
-                            return;
-                        }
-
-                        pedidoBO.AceptarRecojo(pedido);
-                        RefrescarPedidosDesdeServicio();
-                    }
+                    PrepararModalRecogido(idPedido);
                     break;
 
                 case "CancelarPedido":
-                    {
-                        var pedido = pedidoBO.ObtenerPorId(idPedido);
-                        if (pedido == null) return;
-
-                        if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
-                        {
-                            ScriptManager.RegisterStartupScript(this, GetType(),
-                                "msg",
-                                "alert('Solo se pueden marcar como no recogidos los pedidos que están LISTO_PARA_RECOGER.');",
-                                true);
-                            return;
-                        }
-
-                        pedidoBO.RechazarRecojo(pedido);
-                        RefrescarPedidosDesdeServicio();
-                    }
+                    PrepararModalNoRecogido(idPedido);
                     break;
             }
         }
 
         // ===========================
-        // CARGAR DETALLE PARA EL MODAL
+        // MODAL: MARCAR RECOGIDO
+        // ===========================
+        private void PrepararModalRecogido(int idPedido)
+        {
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgEstadoIncorrecto",
+                    "alert('Solo se pueden marcar como RECOGIDOS los pedidos que están LISTO_PARA_RECOGER.');",
+                    true);
+                return;
+            }
+
+            string nombreCliente = pedido.cliente != null
+                ? (pedido.cliente.nombre + " " +
+                   pedido.cliente.primerapellido + " " +
+                   pedido.cliente.segundoapellido)
+                : "(Sin cliente)";
+
+            hfldPedidoRecogido.Value = pedido.idPedido.ToString();
+            litRecogidoPedido.Text = $"#{pedido.idPedido}";
+            litRecogidoCliente.Text = nombreCliente;
+            litRecogidoFechaProgramada.Text = pedido.fechaListaParaRecojoSpecified
+                ? pedido.fechaListaParaRecojo.ToString("dd/MM/yyyy")
+                : "-";
+
+            DateTime hoy = DateTime.Today;
+            DateTime? fechaLista = pedido.fechaListaParaRecojoSpecified ? (DateTime?)pedido.fechaListaParaRecojo : null;
+            DateTime fechaDefault = fechaLista.HasValue && fechaLista.Value.Date > hoy
+                ? fechaLista.Value.Date
+                : hoy;
+
+            txtFechaRecojoReal.Text = fechaDefault.ToString("yyyy-MM-dd");
+
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "showModalRecogido",
+                "var m = new bootstrap.Modal(document.getElementById('modalMarcarRecogido')); m.show();",
+                true);
+        }
+
+        protected void btnConfirmarRecogido_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(hfldPedidoRecogido.Value, out int idPedido))
+                return;
+
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgEstadoIncorrecto2",
+                    "alert('Solo se pueden marcar como RECOGIDOS los pedidos que están LISTO_PARA_RECOGER.');",
+                    true);
+                return;
+            }
+
+            if (!DateTime.TryParse(txtFechaRecojoReal.Text, out DateTime fechaRecojo))
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgFechaInvalida",
+                    "alert('Ingrese una fecha de recojo válida.');" +
+                    "var m = new bootstrap.Modal(document.getElementById('modalMarcarRecogido')); m.show();",
+                    true);
+                return;
+            }
+
+            DateTime hoy = DateTime.Today;
+            if (fechaRecojo.Date > hoy)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgFechaFutura",
+                    "alert('La fecha de recojo no puede ser futura.');" +
+                    "var m = new bootstrap.Modal(document.getElementById('modalMarcarRecogido')); m.show();",
+                    true);
+                return;
+            }
+
+            if (pedido.fechaListaParaRecojoSpecified &&
+                fechaRecojo.Date < pedido.fechaListaParaRecojo.Date)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgFechaMenorLista",
+                    "alert('La fecha de recojo debe ser mayor o igual a la fecha lista para recoger.');" +
+                    "var m = new bootstrap.Modal(document.getElementById('modalMarcarRecogido')); m.show();",
+                    true);
+
+
+                return;
+            }
+
+            pedido.fechaRecojo = fechaRecojo;
+            pedido.fechaRecojoSpecified = true;
+            pedido.estadoPedido = estadoPedido.RECOGIDO;
+            pedidoBO.AceptarRecojo(pedido);
+
+            // Mensaje bonito en modalMensajeAccion
+            litMensajeAccion.Text = "Pedido marcado como <strong>RECOGIDO</strong>.";
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "msgOkRecogido",
+                "var infoModal = new bootstrap.Modal(document.getElementById('modalMensajeAccion')); infoModal.show();",
+                true);
+
+            RefrescarPedidosDesdeServicio();
+        }
+
+        // ===========================
+        // MODAL: MARCAR NO RECOGIDO
+        // ===========================
+        private void PrepararModalNoRecogido(int idPedido)
+        {
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgEstadoIncorrectoNo",
+                    "alert('Solo se pueden marcar como NO_RECOGIDO los pedidos que están LISTO_PARA_RECOGER.');",
+                    true);
+                return;
+            }
+
+            string nombreCliente = pedido.cliente != null
+                ? (pedido.cliente.nombre + " " +
+                   pedido.cliente.primerapellido + " " +
+                   pedido.cliente.segundoapellido)
+                : "(Sin cliente)";
+
+            hfldPedidoNoRecogido.Value = pedido.idPedido.ToString();
+            litNoRecogidoPedido.Text = $"#{pedido.idPedido}";
+            litNoRecogidoCliente.Text = nombreCliente;
+
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "showModalNoRecogido",
+                "var m = new bootstrap.Modal(document.getElementById('modalNoRecogido')); m.show();",
+                true);
+        }
+
+        protected void btnConfirmarNoRecogido_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(hfldPedidoNoRecogido.Value, out int idPedido))
+                return;
+
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgEstadoIncorrectoNo2",
+                    "alert('Solo se pueden marcar como NO_RECOGIDO los pedidos que están LISTO_PARA_RECOGER.');",
+                    true);
+                return;
+            }
+
+            pedido.estadoPedido = estadoPedido.NO_RECOGIDO;
+            pedidoBO.RechazarRecojo(pedido);
+
+            // Mensaje bonito en modalMensajeAccion
+            litMensajeAccion.Text = "Pedido marcado como <strong>NO_RECOGIDO</strong>.";
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "msgOkNoRecogido",
+                "var infoModal = new bootstrap.Modal(document.getElementById('modalMensajeAccion')); infoModal.show();",
+                true);
+
+            RefrescarPedidosDesdeServicio();
+        }
+
+        // ===========================
+        // CARGAR DETALLE PARA EL MODAL DE VER PEDIDO
         // ===========================
         private void CargarDetallePedido(int idPedido)
         {
@@ -291,7 +430,7 @@ namespace MGBeautySpaWebAplication.Admin
             litDetEstado.Text = pedido.estadoPedido.ToString();
             litDetTotal.Text = pedido.total.ToString("F2");
 
-            IList<detallePedidoDTO> detalles = pedidoBO.ObtenerDetallesPorPedido(idPedido) ?? new List<detallePedidoDTO>();
+            IList<detallePedidoDTO> detalles = pedido.detallesPedido;
 
             var vmDetalles = detalles.Select(d =>
             {

@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="Administrar Servicios" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="AdmServicios.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.AdmServicios" %>
 
+<asp:Content ID="TitleContent1" ContentPlaceHolderID="TitleContent" runat="server">
+    Administrar servicios
+</asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>

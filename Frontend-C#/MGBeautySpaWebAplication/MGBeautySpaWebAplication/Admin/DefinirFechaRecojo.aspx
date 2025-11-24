@@ -1,5 +1,7 @@
-﻿<%@ Page Title="Definir fecha de recojo" Language="C#" MasterPageFile="~/Admin/Admin.Master"
-    AutoEventWireup="true" CodeBehind="DefinirFechaRecojo.aspx.cs"
+﻿<%@ Page Title="Definir fecha de recojo" Language="C#"
+    MasterPageFile="~/Admin/Admin.Master"
+    AutoEventWireup="true"
+    CodeBehind="DefinirFechaRecojo.aspx.cs"
     Inherits="MGBeautySpaWebAplication.Admin.DefinirFechaRecojo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -28,6 +30,41 @@
             color: #6C6C6C !important;
             cursor: not-allowed !important;
         }
+
+        /* -------------------------
+           NUEVO ESTILO PARA AÑADIR STOCK
+           ------------------------- */
+        .btn-add-stock {
+            background-color: white;
+            color: #0B63CE;
+            border: 1px solid #0B63CE;
+            border-radius: 999px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 14px;
+            line-height: 1.1;
+            display: inline-block;
+        }
+
+        .btn-add-stock:hover {
+            background-color: #0B63CE;
+            color: white;
+        }
+
+        .td-add-stock {
+            width: 150px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .td-add-stock .form-control {
+            height: 32px;
+            font-size: 13px;
+            padding: 4px 8px;
+            margin: auto;
+            text-align: center;
+        }
     </style>
 
 </asp:Content>
@@ -54,7 +91,8 @@
             </tr>
         </thead>
         <tbody>
-            <asp:Repeater ID="rptDetalles" runat="server" OnItemCommand="rptDetalles_ItemCommand">
+            <asp:Repeater ID="rptDetalles" runat="server"
+                          OnItemCommand="rptDetalles_ItemCommand">
                 <ItemTemplate>
                     <tr>
                         <td><%# Eval("NombreProducto") %></td>
@@ -69,13 +107,18 @@
                                 : "<span style='color:#047857;'>OK</span>" %>
                         </td>
 
-                        <td>
-                            <asp:TextBox ID="txtAgregar" runat="server" CssClass="form-control" Style="max-width: 90px;" />
-                            <asp:LinkButton ID="btnAgregar" runat="server"
-                                Text="Añadir"
-                                CssClass="btn btn-outline-primary mt-1"
+                        <td class="td-add-stock">
+                            <asp:TextBox ID="txtAgregar" runat="server"
+                                         CssClass="form-control"
+                                         Style="max-width: 90px;"></asp:TextBox>
+
+                            <asp:LinkButton ID="btnAgregar"
+                                runat="server"
                                 CommandName="AgregarStock"
-                                CommandArgument='<%# Eval("Index") %>'></asp:LinkButton>
+                                CommandArgument='<%# Eval("Index") %>'
+                                CssClass="btn-add-stock mt-2">
+                                Añadir
+                            </asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -88,7 +131,7 @@
         <asp:Label ID="lblResumenStock" runat="server" CssClass="fw-semibold"></asp:Label>
     </div>
 
-    <!-- FECHA LISTA PARA RECOGER (AUTOMÁTICA = HOY) -->
+    <!-- FECHA LISTA PARA RECOGER -->
     <div class="mt-3 mb-2">
         <label class="form-label fw-semibold">Lista para recoger (fecha actual):</label>
 
@@ -96,10 +139,11 @@
             <asp:Label ID="lblFechaActual" runat="server" CssClass="fw-bold"></asp:Label>
         </p>
 
-        <small class="text-muted">Se utilizará automáticamente la fecha actual.</small>
+        <small class="text-muted">
+            Se utilizará automáticamente la fecha actual.
+        </small>
     </div>
 
-    <!-- Fecha actual en oculto por si la quieres usar en el servidor -->
     <asp:HiddenField ID="hfFechaActual" runat="server" />
 
     <!-- BOTONES -->
@@ -115,7 +159,7 @@
 
     <asp:HiddenField ID="hfIdPedido" runat="server" />
 
-    <!-- MODAL CONFIRMACIÓN FECHA GUARDADA -->
+    <!-- MODAL CONFIRMACIÓN -->
     <div class="modal fade" id="modalFechaOk" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

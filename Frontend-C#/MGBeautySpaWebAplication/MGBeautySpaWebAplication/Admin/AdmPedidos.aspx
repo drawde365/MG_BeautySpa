@@ -162,6 +162,8 @@
         }
     </style>
 
+
+
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
@@ -175,19 +177,18 @@
 
         <div class="search-and-filters">
 
-            <!-- BUSCADOR -->
+            <!-- BUSCADOR (por nombre de cliente) -->
             <div class="search-box">
                 <input type="text"
                        id="searchPedidos"
                        class="form-control"
-                       placeholder="Buscar por código, cliente, estado..." />
+                       placeholder="Buscar por nombre de cliente..." />
             </div>
 
-            <!-- FILTRO: PEDIDOS CON / SIN FECHA LISTA PARA RECOGER -->
-            <select id="filterFecha" class="filter-select">
-                <option value="">Todos (con y sin fecha)</option>
-                <option value="sin">Sin fecha de recojo</option>
-                <option value="con">Con fecha de recojo</option>
+            <!-- ORDENAR POR TOTAL -->
+            <select id="orderTotal" class="filter-select">
+                <option value="">Sin ordenar</option>
+                <option value="desc">Mayor total de dinero</option>
             </select>
 
             <!-- FILTRO: ESTADO DEL PEDIDO -->
@@ -228,7 +229,9 @@
             <ItemTemplate>
                 <tr data-id='<%# Eval("IdPedido") %>'
                     data-estado='<%# Eval("Estado") %>'
-                    data-tienefecha='<%# (Eval("FechaListaParaRecojo") == null ? "0" : "1") %>'>
+                    data-tienefecha='<%# (Eval("FechaListaParaRecojo") == null ? "0" : "1") %>'
+                    data-cliente='<%# Eval("NombreCliente") %>'
+                    data-total='<%# Eval("Total", "{0:F2}") %>'>
 
                     <td>
                         <strong>#<%# Eval("IdPedido") %></strong><br />
@@ -261,7 +264,7 @@
                             <i class="bi bi-eye"></i>
                         </asp:LinkButton>
 
-                        <!-- Asignar fecha (solo sin fecha lista para recoger) -->
+                        <!-- Asignar fecha (CONFIRMADO sin fecha lista para recoger) -->
                         <asp:LinkButton ID="btnDefinirFecha" runat="server"
                             CssClass="action-icon action-definir-fecha"
                             CommandName="DefinirFecha"
@@ -270,7 +273,7 @@
                             <i class="bi bi-calendar-check"></i>
                         </asp:LinkButton>
 
-                        <!-- Marcar como recogido (solo con fecha lista para recoger y estado LISTO_PARA_RECOGER) -->
+                        <!-- Marcar como recogido (LISTO_PARA_RECOGER) -->
                         <asp:LinkButton ID="btnMarcarRecogido" runat="server"
                             CssClass="action-icon action-marcar-recogido"
                             CommandName="MarcarRecogido"
@@ -279,13 +282,13 @@
                             <i class="bi bi-bag-check"></i>
                         </asp:LinkButton>
 
-                        <!-- Marcar como no recogido (solo con fecha lista para recoger y estado LISTO_PARA_RECOGER) -->
+                        <!-- Marcar como no recogido (LISTO_PARA_RECOGER) -->
                         <asp:LinkButton ID="btnCancelar" runat="server"
                             CssClass="action-icon action-cancelar"
                             CommandName="CancelarPedido"
                             CommandArgument='<%# Eval("IdPedido") %>'
                             ToolTip="Marcar como no recogido">
-                            <i class="bi bi-trash-fill"></i>
+                            <i class="bi bi-x-lg"></i>
                         </asp:LinkButton>
 
                     </td>
@@ -379,53 +382,178 @@
         </div>
     </div>
 
+    <!-- MODAL: MARCAR COMO RECOGIDO -->
+    <div class="modal fade" id="modalMarcarRecogido" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Marcar pedido como recogido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <asp:HiddenField ID="hfldPedidoRecogido" runat="server" />
+
+                    <p class="mb-1">
+                        <strong>Pedido:</strong>
+                        <asp:Literal ID="litRecogidoPedido" runat="server"></asp:Literal>
+                    </p>
+                    <p class="mb-1">
+                        <strong>Cliente:</strong>
+                        <asp:Literal ID="litRecogidoCliente" runat="server"></asp:Literal>
+                    </p>
+                    <p class="mb-3">
+                        <strong>Fecha lista para recoger:</strong>
+                        <asp:Literal ID="litRecogidoFechaProgramada" runat="server"></asp:Literal>
+                    </p>
+
+                    <div class="mb-3">
+                        <label for="txtFechaRecojoReal" class="form-label">
+                            Fecha real de recojo
+                        </label>
+                        <asp:TextBox ID="txtFechaRecojoReal" runat="server"
+                                     CssClass="form-control"
+                                     TextMode="Date"></asp:TextBox>
+                        <small class="text-muted">
+                            Debe ser una fecha pasada o de hoy, y mayor o igual a la fecha lista para recoger.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <asp:LinkButton ID="btnConfirmarRecogido" runat="server"
+                                    CssClass="btn btn-primary"
+                                    OnClick="btnConfirmarRecogido_Click">
+                        Guardar
+                    </asp:LinkButton>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: MARCAR COMO NO RECOGIDO -->
+    <div class="modal fade" id="modalNoRecogido" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Marcar pedido como NO recogido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <asp:HiddenField ID="hfldPedidoNoRecogido" runat="server" />
+
+                    <p class="mb-1">
+                        <strong>Pedido:</strong>
+                        <asp:Literal ID="litNoRecogidoPedido" runat="server"></asp:Literal>
+                    </p>
+                    <p class="mb-3">
+                        <strong>Cliente:</strong>
+                        <asp:Literal ID="litNoRecogidoCliente" runat="server"></asp:Literal>
+                    </p>
+
+                    <p class="text-danger mb-0">
+                        ¿Está seguro de marcar este pedido como <strong>NO_RECOGIDO</strong>?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <asp:LinkButton ID="btnConfirmarNoRecogido" runat="server"
+                                    CssClass="btn btn-danger"
+                                    OnClick="btnConfirmarNoRecogido_Click">
+                        Sí, marcar como no recogido
+                    </asp:LinkButton>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: MENSAJE DE ACCIÓN (CONFIRMACIÓN BONITA) -->
+    <div class="modal fade" id="modalMensajeAccion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Acción realizada</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <asp:Literal ID="litMensajeAccion" runat="server"></asp:Literal>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        Aceptar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
-
     <script>
         (function () {
-
             const searchInput = document.getElementById("searchPedidos");
-            const filterFecha = document.getElementById("filterFecha");
             const filterEstado = document.getElementById("filterEstado");
-            const rows = document.querySelectorAll("#tbodyPedidos tr[data-id]");
+            const orderTotal = document.getElementById("orderTotal");
+            const tbody = document.getElementById("tbodyPedidos");
+
+            function getRows() {
+                return Array.from(tbody.querySelectorAll("tr[data-id]"));
+            }
 
             function filtrarPedidos() {
                 const text = (searchInput?.value || "").toLowerCase();
-                const fFecha = filterFecha ? filterFecha.value : "";
                 const fEstado = filterEstado ? filterEstado.value : "";
 
-                rows.forEach(row => {
-                    const estado = row.dataset.estado;          // CONFIRMADO / LISTO_PARA_RECOGER / ...
-                    const tieneFecha = row.dataset.tienefecha;  // "1" / "0"
-                    const contenido = row.innerText.toLowerCase();
+                getRows().forEach(row => {
+                    const estado = row.dataset.estado;
+                    const cliente = (row.dataset.cliente || "").toLowerCase();
 
-                    const okTexto = contenido.includes(text);
-
-                    let okFecha = true;
-                    if (fFecha === "con") {
-                        okFecha = (tieneFecha === "1");
-                    } else if (fFecha === "sin") {
-                        okFecha = (tieneFecha === "0");
-                    }
-
+                    const okTexto = cliente.includes(text);
                     let okEstado = true;
+
                     if (fEstado !== "") {
                         okEstado = (estado === fEstado);
                     }
 
-                    row.style.display = (okTexto && okFecha && okEstado) ? "" : "none";
+                    row.style.display = (okTexto && okEstado) ? "" : "none";
                 });
             }
 
+            function ordenarPorTotal() {
+                const modo = orderTotal ? orderTotal.value : "";
+                if (!modo) return;
+
+                const filas = getRows();
+                filas.sort((a, b) => {
+                    const ta = parseFloat(a.dataset.total || "0");
+                    const tb = parseFloat(b.dataset.total || "0");
+                    return modo === "desc" ? (tb - ta) : (ta - tb);
+                });
+
+                filas.forEach(f => tbody.appendChild(f));
+            }
+
             if (searchInput) searchInput.addEventListener("input", filtrarPedidos);
-            if (filterFecha) filterFecha.addEventListener("change", filtrarPedidos);
             if (filterEstado) filterEstado.addEventListener("change", filtrarPedidos);
+            if (orderTotal) orderTotal.addEventListener("change", ordenarPorTotal);
 
-            // Aplicar filtro inicial
             filtrarPedidos();
-
         })();
     </script>
 </asp:Content>

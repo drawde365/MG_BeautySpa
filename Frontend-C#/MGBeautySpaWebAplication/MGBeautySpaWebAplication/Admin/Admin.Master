@@ -103,7 +103,7 @@
                         <asp:HyperLink ID="navBuscarUsuarios" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/BuscarUsuarios.aspx">
                             <i class="icon-search" style="font-size: 1.25rem; width: 26px;"></i>
-                            <span>Buscar usuarios</span>
+                            <span>Gestion de Usuarios</span>
                         </asp:HyperLink>
                     </li>
 

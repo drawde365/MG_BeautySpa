@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="Generar Reportes" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Reportes.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.Reportes" %>
 
+<asp:Content ID="TitleContent1" ContentPlaceHolderID="TitleContent" runat="server">
+    Generar reporte
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
         /* Estilos generales de la fuente */

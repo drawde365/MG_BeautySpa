@@ -7,7 +7,27 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+
+
     <style>
+
+        /* Forzar el color verde del ítem activo del menú lateral */
+        .sidebar .nav-link.active,
+        .sidebar .nav-link.active:hover,
+        .sidebar .nav-link.active:focus {
+            background-color: #107369 !important;  /* tu verde */
+            color: white !important;
+        }
+
+        /* Forzar que el texto del menú nunca sea azul */
+        .sidebar .nav-link,
+        .sidebar .nav-link span,
+        .sidebar .nav-link i {
+            color: white !important;
+        }
+
+
         .h1-admin-title { font-family: 'ZCOOL XiaoWei', serif; font-size: 48px; line-height: 40px; color: #1A0F12; }
         .search-box {
             border-radius: 12px;
@@ -63,7 +83,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container py-4">
 
-        <h1 class="h1-admin-title">Buscar usuarios</h1>
+        <h1 class="h1-admin-title">Gestion de usuarios</h1>
 
         <!-- FILA DE BUSQUEDA Y FILTRO -->
         <div class="d-flex align-items-center gap-3 mb-4">

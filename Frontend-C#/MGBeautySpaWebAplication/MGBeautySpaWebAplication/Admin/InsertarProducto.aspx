@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="Añadir Producto" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="InsertarProducto.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.InsertarProducto" %>
 
+<asp:Content ID="TitleContent1" ContentPlaceHolderID="TitleContent" runat="server">
+    Modificar producto
+</asp:Content>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     
     <style>
