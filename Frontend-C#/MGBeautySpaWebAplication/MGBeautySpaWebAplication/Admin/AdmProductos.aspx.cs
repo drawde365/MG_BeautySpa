@@ -93,6 +93,8 @@ namespace MGBeautySpaWebAplication.Admin
                 productoParaEliminar.idProducto = idProducto;
                 productoParaEliminar.idProductoSpecified = true;
                 productoParaEliminar = productoBO.buscarPorId(idProducto);
+                productoParaEliminar.promedioValoracion = 0;
+                productoParaEliminar.promedioValoracionSpecified = true;
                 productoBO.eliminar(productoParaEliminar);
                 Response.Redirect(Request.RawUrl, false);
             }
