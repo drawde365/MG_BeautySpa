@@ -1,9 +1,13 @@
 ﻿using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSPedido;
 using SoftInvBusiness.SoftInvWSProductos;
+using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Policy;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,7 +17,8 @@ namespace MGBeautySpaWebAplication.Admin
     {
         private readonly PedidoBO pedidoBO = new PedidoBO();
         private readonly ProductoTipoBO productoTipoBO = new ProductoTipoBO();
-
+        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
+        private const string contraseñaApp = "beprxkazzucjiwom";
         private class DetalleViewModel
         {
             public int Index { get; set; }
@@ -216,13 +221,32 @@ namespace MGBeautySpaWebAplication.Admin
             pedidoBO.Modificar(pedido);
 
             // Notificar al cliente (cuando el backend lo implemente)
-            pedidoBO.EnviarFechaDeRecojoACliente(pedido);
+            EnviarCorreoNotificandoCliente(pedido);
 
             // Mostrar modal de éxito
             ScriptManager.RegisterStartupScript(this, GetType(),
                 "showFechaOk",
                 "var m = new bootstrap.Modal(document.getElementById('modalFechaOk')); m.show();",
                 true);
+        }
+
+        private void EnviarCorreoNotificandoCliente(pedidoDTO pedido)
+        {
+            // Configurar correo
+            MailMessage mensaje = new MailMessage();
+            mensaje.From = new MailAddress(correoEmpresa);
+            mensaje.To.Add(pedido.cliente.correoElectronico);
+            mensaje.Subject = "Tu pedido te está esperando | MG Beauty SPA";
+            mensaje.Body = "¡Hola, " + pedido.cliente.nombre + "!\n\n" +
+                           "¡Buenas noticias! Tu pedido nro "+ pedido.idPedido + " ya está listo para recoger.\n" + "Pásate por la tienda cuando puedas, estaremos encantados de atenderte.\n\n"+ 
+                           "Si necesitas algo más, solo avísanos.\n¡Gracias por elegirnos!\n"+"MG Beauty SPA";
+            mensaje.IsBodyHtml = false;
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
+            smtp.EnableSsl = true;
+
+            smtp.Send(mensaje);
         }
     }
 }

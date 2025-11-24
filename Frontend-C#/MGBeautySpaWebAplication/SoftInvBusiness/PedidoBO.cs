@@ -96,15 +96,10 @@ namespace SoftInvBusiness
             return pedidoSOAP.ComprobarDetallesPedidos(idPedido);
         }
 
-        public void EnviarFechaDeRecojoACliente(pedidoDTO pedido)
-        {
-            //todavia no lo tengo en el backend pero asume que ya esta, no varia en el resultado            
-
-        }
-
         public int ModificarProductoTipo(productoTipoDTO productoTipo)
         {
             return pedidoSOAP.modificarProductoTipo(productoTipo);
         }
+
     }
 }
