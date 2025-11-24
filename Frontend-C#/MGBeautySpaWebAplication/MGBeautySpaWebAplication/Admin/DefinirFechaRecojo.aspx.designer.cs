@@ -15,15 +15,6 @@ namespace MGBeautySpaWebAplication.Admin
     {
 
         /// <summary>
-        /// Control hfIdPedido.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfIdPedido;
-
-        /// <summary>
         /// Control lblInfoPedido.
         /// </summary>
         /// <remarks>
@@ -69,12 +60,12 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.Button btnGuardarFecha;
 
         /// <summary>
-        /// Control lnkVolver.
+        /// Control hfIdPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkVolver;
+        protected global::System.Web.UI.WebControls.HiddenField hfIdPedido;
     }
 }

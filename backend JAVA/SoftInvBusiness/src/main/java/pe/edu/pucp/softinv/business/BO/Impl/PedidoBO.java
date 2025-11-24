@@ -134,6 +134,9 @@ public class PedidoBO {
                     );
             productoTipo.setStock_fisico(productoTipo.getStock_fisico()-detallePedido.getCantidad());
             productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
+            
+            
+            productoDAO.modificar(productoTipo);
         }
         return pedidoDAO.modificar(pedido);
     }
@@ -146,6 +149,7 @@ public class PedidoBO {
                     detallePedido.getProducto().getProducto().getIdProducto(),
                     detallePedido.getProducto().getTipo().getId());
             productoTipo.setStock_despacho(productoTipo.getStock_despacho()-detallePedido.getCantidad());
+            productoDAO.modificar(productoTipo);
         }
         return pedidoDAO.modificar(pedido);
     }

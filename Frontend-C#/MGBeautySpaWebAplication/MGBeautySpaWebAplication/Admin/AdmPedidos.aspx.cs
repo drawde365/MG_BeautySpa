@@ -29,14 +29,8 @@ namespace MGBeautySpaWebAplication.Admin
 
         private List<PedidoViewModel> PedidosEnSesion
         {
-            get
-            {
-                return (List<PedidoViewModel>)(Session[SESSION_KEY_PEDIDOS] ?? new List<PedidoViewModel>());
-            }
-            set
-            {
-                Session[SESSION_KEY_PEDIDOS] = value;
-            }
+            get => (List<PedidoViewModel>)(Session[SESSION_KEY_PEDIDOS] ?? new List<PedidoViewModel>());
+            set => Session[SESSION_KEY_PEDIDOS] = value;
         }
 
         // ===========================
@@ -46,12 +40,10 @@ namespace MGBeautySpaWebAplication.Admin
         {
             if (!IsPostBack)
             {
-                // Primera carga: trae pedidos del backend y los guarda en sesión
                 RefrescarPedidosDesdeServicio();
             }
             else
             {
-                // En postbacks (acciones), volvemos a bindear desde sesión
                 CargarPedidosDesdeSesion();
             }
         }
@@ -63,9 +55,9 @@ namespace MGBeautySpaWebAplication.Admin
         {
             IList<pedidoDTO> lista = pedidoBO.ListarTodosPedidos() ?? new List<pedidoDTO>();
 
+            // Filtro: no considerar EnCarrito
             var vm = lista
-                .Where(p => p.estadoPedido != estadoPedido.EnCarrito &&
-                            p.estadoPedido != estadoPedido.ELIMINADO)
+                .Where(p => p.estadoPedido != estadoPedido.EnCarrito)
                 .Select(MapearPedidoDTO)
                 .ToList();
 
@@ -136,22 +128,16 @@ namespace MGBeautySpaWebAplication.Admin
             }
             else
             {
-                // por si viene como string
                 Enum.TryParse(estadoObj.ToString(), out est);
             }
 
             switch (est)
             {
-                case estadoPedido.CONFIRMADO:
-                    return "badge-confirmado";
-                case estadoPedido.LISTO_PARA_RECOGER:
-                    return "badge-listo";
-                case estadoPedido.RECOGIDO:
-                    return "badge-recogido";
-                case estadoPedido.NO_RECOGIDO:
-                    return "badge-norecogido";
-                default:
-                    return "badge-confirmado";
+                case estadoPedido.CONFIRMADO: return "badge-confirmado";
+                case estadoPedido.LISTO_PARA_RECOGER: return "badge-listo";
+                case estadoPedido.RECOGIDO: return "badge-recogido";
+                case estadoPedido.NO_RECOGIDO: return "badge-norecogido";
+                default: return "badge-confirmado";
             }
         }
 
@@ -171,9 +157,9 @@ namespace MGBeautySpaWebAplication.Admin
             var btnCancelar = (LinkButton)e.Item.FindControl("btnCancelar");
 
             // Reglas:
-            // - CONFIRMADO: solo definir fecha
-            // - LISTO_PARA_RECOGER: definir (modificar), marcar recogido, marcar no recogido
-            // - RECOGIDO / NO_RECOGIDO: sin acciones
+            // - CONFIRMADO: solo definir fecha (verde)
+            // - LISTO_PARA_RECOGER: todas las acciones
+            // - RECOGIDO / NO_RECOGIDO: solo ver información, sin botones
             if (vm.Estado == estadoPedido.CONFIRMADO)
             {
                 btnDefinirFecha.Enabled = true;
@@ -214,43 +200,167 @@ namespace MGBeautySpaWebAplication.Admin
                     break;
 
                 case "MarcarRecogido":
-                    {
-                        var pedido = pedidoBO.ObtenerPorId(idPedido);
-                        if (pedido == null) return;
-
-                        if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
-                        {
-                            ScriptManager.RegisterStartupScript(this, GetType(),
-                                "msg",
-                                "alert('Solo se pueden marcar como recogidos los pedidos que están LISTO_PARA_RECOGER.');",
-                                true);
-                            return;
-                        }
-
-                        pedidoBO.AceptarRecojo(pedido);
-                        RefrescarPedidosDesdeServicio();
-                    }
+                    AbrirModalRecojo(idPedido);
                     break;
 
                 case "CancelarPedido":
-                    {
-                        var pedido = pedidoBO.ObtenerPorId(idPedido);
-                        if (pedido == null) return;
-
-                        if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
-                        {
-                            ScriptManager.RegisterStartupScript(this, GetType(),
-                                "msg",
-                                "alert('Solo se pueden marcar como no recogidos los pedidos que están LISTO_PARA_RECOGER.');",
-                                true);
-                            return;
-                        }
-
-                        pedidoBO.RechazarRecojo(pedido);
-                        RefrescarPedidosDesdeServicio();
-                    }
+                    AbrirModalCancelar(idPedido);
                     break;
             }
+        }
+
+        // ===========================
+        // MODAL RECOJO
+        // ===========================
+        private void AbrirModalRecojo(int idPedido)
+        {
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgEstadoInvalido",
+                    "alert('Solo se pueden registrar recojos para pedidos que están LISTO_PARA_RECOGER.');",
+                    true);
+                return;
+            }
+
+            hfIdPedidoRecojo.Value = idPedido.ToString();
+
+            string nombreCliente = pedido.cliente != null
+                ? (pedido.cliente.nombre + " " +
+                   pedido.cliente.primerapellido + " " +
+                   pedido.cliente.segundoapellido)
+                : "(Sin cliente)";
+
+            lblInfoRecojo.Text =
+                $"Pedido #{pedido.idPedido} – {nombreCliente} (CODTR: {pedido.codigoTransaccion})";
+
+            // Por defecto, hoy
+            txtFechaRecojoModal.Text = DateTime.Today.ToString("yyyy-MM-dd");
+
+            MostrarModalRecojo();
+        }
+
+        private void MostrarModalRecojo()
+        {
+            string script = "var m = new bootstrap.Modal(document.getElementById('modalRecojo')); m.show();";
+            ScriptManager.RegisterStartupScript(this, GetType(), "showModalRecojo", script, true);
+        }
+
+        protected void btnGuardarFechaRecojo_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(hfIdPedidoRecojo.Value, out int idPedido))
+                return;
+
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (!DateTime.TryParse(txtFechaRecojoModal.Text, out DateTime fechaRecojo))
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgFechaInvalida",
+                    "alert('Seleccione una fecha de recojo válida.');",
+                    true);
+                MostrarModalRecojo();
+                return;
+            }
+
+            // Validación: no futura
+            if (fechaRecojo.Date > DateTime.Today)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgFechaFutura",
+                    "alert('La fecha de recojo no puede ser futura.');",
+                    true);
+                MostrarModalRecojo();
+                return;
+            }
+
+            // Validación: >= fecha lista para recoger (si existe)
+            if (pedido.fechaListaParaRecojoSpecified &&
+                fechaRecojo.Date < pedido.fechaListaParaRecojo.Date)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgFechaMenorLista",
+                    "alert('La fecha de recojo debe ser mayor o igual a la fecha \"lista para recoger\".');",
+                    true);
+                MostrarModalRecojo();
+                return;
+            }
+
+            // Actualizar DTO antes de llamar al backend
+            pedido.fechaRecojo = fechaRecojo;
+            pedido.fechaRecojoSpecified = true;
+            pedido.estadoPedido = estadoPedido.RECOGIDO;
+
+            pedidoBO.AceptarRecojo(pedido);
+
+            RefrescarPedidosDesdeServicio();
+
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "msgRecojoOk",
+                "alert('Fecha de recojo guardada correctamente.');",
+                true);
+        }
+
+        // ===========================
+        // MODAL CANCELAR (NO RECOGIDO)
+        // ===========================
+        private void AbrirModalCancelar(int idPedido)
+        {
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "msgCancelarEstadoInvalido",
+                    "alert('Solo se pueden marcar como NO RECOGIDOS los pedidos que están LISTO_PARA_RECOGER.');",
+                    true);
+                return;
+            }
+
+            hfIdPedidoCancelar.Value = idPedido.ToString();
+
+            string nombreCliente = pedido.cliente != null
+                ? (pedido.cliente.nombre + " " +
+                   pedido.cliente.primerapellido + " " +
+                   pedido.cliente.segundoapellido)
+                : "(Sin cliente)";
+
+            lblCancelarInfo.Text =
+                $"Pedido #{pedido.idPedido} – {nombreCliente} (CODTR: {pedido.codigoTransaccion})";
+
+            MostrarModalCancelar();
+        }
+
+        private void MostrarModalCancelar()
+        {
+            string script = "var m = new bootstrap.Modal(document.getElementById('modalCancelarPedido')); m.show();";
+            ScriptManager.RegisterStartupScript(this, GetType(), "showModalCancelar", script, true);
+        }
+
+        protected void btnConfirmarCancelar_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(hfIdPedidoCancelar.Value, out int idPedido))
+                return;
+
+            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            if (pedido == null) return;
+
+            // Actualizamos el estado en el DTO antes de llamar al BO
+            pedido.estadoPedido = estadoPedido.NO_RECOGIDO;
+
+            pedidoBO.RechazarRecojo(pedido);
+
+            RefrescarPedidosDesdeServicio();
+
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "msgCancelOk",
+                "alert('El pedido se marcó como NO RECOGIDO correctamente.');",
+                true);
         }
     }
 }
