@@ -272,6 +272,8 @@ namespace MGBeautySpaWebAplication.Empleado
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModificarModal",
                     "var myModal = bootstrap.Modal.getInstance(document.getElementById('modificarCitaModal')); myModal.hide(); alert('Cita modificada con éxito.');",
                     true);
+
+                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
@@ -287,7 +289,7 @@ namespace MGBeautySpaWebAplication.Empleado
             mensaje.Subject = "Tu cita ha cambiado | MG Beauty SPA";
             mensaje.Body = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
                            "Te escribimos para avisarte que tu cita programada para el día "+fechaAnterior.ToString("dd/MM/yyyy")+" para el servicio "+
-                           citaParaModificar.servicio.nombre+" ha sido reprogramada.\n"+ "La nueva fecha y hora es: "+ citaParaModificar.fecha.ToString("dd/MM/yyyy") +" a las "+citaParaModificar.fecha.ToString("hh:mm:ss")+
+                           citaParaModificar.servicio.nombre+" ha sido reprogramada.\n"+ "La nueva fecha y hora es: "+ citaParaModificar.fecha.ToString("dd/MM/yyyy") +" a las "+citaParaModificar.horaIni.ToString() +
                            "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!"+"\nMG Beauty SPA";
             mensaje.IsBodyHtml = false;
 

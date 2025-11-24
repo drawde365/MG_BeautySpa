@@ -74,32 +74,32 @@
                 
                 <div class="col-12">
                     <label class="form-label fw-medium">Nombres</label>
-                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingrese su nombre" />
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingrese su nombre" MaxLength="30" />
                     <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label fw-medium">Apellido Paterno</label>
-                    <asp:TextBox ID="txtApellidoP" runat="server" CssClass="form-control" placeholder="Apellido paterno" />
+                    <asp:TextBox ID="txtApellidoP" runat="server" CssClass="form-control" placeholder="Apellido paterno" MaxLength="30"/>
                     <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellidoP" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label fw-medium">Apellido Materno</label>
-                    <asp:TextBox ID="txtApellidoM" runat="server" CssClass="form-control" placeholder="Apellido materno" />
+                    <asp:TextBox ID="txtApellidoM" runat="server" CssClass="form-control" placeholder="Apellido materno" MaxLength="30"/>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtApellidoM" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label fw-medium">Celular</label>
-                    <asp:TextBox ID="txtCelular" runat="server" CssClass="form-control" placeholder="999 999 999" />
+                    <asp:TextBox ID="txtCelular" runat="server" CssClass="form-control" placeholder="999 999 999" MaxLength="9"/>
                     <asp:RequiredFieldValidator ID="rfvCelular" runat="server" ControlToValidate="txtCelular" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
                     <asp:RegularExpressionValidator ID="revCelular" runat="server" ControlToValidate="txtCelular" ValidationExpression="^\d{9}$" ErrorMessage="9 dígitos req." CssClass="text-danger small" Display="Dynamic" />
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label fw-medium">Correo electrónico</label>
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" placeholder="correo@ejemplo.com" />
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" placeholder="correo@ejemplo.com" MaxLength="100"/>
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Obligatorio" CssClass="text-danger small" Display="Dynamic" />
                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Inválido" CssClass="text-danger small" Display="Dynamic" />
                 </div>
@@ -107,7 +107,7 @@
                 <div class="col-md-6">
                     <label class="form-label fw-medium">Contraseña</label>
                     <div class="input-group">
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="******" />
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="******" MaxLength="25"/>
                         <span class="input-group-text bg-white border-start-0">
                             <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtPassword.ClientID %>', this)"></i>
                         </span>
@@ -118,7 +118,7 @@
                 <div class="col-md-6">
                     <label class="form-label fw-medium">Confirmar contraseña</label>
                     <div class="input-group">
-                        <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="******" />
+                        <asp:TextBox ID="txtConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="******" MaxLength="25"/>
                         <span class="input-group-text bg-white border-start-0">
                             <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtConfirmar.ClientID %>', this)"></i>
                         </span>
