@@ -37,33 +37,34 @@ namespace MGBeautySpaWebAplication.Admin
 
                 hfIdPedido.Value = idPedido.ToString();
 
-                // Cargar info básica y detalles
+                // Info y detalles
                 CargarDatosPedido(idPedido);
                 CargarDetalles(idPedido);
 
-                // Verificamos si YA tiene fecha de recojo
                 var pedido = pedidoBO.ObtenerPorId(idPedido);
+
                 if (pedido != null && pedido.fechaListaParaRecojoSpecified)
                 {
-                    // Mostrar fecha ya definida
-                    txtFechaRecojo.Text = pedido.fechaListaParaRecojo.ToString("yyyy-MM-dd");
+                    // Ya tiene fecha lista para recoger -> mostrarla y bloquear todo
+                    lblFechaActual.Text = pedido.fechaListaParaRecojo.ToString("dd/MM/yyyy");
+                    hfFechaActual.Value = pedido.fechaListaParaRecojo.ToString("yyyy-MM-dd");
 
-                    // Bloquear edición
-                    txtFechaRecojo.Enabled = false;
                     btnGuardarFecha.Enabled = false;
 
-                    // Mensaje informativo
-                    lblResumenStock.Text = "Este pedido ya tiene una fecha de recojo definida y no puede modificarse.";
+                    lblResumenStock.Text = "Este pedido ya tiene una fecha lista para recoger definida y no puede modificarse.";
                     lblResumenStock.ForeColor = System.Drawing.ColorTranslator.FromHtml("#047857");
-
                     return;
                 }
 
-                // Si todavía NO tiene fecha, aplicar validación de stock normal
+                // Si NO tiene fecha aún, usamos la fecha actual
+                DateTime hoy = DateTime.Today;
+                lblFechaActual.Text = hoy.ToString("dd/MM/yyyy");
+                hfFechaActual.Value = hoy.ToString("yyyy-MM-dd");
+
+                // Validar stock y habilitar/deshabilitar botón
                 ActualizarResumenStock(idPedido);
             }
         }
-
 
         private void CargarDatosPedido(int idPedido)
         {
@@ -112,6 +113,11 @@ namespace MGBeautySpaWebAplication.Admin
             rptDetalles.DataBind();
         }
 
+        /// <summary>
+        /// Revisa la comprobación de stock y habilita o bloquea el botón
+        /// "Definir fecha actual". Solo cuando TODOS los detalles están OK (>=0)
+        /// se puede definir la fecha lista para recoger.
+        /// </summary>
         private void ActualizarResumenStock(int idPedido)
         {
             IList<int> comprobacion = pedidoBO.ComprobarDetallesPedidos(idPedido);
@@ -120,15 +126,15 @@ namespace MGBeautySpaWebAplication.Admin
 
             if (todoOk)
             {
-                lblResumenStock.Text = "Stock suficiente para todos los productos. Puede definir la fecha lista para recoger.";
+                lblResumenStock.Text = "Stock suficiente para todos los productos. Puede definir la fecha actual como lista para recoger.";
                 lblResumenStock.ForeColor = System.Drawing.ColorTranslator.FromHtml("#047857");
-                btnGuardarFecha.Enabled = true;
+                btnGuardarFecha.Enabled = true;   // habilitamos botón
             }
             else
             {
                 lblResumenStock.Text = "Hay productos con stock físico insuficiente. Ajuste el stock antes de definir la fecha.";
                 lblResumenStock.ForeColor = System.Drawing.ColorTranslator.FromHtml("#B91C1C");
-                btnGuardarFecha.Enabled = false;
+                btnGuardarFecha.Enabled = false;  // bloqueamos botón
             }
         }
 
@@ -154,6 +160,7 @@ namespace MGBeautySpaWebAplication.Admin
 
             pedidoBO.ModificarProductoTipo(prodTipo);
 
+            // Re-cargar grilla y volver a evaluar si ya se puede habilitar el botón
             CargarDetalles(idPedido);
             ActualizarResumenStock(idPedido);
         }
@@ -163,46 +170,40 @@ namespace MGBeautySpaWebAplication.Admin
             if (!int.TryParse(hfIdPedido.Value, out int idPedido))
                 return;
 
-            // Protección extra: si ya tiene fecha, no dejar guardar
             var pedidoExiste = pedidoBO.ObtenerPorId(idPedido);
-            if (pedidoExiste != null && pedidoExiste.fechaListaParaRecojoSpecified)
+            if (pedidoExiste == null)
+                return;
+
+            // Protección extra: si ya tiene fecha, no dejar guardar
+            if (pedidoExiste.fechaListaParaRecojoSpecified)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(),
                     "msgBloqueo",
-                    "alert('Este pedido ya tiene una fecha de recojo definida y no puede modificarse.');",
+                    "alert('Este pedido ya tiene una fecha lista para recoger definida y no puede modificarse.');",
                     true);
                 return;
             }
 
-            if (!DateTime.TryParse(txtFechaRecojo.Text, out DateTime fecha))
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "msg",
-                    "alert('Seleccione una fecha válida.');", true);
-                return;
-            }
-
-            if (fecha < DateTime.Today)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "msg",
-                    "alert('La fecha debe ser mayor o igual al día de hoy.');", true);
-                return;
-            }
-
+            // Verificar que todos los detalles sigan siendo válidos
             var comprobacion = pedidoBO.ComprobarDetallesPedidos(idPedido);
-            if (comprobacion.Any(v => v < 0))
+            if (comprobacion == null || comprobacion.Any(v => v < 0))
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "msg",
                     "alert('Aún hay productos con stock insuficiente.');", true);
                 return;
             }
 
-            var pedido = pedidoBO.ObtenerPorId(idPedido);
+            // Usar SIEMPRE la fecha actual
+            DateTime fecha = DateTime.Today;
+
+            var pedido = pedidoExiste;
             var detalles = pedidoBO.ObtenerDetallesPorPedido(idPedido);
 
             pedido.fechaListaParaRecojo = fecha;
             pedido.fechaListaParaRecojoSpecified = true;
             pedido.estadoPedido = estadoPedido.LISTO_PARA_RECOGER;
 
+            // Actualizar stock_despacho
             foreach (var det in detalles)
             {
                 if (det.producto == null) continue;
@@ -214,15 +215,14 @@ namespace MGBeautySpaWebAplication.Admin
             // Guardar pedido
             pedidoBO.Modificar(pedido);
 
-            // Enviar notificación al cliente (cuando esté implementado en backend)
+            // Notificar al cliente (cuando el backend lo implemente)
             pedidoBO.EnviarFechaDeRecojoACliente(pedido);
 
-            // Mostrar modal Bootstrap en lugar de alert + redirect inmediato
+            // Mostrar modal de éxito
             ScriptManager.RegisterStartupScript(this, GetType(),
                 "showFechaOk",
                 "var m = new bootstrap.Modal(document.getElementById('modalFechaOk')); m.show();",
                 true);
-
         }
     }
 }

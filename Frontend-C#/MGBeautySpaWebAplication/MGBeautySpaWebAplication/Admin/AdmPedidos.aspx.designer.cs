@@ -33,66 +33,57 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.Panel pnlSinPedidos;
 
         /// <summary>
-        /// Control hfIdPedidoRecojo.
+        /// Control litDetPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfIdPedidoRecojo;
+        protected global::System.Web.UI.WebControls.Literal litDetPedido;
 
         /// <summary>
-        /// Control lblInfoRecojo.
+        /// Control litDetCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInfoRecojo;
+        protected global::System.Web.UI.WebControls.Literal litDetCliente;
 
         /// <summary>
-        /// Control txtFechaRecojoModal.
+        /// Control litDetCodTr.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaRecojoModal;
+        protected global::System.Web.UI.WebControls.Literal litDetCodTr;
 
         /// <summary>
-        /// Control btnGuardarFechaRecojo.
+        /// Control litDetEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarFechaRecojo;
+        protected global::System.Web.UI.WebControls.Literal litDetEstado;
 
         /// <summary>
-        /// Control hfIdPedidoCancelar.
+        /// Control rptDetallesPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfIdPedidoCancelar;
+        protected global::System.Web.UI.WebControls.Repeater rptDetallesPedido;
 
         /// <summary>
-        /// Control lblCancelarInfo.
+        /// Control litDetTotal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCancelarInfo;
-
-        /// <summary>
-        /// Control btnConfirmarCancelar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmarCancelar;
+        protected global::System.Web.UI.WebControls.Literal litDetTotal;
     }
 }

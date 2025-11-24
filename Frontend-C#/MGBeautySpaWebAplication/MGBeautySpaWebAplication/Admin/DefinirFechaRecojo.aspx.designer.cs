@@ -42,13 +42,22 @@ namespace MGBeautySpaWebAplication.Admin
         protected global::System.Web.UI.WebControls.Label lblResumenStock;
 
         /// <summary>
-        /// Control txtFechaRecojo.
+        /// Control lblFechaActual.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaRecojo;
+        protected global::System.Web.UI.WebControls.Label lblFechaActual;
+
+        /// <summary>
+        /// Control hfFechaActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFechaActual;
 
         /// <summary>
         /// Control btnGuardarFecha.

@@ -88,22 +88,24 @@
         <asp:Label ID="lblResumenStock" runat="server" CssClass="fw-semibold"></asp:Label>
     </div>
 
-    <!-- FECHA DE RECOJO -->
+    <!-- FECHA LISTA PARA RECOGER (AUTOMÁTICA = HOY) -->
     <div class="mt-3 mb-2">
-        <label class="form-label fw-semibold">Lista para recoger:</label>
+        <label class="form-label fw-semibold">Lista para recoger (fecha actual):</label>
 
-        <div class="input-group" style="max-width: 260px;">
-            <asp:TextBox ID="txtFechaRecojo" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-            <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
-        </div>
+        <p class="mb-1">
+            <asp:Label ID="lblFechaActual" runat="server" CssClass="fw-bold"></asp:Label>
+        </p>
 
-        <small class="text-muted">La fecha debe ser mayor a la fecha actual.</small>
+        <small class="text-muted">Se utilizará automáticamente la fecha actual.</small>
     </div>
+
+    <!-- Fecha actual en oculto por si la quieres usar en el servidor -->
+    <asp:HiddenField ID="hfFechaActual" runat="server" />
 
     <!-- BOTONES -->
     <div class="d-flex gap-3 mt-4">
         <asp:Button ID="btnGuardarFecha" runat="server"
-            Text="Confirmar fecha de recojo"
+            Text="Definir fecha actual"
             CssClass="btn text-white"
             BackColor="#0C7C59"
             OnClick="btnGuardarFecha_Click" />
@@ -119,12 +121,12 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Fecha de recojo guardada</h5>
+                    <h5 class="modal-title">Fecha lista para recoger guardada</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    La fecha de recojo se guardó correctamente.
+                    La fecha lista para recoger se guardó correctamente.
                 </div>
 
                 <div class="modal-footer">
@@ -138,6 +140,5 @@
             </div>
         </div>
     </div>
-
 
 </asp:Content>
