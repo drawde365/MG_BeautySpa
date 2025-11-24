@@ -430,6 +430,10 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(new Paragraph("Código de Transacción:", label));
                 doc.Add(new Paragraph(carrito.codigoTransaccion, texto));
+                doc.Add(new Paragraph("\n"));
+
+                doc.Add(new Paragraph("Nro de Pedido:", label));
+                doc.Add(new Paragraph(carrito.idPedido.ToString(), texto));
                 doc.Add(new Paragraph("\n\n"));
 
                 // ===============================================

@@ -395,6 +395,10 @@ namespace MGBeautySpaWebAplication.Cliente
                 doc.Add(new Paragraph(cita.codigoTransaccion, texto));
                 doc.Add(new Paragraph("\n"));
 
+                doc.Add(new Paragraph("Nro de cita:", label));
+                doc.Add(new Paragraph(cita.id.ToString(), texto));
+                doc.Add(new Paragraph("\n"));
+
                 doc.Add(new Paragraph("¡Contáctate si es necesario!", texto));
 
                 doc.Add(new Paragraph("Empleado a cargo:", label));
