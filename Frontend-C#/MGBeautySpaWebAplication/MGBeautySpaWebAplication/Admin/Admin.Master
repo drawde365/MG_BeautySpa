@@ -135,8 +135,8 @@
                     <a href="<%: ResolveUrl("~/Admin/AdminContacto.aspx") %>" class="footer-link">Contacto</a>
                 </div>
                 <div class="footer-social-row">
-                    <a href="#" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
-                    <a href="#" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                    <a href="https://www.instagram.com/mg.cosmiatria.peru/" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                    <a href="https://www.facebook.com/mg.cosmiatria.peru" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
                 </div>
                 <div class="footer-bottom-row">
                     <p class="copyright-text">

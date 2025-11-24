@@ -6,7 +6,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title><%: Page.Title %> | MG Beauty Spa</title>
+    <title>
+    <asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | MG Beauty Spa
+    </title>
 
     <!-- Bootstrap + iconos + estilos globales -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
@@ -15,7 +17,7 @@
 
     <!-- ✅ Estilos específicos del layout de cliente -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteCss/ClienteMasterCss.css") %>" />
-
+    <link href="../Content/ClienteMasterPageStyle.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Inter:wght@400&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet" />
@@ -131,10 +133,10 @@
                 </div>
 
                 <div class="footer-social-row">
-                    <a href="#" class="social-icon-link" aria-label="Instagram">
+                    <a href="https://www.instagram.com/mg.cosmiatria.peru/" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
                         <i class="icon-instagram"></i>
                     </a>
-                    <a href="#" class="social-icon-link" aria-label="Facebook">
+                    <a href="https://www.facebook.com/mg.cosmiatria.peru" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Facebook">
                         <i class="icon-facebook"></i>
                     </a>
                 </div>
