@@ -317,7 +317,7 @@
                         </svg>
                     </div>
                     <h3 class="success-title">¡Reserva Exitosa!</h3>
-                    <p class="success-message">Tu cita ha sido reservada y pagada correctamente.</p>
+                    <p class="success-message">Tu cita ha sido reservada y pagada correctamente. Te hemos enviado un correo con los datos de la reserva</p>
                     <asp:Button ID="btnVolverInicio" runat="server" Text="Ir a Mis Reservas" CssClass="btn-success-action" OnClick="btnVolverInicio_Click" />
                 </div>
             </div>

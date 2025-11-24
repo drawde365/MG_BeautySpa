@@ -308,7 +308,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     }
     
     private String obtenerQuerySinCarrito() {
-        String sql = "AND p.ESTADO != 'EnCarrito'";
+        String sql = " WHERE p.ESTADO != 'EnCarrito'";
         return sql;
     }
 

@@ -520,9 +520,8 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(tablaTotal);
 
-
                 // ESPACIO FINAL
-                doc.Add(new Paragraph("\n\nGracias por tu compra en MG Beauty SPA", texto));
+                doc.Add(new Paragraph("\n\n¡Gracias por tu compra en MG Beauty SPA!", texto));
 
                 doc.Close();
                 return ms.ToArray();
