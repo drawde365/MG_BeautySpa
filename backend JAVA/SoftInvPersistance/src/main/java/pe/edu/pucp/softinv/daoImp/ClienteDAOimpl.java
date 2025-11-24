@@ -5,9 +5,7 @@ import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
 import java.sql.SQLException;
-import pe.edu.pucp.softinv.daoImp.util.Cifrado;
 import static pe.edu.pucp.softinv.daoImp.util.Cifrado.cifrarMD5;
-import static pe.edu.pucp.softinv.daoImp.util.Cifrado.descifrarMD5;
 
 public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
     private ClienteDTO cliente;
@@ -102,7 +100,7 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
         cliente.setSegundoapellido(resultSet.getString("SEGUNDO_APELLIDO"));
         cliente.setNombre(resultSet.getString("NOMBRE"));
         cliente.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
-        cliente.setContrasenha(descifrarMD5(resultSet.getString("CONTRASENHA")));
+        cliente.setContrasenha(resultSet.getString("CONTRASENHA"));
         cliente.setCelular(resultSet.getString("CELULAR"));
         cliente.setRol(resultSet.getInt("ROL_ID"));
         cliente.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));

@@ -1,6 +1,8 @@
 package pe.edu.pucp.softinv.business.BO.Impl;
 
 import java.util.ArrayList;
+import pe.edu.pucp.softinv.business.BO.Util.Cifrado;
+import static pe.edu.pucp.softinv.business.BO.Util.Cifrado.cifrarMD5;
 import static pe.edu.pucp.softinv.business.BO.Util.Cifrado.descifrarMD5;
 import pe.edu.pucp.softinv.dao.TokensDAO;
 import pe.edu.pucp.softinv.dao.UsuarioDAO;
@@ -26,7 +28,8 @@ public class UsuarioBO {
 
     public UsuarioDTO inicioSesion(String correoElectronico, String contrasenha) {
         UsuarioDTO u = usuario.busquedaPorCorreo(correoElectronico);
-        if (u == null || !(contrasenha.equals(u.getContrasenha()))) {
+        String pswCifrado = cifrarMD5(contrasenha);
+        if (u == null || !(u.getContrasenha().equals(pswCifrado))) {
              u = new UsuarioDTO(temp, temp, temp, temp, temp, temp, temp, 0,0);
         }
         return u;

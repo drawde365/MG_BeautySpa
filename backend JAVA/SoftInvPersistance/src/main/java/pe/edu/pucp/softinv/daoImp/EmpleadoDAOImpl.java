@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import static pe.edu.pucp.softinv.daoImp.util.Cifrado.cifrarMD5;
-import static pe.edu.pucp.softinv.daoImp.util.Cifrado.descifrarMD5;
 
 /**
  * Implementación de EmpleadoDAO basada en DAOImplBase y su generador de SQL.
@@ -156,7 +155,7 @@ public class EmpleadoDAOImpl extends DAOImplBase implements EmpleadoDAO {
         e.setSegundoapellido(rs.getString("SEGUNDO_APELLIDO"));
         e.setNombre(rs.getString("NOMBRE"));
         e.setCorreoElectronico(rs.getString("CORREO_ELECTRONICO"));
-        e.setContrasenha(descifrarMD5(rs.getString("CONTRASENHA")));
+        e.setContrasenha(rs.getString("CONTRASENHA"));
         e.setCelular(rs.getString("CELULAR"));
         e.setRol(rs.getInt("ROL_ID"));
         e.setUrlFotoPerfil(rs.getString("URL_IMAGEN"));

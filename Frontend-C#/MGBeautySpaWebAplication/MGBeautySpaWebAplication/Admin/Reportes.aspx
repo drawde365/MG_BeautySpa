@@ -75,11 +75,11 @@
                     </div>
                     <asp:DropDownList ID="ddlTipoProducto" runat="server" CssClass="custom-input" Width="291px">
                         <asp:ListItem Text="-- Seleccione --" Value="" Selected="True" />
-                        <asp:ListItem Text="Corporal" Value="1" />
-                        <asp:ListItem Text="Grasa" Value="2" />
-                        <asp:ListItem Text="Seca" Value="2" />
-                        <asp:ListItem Text="Mixta" Value="2" />
-                        <asp:ListItem Text="Sensible" Value="2" />
+                        <asp:ListItem Text="Corporal" Value="Corporal" />
+                        <asp:ListItem Text="Grasa" Value="Grasa" />
+                        <asp:ListItem Text="Seca" Value="Seca" />
+                        <asp:ListItem Text="Mixta" Value="Mixta" />
+                        <asp:ListItem Text="Sensible" Value="Sensible" />
                     </asp:DropDownList>
                 </div>
                 
@@ -113,9 +113,9 @@
                     </div>
                     <asp:DropDownList ID="ddlTipoServicio" runat="server" CssClass="custom-input" Width="291px">
                         <asp:ListItem Text="-- Seleccione --" Value="" Selected="True" />
-                        <asp:ListItem Text="Facial" Value="FACIAL" />
-                        <asp:ListItem Text="Corporal" Value="CORPORAL" />
-                        <asp:ListItem Text="Terapia Complementaria" Value="TERAPIA_COMPLEMENTARIA" />
+                        <asp:ListItem Text="Facial" Value="Facial" />
+                        <asp:ListItem Text="Corporal" Value="Corporal" />
+                        <asp:ListItem Text="Terapia Complementaria" Value="Terapia Complementaria" />
                     </asp:DropDownList>
                 </div>
                 

@@ -17,7 +17,6 @@ public class DatoReporteProductos {
     private String estado;
     private String nombreProducto;
     private String tipo;
-    private Integer tamanho;
     private Double precioUnitario;
     private Integer cantidad;
     private Double subtotal;
@@ -29,7 +28,6 @@ public class DatoReporteProductos {
         estado = null;
         nombreProducto = null;
         tipo = null;
-        tamanho = null;
         precioUnitario = null;
         cantidad = null;
         subtotal = null;
@@ -37,13 +35,12 @@ public class DatoReporteProductos {
         fecha_recojo = null;
     }
     
-    public DatoReporteProductos(Integer pedido_id,String estado,String nombreProducto,String tipo,Integer tamanho,
+    public DatoReporteProductos(Integer pedido_id,String estado,String nombreProducto,String tipo,
             Double precioUnitario,Integer cantidad,Double subtotal,Date fecha_pago,Date fecha_recojo){
         this.pedido_id = pedido_id;
         this.estado = estado;
         this.nombreProducto = nombreProducto;
         this.tipo = tipo;
-        this.tamanho = tamanho;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
@@ -56,7 +53,6 @@ public class DatoReporteProductos {
         this.estado = copia.estado;
         this.nombreProducto = copia.nombreProducto;
         this.tipo = copia.tipo;
-        this.tamanho = copia.tamanho;
         this.precioUnitario = copia.precioUnitario;
         this.cantidad = copia.cantidad;
         this.subtotal = copia.subtotal;
@@ -118,20 +114,6 @@ public class DatoReporteProductos {
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    /**
-     * @return the tamanho
-     */
-    public Integer getTamanho() {
-        return tamanho;
-    }
-
-    /**
-     * @param tamanho the tamanho to set
-     */
-    public void setTamanho(Integer tamanho) {
-        this.tamanho = tamanho;
     }
 
     /**

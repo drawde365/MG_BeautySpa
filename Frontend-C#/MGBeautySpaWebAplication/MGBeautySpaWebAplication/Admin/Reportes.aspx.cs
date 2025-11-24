@@ -110,6 +110,9 @@ namespace MGBeautySpaWebAplication.Admin
             if (fechaInicio!=null) filtro.fechaInicio = fechaInicio.Value.Date;
             if (fechaFin!=null) filtro.fechaFin = fechaFin.Value.Date;
 
+            filtro.fechaInicioSpecified = (fechaInicio != null);
+            filtro.fechaFinSpecified = (fechaFin != null);
+
             if (tipoReporte == "productos")
             {
                 //Filtros para productos

@@ -53,12 +53,12 @@ public class ReporteServiciosDAOImpl extends DAOImplBase implements ReporteServi
         
         if (filtro.getFechaInicio()!=null){
             sql.append(" AND C.FECHA >= ?");
-            params.add(new java.sql.Timestamp(filtro.getFechaInicio().getTime()));
+            params.add(new java.sql.Date(filtro.getFechaInicio().getTime()));
         }
         
         if (filtro.getFechaFin()!=null){
             sql.append(" AND C.FECHA <= ?");
-            params.add(new java.sql.Timestamp(filtro.getFechaFin().getTime()));
+            params.add(new java.sql.Date(filtro.getFechaFin().getTime()));
         }
         
         if (filtro.getNombreServicio()!=null){

@@ -17,7 +17,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.pdf.draw.LineSeparator;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.time.LocalDate;
+import java.util.Date;
 import pe.edu.pucp.softinv.dao.Reportable;
 import pe.edu.pucp.softinv.daoImp.util.FondoOlasEvent;
 import pe.edu.pucp.sotfinv.model.Reportes.FiltroReporte;
@@ -36,8 +36,8 @@ public class GeneradorReporte {
     public GeneradorReporte() {
         try {
             // 1. Obtener la ruta absoluta real del archivo en el sistema compilado
-            String rutaFuenteTitulo = getRutaRecurso("Fonts/ZCOOLXiaoWei-Regular.ttf");
-            String rutaFuenteGeneral = getRutaRecurso("Fonts/PlusJakartaSans.ttf");
+            String rutaFuenteTitulo = getRutaRecurso("ZCOOLXiaoWei-Regular.ttf");
+            String rutaFuenteGeneral = getRutaRecurso("PlusJakartaSans.ttf");
 
             // 2. Definir FontFactory (usando la ruta resuelta)
             // Si ruta es null, usamos Helvetica por defecto para no romper el programa
@@ -200,6 +200,7 @@ public class GeneradorReporte {
         Paragraph p = new Paragraph();
         String titulo = adaptador.getTitulo();
         p.add(new Phrase(titulo, fontTitulo)); //
+        p.add("\n");
         String[] subtitulos = adaptador.getSubtitulos(filtro);
         for(int i = 0; i<3; i++){
             p.add(new Phrase(subtitulos[i],fontSubtitulo));
@@ -208,17 +209,17 @@ public class GeneradorReporte {
         if (filtro.getFechaInicio()!= null && filtro.getFechaFin()!=null)
             periodo += "Del" + filtro.getFechaInicio().toString() + " al " + filtro.getFechaFin().toString() + "\n";
         else if (filtro.getFechaInicio()!= null){
-            periodo += "A partir del " + filtro.getFechaFin().toString() + "\n";
+            periodo += "A partir del " + filtro.getFechaInicio().toString() + "\n";
         }else if (filtro.getFechaFin()!=null)
             periodo += "Hasta el " + filtro.getFechaFin().toString() + "\n";
         else
             periodo += "Completo histórico\n";
         p.add(new Phrase(periodo,fontSubtitulo));
-    
+        p.add("\n \n \n");
         PdfPCell cellTexto = new PdfPCell(p);
         cellTexto.setBorder(Rectangle.NO_BORDER);
         cellTexto.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        cellTexto.setHorizontalAlignment(Element.ALIGN_LEFT); // Alinear a la derecha como en tu ejemplo
+        cellTexto.setHorizontalAlignment(Element.ALIGN_LEFT);
         headerTable.addCell(cellTexto);
 
         document.add(headerTable);

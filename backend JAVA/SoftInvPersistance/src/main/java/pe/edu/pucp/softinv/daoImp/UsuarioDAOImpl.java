@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import pe.edu.pucp.softinv.dao.UsuarioDAO;
 import static pe.edu.pucp.softinv.daoImp.util.Cifrado.cifrarMD5;
-import static pe.edu.pucp.softinv.daoImp.util.Cifrado.descifrarMD5;
 import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
@@ -64,7 +63,7 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
         usuario.setNombre(resultSet.getString("NOMBRE"));
         usuario.setCorreoElectronico(resultSet.getString("CORREO_ELECTRONICO"));
         String contrasenhaCifrado=resultSet.getString("CONTRASENHA");
-        usuario.setContrasenha(descifrarMD5(contrasenhaCifrado));
+        usuario.setContrasenha(contrasenhaCifrado);
         usuario.setCelular(resultSet.getString("CELULAR"));
         usuario.setRol(resultSet.getInt("ROL_ID"));
         usuario.setUrlFotoPerfil(resultSet.getString("URL_IMAGEN"));
