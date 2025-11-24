@@ -199,6 +199,12 @@
                             <asp:HiddenField ID="hdnCitaIdModal" runat="server" />
                             <div class="mb-3"><label class="form-label">Nueva Fecha</label><asp:TextBox ID="txtNuevaFecha" runat="server" CssClass="form-control" TextMode="Date" /></div>
                             <div class="mb-3"><label class="form-label">Nueva Hora</label><asp:TextBox ID="txtNuevaHora" runat="server" CssClass="form-control" TextMode="Time" /></div>
+                            <asp:Label ID="lblErrorFechaHora" 
+                               runat="server" 
+                               Text="La fecha y hora seleccionadas no son válidas." 
+                               ForeColor="Red" 
+                               Visible="false"
+                               CssClass="mt-2 fw-bold"></asp:Label>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

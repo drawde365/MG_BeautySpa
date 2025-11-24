@@ -239,7 +239,8 @@ namespace MGBeautySpaWebAplication.Empleado
                 // 2. VALIDAR: Horario y Cruce (Usando CACHÉ)
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
-                    MostrarErrorJS("La hora seleccionada está fuera de tu horario laboral o ya tienes otra cita.");
+                    lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
+                    lblErrorFechaHora.Visible = true;
                     return;
                 }
 
