@@ -119,6 +119,7 @@ namespace MGBeautySpaWebAplication.Cliente
             imgServicio.ImageUrl = ResolveUrl(servicio.urlImagen);
             imgServicio.AlternateText = servicio.nombre;
             litDescripcionLarga.Text = servicio.descripcion;
+            LiteralDuracion.Text = "Duración (horas): " + servicio.duracionHora.ToString();
             litPrecio.Text = servicio.precio.ToString("C", new CultureInfo("es-PE"));
 
             PintarResenas();

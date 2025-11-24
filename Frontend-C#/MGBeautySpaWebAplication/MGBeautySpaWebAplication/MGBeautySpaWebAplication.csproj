@@ -157,6 +157,7 @@
     <Content Include="Content\ClienteCss\PerfilUsuarioCss.css" />
     <Content Include="Content\ClienteCss\ProductosClienteCss.css" />
     <Content Include="Content\ClienteCss\ServiciosClienteCss.css" />
+    <Content Include="Content\AdminMasterPageStyle.css" />
     <Content Include="Content\Fonts\css\all.css" />
     <Content Include="Content\Fonts\css\all.min.css" />
     <Content Include="Content\Fonts\css\brands.css" />

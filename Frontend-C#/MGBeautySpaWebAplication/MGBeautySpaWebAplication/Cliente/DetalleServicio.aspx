@@ -34,6 +34,8 @@
                     <h2 class="details-subtitle">Descripción</h2>
                     <p class="service-description-text"><asp:Literal ID="litDescripcionLarga" runat="server" /></p>
                     
+                    <h2 class="details-subtitle"><asp:Literal ID="LiteralDuracion" runat="server" /></h2>
+
                     <div class="price">
                         <asp:Literal ID="litPrecio" runat="server" />
                     </div>

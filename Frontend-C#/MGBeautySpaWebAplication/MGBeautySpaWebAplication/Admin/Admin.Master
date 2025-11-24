@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" /> 
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/AdminMasterPageStyle.css") %>" />
     <link href="../Content/AdminStyle.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
