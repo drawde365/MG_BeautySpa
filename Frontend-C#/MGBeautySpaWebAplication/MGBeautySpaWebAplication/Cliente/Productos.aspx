@@ -2,6 +2,10 @@
     AutoEventWireup="true" CodeBehind="Productos.aspx.cs"
     Inherits="MGBeautySpaWebAplication.Cliente.Productos" %>
 
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+    Productos | MG Beauty Spa
+</asp:Content>
+
 <asp:Content ID="HeadContent1" ContentPlaceHolderID="HeadContent" runat="server">
 <!-- CSS específico de Productos -->
 

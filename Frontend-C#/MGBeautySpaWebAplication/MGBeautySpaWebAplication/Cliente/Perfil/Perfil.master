@@ -4,6 +4,10 @@
     CodeBehind="Perfil.master.cs" 
     Inherits="MGBeautySpaWebAplication.Cliente.PerfilMaster" %>
 
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+    Perfil | MG Beauty Spa
+</asp:Content>
+
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
     <%-- CSS general del layout de perfil --%>
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteCss/PerfilMasterCss.css") %>" />

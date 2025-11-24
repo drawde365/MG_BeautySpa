@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="Inicio" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="InicioCliente.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.InicioCliente" %>
 
 
-<%--<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
     Inicio | MG Beauty Spa
-</asp:Content>--%>
+</asp:Content>
 
 <%-- 1. CONTENIDO DEL HEAD: Estilos y Fuentes --%>
 

@@ -16,6 +16,50 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
             font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1em;
             background-color: #f9f9f9; border-radius: 8px; margin-top: 1.5rem;
         }
+
+        /* 👉 Alinear estructura de la tarjeta y el botón a la derecha */
+        .reserva-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .reserva-info {
+            flex: 1;
+        }
+
+        .reserva-estado-y-total {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 180px;
+        }
+
+        .reserva-total {
+            text-align: right;
+            margin-bottom: 8px;
+        }
+
+        .reserva-accion {
+            width: 100%;
+            text-align: right;
+        }
+
+        .btn-cancelar {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #dc3545;
+            border: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .btn-cancelar:hover {
+            text-decoration: underline;
+            color: #b02a37;
+        }
+
         .modal-body .form-label { font-weight: 600; margin-top: 10px; }
         .modal-body .form-control { border-radius: 6px; }
         
@@ -81,14 +125,13 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
                         </div>
 
                         <div class="reserva-accion">
-                            <%-- El Visible se controla tanto por C# (seguridad) como por tu JS (visual) --%>
                             <asp:LinkButton 
                                 ID="btnCancelarCita" 
                                 runat="server" 
                                 CssClass="btn-cancelar"
                                 CommandName="Cancelar"
                                 ToolTip="Cancelar Cita"
-                                Visible="false"> 
+                                Visible="false">
                                 <i class="bi bi-trash-fill"></i> Cancelar
                             </asp:LinkButton>
                         </div>
@@ -114,6 +157,36 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
         </div>
     </div>
 
+    <!-- 👉 HiddenField para guardar el id de la cita a cancelar -->
+    <asp:HiddenField ID="hfCitaIdCancelar" runat="server" />
+
+    <!-- 👉 Modal Bootstrap de confirmación -->
+    <div class="modal fade" id="mdlCancelarReserva" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancelar reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        ¿Estás seguro de que deseas cancelar esta reserva?<br />
+                        Esta acción no se puede deshacer.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Volver
+                    </button>
+                    <asp:Button ID="btnConfirmarCancelacion" runat="server"
+                                CssClass="btn btn-danger"
+                                Text="Sí, cancelar"
+                                OnClick="btnConfirmarCancelacion_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const ahora = new Date();
@@ -134,6 +207,24 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
                         }
                     }
                 }
+            });
+
+            // 👉 manejar apertura del modal
+            document.querySelectorAll(".btn-cancelar").forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const citaId = this.getAttribute("data-citaid");
+                    const hf = document.getElementById("<%= hfCitaIdCancelar.ClientID %>");
+                    if (hf && citaId) {
+                        hf.value = citaId;
+                    }
+
+                    const modalEl = document.getElementById("mdlCancelarReserva");
+                    if (modalEl) {
+                        const modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                    }
+                });
             });
         });
     </script>

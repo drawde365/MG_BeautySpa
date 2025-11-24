@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Empleado/Empleado.Master" AutoEventWireup="true" CodeBehind="InicioEmpleado.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.InicioEmpleado" %>
-<asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+    Inicio | MG Beauty Spa
 </asp:Content>
 <asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
      <%-- 

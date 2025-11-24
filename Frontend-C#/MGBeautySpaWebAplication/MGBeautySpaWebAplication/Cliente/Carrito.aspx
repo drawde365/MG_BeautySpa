@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="Tu Carrito" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
 
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+    Carrito | MG Beauty Spa
+</asp:Content>
+
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" href="<%: ResolveUrl("~/Cliente/CarritoCliente.css?v=3") %>" />
     

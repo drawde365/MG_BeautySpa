@@ -161,14 +161,15 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                     fullDateTime = fullDateTime.Add(hora);
                 }
 
-  
                 bool esCancelable = (activo != 0) && (fullDateTime > DateTime.Now);
 
                 if (esCancelable)
                 {
                     btnCancelar.Visible = true;
                     btnCancelar.CommandArgument = citaId.ToString();
-                    btnCancelar.OnClientClick = "return confirm('¿Estás seguro de que deseas cancelar esta cita?');";
+                    // 👉 ya no usamos confirm(), ahora el modal
+                    btnCancelar.OnClientClick = "";
+                    btnCancelar.Attributes["data-citaid"] = citaId.ToString();
                 }
                 else
                 {
@@ -176,6 +177,29 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 }
             }
         }
+
+        protected void btnConfirmarCancelacion_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(hfCitaIdCancelar.Value, out int citaIdParaEliminar))
+            {
+                var citaAEliminar = ListaCompletaReservas?
+                    .FirstOrDefault(r => r.id == citaIdParaEliminar);
+
+                if (citaAEliminar != null)
+                {
+                    citaBO.EliminarCita(citaAEliminar);
+
+                    // Enviar correo al empleado
+                    EnviarCorreoEmpleado(citaAEliminar);
+
+                    // Forzar recarga desde BD para refrescar estados
+                    ListaCompletaReservas = null;
+                    CargarReservas();
+                }
+            }
+        }
+
+
 
         protected void rptReservas_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
