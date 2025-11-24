@@ -40,7 +40,7 @@
         </span>
 
         <div style="display: flex; flex-direction: column; align-items: flex-start; padding: 0px 0px 12px; width: 908px; height: 67px; align-self: stretch;">
-            <div style="box-sizing: border-box; display: flex; flex-direction: row; align-items: flex-start; padding: 0px 16px; gap: 32px; width: 908px; height: 55px; border-bottom: 1px solid #E3DEDE; align-self: stretch;">
+            <div style="box-sizing: border-box; display: flex; flex-direction: row; align-items: flex-start; padding: 0px 16px; gap: 32px; width: 908px; height: 55px; align-self: stretch;">
                 
                 <div id="tabProductos" onclick="switchTab('productos')" runat="server" ClientIDMode="Static"
                      class="tab-active" style="box-sizing: border-box; display: flex; justify-content: center; align-items: center; padding: 16px 0px 13px; width: 135px; height: 54px; flex-grow: 0;">
@@ -130,7 +130,7 @@
 
             </asp:Panel>
 
-            <div id="PeriodoTiempoWrapper" style="width: 908px; margin-top: 16px; padding: 0 16px; align-self: stretch; display: flex; flex-wrap: wrap; gap: 16px;">
+            <div id="PeriodoTiempoWrapper" style="width: 908px; align-self: stretch; display: flex; flex-wrap: wrap; gap: 16px;">
                 
                 <div style="width: 291px; height: auto;">
                     <div style="margin-bottom: 8px;">

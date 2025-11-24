@@ -28,6 +28,7 @@ namespace MGBeautySpaWebAplication.Cliente
             string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/images/blank-photo.jpg";
 
             litUserName.Text = nombre;
+            imgProfile.AppRelativeTemplateSourceDirectory = fotoUrl;
         }
 
         private void VerificarSesion()
