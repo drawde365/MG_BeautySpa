@@ -39,7 +39,7 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
     @Override
     protected String obtenerSQLBase(){
         return "SELECT T.PEDIDO_ID, T.ESTADO, " +
-                "P.NOMBRE AS NOMBRE_PRODUCTO, S.NOMBRE as TIPO, P.TAMANHO, P.PRECIO AS PRECIO_UNITARIO, " +
+                "P.NOMBRE AS NOMBRE_PRODUCTO, S.NOMBRE as TIPO, P.PRECIO AS PRECIO_UNITARIO, " +
                 "D.CANTIDAD, D.SUBTOTAL, T.FECHA_PAGO, T.FECHA_RECOJO " +
                 "FROM PEDIDOS T " +
                 "INNER JOIN DETALLES_PEDIDOS D ON T.PEDIDO_ID = D.PEDIDO_ID " +
@@ -53,14 +53,14 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
         
         if (filtro.getFechaInicio()!=null){
             sql.append(" AND T.FECHA_PAGO >= ?");
-            params.add(new java.sql.Timestamp(filtro.getFechaInicio().getTime()));
+            params.add(new java.sql.Date(filtro.getFechaInicio().getTime()));
             //Modificable: Por un lado, el no usar el java.sql.Data en los DTOs los hace mucho más robustos
             // y no los ata a sql, por el otro, lleva a este tipo de conversión para que la bd lo entienda
         }
         
         if (filtro.getFechaFin()!=null){
             sql.append(" AND T.FECHA_PAGO <= ?");
-            params.add(new java.sql.Timestamp(filtro.getFechaFin().getTime()));
+            params.add(new java.sql.Date(filtro.getFechaFin().getTime()));
         }
         
         if (filtro.getEstadoPedido()!=null){
@@ -94,7 +94,6 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
         this.dato.setEstado(this.resultSet.getString("ESTADO"));
         this.dato.setNombreProducto(this.resultSet.getString("NOMBRE_PRODUCTO"));
         this.dato.setTipo(this.resultSet.getString("TIPO"));
-        this.dato.setTamanho(this.resultSet.getInt("TAMANHO"));
         this.dato.setPrecioUnitario(this.resultSet.getDouble("PRECIO_UNITARIO"));
         this.dato.setCantidad(this.resultSet.getInt("CANTIDAD"));
         this.dato.setSubtotal(this.resultSet.getDouble("SUBTOTAL"));
@@ -111,7 +110,7 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
     @Override
     public String[] getTitulosColumnas() {
         return new String[] {"Id. Pedido", "Estado del Pedido","Fecha de pago", "Fecha de recojo", 
-            "Nombre del Producto", "Tipo", "Tamaño (ml)","Precio Unitario", "Cantidad", "Subtotal",};
+            "Nombre del Producto", "Tipo","Precio Unitario", "Cantidad", "Subtotal",};
     }
     
     @Override
@@ -124,7 +123,6 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
             (this.dato.getFecha_recojo()!=null) ? sdf.format(this.dato.getFecha_recojo()) : "-",
             this.dato.getNombreProducto(),
             this.dato.getTipo(),
-            this.dato.getTamanho().toString(),
             String.format("S/.%.2f", this.dato.getPrecioUnitario()),
             this.dato.getCantidad().toString(),
             String.format("S/.%.2f", this.dato.getSubtotal()),
@@ -133,7 +131,7 @@ public class ReporteProductosDAOImpl extends DAOImplBase implements ReporteProdu
 
     @Override
     public float[] getAnchosColumnas() {
-        return new float[] {1f, 1.5f, 1.5f, 1.5f, 3f, 1f, 1.5f, 1.5f, 1.5f, 1.5f};
+        return new float[] {1f, 1.5f, 1.5f, 1.5f, 3f, 1f, 1.5f, 1.5f, 1.5f};
     }
 
     @Override
