@@ -1,15 +1,19 @@
-﻿using System;
+﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSCalendario;
+using SoftInvBusiness.SoftInvWSCita;
+using SoftInvBusiness.SoftInvWSEmpleado;
+using SoftInvBusiness.SoftInvWSHorarioTrabajo;
+using SoftInvBusiness.SoftInvWSServicio;
+using SoftInvBusiness.SoftInvWSUsuario;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SoftInvBusiness;
-using SoftInvBusiness.SoftInvWSCita;
-using SoftInvBusiness.SoftInvWSUsuario;
-using System.Globalization;
-using SoftInvBusiness.SoftInvWSCalendario;
-using SoftInvBusiness.SoftInvWSHorarioTrabajo;
 
 namespace MGBeautySpaWebAplication.Empleado
 {
@@ -18,6 +22,8 @@ namespace MGBeautySpaWebAplication.Empleado
         private CitaBO citaBO;
         private CalendarioBO calendarioBO;
         private HorarioTrabajoBO horarioBO;
+        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
+        private const string contraseñaApp = "beprxkazzucjiwom";
 
         public MisCitas()
         {
@@ -244,6 +250,7 @@ namespace MGBeautySpaWebAplication.Empleado
                     return;
                 }
 
+                DateTime fechaAnterior = citaParaModificar.fecha;
                 // Guardado
                 citaParaModificar.fecha = nuevaFecha;
                 citaParaModificar.fechaSpecified = true;
@@ -251,6 +258,9 @@ namespace MGBeautySpaWebAplication.Empleado
                 citaParaModificar.horaFin = nuevaHora.Add(TimeSpan.FromMinutes(duracionMinutos)).ToString();
 
                 citaBO.ModificarCita(citaParaModificar);
+
+                //Mandamos Correo al cliente avisandole que se modificó la cita
+                EnviarCorreoCliente(citaParaModificar, fechaAnterior);
 
                 // Limpiamos las citas para forzar recarga fresca, pero NO limpiamos el CalendarioCache/HorarioCache
                 // porque el horario base no cambió.
@@ -265,6 +275,25 @@ namespace MGBeautySpaWebAplication.Empleado
             {
                 MostrarErrorJS("Error al modificar: " + ex.Message);
             }
+        }
+
+        private void EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar,DateTime fechaAnterior)
+        {
+            MailMessage mensaje = new MailMessage();
+            mensaje.From = new MailAddress(correoEmpresa);
+            mensaje.To.Add(citaParaModificar.cliente.correoElectronico);
+            mensaje.Subject = "Tu cita ha cambiado | MG Beauty SPA";
+            mensaje.Body = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
+                           "Te escribimos para avisarte que tu cita programada para el día "+fechaAnterior.ToString("dd/MM/yyyy")+" para el servicio "+
+                           citaParaModificar.servicio.nombre+" ha sido reprogramada.\n"+ "La nueva fecha y hora es: "+ citaParaModificar.fecha.ToString("dd/MM/yyyy") +" a las "+citaParaModificar.fecha.ToString("hh:mm:ss")+
+                           "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!"+"\nMG Beauty SPA";
+            mensaje.IsBodyHtml = false;
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
+            smtp.EnableSsl = true;
+
+            smtp.Send(mensaje);
         }
 
         // --------------------------------------------------------------------
