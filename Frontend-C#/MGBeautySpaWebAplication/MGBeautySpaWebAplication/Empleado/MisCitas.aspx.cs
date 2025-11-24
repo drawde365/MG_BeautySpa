@@ -94,6 +94,7 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 CargarCitas();
             }
+            lblErrorFechaHora.Visible = false;
         }
 
         private void CargarCitas()
@@ -238,14 +239,15 @@ namespace MGBeautySpaWebAplication.Empleado
                 // 1. VALIDAR: Disponibilidad del día (Usando CACHÉ)
                 if (!EsDiaLaborableYDisponible(nuevaFecha))
                 {
-                    MostrarErrorJS("El día seleccionado no está disponible en tu calendario (Día libre o bloqueado).");
+                    lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
+                    lblErrorFechaHora.Visible = true;
                     return;
                 }
 
                 // 2. VALIDAR: Horario y Cruce (Usando CACHÉ)
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
-                    lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
+                    lblErrorFechaHora.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
                     lblErrorFechaHora.Visible = true;
                     return;
                 }
