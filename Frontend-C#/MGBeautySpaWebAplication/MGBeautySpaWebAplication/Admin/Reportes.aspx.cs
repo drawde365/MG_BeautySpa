@@ -160,20 +160,15 @@ namespace MGBeautySpaWebAplication.Admin
             {
                 HttpContext context = HttpContext.Current;
 
-                // Prepara la respuesta HTTP
                 context.Response.Clear();
                 context.Response.Buffer = true;
 
-                // Indica que el contenido es un PDF
                 context.Response.ContentType = "application/pdf";
 
-                // 🔑 Mantenemos 'attachment' para forzar la DESCARGA local
                 context.Response.AppendHeader("Content-Disposition", $"attachment; filename=\"{nombreArchivo}\"");
 
-                // Escribe el arreglo de bytes al flujo de salida del navegador
                 context.Response.BinaryWrite(reporteData);
 
-                // Finaliza la respuesta y el procesamiento de la página
                 context.Response.Flush();
                 context.Response.End();
             }

@@ -17,6 +17,8 @@ import com.lowagie.text.Document;
 import com.lowagie.text.pdf.draw.LineSeparator;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import pe.edu.pucp.softinv.dao.Reportable;
 import pe.edu.pucp.softinv.daoImp.util.FondoOlasEvent;
@@ -181,7 +183,7 @@ public class GeneradorReporte {
                 
                 PdfPCell cellLogo = new PdfPCell(logo);
                 cellLogo.setBorder(Rectangle.NO_BORDER);
-                cellLogo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cellLogo.setVerticalAlignment(Element.ALIGN_TOP);
                 headerTable.addCell(cellLogo);
             } else {
                 // Si no hay logo, celda vacía para que no falle
@@ -200,22 +202,23 @@ public class GeneradorReporte {
         Paragraph p = new Paragraph();
         String titulo = adaptador.getTitulo();
         p.add(new Phrase(titulo, fontTitulo)); //
-        p.add("\n");
+        p.add("\n \n");
         String[] subtitulos = adaptador.getSubtitulos(filtro);
         for(int i = 0; i<3; i++){
             p.add(new Phrase(subtitulos[i],fontSubtitulo));
-        }
+        }   
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String periodo = "Periodo: ";
         if (filtro.getFechaInicio()!= null && filtro.getFechaFin()!=null)
-            periodo += "Del" + filtro.getFechaInicio().toString() + " al " + filtro.getFechaFin().toString() + "\n";
+            periodo += "Del " + sdf.format(filtro.getFechaInicio()) + " al " + sdf.format(filtro.getFechaFin()) + "\n";
         else if (filtro.getFechaInicio()!= null){
-            periodo += "A partir del " + filtro.getFechaInicio().toString() + "\n";
+            periodo += "A partir del " + sdf.format(filtro.getFechaInicio()) + "\n";
         }else if (filtro.getFechaFin()!=null)
-            periodo += "Hasta el " + filtro.getFechaFin().toString() + "\n";
+            periodo += "Hasta el " + sdf.format(filtro.getFechaFin()) + "\n";
         else
             periodo += "Completo histórico\n";
         p.add(new Phrase(periodo,fontSubtitulo));
-        p.add("\n \n \n");
+        p.add("\n \n");
         PdfPCell cellTexto = new PdfPCell(p);
         cellTexto.setBorder(Rectangle.NO_BORDER);
         cellTexto.setVerticalAlignment(Element.ALIGN_MIDDLE);
