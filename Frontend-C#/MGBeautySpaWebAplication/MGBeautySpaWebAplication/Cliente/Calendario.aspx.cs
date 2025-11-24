@@ -284,6 +284,8 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 
                 int resultado = calendarioBO.ReservarBloqueYCita(nuevaCita);
+                nuevaCita.id = resultado;
+                nuevaCita.idSpecified = true;
 
                 //Enviamos correo al cliente, boleta con datos de la reserva
                 

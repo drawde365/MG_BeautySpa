@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
     <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
@@ -18,6 +20,14 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" />
 
     <link rel="icon" type="image/svg+xml" href="<%: ResolveUrl("~/Content/images/MGFavicon.svg") %>" />
+
+    <style>
+        .toggle-password {
+            cursor: pointer;
+            z-index: 10;
+            color: #6c757d;
+        }
+    </style>
 </head>
 
 <body class="page-auth">
@@ -38,7 +48,12 @@
             <!-- Contraseña -->
             <div class="mb-3">
                 <label for="txtContrasena" class="form-label">Contraseña</label>
-                <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" CssClass="form-control" placeholder="Ingrese su contraseña"></asp:TextBox>
+                <div class="input-group">
+                    <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" CssClass="form-control" placeholder="Ingrese su contraseña"/>
+                    <span class="input-group-text bg-white border-start-0">
+                        <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('<%= txtContrasena.ClientID %>', this)"></i>
+                    </span>
+                </div>
             </div>
 
             <!-- Error -->
@@ -73,4 +88,20 @@
     <script src="<%: ResolveUrl("~/Scripts/jquery.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
 </body>
+
+    <script type="text/javascript">
+        // Función para mostrar/ocultar contraseña
+        function togglePassword(textBoxId, icon) {
+            var input = document.getElementById(textBoxId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            }
+        }
+    </script>
 </html>

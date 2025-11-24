@@ -1,19 +1,25 @@
-﻿using System;
+﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSCita;
+using SoftInvBusiness.SoftInvWSEmpleado;
+using SoftInvBusiness.SoftInvWSServicio;
+using SoftInvBusiness.SoftInvWSUsuario;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SoftInvBusiness;
-using SoftInvBusiness.SoftInvWSCita;
-using SoftInvBusiness.SoftInvWSUsuario;
 
 namespace MGBeautySpaWebAplication.Cliente.Perfil
 {
     public partial class Reservas : Page
     {
         private CitaBO citaBO;
+        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
+        private const string contraseñaApp = "beprxkazzucjiwom";
 
         private int LimiteReservas
         {
@@ -21,9 +27,9 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             set { ViewState["LimiteReservas"] = value; }
         }
 
-        private List<citaDTO> ListaCompletaReservas
+        private List<SoftInvBusiness.SoftInvWSCita.citaDTO> ListaCompletaReservas
         {
-            get { return (List<citaDTO>)Session["ListaReservasCliente"]; }
+            get { return (List<SoftInvBusiness.SoftInvWSCita.citaDTO>)Session["ListaReservasCliente"]; }
             set { Session["ListaReservasCliente"] = value; }
         }
 
@@ -59,7 +65,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 user.rolSpecified = true;
 
                 var reservas = citaBO.ListarPorUsuario(user);
-                ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
+                ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<SoftInvBusiness.SoftInvWSCita.citaDTO>();
             }
             // Forzar recarga si la lista está vacía para evitar falsos positivos de caché
             else if (ListaCompletaReservas.Count == 0)
@@ -71,7 +77,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 user.rolSpecified = true;
 
                 var reservas = citaBO.ListarPorUsuario(user);
-                ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<citaDTO>();
+                ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<SoftInvBusiness.SoftInvWSCita.citaDTO>();
             }
 
             var listaCompleta = ListaCompletaReservas;
@@ -184,11 +190,34 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                         // EliminarCita cambia el estado a 0 (inactivo) en la BD
                         citaBO.EliminarCita(citaAEliminar);
 
+                        //Enviamos correo a empleado sobre la cancelacion
+                        EnviarCorreoEmpleado(citaAEliminar);
+
                         ListaCompletaReservas = null; // Forzamos la recarga desde la BD
                         CargarReservas();
                     }
                 }
             }
+        }
+
+        private void EnviarCorreoEmpleado(SoftInvBusiness.SoftInvWSCita.citaDTO citaAEliminar)
+        {
+            var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
+            MailMessage mensaje = new MailMessage();
+            mensaje.From = new MailAddress(correoEmpresa);
+            mensaje.To.Add(citaAEliminar.empleado.correoElectronico);
+            mensaje.Subject = "Cancelación de reserva | MG Beauty SPA";
+            mensaje.Body = "¡Hola, " + citaAEliminar.empleado.nombre + "!\n\n" +
+                           "Te informamos que la reserva programada por el cliente " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + " para el servicio " + citaAEliminar.servicio.nombre +
+                           ", con fecha " + citaAEliminar.fecha.ToString("dd/MM/yyyy")+" "+citaAEliminar.horaIni.ToString() + ", ha sido cancelada.\n" + "Por favor, toma en cuenta este cambio en tu agenda. ¡Gracias!";
+            mensaje.IsBodyHtml = false;
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
+            smtp.EnableSsl = true;
+
+            smtp.Send(mensaje);
         }
     }
 }

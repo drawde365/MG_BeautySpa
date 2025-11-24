@@ -94,6 +94,7 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 CargarCitas();
             }
+            lblErrorFechaHora.Visible = false;
         }
 
         private void CargarCitas()
@@ -238,14 +239,16 @@ namespace MGBeautySpaWebAplication.Empleado
                 // 1. VALIDAR: Disponibilidad del día (Usando CACHÉ)
                 if (!EsDiaLaborableYDisponible(nuevaFecha))
                 {
-                    MostrarErrorJS("El día seleccionado no está disponible en tu calendario (Día libre o bloqueado).");
+                    lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
+                    lblErrorFechaHora.Visible = true;
                     return;
                 }
 
                 // 2. VALIDAR: Horario y Cruce (Usando CACHÉ)
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
-                    MostrarErrorJS("La hora seleccionada está fuera de tu horario laboral o ya tienes otra cita.");
+                    lblErrorFechaHora.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
+                    lblErrorFechaHora.Visible = true;
                     return;
                 }
 
@@ -269,6 +272,8 @@ namespace MGBeautySpaWebAplication.Empleado
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModificarModal",
                     "var myModal = bootstrap.Modal.getInstance(document.getElementById('modificarCitaModal')); myModal.hide(); alert('Cita modificada con éxito.');",
                     true);
+
+                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
@@ -284,7 +289,7 @@ namespace MGBeautySpaWebAplication.Empleado
             mensaje.Subject = "Tu cita ha cambiado | MG Beauty SPA";
             mensaje.Body = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
                            "Te escribimos para avisarte que tu cita programada para el día "+fechaAnterior.ToString("dd/MM/yyyy")+" para el servicio "+
-                           citaParaModificar.servicio.nombre+" ha sido reprogramada.\n"+ "La nueva fecha y hora es: "+ citaParaModificar.fecha.ToString("dd/MM/yyyy") +" a las "+citaParaModificar.fecha.ToString("hh:mm:ss")+
+                           citaParaModificar.servicio.nombre+" ha sido reprogramada.\n"+ "La nueva fecha y hora es: "+ citaParaModificar.fecha.ToString("dd/MM/yyyy") +" a las "+citaParaModificar.horaIni.ToString() +
                            "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!"+"\nMG Beauty SPA";
             mensaje.IsBodyHtml = false;
 
