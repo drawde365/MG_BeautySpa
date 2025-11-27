@@ -5,7 +5,10 @@ import pe.edu.pucp.softinv.daoImp.util.Columna;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import static pe.edu.pucp.softinv.daoImp.util.Cifrado.cifrarMD5;
+import pe.edu.pucp.softinv.daoImp.util.ParametrosCliente;
 
 public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
     private ClienteDTO cliente;
@@ -110,5 +113,45 @@ public class ClienteDAOimpl extends DAOImplBase implements ClienteDAO {
     @Override
     protected void limpiarObjetoDelResultSet(){
         cliente=null;
+    }
+    
+    @Override
+    protected void agregarObjetoALaLista(List lista) throws SQLException{
+        this.instanciarObjetoDelResultSet();
+        lista.add(this.cliente);
+    }
+    
+    @Override
+    public ArrayList<ClienteDTO> buscarClienteAdmin(String nombre,String pApe,String sApe,String correo,String celular){
+        String sql="SELECT \n" +
+                    "    U.USUARIO_ID,\n" +
+                    "    U.NOMBRE,\n" +
+                    "    U.PRIMER_APELLIDO,\n" +
+                    "    U.SEGUNDO_APELLIDO,\n" +
+                    "    U.CORREO_ELECTRONICO,\n" +
+                    "    U.CELULAR,\n" +
+                    "    U.URL_IMAGEN,\n" +
+                    "    U.ROL_ID,\n"+
+                    "    U.ACTIVO,\n" +
+                    "    U.CONTRASENHA\n"+
+                    "FROM USUARIOS U\n" +
+                    "WHERE \n" +
+                    "    U.ROL_ID = 1 AND U.NOMBRE LIKE ? AND U.PRIMER_APELLIDO LIKE ? "+
+                    "AND U.SEGUNDO_APELLIDO LIKE ? AND U.CORREO_ELECTRONICO LIKE ? AND U.CELULAR LIKE ?";
+        Object parametros = new ParametrosCliente(nombre,pApe,sApe,correo,celular);
+        return (ArrayList<ClienteDTO>) super.listarTodos(sql, this::incluirParametrosBusqueda, parametros);
+    }
+    
+    private void incluirParametrosBusqueda(Object parametros){
+        try {
+            ParametrosCliente personaBuscar = (ParametrosCliente)parametros;
+            statement.setString(1, "%"+personaBuscar.getNombre()+"%");
+            statement.setString(2, "%"+personaBuscar.getpApe()+"%");
+            statement.setString(3, "%"+personaBuscar.getsApe()+"%");
+            statement.setString(4, "%"+personaBuscar.getCorreo()+"%");
+            statement.setString(5, "%"+personaBuscar.getCelular()+"%");
+        } catch (SQLException ex) {
+            System.getLogger(ClienteDAOimpl.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 }
