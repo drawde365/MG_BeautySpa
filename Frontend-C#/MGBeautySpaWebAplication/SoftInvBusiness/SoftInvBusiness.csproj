@@ -328,6 +328,9 @@
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ListarPedidosNOCARRITOResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.listarTodoPedidosPaginadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ModificarDetallePedidoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -344,6 +347,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerDetallesPorPedidoIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.obtenerPaginasPedidoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SoftInvWSPedido\SoftInvBusiness.SoftInvWSPedido.ObtenerPedidoPorIdResponse.datasource">
