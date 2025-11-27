@@ -6,19 +6,16 @@
      Detalle Producto | MG Beauty Spa
 </asp:Content>
 
-<%-- 1. CONTENIDO DEL HEAD: CSS, Fuentes y JS --%>
 <asp:Content ID="HeadContent1" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteCss/DetalleProductoCss.css") %>" />
 </asp:Content>
 
-<%-- 2. BREADCRUMB --%>
 <asp:Content ID="Breadcrumb1" ContentPlaceHolderID="BreadcrumbContent" runat="server">
     <li class="breadcrumb-item"><a href="InicioCliente.aspx">Inicio</a></li>
     <li class="breadcrumb-item"><a href="Productos.aspx">Productos</a></li>
     <li class="breadcrumb-item active"><asp:Literal ID="litNombreProd" runat="server" /></li>
 </asp:Content>
 
-<%-- 3. CONTENIDO PRINCIPAL --%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:ScriptManager ID="smDetalle" runat="server" EnablePartialRendering="true" />
@@ -128,9 +125,7 @@
                         <ItemTemplate>
                             <article class="review-item">
                                 <div class="review-header">
-                                    <asp:Image ID="imgAvatar" runat="server" 
-                                        ImageUrl='<%# Eval("cliente.urlFotoPerfil", "~{0}") %>' 
-                                        CssClass="review-avatar" />
+                                    <asp:Image ID="imgComentarioListado" runat="server" CssClass="review-avatar" AlternateText="Avatar" />
                                     <div class="review-author-info">
                                         <span class="review-author-name"><%# Eval("cliente.nombre") %></span>
                                         <div class="review-item-stars">
@@ -169,7 +164,7 @@
                 </div>
                 
                 <div class="add-review-form">
-                    <img class="review-avatar" src="/avatar-placeholder-user.png" alt="Tu avatar" />
+                        <asp:Image ID="imgAvatarFormulario" runat="server" CssClass="review-avatar" AlternateText="Tu avatar" />
                     <div class="add-review-content">
                         <div class="review-user-name">
                             <asp:Literal ID="litNombreUsuario" runat="server" />

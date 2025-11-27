@@ -108,7 +108,7 @@ public class UsuarioDAOImpl extends DAOImplBase implements UsuarioDAO{
                 + "    EMPLEADOS_SERVICIOS ES \n"
                 + "        ON ES.EMPLEADO_ID = U.USUARIO_ID\n"
                 + "WHERE\n"
-                + "    U.ROL_ID!=3\n"
+                + "    U.ROL_ID=2\n"
                 + "GROUP BY \n"
                 + "    U.USUARIO_ID,\n"
                 + "    U.NOMBRE,\n"

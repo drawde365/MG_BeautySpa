@@ -144,7 +144,19 @@ namespace MGBeautySpaWebAplication.Cliente
         private void MostrarNombreUsuario()
         {
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
+
             litNombreUsuario.Text = usuario?.nombre ?? "Invitado";
+
+            string urlFoto = usuario?.urlFotoPerfil;
+
+            if (!string.IsNullOrEmpty(urlFoto))
+            {
+                imgAvatarFormulario.ImageUrl = ResolveUrl(urlFoto);
+            }
+            else
+            {
+                imgAvatarFormulario.ImageUrl = ResolveUrl("~/Content/images/blank-photo.jpg");
+            }
         }
 
         private void PintarResenas()
@@ -450,6 +462,19 @@ namespace MGBeautySpaWebAplication.Cliente
             if (litEstrellas != null)
             {
                 litEstrellas.Text = GenerarEstrellas(comentario.valoracion);
+            }
+
+            var imgAvatar = (Image)e.Item.FindControl("imgComentarioListado");
+
+            string urlFoto = comentario.cliente?.urlFotoPerfil;
+
+            if (!string.IsNullOrEmpty(urlFoto))
+            {
+                imgAvatar.ImageUrl = ResolveUrl(urlFoto);
+            }
+            else
+            {
+                imgAvatar.ImageUrl = ResolveUrl("~/Content/images/blank-photo.jpg");
             }
 
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
