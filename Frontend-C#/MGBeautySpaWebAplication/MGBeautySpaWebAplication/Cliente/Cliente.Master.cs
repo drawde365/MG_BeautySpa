@@ -25,15 +25,14 @@ namespace MGBeautySpaWebAplication.Cliente
         private void LoadUserData()
         {
             string nombre = (Session["UserName"] as string) ?? "Invitado";
-            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? "~/Content/images/blank-photo.jpg";
 
-            litUserName.Text = nombre;
-            imgProfile.AppRelativeTemplateSourceDirectory = fotoUrl;
+            string fotoUrl = (Session["UserPhotoUrl"] as string) ?? null;
+
         }
 
         private void VerificarSesion()
         {
-            string fotoUrl = "~/Content/images/blank-photo.jpg";
+            string fotoUrl = null;
             var usuario = Session["UsuarioActual"] as usuarioDTO;
 
             if (usuario == null)
@@ -43,7 +42,7 @@ namespace MGBeautySpaWebAplication.Cliente
             }
             else
             {
-                if(usuario.rol!=1)
+                if (usuario.rol != 1)
                 {
                     Session.Clear();
                     Session.Abandon();
@@ -51,7 +50,8 @@ namespace MGBeautySpaWebAplication.Cliente
 
                     Response.Redirect(ResolveUrl("~/Login.aspx"));
                     Session["UsuarioActual"] = null;
-                } else
+                }
+                else
                 {
                     divPerfil.Visible = true;
                     divLogin.Visible = false;
@@ -62,10 +62,17 @@ namespace MGBeautySpaWebAplication.Cliente
                     {
                         fotoUrl = usuario.urlFotoPerfil;
                     }
-
                 }
             }
-            imgProfile.Src = ResolveUrl(fotoUrl);
+
+            if (!string.IsNullOrEmpty(fotoUrl))
+            {
+                imgProfile.Src = ResolveUrl(fotoUrl);
+            }
+            else
+            {
+                imgProfile.Src = "~/Content/images/blank-photo.jpg";
+            }
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
