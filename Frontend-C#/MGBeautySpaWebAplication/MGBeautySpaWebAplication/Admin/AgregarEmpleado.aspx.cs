@@ -27,8 +27,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ================== CARGA DE SERVICIOS COSMETOLÓGICOS ==================
-
         private void CargarServiciosCosmetologicos()
         {
             try
@@ -47,14 +45,11 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ================== CLICK GUARDAR ==================
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             Page.Validate();
             if (!Page.IsValid) return;
 
-            // Refuerzo de longitudes por seguridad
             if (txtNombre.Text.Length > 30 ||
                 txtPrimerApellido.Text.Length > 30 ||
                 txtSegundoApellido.Text.Length > 30 ||
@@ -72,20 +67,16 @@ namespace MGBeautySpaWebAplication.Admin
             }
 
             var errores = new List<string>();
-            string urlFotoPerfil = "~/Content/default_profile.png"; // Valor predeterminado
+            string urlFotoPerfil = "~/Content/default_profile.png";
 
-            // --- INICIO: LÓGICA DE VALIDACIÓN Y SUBIDA DE IMAGEN (Solo Nuevo Empleado) ---
             try
             {
-                // **Validación estricta para nuevo empleado: SIEMPRE debe haber un archivo**
                 if (!fileUpload.HasFile)
                 {
-                    // Este error se complementa con el CustomValidator del lado del cliente
                     errores.Add("Debe seleccionar una imagen para el empleado nuevo.");
                 }
                 else
                 {
-                    // Intentamos subir la imagen y obtenemos la URL
                     urlFotoPerfil = SubirImagenPerfil();
                 }
             }
@@ -95,7 +86,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
 
 
-            // 1) Construir horarios desde los HiddenField (uno o varios rangos por día)
             List<HorarioDia> horarios = null;
             try
             {
@@ -126,18 +116,14 @@ namespace MGBeautySpaWebAplication.Admin
 
             try
             {
-                // 2) Crear empleado en WS Java (Empleado.InsertarEmpleadoPorPartes)
                 int empleadoId = CrearEmpleadoSOAP(urlFotoPerfil);
 
-                // 3) Registrar todos los horarios (HorarioTrabajo.InsertarHorarioTrabajo)
                 RegistrarHorariosEmpleadoSOAP(empleadoId, horarios);
-                
+
                 calendarioBO.insertar30DiasCalendarioEmpleado(empleadoId);
 
-                // 4) Asignar servicios cosmetológicos (Empleado.AgregarServicioAEmpleado)
                 AsignarServiciosEmpleadoSOAP(empleadoId);
 
-                // 5) Redirigir
                 Response.Redirect("~/Admin/AdmPedidos.aspx");
             }
             catch (Exception ex)
@@ -150,8 +136,6 @@ namespace MGBeautySpaWebAplication.Admin
                 Page.Validators.Add(cv);
             }
         }
-
-        // ================== LEER HORARIOS DESDE LOS HIDDENFIELD ==================
 
         private List<HorarioDia> ConstruirHorariosDesdeHiddenFields()
         {
@@ -167,9 +151,6 @@ namespace MGBeautySpaWebAplication.Admin
             return lista;
         }
 
-        /// <summary>
-        /// valor: formato "08:00-11:00;15:00-18:00"
-        /// </summary>
         private void ParseHorariosDeDia(string valor, int diaSemana, string nombreDia, List<HorarioDia> lista)
         {
             valor = (valor ?? "").Trim();
@@ -197,7 +178,6 @@ namespace MGBeautySpaWebAplication.Admin
                 if (!TimeSpan.TryParse(finStr, out var fin))
                     throw new Exception($"Hora de fin inválida en {nombreDia}: '{finStr}'. Usa HH:mm.");
 
-                // Solo horas en punto
                 if (ini.Minutes != 0 || fin.Minutes != 0)
                     throw new Exception($"En {nombreDia} solo se permiten horas exactas (ejemplo: 08:00, 15:00).");
 
@@ -213,8 +193,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ================== INTEGRACIÓN CON WS Empleado ==================
-
         private int CrearEmpleadoSOAP(string urlFotoPerfil)
         {
             empleadoBO = new EmpleadoBO();
@@ -226,7 +204,7 @@ namespace MGBeautySpaWebAplication.Admin
             string contrasenha = txtContrasenha.Text;
             string celular = txtTelefono.Text.Trim();
 
-            bool admin = false; // desde esta pantalla solo se crean empleados normales
+            bool admin = false;
 
             int idEmpleado = empleadoBO.InsertarEmpleadoPorPartes(
                 nombre,
@@ -246,11 +224,9 @@ namespace MGBeautySpaWebAplication.Admin
         {
             if (!fileUpload.HasFile)
             {
-                // Aunque ya validamos antes, es un refuerzo de seguridad
                 throw new Exception("No se ha seleccionado ningún archivo.");
             }
 
-            // Validación de tipo de archivo (refuerzo del lado del servidor)
             string extension = Path.GetExtension(fileUpload.FileName).ToLower();
             string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
             if (Array.IndexOf(allowedExtensions, extension) == -1)
@@ -258,29 +234,22 @@ namespace MGBeautySpaWebAplication.Admin
                 throw new Exception("Solo se permiten archivos de imagen en formato JPG, JPEG o PNG.");
             }
 
-            // Generar nombre único para el archivo
             string nombreArchivo = Path.GetFileNameWithoutExtension(fileUpload.FileName);
             string nuevoNombre = $"{nombreArchivo}_{DateTime.Now.Ticks}{extension}";
 
-            // Ruta relativa de destino (donde se guardan las imágenes de perfil)
             string carpetaDestinoRelativa = "~/Content/images/Empleados/";
             string rutaDestinoAbsoluta = Server.MapPath(carpetaDestinoRelativa);
 
-            // Crear el directorio si no existe
             if (!Directory.Exists(rutaDestinoAbsoluta))
             {
                 Directory.CreateDirectory(rutaDestinoAbsoluta);
             }
 
-            // Guardar el archivo en el servidor
             string rutaCompleta = Path.Combine(rutaDestinoAbsoluta, nuevoNombre);
             fileUpload.SaveAs(rutaCompleta);
 
-            // Devolver la ruta relativa para guardarla en la base de datos
             return $"{carpetaDestinoRelativa}{nuevoNombre}";
         }
-
-        // ================== INTEGRACIÓN CON WS HorarioTrabajo ==================
 
         private void RegistrarHorariosEmpleadoSOAP(int empleadoId, List<HorarioDia> horarios)
         {
@@ -316,14 +285,11 @@ namespace MGBeautySpaWebAplication.Admin
                 }
 
                 horarioDto.numIntervalo = numIntervalos;
-                // Si el proxy generó numIntervaloSpecified:
                 horarioDto.numIntervaloSpecified = true;
 
                 horarioTrabajoBO.insertarHorarioDeEmpleado(horarioDto);
             }
         }
-
-        // ================== INTEGRACIÓN CON WS Empleado (servicios) ==================
 
         private void AsignarServiciosEmpleadoSOAP(int empleadoId)
         {
@@ -347,11 +313,9 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ================== DTO interno para manejar horarios ==================
-
         private class HorarioDia
         {
-            public int DiaSemana { get; set; }      // 1 = Lunes ... 6 = Sábado
+            public int DiaSemana { get; set; }
             public TimeSpan HoraInicio { get; set; }
             public TimeSpan HoraFin { get; set; }
         }

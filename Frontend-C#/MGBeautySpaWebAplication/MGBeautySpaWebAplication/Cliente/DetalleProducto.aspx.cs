@@ -89,7 +89,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
             try
             {
-                // Verificar que sea el producto correcto
                 if (!comentarioPendiente.ContainsKey("idProducto")) return;
 
                 int idProductoPendiente = (int)comentarioPendiente["idProducto"];
@@ -101,17 +100,13 @@ namespace MGBeautySpaWebAplication.Cliente
                 if (string.IsNullOrWhiteSpace(comentarioTexto)) return;
                 if (!int.TryParse(valoracionTexto, out int val) || val < 1 || val > 5) return;
 
-                // Restaurar en el formulario
                 txtComentario.Text = comentarioTexto;
                 hdnValoracion.Value = valoracionTexto;
 
-                // Enviar automáticamente
                 EnviarComentario();
 
-                // Limpiar sesión después de enviar
                 Session.Remove("ComentarioPendiente");
 
-                // Limpiar estrellas visuales
                 ScriptManager.RegisterStartupScript(this, GetType(), "limpiarEstrellasAuto",
                     "setTimeout(function() { document.querySelectorAll('.rating-star').forEach(s => { s.classList.remove('active'); s.textContent = '☆'; }); }, 100);", true);
             }
@@ -334,14 +329,12 @@ namespace MGBeautySpaWebAplication.Cliente
 
             if (usuario == null)
             {
-                // Guardar comentario en sesión y redirigir a login
                 GuardarComentarioPendiente();
                 Session["ReturnUrl"] = Request.RawUrl;
                 Response.Redirect("~/Login.aspx");
                 return;
             }
 
-            // Si está logueado, enviar el comentario
             EnviarComentario();
         }
 
@@ -385,20 +378,17 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 if (idComentarioEditando.HasValue && idComentarioEditando.Value > 0)
                 {
-                    // MODO EDICIÓN
                     EditarComentarioExistente(idComentarioEditando.Value, texto, valoracion);
                     Session["MensajeExito"] = "¡Tu reseña se ha actualizado exitosamente!";
                 }
                 else
                 {
-                    // MODO INSERCIÓN
                     comentarioBO.InsertarComentarioDeProducto(usuario.idUsuario, texto, valoracion, producto.idProducto);
                     Session["MensajeExito"] = "¡Tu reseña se ha publicado exitosamente!";
                 }
 
                 LimpiarFormularioComentario();
 
-                // Redirigir a la misma página para evitar reenvío de formulario
                 Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
@@ -456,17 +446,15 @@ namespace MGBeautySpaWebAplication.Cliente
             var comentario = e.Item.DataItem as SoftInvBusiness.SoftInvWSComentario.comentarioDTO;
             if (comentario == null) return;
 
-            // Generar estrellas
             var litEstrellas = (Literal)e.Item.FindControl("litEstrellas");
             if (litEstrellas != null)
             {
                 litEstrellas.Text = GenerarEstrellas(comentario.valoracion);
             }
 
-            // Mostrar botones solo si es el autor
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
             bool esAutor = usuario != null && comentario.cliente != null &&
-                          usuario.idUsuario == comentario.cliente.idUsuario;
+                            usuario.idUsuario == comentario.cliente.idUsuario;
 
             ConfigurarBotonComentario(e.Item, "btnEditarComentario", esAutor, comentario.idComentario);
             ConfigurarBotonComentario(e.Item, "btnEliminarComentario", esAutor, comentario.idComentario);

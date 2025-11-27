@@ -4,13 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SoftInvBusiness; // Para los BOs
-using SoftInvBusiness.SoftInvWSProductos; // Para ProductoBO
-using SoftInvBusiness.SoftInvWSServicio; // Para ServicioBO
+using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSProductos;
+using SoftInvBusiness.SoftInvWSServicio;
 
 namespace MGBeautySpaWebAplication.Cliente
 {
-    // Clase de ayuda para el Repeater
     public class ItemDestacadoDTO
     {
         public string Nombre { get; set; }
@@ -47,7 +46,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 if (productos == null) return;
 
                 var productosDestacados = productos
-                    .OrderByDescending(p => p.promedioValoracion) // Ordena por valoración
+                    .OrderByDescending(p => p.promedioValoracion)
                     .Select(p => new ItemDestacadoDTO
                     {
                         Nombre = p.nombre,
@@ -62,7 +61,6 @@ namespace MGBeautySpaWebAplication.Cliente
             }
             catch (Exception ex)
             {
-                // Manejar error (ej. servicio no disponible)
             }
         }
 
@@ -74,9 +72,9 @@ namespace MGBeautySpaWebAplication.Cliente
                 if (servicios == null) return;
 
                 var serviciosDestacados = servicios
-                    .OrderByDescending(s => s.promedioValoracion) // Ordena por valoración
+                    .OrderByDescending(s => s.promedioValoracion)
                     .Select(s => new ItemDestacadoDTO
-                    { // Reusamos el DTO
+                    {
                         Nombre = s.nombre,
                         Descripcion = s.descripcion.Length > 50 ? s.descripcion.Substring(0, 50) + "..." : s.descripcion,
                         ImageUrl = ResolveUrl(s.urlImagen ?? "~/Content/images/placeholder.png"),
@@ -89,7 +87,6 @@ namespace MGBeautySpaWebAplication.Cliente
             }
             catch (Exception ex)
             {
-                // Manejar error
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -19,17 +20,13 @@ namespace MGBeautySpaWebAplication.Cuenta
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // ESTA LÍNEA ES CRUCIAL: Habilita la validación dinámica antigua (JavaScript puro)
-            // que hace que los mensajes desaparezcan al escribir.
             this.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
         }
 
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
-            // 1. Validar que la página sea válida según los Validators del ASPX
             if (!Page.IsValid) return;
 
-            // 2. Limpiar mensajes anteriores
             lblMensaje.Text = "";
             lblMensaje.CssClass = "";
 
@@ -46,15 +43,12 @@ namespace MGBeautySpaWebAplication.Cuenta
                     return;
                 }
 
-                // Crear token y guardar
                 string token = Guid.NewGuid().ToString();
                 usuarioBO.GuardarTokenRecuperacion(usuario.idUsuario, token);
 
-                // Construir URL
                 string url = Request.Url.GetLeftPart(UriPartial.Authority) +
                              "/Cuenta/ModificarContraseña.aspx?token=" + token;
 
-                // Configurar correo
                 MailMessage mensaje = new MailMessage();
                 mensaje.From = new MailAddress(correoEmpresa);
                 mensaje.To.Add(correo);
@@ -69,11 +63,9 @@ namespace MGBeautySpaWebAplication.Cuenta
 
                 smtp.Send(mensaje);
 
-                // Éxito
                 lblMensaje.Text = "Se ha enviado un enlace a tu correo.";
                 lblMensaje.CssClass = "text-success small fw-bold";
 
-                // Opcional: Limpiar el campo para que no envíen dos veces
                 txtEmail.Text = "";
             }
             catch (Exception ex)

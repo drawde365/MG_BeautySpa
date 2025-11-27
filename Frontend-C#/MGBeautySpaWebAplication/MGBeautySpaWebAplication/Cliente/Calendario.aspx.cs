@@ -113,7 +113,6 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
-        // ... (Los métodos auxiliares del calendario CargarDisponibilidadEnCache, CargarDatosRealesCalendario, BindCalendar, rpCalendarDays_ItemDataBound, GetAvailableHours, btnPrevMonth_Click, btnNextMonth_Click, ClearHoursDropDown SE MANTIENEN IGUAL) ...
         private void CargarDisponibilidadEnCache()
         {
             var calendarioEmpleado = calendarioBO.ListarCalendarioDeEmpleado(this.EmpleadoId);
@@ -221,11 +220,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
         private void MostrarAlerta(string mensaje) { ScriptManager.RegisterStartupScript(this, GetType(), "ReservaAlerta", $"alert('{mensaje.Replace("'", "\\'")}');", true); }
 
-        // ===========================================================
-        // 🔥 NUEVA LÓGICA DE PAGO Y RESERVA 🔥
-        // ===========================================================
-
-        // 1. Al hacer clic en "Reservar Cita", solo validamos y abrimos el Modal
         protected void btnReservar_Click(object sender, EventArgs e)
         {
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
@@ -238,27 +232,21 @@ namespace MGBeautySpaWebAplication.Cliente
             if (string.IsNullOrEmpty(hdnSelectedDay.Value)) { MostrarAlerta("Por favor, seleccione una fecha."); return; }
             if (string.IsNullOrEmpty(hdnSelectedHour.Value)) { MostrarAlerta("Por favor, seleccione una hora."); return; }
 
-            // Si pasa las validaciones, mostramos el modal de pago
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenPayment", "var myModal = new bootstrap.Modal(document.getElementById('paymentModal')); myModal.show();", true);
         }
 
-        // 2. Este evento se dispara cuando el usuario confirma el pago en el Modal
         protected void btnProcessPayment_Click(object sender, EventArgs e)
         {
-            // Recoger valores del formulario (Pago)
             string cardNumber = Request.Form[txtCardNumber.UniqueID]?.Trim().Replace(" ", "") ?? "";
 
-            // Simulación de pago (igual que en Carrito)
             if (cardNumber.EndsWith("0"))
             {
-                // Fallo simulado
                 string failScript = @"alert('El pago no pudo ser procesado. Verifica los datos de tu tarjeta.');
-                                      setTimeout(function() { var modal = new bootstrap.Modal(document.getElementById('paymentModal')); modal.show(); }, 100);";
+                                      setTimeout(function() { var modal = new bootstrap.Modal(document.getElementById('paymentModal')); modal.show(); }, 100);";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PaymentFail", failScript, true);
                 return;
             }
 
-            // === PAGO EXITOSO: PROCEDEMOS A RESERVAR ===
             try
             {
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
@@ -275,22 +263,21 @@ namespace MGBeautySpaWebAplication.Cliente
                 nuevaCita.fecha = fechaSeleccionada;
                 nuevaCita.fechaSpecified = true;
                 nuevaCita.horaIni = horaSeleccionada.ToString("HH:mm:ss");
-                nuevaCita.horaFin = horaSeleccionada.AddMinutes(this.DuracionServicio*60).ToString("HH:mm:ss");
+                nuevaCita.horaFin = horaSeleccionada.AddMinutes(this.DuracionServicio * 60).ToString("HH:mm:ss");
                 nuevaCita.activo = 1;
                 nuevaCita.activoSpecified = true;
                 nuevaCita.IGV = servicio.precio * TASA_IGV;
                 nuevaCita.IGVSpecified = true;
                 nuevaCita.codigoTransaccion = "PAY-" + Guid.NewGuid().ToString().Substring(0, 8);
 
-                
+
                 int resultado = calendarioBO.ReservarBloqueYCita(nuevaCita);
                 nuevaCita.id = resultado;
                 nuevaCita.idSpecified = true;
 
-                //Enviamos correo al cliente, boleta con datos de la reserva
-                
+
                 SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado = empleadoBO.ObtenerEmpleadoPorId(this.EmpleadoId);
-                byte[] pdf = GenerarPdfReserva(nuevaCita,servicio,empleado);
+                byte[] pdf = GenerarPdfReserva(nuevaCita, servicio, empleado);
                 EnviarCorreoConPdf(
                     usuario.correoElectronico,
                     "Comprobante de tu reserva - MG Beauty SPA",
@@ -298,10 +285,8 @@ namespace MGBeautySpaWebAplication.Cliente
                     pdf
                 );
 
-                //Enviamos correo al empleado asignado
-                EnviarCorreoEmpleado(usuario,empleado,servicio,nuevaCita);
+                EnviarCorreoEmpleado(usuario, empleado, servicio, nuevaCita);
 
-                // Mostrar modal de éxito y cerrar el de pago
                 string successScript = @"
                     var paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
                     if (paymentModal) { paymentModal.hide(); }
@@ -324,8 +309,8 @@ namespace MGBeautySpaWebAplication.Cliente
             mensaje.To.Add(empleado.correoElectronico);
             mensaje.Subject = "Nueva Cita Registrada | MG Beauty SPA";
             mensaje.Body = "¡Hola, " + empleado.nombre + "!\n\n" +
-                           "Un nuevo cliente ha registrado la siguiente cita:\n" + "Cliente: "+usuario.nombre+" "+usuario.primerapellido+" "+usuario.segundoapellido+"\nCorreo Electrónico: "+usuario.correoElectronico+
-                           "\nCelular: "+usuario.celular+"\nServicio: "+servicio.nombre+"\nFecha: "+nuevaCita.fecha.ToString("D") +"\nHora Inicio: "+nuevaCita.horaIni+"\nHora Fin: "+nuevaCita.horaFin+"\n¡Conáctate si es necesario!";
+                            "Un nuevo cliente ha registrado la siguiente cita:\n" + "Cliente: " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + "\nCorreo Electrónico: " + usuario.correoElectronico +
+                            "\nCelular: " + usuario.celular + "\nServicio: " + servicio.nombre + "\nFecha: " + nuevaCita.fecha.ToString("D") + "\nHora Inicio: " + nuevaCita.horaIni + "\nHora Fin: " + nuevaCita.horaFin + "\n¡Conáctate si es necesario!";
             mensaje.IsBodyHtml = false;
 
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
@@ -340,16 +325,13 @@ namespace MGBeautySpaWebAplication.Cliente
             using (MemoryStream ms = new MemoryStream())
             {
                 SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = (SoftInvBusiness.SoftInvWSUsuario.usuarioDTO)Session["UsuarioActual"];
-                // Crear documento
                 Document doc = new Document(PageSize.A4, 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, ms);
                 doc.Open();
 
-                // === COLORES ===
-                BaseColor verde = new BaseColor(0x14, 0x8C, 0x76);   // #148C76
-                BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8); // #F4FBF8
+                BaseColor verde = new BaseColor(0x14, 0x8C, 0x76);
+                BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8);
 
-                // === LOGO ===
                 string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
                 if (File.Exists(rutaLogo))
                 {
@@ -359,7 +341,6 @@ namespace MGBeautySpaWebAplication.Cliente
                     doc.Add(logo);
                 }
 
-                // Título
                 Font tituloFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20, verde);
                 Paragraph titulo = new Paragraph("Comprobante de Reserva - MG BEAUTY SPA", tituloFont);
                 titulo.Alignment = Element.ALIGN_CENTER;
@@ -367,7 +348,6 @@ namespace MGBeautySpaWebAplication.Cliente
                 titulo.SpacingAfter = 20;
                 doc.Add(titulo);
 
-                // LÍNEA SEPARADORA
                 PdfPTable linea = new PdfPTable(1);
                 linea.WidthPercentage = 100;
                 PdfPCell cellSep = new PdfPCell(new Phrase(""))
@@ -381,7 +361,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(new Paragraph("\n"));
 
-                // === INFORMACIÓN DEL CLIENTE ===
                 Font label = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, verde);
                 Font texto = FontFactory.GetFont(FontFactory.HELVETICA, 12);
 
@@ -404,7 +383,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 doc.Add(new Paragraph("¡Contáctate si es necesario!", texto));
 
                 doc.Add(new Paragraph("Empleado a cargo:", label));
-                doc.Add(new Paragraph(empleado.nombre+" "+empleado.primerapellido+" "+empleado.segundoapellido, texto));
+                doc.Add(new Paragraph(empleado.nombre + " " + empleado.primerapellido + " " + empleado.segundoapellido, texto));
                 doc.Add(new Paragraph("\n"));
 
                 doc.Add(new Paragraph("Correo del empleado:", label));
@@ -415,15 +394,10 @@ namespace MGBeautySpaWebAplication.Cliente
                 doc.Add(new Paragraph(empleado.celular, texto));
                 doc.Add(new Paragraph("\n\n"));
 
-                // ===============================================
-                //              TABLA DE SERVICIO
-                // ===============================================
-
                 PdfPTable tabla = new PdfPTable(5);
                 tabla.WidthPercentage = 100;
-                tabla.SetWidths(new float[] { 35, 20, 15, 15, 15 }); //  Servicio - Fecha - Hora Inicio - Hora Fin - Precio
+                tabla.SetWidths(new float[] { 35, 20, 15, 15, 15 });
 
-                // Encabezados
                 Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
 
                 string[] headers = { "Servicio", "Fecha", "Hora Inicio", "Hora Fin", "Precio" };
@@ -438,27 +412,22 @@ namespace MGBeautySpaWebAplication.Cliente
                     tabla.AddCell(headerCell);
                 }
 
-                // Nombre
                 tabla.AddCell(new PdfPCell(new Phrase(servicio.nombre, texto)) { Padding = 5 });
 
-                //Fecha
                 tabla.AddCell(new PdfPCell(new Phrase(cita.fecha.ToString("d/MM/yyyy"), texto)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 5 });
 
-                // Hora inicio
                 tabla.AddCell(new PdfPCell(new Phrase(cita.horaIni.ToString(), texto))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     Padding = 5
                 });
 
-                // Hora Fin
                 tabla.AddCell(new PdfPCell(new Phrase(cita.horaFin.ToString(), texto))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     Padding = 5
                 });
 
-                // Precio
                 tabla.AddCell(new PdfPCell(new Phrase("S/ " + servicio.precio, texto))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
@@ -466,10 +435,6 @@ namespace MGBeautySpaWebAplication.Cliente
                 });
 
                 doc.Add(tabla);
-
-                // ===============================================
-                //                     TOTAL
-                // ===============================================
 
                 doc.Add(new Paragraph("\n"));
 
@@ -499,7 +464,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(tablaTotal);
 
-                // ESPACIO FINAL
                 doc.Add(new Paragraph("\n\n¡Gracias por tu reserva en MG Beauty SPA!", texto));
 
                 doc.Close();
@@ -516,7 +480,6 @@ namespace MGBeautySpaWebAplication.Cliente
             mensaje.Body = cuerpo;
             mensaje.IsBodyHtml = false;
 
-            // Adjuntar PDF
             mensaje.Attachments.Add(new Attachment(
                 new MemoryStream(pdfBytes),
                 "ComprobanteReserva.pdf",
@@ -531,7 +494,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnVolverInicio_Click(object sender, EventArgs e)
         {
-            // Redirigir al perfil/reservas para ver la nueva cita
             Response.Redirect("~/Cliente/Perfil/Reservas.aspx");
         }
     }

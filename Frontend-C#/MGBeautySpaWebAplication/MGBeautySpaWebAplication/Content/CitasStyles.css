@@ -2,6 +2,51 @@
  * Estilos específicos para la página de Citas (MisCitas.aspx)
  */
 
+.citas-vacias-mensaje {
+    text-align: center;
+    padding: 40px 20px;
+    color: #757575;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.1em;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+.modal-body .form-label {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.modal-body .form-control {
+    border-radius: 6px;
+}
+
+.btn-action-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-accept {
+    color: #198754;
+    border-color: #198754;
+}
+
+    .btn-accept:hover {
+        background-color: #198754;
+        color: white;
+    }
+
+.btn-cancel {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-cancel:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
 /* Estilos para replicar las pestañas de Figma */
 .citas-nav-tabs {
     border-bottom: 1px solid #CFE8E0 !important;

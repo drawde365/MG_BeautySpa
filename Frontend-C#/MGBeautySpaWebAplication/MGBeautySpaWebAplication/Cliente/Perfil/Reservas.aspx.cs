@@ -61,13 +61,12 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
                 user.idUsuario = usuario.idUsuario;
                 user.idUsuarioSpecified = true;
-                user.rol = 1; // Rol Cliente
+                user.rol = 1;
                 user.rolSpecified = true;
 
                 var reservas = citaBO.ListarPorUsuario(user);
                 ListaCompletaReservas = (reservas != null) ? reservas.ToList() : new List<SoftInvBusiness.SoftInvWSCita.citaDTO>();
             }
-            // Forzar recarga si la lista está vacía para evitar falsos positivos de caché
             else if (ListaCompletaReservas.Count == 0)
             {
                 SoftInvBusiness.SoftInvWSCita.usuarioDTO user = new SoftInvBusiness.SoftInvWSCita.usuarioDTO();
@@ -93,7 +92,6 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 rptReservas.Visible = true;
                 pnlNoReservas.Visible = false;
 
-                // Ordenamos: Próximas primero, luego por fecha descendente
                 var listaOrdenada = listaCompleta
                     .OrderByDescending(c => c.fecha)
                     .ThenByDescending(c => c.horaIni);
@@ -108,15 +106,14 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                             c.servicio.precio.ToString("C", new CultureInfo("es-PE"))
                             : "S/ 0.00",
                     HoraInicio = !string.IsNullOrEmpty(c.horaIni)
-                                 ? DateTime.Parse(c.horaIni, new CultureInfo("es-ES")).ToString("hh:mm tt")
-                                 : "N/A",
-                    // Datos para lógica interna
+                                     ? DateTime.Parse(c.horaIni, new CultureInfo("es-ES")).ToString("hh:mm tt")
+                                     : "N/A",
                     Activo = c.activo,
                     FechaReal = c.fecha,
                     HoraRealStr = c.horaIni,
                     EmpleadoCorreo = c.empleado.correoElectronico,
                     EmpleadoCelular = c.empleado.celular,
-                    Estado = c.activo==1? "Pendiente" : (c.activo==2 ? "Atendido" : "Cancelado")
+                    Estado = c.activo == 1 ? "Pendiente" : (c.activo == 2 ? "Atendido" : "Cancelado")
                 });
 
                 var listaLimitada = listaMapeada.Take(LimiteReservas).ToList();
@@ -138,7 +135,6 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
 
-        // ✅ LÓGICA CORREGIDA DE ESTADOS Y BOTÓN CANCELAR
         protected void rptReservas_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item ||
@@ -146,10 +142,8 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             {
                 var data = (dynamic)e.Item.DataItem;
 
-                // Controles
                 LinkButton btnCancelar = (LinkButton)e.Item.FindControl("btnCancelarCita");
 
-                // Datos
                 int activo = data.Activo;
                 DateTime fechaReserva = data.FechaReal;
                 string horaString = data.HoraRealStr;
@@ -167,7 +161,6 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 {
                     btnCancelar.Visible = true;
                     btnCancelar.CommandArgument = citaId.ToString();
-                    // 👉 ya no usamos confirm(), ahora el modal
                     btnCancelar.OnClientClick = "";
                     btnCancelar.Attributes["data-citaid"] = citaId.ToString();
                 }
@@ -189,16 +182,13 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 {
                     citaBO.EliminarCita(citaAEliminar);
 
-                    // Enviar correo al empleado
                     EnviarCorreoEmpleado(citaAEliminar);
 
-                    // Forzar recarga desde BD para refrescar estados
                     ListaCompletaReservas = null;
                     CargarReservas();
                 }
             }
         }
-
 
 
         protected void rptReservas_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -211,13 +201,11 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
 
                     if (citaAEliminar != null)
                     {
-                        // EliminarCita cambia el estado a 0 (inactivo) en la BD
                         citaBO.EliminarCita(citaAEliminar);
 
-                        //Enviamos correo a empleado sobre la cancelacion
                         EnviarCorreoEmpleado(citaAEliminar);
 
-                        ListaCompletaReservas = null; // Forzamos la recarga desde la BD
+                        ListaCompletaReservas = null;
                         CargarReservas();
                     }
                 }
@@ -233,8 +221,8 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             mensaje.To.Add(citaAEliminar.empleado.correoElectronico);
             mensaje.Subject = "Cancelación de reserva | MG Beauty SPA";
             mensaje.Body = "¡Hola, " + citaAEliminar.empleado.nombre + "!\n\n" +
-                           "Te informamos que la reserva programada por el cliente " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + " para el servicio " + citaAEliminar.servicio.nombre +
-                           ", con fecha " + citaAEliminar.fecha.ToString("dd/MM/yyyy")+" "+citaAEliminar.horaIni.ToString() + ", ha sido cancelada.\n" + "Por favor, toma en cuenta este cambio en tu agenda. ¡Gracias!";
+                            "Te informamos que la reserva programada por el cliente " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + " para el servicio " + citaAEliminar.servicio.nombre +
+                            ", con fecha " + citaAEliminar.fecha.ToString("dd/MM/yyyy") + " " + citaAEliminar.horaIni.ToString() + ", ha sido cancelada.\n" + "Por favor, toma en cuenta este cambio en tu agenda. ¡Gracias!";
             mensaje.IsBodyHtml = false;
 
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);

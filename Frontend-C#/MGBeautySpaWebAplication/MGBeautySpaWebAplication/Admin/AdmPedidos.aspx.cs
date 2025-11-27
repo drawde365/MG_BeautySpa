@@ -14,7 +14,6 @@ namespace MGBeautySpaWebAplication.Admin
 
         private const string SESSION_KEY_PEDIDOS = "AdmPedidos_ListaPedidos";
 
-        // ViewModel para la grilla
         private class PedidoViewModel
         {
             public int IdPedido { get; set; }
@@ -27,7 +26,6 @@ namespace MGBeautySpaWebAplication.Admin
             public double Total { get; set; }
         }
 
-        // ViewModel para detalles de pedido (modal de ver detalle)
         private class DetallePedidoViewModel
         {
             public string NombreProducto { get; set; }
@@ -48,9 +46,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ===========================
-        // PAGE LOAD
-        // ===========================
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -63,14 +58,10 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ===========================
-        // CARGA DESDE SERVICIO
-        // ===========================
         private void RefrescarPedidosDesdeServicio()
         {
             IList<pedidoDTO> lista = pedidoBO.ListarTodosPedidos() ?? new List<pedidoDTO>();
 
-            // No incluir EnCarrito
             var vm = lista
                 .Where(p => p.estadoPedido != estadoPedido.EnCarrito)
                 .Select(MapearPedidoDTO)
@@ -91,8 +82,8 @@ namespace MGBeautySpaWebAplication.Admin
         {
             string nombreCliente = p.cliente != null
                 ? (p.cliente.nombre + " " +
-                   p.cliente.primerapellido + " " +
-                   p.cliente.segundoapellido)
+                    p.cliente.primerapellido + " " +
+                    p.cliente.segundoapellido)
                 : "(Sin cliente)";
 
             DateTime? fechaPago = p.fechaPagoSpecified ? (DateTime?)p.fechaPago : null;
@@ -129,9 +120,6 @@ namespace MGBeautySpaWebAplication.Admin
             rptPedidos.DataBind();
         }
 
-        // ===========================
-        // CSS DE ESTADO
-        // ===========================
         protected string ObtenerClaseEstado(object estadoObj)
         {
             if (estadoObj == null) return "badge-confirmado";
@@ -161,9 +149,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ===========================
-        // ITEMDATABOUND: VISIBILIDAD DE BOTONES
-        // ===========================
         protected void rptPedidos_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item &&
@@ -183,14 +168,12 @@ namespace MGBeautySpaWebAplication.Admin
 
             if (!tieneFechaLista)
             {
-                // Sin fecha lista para recoger:
                 btnDefinirFecha.Visible = (vm.Estado == estadoPedido.CONFIRMADO);
                 btnMarcarRecogido.Visible = false;
                 btnCancelar.Visible = false;
             }
             else
             {
-                // Con fecha lista para recoger
                 btnDefinirFecha.Visible = false;
 
                 if (vm.Estado == estadoPedido.LISTO_PARA_RECOGER)
@@ -206,9 +189,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ===========================
-        // ACCIONES DEL REPEATER
-        // ===========================
         protected void rptPedidos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int idPedido = Convert.ToInt32(e.CommandArgument);
@@ -237,9 +217,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        // ===========================
-        // MODAL: MARCAR RECOGIDO
-        // ===========================
         private void PrepararModalRecogido(int idPedido)
         {
             var pedido = pedidoBO.ObtenerPorId(idPedido);
@@ -256,8 +233,8 @@ namespace MGBeautySpaWebAplication.Admin
 
             string nombreCliente = pedido.cliente != null
                 ? (pedido.cliente.nombre + " " +
-                   pedido.cliente.primerapellido + " " +
-                   pedido.cliente.segundoapellido)
+                    pedido.cliente.primerapellido + " " +
+                    pedido.cliente.segundoapellido)
                 : "(Sin cliente)";
 
             hfldPedidoRecogido.Value = pedido.idPedido.ToString();
@@ -337,7 +314,6 @@ namespace MGBeautySpaWebAplication.Admin
             pedido.estadoPedido = estadoPedido.RECOGIDO;
             pedidoBO.AceptarRecojo(pedido);
 
-            // Mensaje bonito en modalMensajeAccion
             litMensajeAccion.Text = "Pedido marcado como <strong>RECOGIDO</strong>.";
             ScriptManager.RegisterStartupScript(this, GetType(),
                 "msgOkRecogido",
@@ -347,9 +323,6 @@ namespace MGBeautySpaWebAplication.Admin
             RefrescarPedidosDesdeServicio();
         }
 
-        // ===========================
-        // MODAL: MARCAR NO RECOGIDO
-        // ===========================
         private void PrepararModalNoRecogido(int idPedido)
         {
             var pedido = pedidoBO.ObtenerPorId(idPedido);
@@ -366,8 +339,8 @@ namespace MGBeautySpaWebAplication.Admin
 
             string nombreCliente = pedido.cliente != null
                 ? (pedido.cliente.nombre + " " +
-                   pedido.cliente.primerapellido + " " +
-                   pedido.cliente.segundoapellido)
+                    pedido.cliente.primerapellido + " " +
+                    pedido.cliente.segundoapellido)
                 : "(Sin cliente)";
 
             hfldPedidoNoRecogido.Value = pedido.idPedido.ToString();
@@ -400,7 +373,6 @@ namespace MGBeautySpaWebAplication.Admin
             pedido.estadoPedido = estadoPedido.NO_RECOGIDO;
             pedidoBO.RechazarRecojo(pedido);
 
-            // Mensaje bonito en modalMensajeAccion
             litMensajeAccion.Text = "Pedido marcado como <strong>NO_RECOGIDO</strong>.";
             ScriptManager.RegisterStartupScript(this, GetType(),
                 "msgOkNoRecogido",
@@ -410,9 +382,6 @@ namespace MGBeautySpaWebAplication.Admin
             RefrescarPedidosDesdeServicio();
         }
 
-        // ===========================
-        // CARGAR DETALLE PARA EL MODAL DE VER PEDIDO
-        // ===========================
         private void CargarDetallePedido(int idPedido)
         {
             var pedido = pedidoBO.ObtenerPorId(idPedido);
@@ -420,8 +389,8 @@ namespace MGBeautySpaWebAplication.Admin
 
             string nombreCliente = pedido.cliente != null
                 ? (pedido.cliente.nombre + " " +
-                   pedido.cliente.primerapellido + " " +
-                   pedido.cliente.segundoapellido)
+                    pedido.cliente.primerapellido + " " +
+                    pedido.cliente.segundoapellido)
                 : "(Sin cliente)";
 
             litDetPedido.Text = $"#{pedido.idPedido}";
@@ -450,7 +419,6 @@ namespace MGBeautySpaWebAplication.Admin
                 }
                 catch
                 {
-                    // por si algún campo viene nulo desde el proxy
                 }
 
                 return new DetallePedidoViewModel

@@ -212,20 +212,17 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 if (idComentarioEditando.HasValue && idComentarioEditando.Value > 0)
                 {
-                    // MODO EDICIÓN
                     EditarComentarioExistente(idComentarioEditando.Value, texto, valoracion);
                     Session["MensajeExito"] = "¡Tu reseña se ha actualizado exitosamente!";
                 }
                 else
                 {
-                    // MODO INSERCIÓN
                     comentarioBO.InsertarComentarioDeServicio(usuario.idUsuario, texto, valoracion, servicio.idServicio);
                     Session["MensajeExito"] = "¡Tu reseña se ha publicado exitosamente!";
                 }
 
                 LimpiarFormularioComentario();
 
-                // Redirigir a la misma página para evitar reenvío de formulario
                 Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
@@ -282,14 +279,12 @@ namespace MGBeautySpaWebAplication.Cliente
             var comentario = e.Item.DataItem as SoftInvBusiness.SoftInvWSComentario.comentarioDTO;
             if (comentario == null) return;
 
-            // Generar estrellas
             var litEstrellas = (Literal)e.Item.FindControl("litEstrellas");
             if (litEstrellas != null)
             {
                 litEstrellas.Text = GenerarEstrellas(comentario.valoracion);
             }
 
-            // Mostrar botones solo si es el autor
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
             bool esAutor = usuario != null && comentario.cliente != null &&
                           usuario.idUsuario == comentario.cliente.idUsuario;

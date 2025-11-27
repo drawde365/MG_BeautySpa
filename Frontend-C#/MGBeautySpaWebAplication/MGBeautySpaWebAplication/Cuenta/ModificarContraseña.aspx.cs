@@ -16,14 +16,12 @@ namespace MGBeautySpaWebAplication.Cuenta
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // IMPORTANTE: Esto habilita la validación en tiempo real (mensajes rojos dinámicos)
             this.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
 
             if (!IsPostBack)
             {
                 string token = Request.QueryString["token"];
 
-                // Si no hay token o es inválido en la BD
                 if (string.IsNullOrEmpty(token))
                 {
                     MostrarModalBootstrap("modalError");
@@ -38,7 +36,6 @@ namespace MGBeautySpaWebAplication.Cuenta
                 }
                 else
                 {
-                    // Token válido
                     Session["ResetUserId"] = infoT.usuarioId;
                     Session["ResetToken"] = infoT;
                 }
@@ -49,7 +46,6 @@ namespace MGBeautySpaWebAplication.Cuenta
         {
             if (!Page.IsValid) return;
 
-            // Verificamos que la sesión siga viva
             if (Session["ResetUserId"] == null || Session["ResetToken"] == null)
             {
                 MostrarModalBootstrap("modalError");
@@ -62,7 +58,6 @@ namespace MGBeautySpaWebAplication.Cuenta
                 contrasenhaTokenDTO token = (contrasenhaTokenDTO)Session["ResetToken"];
                 string nuevaPass = txtPassword.Text.Trim();
 
-                // Marcar token como usado
                 token.fecha_expiracionSpecified = true;
                 token.usadoSpecified = true;
                 token.usado = 1;
@@ -71,20 +66,15 @@ namespace MGBeautySpaWebAplication.Cuenta
 
                 usuarioBO.tokenUsado(token);
 
-                // Actualizar contraseña
                 if (usuarioBO.actualizarContraseña(userId, nuevaPass) == 1)
                 {
-                    // Limpiar sesión por seguridad
                     Session.Remove("ResetUserId");
                     Session.Remove("ResetToken");
 
-                    // Mostrar éxito
                     MostrarModalBootstrap("modalExito");
                 }
                 else
                 {
-                    // Si falla la BD
-                    // Podrías crear un 'modalFalloBD' o reutilizar error
                     MostrarModalBootstrap("modalError");
                 }
             }
@@ -94,12 +84,8 @@ namespace MGBeautySpaWebAplication.Cuenta
             }
         }
 
-        // Método auxiliar para abrir los modales de Bootstrap 5 correctamente
-        // Método auxiliar corregido
         private void MostrarModalBootstrap(string modalId)
         {
-            // Envolvemos el código en un evento 'load' para asegurarnos 
-            // de que la librería de Bootstrap ya se cargó antes de ejecutarlo.
             string script = $@"
                 function openModal() {{
                     var modalElement = document.getElementById('{modalId}');

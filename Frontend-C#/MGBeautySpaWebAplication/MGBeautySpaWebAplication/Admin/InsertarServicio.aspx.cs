@@ -63,9 +63,6 @@ namespace MGBeautySpaWebAplication.Admin
         {
             try
             {
-                // (Añade tus validaciones aquí si es necesario)
-                // if (!Page.IsValid) return;
-
                 servicioDTO servicio = new servicioDTO();
                 string rutaImagenServidor = string.Empty;
 
@@ -84,9 +81,8 @@ namespace MGBeautySpaWebAplication.Admin
 
                     if (Array.IndexOf(extensionesValidas, extension) < 0)
                     {
-                        // Si la extensión no es válida, lanza una excepción o muestra un mensaje de error.
                         litError.Text = "Formato de archivo no válido. Solo se permiten imágenes (JPG, JPEG, PNG).";
-                        return; // Detiene la ejecución
+                        return;
                     }
 
                     string nombreUnico = Guid.NewGuid().ToString() + extension;
@@ -106,7 +102,7 @@ namespace MGBeautySpaWebAplication.Admin
 
                 double precio;
                 if (double.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any,
-                                     System.Globalization.CultureInfo.InvariantCulture, out precio))
+                                            System.Globalization.CultureInfo.InvariantCulture, out precio))
                 {
                     servicio.precio = precio;
                     servicio.precioSpecified = true;
@@ -116,7 +112,7 @@ namespace MGBeautySpaWebAplication.Admin
                 if (int.TryParse(txtDuracion.Text, out duracion))
                 {
                     servicio.duracionHora = duracion;
-                    servicio.duracionHoraSpecified= true;
+                    servicio.duracionHoraSpecified = true;
                 }
 
                 servicio.promedioValoracion = 0;
@@ -128,11 +124,11 @@ namespace MGBeautySpaWebAplication.Admin
                 {
                     servicio.idServicio = Convert.ToInt32(Request.QueryString["id"]);
                     servicio.idServicioSpecified = true;
-                    servicioBO.modificar(servicio); // Asumiendo que tu BO tiene 'modificar'
+                    servicioBO.modificar(servicio);
                 }
                 else
                 {
-                    servicioBO.insertar(servicio); // Asumiendo que tu BO tiene 'insertar'
+                    servicioBO.insertar(servicio);
                 }
 
                 Response.Redirect("AdmServicios.aspx", false);

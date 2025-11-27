@@ -14,7 +14,6 @@ namespace MGBeautySpaWebAplication.Empleado
 {
     public partial class AgregarExcepcion : System.Web.UI.Page
     {
-        // Instancias de Business Objects
         private CalendarioBO calendarioBO;
         private HorarioTrabajoBO horarioBO;
 
@@ -29,7 +28,7 @@ namespace MGBeautySpaWebAplication.Empleado
             if (!IsPostBack)
             {
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
-                if (usuario == null || usuario.rol != 2) // Verificar que sea Empleado
+                if (usuario == null || usuario.rol != 2)
                 {
                     Response.Redirect("~/Login.aspx");
                     return;
@@ -39,18 +38,13 @@ namespace MGBeautySpaWebAplication.Empleado
             }
         }
 
-        /**
-         * Carga el DropDownList con fechas futuras que no tienen citas reservadas.
-         */
         private void CargarFechasDisponibles(int idUsuario)
         {
             try
             {
-                // 1. Obtener datos de Calendario y Horario Base
                 var listaDias = calendarioBO.ListarCalendarioDeEmpleado(idUsuario);
                 var listaHorarios = horarioBO.ListarHorarioDeEmpleado(idUsuario);
 
-                // 2. Calcular la Capacidad Máxima Semanal (Total de intervalos por día de la semana)
                 Dictionary<int, int> capacidadTeoricaPorDia = new Dictionary<int, int>();
 
                 if (listaHorarios != null)
@@ -70,7 +64,7 @@ namespace MGBeautySpaWebAplication.Empleado
                 if (listaDias != null && listaDias.Count > 0)
                 {
                     var diasFuturos = listaDias
-                        .Where(c => c.fecha > DateTime.Now) // Solo fechas futuras
+                        .Where(c => c.fecha > DateTime.Now)
                         .OrderBy(c => c.fecha)
                         .ToList();
 
@@ -78,10 +72,8 @@ namespace MGBeautySpaWebAplication.Empleado
 
                     foreach (var dia in diasFuturos)
                     {
-                        // --- REGLA 1: Filtrar días ya ocupados/pasados/sin horario ---
                         if (dia.cantLibre <= 0) continue;
 
-                        // 3. Conversión de día de la semana para lookup (1=Lunes ... 7=Domingo)
                         int diaSemanaBD = (int)dia.fecha.DayOfWeek;
                         if (diaSemanaBD == 0) diaSemanaBD = 7;
 
@@ -91,16 +83,13 @@ namespace MGBeautySpaWebAplication.Empleado
                             capacidadTotal = capacidadTeoricaPorDia[diaSemanaBD];
                         }
 
-                        // 4. Lógica de comparación de citas (cantLibre < capacidadTotal implica una reserva)
                         bool tieneReservas = (dia.cantLibre < capacidadTotal);
 
-                        // Preparar texto y valor
                         string textoVisual = dia.fecha.ToString("dddd, dd 'de' MMMM", new CultureInfo("es-ES"));
                         string valor = dia.fecha.ToString("yyyy-MM-dd");
 
                         if (tieneReservas)
                         {
-                            // ✅ ITEM NO SELECCIONABLE: Marcamos con la clase para que JS lo deshabilite
                             textoVisual += " (Existen reservas - No se puede anular)";
                             ListItem item = new ListItem(textoVisual, valor);
                             item.Attributes["class"] = "option-disabled";
@@ -108,7 +97,6 @@ namespace MGBeautySpaWebAplication.Empleado
                         }
                         else
                         {
-                            // ITEM SELECCIONABLE: Día totalmente libre para excepción
                             textoVisual += $" (Totalmente libre: {dia.cantLibre}h)";
                             ddlFecha.Items.Add(new ListItem(textoVisual, valor));
                             hayFechasSeleccionables = true;
@@ -117,7 +105,6 @@ namespace MGBeautySpaWebAplication.Empleado
 
                     if (!hayFechasSeleccionables)
                     {
-                        // Si no quedó ninguna opción seleccionable
                         if (ddlFecha.Items.Count == 1)
                         {
                             ddlFecha.Items.Add(new ListItem("No tienes días completos libres para excepción", ""));
@@ -146,7 +133,6 @@ namespace MGBeautySpaWebAplication.Empleado
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
             if (usuario == null) return;
 
-            // 1. Validar entradas
             if (ddlFecha.SelectedValue == "" || ddlFecha.SelectedValue == "No tienes días completos libres para excepción")
             {
                 MostrarError("Debes seleccionar una fecha válida.");
@@ -167,17 +153,14 @@ namespace MGBeautySpaWebAplication.Empleado
 
             try
             {
-                // 2. Preparar el DTO para Modificar
                 calendarioDTO calendarioDia = new calendarioDTO();
                 calendarioDia.empleado = new SoftInvBusiness.SoftInvWSCalendario.empleadoDTO { idUsuario = usuario.idUsuario, idUsuarioSpecified = true };
                 calendarioDia.fecha = fechaSeleccionada;
                 calendarioDia.fechaSpecified = true;
 
-                // Marcamos como excepción: 0 horas libres
                 calendarioDia.cantLibre = 0;
                 calendarioDia.motivo = "[Excepción] " + txtMotivo.Text.Trim();
 
-                // Llamamos a modificar (actualiza el día existente en la tabla CALENDARIOS_EMPLEADOS)
                 int resultado = calendarioBO.EliminarCalendario(calendarioDia);
 
                 if (resultado > 0)

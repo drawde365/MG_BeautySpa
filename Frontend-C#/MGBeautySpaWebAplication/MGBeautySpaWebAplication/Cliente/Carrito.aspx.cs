@@ -87,11 +87,11 @@ namespace MGBeautySpaWebAplication.Cliente
             pnlCarritoVacio.Visible = true;
             pnlCarritoLleno.Visible = false;
 
-            // Asegúrate de que el Repeater esté vacío
+
             rpCartItems.DataSource = null;
             rpCartItems.DataBind();
 
-            // Pon los totales en 0
+
             litSubtotal.Text = "0.00";
             litImpuestos.Text = "0.00";
             litTotal.Text = "0.00";
@@ -99,14 +99,14 @@ namespace MGBeautySpaWebAplication.Cliente
 
         private void RebindCartAndSummary(pedidoDTO carrito)
         {
-            // 1) validar null
+
             if (carrito == null || carrito.detallesPedido == null || carrito.detallesPedido.Length == 0)
             {
                 invalido();
                 return;
             }
 
-            // 2) validar el primer elemento antes de acceder
+
             var primero = carrito.detallesPedido[0];
 
             if (primero == null ||
@@ -118,7 +118,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 return;
             }
 
-            // -- SI LLEGA AQUÍ, EL CARRITO ES VÁLIDO --
+
             pnlCarritoVacio.Visible = false;
             pnlCarritoLleno.Visible = true;
 
@@ -138,16 +138,15 @@ namespace MGBeautySpaWebAplication.Cliente
 
             LoadOrderSummary(carrito);
 
-            // Actualiza el master
+
             Cliente master = this.Master as Cliente;
             master?.UpdateCartDisplay();
         }
 
-        // ▼▼▼ MÉTODO ELIMINADO ▼▼▼
-        // protected void Quantity_Click(object sender, EventArgs e) { ... }
 
 
-        // ▼▼▼ NUEVO MÉTODO DE ACTUALIZACIÓN ▼▼▼
+
+
         protected void btnActualizarCarrito_Click(object sender, EventArgs e)
         {
             pedidoDTO carrito = Session["Carrito"] as pedidoDTO;
@@ -189,7 +188,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
                     if (nuevaCantidad == cantidadOriginal)
                     {
-                        continue; // No hay cambios
+                        continue;
                     }
 
                     if (nuevaCantidad == 0)
@@ -207,13 +206,13 @@ namespace MGBeautySpaWebAplication.Cliente
                 }
             }
 
-            // Si se hizo algún cambio, recarga todo desde la BD para tener el total correcto
+
             if (totalItemsChanged > 0)
             {
                 carrito = pedidoBO.ObtenerCarritoPorCliente(usuario.idUsuario);
                 Session["Carrito"] = carrito;
 
-                // Actualiza el contador global de la cabecera
+
                 int currentCount = carrito.detallesPedido.Sum(d => d.cantidad);
                 Session["CartCount"] = currentCount;
             }
@@ -221,7 +220,7 @@ namespace MGBeautySpaWebAplication.Cliente
             RebindCartAndSummary(carrito);
         }
 
-        // ▼▼▼ NUEVO MÉTODO PARA ELIMINAR FILA ▼▼▼
+
         protected void btnEliminarItem_Click(object sender, EventArgs e)
         {
             LinkButton clickedButton = (LinkButton)sender;
@@ -244,15 +243,15 @@ namespace MGBeautySpaWebAplication.Cliente
             if (itemToRemove != null)
             {
                 listaDetalles.Remove(itemToRemove);
-                pedidoBO.EliminarDetalle(itemToRemove, carrito.idPedido); // Elimina de BD
+                pedidoBO.EliminarDetalle(itemToRemove, carrito.idPedido);
 
-                UpdateCartCount(-itemToRemove.cantidad); // Actualiza contador de cabecera
+                UpdateCartCount(-itemToRemove.cantidad);
 
-                // Recalcula el total y guarda en BD y Sesión
+
                 carrito.detallesPedido = listaDetalles.ToArray();
                 carrito.total = listaDetalles.Sum(d => d.subtotal);
                 carrito.totalSpecified = true;
-                //pedidoBO.Modificar(carrito);
+
 
                 Session["Carrito"] = carrito;
                 RebindCartAndSummary(carrito);
@@ -284,7 +283,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnProcessPayment_Click(object sender, EventArgs e)
         {
-            // Usa Request.Form para obtener los valores directamente del POST
+
             string cardNumber = Request.Form[txtCardNumber.UniqueID]?.Trim().Replace(" ", "") ?? "";
             string cvv = Request.Form[txtCVV.UniqueID]?.Trim() ?? "";
             string expiry = Request.Form[txtExpiryDate.UniqueID]?.Trim() ?? "";
@@ -294,7 +293,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 string.IsNullOrEmpty(cvv) || cvv.Length < 3 ||
                 string.IsNullOrEmpty(expiry) || string.IsNullOrEmpty(name))
             {
-                // Vuelve a mostrar el modal con un mensaje de error
+
                 string errorScript = @"
             alert('Por favor completa todos los campos correctamente.');
             setTimeout(function() {
@@ -329,7 +328,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 EnviarCorreoConPdf(
                     usuario.correoElectronico,
                     "Comprobante de tu compra - MG Beauty SPA",
-                    "¡Hola, "+ usuario.nombre +"!\n¡Gracias por tu compra! Adjuntamos el comprobante en PDF.",
+                    "¡Hola, " + usuario.nombre + "!\n¡Gracias por tu compra! Adjuntamos el comprobante en PDF.",
                     pdf
                 );
 
@@ -337,10 +336,10 @@ namespace MGBeautySpaWebAplication.Cliente
                 Session["Carrito"] = null;
                 Session["CartCount"] = 0;
 
-                // Actualiza el carrito visualmente
+
                 RebindCartAndSummary(new pedidoDTO { detallesPedido = new detallePedidoDTO[0] });
 
-                // Muestra el modal de éxito
+
                 string successScript = @"
             setTimeout(function() {
                 var paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
@@ -375,16 +374,16 @@ namespace MGBeautySpaWebAplication.Cliente
             using (MemoryStream ms = new MemoryStream())
             {
                 SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = (SoftInvBusiness.SoftInvWSUsuario.usuarioDTO)Session["UsuarioActual"];
-                // Crear documento
+
                 Document doc = new Document(PageSize.A4, 40, 40, 40, 40);
                 PdfWriter writer = PdfWriter.GetInstance(doc, ms);
                 doc.Open();
 
-                // === COLORES ===
-                BaseColor verde = new BaseColor(0x14, 0x8C, 0x76);   // #148C76
-                BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8); // #F4FBF8
 
-                // === LOGO ===
+                BaseColor verde = new BaseColor(0x14, 0x8C, 0x76);
+                BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8);
+
+
                 string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
                 if (File.Exists(rutaLogo))
                 {
@@ -394,15 +393,15 @@ namespace MGBeautySpaWebAplication.Cliente
                     doc.Add(logo);
                 }
 
-                // Título
-                Font tituloFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20,verde);
+
+                Font tituloFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20, verde);
                 Paragraph titulo = new Paragraph("Comprobante de Compra - MG BEAUTY SPA", tituloFont);
                 titulo.Alignment = Element.ALIGN_CENTER;
                 titulo.SpacingBefore = 10;
                 titulo.SpacingAfter = 20;
                 doc.Add(titulo);
 
-                // LÍNEA SEPARADORA
+
                 PdfPTable linea = new PdfPTable(1);
                 linea.WidthPercentage = 100;
                 PdfPCell cellSep = new PdfPCell(new Phrase(""))
@@ -416,7 +415,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(new Paragraph("\n"));
 
-                // === INFORMACIÓN DEL CLIENTE ===
+
                 Font label = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, verde);
                 Font texto = FontFactory.GetFont(FontFactory.HELVETICA, 12);
 
@@ -436,15 +435,16 @@ namespace MGBeautySpaWebAplication.Cliente
                 doc.Add(new Paragraph(carrito.idPedido.ToString(), texto));
                 doc.Add(new Paragraph("\n\n"));
 
-                // ===============================================
-                //              TABLA DE PRODUCTOS
-                // ===============================================
+
+
+
+
 
                 PdfPTable tabla = new PdfPTable(5);
                 tabla.WidthPercentage = 100;
-                tabla.SetWidths(new float[] { 35, 20, 15, 15, 15 }); //  Nombre - Tipo de piel - Cantidad - Precio - Subtotal
+                tabla.SetWidths(new float[] { 35, 20, 15, 15, 15 });
 
-                // Encabezados
+
                 Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
 
                 string[] headers = { "Producto", "Tipo de piel", "Cantidad", "Precio", "Subtotal" };
@@ -459,30 +459,30 @@ namespace MGBeautySpaWebAplication.Cliente
                     tabla.AddCell(headerCell);
                 }
 
-                // Filas
+
                 foreach (var d in carrito.detallesPedido)
                 {
 
-                    // Nombre
+
                     tabla.AddCell(new PdfPCell(new Phrase(d.producto.producto.nombre, texto)) { Padding = 5 });
 
                     tabla.AddCell(new PdfPCell(new Phrase(d.producto.tipo.nombre, texto)) { Padding = 5 });
 
-                    // Cantidad
+
                     tabla.AddCell(new PdfPCell(new Phrase(d.cantidad.ToString(), texto))
                     {
                         HorizontalAlignment = Element.ALIGN_CENTER,
                         Padding = 5
                     });
 
-                    // Precio
+
                     tabla.AddCell(new PdfPCell(new Phrase("S/ " + d.producto.producto.precio, texto))
                     {
                         HorizontalAlignment = Element.ALIGN_CENTER,
                         Padding = 5
                     });
 
-                    tabla.AddCell(new PdfPCell(new Phrase("S/ " + d.producto.producto.precio*d.cantidad, texto))
+                    tabla.AddCell(new PdfPCell(new Phrase("S/ " + d.producto.producto.precio * d.cantidad, texto))
                     {
                         HorizontalAlignment = Element.ALIGN_CENTER,
                         Padding = 5
@@ -492,9 +492,10 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(tabla);
 
-                // ===============================================
-                //                     TOTAL
-                // ===============================================
+
+
+
+
 
                 doc.Add(new Paragraph("\n"));
 
@@ -512,7 +513,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 tablaTotal.AddCell(totalCell);
 
-                PdfPCell igvCell = new PdfPCell(new Phrase("IGV: S/ " + carrito.total*TASA_IGV,
+                PdfPCell igvCell = new PdfPCell(new Phrase("IGV: S/ " + carrito.total * TASA_IGV,
                     FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)))
                 {
                     BackgroundColor = blancoFondo,
@@ -524,7 +525,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 doc.Add(tablaTotal);
 
-                // ESPACIO FINAL
+
                 doc.Add(new Paragraph("\n\n¡Gracias por tu compra en MG Beauty SPA!", texto));
 
                 doc.Close();
@@ -552,7 +553,7 @@ namespace MGBeautySpaWebAplication.Cliente
             mensaje.Body = cuerpo;
             mensaje.IsBodyHtml = false;
 
-            // Adjuntar PDF
+
             mensaje.Attachments.Add(new Attachment(
                 new MemoryStream(pdfBytes),
                 "ComprobanteCompra.pdf",
@@ -567,7 +568,7 @@ namespace MGBeautySpaWebAplication.Cliente
 
         protected void btnVolverInicio_Click(object sender, EventArgs e)
         {
-            // Redirige al usuario al inicio después de que vea el modal de éxito
+
             Response.Redirect("~/Cliente/InicioCliente.aspx");
         }
 

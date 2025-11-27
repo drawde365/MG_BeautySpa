@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.UI;
 using System.Web.Security;
-using System.Web.UI.WebControls; // <-- Asegúrate que esté
+using System.Web.UI.WebControls;
 using System.IO;
 using SoftInvBusiness.SoftInvWSUsuario;
 
@@ -10,8 +10,6 @@ namespace MGBeautySpaWebAplication.Admin
 {
     public partial class AdminMaster : System.Web.UI.MasterPage
     {
-        // El designer.cs ahora generará estas variables 
-        // (Asegúrate de que tu designer.cs se actualice)
         protected HyperLink navAdmPedidos;
         protected HyperLink navAdmProductos;
         protected HyperLink navAdmServicios;
@@ -24,7 +22,7 @@ namespace MGBeautySpaWebAplication.Admin
             if (!IsPostBack)
             {
                 LoadUserData();
-                SetActiveNavigation(); // <-- Ahora esto funcionará
+                SetActiveNavigation();
             }
             VerificarSesion();
         }
@@ -64,17 +62,14 @@ namespace MGBeautySpaWebAplication.Admin
                 Response.Redirect(ResolveUrl("~/Login.aspx"));
             }
             string nombre = usuario.nombre;
-            //string fotoUrl = usuario.urlFotoPerfil;
 
             litUserName.Text = nombre;
-            // imgProfile.ImageUrl = ResolveUrl(fotoUrl);
         }
 
         private void SetActiveNavigation()
         {
             string currentPage = Path.GetFileName(Request.Url.AbsolutePath).ToLower();
 
-            // Resetea todos (ahora usando .CssClass)
             navAdmPedidos.CssClass = "nav-link";
             navAdmProductos.CssClass = "nav-link";
             navAdmServicios.CssClass = "nav-link";
@@ -82,7 +77,6 @@ namespace MGBeautySpaWebAplication.Admin
             navBuscarUsuarios.CssClass = "nav-link";
             navAgregarEmpleado.CssClass = "nav-link";
 
-            // Aplica 'active' al link actual
             switch (currentPage)
             {
                 case "admpedidos.aspx":

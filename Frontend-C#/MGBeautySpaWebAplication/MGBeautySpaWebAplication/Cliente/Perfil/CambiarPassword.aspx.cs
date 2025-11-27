@@ -10,7 +10,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
         UsuarioBO usuarioBO;
         protected void Page_Load(object sender, EventArgs e)
         {
-             usuarioBO = new UsuarioBO();
+            usuarioBO = new UsuarioBO();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -25,15 +25,13 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 Response.Redirect(ResolveUrl("~/Login.aspx"));
             }
 
-            // 1️⃣ Validar contraseña actual
-            if (usuarioBO.IniciarSesion(usuario.correoElectronico, antigua).idUsuario==0)
+            if (usuarioBO.IniciarSesion(usuario.correoElectronico, antigua).idUsuario == 0)
             {
                 lblInfo.Text = "⚠️ La contraseña actual no es correcta.";
                 lblInfo.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
-            // 2️⃣ Validar que las nuevas contraseñas coincidan
             if (nueva != verificar)
             {
                 lblInfo.Text = "⚠️ Las nuevas contraseñas no coinciden.";
@@ -66,7 +64,6 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            // Redirige de vuelta al perfil del usuario
             Response.Redirect("~/Cliente/Perfil/PerfilUsuario.aspx");
         }
     }

@@ -9,7 +9,7 @@ namespace MGBeautySpaWebAplication.Admin
     {
         private UsuarioBO usuarioBO;
         private EmpleadoBO empleadoBO;
-        private ServicioBO servicioBO; // BO de servicios (ajusta al nombre real si difiere)
+        private ServicioBO servicioBO;
 
         public BuscarUsuarios()
         {
@@ -71,32 +71,24 @@ namespace MGBeautySpaWebAplication.Admin
 
                 if (activo == 1)
                 {
-                    btnEliminar.Visible = true;   // usuario activo → mostrar eliminar
+                    btnEliminar.Visible = true;
                     btnReactivar.Visible = false;
                 }
                 else
                 {
                     btnEliminar.Visible = false;
-                    btnReactivar.Visible = true;  // usuario inactivo → mostrar reactivar
+                    btnReactivar.Visible = true;
                 }
             }
         }
 
-        // ---------------- MODAL SERVICIOS EMPLEADO ----------------
-
-        /// <summary>
-        /// Carga datos del empleado + servicios del empleado + servicios disponibles
-        /// y deja el id del empleado en hfEmpleadoId.
-        /// </summary>
         private void CargarServiciosEmpleado(int idEmpleado)
         {
-            // Guardar empleado actual
             hfEmpleadoId.Value = idEmpleado.ToString();
 
             var empleado = empleadoBO.ObtenerEmpleadoPorId(idEmpleado);
             var serviciosEmpleado = empleadoBO.ListarServiciosDeEmpleado(idEmpleado);
 
-            // Cabecera del modal
             litEmpNombre.Text = string.Format("{0} {1} {2}",
                 empleado.nombre,
                 empleado.primerapellido,
@@ -104,12 +96,10 @@ namespace MGBeautySpaWebAplication.Admin
 
             litEmpCorreo.Text = empleado.correoElectronico;
 
-            // Tabla de servicios del empleado
             rpServiciosEmpleado.DataSource = serviciosEmpleado;
             rpServiciosEmpleado.DataBind();
 
-            // Servicios disponibles para asignar (ajusta al método que tengas en tu BO)
-            var disponibles = empleadoBO.ObtenerServiciosNoBrindadosDeEmpleado(idEmpleado); // si tienes uno más específico, úsalo aquí
+            var disponibles = empleadoBO.ObtenerServiciosNoBrindadosDeEmpleado(idEmpleado);
 
             ddlServiciosDisponibles.DataSource = disponibles;
             ddlServiciosDisponibles.DataTextField = "nombre";
@@ -119,9 +109,6 @@ namespace MGBeautySpaWebAplication.Admin
             ddlServiciosDisponibles.Items.Insert(0, new ListItem("-- Seleccione --", ""));
         }
 
-        /// <summary>
-        /// Abrir modal de servicios para un empleado.
-        /// </summary>
         protected void btnServicios_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
@@ -129,7 +116,6 @@ namespace MGBeautySpaWebAplication.Admin
 
             CargarServiciosEmpleado(idEmpleado);
 
-            // Mostrar modal principal
             ScriptManager.RegisterStartupScript(
                 this,
                 GetType(),
@@ -139,9 +125,6 @@ namespace MGBeautySpaWebAplication.Admin
             );
         }
 
-        /// <summary>
-        /// Comandos de la tabla de servicios (eliminar servicio).
-        /// </summary>
         protected void rpServiciosEmpleado_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "EliminarServicio")
@@ -149,13 +132,10 @@ namespace MGBeautySpaWebAplication.Admin
                 int idServicio = int.Parse(e.CommandArgument.ToString());
                 int idEmpleado = int.Parse(hfEmpleadoId.Value);
 
-                // Eliminar relación servicio-empleado
                 empleadoBO.EliminarServicioDeEmpleado(idEmpleado, idServicio);
 
-                // Recargar datos del modal (servicios + combo)
                 CargarServiciosEmpleado(idEmpleado);
 
-                // Mantener el modal principal abierto
                 ScriptManager.RegisterStartupScript(
                     this,
                     GetType(),
@@ -166,9 +146,6 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
-        /// <summary>
-        /// Guardar nuevo servicio para el empleado (modal Agregar servicio).
-        /// </summary>
         protected void btnGuardarServicio_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(hfEmpleadoId.Value))
@@ -176,22 +153,16 @@ namespace MGBeautySpaWebAplication.Admin
 
             int idEmpleado = int.Parse(hfEmpleadoId.Value);
 
-            // Validar selección de servicio
             if (string.IsNullOrEmpty(ddlServiciosDisponibles.SelectedValue))
                 return;
 
             int idServicio = int.Parse(ddlServiciosDisponibles.SelectedValue);
 
 
-            // Registrar el servicio para el empleado
-            // Ajusta el nombre del método a tu BO real si se llama distinto
             empleadoBO.AgregarServicioAEmpleado(idEmpleado, idServicio);
 
-            // Recargar datos del modal
             CargarServiciosEmpleado(idEmpleado);
 
- 
-            // Cerrar modal Agregar y mantener abierto modal principal
             ScriptManager.RegisterStartupScript(
                 this,
                 GetType(),

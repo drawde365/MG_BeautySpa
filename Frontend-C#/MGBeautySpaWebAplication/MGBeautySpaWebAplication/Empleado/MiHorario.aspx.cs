@@ -1,7 +1,7 @@
 ﻿using SoftInvBusiness;
 using SoftInvBusiness.SoftInvWSHorarioTrabajo;
-using SoftInvBusiness.SoftInvWSCalendario; // Para CalendarioBO y DTOs
-using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
+using SoftInvBusiness.SoftInvWSCalendario;
+using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace MGBeautySpaWebAplication.Empleado
     public partial class MiHorario : System.Web.UI.Page
     {
         private HorarioTrabajoBO horarioTrabajoBO;
-        private CalendarioBO calendarioBO; // Nuevo BO
+        private CalendarioBO calendarioBO;
 
         public MiHorario()
         {
@@ -33,7 +33,7 @@ namespace MGBeautySpaWebAplication.Empleado
                 if (usuario != null)
                 {
                     CargarHorario(usuario.idUsuario);
-                    CargarExcepciones(usuario.idUsuario); // Cargar lista inferior
+                    CargarExcepciones(usuario.idUsuario);
                 }
                 else
                 {
@@ -42,7 +42,6 @@ namespace MGBeautySpaWebAplication.Empleado
             }
         }
 
-        // --- PARTE 1: HORARIO SEMANAL (GRILLA) ---
         private void CargarHorario(int empleadoId)
         {
             var horarioMap = new Dictionary<int, HorarioRow>();
@@ -108,16 +107,12 @@ namespace MGBeautySpaWebAplication.Empleado
             rptHorario.DataBind();
         }
 
-        // --- PARTE 2: LISTA DE EXCEPCIONES ---
         private void CargarExcepciones(int empleadoId)
         {
-            // Obtenemos todo el calendario generado
             var listaCalendario = calendarioBO.ListarCalendarioDeEmpleado(empleadoId);
 
             if (listaCalendario != null && listaCalendario.Count > 0)
             {
-                // Filtramos: Días con (CantLibre <= 0) Y que tengan un motivo (para distinguir de días libres normales o llenos)
-                // Asumimos que si tiene motivo, es una excepción manual.
                 var listaExcepciones = listaCalendario
                     .Where(c => c.cantLibre <= 0 && !string.IsNullOrEmpty(c.motivo))
                     .OrderBy(c => c.fecha)
@@ -142,7 +137,6 @@ namespace MGBeautySpaWebAplication.Empleado
             }
         }
 
-        // --- PARTE 3: REHABILITAR (ELIMINAR EXCEPCIÓN) ---
         protected void rptExcepciones_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Rehabilitar")
@@ -153,42 +147,34 @@ namespace MGBeautySpaWebAplication.Empleado
                 string fechaStr = e.CommandArgument.ToString();
                 DateTime fecha = DateTime.ParseExact(fechaStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-                // 1. Necesitamos saber cuántas horas libres le tocan ese día normalmente
                 int horasNormales = ObtenerHorasNormalesDelDia(usuario.idUsuario, fecha);
 
-                // 2. Actualizamos el calendario para borrar la excepción
                 calendarioDTO calendarioRestaurar = new calendarioDTO();
                 calendarioRestaurar.empleado = new SoftInvBusiness.SoftInvWSCalendario.empleadoDTO { idUsuario = usuario.idUsuario, idUsuarioSpecified = true };
                 calendarioRestaurar.fecha = fecha;
                 calendarioRestaurar.fechaSpecified = true;
 
-                // Restauramos las horas y borramos el motivo
                 calendarioRestaurar.cantLibre = horasNormales;
                 calendarioRestaurar.cantLibreSpecified = true;
-                calendarioRestaurar.motivo = null; // O cadena vacía
+                calendarioRestaurar.motivo = null;
 
-                // Usamos modificar para "pisar" la excepción con los datos limpios
                 int resultado = calendarioBO.ModificarCalendario(calendarioRestaurar);
 
                 if (resultado > 0)
                 {
                     MostrarExito("Excepción eliminada. Tu horario para el " + fecha.ToShortDateString() + " ha sido rehabilitado.");
-                    CargarExcepciones(usuario.idUsuario); // Recargar tabla
+                    CargarExcepciones(usuario.idUsuario);
                 }
                 else
                 {
-                    // Manejo de error simple (puedes usar un label de error)
                 }
             }
         }
 
-        // Método auxiliar para saber cuántas horas debe tener el empleado un día X
         private int ObtenerHorasNormalesDelDia(int empleadoId, DateTime fecha)
         {
-            // 1. Obtenemos el horario base
-            var horarioBase = horarioTrabajoBO.ListarHorarioDeEmpleado(empleadoId); // Usando el método del BO de HorarioTrabajo
+            var horarioBase = horarioTrabajoBO.ListarHorarioDeEmpleado(empleadoId);
 
-            // 2. Calculamos el día de la semana (1=Lunes, 7=Domingo)
             int diaSemana = (int)fecha.DayOfWeek;
             if (diaSemana == 0) diaSemana = 7;
 
@@ -199,7 +185,6 @@ namespace MGBeautySpaWebAplication.Empleado
                 {
                     if (h.diaSemana == diaSemana)
                     {
-                        // Sumamos los intervalos de ese día
                         totalHoras += h.numIntervalo;
                     }
                 }
@@ -207,7 +192,6 @@ namespace MGBeautySpaWebAplication.Empleado
             return totalHoras;
         }
 
-        // --- UTILIDADES ---
         protected string GetCellClass(bool isOccupied)
         {
             return isOccupied ? "cell-occupied" : "cell-free";

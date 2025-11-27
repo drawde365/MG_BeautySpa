@@ -34,9 +34,6 @@ namespace MGBeautySpaWebAplication.Admin
             rptProductos.DataBind();
         }
 
-        // -------------------------------------------------------------
-        //  JSON PARA EL MODAL DE STOCK
-        // -------------------------------------------------------------
         public string ObtenerDatosStockJSON(object idObj)
         {
             if (idObj == null) return "[]";
@@ -63,9 +60,6 @@ namespace MGBeautySpaWebAplication.Admin
             return serializer.Serialize(listaSimple);
         }
 
-        // -------------------------------------------------------------
-        //  ESTRELLAS
-        // -------------------------------------------------------------
         public string GenerarHtmlEstrellas(object valoracionObj)
         {
             double valoracion = 0;
@@ -90,9 +84,6 @@ namespace MGBeautySpaWebAplication.Admin
             return html;
         }
 
-        // -------------------------------------------------------------
-        //  EVENTOS DEL REPEATER
-        // -------------------------------------------------------------
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int idProducto = Convert.ToInt32(e.CommandArgument);
@@ -101,15 +92,8 @@ namespace MGBeautySpaWebAplication.Admin
             {
                 Response.Redirect($"InsertarProducto.aspx?id={idProducto}", false);
             }
-
-            // IMPORTANTE:
-            // Ya NO eliminamos aquí. Eliminar ahora ocurre en el modal,
-            // en btnConfirmarEliminarProducto_Click.
         }
 
-        // -------------------------------------------------------------
-        //  GUARDAR STOCK MODIFICADO DESDE EL MODAL
-        // -------------------------------------------------------------
         protected void btnGuardarStock_Click(object sender, EventArgs e)
         {
             try
@@ -160,9 +144,6 @@ namespace MGBeautySpaWebAplication.Admin
             public int nuevoStock { get; set; }
         }
 
-        // -------------------------------------------------------------
-        //  ELIMINAR PRODUCTO DESDE EL MODAL
-        // -------------------------------------------------------------
         protected void btnConfirmarEliminarProducto_Click(object sender, EventArgs e)
         {
             try

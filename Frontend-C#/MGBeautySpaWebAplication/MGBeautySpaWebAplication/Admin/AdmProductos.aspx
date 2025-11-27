@@ -10,10 +10,9 @@
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <!-- HEAD -->
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <style>
-        /* Título de la página */
         .h1-admin-title {
             font-family: 'ZCOOL XiaoWei', serif;
             font-size: 48px;
@@ -21,7 +20,6 @@
             color: #1A0F12;
         }
 
-        /* Subtítulo */
         .h2-admin-subtitle {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
@@ -29,7 +27,6 @@
             color: #1A0F12;
         }
 
-        /* Contenedor de la tabla */
         .table-container {
             background: #FAFAFA;
             border: 1px solid #E3D4D9;
@@ -44,7 +41,6 @@
             width: 100%;
         }
 
-        /* Cabecera de la tabla */
         .product-list-table thead th {
             background: #FAFAFA;
             font-weight: 500;
@@ -55,7 +51,6 @@
             border-bottom: 0;
         }
 
-        /* Filas de la tabla */
         .product-list-table tbody tr {
             border-top: 1px solid #E6E8EB;
             background-color: #FFFFFF;
@@ -70,7 +65,6 @@
             text-align: left;
         }
 
-        /* Imagen */
         .product-image-thumb {
             width: 62px;
             height: 62px;

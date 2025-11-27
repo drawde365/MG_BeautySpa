@@ -8,21 +8,6 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/CitasStyles.css") %>" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <style>
-        .citas-vacias-mensaje {
-            text-align: center; padding: 40px 20px; color: #757575;
-            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1em;
-            background-color: #f9f9f9; border-radius: 8px; margin-top: 1.5rem;
-        }
-        .modal-body .form-label { font-weight: 600; margin-top: 10px; }
-        .modal-body .form-control { border-radius: 6px; }
-        
-        .btn-action-group { display: flex; gap: 8px; }
-        .btn-accept { color: #198754; border-color: #198754; }
-        .btn-accept:hover { background-color: #198754; color: white; }
-        .btn-cancel { color: #dc3545; border-color: #dc3545; }
-        .btn-cancel:hover { background-color: #dc3545; color: white; }
-    </style>
 </asp:Content>
 
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
@@ -48,7 +33,6 @@
 
         <div class="tab-content" id="citasTabContent">
             
-            <%-- PESTAÑA PRÓXIMAS --%>
             <div class="tab-pane fade show active" id="proximas-pane" role="tabpanel" aria-labelledby="proximas-tab" tabindex="0">
                 <div class="citas-tabla-container mt-4">
                     <div class="citas-fila citas-fila-header d-none d-md-flex">
@@ -93,7 +77,6 @@
                 </div>
             </div>
             
-            <%-- PESTAÑA PASADAS --%>
             <div class="tab-pane fade" id="pasadas-pane" role="tabpanel" aria-labelledby="pasadas-tab" tabindex="0">
                 <div class="citas-tabla-container mt-4">
                     <div class="citas-fila citas-fila-header d-none d-md-flex">
@@ -141,7 +124,6 @@
                 </div>
             </div>
             
-            <%-- PESTAÑA CANCELADAS --%>
             <div class="tab-pane fade" id="canceladas-pane" role="tabpanel" aria-labelledby="canceladas-tab" tabindex="0">
                 <div class="citas-tabla-container mt-4">
                     <div class="citas-fila citas-fila-header d-none d-md-flex">

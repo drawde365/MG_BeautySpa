@@ -32,15 +32,12 @@ namespace MGBeautySpaWebAplication.Empleado
             horarioBO = new HorarioTrabajoBO();
         }
 
-        // Caché para las Citas del Empleado
         private IList<SoftInvBusiness.SoftInvWSCita.citaDTO> ListaCompletaReservas
         {
             get { return (IList<SoftInvBusiness.SoftInvWSCita.citaDTO>)Session["ListaReservasEmpleado"]; }
             set { Session["ListaReservasEmpleado"] = value; }
         }
 
-        // ✅ CACHÉ 1: Calendario (Disponibilidad de días)
-        // Evita consultar la BD cada vez que validamos un día
         private List<calendarioDTO> CalendarioCache
         {
             get
@@ -56,12 +53,9 @@ namespace MGBeautySpaWebAplication.Empleado
                 }
                 return (List<calendarioDTO>)Session["CalendarioEmpleadoCache"];
             }
-            // No necesitamos setter público, se llena solo bajo demanda o se limpia al recargar
             set { Session["CalendarioEmpleadoCache"] = value; }
         }
 
-        // ✅ CACHÉ 2: Horario de Trabajo (Configuración semanal)
-        // El horario base rara vez cambia, es ideal para cachear
         private List<horarioTrabajoDTO> HorarioCache
         {
             get
@@ -80,15 +74,10 @@ namespace MGBeautySpaWebAplication.Empleado
             set { Session["HorarioTrabajoCache"] = value; }
         }
 
-        // --------------------------------------------------------------------
-        // EVENTOS DEL CICLO DE VIDA
-        // --------------------------------------------------------------------
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                // Limpiamos la caché al entrar por primera vez para asegurar datos frescos
                 CalendarioCache = null;
                 HorarioCache = null;
 
@@ -112,7 +101,6 @@ namespace MGBeautySpaWebAplication.Empleado
             user.rol = 2;
             user.rolSpecified = true;
 
-            // Recargamos las citas (esto sí conviene que sea fresco)
             ListaCompletaReservas = citaBO.ListarPorUsuario(user);
             if (ListaCompletaReservas == null) ListaCompletaReservas = new List<SoftInvBusiness.SoftInvWSCita.citaDTO>();
 
@@ -128,7 +116,6 @@ namespace MGBeautySpaWebAplication.Empleado
             EnlazarRepeater(rptCanceladas, pnlNoCanceladas, canceladas);
         }
 
-        // Helper para reducir código repetitivo
         private void EnlazarRepeater(Repeater rpt, Panel pnlVacio, List<SoftInvBusiness.SoftInvWSCita.citaDTO> datos)
         {
             if (datos.Any())
@@ -226,7 +213,7 @@ namespace MGBeautySpaWebAplication.Empleado
             try
             {
                 int citaId = int.Parse(hdnCitaIdModal.Value);
-                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO; // No verificamos null porque Page_Load ya lo hizo
+                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
                 if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha)) { MostrarErrorJS("Fecha inválida"); return; }
                 if (!TimeSpan.TryParse(txtNuevaHora.Text, out TimeSpan nuevaHora)) { MostrarErrorJS("Hora inválida"); return; }
@@ -236,7 +223,6 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 int duracionMinutos = citaParaModificar.servicio.duracionHoraSpecified ? citaParaModificar.servicio.duracionHora * 60 : 60;
 
-                // 1. VALIDAR: Disponibilidad del día (Usando CACHÉ)
                 if (!EsDiaLaborableYDisponible(nuevaFecha))
                 {
                     lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
@@ -244,7 +230,6 @@ namespace MGBeautySpaWebAplication.Empleado
                     return;
                 }
 
-                // 2. VALIDAR: Horario y Cruce (Usando CACHÉ)
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
                     lblErrorFechaHora.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
@@ -253,7 +238,6 @@ namespace MGBeautySpaWebAplication.Empleado
                 }
 
                 DateTime fechaAnterior = citaParaModificar.fecha;
-                // Guardado
                 citaParaModificar.fecha = nuevaFecha;
                 citaParaModificar.fechaSpecified = true;
                 citaParaModificar.horaIni = nuevaHora.ToString();
@@ -261,11 +245,8 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 citaBO.ModificarCita(citaParaModificar);
 
-                //Mandamos Correo al cliente avisandole que se modificó la cita
                 EnviarCorreoCliente(citaParaModificar, fechaAnterior);
 
-                // Limpiamos las citas para forzar recarga fresca, pero NO limpiamos el CalendarioCache/HorarioCache
-                // porque el horario base no cambió.
                 ListaCompletaReservas = null;
                 CargarCitas();
 
@@ -281,16 +262,16 @@ namespace MGBeautySpaWebAplication.Empleado
             }
         }
 
-        private void EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar,DateTime fechaAnterior)
+        private void EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar, DateTime fechaAnterior)
         {
             MailMessage mensaje = new MailMessage();
             mensaje.From = new MailAddress(correoEmpresa);
             mensaje.To.Add(citaParaModificar.cliente.correoElectronico);
             mensaje.Subject = "Tu cita ha cambiado | MG Beauty SPA";
             mensaje.Body = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
-                           "Te escribimos para avisarte que tu cita programada para el día "+fechaAnterior.ToString("dd/MM/yyyy")+" para el servicio "+
-                           citaParaModificar.servicio.nombre+" ha sido reprogramada.\n"+ "La nueva fecha y hora es: "+ citaParaModificar.fecha.ToString("dd/MM/yyyy") +" a las "+citaParaModificar.horaIni.ToString() +
-                           "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!"+"\nMG Beauty SPA";
+                            "Te escribimos para avisarte que tu cita programada para el día " + fechaAnterior.ToString("dd/MM/yyyy") + " para el servicio " +
+                            citaParaModificar.servicio.nombre + " ha sido reprogramada.\n" + "La nueva fecha y hora es: " + citaParaModificar.fecha.ToString("dd/MM/yyyy") + " a las " + citaParaModificar.horaIni.ToString() +
+                            "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!" + "\nMG Beauty SPA";
             mensaje.IsBodyHtml = false;
 
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
@@ -300,21 +281,14 @@ namespace MGBeautySpaWebAplication.Empleado
             smtp.Send(mensaje);
         }
 
-        // --------------------------------------------------------------------
-        // ⚡ MÉTODOS DE VALIDACIÓN USANDO CACHÉ ⚡
-        // --------------------------------------------------------------------
-
         private bool EsDiaLaborableYDisponible(DateTime fecha)
         {
-            // Usamos la propiedad 'CalendarioCache' que gestiona la sesión automáticamente
             var calendario = this.CalendarioCache;
 
             if (calendario == null) return false;
 
-            // Buscamos en la lista en memoria
             var dia = calendario.FirstOrDefault(c => c.fecha.Date == fecha.Date);
 
-            // Si no existe el día en el calendario generado o cantLibre <= 0, no está disponible
             if (dia == null || dia.cantLibre <= 0)
             {
                 return false;
@@ -327,7 +301,6 @@ namespace MGBeautySpaWebAplication.Empleado
         {
             TimeSpan horaFin = horaInicio.Add(TimeSpan.FromMinutes(duracionMinutos));
 
-            // A. VALIDAR HORARIO LABORAL (Usando CACHÉ)
             var horarioSemanal = this.HorarioCache;
             if (horarioSemanal == null) return false;
 
@@ -339,7 +312,6 @@ namespace MGBeautySpaWebAplication.Empleado
             {
                 if (bloque.diaSemana == diaSemana)
                 {
-                    // Convertimos los strings "HH:mm:ss" a TimeSpan
                     if (TimeSpan.TryParse(bloque.horaInicio.ToString(), out TimeSpan inicioLaboral) &&
                         TimeSpan.TryParse(bloque.horaFin.ToString(), out TimeSpan finLaboral))
                     {
@@ -354,7 +326,6 @@ namespace MGBeautySpaWebAplication.Empleado
 
             if (!dentroDeHorario) return false;
 
-            // B. VALIDAR CHOQUE CON OTRAS CITAS (Usamos la lista de citas ya cargada en memoria)
             var citasDelDia = ListaCompletaReservas.Where(c =>
                 c.activo == 1 &&
                 c.fechaSpecified &&
@@ -369,10 +340,9 @@ namespace MGBeautySpaWebAplication.Empleado
                 if (TimeSpan.TryParse(otraCita.horaIni, out TimeSpan otraIni) &&
                     TimeSpan.TryParse(otraCita.horaFin, out TimeSpan otraFin))
                 {
-                    // Lógica de colisión: (InicioA < FinB) Y (FinA > InicioB)
                     if (horaInicio < otraFin && horaFin > otraIni)
                     {
-                        return false; // Hay cruce
+                        return false;
                     }
                 }
             }

@@ -1,9 +1,8 @@
-﻿using SoftInvBusiness; // Para UsuarioBO
-using SoftInvBusiness.SoftInvWSUsuario; // Para usuarioDTO
+﻿using SoftInvBusiness;
+using SoftInvBusiness.SoftInvWSUsuario;
 using System;
 using System.Web.UI;
 
-// ADAPTADO: Namespace de Empleado
 namespace MGBeautySpaWebAplication.Empleado.Perfil
 {
     public partial class CambiarPassword : Page
@@ -11,7 +10,7 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
         UsuarioBO usuarioBO;
         protected void Page_Load(object sender, EventArgs e)
         {
-            usuarioBO = new UsuarioBO(); 
+            usuarioBO = new UsuarioBO();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -23,12 +22,10 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
             usuarioDTO usuario = Session["UsuarioActual"] as usuarioDTO;
             if (usuario == null)
             {
-                // ADAPTADO: Redirigir al login (general o de empleado)
                 Response.Redirect(ResolveUrl("~/Login.aspx"));
                 return;
             }
 
-            // 1. Validar contraseña actual (usando la de la sesión)
             if (usuarioBO.IniciarSesion(usuario.correoElectronico, antigua).idUsuario == 0)
             {
                 lblInfo.Text = "⚠️ La contraseña actual no es correcta.";
@@ -36,7 +33,6 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
                 return;
             }
 
-            // 2. Validar que las nuevas contraseñas coincidan
             if (nueva != verificar)
             {
                 lblInfo.Text = "⚠️ Las nuevas contraseñas no coinciden.";
@@ -44,7 +40,6 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
                 return;
             }
 
-            // 3. Validar que la contraseña no esté vacía
             if (string.IsNullOrEmpty(nueva))
             {
                 lblInfo.Text = "⚠️ La nueva contraseña no puede estar vacía.";
@@ -54,18 +49,13 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
 
             try
             {
-                // 4. Actualizar el DTO y llamar al BO
-                usuario.contrasenha = nueva; // Actualiza la contraseña en el objeto
+                usuario.contrasenha = nueva;
 
-                // ADAPTADO: Usar UsuarioBO
                 UsuarioBO usuarioBO = new UsuarioBO();
-                // Asumimos que ModificarDatos actualiza todos los campos, incluida la contraseña
                 usuarioBO.actualizarContraseña(usuario.idUsuario, usuario.contrasenha);
 
-                // 5. Actualizar la sesión
                 Session["UsuarioActual"] = usuario;
 
-                // 6. Redirigir al perfil de Empleado
                 Response.Redirect("~/Empleado/Perfil/PerfilUsuario.aspx");
             }
             catch (Exception ex)
@@ -77,7 +67,6 @@ namespace MGBeautySpaWebAplication.Empleado.Perfil
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            // ADAPTADO: Redirige de vuelta al perfil del empleado
             Response.Redirect("~/Empleado/Perfil/PerfilUsuario.aspx");
         }
     }

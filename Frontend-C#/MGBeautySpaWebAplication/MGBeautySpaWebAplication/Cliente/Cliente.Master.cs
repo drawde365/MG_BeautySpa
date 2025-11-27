@@ -96,10 +96,6 @@ namespace MGBeautySpaWebAplication.Cliente
 
             HtmlGenericControl badge = (HtmlGenericControl)this.FindControl("cartCountBadge");
             badge.Visible = true;
-            //if (badge != null)
-            //{
-            //    badge.Visible = count > 0;
-            //}
         }
     }
 }

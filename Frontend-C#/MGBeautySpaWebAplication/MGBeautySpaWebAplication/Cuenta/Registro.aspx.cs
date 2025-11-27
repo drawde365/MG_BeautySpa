@@ -27,7 +27,6 @@ namespace MGBeautySpaWebAplication.Cuenta
 
             string urlFoto = DEFAULT_IMAGE_PATH;
 
-            // --- LÓGICA DE SUBIDA DE IMAGEN ---
             if (fileUpload.HasFile)
             {
                 string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
@@ -57,7 +56,6 @@ namespace MGBeautySpaWebAplication.Cuenta
                 }
             }
 
-            // --- CREACIÓN DEL CLIENTE ---
             var cliente = new clienteDTO
             {
                 nombre = txtNombre.Text.Trim(),
@@ -77,8 +75,6 @@ namespace MGBeautySpaWebAplication.Cuenta
 
             if (seCreo > 0)
             {
-                // ÉXITO: Llamamos a la función JS 'showSuccessModal()'
-                // que abre el modal de Bootstrap correctamente.
                 string script = @"
                     window.addEventListener('load', function() {
                         showSuccessModal();
@@ -88,8 +84,6 @@ namespace MGBeautySpaWebAplication.Cuenta
             }
             else
             {
-                // ERROR: Llamamos a 'showErrorModal()'
-                // Puedes pasarle un mensaje personalizado si quieres.
                 string script = "showErrorModal('No se pudo crear la cuenta. Verifique si el correo ya existe.');";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorModal", script, true);
             }

@@ -57,10 +57,8 @@ namespace MGBeautySpaWebAplication
                 Response.Redirect(ResolveUrl("~/Login.aspx"));
             }
             string nombre = usuario.nombre;
-            //string fotoUrl = usuario.urlFotoPerfil;
 
             litUserName.Text = nombre;
-            // imgProfile.ImageUrl = ResolveUrl(fotoUrl);
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

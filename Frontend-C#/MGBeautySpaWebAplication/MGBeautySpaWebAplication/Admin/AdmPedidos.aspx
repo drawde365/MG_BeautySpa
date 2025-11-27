@@ -11,7 +11,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
 
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
     <style>
@@ -168,7 +167,6 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
-    <!-- TÍTULO + BUSCADOR + FILTROS -->
     <div class="top-bar-pedidos mb-3">
         <div>
             <h1 class="admin-title-main">Administrar pedidos</h1>
@@ -177,7 +175,6 @@
 
         <div class="search-and-filters">
 
-            <!-- BUSCADOR (por nombre de cliente) -->
             <div class="search-box">
                 <input type="text"
                        id="searchPedidos"
@@ -185,13 +182,11 @@
                        placeholder="Buscar por nombre de cliente..." />
             </div>
 
-            <!-- ORDENAR POR TOTAL -->
             <select id="orderTotal" class="filter-select">
                 <option value="">Sin ordenar</option>
                 <option value="desc">Mayor total de dinero</option>
             </select>
 
-            <!-- FILTRO: ESTADO DEL PEDIDO -->
             <select id="filterEstado" class="filter-select">
                 <option value="">Todos los estados</option>
                 <option value="CONFIRMADO">Confirmado</option>
@@ -203,7 +198,6 @@
         </div>
     </div>
 
-    <!-- TABLA DE PEDIDOS -->
     <div class="tabla-pedidos-container">
 
         <asp:Repeater ID="rptPedidos" runat="server"
@@ -252,10 +246,8 @@
 
                     <td>S/. <%# Eval("Total", "{0:F2}") %></td>
 
-                    <!-- ACCIONES -->
                     <td class="acciones-pedido">
 
-                        <!-- Ver pedido (siempre) -->
                         <asp:LinkButton ID="btnVerPedido" runat="server"
                             CssClass="action-icon action-ver"
                             CommandName="VerPedido"
@@ -264,7 +256,6 @@
                             <i class="bi bi-eye"></i>
                         </asp:LinkButton>
 
-                        <!-- Asignar fecha (CONFIRMADO sin fecha lista para recoger) -->
                         <asp:LinkButton ID="btnDefinirFecha" runat="server"
                             CssClass="action-icon action-definir-fecha"
                             CommandName="DefinirFecha"
@@ -273,7 +264,6 @@
                             <i class="bi bi-calendar-check"></i>
                         </asp:LinkButton>
 
-                        <!-- Marcar como recogido (LISTO_PARA_RECOGER) -->
                         <asp:LinkButton ID="btnMarcarRecogido" runat="server"
                             CssClass="action-icon action-marcar-recogido"
                             CommandName="MarcarRecogido"
@@ -282,7 +272,6 @@
                             <i class="bi bi-bag-check"></i>
                         </asp:LinkButton>
 
-                        <!-- Marcar como no recogido (LISTO_PARA_RECOGER) -->
                         <asp:LinkButton ID="btnCancelar" runat="server"
                             CssClass="action-icon action-cancelar"
                             CommandName="CancelarPedido"
@@ -307,7 +296,6 @@
 
     </div>
 
-    <!-- MODAL DETALLES DE PEDIDO -->
     <div class="modal fade" id="modalDetallesPedido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -382,7 +370,6 @@
         </div>
     </div>
 
-    <!-- MODAL: MARCAR COMO RECOGIDO -->
     <div class="modal fade" id="modalMarcarRecogido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -436,7 +423,6 @@
         </div>
     </div>
 
-    <!-- MODAL: MARCAR COMO NO RECOGIDO -->
     <div class="modal fade" id="modalNoRecogido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -478,7 +464,6 @@
         </div>
     </div>
 
-    <!-- MODAL: MENSAJE DE ACCIÓN (CONFIRMACIÓN BONITA) -->
     <div class="modal fade" id="modalMensajeAccion" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
