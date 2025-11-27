@@ -17,7 +17,7 @@ namespace MGBeautySpaWebAplication.Admin
         private const string SESSION_KEY_TOTAL_PAGINAS = "AdmPedidos_TotalPaginas";
 
         private const int PAGE_SIZE = 10;   // 10 pedidos por página
-        private const int PAGES_PER_BATCH = 5; // 10 páginas por lote => 100 pedidos
+        private const int PAGES_PER_BATCH = 3; // 10 páginas por lote => 100 pedidos
 
         private class PedidoViewModel
         {

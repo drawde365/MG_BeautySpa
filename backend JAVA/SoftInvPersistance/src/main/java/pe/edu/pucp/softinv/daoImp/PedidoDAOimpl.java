@@ -311,7 +311,7 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
     
     @Override
     public ArrayList<PedidoDTO> listarTodoPedidosPaginado(Integer pagina) {
-        Integer cantidadPorPagina = 50;
+        Integer cantidadPorPagina = 30;
         int inicio = (pagina - 1) * cantidadPorPagina;
         int fin = inicio + cantidadPorPagina;
 
