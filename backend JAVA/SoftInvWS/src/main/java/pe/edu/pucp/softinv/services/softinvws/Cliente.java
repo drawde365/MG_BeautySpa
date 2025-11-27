@@ -40,4 +40,11 @@ public class Cliente {
     public Integer eliminarCliente(ClienteDTO cliente){
         return clienteBO.eliminar(cliente);
     }
+    
+    @WebMethod(operationName = "buscarCliente")
+    public ArrayList<ClienteDTO> buscarClienteAdmin(@WebParam(name="nombre")String nombre,
+            @WebParam(name="PrimerApellido")String pApe,@WebParam(name="SegundoApellido")String sApe,
+            @WebParam(name="correo")String correo,@WebParam(name="celular")String celular){
+        return clienteBO.buscarClienteAdmin(nombre, pApe, sApe, correo, celular);
+    }
 }
