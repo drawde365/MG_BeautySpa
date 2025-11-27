@@ -91,9 +91,7 @@
                             <ItemTemplate>
                                 <article class="review-item">
                                     <div class="review-header">
-                                        <asp:Image ID="imgAvatar" runat="server" 
-                                            ImageUrl='<%# Eval("cliente.urlFotoPerfil", "~{0}") %>' 
-                                            CssClass="review-avatar" />
+                                           <asp:Image ID="imgComentarioListado" runat="server" CssClass="review-avatar" AlternateText="Avatar" />
                                         <div class="review-author-info">
                                             <span class="review-author-name"><%# Eval("cliente.nombre") %></span>
                                             <div class="review-item-stars">
@@ -132,7 +130,7 @@
                 </div>
                 
                 <div class="add-review-form">
-                    <img class="review-avatar" src="/avatar-placeholder-user.png" alt="Tu avatar" />
+                        <asp:Image ID="imgAvatarFormulario" runat="server" CssClass="review-avatar" AlternateText="Tu avatar" />
                     <div class="add-review-content">
                         <div class="review-user-name">
                             <asp:Literal ID="litNombreUsuario" runat="server" />
