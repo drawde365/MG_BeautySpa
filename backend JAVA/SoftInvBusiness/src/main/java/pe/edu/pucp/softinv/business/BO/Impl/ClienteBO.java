@@ -8,6 +8,7 @@ import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import pe.edu.pucp.softinv.model.Personas.ClienteDTO;
 
 import java.util.ArrayList;
+import pe.edu.pucp.softinv.model.Personas.UsuarioDTO;
 
 public class ClienteBO {
     private PedidoDAO pedidoDAO;
@@ -74,5 +75,15 @@ public class ClienteBO {
 
     public ArrayList<PedidoDTO> listarPedidosDeCliente(Integer idCliente) {
         return pedidoDAO.listarPedidos(idCliente);
+    }
+    
+    public ArrayList<ClienteDTO> buscarClienteAdmin(String nombre,String pApe,String sApe,String correo,String celular){
+        if(nombre==null)
+            nombre="";
+        if(pApe==null) pApe="";
+        if(sApe==null) sApe="";
+        if(correo==null) correo="";
+        if(celular==null) celular="";
+        return clienteDAO.buscarClienteAdmin(nombre, pApe, sApe, correo, celular);
     }
 }
