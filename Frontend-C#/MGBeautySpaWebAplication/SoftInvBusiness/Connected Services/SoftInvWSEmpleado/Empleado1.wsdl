@@ -5,11 +5,11 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Empleado?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="ObtenerServiciosNoBrindados">
-    <part name="parameters" element="tns:ObtenerServiciosNoBrindados" />
+  <message name="InsertarEmpleado">
+    <part name="parameters" element="tns:InsertarEmpleado" />
   </message>
-  <message name="ObtenerServiciosNoBrindadosResponse">
-    <part name="parameters" element="tns:ObtenerServiciosNoBrindadosResponse" />
+  <message name="InsertarEmpleadoResponse">
+    <part name="parameters" element="tns:InsertarEmpleadoResponse" />
   </message>
   <message name="ModificarEmpleado">
     <part name="parameters" element="tns:ModificarEmpleado" />
@@ -23,17 +23,17 @@
   <message name="EliminarEmpleadoResponse">
     <part name="parameters" element="tns:EliminarEmpleadoResponse" />
   </message>
-  <message name="InsertarEmpleado">
-    <part name="parameters" element="tns:InsertarEmpleado" />
+  <message name="ListarCitasDeEmpleado">
+    <part name="parameters" element="tns:ListarCitasDeEmpleado" />
   </message>
-  <message name="InsertarEmpleadoResponse">
-    <part name="parameters" element="tns:InsertarEmpleadoResponse" />
+  <message name="ListarCitasDeEmpleadoResponse">
+    <part name="parameters" element="tns:ListarCitasDeEmpleadoResponse" />
   </message>
-  <message name="ListarServiciosDeEmpleado">
-    <part name="parameters" element="tns:ListarServiciosDeEmpleado" />
+  <message name="ObtenerServiciosNoBrindados">
+    <part name="parameters" element="tns:ObtenerServiciosNoBrindados" />
   </message>
-  <message name="ListarServiciosDeEmpleadoResponse">
-    <part name="parameters" element="tns:ListarServiciosDeEmpleadoResponse" />
+  <message name="ObtenerServiciosNoBrindadosResponse">
+    <part name="parameters" element="tns:ObtenerServiciosNoBrindadosResponse" />
   </message>
   <message name="InsertarEmpleadoPorPartes">
     <part name="parameters" element="tns:InsertarEmpleadoPorPartes" />
@@ -41,17 +41,17 @@
   <message name="InsertarEmpleadoPorPartesResponse">
     <part name="parameters" element="tns:InsertarEmpleadoPorPartesResponse" />
   </message>
-  <message name="ListarCitasDeEmpleado">
-    <part name="parameters" element="tns:ListarCitasDeEmpleado" />
+  <message name="QuitarServicioAEmpleado">
+    <part name="parameters" element="tns:QuitarServicioAEmpleado" />
   </message>
-  <message name="ListarCitasDeEmpleadoResponse">
-    <part name="parameters" element="tns:ListarCitasDeEmpleadoResponse" />
+  <message name="QuitarServicioAEmpleadoResponse">
+    <part name="parameters" element="tns:QuitarServicioAEmpleadoResponse" />
   </message>
-  <message name="AgregarServicioAEmpleado">
-    <part name="parameters" element="tns:AgregarServicioAEmpleado" />
+  <message name="ListarServiciosDeEmpleado">
+    <part name="parameters" element="tns:ListarServiciosDeEmpleado" />
   </message>
-  <message name="AgregarServicioAEmpleadoResponse">
-    <part name="parameters" element="tns:AgregarServicioAEmpleadoResponse" />
+  <message name="ListarServiciosDeEmpleadoResponse">
+    <part name="parameters" element="tns:ListarServiciosDeEmpleadoResponse" />
   </message>
   <message name="ObtenerEmpleadoPorId">
     <part name="parameters" element="tns:ObtenerEmpleadoPorId" />
@@ -59,22 +59,22 @@
   <message name="ObtenerEmpleadoPorIdResponse">
     <part name="parameters" element="tns:ObtenerEmpleadoPorIdResponse" />
   </message>
+  <message name="AgregarServicioAEmpleado">
+    <part name="parameters" element="tns:AgregarServicioAEmpleado" />
+  </message>
+  <message name="AgregarServicioAEmpleadoResponse">
+    <part name="parameters" element="tns:AgregarServicioAEmpleadoResponse" />
+  </message>
   <message name="ListarTodosEmpleados">
     <part name="parameters" element="tns:ListarTodosEmpleados" />
   </message>
   <message name="ListarTodosEmpleadosResponse">
     <part name="parameters" element="tns:ListarTodosEmpleadosResponse" />
   </message>
-  <message name="QuitarServicioAEmpleado">
-    <part name="parameters" element="tns:QuitarServicioAEmpleado" />
-  </message>
-  <message name="QuitarServicioAEmpleadoResponse">
-    <part name="parameters" element="tns:QuitarServicioAEmpleadoResponse" />
-  </message>
   <portType name="Empleado">
-    <operation name="ObtenerServiciosNoBrindados">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerServiciosNoBrindadosRequest" message="tns:ObtenerServiciosNoBrindados" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerServiciosNoBrindadosResponse" message="tns:ObtenerServiciosNoBrindadosResponse" />
+    <operation name="InsertarEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoRequest" message="tns:InsertarEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoResponse" message="tns:InsertarEmpleadoResponse" />
     </operation>
     <operation name="ModificarEmpleado">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ModificarEmpleadoRequest" message="tns:ModificarEmpleado" />
@@ -84,42 +84,42 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoRequest" message="tns:EliminarEmpleado" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/EliminarEmpleadoResponse" message="tns:EliminarEmpleadoResponse" />
     </operation>
-    <operation name="InsertarEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoRequest" message="tns:InsertarEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoResponse" message="tns:InsertarEmpleadoResponse" />
+    <operation name="ListarCitasDeEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarCitasDeEmpleadoRequest" message="tns:ListarCitasDeEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarCitasDeEmpleadoResponse" message="tns:ListarCitasDeEmpleadoResponse" />
     </operation>
-    <operation name="ListarServiciosDeEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoRequest" message="tns:ListarServiciosDeEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoResponse" message="tns:ListarServiciosDeEmpleadoResponse" />
+    <operation name="ObtenerServiciosNoBrindados">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerServiciosNoBrindadosRequest" message="tns:ObtenerServiciosNoBrindados" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerServiciosNoBrindadosResponse" message="tns:ObtenerServiciosNoBrindadosResponse" />
     </operation>
     <operation name="InsertarEmpleadoPorPartes">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesRequest" message="tns:InsertarEmpleadoPorPartes" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/InsertarEmpleadoPorPartesResponse" message="tns:InsertarEmpleadoPorPartesResponse" />
     </operation>
-    <operation name="ListarCitasDeEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarCitasDeEmpleadoRequest" message="tns:ListarCitasDeEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarCitasDeEmpleadoResponse" message="tns:ListarCitasDeEmpleadoResponse" />
+    <operation name="QuitarServicioAEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/QuitarServicioAEmpleadoRequest" message="tns:QuitarServicioAEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/QuitarServicioAEmpleadoResponse" message="tns:QuitarServicioAEmpleadoResponse" />
     </operation>
-    <operation name="AgregarServicioAEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRequest" message="tns:AgregarServicioAEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoResponse" message="tns:AgregarServicioAEmpleadoResponse" />
+    <operation name="ListarServiciosDeEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoRequest" message="tns:ListarServiciosDeEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarServiciosDeEmpleadoResponse" message="tns:ListarServiciosDeEmpleadoResponse" />
     </operation>
     <operation name="ObtenerEmpleadoPorId">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerEmpleadoPorIdRequest" message="tns:ObtenerEmpleadoPorId" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ObtenerEmpleadoPorIdResponse" message="tns:ObtenerEmpleadoPorIdResponse" />
     </operation>
+    <operation name="AgregarServicioAEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoRequest" message="tns:AgregarServicioAEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/AgregarServicioAEmpleadoResponse" message="tns:AgregarServicioAEmpleadoResponse" />
+    </operation>
     <operation name="ListarTodosEmpleados">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarTodosEmpleadosRequest" message="tns:ListarTodosEmpleados" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/ListarTodosEmpleadosResponse" message="tns:ListarTodosEmpleadosResponse" />
     </operation>
-    <operation name="QuitarServicioAEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/QuitarServicioAEmpleadoRequest" message="tns:QuitarServicioAEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Empleado/QuitarServicioAEmpleadoResponse" message="tns:QuitarServicioAEmpleadoResponse" />
-    </operation>
   </portType>
   <binding name="EmpleadoPortBinding" type="tns:Empleado">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="ObtenerServiciosNoBrindados">
+    <operation name="InsertarEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -146,7 +146,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="InsertarEmpleado">
+    <operation name="ListarCitasDeEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -155,7 +155,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarServiciosDeEmpleado">
+    <operation name="ObtenerServiciosNoBrindados">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -173,7 +173,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarCitasDeEmpleado">
+    <operation name="QuitarServicioAEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -182,7 +182,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="AgregarServicioAEmpleado">
+    <operation name="ListarServiciosDeEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -200,7 +200,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarTodosEmpleados">
+    <operation name="AgregarServicioAEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -209,7 +209,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="QuitarServicioAEmpleado">
+    <operation name="ListarTodosEmpleados">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

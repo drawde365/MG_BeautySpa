@@ -11,17 +11,11 @@
   <message name="ListarCitasPorUsuarioResponse">
     <part name="parameters" element="tns:ListarCitasPorUsuarioResponse" />
   </message>
-  <message name="EliminarCita">
-    <part name="parameters" element="tns:EliminarCita" />
+  <message name="AceptarCita">
+    <part name="parameters" element="tns:AceptarCita" />
   </message>
-  <message name="EliminarCitaResponse">
-    <part name="parameters" element="tns:EliminarCitaResponse" />
-  </message>
-  <message name="ObtenerCitaPorId">
-    <part name="parameters" element="tns:ObtenerCitaPorId" />
-  </message>
-  <message name="ObtenerCitaPorIdResponse">
-    <part name="parameters" element="tns:ObtenerCitaPorIdResponse" />
+  <message name="AceptarCitaResponse">
+    <part name="parameters" element="tns:AceptarCitaResponse" />
   </message>
   <message name="ModificarCita">
     <part name="parameters" element="tns:ModificarCita" />
@@ -29,11 +23,17 @@
   <message name="ModificarCitaResponse">
     <part name="parameters" element="tns:ModificarCitaResponse" />
   </message>
-  <message name="AceptarCita">
-    <part name="parameters" element="tns:AceptarCita" />
+  <message name="EliminarCita">
+    <part name="parameters" element="tns:EliminarCita" />
   </message>
-  <message name="AceptarCitaResponse">
-    <part name="parameters" element="tns:AceptarCitaResponse" />
+  <message name="EliminarCitaResponse">
+    <part name="parameters" element="tns:EliminarCitaResponse" />
+  </message>
+  <message name="InsertarCita">
+    <part name="parameters" element="tns:InsertarCita" />
+  </message>
+  <message name="InsertarCitaResponse">
+    <part name="parameters" element="tns:InsertarCitaResponse" />
   </message>
   <message name="ListarTodosCita">
     <part name="parameters" element="tns:ListarTodosCita" />
@@ -47,32 +47,32 @@
   <message name="InsertarCitaPorPartesResponse">
     <part name="parameters" element="tns:InsertarCitaPorPartesResponse" />
   </message>
-  <message name="InsertarCita">
-    <part name="parameters" element="tns:InsertarCita" />
+  <message name="ObtenerCitaPorId">
+    <part name="parameters" element="tns:ObtenerCitaPorId" />
   </message>
-  <message name="InsertarCitaResponse">
-    <part name="parameters" element="tns:InsertarCitaResponse" />
+  <message name="ObtenerCitaPorIdResponse">
+    <part name="parameters" element="tns:ObtenerCitaPorIdResponse" />
   </message>
   <portType name="Cita">
     <operation name="ListarCitasPorUsuario">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarCitasPorUsuarioRequest" message="tns:ListarCitasPorUsuario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarCitasPorUsuarioResponse" message="tns:ListarCitasPorUsuarioResponse" />
     </operation>
-    <operation name="EliminarCita">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaRequest" message="tns:EliminarCita" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaResponse" message="tns:EliminarCitaResponse" />
-    </operation>
-    <operation name="ObtenerCitaPorId">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdRequest" message="tns:ObtenerCitaPorId" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdResponse" message="tns:ObtenerCitaPorIdResponse" />
+    <operation name="AceptarCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/AceptarCitaRequest" message="tns:AceptarCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/AceptarCitaResponse" message="tns:AceptarCitaResponse" />
     </operation>
     <operation name="ModificarCita">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaRequest" message="tns:ModificarCita" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ModificarCitaResponse" message="tns:ModificarCitaResponse" />
     </operation>
-    <operation name="AceptarCita">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/AceptarCitaRequest" message="tns:AceptarCita" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/AceptarCitaResponse" message="tns:AceptarCitaResponse" />
+    <operation name="EliminarCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaRequest" message="tns:EliminarCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/EliminarCitaResponse" message="tns:EliminarCitaResponse" />
+    </operation>
+    <operation name="InsertarCita">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaRequest" message="tns:InsertarCita" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaResponse" message="tns:InsertarCitaResponse" />
     </operation>
     <operation name="ListarTodosCita">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ListarTodosCitaRequest" message="tns:ListarTodosCita" />
@@ -82,9 +82,9 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesRequest" message="tns:InsertarCitaPorPartes" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaPorPartesResponse" message="tns:InsertarCitaPorPartesResponse" />
     </operation>
-    <operation name="InsertarCita">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaRequest" message="tns:InsertarCita" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/InsertarCitaResponse" message="tns:InsertarCitaResponse" />
+    <operation name="ObtenerCitaPorId">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdRequest" message="tns:ObtenerCitaPorId" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Cita/ObtenerCitaPorIdResponse" message="tns:ObtenerCitaPorIdResponse" />
     </operation>
   </portType>
   <binding name="CitaPortBinding" type="tns:Cita">
@@ -98,16 +98,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="EliminarCita">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="ObtenerCitaPorId">
+    <operation name="AceptarCita">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -125,7 +116,16 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="AceptarCita">
+    <operation name="EliminarCita">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertarCita">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -152,7 +152,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="InsertarCita">
+    <operation name="ObtenerCitaPorId">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

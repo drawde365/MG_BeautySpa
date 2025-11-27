@@ -4,11 +4,13 @@ import pe.edu.pucp.softinv.model.Pedido.PedidoDTO;
 import java.util.ArrayList;
 
 public interface PedidoDAO {
-    public Integer insertar(PedidoDTO pedido);
-    public PedidoDTO obtenerPorId(Integer idPedido);
-    public Integer modificar(PedidoDTO pedido);
-    public Integer eliminar(PedidoDTO pedido);
-    public ArrayList<PedidoDTO> listarPedidos(Integer idCliente);
+    Integer insertar(PedidoDTO pedido);
+    PedidoDTO obtenerPorId(Integer idPedido);
+    Integer modificar(PedidoDTO pedido);
+    Integer eliminar(PedidoDTO pedido);
+    ArrayList<PedidoDTO> listarPedidos(Integer idCliente);
     PedidoDTO obtenerCarritoPorCliente(Integer idCliente);
     ArrayList<PedidoDTO> listarTodoPedidos();
+    ArrayList<PedidoDTO> listarTodoPedidosPaginado(Integer pagina);
+    Integer contarPedidos();
 }

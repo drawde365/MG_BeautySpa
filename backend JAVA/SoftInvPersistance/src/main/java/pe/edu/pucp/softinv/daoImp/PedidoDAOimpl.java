@@ -21,12 +21,14 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
 
     private PedidoDTO pedido;
     private DetallePedidoDAO detallePedidoDAO;
+    private Integer contando;
 
     public PedidoDAOimpl() {
         super("PEDIDOS");
         this.pedido = null;
         this.retornarLlavePrimaria = true;
         detallePedidoDAO = new DetallePedidoDAOImpl();
+        contando=0;
     }
 
     @Override
@@ -306,10 +308,59 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         sql += this.obtenerQuerySinCarrito();
         return (ArrayList<PedidoDTO>) super.listarTodos(sql, null, null);
     }
+    @Override
+    public ArrayList<PedidoDTO> listarTodoPedidosPaginado(Integer pagina) {
+        int cantidadPorPagina=100;
+        String sql = this.ObtenerBaseQueryPedidos();
+        sql += this.obtenerQuerySinCarrito();
+        sql += " ORDER BY p.PEDIDO_ID DESC "; 
+        sql += " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        int offset = (pagina - 1) * cantidadPorPagina;
+        Object[] parametros = new Object[]{offset, cantidadPorPagina};
+
+        return (ArrayList<PedidoDTO>) super.listarTodos(sql, this::configurarParametrosPaginacion, parametros);
+    }
+    
+    private void configurarParametrosPaginacion(Object objetoParametros) {
+        Object[] params = (Object[]) objetoParametros;
+        try {
+            // El orden depende de tu query: primero OFFSET, luego FETCH NEXT (LIMIT)
+            this.statement.setInt(1, (Integer) params[0]);
+            this.statement.setInt(2, (Integer) params[1]);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public Integer contarPedidos() {
+        Integer resultado = 0;
+        try {
+            this.abrirConexion();
+            
+            String sql = "SELECT COUNT(p.PEDIDO_ID) AS TOTAL " +
+                     "FROM PEDIDOS p " + 
+                     this.obtenerQuerySinCarrito();
+            
+            this.colocarSQLEnStatement(sql);
+            this.ejecutarSelectEnDB();
+            if (this.resultSet.next()) {
+                resultado = this.resultSet.getInt("TOTAL");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error al contar pedidos - " + ex);
+        } finally {
+            try {
+                this.cerrarConexion();
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar la conexión - " + ex);
+            }
+        }
+        return resultado;
+    }
     
     private String obtenerQuerySinCarrito() {
-        String sql = " WHERE p.ESTADO != 'EnCarrito'";
-        return sql;
+        return " WHERE p.ESTADO != 'EnCarrito' AND (p.ESTADO = 'CONFIRMADO' OR p.ESTADO = 'LISTO_PARA_RECOGER') ";
     }
 
     private String ObtenerBaseQueryPedidos() {
@@ -356,11 +407,11 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         """;
         return sql;
     }
-
+    
     private String ObtenerQueryPorId() {
         return this.ObtenerBaseQueryPedidos() + " WHERE p.PEDIDO_ID = ?";
     }
-
+    
     private String ObtenerQueryPorCliente() {
         return this.ObtenerBaseQueryPedidos() + """
         WHERE p.CLIENTE_ID = ?

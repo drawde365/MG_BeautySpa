@@ -111,4 +111,12 @@ public class Pedido {
     public Integer modificarProductoTipoPedido(ProductoTipoDTO productoTipo) {
         return pedidoBO.modificar(productoTipo);
     }
+    @WebMethod(operationName = "listarTodoPedidosPaginado")
+    public ArrayList<PedidoDTO> listarTodoPedidosPaginado(@WebParam(name = "numeroPagina")Integer pagina) {
+        return pedidoBO.listarTodoPedidosPaginado(pagina);
+    }
+    @WebMethod(operationName = "obtenerPaginasPedido")
+    public Integer obtenerPaginasPedido() {
+        return pedidoBO.obtenerPaginas();
+    }
 }

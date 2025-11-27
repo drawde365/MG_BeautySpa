@@ -5,31 +5,31 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Reportes?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="generarReporteCitas">
-    <part name="parameters" element="tns:generarReporteCitas" />
-  </message>
-  <message name="generarReporteCitasResponse">
-    <part name="parameters" element="tns:generarReporteCitasResponse" />
-  </message>
   <message name="generarReporteVentas">
     <part name="parameters" element="tns:generarReporteVentas" />
   </message>
   <message name="generarReporteVentasResponse">
     <part name="parameters" element="tns:generarReporteVentasResponse" />
   </message>
+  <message name="generarReporteCitas">
+    <part name="parameters" element="tns:generarReporteCitas" />
+  </message>
+  <message name="generarReporteCitasResponse">
+    <part name="parameters" element="tns:generarReporteCitasResponse" />
+  </message>
   <portType name="Reportes">
-    <operation name="generarReporteCitas">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Reportes/generarReporteCitasRequest" message="tns:generarReporteCitas" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Reportes/generarReporteCitasResponse" message="tns:generarReporteCitasResponse" />
-    </operation>
     <operation name="generarReporteVentas">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Reportes/generarReporteVentasRequest" message="tns:generarReporteVentas" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Reportes/generarReporteVentasResponse" message="tns:generarReporteVentasResponse" />
     </operation>
+    <operation name="generarReporteCitas">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Reportes/generarReporteCitasRequest" message="tns:generarReporteCitas" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Reportes/generarReporteCitasResponse" message="tns:generarReporteCitasResponse" />
+    </operation>
   </portType>
   <binding name="ReportesPortBinding" type="tns:Reportes">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="generarReporteCitas">
+    <operation name="generarReporteVentas">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -38,7 +38,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="generarReporteVentas">
+    <operation name="generarReporteCitas">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

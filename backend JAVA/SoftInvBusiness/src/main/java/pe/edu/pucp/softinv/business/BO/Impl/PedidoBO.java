@@ -105,10 +105,7 @@ public class PedidoBO {
     public ArrayList<DetallePedidoDTO> obtenerDetallesPedidosId(Integer idPedido) {
         return detallePedidoDAO.obtenerDetallesPedidosId(idPedido);
     }
-    //Otorga una lista que debería tener el mismo orden que cada detalle pedido.
-    //Por ejemplo, para saber si el primer detalle está disponible, entonces,
-    //miro el primer elemento de la lista, si es 0, entonces, no se puede aceptar
-    //si es 1, entonces está bien.
+    
     public ArrayList<Integer> comprobarDetallePedido(Integer idPedido) {
         ArrayList<Integer> listaValida = new ArrayList<Integer>();
         PedidoDTO pedido = pedidoDAO.obtenerPorId(idPedido);
@@ -123,9 +120,6 @@ public class PedidoBO {
         return listaValida;
     }
     
-    //NECESITA EL PEDIDODTO COMPLETO 
-    //INCLUYENDO EL ESTADO DE PEDIDO RECOGIDO
-    //(no necesita que los detalles esten llenos, pero necesito que los demas campos si lo este)
     public Integer aceptarRecojo(PedidoDTO pedido) {
         for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
             ProductoTipoDTO productoTipo = productoDAO.obtener(
@@ -140,9 +134,7 @@ public class PedidoBO {
         }
         return pedidoDAO.modificar(pedido);
     }
-    //NECESITA EL PEDIDODTO COMPLETO 
-    //INCLUYENDO EL ESTADO DE PEDIDO NORECOGIDO
-    //(no necesita que los detalles esten llenos, pero necesito que los demas campos si lo este)
+    
     public Integer rechazarRecojo(PedidoDTO pedido) {
         for (DetallePedidoDTO detallePedido : pedido.getDetallesPedido()) {
             ProductoTipoDTO productoTipo = productoDAO.obtener(
@@ -154,5 +146,12 @@ public class PedidoBO {
         return pedidoDAO.modificar(pedido);
     }
     
+    public ArrayList<PedidoDTO> listarTodoPedidosPaginado(Integer pagina) {
+        return pedidoDAO.listarTodoPedidosPaginado(pagina);
+    }
     
+    public Integer obtenerPaginas() {
+        Integer total = pedidoDAO.contarPedidos();
+        return (total+10-1)/10;
+    }
 }

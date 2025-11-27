@@ -11,23 +11,11 @@
   <message name="ObtenerHorariosPorEmpleadoYFechaResponse">
     <part name="parameters" element="tns:ObtenerHorariosPorEmpleadoYFechaResponse" />
   </message>
-  <message name="ModificarHorarioTrabajo">
-    <part name="parameters" element="tns:ModificarHorarioTrabajo" />
+  <message name="ListarPorEmpleado">
+    <part name="parameters" element="tns:ListarPorEmpleado" />
   </message>
-  <message name="ModificarHorarioTrabajoResponse">
-    <part name="parameters" element="tns:ModificarHorarioTrabajoResponse" />
-  </message>
-  <message name="InsertarHorarioTrabajo">
-    <part name="parameters" element="tns:InsertarHorarioTrabajo" />
-  </message>
-  <message name="InsertarHorarioTrabajoResponse">
-    <part name="parameters" element="tns:InsertarHorarioTrabajoResponse" />
-  </message>
-  <message name="EliminarHorarioTrabajo">
-    <part name="parameters" element="tns:EliminarHorarioTrabajo" />
-  </message>
-  <message name="EliminarHorarioTrabajoResponse">
-    <part name="parameters" element="tns:EliminarHorarioTrabajoResponse" />
+  <message name="ListarPorEmpleadoResponse">
+    <part name="parameters" element="tns:ListarPorEmpleadoResponse" />
   </message>
   <message name="ObtenerHorarioTrabajoPorId">
     <part name="parameters" element="tns:ObtenerHorarioTrabajoPorId" />
@@ -35,36 +23,48 @@
   <message name="ObtenerHorarioTrabajoPorIdResponse">
     <part name="parameters" element="tns:ObtenerHorarioTrabajoPorIdResponse" />
   </message>
-  <message name="ListarPorEmpleado">
-    <part name="parameters" element="tns:ListarPorEmpleado" />
+  <message name="InsertarHorarioTrabajo">
+    <part name="parameters" element="tns:InsertarHorarioTrabajo" />
   </message>
-  <message name="ListarPorEmpleadoResponse">
-    <part name="parameters" element="tns:ListarPorEmpleadoResponse" />
+  <message name="InsertarHorarioTrabajoResponse">
+    <part name="parameters" element="tns:InsertarHorarioTrabajoResponse" />
+  </message>
+  <message name="ModificarHorarioTrabajo">
+    <part name="parameters" element="tns:ModificarHorarioTrabajo" />
+  </message>
+  <message name="ModificarHorarioTrabajoResponse">
+    <part name="parameters" element="tns:ModificarHorarioTrabajoResponse" />
+  </message>
+  <message name="EliminarHorarioTrabajo">
+    <part name="parameters" element="tns:EliminarHorarioTrabajo" />
+  </message>
+  <message name="EliminarHorarioTrabajoResponse">
+    <part name="parameters" element="tns:EliminarHorarioTrabajoResponse" />
   </message>
   <portType name="HorarioTrabajo">
     <operation name="ObtenerHorariosPorEmpleadoYFecha">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEmpleadoYFechaRequest" message="tns:ObtenerHorariosPorEmpleadoYFecha" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorariosPorEmpleadoYFechaResponse" message="tns:ObtenerHorariosPorEmpleadoYFechaResponse" />
     </operation>
-    <operation name="ModificarHorarioTrabajo">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ModificarHorarioTrabajoRequest" message="tns:ModificarHorarioTrabajo" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ModificarHorarioTrabajoResponse" message="tns:ModificarHorarioTrabajoResponse" />
-    </operation>
-    <operation name="InsertarHorarioTrabajo">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTrabajoRequest" message="tns:InsertarHorarioTrabajo" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTrabajoResponse" message="tns:InsertarHorarioTrabajoResponse" />
-    </operation>
-    <operation name="EliminarHorarioTrabajo">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTrabajoRequest" message="tns:EliminarHorarioTrabajo" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTrabajoResponse" message="tns:EliminarHorarioTrabajoResponse" />
+    <operation name="ListarPorEmpleado">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoRequest" message="tns:ListarPorEmpleado" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoResponse" message="tns:ListarPorEmpleadoResponse" />
     </operation>
     <operation name="ObtenerHorarioTrabajoPorId">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorarioTrabajoPorIdRequest" message="tns:ObtenerHorarioTrabajoPorId" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ObtenerHorarioTrabajoPorIdResponse" message="tns:ObtenerHorarioTrabajoPorIdResponse" />
     </operation>
-    <operation name="ListarPorEmpleado">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoRequest" message="tns:ListarPorEmpleado" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ListarPorEmpleadoResponse" message="tns:ListarPorEmpleadoResponse" />
+    <operation name="InsertarHorarioTrabajo">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTrabajoRequest" message="tns:InsertarHorarioTrabajo" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/InsertarHorarioTrabajoResponse" message="tns:InsertarHorarioTrabajoResponse" />
+    </operation>
+    <operation name="ModificarHorarioTrabajo">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ModificarHorarioTrabajoRequest" message="tns:ModificarHorarioTrabajo" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/ModificarHorarioTrabajoResponse" message="tns:ModificarHorarioTrabajoResponse" />
+    </operation>
+    <operation name="EliminarHorarioTrabajo">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTrabajoRequest" message="tns:EliminarHorarioTrabajo" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/HorarioTrabajo/EliminarHorarioTrabajoResponse" message="tns:EliminarHorarioTrabajoResponse" />
     </operation>
   </portType>
   <binding name="HorarioTrabajoPortBinding" type="tns:HorarioTrabajo">
@@ -78,25 +78,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ModificarHorarioTrabajo">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="InsertarHorarioTrabajo">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
-    <operation name="EliminarHorarioTrabajo">
+    <operation name="ListarPorEmpleado">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -114,7 +96,25 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarPorEmpleado">
+    <operation name="InsertarHorarioTrabajo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ModificarHorarioTrabajo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="EliminarHorarioTrabajo">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
