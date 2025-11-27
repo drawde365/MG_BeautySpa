@@ -13,6 +13,8 @@ namespace MGBeautySpaWebAplication.Admin
     {
         ServicioBO servicioBO;
 
+        private const string SESSION_LISTA_SERVICIOS = "AdmServicios_Lista";
+
         public AdmServicios()
         {
             servicioBO = new ServicioBO();
@@ -30,9 +32,13 @@ namespace MGBeautySpaWebAplication.Admin
         {
             try
             {
-                var todosLosServicios = servicioBO.ListarTodoActivo();
+                // Listar todos (activos + inactivos)
+                IList<servicioDTO> todosLosServicios = servicioBO.ListarTodo();
 
-                var dataParaRepeater = todosLosServicios.Select(s => new {
+                Session[SESSION_LISTA_SERVICIOS] = todosLosServicios;
+
+                var dataParaRepeater = todosLosServicios.Select(s => new
+                {
                     IDServicio = s.idServicio,
                     RutaImagen = s.urlImagen ?? "/Content/images/placeholder.png",
                     NombreServicio = s.nombre,
@@ -40,8 +46,8 @@ namespace MGBeautySpaWebAplication.Admin
                     Tipo = s.tipo,
                     Precio = s.precio,
                     Valoracion = s.promedioValoracion,
-                    // ▼▼▼ ¡AÑADE ESTA LÍNEA! ▼▼▼
-                    UrlEditar = $"InsertarServicio.aspx?id={s.idServicio}"
+                    UrlEditar = $"InsertarServicio.aspx?id={s.idServicio}",
+                    Activo = s.activo   // ajusta si el campo se llama distinto
                 }).ToList();
 
                 rptServicios.DataSource = dataParaRepeater;
@@ -57,21 +63,58 @@ namespace MGBeautySpaWebAplication.Admin
         {
             int idServicio = Convert.ToInt32(e.CommandArgument);
 
-            if (e.CommandName == "Eliminar")
+            if (e.CommandName == "Restaurar")
             {
-                try
-                {
-                    servicioDTO servicio = new servicioDTO();
-                    servicio = servicioBO.obtenerPorId(idServicio);
-                    servicioBO.eliminar(servicio);
-
-                    CargarServicios();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Error al eliminar servicio: " + ex.Message);
-                }
+                RestaurarServicio(idServicio);
             }
+            // Eliminar ya no se hace por ItemCommand, sino por el botón del modal
+        }
+
+        private void EliminarServicio(int idServicio)
+        {
+            try
+            {
+                var servicio = servicioBO.obtenerPorId(idServicio);
+                if (servicio == null) return;
+
+                // baja lógica
+                servicioBO.eliminar(servicio);
+
+                CargarServicios();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al eliminar servicio: " + ex.Message);
+            }
+        }
+
+        private void RestaurarServicio(int idServicio)
+        {
+            try
+            {
+                var servicio = servicioBO.obtenerPorId(idServicio);
+                if (servicio == null) return;
+
+                servicio.activo = 1;
+                servicio.activoSpecified = true;
+
+                servicioBO.modificar(servicio);
+
+                CargarServicios();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al restaurar servicio: " + ex.Message);
+            }
+        }
+
+        // Handler llamado por el botón "Sí, dar de baja" del modal
+        protected void btnConfirmarEliminarServicio_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(hdnIdServicioEliminar.Value, out int idServicio))
+                return;
+
+            EliminarServicio(idServicio);
         }
 
         protected string RenderStars(object valoracionObj)
@@ -86,13 +129,9 @@ namespace MGBeautySpaWebAplication.Admin
             for (int i = 1; i <= 5; i++)
             {
                 if (i <= valoracion)
-                {
                     sb.Append("<i class=\"bi bi-star-fill\"></i> ");
-                }
                 else
-                {
                     sb.Append("<i class=\"bi bi-star-fill star-empty\"></i> ");
-                }
             }
             return sb.ToString();
         }

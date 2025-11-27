@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Tag("integration")
+@Tag("integration1")
 public class ProductoDAOimplTest {
     private ProductoDAO productoDAO;
     private ArrayList<ProductoTipoDTO>lista;

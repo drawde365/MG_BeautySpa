@@ -14,6 +14,8 @@ namespace MGBeautySpaWebAplication.Admin
         private ProductoBO productoBO;
         private ProductoTipoBO productoTipoBO;
 
+        private const string SESSION_LISTA_PRODUCTOS = "AdmProductos_Lista";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             productoBO = new ProductoBO();
@@ -21,19 +23,26 @@ namespace MGBeautySpaWebAplication.Admin
 
             if (!IsPostBack)
             {
-                CargarTabla();
+                CargarTodosProductos();
             }
         }
 
-        private void CargarTabla()
+        /// <summary>
+        /// Trae TODOS los productos (activos e inactivos) y los guarda en sesión.
+        /// </summary>
+        private void CargarTodosProductos()
         {
-            IList<SoftInvBusiness.SoftInvWSProductos.productoDTO> todosLosProductos =
-                productoBO.ListarTodosActivos();
+            IList<SoftInvBusiness.SoftInvWSProductos.productoDTO> todosLosProductos = productoBO.ListarTodos();
+
+            Session[SESSION_LISTA_PRODUCTOS] = todosLosProductos;
 
             rptProductos.DataSource = todosLosProductos;
             rptProductos.DataBind();
         }
 
+        // -------------------------------------------------------------
+        //  JSON PARA EL MODAL DE STOCK
+        // -------------------------------------------------------------
         public string ObtenerDatosStockJSON(object idObj)
         {
             if (idObj == null) return "[]";
@@ -60,6 +69,9 @@ namespace MGBeautySpaWebAplication.Admin
             return serializer.Serialize(listaSimple);
         }
 
+        // -------------------------------------------------------------
+        //  ESTRELLAS
+        // -------------------------------------------------------------
         public string GenerarHtmlEstrellas(object valoracionObj)
         {
             double valoracion = 0;
@@ -84,6 +96,9 @@ namespace MGBeautySpaWebAplication.Admin
             return html;
         }
 
+        // -------------------------------------------------------------
+        //  EVENTOS DEL REPEATER
+        // -------------------------------------------------------------
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int idProducto = Convert.ToInt32(e.CommandArgument);
@@ -92,8 +107,37 @@ namespace MGBeautySpaWebAplication.Admin
             {
                 Response.Redirect($"InsertarProducto.aspx?id={idProducto}", false);
             }
+            else if (e.CommandName == "Restaurar")
+            {
+                RestaurarProducto(idProducto);
+            }
         }
 
+        private void RestaurarProducto(int idProducto)
+        {
+            try
+            {
+                var producto = productoBO.buscarPorId(idProducto);
+                if (producto == null) return;
+
+                // lo marcamos como activo nuevamente
+                producto.activo = 1;
+                producto.activoSpecified = true;
+
+                productoBO.modificarProducto(producto);
+
+                // refrescamos la lista en sesión y la grilla
+                CargarTodosProductos();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error restaurando producto: " + ex.Message);
+            }
+        }
+
+        // -------------------------------------------------------------
+        //  GUARDAR STOCK MODIFICADO DESDE EL MODAL
+        // -------------------------------------------------------------
         protected void btnGuardarStock_Click(object sender, EventArgs e)
         {
             try
@@ -125,7 +169,7 @@ namespace MGBeautySpaWebAplication.Admin
                     }
                 }
 
-                CargarTabla();
+                CargarTodosProductos();
             }
             catch (Exception ex)
             {
@@ -144,6 +188,9 @@ namespace MGBeautySpaWebAplication.Admin
             public int nuevoStock { get; set; }
         }
 
+        // -------------------------------------------------------------
+        //  ELIMINAR PRODUCTO DESDE EL MODAL (BAJA LÓGICA)
+        // -------------------------------------------------------------
         protected void btnConfirmarEliminarProducto_Click(object sender, EventArgs e)
         {
             try
@@ -155,13 +202,12 @@ namespace MGBeautySpaWebAplication.Admin
 
                 if (producto != null)
                 {
-                    producto.promedioValoracion = 0;
-                    producto.promedioValoracionSpecified = true;
 
+                    // baja lógica (activoField = 0 lo hace el BO.eliminar)
                     productoBO.eliminar(producto);
                 }
 
-                CargarTabla();
+                CargarTodosProductos();
             }
             catch (Exception ex)
             {

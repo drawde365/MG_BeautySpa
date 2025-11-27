@@ -122,7 +122,6 @@
         .badge-confirmado { background-color: #FFF4D8; color: #8A5B00; }
         .badge-listo       { background-color: #D8FBE7; color: #006C3F; }
         .badge-recogido    { background-color: #C7E1FF; color: #084298; }
-        .badge-norecogido  { background-color: #FFE0E0; color: #A30021; }
 
         .acciones-pedido {
             text-align: center;
@@ -146,7 +145,6 @@
         .action-ver            { background-color: #E5E7EB; color: #111827; }
         .action-definir-fecha  { background-color: #0C7C59; color: white; }
         .action-marcar-recogido{ background-color: #1E88E5; color: white; }
-        .action-cancelar       { background-color: #DC3545; color: white; }
 
         .action-icon[disabled="disabled"] {
             opacity: 0.4;
@@ -159,9 +157,19 @@
             color: #6B7280;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+
+        .paginacion-pedidos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 4px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .paginacion-pedidos .btn {
+            font-size: 13px;
+        }
     </style>
-
-
 
 </asp:Content>
 
@@ -192,7 +200,6 @@
                 <option value="CONFIRMADO">Confirmado</option>
                 <option value="LISTO_PARA_RECOGER">Listo para recoger</option>
                 <option value="RECOGIDO">Recogido</option>
-                <option value="NO_RECOGIDO">No recogido</option>
             </select>
 
         </div>
@@ -225,7 +232,8 @@
                     data-estado='<%# Eval("Estado") %>'
                     data-tienefecha='<%# (Eval("FechaListaParaRecojo") == null ? "0" : "1") %>'
                     data-cliente='<%# Eval("NombreCliente") %>'
-                    data-total='<%# Eval("Total", "{0:F2}") %>'>
+                    data-total='<%# Eval("Total", "{0:F2}") %>'
+                    data-page='<%# Eval("PageNumber") %>'>
 
                     <td>
                         <strong>#<%# Eval("IdPedido") %></strong><br />
@@ -272,14 +280,6 @@
                             <i class="bi bi-bag-check"></i>
                         </asp:LinkButton>
 
-                        <asp:LinkButton ID="btnCancelar" runat="server"
-                            CssClass="action-icon action-cancelar"
-                            CommandName="CancelarPedido"
-                            CommandArgument='<%# Eval("IdPedido") %>'
-                            ToolTip="Marcar como no recogido">
-                            <i class="bi bi-x-lg"></i>
-                        </asp:LinkButton>
-
                     </td>
                 </tr>
             </ItemTemplate>
@@ -296,6 +296,42 @@
 
     </div>
 
+    <!-- PAGINACIÓN -->
+    <div class="paginacion-pedidos">
+        <div>
+            <button type="button"
+                    class="btn btn-outline-secondary btn-sm me-2"
+                    onclick="if (window.mgPedidos) { window.mgPedidos.irAPaginaRel(-1); }">
+                <i class="bi bi-chevron-left"></i> Anterior
+            </button>
+
+            <button type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    onclick="if (window.mgPedidos) { window.mgPedidos.irAPaginaRel(1); }">
+                Siguiente <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="text-muted small">
+            Página <span id="spanPaginaActual">1</span>
+            de <span id="spanTotalPaginas"><asp:Literal ID="litTotalPaginas" runat="server"></asp:Literal></span>
+        </div>
+
+        <!-- Estado para JS / servidor -->
+        <asp:HiddenField ID="hfPaginaActual" runat="server" />
+        <asp:HiddenField ID="hfPaginaBreak" runat="server" />
+        <asp:HiddenField ID="hfTotalPaginas" runat="server" />
+        <asp:HiddenField ID="hfPaginaSolicitada" runat="server" />
+        <!-- Botón oculto que dispara el postback cuando hay que cargar un nuevo lote -->
+        <asp:LinkButton ID="btnCargarPaginas"
+                        runat="server"
+                        CssClass="d-none"
+                        OnClick="btnCargarPaginas_Click">
+            Cargar
+        </asp:LinkButton>
+    </div>
+
+    <!-- MODAL DETALLES PEDIDO -->
     <div class="modal fade" id="modalDetallesPedido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -370,6 +406,7 @@
         </div>
     </div>
 
+    <!-- MODAL MARCAR RECOGIDO -->
     <div class="modal fade" id="modalMarcarRecogido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -423,47 +460,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalNoRecogido" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Marcar pedido como NO recogido</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <asp:HiddenField ID="hfldPedidoNoRecogido" runat="server" />
-
-                    <p class="mb-1">
-                        <strong>Pedido:</strong>
-                        <asp:Literal ID="litNoRecogidoPedido" runat="server"></asp:Literal>
-                    </p>
-                    <p class="mb-3">
-                        <strong>Cliente:</strong>
-                        <asp:Literal ID="litNoRecogidoCliente" runat="server"></asp:Literal>
-                    </p>
-
-                    <p class="text-danger mb-0">
-                        ¿Está seguro de marcar este pedido como <strong>NO_RECOGIDO</strong>?
-                    </p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-                    <asp:LinkButton ID="btnConfirmarNoRecogido" runat="server"
-                                    CssClass="btn btn-danger"
-                                    OnClick="btnConfirmarNoRecogido_Click">
-                        Sí, marcar como no recogido
-                    </asp:LinkButton>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
+    <!-- MODAL MENSAJE -->
     <div class="modal fade" id="modalMensajeAccion" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -497,32 +494,60 @@
             const orderTotal = document.getElementById("orderTotal");
             const tbody = document.getElementById("tbodyPedidos");
 
+            const hfPaginaActual = document.getElementById("<%= hfPaginaActual.ClientID %>");
+            const hfPaginaBreak = document.getElementById("<%= hfPaginaBreak.ClientID %>");
+            const hfTotalPaginas = document.getElementById("<%= hfTotalPaginas.ClientID %>");
+            const hfPaginaSolicitada = document.getElementById("<%= hfPaginaSolicitada.ClientID %>");
+            const btnCargarPaginas = document.getElementById("<%= btnCargarPaginas.ClientID %>");
+
             function getRows() {
+                if (!tbody) return [];
                 return Array.from(tbody.querySelectorAll("tr[data-id]"));
             }
 
-            function filtrarPedidos() {
+            function actualizarTextoPagina() {
+                const spanActual = document.getElementById("spanPaginaActual");
+                const spanTotal = document.getElementById("spanTotalPaginas");
+
+                if (spanActual && hfPaginaActual) {
+                    spanActual.textContent = hfPaginaActual.value || "1";
+                }
+                if (spanTotal && hfTotalPaginas) {
+                    spanTotal.textContent = hfTotalPaginas.value || "1";
+                }
+            }
+
+            // Aplica filtro de búsqueda/estado SOLO sobre la página actual
+            function aplicarFiltrosSobrePagina() {
+                const pagina = parseInt(hfPaginaActual?.value || "1");
                 const text = (searchInput?.value || "").toLowerCase();
                 const fEstado = filterEstado ? filterEstado.value : "";
 
                 getRows().forEach(row => {
+                    const rowPage = parseInt(row.dataset.page || "1");
+                    if (rowPage !== pagina) {
+                        row.style.display = "none";
+                        return;
+                    }
+
                     const estado = row.dataset.estado;
                     const cliente = (row.dataset.cliente || "").toLowerCase();
 
                     const okTexto = cliente.includes(text);
-                    let okEstado = true;
-
-                    if (fEstado !== "") {
-                        okEstado = (estado === fEstado);
-                    }
+                    const okEstado = !fEstado || estado === fEstado;
 
                     row.style.display = (okTexto && okEstado) ? "" : "none";
                 });
+
+                actualizarTextoPagina();
             }
 
             function ordenarPorTotal() {
                 const modo = orderTotal ? orderTotal.value : "";
-                if (!modo) return;
+                if (!modo) {
+                    aplicarFiltrosSobrePagina();
+                    return;
+                }
 
                 const filas = getRows();
                 filas.sort((a, b) => {
@@ -532,13 +557,57 @@
                 });
 
                 filas.forEach(f => tbody.appendChild(f));
+                aplicarFiltrosSobrePagina();
             }
 
-            if (searchInput) searchInput.addEventListener("input", filtrarPedidos);
-            if (filterEstado) filterEstado.addEventListener("change", filtrarPedidos);
+            function mostrarPagina(pagina) {
+                if (!hfPaginaActual) return;
+                hfPaginaActual.value = pagina;
+                aplicarFiltrosSobrePagina();
+            }
+
+            function irAPagina(paginaDestino) {
+                if (!hfTotalPaginas || !hfPaginaBreak) return;
+
+                const total = parseInt(hfTotalPaginas.value || "1");
+                const breakPage = parseInt(hfPaginaBreak.value || "0");
+
+                if (paginaDestino < 1 || paginaDestino > total) return;
+
+                if (paginaDestino <= breakPage) {
+                    // Ya está en memoria: solo actualizamos client-side
+                    mostrarPagina(paginaDestino);
+                } else {
+                    // Hay que pedir más páginas al servidor
+                    if (hfPaginaSolicitada) {
+                        hfPaginaSolicitada.value = paginaDestino;
+                    }
+                    if (btnCargarPaginas) {
+                        btnCargarPaginas.click();
+                    }
+                }
+            }
+
+            function irAPaginaRel(delta) {
+                const actual = parseInt(hfPaginaActual?.value || "1");
+                irAPagina(actual + delta);
+            }
+
+            if (searchInput) searchInput.addEventListener("input", aplicarFiltrosSobrePagina);
+            if (filterEstado) filterEstado.addEventListener("change", aplicarFiltrosSobrePagina);
             if (orderTotal) orderTotal.addEventListener("change", ordenarPorTotal);
 
-            filtrarPedidos();
+            // Exponer funciones para usarlas desde inline JS y desde el servidor
+            window.mgPedidos = {
+                mostrarPagina: mostrarPagina,
+                irAPagina: irAPagina,
+                irAPaginaRel: irAPaginaRel
+            };
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const paginaInicial = parseInt(hfPaginaActual?.value || "1");
+                mostrarPagina(paginaInicial);
+            });
         })();
     </script>
 </asp:Content>
