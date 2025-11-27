@@ -76,6 +76,7 @@ public class ProductoDAOimpl extends DAOImplBase implements ProductoDAO {
         this.producto.setNombre(this.resultSet.getString("NOMBRE"));
         this.producto.setPrecio(this.resultSet.getDouble("PRECIO"));
         this.producto.setDescripcion(this.resultSet.getString("DESCRIPCION"));
+        this.producto.setPromedioValoracion(this.resultSet.getDouble("PROM_VALORACIONES"));
         this.producto.setUrlImagen(this.resultSet.getString("URL_IMAGEN"));
         this.producto.setModoUso(this.resultSet.getString("MODO_DE_USO"));
         this.producto.setActivo(this.resultSet.getInt("ACTIVO"));
