@@ -73,7 +73,7 @@
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <asp:Panel ID="pnlNoProximas" runat="server" CssClass="citas-vacias-mensaje" Visible="false">No tienes próximas citas programadas.</asp:Panel>
+                    <asp:Panel ID="pnlNoProximas" runat="server" CssClass="citas-vacias-mensaje" Visible="false">No tiene próximas citas programadas.</asp:Panel>
                 </div>
             </div>
             
@@ -87,25 +87,25 @@
                         <div class="citas-col-estado">Estado</div>
                         <div class="citas-col-accion">Acción</div>
                     </div>
-                    <asp:Repeater ID="rptPasadas" runat="server" OnItemDataBound="rptCitas_ItemDataBound" OnItemCommand="rptPasadas_ItemCommand">
+                   <asp:Repeater ID="rptPasadas" runat="server" OnItemDataBound="rptCitas_ItemDataBound" OnItemCommand="rptPasadas_ItemCommand">
                         <ItemTemplate>
                             <div class="citas-fila">
                                 <div class="citas-col">
                                     <div class="fw-bold d-md-none">Cliente</div>
-                                    <div><%# Eval("ClienteNombre") %></div>
-                                    <div class="text-muted" style="font-size: 12px;">(<%# Eval("ClienteCelular") %>)</div>
+                                    <div><asp:Literal ID="litClienteNombre" runat="server" Text='<%# Eval("ClienteNombre") %>'></asp:Literal></div>
+                                    <div class="text-muted" style="font-size: 12px;">(<asp:Literal ID="litClienteCelular" runat="server" Text='<%# Eval("ClienteCelular") %>'></asp:Literal>)</div>
                                 </div>
                                 <div class="citas-col">
                                     <div class="fw-bold d-md-none mt-2">Servicio</div>
-                                    <div><%# Eval("ServicioNombre") %></div>
+                                    <div><asp:Literal ID="litServicioNombre" runat="server" Text='<%# Eval("ServicioNombre") %>'></asp:Literal></div>
                                 </div>
                                 <div class="citas-col">
                                     <div class="fw-bold d-md-none mt-2">Fecha</div>
-                                    <div><%# Eval("Fecha") %></div>
+                                    <div><asp:Literal ID="litFecha" runat="server" Text='<%# Eval("Fecha") %>'></asp:Literal></div>
                                 </div>
                                 <div class="citas-col">
                                     <div class="fw-bold d-md-none mt-2">Hora</div>
-                                    <div><%# Eval("HoraInicio") %></div>
+                                    <div><asp:Literal ID="litHoraInicio" runat="server" Text='<%# Eval("HoraInicio") %>'></asp:Literal></div>
                                 </div>
                                 <div class="citas-col-estado">
                                     <div class="fw-bold d-md-none mt-2">Estado</div>
@@ -113,13 +113,18 @@
                                 </div>
                                 <div class="citas-col-accion">
                                     <div class="btn-action-group">
-                                        <asp:LinkButton ID="btnAceptar" runat="server" CssClass="btn btn-sm btn-outline-success btn-accept" CommandName="Aceptar" CommandArgument='<%# Eval("CitaId") %>' ToolTip="Confirmar" OnClientClick="return confirm('¿Confirmar asistencia?');"><i class="bi bi-check-lg"></i></asp:LinkButton>
-                                        <asp:LinkButton ID="btnCancelar" runat="server" CssClass="btn btn-sm btn-outline-danger btn-cancel" CommandName="Cancelar" CommandArgument='<%# Eval("CitaId") %>' ToolTip="Cancelar" OnClientClick="return confirm('¿Marcar como ausente?');"><i class="bi bi-x-lg"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="btnAceptar" runat="server" CssClass="btn btn-sm btn-outline-success btn-accept" CommandName="Aceptar" CommandArgument='<%# Eval("CitaId") %>' ToolTip="Confirmar">
+                                            <i class="bi bi-check-lg"></i>
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="btnCancelar" runat="server" CssClass="btn btn-sm btn-outline-danger btn-cancel" CommandName="Cancelar" CommandArgument='<%# Eval("CitaId") %>' ToolTip="Cancelar">
+                                            <i class="bi bi-x-lg"></i>
+                                        </asp:LinkButton>
                                     </div>
                                 </div>
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
+
                     <asp:Panel ID="pnlNoPasadas" runat="server" CssClass="citas-vacias-mensaje" Visible="false">No se encontraron citas pasadas.</asp:Panel>
                 </div>
             </div>

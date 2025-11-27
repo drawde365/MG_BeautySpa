@@ -141,7 +141,12 @@ namespace MGBeautySpaWebAplication.Empleado
                 ClienteCelular = (c.cliente != null && c.cliente.celular != null) ? c.cliente.celular : "N/A",
                 ServicioNombre = (c.servicio != null) ? c.servicio.nombre : "Servicio",
                 Fecha = c.fechaSpecified ? c.fecha.ToString("dd/MM/yyyy") : "N/A",
-                HoraInicio = !string.IsNullOrEmpty(c.horaIni) ? DateTime.Parse(c.horaIni, culturaES).ToString("hh:mm tt", culturaES) : "N/A",
+                HoraInicio = !string.IsNullOrEmpty(c.horaIni)
+                    ? DateTime.Today.Add(TimeSpan.Parse(c.horaIni))
+                                    .ToString("hh:mm tt", new CultureInfo("en-US"))
+                                        .Replace("AM", "a. m.")
+                                        .Replace("PM", "p. m.")
+                                        : "N/A",
                 Activo = c.activo,
                 FechaCita = c.fecha
             }).ToList();
@@ -201,7 +206,11 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 hdnCitaIdModal.Value = cita.id.ToString();
                 txtNuevaFecha.Text = cita.fecha.ToString("yyyy-MM-dd");
-                if (!string.IsNullOrEmpty(cita.horaIni)) txtNuevaHora.Text = TimeSpan.Parse(cita.horaIni).ToString(@"hh\:mm");
+                if (!string.IsNullOrEmpty(cita.horaIni))
+                {
+                    var hora = DateTime.Today.Add(TimeSpan.Parse(cita.horaIni));
+                    txtNuevaHora.Text = hora.ToString("hh:mm tt", new CultureInfo("en-US"));
+                }
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModificarModal",
                     "var myModal = new bootstrap.Modal(document.getElementById('modificarCitaModal')); myModal.show();", true);
@@ -216,7 +225,14 @@ namespace MGBeautySpaWebAplication.Empleado
                 var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
                 if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha)) { MostrarErrorJS("Fecha inválida"); return; }
-                if (!TimeSpan.TryParse(txtNuevaHora.Text, out TimeSpan nuevaHora)) { MostrarErrorJS("Hora inválida"); return; }
+                
+                DateTime horaCompleta;
+                if (!DateTime.TryParseExact(txtNuevaHora.Text, "hh:mm tt", new CultureInfo("es-ES"), DateTimeStyles.None, out horaCompleta))
+                {
+                    MostrarErrorJS("Hora inválida");
+                    return;
+                }
+                TimeSpan nuevaHora = horaCompleta.TimeOfDay;
 
                 var citaParaModificar = ListaCompletaReservas.FirstOrDefault(c => c.id == citaId);
                 if (citaParaModificar == null) return;

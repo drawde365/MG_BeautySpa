@@ -81,10 +81,9 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Estilo para cada fila de cita */
+/* Fila general */
 .citas-fila {
     display: flex;
-    flex-wrap: wrap; /* Para responsividad */
     align-items: center;
     padding: 16px;
     border-top: 1px solid #E6E8EB;
@@ -92,24 +91,44 @@
     color: #1A0F12;
 }
 
-/* Fila especial de encabezado (Cliente, Servicio, etc.) */
+/* Encabezado */
 .citas-fila-header {
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    background: #F2F2F2;
 }
 
-/* Columna individual dentro de una fila */
+/* columnas */
 .citas-col {
-    flex-grow: 1; /* Crece para ocupar espacio */
-    flex-basis: 150px; /* Base para responsivo */
-    min-width: 150px;
     padding: 0 8px;
 }
 
-/* Columna especial para el estado (más pequeña) */
+    /* Distribución corregida para que sume 100% exacto */
+    /* Cliente */
+    .citas-col:nth-child(1) {
+        width: 25%;
+    }
+    /* Servicio */
+    .citas-col:nth-child(2) {
+        width: 23%;
+    }
+    /* Fecha */
+    .citas-col:nth-child(3) {
+        width: 15%;
+    }
+    /* Hora */
+    .citas-col:nth-child(4) {
+        width: 13%;
+    }
+
+/* Estado */
 .citas-col-estado {
-    flex-grow: 0;
-    flex-basis: 140px;
+    width: 15%;
+    text-align: center;
+}
+
+/* Acción (botones) */
+.citas-col-accion {
+    width: 9%;
     text-align: center;
 }
 
@@ -123,4 +142,23 @@
 /* Fuente especial del logo para el título h1 */
 .font-zcool {
     font-family: 'ZCOOL XiaoWei', serif;
+}
+
+@media (max-width: 768px) {
+    .citas-fila {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .citas-col,
+    .citas-col-estado,
+    .citas-col-accion {
+        width: 100% !important;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+
+    .citas-col-accion {
+        margin-top: 8px;
+    }
 }

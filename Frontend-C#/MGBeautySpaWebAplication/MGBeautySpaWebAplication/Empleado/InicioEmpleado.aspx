@@ -59,6 +59,7 @@
          letter-spacing: -2px;
          color: #000000;
          margin: 0;
+         margin-right: 20px;
      }
 
      .hero-subtitle {
@@ -69,6 +70,7 @@
          font-weight: 400;
          color: #000000;
          margin: 0;
+         margin-right: 20px;
      }
      
      .btn-custom-teal {
@@ -81,7 +83,6 @@
          line-height: 21px;
          
          /* Dimensiones y alineación del botón */
-         width: 143px; 
          height: 40px;
          display: inline-flex;
          align-items: center;
