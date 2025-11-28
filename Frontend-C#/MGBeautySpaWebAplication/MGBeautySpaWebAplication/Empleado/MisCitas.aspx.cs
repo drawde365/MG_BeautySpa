@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -22,14 +23,14 @@ namespace MGBeautySpaWebAplication.Empleado
         private CitaBO citaBO;
         private CalendarioBO calendarioBO;
         private HorarioTrabajoBO horarioBO;
-        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
-        private const string contraseñaApp = "beprxkazzucjiwom";
+        private EnvioCorreo envio;
 
         public MisCitas()
         {
             citaBO = new CitaBO();
             calendarioBO = new CalendarioBO();
             horarioBO = new HorarioTrabajoBO();
+            envio = new EnvioCorreo();
         }
 
         private IList<SoftInvBusiness.SoftInvWSCita.citaDTO> ListaCompletaReservas
@@ -217,7 +218,7 @@ namespace MGBeautySpaWebAplication.Empleado
             }
         }
 
-        protected void btnGuardarCambiosCita_Click(object sender, EventArgs e)
+        protected async void btnGuardarCambiosCita_Click(object sender, EventArgs e)
         {
             try
             {
@@ -266,8 +267,10 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 citaBO.ModificarCita(citaParaModificar);
 
-                EnviarCorreoCliente(citaParaModificar, fechaAnterior);
-
+                _ = Task.Run(async () =>
+                {
+                    EnviarCorreoCliente(citaParaModificar, fechaAnterior);
+                });
                 Response.Redirect("~/Empleado/MisCitas.aspx", false);
                 Context.ApplicationInstance.CompleteRequest();
 
@@ -281,23 +284,14 @@ namespace MGBeautySpaWebAplication.Empleado
         {
             Response.Redirect("~/Empleado/MisCitas.aspx");
         }
-        private void EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar, DateTime fechaAnterior)
+        private async Task EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar, DateTime fechaAnterior)
         {
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(citaParaModificar.cliente.correoElectronico);
-            mensaje.Subject = "Tu cita ha cambiado | MG Beauty SPA";
-            mensaje.Body = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
+            string asunto = "Tu cita ha cambiado | MG Beauty SPA";
+            string cuerpo = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
                             "Te escribimos para avisarte que tu cita programada para el día " + fechaAnterior.ToString("dd/MM/yyyy") + " para el servicio " +
                             citaParaModificar.servicio.nombre + " ha sido reprogramada.\n" + "La nueva fecha y hora es: " + citaParaModificar.fecha.ToString("dd/MM/yyyy") + " a las " + citaParaModificar.horaIni.ToString() +
                             "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!" + "\nMG Beauty SPA";
-            mensaje.IsBodyHtml = false;
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-
-            smtp.Send(mensaje);
+            await envio.enviarCorreo(citaParaModificar.cliente.correoElectronico, asunto, cuerpo, null);
         }
 
         private bool EsDiaLaborableYDisponible(DateTime fecha)
