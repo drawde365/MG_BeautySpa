@@ -109,6 +109,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoBO.cs" />
+    <Compile Include="EnvioCorreo.cs" />
     <Compile Include="HorarioTrabajoBO.cs" />
     <Compile Include="PedidoBO.cs" />
     <Compile Include="ProductoBO.cs" />
