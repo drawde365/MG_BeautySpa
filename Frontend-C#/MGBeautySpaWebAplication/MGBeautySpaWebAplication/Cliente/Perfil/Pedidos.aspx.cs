@@ -37,8 +37,8 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             if (!IsPostBack)
             {
                 LimitePedidos = 3;
-                CargarPedidos();
             }
+            CargarPedidos();
         }
 
         private void CargarPedidos()
