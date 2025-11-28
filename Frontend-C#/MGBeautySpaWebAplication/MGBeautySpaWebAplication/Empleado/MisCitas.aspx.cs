@@ -225,13 +225,13 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha))
                 {
-                    MostrarErrorModal("Fecha inválida");
+                    MostrarErrorModal("Ingrese una fecha");
                     return;
                 }
 
                 if (!DateTime.TryParseExact(txtNuevaHora.Text, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime horaCompleta))
                 {
-                    MostrarErrorModal("Hora inválida");
+                    MostrarErrorModal("Ingrese una hora");
                     return;
                 }
 
@@ -250,7 +250,6 @@ namespace MGBeautySpaWebAplication.Empleado
                     lblErrorModal.Visible = true;
                     return;
                 }
-
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
                     lblErrorModal.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
@@ -374,14 +373,6 @@ namespace MGBeautySpaWebAplication.Empleado
         {
             lblErrorModal.Text = mensaje;
             lblErrorModal.Visible = true;
-
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "ShowModificarModal",
-                "var myModal = new bootstrap.Modal(document.getElementById('modificarCitaModal')); myModal.show();",
-                true
-            );
         }
     }
 }
