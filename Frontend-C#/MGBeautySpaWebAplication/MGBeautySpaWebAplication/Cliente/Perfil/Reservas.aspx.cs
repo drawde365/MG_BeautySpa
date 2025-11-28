@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -18,8 +19,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
     public partial class Reservas : Page
     {
         private CitaBO citaBO;
-        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
-        private const string contraseñaApp = "beprxkazzucjiwom";
+        private EnvioCorreo envio;
 
         private int LimiteReservas
         {
@@ -36,6 +36,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
         public Reservas()
         {
             citaBO = new CitaBO();
+            envio = new EnvioCorreo();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -171,7 +172,7 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             }
         }
 
-        protected void btnConfirmarCancelacion_Click(object sender, EventArgs e)
+        protected async void btnConfirmarCancelacion_Click(object sender, EventArgs e)
         {
             if (int.TryParse(hfCitaIdCancelar.Value, out int citaIdParaEliminar))
             {
@@ -181,55 +182,25 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 if (citaAEliminar != null)
                 {
                     citaBO.EliminarCita(citaAEliminar);
-
-                    EnviarCorreoEmpleado(citaAEliminar);
-
+                    _ = Task.Run(async () =>
+                    {
+                        EnviarCorreoEmpleado(citaAEliminar);
+                    });
                     ListaCompletaReservas = null;
                     CargarReservas();
                 }
             }
         }
 
-
-        protected void rptReservas_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName == "Cancelar")
-            {
-                if (int.TryParse(e.CommandArgument.ToString(), out int citaIdParaEliminar))
-                {
-                    var citaAEliminar = ListaCompletaReservas.FirstOrDefault(r => r.id == citaIdParaEliminar);
-
-                    if (citaAEliminar != null)
-                    {
-                        citaBO.EliminarCita(citaAEliminar);
-
-                        EnviarCorreoEmpleado(citaAEliminar);
-
-                        ListaCompletaReservas = null;
-                        CargarReservas();
-                    }
-                }
-            }
-        }
-
-        private void EnviarCorreoEmpleado(SoftInvBusiness.SoftInvWSCita.citaDTO citaAEliminar)
+        private async Task EnviarCorreoEmpleado(SoftInvBusiness.SoftInvWSCita.citaDTO citaAEliminar)
         {
             var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(citaAEliminar.empleado.correoElectronico);
-            mensaje.Subject = "Cancelación de reserva | MG Beauty SPA";
-            mensaje.Body = "¡Hola, " + citaAEliminar.empleado.nombre + "!\n\n" +
+            string asunto = "Cancelación de reserva | MG Beauty SPA";
+            string cuerpo = "¡Hola, " + citaAEliminar.empleado.nombre + "!\n\n" +
                             "Te informamos que la reserva programada por el cliente " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + " para el servicio " + citaAEliminar.servicio.nombre +
                             ", con fecha " + citaAEliminar.fecha.ToString("dd/MM/yyyy") + " " + citaAEliminar.horaIni.ToString() + ", ha sido cancelada.\n" + "Por favor, toma en cuenta este cambio en tu agenda. ¡Gracias!";
-            mensaje.IsBodyHtml = false;
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-
-            smtp.Send(mensaje);
+            await envio.enviarCorreo(citaAEliminar.empleado.correoElectronico,asunto,cuerpo,null);
         }
     }
 }
