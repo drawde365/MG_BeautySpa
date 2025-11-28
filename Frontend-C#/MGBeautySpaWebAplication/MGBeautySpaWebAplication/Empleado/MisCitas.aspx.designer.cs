@@ -123,6 +123,24 @@ namespace MGBeautySpaWebAplication.Empleado
         protected global::System.Web.UI.WebControls.Label lblErrorFechaHora;
 
         /// <summary>
+        /// Control lblErrorModal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorModal;
+
+        /// <summary>
+        /// Control btnCerrarModal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCerrarModal;
+
+        /// <summary>
         /// Control btnGuardarCambiosCita.
         /// </summary>
         /// <remarks>

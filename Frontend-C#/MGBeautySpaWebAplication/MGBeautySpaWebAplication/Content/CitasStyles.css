@@ -162,3 +162,15 @@
         margin-top: 8px;
     }
 }
+
+.modal.show {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+
+
+#modificarCitaModal .modal-content {
+    padding: 8px 17px; /* que no se vea apretado */
+}

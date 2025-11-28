@@ -135,7 +135,8 @@ namespace MGBeautySpaWebAplication.Empleado
         private object MapearCitas(List<SoftInvBusiness.SoftInvWSCita.citaDTO> citas)
         {
             var culturaES = new CultureInfo("es-ES");
-            return citas.Select(c => new {
+            return citas.Select(c => new
+            {
                 CitaId = c.id,
                 ClienteNombre = (c.cliente != null) ? $"{c.cliente.nombre} {c.cliente.primerapellido}" : "Cliente",
                 ClienteCelular = (c.cliente != null && c.cliente.celular != null) ? c.cliente.celular : "N/A",
@@ -222,26 +223,31 @@ namespace MGBeautySpaWebAplication.Empleado
             try
             {
                 int citaId = int.Parse(hdnCitaIdModal.Value);
-                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
-                if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha)) { MostrarErrorJS("Fecha inválida"); return; }
-                
-                DateTime horaCompleta;
-                if (!DateTime.TryParseExact(txtNuevaHora.Text, "hh:mm tt", new CultureInfo("es-ES"), DateTimeStyles.None, out horaCompleta))
+                if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha))
                 {
-                    MostrarErrorJS("Hora inválida");
+                    MostrarErrorModal("Fecha inválida");
                     return;
                 }
+
+                if (!DateTime.TryParseExact(txtNuevaHora.Text, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime horaCompleta))
+                {
+                    MostrarErrorModal("Hora inválida");
+                    return;
+                }
+
                 TimeSpan nuevaHora = horaCompleta.TimeOfDay;
 
                 var citaParaModificar = ListaCompletaReservas.FirstOrDefault(c => c.id == citaId);
                 if (citaParaModificar == null) return;
 
-                int duracionMinutos = citaParaModificar.servicio.duracionHoraSpecified ? citaParaModificar.servicio.duracionHora * 60 : 60;
+                int duracionMinutos = citaParaModificar.servicio.duracionHoraSpecified
+                    ? citaParaModificar.servicio.duracionHora * 60
+                    : 60;
 
                 if (!EsDiaLaborableYDisponible(nuevaFecha))
                 {
-                    lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
+                    lblErrorFechaHora.Text = "El día seleccionado no está disponible.";
                     lblErrorFechaHora.Visible = true;
                     return;
                 }
@@ -254,6 +260,7 @@ namespace MGBeautySpaWebAplication.Empleado
                 }
 
                 DateTime fechaAnterior = citaParaModificar.fecha;
+
                 citaParaModificar.fecha = nuevaFecha;
                 citaParaModificar.fechaSpecified = true;
                 citaParaModificar.horaIni = nuevaHora.ToString();
@@ -263,21 +270,19 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 EnviarCorreoCliente(citaParaModificar, fechaAnterior);
 
-                ListaCompletaReservas = null;
-                CargarCitas();
+                Response.Redirect("~/Empleado/MisCitas.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModificarModal",
-                    "var myModal = bootstrap.Modal.getInstance(document.getElementById('modificarCitaModal')); myModal.hide(); alert('Cita modificada con éxito.');",
-                    true);
-
-                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
-                MostrarErrorJS("Error al modificar: " + ex.Message);
+                MostrarErrorModal("Error al modificar: " + ex.Message);
             }
         }
-
+        protected void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Empleado/MisCitas.aspx");
+        }
         private void EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar, DateTime fechaAnterior)
         {
             MailMessage mensaje = new MailMessage();
@@ -366,10 +371,18 @@ namespace MGBeautySpaWebAplication.Empleado
             return true;
         }
 
-        private void MostrarErrorJS(string mensaje)
+        private void MostrarErrorModal(string mensaje)
         {
-            string script = $"alert('{mensaje}'); var myModal = new bootstrap.Modal(document.getElementById('modificarCitaModal')); myModal.show();";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowError", script, true);
+            lblErrorModal.Text = mensaje;
+            lblErrorModal.Visible = true;
+
+            ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "ShowModificarModal",
+                "var myModal = new bootstrap.Modal(document.getElementById('modificarCitaModal')); myModal.show();",
+                true
+            );
         }
     }
 }

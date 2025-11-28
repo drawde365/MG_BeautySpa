@@ -180,7 +180,10 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modificarCitaModalLabel">Modificar Cita</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="window.location.href='/Empleado/MisCitas.aspx'">
+                        </button>
+
                         </div>
                         <div class="modal-body">
                             <asp:HiddenField ID="hdnCitaIdModal" runat="server" />
@@ -194,7 +197,10 @@
                                CssClass="mt-2 fw-bold"></asp:Label>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Label ID="lblErrorModal" runat="server"
+                               CssClass="text-danger mt-2"
+                               Visible="false"></asp:Label>
+                            <asp:Button ID="btnCerrarModal" runat="server" Text="Cerrar" CssClass="btn btn-secondary" OnClick="btnCerrar_Click" />
                             <asp:Button ID="btnGuardarCambiosCita" runat="server" Text="Guardar Cambios" CssClass="btn btn-primary" OnClick="btnGuardarCambiosCita_Click" />
                         </div>
                     </div>
