@@ -83,7 +83,6 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 CargarCitas();
             }
-            lblErrorFechaHora.Visible = false;
         }
 
         private void CargarCitas()
@@ -247,15 +246,15 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 if (!EsDiaLaborableYDisponible(nuevaFecha))
                 {
-                    lblErrorFechaHora.Text = "El día seleccionado no está disponible.";
-                    lblErrorFechaHora.Visible = true;
+                    lblErrorModal.Text = "El día seleccionado no está disponible.";
+                    lblErrorModal.Visible = true;
                     return;
                 }
 
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
-                    lblErrorFechaHora.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
-                    lblErrorFechaHora.Visible = true;
+                    lblErrorModal.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
+                    lblErrorModal.Visible = true;
                     return;
                 }
 
