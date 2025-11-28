@@ -4,7 +4,6 @@
     CodeBehind="AdminContacto.aspx.cs" 
     Inherits="MGBeautySpaWebAplication.Admin.AdminContacto" %>
 
-<%-- 1. Registra tu Control de Usuario para poder usarlo --%>
 <%@ Register Src="~/Shared/Contacto.ascx" TagPrefix="uc" TagName="Contacto"%>
 
 <asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">
@@ -13,7 +12,6 @@
 
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
     
-    <%-- 2. Inserta el control. Todo el HTML del .ascx aparecerá aquí --%>
     <uc:Contacto runat="server" ID="ContactoContent" />
 
 </asp:Content>

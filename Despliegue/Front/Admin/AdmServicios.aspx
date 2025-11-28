@@ -1,28 +1,51 @@
 ﻿<%@ Page Title="Administrar Servicios" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="AdmServicios.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.AdmServicios" %>
 
+<asp:Content ID="TitleContent1" ContentPlaceHolderID="TitleContent" runat="server">
+    Administrar servicios
+</asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
         .h1-admin-title { font-family: 'ZCOOL XiaoWei', serif; font-size: 48px; line-height: 40px; color: #1A0F12; }
         .h2-admin-subtitle { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 22px; color: #1A0F12; }
+
         .table-container { background: #FAFAFA; border: 1px solid #E3D4D9; border-radius: 12px; overflow: hidden; margin-top: 12px; }
         .service-list-table { margin-bottom: 0; font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; }
         .service-list-table thead th { background: #FAFAFA; font-weight: 500; font-size: 14px; color: #1A0F12; padding: 12px 16px; text-align: left; border-bottom: 0; }
         .service-list-table tbody tr { border-top: 1px solid #E6E8EB; background-color: #FFFFFF; }
         .service-list-table tbody td { font-size: 14px; font-weight: 400; color: #1A0F12; padding: 8px 16px; vertical-align: middle; text-align: left; }
+
         .service-image-thumb { width: 62px; height: 62px; object-fit: cover; border-radius: 12px; }
         .service-name-link { font-weight: 400; color: #107369; text-decoration: none; }
         .service-name-link:hover { text-decoration: underline; }
+
         .service-price { font-weight: 800; color: #148C76; }
+
         .rating-stars { color: #148C76; font-size: 1.1rem; letter-spacing: 2px; }
         .rating-stars .star-empty { color: #78D5CD; }
+
         .btn-action { display: inline-flex; align-items: center; justify-content: center; width: 39px; height: 45px; border-radius: 15px; border: none; margin: 0 4px; }
-        .btn-edit-admin { background-color: #1EC3B6; }
-        .btn-delete-admin { background-color: #C31E1E; }
         .btn-action i { font-size: 1.25rem; color: #FFFFFF; }
+
+        .btn-edit-admin,
+        .btn-edit-admin:hover,
+        .btn-edit-admin:focus,
+        .btn-edit-admin:active { background-color: #1EC3B6; }
+
+        .btn-delete-admin,
+        .btn-delete-admin:hover,
+        .btn-delete-admin:focus,
+        .btn-delete-admin:active { background-color: #C31E1E; }
+
+        .btn-restore-admin,
+        .btn-restore-admin:hover,
+        .btn-restore-admin:focus,
+        .btn-restore-admin:active { background-color: #1EC3B6; }
+
         .btn-add-service { color: #107369; font-size: 50px; line-height: 1; text-decoration: none; }
         .btn-add-service:hover { color: #148C76; }
-        
+
         .btn-custom-teal { 
             background-color: #1EC3B6; 
             color: #FCF7FA; 
@@ -58,6 +81,18 @@
             box-shadow: none;
             border-color: #1EC3B6; 
         }
+
+        /* Toggle activos/papelera */
+        .btn-toggle-list {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            border-radius: 999px;
+            padding: 6px 14px;
+        }
+        .btn-toggle-list.active {
+            background-color: #148C76;
+            color: #ffffff;
+        }
     </style>
 </asp:Content>
 
@@ -68,7 +103,24 @@
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <h2 class="h2-admin-subtitle">Servicios disponibles</h2>
+        <div class="d-flex flex-column">
+            <h2 class="h2-admin-subtitle">
+                <span id="lblSubtitulo">Servicios disponibles</span>
+            </h2>
+            <div class="mt-1">
+                <button type="button" id="btnVerActivos"
+                        class="btn btn-sm btn-outline-success btn-toggle-list active"
+                        onclick="cambiarModo(false)">
+                    Activos
+                </button>
+                <button type="button" id="btnVerPapelera"
+                        class="btn btn-sm btn-outline-secondary btn-toggle-list"
+                        onclick="cambiarModo(true)">
+                    Papelera
+                </button>
+            </div>
+        </div>
+
         <asp:HyperLink ID="hlAddService" runat="server" NavigateUrl="~/Admin/InsertarServicio.aspx" 
                        CssClass="btn-add-service" ToolTip="Añadir nuevo servicio">
             <i class="bi bi-plus-circle-fill"></i>
@@ -79,7 +131,9 @@
         <span class="input-group-text">
             <i class="bi bi-search"></i>
         </span>
-        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por nombre, código, tipo..." ClientIDMode="Static"></asp:TextBox>
+        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control"
+                     placeholder="Buscar por nombre, código, tipo..."
+                     ClientIDMode="Static"></asp:TextBox>
     </div>
 
     <div class="table-container">
@@ -101,18 +155,20 @@
             </HeaderTemplate>
 
             <ItemTemplate>
-                <tr class="servicio-fila">
+                <!-- data-activo: 1 = activo, 0 = inactivo -->
+                <tr class="servicio-fila"
+                    data-activo='<%# Eval("Activo") %>'>
                     <td>
                         <asp:Image ID="imgServicio" runat="server" 
-                                   ImageUrl='<%# Eval("RutaImagen", "~{0}") %>' 
+                                   ImageUrl='<%# Eval("RutaImagen") %>' 
                                    CssClass="service-image-thumb" />
                     </td>
                     <td>
-                        <asp:HyperLink ID="hlNombre" runat="server" 
-                                       NavigateUrl='<%# Eval("UrlEditar", "~{0}") %>' 
-                                       Text='<%# Eval("NombreServicio") %>' 
-                                       CssClass="service-name-link" />
+                        <asp:Label ID="lblNombre" runat="server"
+                                   Text='<%# Eval("NombreServicio") %>'
+                                   CssClass="service-name-link" />
                     </td>
+
                     <td>
                         <asp:Label ID="lblCodigo" runat="server" Text='<%# Eval("Codigo") %>' />
                     </td>
@@ -120,7 +176,9 @@
                         <asp:Label ID="lblTipo" runat="server" Text='<%# Eval("Tipo") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="lblPrecio" runat="server" Text='<%# Eval("Precio", "S/. {0:F2}") %>' CssClass="service-price" />
+                        <asp:Label ID="lblPrecio" runat="server"
+                                   Text='<%# Eval("Precio", "S/. {0:F2}") %>'
+                                   CssClass="service-price" />
                     </td>
                     <td>
                         <div class="rating-stars">
@@ -128,22 +186,40 @@
                         </div>
                     </td>
                     <td class="text-center">
-                        <asp:LinkButton ID="btnEditar" runat="server" 
-                                        CssClass="btn btn-action btn-edit-admin" 
-                                        CommandName="Editar" 
-                                        CommandArgument='<%# Eval("IDServicio") %>'
-                                        PostBackUrl='<%# Eval("IDServicio", "~/Admin/InsertarServicio.aspx?id={0}") %>'
-                                        ToolTip="Editar">
-                            <i class="bi bi-pencil-fill"></i>
-                        </asp:LinkButton>
-                        <asp:LinkButton ID="btnEliminar" runat="server" 
-                                        CssClass="btn btn-action btn-delete-admin" 
-                                        CommandName="Eliminar" 
-                                        CommandArgument='<%# Eval("IDServicio") %>'
-                                        ToolTip="Eliminar"
-                                        OnClientClick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
-                            <i class="bi bi-trash-fill"></i>
-                        </asp:LinkButton>
+                        <!-- Acciones para servicios ACTIVOS -->
+                        <asp:PlaceHolder ID="phActivo" runat="server"
+                                         Visible='<%# Convert.ToInt32(Eval("Activo")) == 1 %>'>
+                            <asp:LinkButton ID="btnEditar" runat="server" 
+                                            CssClass="btn btn-action btn-edit-admin" 
+                                            CommandName="Editar" 
+                                            CommandArgument='<%# Eval("IDServicio") %>'
+                                            PostBackUrl='<%# Eval("IDServicio", "~/Admin/InsertarServicio.aspx?id={0}") %>'
+                                            ToolTip="Editar">
+                                <i class="bi bi-pencil-fill"></i>
+                            </asp:LinkButton>
+
+                            <!-- Botón eliminar: abre modal (no hace postback directo) -->
+                            <button type="button"
+                                    class="btn btn-action btn-delete-admin"
+                                    onclick="abrirModalEliminarServicio(this)"
+                                    data-id='<%# Eval("IDServicio") %>'
+                                    data-nombre='<%# Eval("NombreServicio") %>'
+                                    title="Dar de baja servicio">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </asp:PlaceHolder>
+
+                        <!-- Acciones para servicios INACTIVOS (papelera) -->
+                        <asp:PlaceHolder ID="phInactivo" runat="server"
+                                         Visible='<%# Convert.ToInt32(Eval("Activo")) == 0 %>'>
+                            <asp:LinkButton ID="btnRestaurar" runat="server"
+                                            CssClass="btn btn-action btn-restore-admin"
+                                            CommandName="Restaurar"
+                                            CommandArgument='<%# Eval("IDServicio") %>'
+                                            ToolTip="Restaurar servicio">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </asp:LinkButton>
+                        </asp:PlaceHolder>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -161,44 +237,113 @@
         <button id="btnPagNext" class="btn btn-custom-teal">Siguiente &raquo;</button>
     </div>
 
+    <!-- MODAL ELIMINAR SERVICIO -->
+    <asp:HiddenField ID="hdnIdServicioEliminar" runat="server" ClientIDMode="Static" />
+
+    <div class="modal fade" id="modalEliminarServicio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Dar de baja servicio</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-2">
+                        ¿Estás seguro de que deseas dar de baja al siguiente servicio?
+                    </p>
+                    <p class="fw-bold mb-0">
+                        <span id="lblNombreServicioEliminar"></span>
+                    </p>
+                    <small class="text-muted">
+                        Esta acción desactivará el servicio para que no aparezca en el catálogo de clientes.
+                    </small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnConfirmarEliminarServicio" runat="server"
+                                CssClass="btn btn-danger"
+                                Text="Sí, dar de baja"
+                                OnClick="btnConfirmarEliminarServicio_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptsContent" runat="server">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script type="text/javascript">
-        $(document).ready(function () {
-            
-            let currentPage = 1;
-            const itemsPerPage = 10;
-            let $filas = $(".service-list-table tbody .servicio-fila");
+        // false = activos, true = papelera
+        let verPapelera = false;
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let $filas;
 
-            function actualizarVista() {
-                var searchTerm = $("#txtBuscar").val().toLowerCase();
+        function cambiarModo(esPapelera) {
+            verPapelera = esPapelera;
+            currentPage = 1;
 
-                var $filasFiltradas = $filas.filter(function () {
-                    var rowText = $(this).text().toLowerCase();
-                    return rowText.includes(searchTerm);
-                });
-
-                var totalPages = Math.ceil($filasFiltradas.length / itemsPerPage);
-                if (totalPages === 0) totalPages = 1;
-                if (currentPage > totalPages) {
-                    currentPage = 1;
-                }
-
-                $filas.hide();
-
-                var startIndex = (currentPage - 1) * itemsPerPage;
-                var endIndex = startIndex + itemsPerPage;
-
-                $filasFiltradas.slice(startIndex, endIndex).show();
-
-                $("#lblPaginaActual").text(`Página ${currentPage} de ${totalPages}`);
-                
-                $("#btnPagPrev").prop("disabled", currentPage === 1);
-                $("#btnPagNext").prop("disabled", currentPage === totalPages);
+            if (verPapelera) {
+                $('#lblSubtitulo').text('Papelera de servicios');
+                $('#btnVerActivos').removeClass('active');
+                $('#btnVerPapelera').addClass('active');
+            } else {
+                $('#lblSubtitulo').text('Servicios disponibles');
+                $('#btnVerPapelera').removeClass('active');
+                $('#btnVerActivos').addClass('active');
             }
+
+            actualizarVista();
+        }
+
+        // ---------- MODAL ELIMINAR SERVICIO ----------
+        function abrirModalEliminarServicio(btn) {
+            var $btn = $(btn);
+            var id = $btn.data('id');
+            var nombre = $btn.data('nombre');
+
+            $('#hdnIdServicioEliminar').val(id);
+            document.getElementById('lblNombreServicioEliminar').textContent = nombre;
+
+            var modal = new bootstrap.Modal(document.getElementById('modalEliminarServicio'));
+            modal.show();
+        }
+
+        // ---------- BÚSQUEDA + PAGINACIÓN + FILTRO ACTIVO/PAPELERA ----------
+        function actualizarVista() {
+            var searchTerm = $("#txtBuscar").val().toLowerCase();
+
+            var $filasFiltradas = $filas.filter(function () {
+                var $row = $(this);
+                var activo = parseInt($row.data('activo')) || 0;
+
+                if (!verPapelera && activo !== 1) return false;
+                if (verPapelera && activo !== 0) return false;
+
+                var rowText = $row.text().toLowerCase();
+                return rowText.includes(searchTerm);
+            });
+
+            var totalPages = Math.ceil($filasFiltradas.length / itemsPerPage);
+            if (totalPages === 0) totalPages = 1;
+            if (currentPage > totalPages) currentPage = 1;
+
+            $filas.hide();
+
+            var startIndex = (currentPage - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+
+            $filasFiltradas.slice(startIndex, endIndex).show();
+
+            $("#lblPaginaActual").text(`Página ${currentPage} de ${totalPages}`);
+            $("#btnPagPrev").prop("disabled", currentPage === 1);
+            $("#btnPagNext").prop("disabled", currentPage === totalPages);
+        }
+
+        $(document).ready(function () {
+            $filas = $(".service-list-table tbody .servicio-fila");
 
             $("#txtBuscar").on("keyup", function () {
                 currentPage = 1;
@@ -215,8 +360,7 @@
                 actualizarVista();
             });
 
-            $filas = $(".service-list-table tbody .servicio-fila");
-            actualizarVista(); 
+            actualizarVista(); // inicia mostrando activos
         });
     </script>
 </asp:Content>

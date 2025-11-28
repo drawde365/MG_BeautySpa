@@ -1,0 +1,200 @@
+﻿/* ===========================================
+   LAYOUT GENERAL - SERVICIOS
+   =========================================== */
+
+/* Ocupa todo el ancho y reduce el hueco bajo el breadcrumb */
+.service-page-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.service-page-content {
+    width: 100%;
+    max-width: 1320px; /* similar a Inicio y Productos */
+    margin: 0 auto;
+    padding: 1.5rem 1.75rem 2.5rem;
+    box-sizing: border-box;
+}
+
+/* Encabezado de la página */
+.service-header {
+    margin-bottom: 1.5rem;
+}
+
+.category-title {
+    margin: 0 0 0.5rem 0;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-weight: 400;
+    font-size: clamp(2.1rem, 3vw, 3rem);
+    line-height: 1.1;
+    color: #148C76;
+    border-bottom: 0.5px solid #148C76;
+    padding-bottom: 4px;
+}
+
+.category-description {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* ===========================================
+   PESTAÑAS (MISMO ESTILO QUE PRODUCTOS)
+   =========================================== */
+
+.category-tabs {
+    margin-bottom: 1rem;
+}
+
+.category-tabs-list {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tab-button {
+    background: transparent !important;
+    padding: 0 0 .4rem 0 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: .95rem !important;
+    font-weight: 500 !important;
+    color: #757575 !important;
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: 3px solid #d1d5db !important;
+    display: inline-block !important;
+    cursor: pointer;
+    line-height: 1.5;
+    transition: border-bottom 0.25s ease, color 0.25s ease;
+}
+
+    .tab-button:hover {
+        text-decoration: none !important;
+        color: #148C76 !important;
+    }
+
+    /* Tab activo */
+    .tab-button.active {
+        color: #148C76 !important;
+        border-bottom-color: #148C76 !important;
+    }
+
+/* ===========================================
+   GRID DE SERVICIOS
+   =========================================== */
+
+.services-grid-container {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px 20px;
+}
+
+/* Tarjeta */
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+    background-color: #F4FBF8;
+    border-radius: 14px;
+    padding: 12px;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+/* Imagen */
+.service-image-container {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Texto */
+.service-details {
+    width: 100%;
+}
+
+.service-name {
+    margin: 0 0 4px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #171214;
+}
+
+.service-description {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: .9rem;
+    line-height: 1.4;
+    color: #757575;
+}
+
+/* ===========================================
+   AJUSTES RESPONSIVE
+   =========================================== */
+
+@media (min-width: 1400px) {
+    .service-page-content {
+        max-width: 1400px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .service-page-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+/* ===========================================
+   AJUSTE PARA MÓVIL: TARJETAS MÁS PEQUEÑAS
+   =========================================== */
+@media (max-width: 767.98px) {
+
+    /* centramos los items de la grilla */
+    .services-grid-container {
+        justify-items: center;
+    }
+
+    /* la tarjeta no ocupa todo el ancho de la pantalla */
+    .service-card {
+        max-width: 260px; /* ancho fijo más razonable en móvil */
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    /* la imagen no se hace tan alta */
+    .service-image-container {
+        aspect-ratio: 3 / 4;
+        max-height: 210px; /* baja la altura para que no se vea enorme */
+    }
+
+    .service-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}

@@ -9,7 +9,6 @@
 }
 
 .reservas-titulo {
-    font-size: 1.8rem;
     color: #107369;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -55,8 +54,9 @@
     margin-top: 2rem;
 }
 
-.btn-vermas,
 .btn-regresar {
+    background-color: #7b7b7b;
+    color: white;
     padding: 8px 20px;
     border-radius: 6px;
     border: none;
@@ -71,11 +71,6 @@
 
 .btn-vermas:hover {
     background-color: #0c5b53;
-}
-
-.btn-regresar {
-    background-color: #aaa;
-    color: white;
 }
 
 .btn-regresar:hover {

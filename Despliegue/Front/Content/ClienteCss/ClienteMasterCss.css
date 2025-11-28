@@ -1,0 +1,265 @@
+﻿/* =======================================================
+   LAYOUT CLIENTE: HEADER + BREADCRUMB + CONTENIDO + FOOTER
+   ======================================================= */
+
+:root {
+    --client-brand: #148C76;
+    --client-brand-dark: #0f6a5f;
+    --client-bg: #F4FBF8;
+    --client-text: #171214;
+}
+
+/* =======================
+   FIX: STICKY FOOTER (ASP.NET WebForms)
+   ======================= */
+
+/* 1. Aseguramos altura completa */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--client-bg);
+    color: var(--client-text);
+}
+
+/* 2. Convertimos el formulario principal en contenedor flexible */
+#form1 {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa toda la pantalla */
+}
+
+/* =======================
+   HEADER STICKY
+   ======================= */
+
+.header-sticky {
+    background-color: var(--client-brand);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    padding-top: 0.75rem;
+    padding-bottom: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.5rem;
+}
+
+    /* Limitamos ancho máximo del contenido del header */
+    .header-sticky .container-fluid {
+        max-width: 1320px;
+        margin: 0 auto;
+    }
+
+/* Buscador */
+.search-container {
+    min-width: 180px;
+}
+
+.search-input {
+    border-radius: 999px !important;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border: none;
+}
+
+/* Badge carrito */
+.cart-badge {
+    font-size: 0.7rem;
+}
+
+/* Acciones (links + carrito + perfil) */
+.header-actions {
+    align-items: center;
+}
+
+/* Responsive header: en móviles apilamos mejor los elementos */
+@media (max-width: 991.98px) {
+    .header-sticky .d-flex {
+        row-gap: 0.5rem;
+    }
+
+        /* Logo ocupa una fila */
+        .header-sticky .d-flex > a.text-decoration-none {
+            flex: 0 0 100%;
+        }
+
+    /* Buscador ocupa otra fila */
+    .search-container {
+        flex: 0 0 100%;
+        order: 2;
+    }
+
+    /* Acciones al final */
+    .header-actions {
+        flex: 0 0 100%;
+        justify-content: flex-end;
+        order: 3;
+    }
+}
+
+/* =======================
+   BREADCRUMB
+   ======================= */
+
+.breadcrumb-wrapper {
+    width: 100%;
+    border-bottom: 1px solid #e5e7eb;
+    padding-top: 0.15rem;
+    padding-bottom: 0.35rem;
+}
+
+    .breadcrumb-wrapper .container-xxl {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0.5rem 1.25rem;
+        display: flex;
+        align-items: center;
+    }
+
+.breadcrumb {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    margin: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+}
+
+/* Rutas anteriores */
+.breadcrumb-item a {
+    color: rgba(23, 18, 20, 0.5);
+    text-decoration: none;
+    font-weight: 400;
+}
+
+    .breadcrumb-item a:hover {
+        color: var(--client-brand-dark);
+        text-decoration: underline;
+    }
+
+/* Separador "/" */
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(23, 18, 20, 0.35);
+}
+
+/* Página actual */
+.breadcrumb-item.active {
+    color: var(--client-brand);
+    font-weight: 600;
+}
+
+/* =======================
+   CONTENIDO PRINCIPAL
+   ======================= */
+
+.content-body-wrapper {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* 3. ESTO EMPUJA EL FOOTER HACIA ABAJO */
+    flex: 1;
+}
+
+/* En móviles damos un poquito más de aire */
+@media (max-width: 767.98px) {
+    .content-body-wrapper {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-bottom: 2.5rem;
+    }
+}
+
+/* En pantallas muy grandes permitimos crecer más */
+@media (min-width: 1400px) {
+    .header-sticky .container-fluid,
+    .breadcrumb-wrapper .container-xxl,
+    .content-body-wrapper,
+    .footer-content {
+        max-width: 1400px;
+    }
+}
+
+/* =======================
+   FOOTER STICKY & RESPONSIVE
+   ======================= */
+
+.footer-container {
+    background-color: var(--client-brand);
+    color: #ffffff;
+    /* 4. Evita que se aplaste y se pega al fondo si sobra espacio */
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Fila de links */
+.footer-top-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.footer-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+    .footer-link:hover {
+        text-decoration: underline;
+    }
+
+/* Fila de redes */
+.footer-social-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-icon-link {
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+    .social-icon-link:hover {
+        color: #e8f9f4;
+    }
+
+/* Fila copyright */
+.footer-bottom-row {
+    text-align: center;
+}
+
+    .footer-bottom-row .copyright-text {
+        margin: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.85rem;
+    }
+
+/* Footer en pantallas medianas+ */
+@media (min-width: 768px) {
+    .footer-top-row {
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 992px) {
+    .footer-content {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        gap: 0.5rem;
+    }
+}

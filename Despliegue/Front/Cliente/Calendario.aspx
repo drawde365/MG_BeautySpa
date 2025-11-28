@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Calendario" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Calendario.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Calendario" EnableEventValidation="false"%>
+﻿<%@ Page Title="Calendario" Async="true" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Calendario.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Calendario" EnableEventValidation="false"%>
 
 <%-- 1. Contenido del Head --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -71,19 +71,52 @@
 
         function OnHoursSuccess(result) {
             var ddlHorariosClientID = document.getElementById('ddlHorariosClientID_Value').value;
+            var hdnDuracionServicioClientID = document.getElementById('hdnDuracionServicioClientID_Value').value;
+
             var ddlHorarios = document.getElementById(ddlHorariosClientID);
+            var duracionMinutos = parseInt(document.getElementById(hdnDuracionServicioClientID).value) || 0;
+
             ddlHorarios.innerHTML = "";
 
             if (result && result.length > 0) {
                 ddlHorarios.options.add(new Option("Seleccione un horario", ""));
-                result.forEach(function (hora) {
-                    ddlHorarios.options.add(new Option(hora, hora));
+
+                result.forEach(function (horaInicio) {
+                    var intervaloTexto = sumarMinutos(horaInicio, duracionMinutos*60);
+                    ddlHorarios.options.add(new Option(intervaloTexto, horaInicio));
                 });
+
                 ddlHorarios.disabled = false;
             } else {
                 ddlHorarios.options.add(new Option("No hay horas disponibles", ""));
                 ddlHorarios.disabled = true;
             }
+        }
+        function sumarMinutos(horaStr, minutosASumar) {
+            if (!horaStr) return "";
+
+            var partes = horaStr.split(':');
+            var hora = parseInt(partes[0]);
+            var min = parseInt(partes[1]);
+
+            var fecha = new Date();
+            fecha.setHours(hora);
+            fecha.setMinutes(min);
+            fecha.setSeconds(0);
+
+            var inicioFmt = formatearHora(fecha);
+
+            fecha.setMinutes(fecha.getMinutes() + minutosASumar);
+
+            var finFmt = formatearHora(fecha);
+
+            return inicioFmt + " - " + finFmt;
+        }
+
+        function formatearHora(dateObj) {
+            var hh = dateObj.getHours().toString().padStart(2, '0');
+            var mm = dateObj.getMinutes().toString().padStart(2, '0');
+            return hh + ':' + mm;
         }
 
         function OnHoursError(error) {
@@ -98,7 +131,6 @@
             if (hdnHour) hdnHour.value = ddlHorarios.value;
         }
 
-        // --- Lógica de Validación de Pagos (Copiada de Carrito) ---
         function validatePaymentForm() {
             var cardNumber = document.getElementById('<%= txtCardNumber.ClientID %>').value.replace(/\s/g, '');
             var cardName = document.getElementById('<%= txtNameOnCard.ClientID %>').value.trim();
@@ -285,7 +317,7 @@
                         </svg>
                     </div>
                     <h3 class="success-title">¡Reserva Exitosa!</h3>
-                    <p class="success-message">Tu cita ha sido reservada y pagada correctamente.</p>
+                    <p class="success-message">Tu cita ha sido reservada y pagada correctamente. Te hemos enviado un correo con los datos de la reserva</p>
                     <asp:Button ID="btnVolverInicio" runat="server" Text="Ir a Mis Reservas" CssClass="btn-success-action" OnClick="btnVolverInicio_Click" />
                 </div>
             </div>

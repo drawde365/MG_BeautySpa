@@ -1,0 +1,178 @@
+﻿/* =========================================================
+   MI PERFIL - INFORMACIÓN PERSONAL
+   ========================================================= */
+
+.profile-info-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+}
+
+.profile-greeting-header {
+    margin-bottom: 1.5rem;
+}
+
+.greeting-title {
+    margin: 0 0 0.25rem 0;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-weight: 400;
+    font-size: 2.1rem;
+    color: #148C76;
+}
+
+.greeting-subtitle {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.98rem;
+    color: #475467;
+}
+
+/* Tarjeta de datos personales */
+.profile-card {
+    max-width: 640px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem 2rem 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.profile-card-title {
+    margin: 0 0 1.25rem 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #171214;
+}
+
+/* Campos */
+.profile-field-group {
+    margin-bottom: 1rem;
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #344054;
+}
+
+.field-value {
+    margin: 0;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    background-color: #F9FAFB;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #344054;
+}
+
+.edit-field {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #344054;
+    background-color: #ffffff;
+}
+
+    .edit-field:focus {
+        outline: none;
+        border-color: #148C76;
+        box-shadow: 0 0 0 2px rgba(20, 140, 118, 0.2);
+    }
+
+/* Validadores */
+.validator-error {
+    color: #D92D20;
+    font-size: 0.82rem;
+    margin-top: 0.2rem;
+    display: block;
+}
+
+/* Botones */
+.profile-actions-row {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Botón principal turquesa */
+.btn-custom-teal {
+    background: #148C76;
+    color: #FCF7FA;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding-inline: 1.5rem;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .btn-custom-teal:hover {
+        background-color: #148C76;
+        color: #ffffff;
+    }
+
+    .btn-custom-teal:active {
+        transform: translateY(1px);
+    }
+
+/* Botón gris cancelar */
+.btn-regresar {
+    background-color: #98A2B3;
+    color: #ffffff;
+    border: none;
+    padding-inline: 1.25rem;
+    height: 40px;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.05s ease;
+}
+
+    .btn-regresar:hover {
+        background-color: #667085;
+        color: #ffffff;
+    }
+
+    .btn-regresar:active {
+        transform: translateY(1px);
+    }
+
+/* Responsive */
+@media (max-width: 575.98px) {
+    .profile-card {
+        padding-inline: 1.25rem;
+    }
+
+    .profile-actions-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-custom-teal,
+    .btn-regresar {
+        width: 100%;
+        justify-content: center;
+    }
+}

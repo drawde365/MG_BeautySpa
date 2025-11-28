@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="Añadir Producto" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="InsertarProducto.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.InsertarProducto" %>
 
+<asp:Content ID="TitleContent1" ContentPlaceHolderID="TitleContent" runat="server">
+    Modificar producto
+</asp:Content>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    
     <style>
         .h1-add-product {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -70,7 +76,7 @@
         .file-upload-wrapper {
             position: relative;
             width: 100%;
-            height: 168px;
+            height: 300px;
             border: 2px dashed #148C76;
             border-radius: 12px;
             display: flex;
@@ -337,6 +343,9 @@
 
     <div class="mb-4">
         <label class="form-label">Subir imagen</label>
+
+        <div class="mb-4" style="width: 300px; max-width: 100%; margin: 0 auto;" >
+
         <div class="file-upload-wrapper" ID="fileUploadWrapper" runat="server">
             <asp:FileUpload ID="fileUpload" runat="server" CssClass="file-upload-input" />
             <div class="file-upload-label">
@@ -345,12 +354,15 @@
             </div>
             <asp:HiddenField ID="hdnImagenActual" runat="server" Value="" />
         </div>
+        <span class="validation-error validation-error-js" style="display: none;"></span>
         <asp:CustomValidator ID="cvImagen" runat="server" 
             ErrorMessage="Debe seleccionar una imagen para el producto nuevo."
             CssClass="validation-error" 
             Display="Dynamic"
             ValidationGroup="GuardarProducto"
             ClientValidationFunction="validateImageUpload" />
+
+        </div>
     </div>
     
     <asp:Label ID="litError" runat="server" CssClass="text-danger d-block mb-3"></asp:Label>
@@ -393,8 +405,29 @@
                 const $label = $wrapper.find(".file-upload-label");
                 const $labelText = $wrapper.find(".file-upload-text");
                 const $labelStrong = $wrapper.find("strong");
+                const $errorDisplay = $wrapper.parent().find(".validation-error-js");
+
+                // Limpiar error previo
+                if ($errorDisplay.length) {
+                    $errorDisplay.text("").hide();
+                }
 
                 if (file) {
+                    // Validación de tipo de archivo solo en el cliente para UX
+                    if (!file.type.startsWith("image/")) {
+                        // Mostrar error de archivo NO imagen (UX)
+                        if ($errorDisplay.length) {
+                            $errorDisplay.text("Solo se permiten archivos de imagen (JPG, PNG, JPEG)").show();
+                        }
+                        // Resetear el control para prevenir el envío de un archivo no permitido
+                        this.value = "";
+                        $wrapper.css("background-image", "none").removeClass("has-preview");
+                        $labelStrong.text("Subir imagen");
+                        $labelText.text("Arrastra y suelta o haz click para subir");
+                        $label.show();
+                        return;
+                    }
+
                     if (file.type.startsWith("image/")) {
                         const reader = new FileReader();
                         reader.onload = function (e) {
@@ -404,6 +437,7 @@
                         };
                         reader.readAsDataURL(file);
                     } else {
+                        // Este caso ya no debería ocurrir si la validación superior es exitosa
                         $labelStrong.text("Archivo seleccionado:");
                         $labelText.text(file.name);
                         $wrapper.css("background-image", "none");
@@ -414,7 +448,6 @@
                     $labelStrong.text("Subir imagen");
                     $labelText.text("Arrastra y suelta o haz click para subir");
                     $wrapper.css("background-image", "none");
-                    $wrapper.removeClass("has-preview");
                     $wrapper.removeClass("has-preview");
                     $label.show();
                 }

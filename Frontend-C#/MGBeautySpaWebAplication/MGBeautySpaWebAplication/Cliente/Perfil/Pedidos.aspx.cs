@@ -37,8 +37,8 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             if (!IsPostBack)
             {
                 LimitePedidos = 3;
+                CargarPedidos();
             }
-            CargarPedidos();
         }
 
         private void CargarPedidos()
@@ -49,15 +49,12 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 Response.Redirect("~/Login.aspx?ReturnUrl=" + Request.RawUrl);
                 return;
             }
-            ListaCompletaPedidos = pedidoBO.ListarPorCliente(usuario.idUsuario);
 
+            // Cargar toda la lista solo una vez
             if (ListaCompletaPedidos == null)
             {
-                if (ListaCompletaPedidos == null)
-                {
-                    var pedidos = pedidoBO.ListarPorCliente(usuario.idUsuario);
-                    ListaCompletaPedidos = (pedidos != null) ? pedidos.ToList() : new List<pedidoDTO>();
-                }
+                var pedidos = pedidoBO.ListarPorCliente(usuario.idUsuario);
+                ListaCompletaPedidos = (pedidos != null) ? pedidos.ToList() : new List<pedidoDTO>();
             }
 
             var listaCompleta = ListaCompletaPedidos;
@@ -67,32 +64,25 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
                 rptPedidos.Visible = false;
                 btnVerMas.Visible = false;
                 pnlNoPedidos.Visible = true;
+                return;
             }
-            else
+
+            rptPedidos.Visible = true;
+            pnlNoPedidos.Visible = false;
+
+            var listaMapeada = listaCompleta.Select(p => new
             {
-                rptPedidos.Visible = true;
-                pnlNoPedidos.Visible = false;
-                var listaMapeada = listaCompleta.Select(p => new
-                {
-                    NumeroPedido = p.idPedido,
-                    FechaCompra = p.fechaPagoSpecified ? p.fechaPago.ToString("dd/MM/yyyy") : "Pendiente",
-                    Subtotal = p.total.ToString("C", new CultureInfo("es-PE"))
-                });
+                NumeroPedido = p.idPedido,
+                FechaCompra = p.fechaPagoSpecified ? p.fechaPago.ToString("dd/MM/yyyy") : "Pendiente",
+                Subtotal = p.total.ToString("C", new CultureInfo("es-PE"))
+            });
 
-                var listaLimitada = listaMapeada.Take(LimitePedidos).ToList();
+            var listaLimitada = listaMapeada.Take(LimitePedidos).ToList();
 
-                rptPedidos.DataSource = listaLimitada;
-                rptPedidos.DataBind();
+            rptPedidos.DataSource = listaLimitada;
+            rptPedidos.DataBind();
 
-                btnVerMas.Visible = (LimitePedidos < listaCompleta.Count);
-            }
-
-        }
-
-        protected void btnDetalles_Command(object sender, CommandEventArgs e)
-        {
-            string numeroPedido = e.CommandArgument.ToString();
-            Response.Redirect($"~/Cliente/Perfil/DetallePedido.aspx?pedido={numeroPedido}");
+            btnVerMas.Visible = (LimitePedidos < listaCompleta.Count);
         }
 
         protected void btnVerMas_Click(object sender, EventArgs e)

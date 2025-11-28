@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/html">
 <head runat="server">
-    <%-- Tus scripts y links de CSS existentes --%>
     <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+        <script src="../Scripts/jquery-3.7.1.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" />MG Beauty Spa | Admin</title>
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/icomoon/icomoon.css") %>" />
     
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/style.css") %>" /> 
-    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/AdminMasterPageStyle.css") %>" />
     <link href="../Content/AdminStyle.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
         <header class="header-sticky text-white ">
             <div class="container-fluid py-2">
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                    <a href="<%: ResolveUrl("~/Admin/PanelDeControl.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
+                    <a href="<%: ResolveUrl("~/Admin/AdmPedidos.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
                         <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="Logo" style="height: 50px;" class="me-2">
                         <span class="fw-bold fs-5">MG Beauty Spa</span>
                     </a>
@@ -64,27 +64,27 @@
             <aside class="sidebar d-flex flex-column" style="width: 320px; flex-shrink: 0;">
     
                 <ul class="nav nav-pills flex-column gap-2 p-3">
-        
+    
                     <li class="nav-item">
-                        <asp:HyperLink ID="navPanelDeControl" runat="server" CssClass="nav-link" 
-                            NavigateUrl="~/Admin/PanelDeControl.aspx">
-                            <i class="icon-calendar" style="font-size: 1.25rem; width: 26px;"></i>
-                            <span>Ver Reservas</span>
+                        <asp:HyperLink ID="navAdmPedidos" runat="server" CssClass="nav-link"
+                            NavigateUrl="~/Admin/AdmPedidos.aspx">
+                            <i class="icon-shopping-cart" style="font-size: 1.25rem; width: 26px;"></i>
+                            <span>Ver pedidos</span>
                         </asp:HyperLink>
                     </li>
-        
+    
                     <li class="nav-item">
                         <asp:HyperLink ID="navAdmProductos" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/AdmProductos.aspx">
-                            <i class="icon-box" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-package" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Administrar productos</span>
                         </asp:HyperLink>
                     </li>
-        
+    
                     <li class="nav-item">
                         <asp:HyperLink ID="navAdmServicios" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/AdmServicios.aspx">
-                            <i class="icon-scissors" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-star" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Administrar servicios</span>
                         </asp:HyperLink>
                     </li>
@@ -92,23 +92,24 @@
                     <li class="nav-item">
                         <asp:HyperLink ID="navReportes" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/Reportes.aspx">
-                            <i class="icon-file-text" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-calendar" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Generar reporte</span>
                         </asp:HyperLink>
                     </li>
+
 
                     <li class="nav-item">
                         <asp:HyperLink ID="navBuscarUsuarios" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/BuscarUsuarios.aspx">
                             <i class="icon-search" style="font-size: 1.25rem; width: 26px;"></i>
-                            <span>Buscar usuarios</span>
+                            <span>Gestion de Usuarios</span>
                         </asp:HyperLink>
                     </li>
 
                     <li class="nav-item">
                         <asp:HyperLink ID="navAgregarEmpleado" runat="server" CssClass="nav-link" 
                             NavigateUrl="~/Admin/AgregarEmpleado.aspx">
-                            <i class="icon-user-plus" style="font-size: 1.25rem; width: 26px;"></i>
+                            <i class="icon-user" style="font-size: 1.25rem; width: 26px;"></i>
                             <span>Añadir empleado</span>
                         </asp:HyperLink>
                     </li>
@@ -117,7 +118,6 @@
             
             <main class="main-content flex-grow-1 p-4" style="background-color: #FFFFFF; overflow-y: auto; height: calc(100vh - 70px);"> 
                 
-                <%-- El placeholder va DENTRO del <main> --%>
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
                 
             </main>
@@ -133,8 +133,8 @@
                     <a href="<%: ResolveUrl("~/Admin/AdminContacto.aspx") %>" class="footer-link">Contacto</a>
                 </div>
                 <div class="footer-social-row">
-                    <a href="#" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
-                    <a href="#" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                    <a href="https://www.instagram.com/mg.cosmiatria.peru/" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                    <a href="https://www.facebook.com/mg.cosmiatria.peru" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
                 </div>
                 <div class="footer-bottom-row">
                     <p class="copyright-text">

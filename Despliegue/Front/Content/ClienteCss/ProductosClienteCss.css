@@ -1,0 +1,219 @@
+﻿/* ===========================================
+   PRODUCTOS CLIENTE - LAYOUT RESPONSIVE
+   =========================================== */
+
+/* Abrimos el área de contenido del cliente para esta página */
+.content-body-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Contenedor principal de la página de productos */
+.products-page-wrapper {
+    width: 100%;
+    max-width: 1320px; /* ancho grande tipo container-xxl */
+    margin: 0 auto;
+    padding: 1.5rem 1.75rem 2.5rem;
+    box-sizing: border-box;
+}
+
+/* Contenedor interno (por si quieres más capas luego) */
+.product-page-content {
+    width: 100%;
+}
+
+/* Encabezado de la página */
+.header-section {
+    margin-bottom: 1.5rem;
+}
+
+.category-title {
+    margin: 0 0 0.5rem 0;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-weight: 400;
+    font-size: clamp(2.1rem, 3vw, 3rem);
+    line-height: 1.1;
+    color: #148C76;
+    border-bottom: 0.5px solid #148C76;
+    padding-bottom: 4px;
+}
+
+.category-description {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .95rem;
+    color: #555;
+}
+
+/* ===========================================
+   TABS DE CATEGORÍA
+   =========================================== */
+
+.category-tabs {
+    margin-bottom: 1rem;
+    border-bottom: 0.5px solid transparent #555;
+}
+
+    .category-tabs ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .category-tabs li {
+        margin: 0;
+    }
+
+/* LinkButtons como tabs */
+.tab-button {
+    background: transparent !important;
+    padding: 0 0 .4rem 0 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: .95rem !important;
+    font-weight: 500 !important;
+    color: #757575 !important;
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: 3px solid #d1d5db !important;
+    display: inline-block !important;
+    cursor: pointer;
+    line-height: 1.5;
+    transition: border-bottom 0.25s ease, color 0.25s ease;
+}
+
+    .tab-button:hover {
+        text-decoration: none !important;
+        color: #148C76 !important;
+    }
+
+    /* Tab activo */
+    .tab-button.active {
+        color: #148C76 !important;
+        border-bottom-color: #148C76 !important;
+    }
+
+/* ===========================================
+   GRID DE PRODUCTOS
+   =========================================== */
+
+.products-grid-container {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px 20px;
+}
+
+/* Tarjeta de producto (link completo) */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+    background-color: #F4FBF8;
+    border-radius: 14px;
+    padding: 12px;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+/* Contenedor de la imagen */
+.product-image-container {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Detalles del producto */
+.product-details {
+    width: 100%;
+}
+
+.product-name {
+    margin: 0 0 4px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #171214;
+}
+
+.product-description {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: .9rem;
+    line-height: 1.4;
+    color: #757575;
+}
+
+.product-precio {
+    margin: 6px 0 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    color: #b24b4b;
+}
+
+/* ===========================================
+   AJUSTES RESPONSIVE
+   =========================================== */
+
+@media (min-width: 1400px) {
+    .products-page-wrapper {
+        max-width: 1400px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .products-page-wrapper {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+/* ===========================================
+   AJUSTE PARA MÓVIL: TARJETAS MÁS PEQUEÑAS
+   =========================================== */
+@media (max-width: 767.98px) {
+
+    /* centramos los items de la grilla */
+    .products-grid-container {
+        justify-items: center;
+    }
+
+    /* la tarjeta no ocupa todo el ancho de la pantalla */
+    .product-card {
+        max-width: 260px; /* ancho fijo más razonable en móvil */
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    /* la imagen no se hace tan alta */
+    .product-image-container {
+        aspect-ratio: 3 / 4;
+        max-height: 210px; /* baja la altura para que no se vea enorme */
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}

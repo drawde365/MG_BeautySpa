@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Empleado/Empleado.Master" AutoEventWireup="true" CodeBehind="InicioEmpleado.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.InicioEmpleado" %>
-<asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+    Inicio | MG Beauty Spa
 </asp:Content>
 <asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
      <%-- 
@@ -58,6 +59,7 @@
          letter-spacing: -2px;
          color: #000000;
          margin: 0;
+         margin-right: 20px;
      }
 
      .hero-subtitle {
@@ -68,6 +70,7 @@
          font-weight: 400;
          color: #000000;
          margin: 0;
+         margin-right: 20px;
      }
      
      .btn-custom-teal {
@@ -80,7 +83,6 @@
          line-height: 21px;
          
          /* Dimensiones y alineación del botón */
-         width: 143px; 
          height: 40px;
          display: inline-flex;
          align-items: center;

@@ -1,0 +1,147 @@
+﻿/* =========================================================
+   PERFIL MASTER - LAYOUT GENERAL
+   ========================================================= */
+
+.profile-layout-container {
+    max-width: 1200px;
+    margin: 2rem auto 3rem;
+    padding: 0 1.5rem 2.5rem;
+    box-sizing: border-box;
+    display: flex;
+    gap: 1.75rem;
+    align-items: flex-start;
+}
+
+/* Sidebar a la izquierda (tarjeta blanca, SIN fondo verde detrás) */
+.profile-sidebar {
+    flex: 0 0 260px;
+    max-width: 260px;
+}
+
+.profile-sidebar-content {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+/* Main content a la derecha */
+.profile-main-content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* =========================================================
+   HEADER DE LA SIDEBAR
+   ========================================================= */
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.profile-picture-container {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #F4FBF8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-name-title {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #171214;
+}
+
+/* =========================================================
+   NAVEGACIÓN DE LA SIDEBAR
+   ========================================================= */
+
+.profile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-item-link,
+.logout-button {
+    border: none;
+    background: transparent;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #344054;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+    .nav-item-link i,
+    .logout-button i {
+        font-size: 1.05rem;
+    }
+
+    /* Hover general */
+    .nav-item-link:hover,
+    .logout-button:hover {
+        background-color: #F4FBF8;
+        color: #107369;
+    }
+
+    /* Activo (este lo marcas por código en el master) */
+    .nav-item-link.active {
+        background-color: #107369;
+        color: #ffffff;
+    }
+
+/* Logout con color rojo suave */
+.logout-button {
+    margin-top: 0.75rem;
+    color: #B42318;
+}
+
+    .logout-button:hover {
+        background-color: #FEF3F2;
+        color: #B42318;
+    }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991.98px) {
+    .profile-layout-container {
+        flex-direction: column;
+        padding-inline: 1rem;
+    }
+
+    .profile-sidebar {
+        max-width: none;
+        width: 100%;
+    }
+
+    .profile-main-content {
+        width: 100%;
+    }
+}

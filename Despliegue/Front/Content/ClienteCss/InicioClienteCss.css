@@ -1,0 +1,291 @@
+﻿/* ===========================================
+   INICIO CLIENTE - LAYOUT RESPONSIVE
+   =========================================== */
+
+/* Quitar cualquier límite de ancho de la zona de contenido
+   (solo se aplicará cuando esta página cargue este CSS) */
+.content-body-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Contenedor principal de la página de inicio */
+.content-wrapper {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0.5rem 1.25rem 2.0rem; /* menos espacio arriba y abajo */
+    box-sizing: border-box;
+}
+
+
+/* ===========================================
+   HERO / BANNER DE BIENVENIDA
+   =========================================== */
+
+.hero-section {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #ddd;
+    /* Proporción tipo banner, se adapta al ancho */
+    aspect-ratio: 16 / 6;
+}
+
+    .hero-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+.hero-text {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    color: #fff;
+    text-align: right;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+    .hero-text h1 {
+        font-family: 'ZCOOL XiaoWei', serif;
+        font-weight: 400;
+        font-size: clamp(2.1rem, 3vw, 3rem);
+        letter-spacing: -1px;
+        margin: 0 0 .5rem 0;
+    }
+
+    .hero-text p {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(.9rem, 1.05vw, 1rem);
+        max-width: 640px;
+        margin: 0 0 0 auto; /* pegado a la derecha */
+    }
+
+/* En pantallas pequeñas centramos el texto */
+@media (max-width: 767.98px) {
+    .hero-text {
+        text-align: left;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+
+        .hero-text p {
+            margin: 0;
+        }
+}
+
+/* ===========================================
+   TÍTULOS DE SECCIÓN
+   =========================================== */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0 .5rem 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    .section-title h2 {
+        margin: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #171214;
+    }
+
+    .section-title a {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+/* ===========================================
+   CARRUSELES (PRODUCTOS Y SERVICIOS)
+   =========================================== */
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 0.75rem;
+}
+
+/* Botones izquierda/derecha */
+.carousel-button {
+    background-color: transparent;
+    border: 2px solid #148C76;
+    color: #148C76;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .carousel-button:hover {
+        background-color: #1EC3B6;
+        border-color: #1EC3B6;
+        color: #fff;
+    }
+
+    .carousel-button:disabled {
+        border-color: #ccc;
+        color: #ccc;
+        cursor: not-allowed;
+    }
+
+/* Ventana que recorta el contenido deslizable */
+.carousel-viewport {
+    flex: 1 1 auto;
+    overflow: hidden;
+    margin: 0 12px;
+}
+
+/* El contenedor que realmente se mueve con transform: translateX */
+.product-grid,
+.services-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    padding: 0.5rem 0 1.5rem;
+    box-sizing: border-box;
+    transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ===========================================
+   TARJETAS DEL CARRUSEL
+   =========================================== */
+
+/* Link que representa cada ítem del carrusel */
+.product-card-link,
+.service-card-link {
+    text-decoration: none;
+    display: block;
+    /* ancho base de la tarjeta (para que el JS del carrusel pueda calcular) */
+    flex: 0 0 280px;
+    max-width: 320px;
+}
+
+/* En pantallas pequeñas, tarjetas más pequeñas y centradas */
+@media (max-width: 767.98px) {
+    .product-card-link,
+    .service-card-link {
+        flex: 0 0 70vw; /* antes 85vw */
+        max-width: 70vw;
+        margin: 0 auto; /* centradas */
+    }
+
+    .product-card-image,
+    .service-card-image {
+        aspect-ratio: 4 / 3;
+        max-height: 220px; /* reduce altura de la imagen */
+    }
+}
+
+
+.product-card,
+.service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    background-color: #F4FBF8;
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+/* Imagen del producto */
+.product-card-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #F9FAFB;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+}
+
+/* Imagen del servicio */
+.service-card-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #F9FAFB;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+}
+
+/* Texto dentro de las tarjetas */
+.product-card-body h3,
+.service-card-body h3 {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #171214;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-card-body p,
+.service-card-body p {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #757575;
+}
+
+/* ===========================================
+   AJUSTES RESPONSIVE GENERALES
+   =========================================== */
+
+/* En pantallas muy grandes, que el contenido use bien el ancho */
+@media (min-width: 1400px) {
+    .content-wrapper {
+        max-width: 1400px;
+    }
+}
+
+/* En móviles reducimos un poco los paddings laterales */
+@media (max-width: 575.98px) {
+    .content-wrapper {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .carousel-viewport {
+        margin: 0 6px;
+    }
+
+    .carousel-button {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+}

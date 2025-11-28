@@ -1,4 +1,8 @@
-﻿<%@ Page Title="Tu Carrito" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
+﻿<%@ Page Title="Tu Carrito" Async="true" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
+
+<asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
+    Carrito | MG Beauty Spa
+</asp:Content>
 
 <asp:Content ID="ctHead" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" href="<%: ResolveUrl("~/Cliente/CarritoCliente.css?v=3") %>" />
@@ -15,7 +19,7 @@
         }
         .carrito-vacio-mensaje h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
+            font-weight: 700; 
             color: #171214;
         }
         .carrito-vacio-mensaje p {
@@ -25,7 +29,7 @@
         }
         .btn-ver-productos {
             display: inline-block;
-            background-color: #1EC3B6; /* Color primario */
+            background-color: #148C76; /* Color primario */
             color: #fff;
             padding: 12px 24px;
             text-decoration: none;
@@ -157,7 +161,7 @@
                             
                             <div class="d-flex justify-content-center mb-3">
                                 <asp:Button ID="btnActualizarCarrito" runat="server" 
-                                    Text="Actualizar Carrito" 
+                                    Text="Recalcular Resumen de Pedido" 
                                     CssClass="checkout-button btn-compact" 
                                     OnClick="btnActualizarCarrito_Click" />
                             </div>
@@ -438,7 +442,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content success-modal-content">
             <div class="modal-body success-modal-body">
-            
+             
                 <%-- Icono de Éxito --%>
                 <div class="success-icon-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" 
@@ -451,7 +455,7 @@
                 <h3 class="success-title">¡Pago Exitoso!</h3>
                 <p class="success-message">
                     Tu pedido ha sido procesado correctamente.<br />
-                    Recibirás un correo de confirmación en breve.
+                    Recibirás un correo con los datos de tu compra.
                 </p>
             
                 <%-- Botón de Acción --%>

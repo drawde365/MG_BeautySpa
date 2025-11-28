@@ -1,6 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Empleado/Empleado.Master" AutoEventWireup="true" CodeBehind="AgregarExcepcion.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.AgregarExcepcion" %>
+﻿<%@ Page Title="Agregar Excepción" Language="C#" MasterPageFile="~/Empleado/Empleado.Master" AutoEventWireup="true" CodeBehind="AgregarExcepcion.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.AgregarExcepcion" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    Agregar Excepción
 </asp:Content>
+
 <asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
         /* Título de la página */
@@ -23,22 +26,13 @@
             line-height: 1.25;
         }
 
-        /* Etiquetas del formulario (Fecha, Hora, etc.) */
+        /* Etiquetas del formulario */
         .form-label-lg {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
             font-size: 24px;
             color: #1C0D12;
             line-height: 1;
-        }
-        
-        /* Estilo para "De" y "a" en la fila de Hora */
-        .time-separator {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 400;
-            font-size: 24px;
-            color: #1C0D12;
-            text-align: center;
         }
 
         /* Estilo para el botón de registro personalizado */
@@ -52,10 +46,12 @@
             height: 69px;
             border-radius: 20px;
             border: none;
+            width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         .btn-custom-teal-lg:hover {
-            background-color: #19a599; /* Un poco más oscuro en hover */
+            background-color: #19a599;
             color: #FCF7FA;
         }
 
@@ -67,6 +63,7 @@
             border: 1px solid #E3D4D9;
             border-radius: 12px;
             height: 56px;
+            padding: 0.375rem 1.2rem;
         }
         
         .form-control-custom-area {
@@ -77,20 +74,27 @@
             border-radius: 12px;
         }
 
+        select.form-control-custom {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 16px 12px;
+        }
+        
+        /* ✅ NUEVO CSS: Estilo para las opciones deshabilitadas */
+        .option-disabled {
+            color: #d9534f !important; /* Rojo para indicar conflicto */
+            background-color: #f8d7da; /* Fondo suave */
+            font-style: italic;
+        }
     </style>
 </asp:Content>
+
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <%-- 
-      Contenedor principal (Depth 3)
-      Usamos container-lg para replicar el max-width: 960px
-    --%>
     <div class="container-lg my-5">
         
-        <%-- 
-          Usamos un div como 'card' para agrupar el formulario.
-          El 'gap: 15px' se traduce en los márgenes de los elementos.
-        --%>
         <div class="bg-white p-4 p-md-5 rounded-3 shadow-sm">
 
             <div class="text-center mb-5">
@@ -98,46 +102,26 @@
                     Agregar excepción en mi horario
                 </h1>
                 <p class="exception-subtitle">
-                    Se aceptan excepciones de horario por motivos de salud y personales
+                    Se aceptan excepciones de horario por motivos de salud y personales.<br />
+                    <small class="text-muted fs-6">(Seleccione un día disponible de su calendario)</small>
                 </p>
             </div>
+
             <div class="px-md-5">
 
-                <%-- Fila 1: Fecha --%>
-                <%-- Usamos el grid de Bootstrap para alinear label e input --%>
+                <%-- Fila 1: Fecha (DropDownList) --%>
                 <div class="row g-3 align-items-center mb-4">
-                    <div class="col-md-2">
-                        <asp:Label ID="lblFecha" runat="server" Text="Fecha:" CssClass="form-label-lg m-0" />
+                    <div class="col-md-3">
+                        <asp:Label ID="lblFecha" runat="server" Text="Fecha:" CssClass="form-label-lg m-0" AssociatedControlID="ddlFecha" />
                     </div>
-                    <div class="col-md-5">
-                        <%-- Usar type="date" es mejor para la experiencia de usuario --%>
-                        <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control form-control-custom" TextMode="Date" />
+                    <div class="col-md-9">
+                        <asp:DropDownList ID="ddlFecha" runat="server" CssClass="form-control form-control-custom" />
                     </div>
                 </div>
 
-                <%-- Fila 2: Hora --%>
-                <%-- Usamos un grid más complejo para "De [input] a [input]" --%>
-                <div class="row g-3 align-items-center mb-4">
-                    <div class="col-md-2">
-                        <asp:Label ID="lblHora" runat="server" Text="Hora:" CssClass="form-label-lg m-0" />
-                    </div>
-                    <div class="col-auto">
-                        <span class="time-separator">De</span>
-                    </div>
-                    <div class="col">
-                        <asp:TextBox ID="txtHoraInicio" runat="server" CssClass="form-control form-control-custom" TextMode="Time" />
-                    </div>
-                    <div class="col-auto">
-                        <span class="time-separator">a</span>
-                    </div>
-                    <div class="col">
-                        <asp:TextBox ID="txtHoraFin" runat="server" CssClass="form-control form-control-custom" TextMode="Time" />
-                    </div>
-                </div>
-
-                <%-- Fila 3: Motivo (Textarea) --%>
+                <%-- Fila 2: Motivo --%>
                 <div class="mb-5">
-                    <asp:Label ID="lblMotivo" runat="server" Text="Motivo de la excepción:" CssClass="form-label-lg mb-2" />
+                    <asp:Label ID="lblMotivo" runat="server" Text="Motivo de la excepción:" CssClass="form-label-lg mb-2 d-block" AssociatedControlID="txtMotivo" />
                     <asp:TextBox ID="txtMotivo" runat="server" 
                         CssClass="form-control form-control-custom-area" 
                         TextMode="MultiLine" 
@@ -145,11 +129,10 @@
                         placeholder="Explica el motivo de tu excepción..." />
                 </div>
 
-                <%-- Fila 4: Botón de Registrar (Depth 4, Frame 9) --%>
-                <%-- 
-                  Usamos d-grid y mx-auto para centrar el botón y 
-                  darle el ancho (480px) del diseño (col-lg-7 en un 960px container)
-                --%>
+                <%-- Mensaje de Error --%>
+                <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block text-center mb-3" Visible="false"></asp:Label>
+
+                <%-- Fila 3: Botón --%>
                 <div class="d-grid col-12 col-md-10 col-lg-7 mx-auto">
                     <asp:Button ID="btnRegistrarExcepcion" runat="server" 
                         Text="Registrar excepción" 
@@ -158,8 +141,33 @@
                 </div>
 
             </div>
-            </div>
+        </div>
     </div>
 </asp:Content>
+
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var ddl = document.getElementById('<%= ddlFecha.ClientID %>');
+            if (ddl) {
+                // Iteramos sobre las opciones del DropDownList
+                for (var i = 0; i < ddl.options.length; i++) {
+                    var option = ddl.options[i];
+                    
+                    // Verificamos si la opción tiene la clase 'option-disabled'
+                    // Esta clase se añade en el CodeBehind (C#)
+                    if (option.classList.contains('option-disabled')) {
+                        // Deshabilitamos la opción para que no pueda ser seleccionada
+                        option.disabled = true;
+                        
+                        // Si la opción deshabilitada está seleccionada al cargar (raro, pero posible)
+                        // forzamos la selección del primer ítem (el placeholder)
+                        if (option.selected) {
+                            ddl.selectedIndex = 0;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </asp:Content>

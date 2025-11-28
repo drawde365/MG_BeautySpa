@@ -17,9 +17,8 @@
 
     <!-- Estilos de Master (ya adapta header y footer) -->
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/ClienteMasterPageStyle.css") %>" />
-    <!-- Bootstrap css -->
-    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.css") %>"></script>
 
+    <script src="../Scripts/bootstrap.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,8 +112,8 @@
                 </div>
 
                 <div class="footer-social-row">
-                    <a href="#" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
-                    <a href="#" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                    <a href="https://www.instagram.com/mg.cosmiatria.peru/" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                    <a href="https://www.facebook.com/mg.cosmiatria.peru" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Facebook"><i class="icon-facebook"></i></a>
                 </div>
 
                 <div class="footer-bottom-row">
