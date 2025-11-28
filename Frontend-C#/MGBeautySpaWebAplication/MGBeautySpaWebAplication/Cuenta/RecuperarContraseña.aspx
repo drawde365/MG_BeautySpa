@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarContraseña.aspx.cs" Inherits="MGBeautySpaWebAplication.Cuenta.RecuperarContraseña" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="RecuperarContraseña.aspx.cs" Inherits="MGBeautySpaWebAplication.Cuenta.RecuperarContraseña" %>
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">

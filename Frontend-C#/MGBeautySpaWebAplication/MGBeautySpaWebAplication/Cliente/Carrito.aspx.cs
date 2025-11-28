@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -23,10 +24,11 @@ namespace MGBeautySpaWebAplication.Cliente
         private PedidoBO pedidoBO;
         private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
         private const string contraseñaApp = "beprxkazzucjiwom";
-
+        private EnvioCorreo envioCorreo;
         public Carrito()
         {
             pedidoBO = new PedidoBO();
+            envioCorreo = new EnvioCorreo();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -281,7 +283,7 @@ namespace MGBeautySpaWebAplication.Cliente
             );
         }
 
-        protected void btnProcessPayment_Click(object sender, EventArgs e)
+        protected async void btnProcessPayment_Click(object sender, EventArgs e)
         {
 
             string cardNumber = Request.Form[txtCardNumber.UniqueID]?.Trim().Replace(" ", "") ?? "";
@@ -299,8 +301,7 @@ namespace MGBeautySpaWebAplication.Cliente
             setTimeout(function() {
                 var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
                 modal.show();
-            }, 100);
-        ";
+            }, 100);";
                 ClientScript.RegisterStartupScript(this.GetType(), "PaymentError", errorScript, true);
                 return;
             }
@@ -323,22 +324,17 @@ namespace MGBeautySpaWebAplication.Cliente
 
                 pedidoBO.Modificar(carrito);
 
-                byte[] pdf = GenerarPdfPedido(carrito);
-                SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = (SoftInvBusiness.SoftInvWSUsuario.usuarioDTO)Session["UsuarioActual"];
-                EnviarCorreoConPdf(
-                    usuario.correoElectronico,
-                    "Comprobante de tu compra - MG Beauty SPA",
-                    "¡Hola, " + usuario.nombre + "!\n¡Gracias por tu compra! Adjuntamos el comprobante en PDF.",
-                    pdf
-                );
-
+                string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
+                _ = Task.Run(async () =>
+                {
+                    enviarCorreoCliente(carrito,rutaLogo);
+                });
 
                 Session["Carrito"] = null;
                 Session["CartCount"] = 0;
 
 
                 RebindCartAndSummary(new pedidoDTO { detallesPedido = new detallePedidoDTO[0] });
-
 
                 string successScript = @"
             setTimeout(function() {
@@ -350,8 +346,7 @@ namespace MGBeautySpaWebAplication.Cliente
                     var successModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
                     successModal.show();
                 }, 300);
-            }, 100);
-        ";
+            }, 100);";
                 ClientScript.RegisterStartupScript(this.GetType(), "ShowSuccess", successScript, true);
 
 
@@ -369,7 +364,16 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
-        private byte[] GenerarPdfPedido(pedidoDTO carrito)
+        private async Task enviarCorreoCliente(pedidoDTO carrito,string ruta)
+        {
+            byte[] pdf = GenerarPdfPedido(carrito,ruta);
+            SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario = (SoftInvBusiness.SoftInvWSUsuario.usuarioDTO)Session["UsuarioActual"];
+            string asunto = "Comprobante de tu compra - MG Beauty SPA";
+            string cuerpo = "¡Hola, " + usuario.nombre + "!\n¡Gracias por tu compra! Adjuntamos el comprobante en PDF.";
+            await envioCorreo.enviarCorreo(usuario.correoElectronico, asunto, cuerpo, pdf);
+        }
+
+        private byte[] GenerarPdfPedido(pedidoDTO carrito,string ruta)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -384,7 +388,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8);
 
 
-                string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
+                string rutaLogo = ruta;
                 if (File.Exists(rutaLogo))
                 {
                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaLogo);
@@ -531,39 +535,6 @@ namespace MGBeautySpaWebAplication.Cliente
                 doc.Close();
                 return ms.ToArray();
             }
-        }
-
-        private System.Drawing.Image CargarImagenSinBloqueo(string ruta)
-        {
-            using (FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                MemoryStream ms = new MemoryStream();
-                fs.CopyTo(ms);
-                ms.Position = 0;
-                return System.Drawing.Image.FromStream(ms);
-            }
-        }
-
-        private void EnviarCorreoConPdf(string correoDestino, string asunto, string cuerpo, byte[] pdfBytes)
-        {
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(correoDestino);
-            mensaje.Subject = asunto;
-            mensaje.Body = cuerpo;
-            mensaje.IsBodyHtml = false;
-
-
-            mensaje.Attachments.Add(new Attachment(
-                new MemoryStream(pdfBytes),
-                "ComprobanteCompra.pdf",
-                "application/pdf"
-            ));
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-            smtp.Send(mensaje);
         }
 
         protected void btnVolverInicio_Click(object sender, EventArgs e)

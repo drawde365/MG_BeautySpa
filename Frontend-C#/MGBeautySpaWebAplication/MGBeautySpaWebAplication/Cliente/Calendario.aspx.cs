@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -33,8 +34,7 @@ namespace MGBeautySpaWebAplication.Cliente
         private EmpleadoBO empleadoBO;
         private CitaBO citaBO;
         private const double TASA_IGV = 0.18;
-        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
-        private const string contraseñaApp = "beprxkazzucjiwom";
+        private EnvioCorreo envio;
 
         private Dictionary<DateTime, int> DisponibilidadCache
         {
@@ -79,6 +79,7 @@ namespace MGBeautySpaWebAplication.Cliente
             servicioBO = new ServicioBO();
             citaBO = new CitaBO();
             empleadoBO = new EmpleadoBO();
+            envio = new EnvioCorreo();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -235,7 +236,7 @@ namespace MGBeautySpaWebAplication.Cliente
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenPayment", "var myModal = new bootstrap.Modal(document.getElementById('paymentModal')); myModal.show();", true);
         }
 
-        protected void btnProcessPayment_Click(object sender, EventArgs e)
+        protected async void btnProcessPayment_Click(object sender, EventArgs e)
         {
             string cardNumber = Request.Form[txtCardNumber.UniqueID]?.Trim().Replace(" ", "") ?? "";
 
@@ -277,15 +278,22 @@ namespace MGBeautySpaWebAplication.Cliente
 
 
                 SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado = empleadoBO.ObtenerEmpleadoPorId(this.EmpleadoId);
-                byte[] pdf = GenerarPdfReserva(nuevaCita, servicio, empleado);
-                EnviarCorreoConPdf(
-                    usuario.correoElectronico,
-                    "Comprobante de tu reserva - MG Beauty SPA",
-                    "¡Hola, " + usuario.nombre + "!\n¡Gracias por tu reserva! Adjuntamos el comprobante en PDF.",
-                    pdf
-                );
+                string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
+                _ = Task.Run(async () =>
+                {
+                    enviarCorreoCliente(nuevaCita, servicio, empleado, usuario,rutaLogo);
+                });
 
-                EnviarCorreoEmpleado(usuario, empleado, servicio, nuevaCita);
+
+                string asuntoE = "Nueva Cita Registrada | MG Beauty SPA";
+                string cuerpoE = "¡Hola, " + empleado.nombre + "!\n\n" +
+                            "Un nuevo cliente ha registrado la siguiente cita:\n" + "Cliente: " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + "\nCorreo Electrónico: " + usuario.correoElectronico +
+                            "\nCelular: " + usuario.celular + "\nServicio: " + servicio.nombre + "\nFecha: " + nuevaCita.fecha.ToString("D") + "\nHora Inicio: " + nuevaCita.horaIni + "\nHora Fin: " + nuevaCita.horaFin + "\n¡Conáctate si es necesario!"; ;
+
+                _ = Task.Run(async () =>
+                {
+                    envio.enviarCorreo(empleado.correoElectronico, asuntoE, cuerpoE, null);
+                });
 
                 string successScript = @"
                     var paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
@@ -302,25 +310,16 @@ namespace MGBeautySpaWebAplication.Cliente
             }
         }
 
-        private void EnviarCorreoEmpleado(SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario, SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado, SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio, SoftInvBusiness.SoftInvWSCalendario.citaDTO nuevaCita)
+        private async Task enviarCorreoCliente(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita, SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio, SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado,SoftInvBusiness.SoftInvWSUsuario.usuarioDTO usuario,string ruta)
         {
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(empleado.correoElectronico);
-            mensaje.Subject = "Nueva Cita Registrada | MG Beauty SPA";
-            mensaje.Body = "¡Hola, " + empleado.nombre + "!\n\n" +
-                            "Un nuevo cliente ha registrado la siguiente cita:\n" + "Cliente: " + usuario.nombre + " " + usuario.primerapellido + " " + usuario.segundoapellido + "\nCorreo Electrónico: " + usuario.correoElectronico +
-                            "\nCelular: " + usuario.celular + "\nServicio: " + servicio.nombre + "\nFecha: " + nuevaCita.fecha.ToString("D") + "\nHora Inicio: " + nuevaCita.horaIni + "\nHora Fin: " + nuevaCita.horaFin + "\n¡Conáctate si es necesario!";
-            mensaje.IsBodyHtml = false;
+            byte[] pdf = GenerarPdfReserva(cita, servicio, empleado, ruta);
+            string asunto = "Comprobante de tu reserva - MG Beauty SPA";
+            string cuerpo = "¡Hola, " + usuario.nombre + "!\n¡Gracias por tu reserva! Adjuntamos el comprobante en PDF.";
 
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-
-            smtp.Send(mensaje);
+            await envio.enviarCorreo(usuario.correoElectronico, asunto, cuerpo, pdf);
         }
 
-        private byte[] GenerarPdfReserva(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita, SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio, SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado)
+        private byte[] GenerarPdfReserva(SoftInvBusiness.SoftInvWSCalendario.citaDTO cita, SoftInvBusiness.SoftInvWSServicio.servicioDTO servicio, SoftInvBusiness.SoftInvWSEmpleado.empleadoDTO empleado, string ruta)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -332,7 +331,7 @@ namespace MGBeautySpaWebAplication.Cliente
                 BaseColor verde = new BaseColor(0x14, 0x8C, 0x76);
                 BaseColor blancoFondo = new BaseColor(0xF4, 0xFB, 0xF8);
 
-                string rutaLogo = HttpContext.Current.Server.MapPath("~/Content/images/MGFavicon.png");
+                string rutaLogo = ruta;
                 if (File.Exists(rutaLogo))
                 {
                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaLogo);
@@ -469,27 +468,6 @@ namespace MGBeautySpaWebAplication.Cliente
                 doc.Close();
                 return ms.ToArray();
             }
-        }
-
-        private void EnviarCorreoConPdf(string correoDestino, string asunto, string cuerpo, byte[] pdfBytes)
-        {
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(correoDestino);
-            mensaje.Subject = asunto;
-            mensaje.Body = cuerpo;
-            mensaje.IsBodyHtml = false;
-
-            mensaje.Attachments.Add(new Attachment(
-                new MemoryStream(pdfBytes),
-                "ComprobanteReserva.pdf",
-                "application/pdf"
-            ));
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-            smtp.Send(mensaje);
         }
 
         protected void btnVolverInicio_Click(object sender, EventArgs e)
