@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://softinvws.services.softinv.pucp.edu.pe/" targetNamespace="http://softinvws.services.softinv.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="buscarCliente" type="tns:buscarCliente" />
+  <xs:element name="buscarClienteResponse" type="tns:buscarClienteResponse" />
   <xs:element name="crearCliente" type="tns:crearCliente" />
   <xs:element name="crearClienteResponse" type="tns:crearClienteResponse" />
   <xs:element name="eliminarCuenta" type="tns:eliminarCuenta" />
@@ -56,6 +58,20 @@
   <xs:complexType name="eliminarCuentaResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarCliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerApellido" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoApellido" type="xs:string" />
+      <xs:element minOccurs="0" name="correo" type="xs:string" />
+      <xs:element minOccurs="0" name="celular" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarClienteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:clienteDTO" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

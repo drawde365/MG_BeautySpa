@@ -10,24 +10,28 @@ namespace MGBeautySpaWebAplication.Admin
         private UsuarioBO usuarioBO;
         private EmpleadoBO empleadoBO;
         private ServicioBO servicioBO;
+        private ClienteBO clienteBO;
 
         public BuscarUsuarios()
         {
             usuarioBO = new UsuarioBO();
             empleadoBO = new EmpleadoBO();
             servicioBO = new ServicioBO();
+            clienteBO = new ClienteBO();
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                hfTipoUsuario.Value = "empleados";
                 CargarUsuarios();
             }
         }
 
         private void CargarUsuarios()
         {
+            contenedorTabla.Visible = true;
             var lista = usuarioBO.ObtenerTodosUsuarios();
             if (lista == null)
             {
@@ -125,6 +129,29 @@ namespace MGBeautySpaWebAplication.Admin
             );
         }
 
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string nombre = searchNombre.Value.Trim();
+            string apellido1 = searchPrimerApellido.Value.Trim();
+            string apellido2 = searchSegundoApellido.Value.Trim();
+            string correo = searchCorreo.Value.Trim();
+            string celular = searchCelular.Value.Trim();
+
+            var lista = clienteBO.ObtenerClientes(nombre, apellido1, apellido2, correo, celular);
+            if (lista == null)
+            {
+                rpUsuarios.DataSource = null;
+            }
+            else
+            {
+                rpUsuarios.DataSource = lista;
+            }
+            rpUsuarios.DataBind();
+            contenedorTabla.Visible = true;
+            hfTipoUsuario.Value = "clientes";
+            ScriptManager.RegisterStartupScript(this, GetType(), "setTabClient", "switchTab('clientes');", true);
+        }
         protected void rpServiciosEmpleado_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "EliminarServicio")
