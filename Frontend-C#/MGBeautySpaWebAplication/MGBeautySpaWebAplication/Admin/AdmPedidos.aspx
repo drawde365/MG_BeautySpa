@@ -58,7 +58,8 @@
         }
 
         .search-box {
-            max-width: 420px;
+            max-width: 480px; /* Aumenté un poco el máximo */
+            min-width: 280px; /* <--- AGREGA ESTO: Evita que se encoja menos que el texto */
             position: relative;
             flex: 1;
         }
@@ -187,19 +188,13 @@
                 <input type="text"
                        id="searchPedidos"
                        class="form-control"
-                       placeholder="Buscar por nombre de cliente..." />
+                       placeholder="Buscar por nombre de cliente" />
             </div>
-
-            <select id="orderTotal" class="filter-select">
-                <option value="">Sin ordenar</option>
-                <option value="desc">Mayor total de dinero</option>
-            </select>
 
             <select id="filterEstado" class="filter-select">
                 <option value="">Todos los estados</option>
                 <option value="CONFIRMADO">Confirmado</option>
                 <option value="LISTO_PARA_RECOGER">Listo para recoger</option>
-                <option value="RECOGIDO">Recogido</option>
             </select>
 
         </div>
@@ -296,7 +291,6 @@
 
     </div>
 
-    <!-- PAGINACIÓN -->
     <div class="paginacion-pedidos">
         <div>
             <button type="button"
@@ -317,12 +311,10 @@
             de <span id="spanTotalPaginas"><asp:Literal ID="litTotalPaginas" runat="server"></asp:Literal></span>
         </div>
 
-        <!-- Estado para JS / servidor -->
         <asp:HiddenField ID="hfPaginaActual" runat="server" />
         <asp:HiddenField ID="hfPaginaBreak" runat="server" />
         <asp:HiddenField ID="hfTotalPaginas" runat="server" />
         <asp:HiddenField ID="hfPaginaSolicitada" runat="server" />
-        <!-- Botón oculto que dispara el postback cuando hay que cargar un nuevo lote -->
         <asp:LinkButton ID="btnCargarPaginas"
                         runat="server"
                         CssClass="d-none"
@@ -331,7 +323,6 @@
         </asp:LinkButton>
     </div>
 
-    <!-- MODAL DETALLES PEDIDO -->
     <div class="modal fade" id="modalDetallesPedido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -406,7 +397,6 @@
         </div>
     </div>
 
-    <!-- MODAL MARCAR RECOGIDO -->
     <div class="modal fade" id="modalMarcarRecogido" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -460,7 +450,6 @@
         </div>
     </div>
 
-    <!-- MODAL MENSAJE -->
     <div class="modal fade" id="modalMensajeAccion" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -489,84 +478,155 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
     <script>
         (function () {
+            // Elementos del DOM
             const searchInput = document.getElementById("searchPedidos");
             const filterEstado = document.getElementById("filterEstado");
-            const orderTotal = document.getElementById("orderTotal");
+            // SE ELIMINÓ orderTotal
             const tbody = document.getElementById("tbodyPedidos");
+            const pnlSinPedidos = document.getElementById("<%= pnlSinPedidos.ClientID %>");
 
-            const hfPaginaActual = document.getElementById("<%= hfPaginaActual.ClientID %>");
-            const hfPaginaBreak = document.getElementById("<%= hfPaginaBreak.ClientID %>");
-            const hfTotalPaginas = document.getElementById("<%= hfTotalPaginas.ClientID %>");
-            const hfPaginaSolicitada = document.getElementById("<%= hfPaginaSolicitada.ClientID %>");
-            const btnCargarPaginas = document.getElementById("<%= btnCargarPaginas.ClientID %>");
+        // Elementos de estado del servidor
+        const hfPaginaActual = document.getElementById("<%= hfPaginaActual.ClientID %>");
+        const hfPaginaBreak = document.getElementById("<%= hfPaginaBreak.ClientID %>");
+        const hfTotalPaginas = document.getElementById("<%= hfTotalPaginas.ClientID %>");
+        const hfPaginaSolicitada = document.getElementById("<%= hfPaginaSolicitada.ClientID %>");
+        const btnCargarPaginas = document.getElementById("<%= btnCargarPaginas.ClientID %>");
+
+            // Elementos visuales de paginación
+            const spanActual = document.getElementById("spanPaginaActual");
+            const spanTotal = document.getElementById("spanTotalPaginas");
+
+            // CONSTANTES Y ESTADO CLIENTE
+            const ROWS_PER_PAGE = 10;
+            let filteredPage = 1;       // Página actual dentro del filtro
+            let filteredTotalPages = 1; // Total de páginas del filtro
+            let isFiltering = false;    // Bandera para saber en qué modo estamos
 
             function getRows() {
                 if (!tbody) return [];
                 return Array.from(tbody.querySelectorAll("tr[data-id]"));
             }
 
-            function actualizarTextoPagina() {
-                const spanActual = document.getElementById("spanPaginaActual");
-                const spanTotal = document.getElementById("spanTotalPaginas");
+            // ==========================================
+            // LÓGICA PRINCIPAL DE FILTRO Y PAGINACIÓN
+            // ==========================================
+            function aplicarFiltrosYRenderizar() {
+                const filas = getRows();
 
-                if (spanActual && hfPaginaActual) {
-                    spanActual.textContent = hfPaginaActual.value || "1";
-                }
-                if (spanTotal && hfTotalPaginas) {
-                    spanTotal.textContent = hfTotalPaginas.value || "1";
-                }
-            }
+                // 1. Obtener criterios
+                const texto = (searchInput?.value || "").toLowerCase().trim();
+                const estadoSel = filterEstado ? filterEstado.value : "";
 
-            // Aplica filtro de búsqueda/estado SOLO sobre la página actual
-            function aplicarFiltrosSobrePagina() {
-                const pagina = parseInt(hfPaginaActual?.value || "1");
-                const text = (searchInput?.value || "").toLowerCase();
-                const fEstado = filterEstado ? filterEstado.value : "";
+                // Determinar si hay filtro activo
+                isFiltering = (texto.length > 0 || estadoSel.length > 0);
 
-                getRows().forEach(row => {
-                    const rowPage = parseInt(row.dataset.page || "1");
-                    if (rowPage !== pagina) {
-                        row.style.display = "none";
-                        return;
+                // 2. Identificar coincidencias (Matches)
+                let matches = [];
+
+                filas.forEach(row => {
+                    const rowEstado = row.dataset.estado;
+                    const rowCliente = (row.dataset.cliente || "").toLowerCase();
+
+                    const matchTexto = rowCliente.includes(texto);
+                    const matchEstado = !estadoSel || rowEstado === estadoSel;
+
+                    if (matchTexto && matchEstado) {
+                        matches.push(row);
+                    }
+                    // Ocultamos todas primero
+                    row.style.display = "none";
+                });
+
+                // 3. Calcular paginación según el modo
+                if (isFiltering) {
+                    // --- MODO FILTRADO ---
+                    // Calculamos cuántas páginas salen de los resultados filtrados
+                    filteredTotalPages = Math.ceil(matches.length / ROWS_PER_PAGE);
+                    if (filteredTotalPages < 1) filteredTotalPages = 1;
+
+                    // Asegurar que la página actual sea válida
+                    if (filteredPage > filteredTotalPages) filteredPage = filteredTotalPages;
+                    if (filteredPage < 1) filteredPage = 1;
+
+                    // Definir rango a mostrar (Slice)
+                    const startIndex = (filteredPage - 1) * ROWS_PER_PAGE;
+                    const endIndex = startIndex + ROWS_PER_PAGE;
+
+                    // Mostrar solo las filas de ESTA página filtrada
+                    for (let i = startIndex; i < endIndex && i < matches.length; i++) {
+                        matches[i].style.display = "";
                     }
 
-                    const estado = row.dataset.estado;
-                    const cliente = (row.dataset.cliente || "").toLowerCase();
+                    // Actualizar textos de paginación (Visual)
+                    if (spanActual) spanActual.textContent = filteredPage;
+                    if (spanTotal) spanTotal.textContent = filteredTotalPages;
 
-                    const okTexto = cliente.includes(text);
-                    const okEstado = !fEstado || estado === fEstado;
+                } else {
+                    // --- MODO NORMAL (Servidor) ---
+                    // Usamos la variable del servidor (hfPaginaActual)
+                    const paginaGlobal = parseInt(hfPaginaActual?.value || "1");
+                    const totalGlobal = parseInt(hfTotalPaginas?.value || "1");
 
-                    row.style.display = (okTexto && okEstado) ? "" : "none";
-                });
+                    filas.forEach(row => {
+                        const rowPage = parseInt(row.dataset.page || "1");
+                        if (rowPage === paginaGlobal) {
+                            row.style.display = "";
+                        }
+                    });
 
-                actualizarTextoPagina();
-            }
-
-            function ordenarPorTotal() {
-                const modo = orderTotal ? orderTotal.value : "";
-                if (!modo) {
-                    aplicarFiltrosSobrePagina();
-                    return;
+                    // Restaurar textos originales
+                    if (spanActual) spanActual.textContent = paginaGlobal;
+                    if (spanTotal) spanTotal.textContent = totalGlobal;
                 }
 
-                const filas = getRows();
-                filas.sort((a, b) => {
-                    const ta = parseFloat(a.dataset.total || "0");
-                    const tb = parseFloat(b.dataset.total || "0");
-                    return modo === "desc" ? (tb - ta) : (ta - tb);
-                });
-
-                filas.forEach(f => tbody.appendChild(f));
-                aplicarFiltrosSobrePagina();
+                // 4. Manejo de mensajes de "Sin resultados"
+                if (matches.length === 0 && isFiltering) {
+                    if (pnlSinPedidos) {
+                        pnlSinPedidos.style.display = "block";
+                        pnlSinPedidos.innerText = "No se encontraron resultados para tu búsqueda.";
+                    }
+                    // Si no hay matches, ocultamos la tabla headers (opcional, o dejarla vacía)
+                } else if (filas.length === 0) {
+                    if (pnlSinPedidos) {
+                        pnlSinPedidos.style.display = "block";
+                        pnlSinPedidos.innerText = "No hay pedidos cargados.";
+                    }
+                } else {
+                    if (pnlSinPedidos) pnlSinPedidos.style.display = "none";
+                }
             }
 
-            function mostrarPagina(pagina) {
-                if (!hfPaginaActual) return;
-                hfPaginaActual.value = pagina;
-                aplicarFiltrosSobrePagina();
+            // ==========================================
+            // EVENTOS DE CAMBIO (Inputs)
+            // ==========================================
+            function onFilterChange() {
+                // Cuando cambia el filtro, siempre volvemos a la página 1 del filtro
+                filteredPage = 1;
+                aplicarFiltrosYRenderizar();
             }
 
-            function irAPagina(paginaDestino) {
+            // SE ELIMINÓ LA FUNCIÓN ordenarPorTotal()
+
+            // ==========================================
+            // NAVEGACIÓN (Botones Anterior/Siguiente)
+            // ==========================================
+            function irAPaginaRel(delta) {
+
+                if (isFiltering) {
+                    // Navegación VIRTUAL (Solo JS)
+                    const nuevaPagina = filteredPage + delta;
+                    if (nuevaPagina >= 1 && nuevaPagina <= filteredTotalPages) {
+                        filteredPage = nuevaPagina;
+                        aplicarFiltrosYRenderizar();
+                    }
+                } else {
+                    // Navegación GLOBAL (Lógica original con Servidor)
+                    const actual = parseInt(hfPaginaActual?.value || "1");
+                    irAPaginaGlobal(actual + delta);
+                }
+            }
+
+            function irAPaginaGlobal(paginaDestino) {
                 if (!hfTotalPaginas || !hfPaginaBreak) return;
 
                 const total = parseInt(hfTotalPaginas.value || "1");
@@ -575,39 +635,41 @@
                 if (paginaDestino < 1 || paginaDestino > total) return;
 
                 if (paginaDestino <= breakPage) {
-                    // Ya está en memoria: solo actualizamos client-side
-                    mostrarPagina(paginaDestino);
+                    // Datos ya en memoria
+                    hfPaginaActual.value = paginaDestino;
+                    aplicarFiltrosYRenderizar(); // Re-renderizar modo normal
                 } else {
-                    // Hay que pedir más páginas al servidor
-                    if (hfPaginaSolicitada) {
-                        hfPaginaSolicitada.value = paginaDestino;
-                    }
-                    if (btnCargarPaginas) {
-                        btnCargarPaginas.click();
-                    }
+                    // Pedir al servidor
+                    if (hfPaginaSolicitada) hfPaginaSolicitada.value = paginaDestino;
+                    if (btnCargarPaginas) btnCargarPaginas.click();
                 }
             }
 
-            function irAPaginaRel(delta) {
-                const actual = parseInt(hfPaginaActual?.value || "1");
-                irAPagina(actual + delta);
+            // Función llamada desde el servidor (Page_PreRender) para setear estado inicial
+            function mostrarPagina(pagina) {
+                if (hfPaginaActual) hfPaginaActual.value = pagina;
+                // Al venir del servidor, asumimos que no hay filtro activo o se resetea
+                filteredPage = 1;
+                aplicarFiltrosYRenderizar();
             }
 
-            if (searchInput) searchInput.addEventListener("input", aplicarFiltrosSobrePagina);
-            if (filterEstado) filterEstado.addEventListener("change", aplicarFiltrosSobrePagina);
-            if (orderTotal) orderTotal.addEventListener("change", ordenarPorTotal);
+            // ==========================================
+            // INICIALIZACIÓN
+            // ==========================================
+            if (searchInput) searchInput.addEventListener("input", onFilterChange);
+            if (filterEstado) filterEstado.addEventListener("change", onFilterChange);
+            // SE ELIMINÓ EL EVENT LISTENER DE orderTotal
 
-            // Exponer funciones para usarlas desde inline JS y desde el servidor
             window.mgPedidos = {
                 mostrarPagina: mostrarPagina,
-                irAPagina: irAPagina,
                 irAPaginaRel: irAPaginaRel
             };
 
             document.addEventListener("DOMContentLoaded", function () {
-                const paginaInicial = parseInt(hfPaginaActual?.value || "1");
-                mostrarPagina(paginaInicial);
+                // Carga inicial
+                aplicarFiltrosYRenderizar();
             });
+
         })();
     </script>
 </asp:Content>

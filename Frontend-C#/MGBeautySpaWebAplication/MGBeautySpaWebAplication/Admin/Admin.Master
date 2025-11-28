@@ -29,7 +29,7 @@
         <header class="header-sticky text-white ">
             <div class="container-fluid py-2">
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                    <a href="<%: ResolveUrl("~/Admin/PanelDeControl.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
+                    <a href="<%: ResolveUrl("~/Admin/AdmPedidos.aspx") %>" class="d-flex align-items-center text-white text-decoration-none">
                         <img src="<%: ResolveUrl("~/Content/images/MGLogo.svg") %>" alt="Logo" style="height: 50px;" class="me-2">
                         <span class="fw-bold fs-5">MG Beauty Spa</span>
                     </a>

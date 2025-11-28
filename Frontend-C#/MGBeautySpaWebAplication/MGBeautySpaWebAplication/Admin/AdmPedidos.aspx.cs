@@ -83,11 +83,12 @@ namespace MGBeautySpaWebAplication.Admin
                 CargarPedidosDesdeSesion();
             }
 
-            // Actualizar campos ocultos y literal de total de páginas SIEMPRE
+            /*
             hfTotalPaginas.Value = (TotalPaginas > 0 ? TotalPaginas : 1).ToString();
             hfPaginaBreak.Value = PaginaBreak.ToString();
             hfPaginaActual.Value = PaginaActual.ToString();
             litTotalPaginas.Text = hfTotalPaginas.Value;
+            */
         }
 
         /// <summary>
@@ -150,10 +151,29 @@ namespace MGBeautySpaWebAplication.Admin
             var vm = PedidosEnSesion ?? new List<PedidoViewModel>();
             BindPedidos(vm);
 
-            // Después de bindear, nos aseguramos que la JS muestre la página actual.
+            /*
             ScriptManager.RegisterStartupScript(this, GetType(),
                 "mostrarPaginaInicial",
                 $"setTimeout(function(){{ if(window.mgPedidos) window.mgPedidos.mostrarPagina({PaginaActual}); }}, 50);",
+                true);
+            */
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            // 1. Actualizar campos ocultos y literales con el valor FINAL de las propiedades
+            //    (Después de que haya ocurrido cualquier click en btnCargarPaginas)
+            hfTotalPaginas.Value = (TotalPaginas > 0 ? TotalPaginas : 1).ToString();
+            hfPaginaBreak.Value = PaginaBreak.ToString();
+            hfPaginaActual.Value = PaginaActual.ToString();
+            litTotalPaginas.Text = hfTotalPaginas.Value;
+
+            // 2. Registrar el script para mostrar la página correcta
+            //    Al hacerlo aquí, garantizamos que 'PaginaActual' ya tiene el valor nuevo (ej. 4)
+            string script = $"setTimeout(function(){{ if(window.mgPedidos) window.mgPedidos.mostrarPagina({PaginaActual}); }}, 50);";
+
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "mostrarPaginaInicial",
+                script,
                 true);
         }
 
