@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Calendario" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Calendario.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Calendario" EnableEventValidation="false"%>
+﻿<%@ Page Title="Calendario" Async="true" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Calendario.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Calendario" EnableEventValidation="false"%>
 
 <%-- 1. Contenido del Head --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">

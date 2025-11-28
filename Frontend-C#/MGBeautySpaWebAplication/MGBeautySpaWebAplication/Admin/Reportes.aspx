@@ -9,7 +9,7 @@
         /* Estilos generales de la fuente */
         .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
         .report-title { font-family: 'ZCOOL XiaoWei', cursive; font-size: 48px; line-height: 40px; color: #1A0F12; height: 40px; }
-        .tab-text { font-size: 20px; line-height: 21px; font-weight: 700; }
+        .tab-text { font-size: 18px; line-height: 21px; font-weight: 700; }
         .tab-active { color: #148C76; border-bottom: 3px solid #148C76; cursor: pointer; }
         .tab-inactive { color: #757575; border-bottom: 3px solid #E6E8EB; cursor: pointer; }
         
@@ -179,7 +179,6 @@
         
 
     <script type="text/javascript">
-        // Esperar a que el documento cargue completamente
         document.addEventListener("DOMContentLoaded", function () {
             var hdnTipoReporte = document.getElementById('hdnTipoReporte');
             switchTab(hdnTipoReporte.value); 
@@ -187,10 +186,7 @@
 
             document.addEventListener('click', function (event) {
                 var contenedor = document.getElementById('contenedorMensajeError');
-                // Si el contenedor existe y tiene contenido...
                 if (contenedor && contenedor.innerHTML.trim() !== "") {
-                    // Ocultamos el contenido visualmente o lo vaciamos
-                    // Usamos un pequeño timeout para que no se borre INSTANTANEAMENTE 
                     setTimeout(function () {
                         contenedor.innerHTML = "";
                     }, 100);
@@ -201,42 +197,31 @@
         
 
         function configurarRestriccionesFechas() {
-            // 1. Obtener referencias a los controles ASP.NET usando ClientID
             var txtInicio = document.getElementById('<%= txtFechaInicio.ClientID %>');
         var txtFin = document.getElementById('<%= txtFechaFin.ClientID %>');
 
-        // 2. Obtener la fecha de HOY en formato YYYY-MM-DD
         var hoy = new Date().toISOString().split('T')[0];
 
-        // 3. REGLA A: Ninguna fecha puede ser futuro
-        // Establecemos el atributo 'max' en ambos inputs
         if (txtInicio) txtInicio.setAttribute('max', hoy);
         if (txtFin) txtFin.setAttribute('max', hoy);
 
-        // 4. REGLA B: Fecha Fin depende de Fecha Inicio
-        // Agregamos un "Escucha" (Listener) al cambio de la fecha inicio
         if (txtInicio && txtFin) {
             txtInicio.addEventListener('change', function () {
                 var fechaSeleccionada = this.value;
 
                 if (fechaSeleccionada) {
-                    // El mínimo de la fecha fin es la fecha inicio seleccionada
                     txtFin.setAttribute('min', fechaSeleccionada);
 
-                    // UX: Si la fecha fin actual es menor a la nueva fecha inicio, la borramos
-                    // para evitar inconsistencias visuales
                     if (txtFin.value && txtFin.value < fechaSeleccionada) {
                         txtFin.value = ""; 
                     }
                 } else {
-                    // Si borran la fecha inicio, quitamos la restricción mínima
                     txtFin.removeAttribute('min');
                 }
             });
         }
     }
 
-    // Mantenemos tu función original para mostrar/ocultar el panel
     function toggleFechaEspecifica(ddl) {
         var panel = document.getElementById('pnlFiltroFechaEspecifica');
         if (ddl.value === 'especifico') {
@@ -246,7 +231,6 @@
         }
     }
     
-        // Función para cambiar entre pestañas de Productos y Servicios
         function switchTab(reporte) {
             var tabProductos = document.getElementById('tabProductos');
             var tabServicios = document.getElementById('tabServicios');
@@ -277,7 +261,7 @@
             }
         }
 
-    // Mantenemos la validación al hacer click (Backup de seguridad)
+    // Mantiene la validación al hacer click (Backup de seguridad)
     function validarFechas() {
         var ddlPeriodo = document.getElementById('ddlPeriodoTiempo');
         if (ddlPeriodo.value !== 'especifico') return true;

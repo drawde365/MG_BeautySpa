@@ -10,9 +10,10 @@
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-
+    <!-- HEAD -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <style>
+        /* Título de la página */
         .h1-admin-title {
             font-family: 'ZCOOL XiaoWei', serif;
             font-size: 48px;
@@ -20,6 +21,7 @@
             color: #1A0F12;
         }
 
+        /* Subtítulo */
         .h2-admin-subtitle {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
@@ -27,6 +29,7 @@
             color: #1A0F12;
         }
 
+        /* Contenedor de la tabla */
         .table-container {
             background: #FAFAFA;
             border: 1px solid #E3D4D9;
@@ -41,6 +44,7 @@
             width: 100%;
         }
 
+        /* Cabecera de la tabla */
         .product-list-table thead th {
             background: #FAFAFA;
             font-weight: 500;
@@ -51,6 +55,7 @@
             border-bottom: 0;
         }
 
+        /* Filas de la tabla */
         .product-list-table tbody tr {
             border-top: 1px solid #E6E8EB;
             background-color: #FFFFFF;
@@ -65,6 +70,7 @@
             text-align: left;
         }
 
+        /* Imagen */
         .product-image-thumb {
             width: 62px;
             height: 62px;
@@ -147,6 +153,14 @@
             border-color: #F59E0B !important;
         }
 
+        .btn-restore-admin,
+        .btn-restore-admin:hover,
+        .btn-restore-admin:focus,
+        .btn-restore-admin:active {
+            background-color: #1EC3B6 !important;
+            border-color: #1EC3B6 !important;
+        }
+
         /* Asegurar iconos blancos SIEMPRE */
         .btn-edit-admin i,
         .btn-edit-admin:hover i,
@@ -159,7 +173,11 @@
         .btn-stock-admin i,
         .btn-stock-admin:hover i,
         .btn-stock-admin:focus i,
-        .btn-stock-admin:active i {
+        .btn-stock-admin:active i,
+        .btn-restore-admin i,
+        .btn-restore-admin:hover i,
+        .btn-restore-admin:focus i,
+        .btn-restore-admin:active i {
             color: #FFFFFF !important;
         }
 
@@ -255,6 +273,19 @@
             text-align: center;
             font-weight: bold;
         }
+
+        /* Toggle activos / papelera */
+        .btn-toggle-list {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            border-radius: 999px;
+            padding: 6px 14px;
+        }
+
+        .btn-toggle-list.active {
+            background-color: #148C76;
+            color: #ffffff;
+        }
     </style>
 </asp:Content>
 
@@ -266,7 +297,23 @@
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h2-admin-subtitle">Productos disponibles</h2>
+        <div class="d-flex flex-column">
+            <h2 class="h2-admin-subtitle">
+                <span id="lblSubtitulo">Productos disponibles</span>
+            </h2>
+            <div class="mt-1">
+                <button type="button" id="btnVerActivos"
+                        class="btn btn-sm btn-outline-success btn-toggle-list active"
+                        onclick="cambiarModo(false)">
+                    Activos
+                </button>
+                <button type="button" id="btnVerPapelera"
+                        class="btn btn-sm btn-outline-secondary btn-toggle-list"
+                        onclick="cambiarModo(true)">
+                    Papelera
+                </button>
+            </div>
+        </div>
 
         <div class="d-flex gap-2 align-items-center">
             <asp:HyperLink ID="hlAddProduct" runat="server"
@@ -305,7 +352,9 @@
             </HeaderTemplate>
 
             <ItemTemplate>
-                <tr class="producto-fila">
+                <!-- data-activo: 1 = activo, 0 = inactivo -->
+                <tr class="producto-fila"
+                    data-activo='<%# Eval("activo") %>'>
                     <td>
                         <asp:Image ID="imgProducto" runat="server"
                                    ImageUrl='<%# Eval("urlImagen") %>'
@@ -331,35 +380,51 @@
                         </div>
                     </td>
                     <td class="text-center">
-                        <!-- Editar -->
-                        <asp:LinkButton ID="btnEditar" runat="server"
-                                        CssClass="btn btn-action btn-edit-admin"
-                                        CommandName="Editar"
-                                        CommandArgument='<%# Eval("idProducto") %>'
-                                        ToolTip="Editar">
-                            <i class="bi bi-pencil-fill"></i>
-                        </asp:LinkButton>
+                        <!-- Acciones para productos ACTIVOS -->
+                        <asp:PlaceHolder ID="phActivo" runat="server"
+                                         Visible='<%# Convert.ToInt32(Eval("activo")) == 1 %>'>
+                            <!-- Editar -->
+                            <asp:LinkButton ID="btnEditar" runat="server"
+                                            CssClass="btn btn-action btn-edit-admin"
+                                            CommandName="Editar"
+                                            CommandArgument='<%# Eval("idProducto") %>'
+                                            ToolTip="Editar">
+                                <i class="bi bi-pencil-fill"></i>
+                            </asp:LinkButton>
 
-                        <!-- Stock -->
-                        <button type="button"
-                                class="btn btn-action btn-stock-admin"
-                                onclick="abrirModalStock(this)"
-                                data-id='<%# Eval("idProducto") %>'
-                                data-nombre='<%# Eval("nombre") %>'
-                                data-stock-json='<%# ObtenerDatosStockJSON(Eval("idProducto")) %>'
-                                title="Gestionar Stock">
-                            <i class="bi bi-box-seam-fill"></i>
-                        </button>
+                            <!-- Stock -->
+                            <button type="button"
+                                    class="btn btn-action btn-stock-admin"
+                                    onclick="abrirModalStock(this)"
+                                    data-id='<%# Eval("idProducto") %>'
+                                    data-nombre='<%# Eval("nombre") %>'
+                                    data-stock-json='<%# ObtenerDatosStockJSON(Eval("idProducto")) %>'
+                                    title="Gestionar Stock">
+                                <i class="bi bi-box-seam-fill"></i>
+                            </button>
 
-                        <!-- Eliminar: abre modal de confirmación -->
-                        <button type="button"
-                                class="btn btn-action btn-delete-admin"
-                                onclick="abrirModalEliminar(this)"
-                                data-id='<%# Eval("idProducto") %>'
-                                data-nombre='<%# Eval("nombre") %>'
-                                title="Dar de baja producto">
-                            <i class="bi bi-trash-fill"></i>
-                        </button>
+                            <!-- Eliminar: abre modal de confirmación -->
+                            <button type="button"
+                                    class="btn btn-action btn-delete-admin"
+                                    onclick="abrirModalEliminar(this)"
+                                    data-id='<%# Eval("idProducto") %>'
+                                    data-nombre='<%# Eval("nombre") %>'
+                                    title="Dar de baja producto">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </asp:PlaceHolder>
+
+                        <!-- Acciones para productos INACTIVOS (papelera) -->
+                        <asp:PlaceHolder ID="phInactivo" runat="server"
+                                         Visible='<%# Convert.ToInt32(Eval("activo")) == 0 %>'>
+                            <asp:LinkButton ID="btnRestaurar" runat="server"
+                                            CssClass="btn btn-action btn-restore-admin"
+                                            CommandName="Restaurar"
+                                            CommandArgument='<%# Eval("idProducto") %>'
+                                            ToolTip="Restaurar producto">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </asp:LinkButton>
+                        </asp:PlaceHolder>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -377,7 +442,7 @@
         <button id="btnPagNext" class="btn btn-custom-teal">Siguiente &raquo;</button>
     </div>
 
-    <!-- MODAL STOCK (igual que lo tenías) -->
+    <!-- MODAL STOCK -->
     <div class="modal fade" id="modalStock" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -451,6 +516,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script type="text/javascript">
+        // ------- MODO: false = activos, true = papelera -------
+        let verPapelera = false;
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let $filas;
+
         // ---------- LÓGICA MODAL STOCK ----------
         function abrirModalStock(btn) {
             var $btn = $(btn);
@@ -529,32 +600,57 @@
             modal.show();
         }
 
-        // ---------- BÚSQUEDA Y PAGINACIÓN ----------
-        $(document).ready(function () {
-            let currentPage = 1;
-            const itemsPerPage = 10;
-            let $filas = $(".product-list-table tbody .producto-fila");
+        // ---------- CAMBIO ACTIVO / PAPELERA (solo JS) ----------
+        function cambiarModo(esPapelera) {
+            verPapelera = esPapelera;
+            currentPage = 1;
 
-            function actualizarVista() {
-                var searchTerm = $("#txtBuscar").val().toLowerCase();
-                var $filasFiltradas = $filas.filter(function () {
-                    var rowText = $(this).text().toLowerCase();
-                    return rowText.includes(searchTerm);
-                });
-
-                var totalPages = Math.ceil($filasFiltradas.length / itemsPerPage);
-                if (totalPages === 0) totalPages = 1;
-                if (currentPage > totalPages) currentPage = 1;
-
-                $filas.hide();
-                var startIndex = (currentPage - 1) * itemsPerPage;
-                var endIndex = startIndex + itemsPerPage;
-                $filasFiltradas.slice(startIndex, endIndex).show();
-
-                $("#lblPaginaActual").text(`Página ${currentPage} de ${totalPages}`);
-                $("#btnPagPrev").prop("disabled", currentPage === 1);
-                $("#btnPagNext").prop("disabled", currentPage === totalPages);
+            if (verPapelera) {
+                $('#lblSubtitulo').text('Papelera de productos');
+                $('#btnVerActivos').removeClass('active');
+                $('#btnVerPapelera').addClass('active');
+            } else {
+                $('#lblSubtitulo').text('Productos disponibles');
+                $('#btnVerPapelera').removeClass('active');
+                $('#btnVerActivos').addClass('active');
             }
+
+            actualizarVista();
+        }
+
+        // ---------- BÚSQUEDA + PAGINACIÓN + FILTRO ACTIVO/PAPELERA ----------
+        function actualizarVista() {
+            var searchTerm = $("#txtBuscar").val().toLowerCase();
+
+            var $filasFiltradas = $filas.filter(function () {
+                var $row = $(this);
+                var activo = parseInt($row.data('activo')) || 0;
+
+                // filtro por modo
+                if (!verPapelera && activo !== 1) return false;
+                if (verPapelera && activo !== 0) return false;
+
+                // filtro por texto
+                var rowText = $row.text().toLowerCase();
+                return rowText.includes(searchTerm);
+            });
+
+            var totalPages = Math.ceil($filasFiltradas.length / itemsPerPage);
+            if (totalPages === 0) totalPages = 1;
+            if (currentPage > totalPages) currentPage = 1;
+
+            $filas.hide();
+            var startIndex = (currentPage - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+            $filasFiltradas.slice(startIndex, endIndex).show();
+
+            $("#lblPaginaActual").text(`Página ${currentPage} de ${totalPages}`);
+            $("#btnPagPrev").prop("disabled", currentPage === 1);
+            $("#btnPagNext").prop("disabled", currentPage === totalPages);
+        }
+
+        $(document).ready(function () {
+            $filas = $(".product-list-table tbody .producto-fila");
 
             $("#txtBuscar").on("keyup", function () {
                 currentPage = 1;
@@ -569,8 +665,7 @@
                 actualizarVista();
             });
 
-            $filas = $(".product-list-table tbody .producto-fila");
-            actualizarVista();
+            actualizarVista(); // arranca mostrando solo activos
         });
     </script>
 </asp:Content>

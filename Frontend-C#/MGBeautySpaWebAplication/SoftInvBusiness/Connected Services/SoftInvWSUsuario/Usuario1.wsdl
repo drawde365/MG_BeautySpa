@@ -5,12 +5,6 @@
       <xsd:import schemaLocation="http://localhost:8080/SoftInvWS/Usuario?xsd=1" namespace="http://softinvws.services.softinv.pucp.edu.pe/" />
     </xsd:schema>
   </types>
-  <message name="ObtenerUsuario">
-    <part name="parameters" element="tns:ObtenerUsuario" />
-  </message>
-  <message name="ObtenerUsuarioResponse">
-    <part name="parameters" element="tns:ObtenerUsuarioResponse" />
-  </message>
   <message name="ModificarContrasenha">
     <part name="parameters" element="tns:ModificarContrasenha" />
   </message>
@@ -22,6 +16,24 @@
   </message>
   <message name="RegistrarTokenResponse">
     <part name="parameters" element="tns:RegistrarTokenResponse" />
+  </message>
+  <message name="ObtenerUsuario">
+    <part name="parameters" element="tns:ObtenerUsuario" />
+  </message>
+  <message name="ObtenerUsuarioResponse">
+    <part name="parameters" element="tns:ObtenerUsuarioResponse" />
+  </message>
+  <message name="IniciarSesion">
+    <part name="parameters" element="tns:IniciarSesion" />
+  </message>
+  <message name="IniciarSesionResponse">
+    <part name="parameters" element="tns:IniciarSesionResponse" />
+  </message>
+  <message name="ActivoUsuario">
+    <part name="parameters" element="tns:ActivoUsuario" />
+  </message>
+  <message name="ActivoUsuarioResponse">
+    <part name="parameters" element="tns:ActivoUsuarioResponse" />
   </message>
   <message name="ListarUsuarios">
     <part name="parameters" element="tns:ListarUsuarios" />
@@ -35,18 +47,6 @@
   <message name="ObtenerTokenDelUsuarioResponse">
     <part name="parameters" element="tns:ObtenerTokenDelUsuarioResponse" />
   </message>
-  <message name="ActivoUsuario">
-    <part name="parameters" element="tns:ActivoUsuario" />
-  </message>
-  <message name="ActivoUsuarioResponse">
-    <part name="parameters" element="tns:ActivoUsuarioResponse" />
-  </message>
-  <message name="IniciarSesion">
-    <part name="parameters" element="tns:IniciarSesion" />
-  </message>
-  <message name="IniciarSesionResponse">
-    <part name="parameters" element="tns:IniciarSesionResponse" />
-  </message>
   <message name="MarcarTokenComoUsado">
     <part name="parameters" element="tns:MarcarTokenComoUsado" />
   </message>
@@ -54,10 +54,6 @@
     <part name="parameters" element="tns:MarcarTokenComoUsadoResponse" />
   </message>
   <portType name="Usuario">
-    <operation name="ObtenerUsuario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest" message="tns:ObtenerUsuario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse" message="tns:ObtenerUsuarioResponse" />
-    </operation>
     <operation name="ModificarContrasenha">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaRequest" message="tns:ModificarContrasenha" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ModificarContrasenhaResponse" message="tns:ModificarContrasenhaResponse" />
@@ -65,6 +61,18 @@
     <operation name="RegistrarToken">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenRequest" message="tns:RegistrarToken" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/RegistrarTokenResponse" message="tns:RegistrarTokenResponse" />
+    </operation>
+    <operation name="ObtenerUsuario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioRequest" message="tns:ObtenerUsuario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerUsuarioResponse" message="tns:ObtenerUsuarioResponse" />
+    </operation>
+    <operation name="IniciarSesion">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest" message="tns:IniciarSesion" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse" message="tns:IniciarSesionResponse" />
+    </operation>
+    <operation name="ActivoUsuario">
+      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest" message="tns:ActivoUsuario" />
+      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse" message="tns:ActivoUsuarioResponse" />
     </operation>
     <operation name="ListarUsuarios">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ListarUsuariosRequest" message="tns:ListarUsuarios" />
@@ -74,14 +82,6 @@
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioRequest" message="tns:ObtenerTokenDelUsuario" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ObtenerTokenDelUsuarioResponse" message="tns:ObtenerTokenDelUsuarioResponse" />
     </operation>
-    <operation name="ActivoUsuario">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioRequest" message="tns:ActivoUsuario" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/ActivoUsuarioResponse" message="tns:ActivoUsuarioResponse" />
-    </operation>
-    <operation name="IniciarSesion">
-      <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionRequest" message="tns:IniciarSesion" />
-      <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/IniciarSesionResponse" message="tns:IniciarSesionResponse" />
-    </operation>
     <operation name="MarcarTokenComoUsado">
       <input wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoRequest" message="tns:MarcarTokenComoUsado" />
       <output wsam:Action="http://softinvws.services.softinv.pucp.edu.pe/Usuario/MarcarTokenComoUsadoResponse" message="tns:MarcarTokenComoUsadoResponse" />
@@ -89,15 +89,6 @@
   </portType>
   <binding name="UsuarioPortBinding" type="tns:Usuario">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="ObtenerUsuario">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" />
-      </input>
-      <output>
-        <soap:body use="literal" />
-      </output>
-    </operation>
     <operation name="ModificarContrasenha">
       <soap:operation soapAction="" />
       <input>
@@ -116,7 +107,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ListarUsuarios">
+    <operation name="ObtenerUsuario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -125,7 +116,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ObtenerTokenDelUsuario">
+    <operation name="IniciarSesion">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -143,7 +134,16 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="IniciarSesion">
+    <operation name="ListarUsuarios">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ObtenerTokenDelUsuario">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

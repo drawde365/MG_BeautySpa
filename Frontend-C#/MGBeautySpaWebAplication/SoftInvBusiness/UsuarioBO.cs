@@ -57,6 +57,8 @@ namespace SoftInvBusiness
         {
             return usuarioSOAP.ActivoUsuario(idUsuario, estado);
         }
+
+
     }
 }
 

@@ -58,7 +58,8 @@
         }
 
         .search-box {
-            max-width: 420px;
+            max-width: 480px; /* Aumenté un poco el máximo */
+            min-width: 280px; /* <--- AGREGA ESTO: Evita que se encoja menos que el texto */
             position: relative;
             flex: 1;
         }
@@ -122,7 +123,6 @@
         .badge-confirmado { background-color: #FFF4D8; color: #8A5B00; }
         .badge-listo       { background-color: #D8FBE7; color: #006C3F; }
         .badge-recogido    { background-color: #C7E1FF; color: #084298; }
-        .badge-norecogido  { background-color: #FFE0E0; color: #A30021; }
 
         .acciones-pedido {
             text-align: center;
@@ -146,7 +146,6 @@
         .action-ver            { background-color: #E5E7EB; color: #111827; }
         .action-definir-fecha  { background-color: #0C7C59; color: white; }
         .action-marcar-recogido{ background-color: #1E88E5; color: white; }
-        .action-cancelar       { background-color: #DC3545; color: white; }
 
         .action-icon[disabled="disabled"] {
             opacity: 0.4;
@@ -159,9 +158,19 @@
             color: #6B7280;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+
+        .paginacion-pedidos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 4px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .paginacion-pedidos .btn {
+            font-size: 13px;
+        }
     </style>
-
-
 
 </asp:Content>
 
@@ -179,20 +188,13 @@
                 <input type="text"
                        id="searchPedidos"
                        class="form-control"
-                       placeholder="Buscar por nombre de cliente..." />
+                       placeholder="Buscar por nombre de cliente" />
             </div>
-
-            <select id="orderTotal" class="filter-select">
-                <option value="">Sin ordenar</option>
-                <option value="desc">Mayor total de dinero</option>
-            </select>
 
             <select id="filterEstado" class="filter-select">
                 <option value="">Todos los estados</option>
                 <option value="CONFIRMADO">Confirmado</option>
                 <option value="LISTO_PARA_RECOGER">Listo para recoger</option>
-                <option value="RECOGIDO">Recogido</option>
-                <option value="NO_RECOGIDO">No recogido</option>
             </select>
 
         </div>
@@ -225,7 +227,8 @@
                     data-estado='<%# Eval("Estado") %>'
                     data-tienefecha='<%# (Eval("FechaListaParaRecojo") == null ? "0" : "1") %>'
                     data-cliente='<%# Eval("NombreCliente") %>'
-                    data-total='<%# Eval("Total", "{0:F2}") %>'>
+                    data-total='<%# Eval("Total", "{0:F2}") %>'
+                    data-page='<%# Eval("PageNumber") %>'>
 
                     <td>
                         <strong>#<%# Eval("IdPedido") %></strong><br />
@@ -272,14 +275,6 @@
                             <i class="bi bi-bag-check"></i>
                         </asp:LinkButton>
 
-                        <asp:LinkButton ID="btnCancelar" runat="server"
-                            CssClass="action-icon action-cancelar"
-                            CommandName="CancelarPedido"
-                            CommandArgument='<%# Eval("IdPedido") %>'
-                            ToolTip="Marcar como no recogido">
-                            <i class="bi bi-x-lg"></i>
-                        </asp:LinkButton>
-
                     </td>
                 </tr>
             </ItemTemplate>
@@ -294,6 +289,38 @@
             No hay pedidos para mostrar.
         </asp:Panel>
 
+    </div>
+
+    <div class="paginacion-pedidos">
+        <div>
+            <button type="button"
+                    class="btn btn-outline-secondary btn-sm me-2"
+                    onclick="if (window.mgPedidos) { window.mgPedidos.irAPaginaRel(-1); }">
+                <i class="bi bi-chevron-left"></i> Anterior
+            </button>
+
+            <button type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    onclick="if (window.mgPedidos) { window.mgPedidos.irAPaginaRel(1); }">
+                Siguiente <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="text-muted small">
+            Página <span id="spanPaginaActual">1</span>
+            de <span id="spanTotalPaginas"><asp:Literal ID="litTotalPaginas" runat="server"></asp:Literal></span>
+        </div>
+
+        <asp:HiddenField ID="hfPaginaActual" runat="server" />
+        <asp:HiddenField ID="hfPaginaBreak" runat="server" />
+        <asp:HiddenField ID="hfTotalPaginas" runat="server" />
+        <asp:HiddenField ID="hfPaginaSolicitada" runat="server" />
+        <asp:LinkButton ID="btnCargarPaginas"
+                        runat="server"
+                        CssClass="d-none"
+                        OnClick="btnCargarPaginas_Click">
+            Cargar
+        </asp:LinkButton>
     </div>
 
     <div class="modal fade" id="modalDetallesPedido" tabindex="-1" aria-hidden="true">
@@ -423,47 +450,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalNoRecogido" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Marcar pedido como NO recogido</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <asp:HiddenField ID="hfldPedidoNoRecogido" runat="server" />
-
-                    <p class="mb-1">
-                        <strong>Pedido:</strong>
-                        <asp:Literal ID="litNoRecogidoPedido" runat="server"></asp:Literal>
-                    </p>
-                    <p class="mb-3">
-                        <strong>Cliente:</strong>
-                        <asp:Literal ID="litNoRecogidoCliente" runat="server"></asp:Literal>
-                    </p>
-
-                    <p class="text-danger mb-0">
-                        ¿Está seguro de marcar este pedido como <strong>NO_RECOGIDO</strong>?
-                    </p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-                    <asp:LinkButton ID="btnConfirmarNoRecogido" runat="server"
-                                    CssClass="btn btn-danger"
-                                    OnClick="btnConfirmarNoRecogido_Click">
-                        Sí, marcar como no recogido
-                    </asp:LinkButton>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="modalMensajeAccion" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -492,53 +478,198 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
     <script>
         (function () {
+            // Elementos del DOM
             const searchInput = document.getElementById("searchPedidos");
             const filterEstado = document.getElementById("filterEstado");
-            const orderTotal = document.getElementById("orderTotal");
+            // SE ELIMINÓ orderTotal
             const tbody = document.getElementById("tbodyPedidos");
+            const pnlSinPedidos = document.getElementById("<%= pnlSinPedidos.ClientID %>");
+
+        // Elementos de estado del servidor
+        const hfPaginaActual = document.getElementById("<%= hfPaginaActual.ClientID %>");
+        const hfPaginaBreak = document.getElementById("<%= hfPaginaBreak.ClientID %>");
+        const hfTotalPaginas = document.getElementById("<%= hfTotalPaginas.ClientID %>");
+        const hfPaginaSolicitada = document.getElementById("<%= hfPaginaSolicitada.ClientID %>");
+        const btnCargarPaginas = document.getElementById("<%= btnCargarPaginas.ClientID %>");
+
+            // Elementos visuales de paginación
+            const spanActual = document.getElementById("spanPaginaActual");
+            const spanTotal = document.getElementById("spanTotalPaginas");
+
+            // CONSTANTES Y ESTADO CLIENTE
+            const ROWS_PER_PAGE = 10;
+            let filteredPage = 1;       // Página actual dentro del filtro
+            let filteredTotalPages = 1; // Total de páginas del filtro
+            let isFiltering = false;    // Bandera para saber en qué modo estamos
 
             function getRows() {
+                if (!tbody) return [];
                 return Array.from(tbody.querySelectorAll("tr[data-id]"));
             }
 
-            function filtrarPedidos() {
-                const text = (searchInput?.value || "").toLowerCase();
-                const fEstado = filterEstado ? filterEstado.value : "";
+            // ==========================================
+            // LÓGICA PRINCIPAL DE FILTRO Y PAGINACIÓN
+            // ==========================================
+            function aplicarFiltrosYRenderizar() {
+                const filas = getRows();
 
-                getRows().forEach(row => {
-                    const estado = row.dataset.estado;
-                    const cliente = (row.dataset.cliente || "").toLowerCase();
+                // 1. Obtener criterios
+                const texto = (searchInput?.value || "").toLowerCase().trim();
+                const estadoSel = filterEstado ? filterEstado.value : "";
 
-                    const okTexto = cliente.includes(text);
-                    let okEstado = true;
+                // Determinar si hay filtro activo
+                isFiltering = (texto.length > 0 || estadoSel.length > 0);
 
-                    if (fEstado !== "") {
-                        okEstado = (estado === fEstado);
+                // 2. Identificar coincidencias (Matches)
+                let matches = [];
+
+                filas.forEach(row => {
+                    const rowEstado = row.dataset.estado;
+                    const rowCliente = (row.dataset.cliente || "").toLowerCase();
+
+                    const matchTexto = rowCliente.includes(texto);
+                    const matchEstado = !estadoSel || rowEstado === estadoSel;
+
+                    if (matchTexto && matchEstado) {
+                        matches.push(row);
+                    }
+                    // Ocultamos todas primero
+                    row.style.display = "none";
+                });
+
+                // 3. Calcular paginación según el modo
+                if (isFiltering) {
+                    // --- MODO FILTRADO ---
+                    // Calculamos cuántas páginas salen de los resultados filtrados
+                    filteredTotalPages = Math.ceil(matches.length / ROWS_PER_PAGE);
+                    if (filteredTotalPages < 1) filteredTotalPages = 1;
+
+                    // Asegurar que la página actual sea válida
+                    if (filteredPage > filteredTotalPages) filteredPage = filteredTotalPages;
+                    if (filteredPage < 1) filteredPage = 1;
+
+                    // Definir rango a mostrar (Slice)
+                    const startIndex = (filteredPage - 1) * ROWS_PER_PAGE;
+                    const endIndex = startIndex + ROWS_PER_PAGE;
+
+                    // Mostrar solo las filas de ESTA página filtrada
+                    for (let i = startIndex; i < endIndex && i < matches.length; i++) {
+                        matches[i].style.display = "";
                     }
 
-                    row.style.display = (okTexto && okEstado) ? "" : "none";
-                });
+                    // Actualizar textos de paginación (Visual)
+                    if (spanActual) spanActual.textContent = filteredPage;
+                    if (spanTotal) spanTotal.textContent = filteredTotalPages;
+
+                } else {
+                    // --- MODO NORMAL (Servidor) ---
+                    // Usamos la variable del servidor (hfPaginaActual)
+                    const paginaGlobal = parseInt(hfPaginaActual?.value || "1");
+                    const totalGlobal = parseInt(hfTotalPaginas?.value || "1");
+
+                    filas.forEach(row => {
+                        const rowPage = parseInt(row.dataset.page || "1");
+                        if (rowPage === paginaGlobal) {
+                            row.style.display = "";
+                        }
+                    });
+
+                    // Restaurar textos originales
+                    if (spanActual) spanActual.textContent = paginaGlobal;
+                    if (spanTotal) spanTotal.textContent = totalGlobal;
+                }
+
+                // 4. Manejo de mensajes de "Sin resultados"
+                if (matches.length === 0 && isFiltering) {
+                    if (pnlSinPedidos) {
+                        pnlSinPedidos.style.display = "block";
+                        pnlSinPedidos.innerText = "No se encontraron resultados para tu búsqueda.";
+                    }
+                    // Si no hay matches, ocultamos la tabla headers (opcional, o dejarla vacía)
+                } else if (filas.length === 0) {
+                    if (pnlSinPedidos) {
+                        pnlSinPedidos.style.display = "block";
+                        pnlSinPedidos.innerText = "No hay pedidos cargados.";
+                    }
+                } else {
+                    if (pnlSinPedidos) pnlSinPedidos.style.display = "none";
+                }
             }
 
-            function ordenarPorTotal() {
-                const modo = orderTotal ? orderTotal.value : "";
-                if (!modo) return;
-
-                const filas = getRows();
-                filas.sort((a, b) => {
-                    const ta = parseFloat(a.dataset.total || "0");
-                    const tb = parseFloat(b.dataset.total || "0");
-                    return modo === "desc" ? (tb - ta) : (ta - tb);
-                });
-
-                filas.forEach(f => tbody.appendChild(f));
+            // ==========================================
+            // EVENTOS DE CAMBIO (Inputs)
+            // ==========================================
+            function onFilterChange() {
+                // Cuando cambia el filtro, siempre volvemos a la página 1 del filtro
+                filteredPage = 1;
+                aplicarFiltrosYRenderizar();
             }
 
-            if (searchInput) searchInput.addEventListener("input", filtrarPedidos);
-            if (filterEstado) filterEstado.addEventListener("change", filtrarPedidos);
-            if (orderTotal) orderTotal.addEventListener("change", ordenarPorTotal);
+            // SE ELIMINÓ LA FUNCIÓN ordenarPorTotal()
 
-            filtrarPedidos();
+            // ==========================================
+            // NAVEGACIÓN (Botones Anterior/Siguiente)
+            // ==========================================
+            function irAPaginaRel(delta) {
+
+                if (isFiltering) {
+                    // Navegación VIRTUAL (Solo JS)
+                    const nuevaPagina = filteredPage + delta;
+                    if (nuevaPagina >= 1 && nuevaPagina <= filteredTotalPages) {
+                        filteredPage = nuevaPagina;
+                        aplicarFiltrosYRenderizar();
+                    }
+                } else {
+                    // Navegación GLOBAL (Lógica original con Servidor)
+                    const actual = parseInt(hfPaginaActual?.value || "1");
+                    irAPaginaGlobal(actual + delta);
+                }
+            }
+
+            function irAPaginaGlobal(paginaDestino) {
+                if (!hfTotalPaginas || !hfPaginaBreak) return;
+
+                const total = parseInt(hfTotalPaginas.value || "1");
+                const breakPage = parseInt(hfPaginaBreak.value || "0");
+
+                if (paginaDestino < 1 || paginaDestino > total) return;
+
+                if (paginaDestino <= breakPage) {
+                    // Datos ya en memoria
+                    hfPaginaActual.value = paginaDestino;
+                    aplicarFiltrosYRenderizar(); // Re-renderizar modo normal
+                } else {
+                    // Pedir al servidor
+                    if (hfPaginaSolicitada) hfPaginaSolicitada.value = paginaDestino;
+                    if (btnCargarPaginas) btnCargarPaginas.click();
+                }
+            }
+
+            // Función llamada desde el servidor (Page_PreRender) para setear estado inicial
+            function mostrarPagina(pagina) {
+                if (hfPaginaActual) hfPaginaActual.value = pagina;
+                // Al venir del servidor, asumimos que no hay filtro activo o se resetea
+                filteredPage = 1;
+                aplicarFiltrosYRenderizar();
+            }
+
+            // ==========================================
+            // INICIALIZACIÓN
+            // ==========================================
+            if (searchInput) searchInput.addEventListener("input", onFilterChange);
+            if (filterEstado) filterEstado.addEventListener("change", onFilterChange);
+            // SE ELIMINÓ EL EVENT LISTENER DE orderTotal
+
+            window.mgPedidos = {
+                mostrarPagina: mostrarPagina,
+                irAPaginaRel: irAPaginaRel
+            };
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Carga inicial
+                aplicarFiltrosYRenderizar();
+            });
+
         })();
     </script>
 </asp:Content>

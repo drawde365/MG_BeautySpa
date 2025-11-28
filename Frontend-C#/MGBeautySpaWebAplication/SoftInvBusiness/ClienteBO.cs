@@ -31,5 +31,10 @@ namespace SoftInvBusiness
         {
             return clienteSOAP.eliminarCuenta(cliente);
         }
+
+        public IList<clienteDTO> ObtenerClientes(string nombre, string primerApellido, string segundoApellido, string correo, string celular)
+        {
+            return clienteSOAP.buscarCliente(nombre,primerApellido,segundoApellido,correo,celular);
+        }
     }
 }

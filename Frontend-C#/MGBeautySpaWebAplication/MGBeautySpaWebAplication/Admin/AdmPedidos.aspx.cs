@@ -13,6 +13,11 @@ namespace MGBeautySpaWebAplication.Admin
         private readonly PedidoBO pedidoBO = new PedidoBO();
 
         private const string SESSION_KEY_PEDIDOS = "AdmPedidos_ListaPedidos";
+        private const string SESSION_KEY_PAGINA_BREAK = "AdmPedidos_PaginaBreak";
+        private const string SESSION_KEY_TOTAL_PAGINAS = "AdmPedidos_TotalPaginas";
+
+        private const int PAGE_SIZE = 10;   // 10 pedidos por página
+        private const int PAGES_PER_BATCH = 3; // 10 páginas por lote => 100 pedidos
 
         private class PedidoViewModel
         {
@@ -24,6 +29,9 @@ namespace MGBeautySpaWebAplication.Admin
             public DateTime? FechaListaParaRecojo { get; set; }
             public DateTime? FechaRecojo { get; set; }
             public double Total { get; set; }
+
+            // Página lógica a la que pertenece este pedido (1..N)
+            public int PageNumber { get; set; }
         }
 
         private class DetallePedidoViewModel
@@ -46,6 +54,24 @@ namespace MGBeautySpaWebAplication.Admin
             }
         }
 
+        private int PaginaBreak
+        {
+            get => (int)(Session[SESSION_KEY_PAGINA_BREAK] ?? 0);
+            set => Session[SESSION_KEY_PAGINA_BREAK] = value;
+        }
+
+        private int TotalPaginas
+        {
+            get => (int)(Session[SESSION_KEY_TOTAL_PAGINAS] ?? 0);
+            set => Session[SESSION_KEY_TOTAL_PAGINAS] = value;
+        }
+
+        private int PaginaActual
+        {
+            get => (int)(ViewState["PaginaActual"] ?? 1);
+            set => ViewState["PaginaActual"] = value;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -56,26 +82,99 @@ namespace MGBeautySpaWebAplication.Admin
             {
                 CargarPedidosDesdeSesion();
             }
+
+            /*
+            hfTotalPaginas.Value = (TotalPaginas > 0 ? TotalPaginas : 1).ToString();
+            hfPaginaBreak.Value = PaginaBreak.ToString();
+            hfPaginaActual.Value = PaginaActual.ToString();
+            litTotalPaginas.Text = hfTotalPaginas.Value;
+            */
         }
 
+        /// <summary>
+        /// Resetea el estado y carga el primer lote de páginas.
+        /// </summary>
         private void RefrescarPedidosDesdeServicio()
         {
-            IList<pedidoDTO> lista = pedidoBO.ListarTodosPedidos() ?? new List<pedidoDTO>();
+            TotalPaginas = pedidoBO.obtenerPaginas();
+            PaginaActual = 1;
+            PaginaBreak = 0;
+            PedidosEnSesion = new List<PedidoViewModel>();
 
-            var vm = lista
+            // Carga el primer lote (páginas 1-10)
+            CargarSiguienteLote();
+
+            CargarPedidosDesdeSesion();
+        }
+
+        /// <summary>
+        /// Carga el siguiente lote de 10 páginas (hasta 100 pedidos) usando pedidoBO.TraerMasPaginas().
+        /// </summary>
+        private void CargarSiguienteLote()
+        {
+            // Lote actual = (PaginaBreak / 10) + 1
+            int numeroLote = (PaginaBreak / PAGES_PER_BATCH) + 1;
+
+            IList<pedidoDTO> lista = pedidoBO.TraerMasPaginas(numeroLote) ?? new List<pedidoDTO>();
+
+            // Por si el servicio trae EnCarrito, lo filtramos igual que antes.
+            var listaFiltrada = lista
                 .Where(p => p.estadoPedido != estadoPedido.EnCarrito)
-                .Select(MapearPedidoDTO)
                 .ToList();
 
-            PedidosEnSesion = vm;
+            var acumulado = PedidosEnSesion ?? new List<PedidoViewModel>();
+            int baseIndex = acumulado.Count; // para calcular PageNumber global
 
-            BindPedidos(vm);
+            foreach (var dto in listaFiltrada)
+            {
+                var vm = MapearPedidoDTO(dto);
+
+                int globalIndex = baseIndex; // 0-based
+                vm.PageNumber = (globalIndex / PAGE_SIZE) + 1;
+
+                acumulado.Add(vm);
+                baseIndex++;
+            }
+
+            PedidosEnSesion = acumulado;
+
+            // Recalcular PáginaBreak en función del total de items cargados.
+            int totalItems = acumulado.Count;
+            PaginaBreak = (int)Math.Ceiling(totalItems / (double)PAGE_SIZE);
+
+            if (PaginaBreak > TotalPaginas)
+                PaginaBreak = TotalPaginas;
         }
 
         private void CargarPedidosDesdeSesion()
         {
             var vm = PedidosEnSesion ?? new List<PedidoViewModel>();
             BindPedidos(vm);
+
+            /*
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "mostrarPaginaInicial",
+                $"setTimeout(function(){{ if(window.mgPedidos) window.mgPedidos.mostrarPagina({PaginaActual}); }}, 50);",
+                true);
+            */
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            // 1. Actualizar campos ocultos y literales con el valor FINAL de las propiedades
+            //    (Después de que haya ocurrido cualquier click en btnCargarPaginas)
+            hfTotalPaginas.Value = (TotalPaginas > 0 ? TotalPaginas : 1).ToString();
+            hfPaginaBreak.Value = PaginaBreak.ToString();
+            hfPaginaActual.Value = PaginaActual.ToString();
+            litTotalPaginas.Text = hfTotalPaginas.Value;
+
+            // 2. Registrar el script para mostrar la página correcta
+            //    Al hacerlo aquí, garantizamos que 'PaginaActual' ya tiene el valor nuevo (ej. 4)
+            string script = $"setTimeout(function(){{ if(window.mgPedidos) window.mgPedidos.mostrarPagina({PaginaActual}); }}, 50);";
+
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                "mostrarPaginaInicial",
+                script,
+                true);
         }
 
         private PedidoViewModel MapearPedidoDTO(pedidoDTO p)
@@ -142,8 +241,6 @@ namespace MGBeautySpaWebAplication.Admin
                     return "badge-listo";
                 case estadoPedido.RECOGIDO:
                     return "badge-recogido";
-                case estadoPedido.NO_RECOGIDO:
-                    return "badge-norecogido";
                 default:
                     return "badge-confirmado";
             }
@@ -160,7 +257,6 @@ namespace MGBeautySpaWebAplication.Admin
             var btnVerPedido = (LinkButton)e.Item.FindControl("btnVerPedido");
             var btnDefinirFecha = (LinkButton)e.Item.FindControl("btnDefinirFecha");
             var btnMarcarRecogido = (LinkButton)e.Item.FindControl("btnMarcarRecogido");
-            var btnCancelar = (LinkButton)e.Item.FindControl("btnCancelar");
 
             btnVerPedido.Visible = true;
 
@@ -168,9 +264,9 @@ namespace MGBeautySpaWebAplication.Admin
 
             if (!tieneFechaLista)
             {
+                // Solo cuando está CONFIRMADO aún se muestra "Definir fecha"
                 btnDefinirFecha.Visible = (vm.Estado == estadoPedido.CONFIRMADO);
                 btnMarcarRecogido.Visible = false;
-                btnCancelar.Visible = false;
             }
             else
             {
@@ -179,12 +275,10 @@ namespace MGBeautySpaWebAplication.Admin
                 if (vm.Estado == estadoPedido.LISTO_PARA_RECOGER)
                 {
                     btnMarcarRecogido.Visible = true;
-                    btnCancelar.Visible = true;
                 }
                 else
                 {
                     btnMarcarRecogido.Visible = false;
-                    btnCancelar.Visible = false;
                 }
             }
         }
@@ -210,11 +304,26 @@ namespace MGBeautySpaWebAplication.Admin
                 case "MarcarRecogido":
                     PrepararModalRecogido(idPedido);
                     break;
-
-                case "CancelarPedido":
-                    PrepararModalNoRecogido(idPedido);
-                    break;
             }
+        }
+
+        /// <summary>
+        /// Evento del botón oculto: se dispara cuando el JS necesita cargar un nuevo lote.
+        /// </summary>
+        protected void btnCargarPaginas_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(hfPaginaSolicitada.Value, out int paginaDestino))
+                paginaDestino = PaginaActual;
+
+            // Si la página destino está más allá del break, hay que cargar otro lote.
+            if (paginaDestino > PaginaBreak)
+            {
+                CargarSiguienteLote();
+            }
+
+            PaginaActual = paginaDestino;
+
+            CargarPedidosDesdeSesion();
         }
 
         private void PrepararModalRecogido(int idPedido)
@@ -304,8 +413,6 @@ namespace MGBeautySpaWebAplication.Admin
                     "alert('La fecha de recojo debe ser mayor o igual a la fecha lista para recoger.');" +
                     "var m = new bootstrap.Modal(document.getElementById('modalMarcarRecogido')); m.show();",
                     true);
-
-
                 return;
             }
 
@@ -320,65 +427,7 @@ namespace MGBeautySpaWebAplication.Admin
                 "var infoModal = new bootstrap.Modal(document.getElementById('modalMensajeAccion')); infoModal.show();",
                 true);
 
-            RefrescarPedidosDesdeServicio();
-        }
-
-        private void PrepararModalNoRecogido(int idPedido)
-        {
-            var pedido = pedidoBO.ObtenerPorId(idPedido);
-            if (pedido == null) return;
-
-            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "msgEstadoIncorrectoNo",
-                    "alert('Solo se pueden marcar como NO_RECOGIDO los pedidos que están LISTO_PARA_RECOGER.');",
-                    true);
-                return;
-            }
-
-            string nombreCliente = pedido.cliente != null
-                ? (pedido.cliente.nombre + " " +
-                    pedido.cliente.primerapellido + " " +
-                    pedido.cliente.segundoapellido)
-                : "(Sin cliente)";
-
-            hfldPedidoNoRecogido.Value = pedido.idPedido.ToString();
-            litNoRecogidoPedido.Text = $"#{pedido.idPedido}";
-            litNoRecogidoCliente.Text = nombreCliente;
-
-            ScriptManager.RegisterStartupScript(this, GetType(),
-                "showModalNoRecogido",
-                "var m = new bootstrap.Modal(document.getElementById('modalNoRecogido')); m.show();",
-                true);
-        }
-
-        protected void btnConfirmarNoRecogido_Click(object sender, EventArgs e)
-        {
-            if (!int.TryParse(hfldPedidoNoRecogido.Value, out int idPedido))
-                return;
-
-            var pedido = pedidoBO.ObtenerPorId(idPedido);
-            if (pedido == null) return;
-
-            if (pedido.estadoPedido != estadoPedido.LISTO_PARA_RECOGER)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "msgEstadoIncorrectoNo2",
-                    "alert('Solo se pueden marcar como NO_RECOGIDO los pedidos que están LISTO_PARA_RECOGER.');",
-                    true);
-                return;
-            }
-
-            pedido.estadoPedido = estadoPedido.NO_RECOGIDO;
-            pedidoBO.RechazarRecojo(pedido);
-
-            litMensajeAccion.Text = "Pedido marcado como <strong>NO_RECOGIDO</strong>.";
-            ScriptManager.RegisterStartupScript(this, GetType(),
-                "msgOkNoRecogido",
-                "var infoModal = new bootstrap.Modal(document.getElementById('modalMensajeAccion')); infoModal.show();",
-                true);
-
+            // Después de actualizar un pedido, recargamos desde el servicio
             RefrescarPedidosDesdeServicio();
         }
 

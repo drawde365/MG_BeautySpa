@@ -252,22 +252,22 @@
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="RechazarRecojo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="pedido" type="tns:pedidoDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="RechazarRecojoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="EliminarPedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="pedido" type="tns:pedidoDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EliminarPedidoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RechazarRecojo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="pedido" type="tns:pedidoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RechazarRecojoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:int" />
     </xs:sequence>

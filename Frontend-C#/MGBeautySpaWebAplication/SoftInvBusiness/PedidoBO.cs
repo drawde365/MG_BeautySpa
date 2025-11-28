@@ -101,9 +101,9 @@ namespace SoftInvBusiness
             return pedidoSOAP.modificarProductoTipo(productoTipo);
         }
 
-        public IList<pedidoDTO> listarTodoPedidosPaginado(int pag)
+        public IList<pedidoDTO> TraerMasPaginas(int pagina)
         {
-            return pedidoSOAP.listarTodoPedidosPaginado(pag);
+            return pedidoSOAP.listarTodoPedidosPaginado(pagina);
         }
 
         public int obtenerPaginas()

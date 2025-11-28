@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Tu Carrito" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
+﻿<%@ Page Title="Tu Carrito" Async="true" Language="C#" MasterPageFile="~/Cliente/Cliente.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="MGBeautySpaWebAplication.Cliente.Carrito" %>
 
 <asp:Content ID="Content0" ContentPlaceHolderID="TitleContent" runat="server">
     Carrito | MG Beauty Spa

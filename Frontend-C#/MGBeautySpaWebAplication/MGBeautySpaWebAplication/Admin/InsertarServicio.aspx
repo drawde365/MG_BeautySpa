@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="Añadir Servicio" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeBehind="InsertarServicio.aspx.cs" Inherits="MGBeautySpaWebAplication.Admin.InsertarServicio" %>
 
+<asp:Content ID="TitleContent1" ContentPlaceHolderID="TitleContent" runat="server">
+    Modificar servicio
+</asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <style>

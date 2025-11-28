@@ -308,23 +308,79 @@ public class PedidoDAOimpl extends DAOImplBase implements PedidoDAO {
         sql += this.obtenerQuerySinCarrito();
         return (ArrayList<PedidoDTO>) super.listarTodos(sql, null, null);
     }
+    
     @Override
     public ArrayList<PedidoDTO> listarTodoPedidosPaginado(Integer pagina) {
-        int cantidadPorPagina=100;
-        String sql = this.ObtenerBaseQueryPedidos();
-        sql += this.obtenerQuerySinCarrito();
-        sql += " ORDER BY p.PEDIDO_ID DESC "; 
-        sql += " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        int offset = (pagina - 1) * cantidadPorPagina;
-        Object[] parametros = new Object[]{offset, cantidadPorPagina};
+        Integer cantidadPorPagina = 30;
+        int inicio = (pagina - 1) * cantidadPorPagina;
+        int fin = inicio + cantidadPorPagina;
 
-        return (ArrayList<PedidoDTO>) super.listarTodos(sql, this::configurarParametrosPaginacion, parametros);
+        String sql = """
+            SELECT 
+                T.PEDIDO_ID, T.CLIENTE_ID, T.TOTAL, T.ESTADO, T.FECHA_PAGO, 
+                T.FECHA_LISTA_PARA_RECOGER, T.FECHA_RECOJO, T.IGV, T.CODTR,
+
+                cli.NOMBRE AS Cliente_Nombre,
+                cli.PRIMER_APELLIDO AS Cliente_Primer_Apellido,
+                cli.SEGUNDO_APELLIDO AS Cliente_Segundo_Apellido,
+                cli.CORREO_ELECTRONICO AS Cliente_Correo,
+                cli.CELULAR AS Cliente_Celular,
+
+                dp.PRODUCTO_ID, dp.TIPO_ID, dp.CANTIDAD, dp.SUBTOTAL,
+
+                tp.NOMBRE AS TIPO_NOMBRE,
+                pr.NOMBRE AS Producto_Nombre,
+                pr.URL_IMAGEN AS Producto_Imagen,
+                pr.PRECIO AS Producto_Precio, 
+                pr.TAMANHO AS Producto_Tamanho, 
+
+                pt.STOCK_FISICO, pt.STOCK_DESPACHO, pt.INGREDIENTES, pt.ACTIVO AS PT_ACTIVO
+
+            FROM (
+                -- SUB-CONSULTA DE PAGINACIÓN
+                SELECT x.* FROM (
+                    SELECT 
+                        p.PEDIDO_ID,
+                        p.CLIENTE_ID, p.TOTAL, p.ESTADO, p.FECHA_PAGO, 
+                        p.FECHA_LISTA_PARA_RECOGER, p.FECHA_RECOJO, p.IGV, p.CODTR,
+                        -- Función de Ventana Universal
+                        ROW_NUMBER() OVER (ORDER BY p.PEDIDO_ID DESC) as RN
+                    FROM PEDIDOS p
+                    WHERE p.ESTADO != 'EnCarrito' 
+                      AND (p.ESTADO = 'CONFIRMADO' OR p.ESTADO = 'LISTO_PARA_RECOGER')
+                ) x
+                WHERE x.RN > ? AND x.RN <= ?
+            ) T
+
+            -- JOINS (Solo se ejecutan para los 100 pedidos filtrados arriba)
+            INNER JOIN USUARIOS cli ON T.CLIENTE_ID = cli.USUARIO_ID
+            LEFT JOIN DETALLES_PEDIDOS dp ON T.PEDIDO_ID = dp.PEDIDO_ID
+            LEFT JOIN PRODUCTOS pr ON dp.PRODUCTO_ID = pr.PRODUCTO_ID
+            LEFT JOIN TIPOS_PRODS tp ON dp.TIPO_ID = tp.TIPO_ID
+            LEFT JOIN PRODUCTOS_TIPOS pt ON dp.PRODUCTO_ID = pt.PRODUCTO_ID AND dp.TIPO_ID = pt.TIPO_ID
+
+            ORDER BY T.PEDIDO_ID DESC
+        """;
+
+        Object[] parametros = new Object[]{inicio, fin};
+
+        return (ArrayList<PedidoDTO>) super.listarTodos(sql, this::configurarParametrosRowNumber, parametros);
+    }
+
+    // Método auxiliar para setear los parámetros
+    private void configurarParametrosRowNumber(Object objetoParametros) {
+        Object[] params = (Object[]) objetoParametros;
+        try {
+            this.statement.setInt(1, (Integer) params[0]); // x.RN > inicio
+            this.statement.setInt(2, (Integer) params[1]); // x.RN <= fin
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     private void configurarParametrosPaginacion(Object objetoParametros) {
         Object[] params = (Object[]) objetoParametros;
         try {
-            // El orden depende de tu query: primero OFFSET, luego FETCH NEXT (LIMIT)
             this.statement.setInt(1, (Integer) params[0]);
             this.statement.setInt(2, (Integer) params[1]);
         } catch (SQLException e) {
