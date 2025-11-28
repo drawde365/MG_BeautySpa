@@ -44,8 +44,8 @@ namespace MGBeautySpaWebAplication.Cliente.Perfil
             if (!IsPostBack)
             {
                 LimiteReservas = 3;
-                CargarReservas();
             }
+            CargarReservas();
         }
 
         private void CargarReservas()
