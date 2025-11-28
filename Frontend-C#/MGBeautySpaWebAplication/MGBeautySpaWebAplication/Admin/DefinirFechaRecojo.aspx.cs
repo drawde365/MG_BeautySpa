@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,10 +16,17 @@ namespace MGBeautySpaWebAplication.Admin
 {
     public partial class DefinirFechaRecojo : Page
     {
-        private readonly PedidoBO pedidoBO = new PedidoBO();
-        private readonly ProductoTipoBO productoTipoBO = new ProductoTipoBO();
-        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
-        private const string contraseñaApp = "beprxkazzucjiwom";
+        private readonly PedidoBO pedidoBO;
+        private readonly ProductoTipoBO productoTipoBO;
+        private EnvioCorreo envio;
+
+        public DefinirFechaRecojo()
+        {
+            pedidoBO = new PedidoBO();
+            productoTipoBO = new ProductoTipoBO();
+            envio = new EnvioCorreo();
+        }
+
         private class DetalleViewModel
         {
             public int Index { get; set; }
@@ -160,7 +168,7 @@ namespace MGBeautySpaWebAplication.Admin
             ActualizarResumenStock(idPedido);
         }
 
-        protected void btnGuardarFecha_Click(object sender, EventArgs e)
+        protected async void btnGuardarFecha_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(hfIdPedido.Value, out int idPedido))
                 return;
@@ -204,31 +212,23 @@ namespace MGBeautySpaWebAplication.Admin
             }
 
             pedidoBO.Modificar(pedido);
-
-            EnviarCorreoNotificandoCliente(pedido);
-
+            _ = Task.Run(async () =>
+            {
+                EnviarCorreoNotificandoCliente(pedido);
+            });
             ScriptManager.RegisterStartupScript(this, GetType(),
                 "showFechaOk",
                 "var m = new bootstrap.Modal(document.getElementById('modalFechaOk')); m.show();",
                 true);
         }
 
-        private void EnviarCorreoNotificandoCliente(pedidoDTO pedido)
+        private async Task EnviarCorreoNotificandoCliente(pedidoDTO pedido)
         {
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(pedido.cliente.correoElectronico);
-            mensaje.Subject = "Tu pedido te está esperando | MG Beauty SPA";
-            mensaje.Body = "¡Hola, " + pedido.cliente.nombre + "!\n\n" +
+            string asunto = "Tu pedido te está esperando | MG Beauty SPA";
+            string cuerpo = "¡Hola, " + pedido.cliente.nombre + "!\n\n" +
                             "¡Buenas noticias! Tu pedido nro " + pedido.idPedido + " ya está listo para recoger.\n" + "Pásate por la tienda cuando puedas, estaremos encantados de atenderte.\n\n" +
                             "Si necesitas algo más, solo avísanos.\n¡Gracias por elegirnos!\n" + "MG Beauty SPA";
-            mensaje.IsBodyHtml = false;
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-
-            smtp.Send(mensaje);
+            await envio.enviarCorreo(pedido.cliente.correoElectronico,asunto,cuerpo,null);
         }
     }
 }

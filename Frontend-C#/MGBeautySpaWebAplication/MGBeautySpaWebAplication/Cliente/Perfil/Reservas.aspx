@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Historial de Reservas"
+﻿<%@ Page Title="Historial de Reservas" Async="true"
 Language="C#"
 MasterPageFile="~/Cliente/Perfil/Perfil.Master"
 AutoEventWireup="true"
@@ -91,7 +91,7 @@ Inherits="MGBeautySpaWebAplication.Cliente.Perfil.Reservas" %>
 
         <asp:Repeater ID="rptReservas" runat="server"
             OnItemDataBound="rptReservas_ItemDataBound" 
-            OnItemCommand="rptReservas_ItemCommand">
+            >
 
             <ItemTemplate>
                 <div class="reserva-item" 

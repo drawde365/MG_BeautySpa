@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Definir fecha de recojo" Language="C#"
+﻿<%@ Page Title="Definir fecha de recojo" Async="true" Language="C#"
     MasterPageFile="~/Admin/Admin.Master"
     AutoEventWireup="true"
     CodeBehind="DefinirFechaRecojo.aspx.cs"

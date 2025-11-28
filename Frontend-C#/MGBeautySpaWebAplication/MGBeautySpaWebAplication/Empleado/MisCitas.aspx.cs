@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -22,14 +23,14 @@ namespace MGBeautySpaWebAplication.Empleado
         private CitaBO citaBO;
         private CalendarioBO calendarioBO;
         private HorarioTrabajoBO horarioBO;
-        private const string correoEmpresa = "mgbeautyspa2025@gmail.com";
-        private const string contraseñaApp = "beprxkazzucjiwom";
+        private EnvioCorreo envio;
 
         public MisCitas()
         {
             citaBO = new CitaBO();
             calendarioBO = new CalendarioBO();
             horarioBO = new HorarioTrabajoBO();
+            envio = new EnvioCorreo();
         }
 
         private IList<SoftInvBusiness.SoftInvWSCita.citaDTO> ListaCompletaReservas
@@ -83,7 +84,6 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 CargarCitas();
             }
-            lblErrorFechaHora.Visible = false;
         }
 
         private void CargarCitas()
@@ -135,7 +135,8 @@ namespace MGBeautySpaWebAplication.Empleado
         private object MapearCitas(List<SoftInvBusiness.SoftInvWSCita.citaDTO> citas)
         {
             var culturaES = new CultureInfo("es-ES");
-            return citas.Select(c => new {
+            return citas.Select(c => new
+            {
                 CitaId = c.id,
                 ClienteNombre = (c.cliente != null) ? $"{c.cliente.nombre} {c.cliente.primerapellido}" : "Cliente",
                 ClienteCelular = (c.cliente != null && c.cliente.celular != null) ? c.cliente.celular : "N/A",
@@ -217,43 +218,48 @@ namespace MGBeautySpaWebAplication.Empleado
             }
         }
 
-        protected void btnGuardarCambiosCita_Click(object sender, EventArgs e)
+        protected async void btnGuardarCambiosCita_Click(object sender, EventArgs e)
         {
             try
             {
                 int citaId = int.Parse(hdnCitaIdModal.Value);
-                var usuario = Session["UsuarioActual"] as SoftInvBusiness.SoftInvWSUsuario.usuarioDTO;
 
-                if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha)) { MostrarErrorJS("Fecha inválida"); return; }
-                
-                DateTime horaCompleta;
-                if (!DateTime.TryParseExact(txtNuevaHora.Text, "hh:mm tt", new CultureInfo("es-ES"), DateTimeStyles.None, out horaCompleta))
+                if (!DateTime.TryParse(txtNuevaFecha.Text, out DateTime nuevaFecha))
                 {
-                    MostrarErrorJS("Hora inválida");
+                    MostrarErrorModal("Ingrese una fecha");
                     return;
                 }
+
+                if (!DateTime.TryParseExact(txtNuevaHora.Text, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime horaCompleta))
+                {
+                    MostrarErrorModal("Ingrese una hora");
+                    return;
+                }
+
                 TimeSpan nuevaHora = horaCompleta.TimeOfDay;
 
                 var citaParaModificar = ListaCompletaReservas.FirstOrDefault(c => c.id == citaId);
                 if (citaParaModificar == null) return;
 
-                int duracionMinutos = citaParaModificar.servicio.duracionHoraSpecified ? citaParaModificar.servicio.duracionHora * 60 : 60;
+                int duracionMinutos = citaParaModificar.servicio.duracionHoraSpecified
+                    ? citaParaModificar.servicio.duracionHora * 60
+                    : 60;
 
                 if (!EsDiaLaborableYDisponible(nuevaFecha))
                 {
-                    lblErrorFechaHora.Text = "El día seleccionado no está disponible en tu calendario.";
-                    lblErrorFechaHora.Visible = true;
+                    lblErrorModal.Text = "El día seleccionado no está disponible.";
+                    lblErrorModal.Visible = true;
                     return;
                 }
-
                 if (!EsHoraValidaYLibre(nuevaFecha, nuevaHora, duracionMinutos, citaId))
                 {
-                    lblErrorFechaHora.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
-                    lblErrorFechaHora.Visible = true;
+                    lblErrorModal.Text = "La hora seleccionada está fuera del horario laboral o ya está ocupada.";
+                    lblErrorModal.Visible = true;
                     return;
                 }
 
                 DateTime fechaAnterior = citaParaModificar.fecha;
+
                 citaParaModificar.fecha = nuevaFecha;
                 citaParaModificar.fechaSpecified = true;
                 citaParaModificar.horaIni = nuevaHora.ToString();
@@ -261,40 +267,31 @@ namespace MGBeautySpaWebAplication.Empleado
 
                 citaBO.ModificarCita(citaParaModificar);
 
-                EnviarCorreoCliente(citaParaModificar, fechaAnterior);
+                _ = Task.Run(async () =>
+                {
+                    EnviarCorreoCliente(citaParaModificar, fechaAnterior);
+                });
+                Response.Redirect("~/Empleado/MisCitas.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
 
-                ListaCompletaReservas = null;
-                CargarCitas();
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModificarModal",
-                    "var myModal = bootstrap.Modal.getInstance(document.getElementById('modificarCitaModal')); myModal.hide(); alert('Cita modificada con éxito.');",
-                    true);
-
-                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
-                MostrarErrorJS("Error al modificar: " + ex.Message);
+                MostrarErrorModal("Error al modificar: " + ex.Message);
             }
         }
-
-        private void EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar, DateTime fechaAnterior)
+        protected void btnCerrar_Click(object sender, EventArgs e)
         {
-            MailMessage mensaje = new MailMessage();
-            mensaje.From = new MailAddress(correoEmpresa);
-            mensaje.To.Add(citaParaModificar.cliente.correoElectronico);
-            mensaje.Subject = "Tu cita ha cambiado | MG Beauty SPA";
-            mensaje.Body = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
+            Response.Redirect("~/Empleado/MisCitas.aspx");
+        }
+        private async Task EnviarCorreoCliente(SoftInvBusiness.SoftInvWSCita.citaDTO citaParaModificar, DateTime fechaAnterior)
+        {
+            string asunto = "Tu cita ha cambiado | MG Beauty SPA";
+            string cuerpo = "¡Hola, " + citaParaModificar.cliente.nombre + "!\n\n" +
                             "Te escribimos para avisarte que tu cita programada para el día " + fechaAnterior.ToString("dd/MM/yyyy") + " para el servicio " +
                             citaParaModificar.servicio.nombre + " ha sido reprogramada.\n" + "La nueva fecha y hora es: " + citaParaModificar.fecha.ToString("dd/MM/yyyy") + " a las " + citaParaModificar.horaIni.ToString() +
                             "\n\nSi necesitas otro horario, solo dinos y con gusto te ayudamos. Te recomendamos comunicarte con el empleado a cargo.\n¡Gracias por tu comprensión!" + "\nMG Beauty SPA";
-            mensaje.IsBodyHtml = false;
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(correoEmpresa, contraseñaApp);
-            smtp.EnableSsl = true;
-
-            smtp.Send(mensaje);
+            await envio.enviarCorreo(citaParaModificar.cliente.correoElectronico, asunto, cuerpo, null);
         }
 
         private bool EsDiaLaborableYDisponible(DateTime fecha)
@@ -366,10 +363,10 @@ namespace MGBeautySpaWebAplication.Empleado
             return true;
         }
 
-        private void MostrarErrorJS(string mensaje)
+        private void MostrarErrorModal(string mensaje)
         {
-            string script = $"alert('{mensaje}'); var myModal = new bootstrap.Modal(document.getElementById('modificarCitaModal')); myModal.show();";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowError", script, true);
+            lblErrorModal.Text = mensaje;
+            lblErrorModal.Visible = true;
         }
     }
 }

@@ -77,6 +77,15 @@
             background: #fecaca;
             color: #7f1d1d;
         }
+
+        .tab-active { color: #148C76; border-bottom: 3px solid #148C76; cursor: pointer; }
+        .tab-inactive {
+            color: #757575;
+            border-bottom: 3px solid #E6E8EB;
+            cursor: pointer;
+        }
+        .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .tab-text { font-size: 18px; line-height: 21px; font-weight: 700; }
     </style>
 </asp:Content>
 
@@ -85,24 +94,50 @@
 
         <h1 class="h1-admin-title">Gestion de usuarios</h1>
 
+        <div style="display: flex; flex-direction: column; align-items: flex-start; padding: 0px 0px 12px; width: 908px; height: 67px; align-self: stretch;">
+            <div style="box-sizing: border-box; display: flex; flex-direction: row; align-items: flex-start; padding: 0px 16px; gap: 32px; width: 908px; height: 55px; align-self: stretch;">
+                <a href="BuscarUsuarios.aspx" style="text-decoration: none;">
+                <div id="tabEmpleados" runat="server" ClientIDMode="Static"
+                    class="tab-active" style="box-sizing: border-box; display: flex; justify-content: center; align-items: center; padding: 16px 0px 13px; width: 135px; height: 54px; flex-grow: 0;">
+                    <span class="font-jakarta tab-text">Empleados</span>
+                </div>
+                </a>
+
+                <div id="tabClientes" onclick="switchTab('clientes')" runat="server" ClientIDMode="Static"
+                    class="tab-inactive" style="box-sizing: border-box; display: flex; justify-content: center; align-items: center; padding: 16px 0px 13px; width: 118px; height: 54px; flex-grow: 0;">
+                    <span class="font-jakarta tab-text">Clientes</span>
+                </div>
+            </div>
+        </div>
+
+        <asp:HiddenField ID="hfTipoUsuario" runat="server" Value="empleados" ClientIDMode="Static" />
+
         <!-- FILA DE BUSQUEDA Y FILTRO -->
         <div class="d-flex align-items-center gap-3 mb-4">
 
             <!-- BUSCADOR -->
             <div class="position-relative flex-grow-1">
-                <i class="fa fa-search search-icon"></i>
-                <input type="text" id="searchInput" class="form-control search-box"
-                       placeholder="Buscar por nombre, email, teléfono..." />
+                <input type="text" id="searchNombre" runat="server" class="form-control"
+                       placeholder="Nombre" ClientIDMode="Static"/>
+            </div>
+            <div class="position-relative flex-grow-1">
+                <input type="text" id="searchPrimerApellido" runat="server" class="form-control"
+                        placeholder="Primer apellido" ClientIDMode="Static"/>
+            </div>
+            <div class="position-relative flex-grow-1">
+                <input type="text" id="searchSegundoApellido" runat="server" class="form-control"
+                        placeholder="Segundo apellido" ClientIDMode="Static"/>
+            </div>
+            <div class="position-relative flex-grow-1">
+                <input type="text" id="searchCorreo" runat="server" class="form-control"
+                        placeholder="Correo electrónico" ClientIDMode="Static"/>
+            </div>
+            <div class="position-relative flex-grow-1">
+                <input type="text" id="searchCelular" runat="server" class="form-control"
+                        placeholder="Nro. de celular" ClientIDMode="Static" />
             </div>
 
-            <!-- FILTRO POR ROL -->
-            <select id="filterRole" class="form-select" style="max-width:200px;">
-                <option value="">Todos</option>
-                <option value="1">Cliente</option>
-                <option value="2">Empleado</option>
-            </select>
-
-            <select id="filterActive" class="form-select" style="max-width:180px;">
+            <select id="filterActive" runat="server" class="form-select col-servicios" style="max-width:180px;" ClientIDMode="Static">
                 <option value="">Todos</option>
                 <option value="1">Activos</option>
                 <option value="0">Inactivos</option>
@@ -110,8 +145,24 @@
 
         </div>
 
+        <div id="divErrorBusqueda" class="ps-4 mb-2" style="display: none;">
+            <span class="text-danger small">
+                <i class="fa fa-exclamation-circle"></i> 
+                Por favor, ingrese un criterio de búsqueda o seleccione un estado.
+            </span>
+        </div>
+
+        <div id="divBotonBuscar" style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; padding: 5px 16px 12px; width: 908px; align-self: stretch;">
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; padding: 0px 16px; width: 230px; height: 43px; background: #1EC3B6; border-radius: 20px;">
+            <asp:Button ID="btnBuscarUsuarios" runat="server" Text="Buscar"
+                    CssClass="font-jakarta" style="border: none; background: none; color: #FCF7FA; font-weight: 700; font-size: 16px; line-height: 21px; cursor: pointer; height: 100%;"
+                OnClientClick="return validarBusquedaCliente();" 
+                OnClick="btnBuscar_Click"/>
+        </div>
+        </div>
+
         <!-- TABLA -->
-        <div class="table-responsive shadow-sm rounded">
+        <div id="contenedorTabla" runat="server" class="table-responsive shadow-sm rounded" Visible="false">
             <table class="table table-hover align-middle mb-0">
                 <thead class="border-bottom">
                     <tr>
@@ -119,7 +170,7 @@
                         <th>Email</th>
                         <th>Teléfono</th>
                         <th>Rol</th>
-                        <th>Servicios</th>
+                        <th class="col-servicios">Servicios</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
@@ -142,7 +193,7 @@
                                     </span>
                                 </td>
 
-                                <td>
+                                <td class="col-servicios">
                                     <asp:LinkButton ID="lnkServicios"
                                             runat="server"
                                             CssClass="view-link"
@@ -295,33 +346,141 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptsContent" runat="server">
     <script>
-        const searchInput = document.getElementById("searchInput");
-        const filterRole = document.getElementById("filterRole");
-        const filterActive = document.getElementById("filterActive");
-        const rows = document.querySelectorAll("#userTable tr");
+        const tabEmpleados = document.getElementById("tabEmpleados");
+        const tabClientes = document.getElementById("tabClientes");
+        const hfTipoUsuario = document.getElementById("hfTipoUsuario");
+        const divBotonBuscar = document.getElementById("divBotonBuscar");
+        const contenedorTabla = document.getElementById("<%= contenedorTabla.ClientID %>");
 
-        function filterTable() {
-            const searchText = searchInput.value.toLowerCase();
-            const role = filterRole.value;     // "" | "1" | "2"
-            const active = filterActive.value; // "" | "1" | "0"
+        const inpNombre = document.getElementById("searchNombre");
+        const inpPrimerApellido = document.getElementById("searchPrimerApellido");
+        const inpSegundoApellido = document.getElementById("searchSegundoApellido");
+        const inpCorreo = document.getElementById("searchCorreo");
+        const inpCelular = document.getElementById("searchCelular");
+        const selActive = document.getElementById("filterActive");
 
-            rows.forEach(row => {
-                const rowRole = row.dataset.role;
-                const rowActive = row.dataset.active;
+        function switchTab(tipo) {
+            hfTipoUsuario.value = tipo;
+            const tabEmpleados = document.getElementById("tabEmpleados");
+            const tabClientes = document.getElementById("tabClientes");
+            const divBotonBuscar = document.getElementById("divBotonBuscar");
+            const colServicios = document.querySelectorAll('.col-servicios');
 
-                const matchesText = row.innerText.toLowerCase().includes(searchText);
-                const matchesRole = role === "" || rowRole === role;
-                const matchesActive = active === "" || rowActive === active;
+            if (tipo === 'empleados') {
+                tabEmpleados.className = 'tab-active';
+                tabClientes.className = 'tab-inactive';
+                divBotonBuscar.style.display = 'none';
 
-                row.style.display = (matchesText && matchesRole && matchesActive)
-                    ? ""
-                    : "none";
-            });
+                if (contenedorTabla) contenedorTabla.style.display = 'block';
+
+                colServicios.forEach(el => el.style.display = '');
+                filterTable();
+            } else {
+                tabClientes.className = 'tab-active';
+                tabEmpleados.className = 'tab-inactive';
+                divBotonBuscar.style.display = 'flex';
+                
+                colServicios.forEach(el => el.style.display = 'none');
+
+                const primeraFila = document.querySelector("#userTable tr");
+                const esTablaDeEmpleados = primeraFila && primeraFila.dataset.role === '2';
+                if (esTablaDeEmpleados) {
+                    if (contenedorTabla) contenedorTabla.style.display = 'none';
+                }
+            }
         }
 
-        if (searchInput)   searchInput.addEventListener("input", filterTable);
-        if (filterRole)    filterRole.addEventListener("change", filterTable);
-        if (filterActive)  filterActive.addEventListener("change", filterTable);
+        document.addEventListener("DOMContentLoaded", () => {
+            const tipoActual = hfTipoUsuario.value || 'empleados';
+
+            if (tipoActual === 'empleados') {
+                switchTab('empleados');
+            } else {
+                tabClientes.className = 'tab-active';
+                tabEmpleados.className = 'tab-inactive'; 
+
+                divBotonBuscar.style.display = 'flex';
+
+                document.querySelectorAll('.col-servicios').forEach(el => el.style.display = 'none');
+            }
+        });
+
+        function filterTable() {
+            if (hfTipoUsuario.value === 'clientes') return;
+
+            const valNombre = inpNombre.value.toLowerCase().trim();
+            const valApellido1 = inpPrimerApellido.value.toLowerCase().trim();
+            const valApellido2 = inpSegundoApellido.value.toLowerCase().trim();
+            const valCorreo = inpCorreo.value.toLowerCase().trim();
+            const valCelular = inpCelular.value.toLowerCase().trim();
+            const valActivo = selActive.value;
+
+            const rows = document.querySelectorAll("#userTable tr");
+            rows.forEach(row => {
+
+                const rowRole = (row.dataset.role || "").toString().trim();
+                const rowActive = (row.dataset.active || "").toString().trim();
+
+                const textNombreCompleto = row.cells[0].innerText.toLowerCase();
+                const textEmail = row.cells[1].innerText.toLowerCase();
+                const textCelular = row.cells[2].innerText.toLowerCase();
+
+                const matchesTab = (rowRole === '2');
+                const matchesActive = (valActivo === "") || (rowActive === valActivo);
+                const matchesNombre = textNombreCompleto.includes(valNombre);
+                const matchesApellido1 = textNombreCompleto.includes(valApellido1);
+                const matchesApellido2 = textNombreCompleto.includes(valApellido2);
+                const matchesCorreo = textEmail.includes(valCorreo);
+                const matchesCelular = textCelular.includes(valCelular);
+
+
+                if (matchesTab && matchesActive && matchesNombre && matchesApellido1 && matchesApellido2 && matchesCorreo && matchesCelular) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+
+            });
+
+        }
+
+        const inputs = [inpNombre, inpPrimerApellido, inpSegundoApellido, inpCorreo, inpCelular, selActive];
+
+        inputs.forEach(input => {
+            if (input) {
+                input.addEventListener("input", function () {
+                    if (hfTipoUsuario.value === 'empleados') filterTable();
+                });
+                if (input.tagName === "SELECT") {
+                    input.addEventListener("change", function () {
+                        if (hfTipoUsuario.value === 'empleados') filterTable();
+                    });
+                }
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const tipoActual = hfTipoUsuario.value || 'empleados';
+            switchTab(tipoActual);
+        });
+
+        function validarBusquedaCliente() {
+            const vNombre = inpNombre.value.trim();
+            const vApellido1 = inpPrimerApellido.value.trim();
+            const vApellido2 = inpSegundoApellido.value.trim();
+            const vCorreo = inpCorreo.value.trim();
+            const vCelular = inpCelular.value.trim();
+            const vActivo = selActive.value;
+
+            const divError = document.getElementById("divErrorBusqueda");
+
+            if (vNombre === "" && vApellido1 === "" && vApellido2 === "" && vCorreo === "" && vCelular === "" && vActivo === "") {
+                if (divError) divError.style.display = "block";
+                return false;
+            }
+            if (divError) divError.style.display = "none";
+            return true;
+        }
     </script>
 
     <script>

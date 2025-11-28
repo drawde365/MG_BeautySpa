@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Mis Citas" Language="C#" MasterPageFile="Empleado.Master" AutoEventWireup="true" CodeBehind="MisCitas.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.MisCitas" %>
+﻿<%@ Page Title="Mis Citas" Async="true" Language="C#" MasterPageFile="Empleado.Master" AutoEventWireup="true" CodeBehind="MisCitas.aspx.cs" Inherits="MGBeautySpaWebAplication.Empleado.MisCitas" %>
 
 <asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Mis Citas
@@ -180,21 +180,23 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modificarCitaModalLabel">Modificar Cita</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onclick="window.location.href='/Empleado/MisCitas.aspx'">
+                        </button>
+
                         </div>
                         <div class="modal-body">
                             <asp:HiddenField ID="hdnCitaIdModal" runat="server" />
                             <div class="mb-3"><label class="form-label">Nueva Fecha</label><asp:TextBox ID="txtNuevaFecha" runat="server" CssClass="form-control" TextMode="Date" /></div>
                             <div class="mb-3"><label class="form-label">Nueva Hora</label><asp:TextBox ID="txtNuevaHora" runat="server" CssClass="form-control" TextMode="Time" /></div>
-                            <asp:Label ID="lblErrorFechaHora" 
+                            <asp:Label ID="lblErrorModal" 
                                runat="server" 
-                               Text="La fecha y hora seleccionadas no son válidas." 
-                               ForeColor="Red" 
-                               Visible="false"
-                               CssClass="mt-2 fw-bold"></asp:Label>
+                               CssClass="text-danger mt-2"
+                               Visible="false"></asp:Label>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            
+                            <asp:Button ID="btnCerrarModal" runat="server" Text="Cerrar" CssClass="btn btn-secondary" OnClick="btnCerrar_Click" />
                             <asp:Button ID="btnGuardarCambiosCita" runat="server" Text="Guardar Cambios" CssClass="btn btn-primary" OnClick="btnGuardarCambiosCita_Click" />
                         </div>
                     </div>
