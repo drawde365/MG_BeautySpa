@@ -11,7 +11,7 @@ public class DBManagerTest {
 
     @org.junit.jupiter.api.Test
     public void getInstance() {
-        System.out.println(Cifrado.cifrarMD5("Holaa1597"));
+        System.out.println(Cifrado.cifrarMD5(""));
     
         System.out.println("getInstance");
         DBManager dBManager = DBManager.getInstance();
